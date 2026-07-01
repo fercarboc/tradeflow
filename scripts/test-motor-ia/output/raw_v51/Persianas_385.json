@@ -1,0 +1,206 @@
+{
+  "id": 385,
+  "oficio": "Persianas",
+  "texto": "Instalar estores enrollables de tejido screen para sala con grandes ventanales, filtro solar 10%",
+  "http_status": 200,
+  "latency_ms": 24426,
+  "raw_response": {
+    "transcript": "Instalar estores enrollables de tejido screen para sala con grandes ventanales, filtro solar 10%",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar estores enrollables de tejido screen para sala con grandes ventanales, filtro solar 10%",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación en interior. Si es exterior, revisar motor y sensor viento.",
+          "Filtro solar 10% = tejido opaco casi totalmente. Verificar con cliente orientación y necesidad real."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de estores enrollables screen. Oficio persianas en catálogo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tela técnica screen exterior/interior, opacidad 10% (filtro solar)",
+          "descripcion": "Tela técnica screen de alta calidad, filtro solar 10% (casi opaco), resistente a rayos UV, para enrollable. Se incluye suministro según medidas de ventanales.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico. Instalador debe confirmar m² totales (ancho × alto de ventanales) y proveedor."
+        },
+        {
+          "concepto": "Tubo enrollador de aluminio Ø40-50mm",
+          "descripcion": "Tubo enrollador de aluminio anodizado, diámetro 40-50mm, con rodamiento de precisión para enrollable screen.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y medida dependen de número de ventanales. Revisar especificación técnica."
+        },
+        {
+          "concepto": "Guías laterales o tensor inferior",
+          "descripcion": "Guías laterales de aluminio o sistema tensor inferior para estabilidad del enrollable. Pequeño material de fijación incluido.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende de número de ventanales y ancho total."
+        },
+        {
+          "concepto": "Soportes de fijación a pared/marco",
+          "descripcion": "Soportes de anclaje para fijación del tubo enrollador. Material: acero galvanizado o aluminio según tipo de pared (ladrillo, hormigón, aluminio).",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad = 2 soportes por tubo enrollador. Tipo de fijación depende del marco/pared."
+        },
+        {
+          "concepto": "Pequeño material (tacos, tornillos, gomas, cinta aislante)",
+          "descripcion": "Consumibles: tacos de anclaje, tornillos galvanizados, gomas de ajuste, cinta aislante, selladores si aplica.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote estándar por instalación. Revisar cantidad si hay muchos ventanales."
+        },
+        {
+          "concepto": "Instalación de estores enrollables screen",
+          "descripcion": "Mano de obra: medición exacta, montaje de soportes, instalación tubo enrollador con tela, regulación de tensión, pruebas de funcionamiento manual, ajustes finales.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas dependen de número de ventanales y complejidad de acceso. Estimación inicial: 2-4 horas para sala con grandes ventanales (3-4 unidades)."
+        },
+        {
+          "concepto": "Motor de accionamiento automático con mando inalámbrico (opcional)",
+          "descripcion": "Motor eléctrico 230V compatible con enrollable, mando inalámbrico RF, instalación y conexionado. RECOMENDADO para grandes superficies.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional. Cantidad = número de tupos que se deseen motorizar. Revisar demanda eléctrica disponible."
+        },
+        {
+          "concepto": "Instalación motor y mando inalámbrico",
+          "descripcion": "Mano de obra: acoplamiento motor-tubo, conexión eléctrica, programación mando, pruebas. Solo si se incluye motor.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional. Estimación: 1-2 horas por motor. Solo incluir si cliente lo solicita."
+        },
+        {
+          "concepto": "Sensor de viento (opcional, recomendado en exteriores)",
+          "descripcion": "Sensor de viento para retracción automática en caso de ráfagas. Recomendado si hay ventanales con acceso a exterior o terrazas.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional. Incluir solo si ventanales están en zona expuesta o se instala motor."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: número exacto de ventanales, medidas de cada uno (ancho × alto), tipo de marco (aluminio, madera, PVC).",
+        "Filtro solar 10% es muy opaco. Verificar que es la opción correcta (1% = casi transparente; 5% = media opacidad; 10% = casi opaco; muy oscuro en interior).",
+        "RECOMENDADO: incluir motor + mando inalámbrico para grandes ventanales (mejora confort). RECOMENDADO: sensor de viento si zona ventosa.",
+        "Confirmar tipo de tela screen: visibilidad desde exterior (espejo), resistencia UV, lavabilidad (importante en zonas contaminadas).",
+        "Si hay corriente eléctrica disponible cerca, incluir motor. Si no, presupuestar accionamiento manual con cadenilla o varilla."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tela técnica screen 10% opacidad",
+          "motivo": "Material específico de filtro solar. Base Maestra refiere 'tela_screen_tecnico_exterior_segun_opacidad_1_3_5_o_10_pct' pero sin precio individual. Precio a revisar por instalador según proveedor y m²."
+        },
+        {
+          "concepto": "Tubo enrollador aluminio",
+          "motivo": "Incluido en partidas_obligatorias de Base Maestra. Sin precio específico. Revisar con fabricante según diámetro y largo."
+        },
+        {
+          "concepto": "Guías laterales/tensor",
+          "motivo": "Partida obligatoria según Base Maestra. Precio depende de material (aluminio, acero) y número de unidades."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cierres_venecianos_o_screen_exterior",
+      "instalacion_generacion_fotovoltaica_bombeo",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

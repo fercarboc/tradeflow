@@ -1,0 +1,194 @@
+{
+  "id": 260,
+  "oficio": "Telecomunicaciones",
+  "texto": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+  "http_status": 200,
+  "latency_ms": 16698,
+  "raw_response": {
+    "transcript": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Edificio de 20 años: probable obsolescencia de cableado y distribuidores",
+          "ICT2 implica infraestructura de telecomunicaciones regulada por normativa (RIC)",
+          "Requiere inspección previa para determinar estado actual y alcance real",
+          "Posible necesidad de certificación y documentación técnica post-obra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión, diagnóstico y actualización de red de telecomunicaciones en edificio. ICT2 requiere especialización en infraestructura de telecomunicaciones regulada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y diagnóstico de instalación ICT2 existente",
+          "descripcion": "Revisión completa del estado de la infraestructura de telecomunicaciones: cableado, distribuidores, tomas, canalizaciones, documentación técnica. Identificación de obsolescencias y puntos críticos.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustitución de cableado de telecomunicaciones (Cat6A o superior)",
+          "descripcion": "Retirada de cableado obsoleto y suministro e instalación de cableado Cat6A en canalizaciones existentes. Incluye pequeño material (conectores, etiquetado).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales a determinar en inspección. Precio unitario (material + instalación) a revisar según longitud total y complejidad de canalizaciones."
+        },
+        {
+          "concepto": "Actualización de distribuidor principal (RP) y secundarios (RSD)",
+          "descripcion": "Sustitución de distribuidores obsoletos por nuevos distribuidores ICT2 certificados. Incluye regletas de conexión, parcheo, pequeño material y documentación técnica.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de distribuidores a determinar según topología del edificio. Precio unitario incluye equipo, instalación y certificación."
+        },
+        {
+          "concepto": "Actualización de tomas de usuario (RJ45 Cat6A)",
+          "descripcion": "Sustitución de tomas de telecomunicaciones obsoletas por tomas Cat6A certificadas. Incluye desmontaje, suministro, instalación y etiquetado.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de tomas a determinar según número de viviendas/locales. Precio unitario a revisar según cantidad."
+        },
+        {
+          "concepto": "Revisión y reparación de canalizaciones y conductos",
+          "descripcion": "Inspección de canalizaciones, conductos y pasos. Reparación de daños, limpieza y acondicionamiento para nuevo cableado. Incluye pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de certificación y documentación técnica ICT2",
+          "descripcion": "Realización de pruebas de continuidad, atenuación y certificación de cableado según normativa ICT2. Generación de documentación técnica, planos as-built y certificados de conformidad.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos y retirada de material obsoleto",
+          "descripcion": "Retirada, clasificación y gestión de residuos de cableado, distribuidores y material obsoleto. Transporte a gestor autorizado.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen de residuos a determinar en inspección. Precio a revisar según cantidad y tipo de material."
+        }
+      ],
+      "calculos": {
+        "subtotal": 550,
+        "iva_porcentaje": 21,
+        "iva": 115.5,
+        "total": 665.5
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente planos actuales de la instalación ICT2 (si existen) para optimizar diagnóstico",
+        "Verificar si el edificio dispone de Punto de Acceso de Red (PAN) y estado de acometidas externas",
+        "Confirmar si se requiere actualización a fibra óptica o mantenimiento de cobre",
+        "Considerar integración con sistemas de domótica o control de acceso si están previstos",
+        "Documentar estado actual con fotografías para justificar alcance de actualización"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sustitución de cableado de telecomunicaciones (Cat6A o superior)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Actualización de infraestructura de 20 años requiere cableado moderno. Cantidad y precio a determinar en inspección."
+        },
+        {
+          "concepto": "Actualización de distribuidor principal (RP) y secundarios (RSD)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Equipos ICT2 obsoletos requieren sustitución por distribuidores certificados. Cantidad y modelo a determinar según topología."
+        },
+        {
+          "concepto": "Actualización de tomas de usuario (RJ45 Cat6A)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Tomas antiguas incompatibles con estándares actuales. Cantidad a determinar según número de puntos de acceso."
+        },
+        {
+          "concepto": "Gestión de residuos y retirada de material obsoleto",
+          "oficio": "gestion_residuos",
+          "motivo": "Material de telecomunicaciones obsoleto requiere gestión especializada. Volumen a determinar en inspección."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_sistema_agua_helada_chiller",
+      "falso_techo_pladur_ignifugo_o_cortafuego",
+      "instalacion_de_red_de_datos_en_hotel_u_hospitality",
+      "instalacion_de_columna_seca_en_edificio"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3910,
+      "tokens_out": 2298
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

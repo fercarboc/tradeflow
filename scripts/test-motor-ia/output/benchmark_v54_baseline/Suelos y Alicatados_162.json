@@ -1,0 +1,179 @@
+{
+  "id": 162,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo de parquet laminado en toda la vivienda excepto baño y cocina, 80 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14247,
+  "raw_response": {
+    "transcript": "Poner suelo de parquet laminado en toda la vivienda excepto baño y cocina, 80 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo de parquet laminado en toda la vivienda excepto baño y cocina, 80 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume superficie de 80 m² sin incluir baño ni cocina",
+          "Partidas de material requieren confirmación de tipo/calidad de parquet laminado",
+          "Precio unitario de material pendiente de revisión del instalador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de tarima laminada/parquet flotante. Tarifa de suelos_tarimas aplicada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Parquet laminado flotante",
+          "descripcion": "Suministro de parquet laminado de calidad media-alta, espesor 8-10mm, sistema click, incluye accesorios de instalación. 80 m² + 5% mermas = 84 m²",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 84,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de confirmación del instalador según marca, espesor y calidad elegida"
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "descripcion": "Lámina aislante de espuma polietileno de 2-3mm, barrera vapor integrada, para flotante. 80 m² + 5% mermas = 84 m²",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 84,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de confirmación"
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "descripcion": "Junta perimetral de 10-12mm en todo el perímetro, cuñas de separación, cinta de sellado, tornillos y accesorios de instalación",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de confirmación"
+        },
+        {
+          "concepto": "Rodapié de madera laminada",
+          "descripcion": "Rodapié de madera laminada a juego con parquet, altura 7-10cm, colocación perimetral. Perímetro estimado 80-100 ml",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 90,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de confirmación"
+        },
+        {
+          "concepto": "Instalación de parquet laminado flotante",
+          "descripcion": "Mano de obra: preparación soporte, colocación lámina aislante, instalación parquet sistema click, colocación junta perimetral, rodapié y acabados. Incluye aclimatación 48-72h previa",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación rodapié",
+          "descripcion": "Mano de obra: corte, ajuste y fijación de rodapié perimetral a paredes",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 90,
+          "precio_unitario": 8,
+          "total": 720,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de mano de obra estimada en 8€/ml (derivada de 32€/h y rendimiento ~4ml/h)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3280,
+        "iva_porcentaje": 21,
+        "iva": 688.8,
+        "total": 3968.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de parquet laminado: espesor (8mm, 10mm, 12mm), acabado (mate, satinado, brillante), resistencia (AC3, AC4, AC5)",
+        "Verificar estado del soporte: debe estar plano (desviación máxima 3mm bajo regla de 2m), seco y limpio",
+        "Aclimatación obligatoria: 48-72 horas en obra antes de instalar",
+        "Junta perimetral de 10-12mm OBLIGATORIA en todo el perímetro para permitir dilatación",
+        "Si hay calefacción por suelo radiante, verificar compatibilidad y temperatura máxima (27°C)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Parquet laminado flotante",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material específico, precio pendiente de instalador"
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material específico, precio pendiente de instalador"
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material específico, precio pendiente de instalador"
+        },
+        {
+          "concepto": "Rodapié de madera laminada",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material específico, precio pendiente de instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_de_parquet_o_madera",
+      "colocacion_parquet_flotante_o_tarima_laminada",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_de_suelo_de_bambu_interior",
+      "solado_ceramico_exterior_terraza"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3897,
+      "tokens_out": 1969
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "SI"
+  }
+}

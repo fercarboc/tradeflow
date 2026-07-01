@@ -1,0 +1,138 @@
+{
+  "id": 140,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+  "http_status": 200,
+  "latency_ms": 12123,
+  "raw_response": {
+    "transcript": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Reparación puntual de cubierta tras temporal. Si hay daños generalizados, considerar inspección completa de la cubierta.",
+          "Cemento blanco es provisional. Se recomienda sellador poliuretano flexible para mejor durabilidad y movimiento térmico."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación de tejas, recolocación y sellado de cubierta. Oficio especializado en tejados y cubiertas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Recolocación y fijación de teja dañada o desplazada",
+          "descripcion": "Retirada de teja rota o desplazada por viento, limpieza de zona, recolocación y fijación con mortero de agarre o ganchos de sujeción según tipo de teja.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de teja de reposición (si necesario)",
+          "descripcion": "Teja de barro, cerámica o hormigón según tipo de cubierta existente. Cantidad: 1 unidad.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de teja variable según tipo (barro 5-15€, hormigón 8-20€, cerámica 10-25€). Instalador debe confirmar tipo y cantidad."
+        },
+        {
+          "concepto": "Sellado de junta con cemento blanco o mortero",
+          "descripcion": "Aplicación de cemento blanco o mortero de sellado en junta de teja reparada para impermeabilización puntual.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Precio estimado 3-8€ por reparación. Se recomienda revisar si es necesario sellador poliuretano flexible para mejor durabilidad."
+        },
+        {
+          "concepto": "Limpieza y preparación de zona de trabajo",
+          "descripcion": "Limpieza de restos de mortero antiguo, suciedad y escombros de la zona de reparación. Retirada de material suelto.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 75,
+        "iva_porcentaje": 21,
+        "iva": 15.75,
+        "total": 90.75
+      },
+      "sugerencias_catalogo": [
+        "Si la reparación es puntual y la cubierta está en buen estado general, esta solución es adecuada.",
+        "Si hay múltiples tejas dañadas o deterioro generalizado, considerar inspección completa y posible reparación de mayor envergadura.",
+        "Recomendación técnica: sustituir cemento blanco por sellador poliuretano flexible (20-40€) para mejor impermeabilización y adaptación a movimientos térmicos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de teja de reposición",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material variable según tipo de cubierta. Precio pendiente de confirmación del instalador."
+        },
+        {
+          "concepto": "Sellado con cemento blanco o mortero",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material consumible. Precio estimado pero variable según cantidad y tipo de sellador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "impermeabilizacion_de_encuentro_fachada_cubierta"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3683,
+      "tokens_out": 1456
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

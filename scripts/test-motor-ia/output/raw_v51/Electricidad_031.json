@@ -1,0 +1,261 @@
+{
+  "id": 31,
+  "oficio": "Electricidad",
+  "texto": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+  "http_status": 200,
+  "latency_ms": 31990,
+  "raw_response": {
+    "transcript": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "RIESGO DE SEGURIDAD CRÍTICO: Cable pelado con riesgo de electrocución. Intervención URGENTE obligatoria.",
+          "Se ha detectado avería eléctrica que genera peligro físico. Corte de suministro RECOMENDADO antes de trabajar.",
+          "Requiere diagnóstico in situ para determinar extensión del tramo afectado y seccion del cable.",
+          "Posible daño por humedad u otros factores — inspeccionar zona circundante."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación de cableado deteriorado. Oficio base para trabajos eléctricos."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Apertura/cierre de rozas si es necesario acceder al cableado dentro de la pared."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y localización de avería eléctrica",
+          "descripcion": "Inspección completa del cable pelado: localización exacta, longitud del tramo deteriorado, sección del conductor, tipo de aislamiento, causa del daño (roce, humedad, antigüedad, rotura mecánica). Verificación de continuidad y resistencia. Evaluación de riesgo de cortocircuito.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje y retirada del cable deteriorado",
+          "descripcion": "Corte de suministro eléctrico en el sector afectado. Desmontaje seguro del tramo de cable pelado. Retirada de restos y material dañado. Limpieza de la zona de trabajo.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 12,
+          "total": 36,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 3 ml — debe confirmarse in situ la longitud real del cable afectado."
+        },
+        {
+          "concepto": "Suministro cable H07VK según sección",
+          "descripcion": "Cable eléctrico de cobre H07VK con aislamiento de PVC, sección a determinar según inspección (1.5, 2.5, 4, 6 mm²). Incluye cantidad suficiente para cubrir el tramo deteriorado + 30 cm de seguridad en ambos extremos.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente. Instalador debe determinar sección exacta (€0.50–€1.80/ml según sección) y longitud real."
+        },
+        {
+          "concepto": "Instalación de cable nuevo en pasillo",
+          "descripcion": "Tendido e instalación del cable nuevo H07VK en el mismo recorrido. Si es necesario acceder a la pared (dentro de tubo/conducto existente o pegado a la superficie), incluye guiado seguro del conductor, fijación cada 40 cm con grapas aislantes, y protección mecánica adicional si está expuesto.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 8,
+          "total": 24,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada a 8€/ml para instalación. Confirmación in situ de recorrido y dificultad de acceso."
+        },
+        {
+          "concepto": "Conectores, empalmes y cajas de derivación",
+          "descripcion": "Remate de cables en origen y destino con conectores estancos o cajas de derivación según norma. Empalmes siempre dentro de caja (nunca empalme libre). Bornes o conectores de cobre estañado. Pequeño material (arandelas, tornillos, pasta conductora si precisa).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material (cajas + conectores) pendiente de revisión. Estimado €15–€35 por punto de empalme."
+        },
+        {
+          "concepto": "Montaje de conectores y sellado de cajas",
+          "descripcion": "Instalación de conectores en bornes de origen y destino. Colocación de caja de derivación (si existe). Sellado hermético de cajas. Comprobación de aislamiento y continuidad eléctrica con multímetro.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 20,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tubo corrugado de protección (si necesario)",
+          "descripcion": "Tubo corrugado Ø 16 mm (o según sección de cable) para protección mecánica del nuevo cable, especialmente en zonas de paso o exposición. Colocación y fijación cada 50 cm.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional según estado de accesibilidad. Precio €0.80–€2.50/ml. Confirmación in situ si es necesario."
+        },
+        {
+          "concepto": "Montaje tubo corrugado (si necesario)",
+          "descripcion": "Colocación, guiado y fijación del tubo corrugado alrededor del cable nuevo. Aseguramiento con grapas plásticas cada 50 cm.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 3,
+          "total": 9,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Partida opcional. Solo se ejecuta si tubo corrugado es necesario (confirmación in situ)."
+        },
+        {
+          "concepto": "Pruebas de continuidad, aislamiento y funcionamiento",
+          "descripcion": "Medición de continuidad con multímetro en toda la línea. Prueba de aislamiento (Megger) a 500V mínimo. Verificación de ausencia de fugas a tierra. Comprobación de funcionamiento de cargas conectadas (enchufes, puntos de luz, etc. en el circuito). Protocolo de seguridad completo.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Apertura/cierre de roza en pared (si es necesario acceso)",
+          "descripcion": "Si el cable está embutido en la pared y requiere acceso: apertura de roza con rozadora o buril. Saneo de polvo y escombro. Cierre posterior con mortero o yeso según soporte (hormigón/ladrillo/escayola). Acabado nivelado. Incluye pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida OPCIONAL (solo si se requiere abrir pared). Si cable es accesible por conducto o bandeja, NO aplica. Precio albañilería 25–50€/ml según amplitud de roza. Confirmación in situ."
+        },
+        {
+          "concepto": "Pintura de retoque en zona reparada (si procede)",
+          "descripcion": "Imprimación y pintura de retoque en la zona de cierre de roza (si ha sido necesario abrir pared). Color a juego con la pared existente. Acabado liso y uniforme.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida OPCIONAL (solo si se cierra roza con obra). Estimado 0.5 m² de retoque. Precio pintura €32–€45/h, depende de extensión. Confirmación in situ."
+        }
+      ],
+      "calculos": {
+        "subtotal": 209,
+        "iva_porcentaje": 21,
+        "iva": 43.89,
+        "total": 252.89
+      },
+      "sugerencias_catalogo": [
+        "Activar protocolo de seguridad: CORTE INMEDIATO de suministro en el sector afectado. No trabajar con tensión presente.",
+        "Hacer foto/vídeo del cable pelado antes de intervenir (documentación).",
+        "Determinar causa del daño: roce mecánico, humedad, antigüedad, rotura por impacto. Prevenir recurrencia.",
+        "Si el cable está dentro de tubo corrugado dañado, considerar sustitución completa del tubo + cable como medida preventiva.",
+        "Revisar circuito completo: verificar si hay otros puntos débiles en la instalación del pasillo.",
+        "Documentar con informe técnico de reparación: fecha, sección de cable, longitud, tipo de conectores, resultado de pruebas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro cable H07VK según sección",
+          "razon": "Material específico cuyo precio depende de la sección determinada in situ (1.5, 2.5, 4 ó 6 mm²).",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Conectores, empalmes y cajas de derivación",
+          "razon": "Material fungible, precio variable según tipo de caja y conectores seleccionados.",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Tubo corrugado de protección (si necesario)",
+          "razon": "Material de protección mecánica, opcional según accesibilidad del cable.",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Apertura/cierre de roza en pared (si es necesario acceso)",
+          "razon": "Trabajo de albañilería condicional. Solo si cable está embutido en pared.",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Pintura de retoque en zona reparada (si procede)",
+          "razon": "Acabado condicional tras cierre de obra.",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cableado_deteriorado",
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "reconstruccion_de_muro_con_lesiones_estructurales"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

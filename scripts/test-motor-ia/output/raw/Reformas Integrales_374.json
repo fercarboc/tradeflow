@@ -1,0 +1,483 @@
+{
+  "id": 374,
+  "oficio": "Reformas Integrales",
+  "texto": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+  "http_status": 200,
+  "latency_ms": 37213,
+  "raw_response": {
+    "transcript": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de garaje a vivienda: requiere proyecto técnico y licencia municipal",
+          "Incluye múltiples oficios simultáneos (albanilería, fontanería, electricidad, acabados)",
+          "Presupuesto estimado: instalador debe revisar precios de materiales y ajustar según proyecto técnico",
+          "Obra civil y estructural: verificar si requiere cálculo estructural para cierre de puerta garaje"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: ≥3 oficios simultáneos (albanilería, fontanería, electricidad, acabados)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Cierre puerta garaje, tabiquería baño, preparación superficies"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación agua fría/caliente, desagüe baño, inodoro, lavabo, ducha"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Circuitos iluminación, enchufes, calefacción, ventilación baño"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado baño, pavimento habitación"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura paredes y techo habitación y baño"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puerta acceso habitación, puerta baño, posibles armarios"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Licencia municipal y trámites administrativos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cierre puerta garaje y demolición parcial",
+          "descripcion": "Demolición de puerta garaje abatible, cierre de vano con fábrica de ladrillo, mortero y pequeño material. Incluye retirada de escombros.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar jornadas según dimensión vano y complejidad cierre"
+        },
+        {
+          "concepto": "Materiales cierre puerta garaje (ladrillo, mortero, etc.)",
+          "descripcion": "Ladrillo cerámico, mortero de cemento, arena, pequeño material para cierre vano garaje",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe presupuestar según m² de vano a cerrar (estimado 400-800€)"
+        },
+        {
+          "concepto": "Instalación fontanería baño (agua fría, caliente y desagüe)",
+          "descripcion": "Tuberías PEX/multicapa agua fría y caliente, desagüe PVC, sifones, válvulas de corte, pequeño material. Incluye conexión a red existente.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar según distancia a acometida y complejidad trazado"
+        },
+        {
+          "concepto": "Materiales fontanería baño (tuberías, accesorios, válvulas)",
+          "descripcion": "Tuberías PEX, codos, tes, válvulas de corte, sifones, pequeño material fontanería",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador presupuesta según trazado (estimado 300-600€)"
+        },
+        {
+          "concepto": "Instalación sanitarios baño (inodoro, lavabo, ducha/bañera)",
+          "descripcion": "Colocación inodoro con cisterna, lavabo con grifo, plato ducha o bañera con grifo monomando. Incluye conexiones y sellados.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sanitarios baño (inodoro, lavabo, grifo, plato ducha)",
+          "descripcion": "Inodoro con cisterna, lavabo cerámico, grifo monomando, plato ducha o bañera acrílica",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador selecciona sanitarios (estimado 600-1500€ según calidad)"
+        },
+        {
+          "concepto": "Circuitos eléctricos habitación y baño",
+          "descripcion": "Instalación de circuitos de iluminación, enchufes, calefacción eléctrica y ventilación baño. Incluye cableado, cajas de derivación, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar según número de circuitos y distancia a cuadro general"
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, cajas, interruptores, enchufes)",
+          "descripcion": "Cable H07V-U, cajas de derivación, interruptores, enchufes, luminarias, pequeño material eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador presupuesta según proyecto (estimado 400-800€)"
+        },
+        {
+          "concepto": "Luminarias habitación y baño",
+          "descripcion": "Instalación de luminarias LED en habitación (mínimo 150 lux) y baño (mínimo 200 lux). Incluye apliques y plafones.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Luminarias LED (apliques, plafones)",
+          "descripcion": "Luminarias LED empotradas y apliques para habitación y baño",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador selecciona luminarias (estimado 30-80€/ud)"
+        },
+        {
+          "concepto": "Ventilación baño (extractor)",
+          "descripcion": "Instalación extractor de aire baño con conducto hacia exterior. Incluye rejilla, conducto PVC y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 80,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Extractor baño y conducto",
+          "descripcion": "Extractor de aire 100-150 m³/h, conducto PVC, rejilla exterior, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador presupuesta (estimado 150-300€)"
+        },
+        {
+          "concepto": "Alicatado baño (paredes y suelo)",
+          "descripcion": "Alicatado de paredes baño hasta 2,10m y suelo con baldosa cerámica o porcelánica. Incluye mortero, lechada, pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 32,
+          "total": 384,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar m² según dimensiones reales baño (estimado 8-15 m²)"
+        },
+        {
+          "concepto": "Baldosa cerámica/porcelánica baño",
+          "descripcion": "Baldosa cerámica o porcelánica para paredes y suelo baño, mortero, lechada, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador selecciona baldosa (estimado 15-40€/m²)"
+        },
+        {
+          "concepto": "Pavimento habitación (cerámica, laminado o vinílico)",
+          "descripcion": "Colocación pavimento habitación con baldosa cerámica, laminado o vinílico. Incluye mortero, adhesivo, pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 32,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar m² según superficie real habitación (estimado 15-25 m²)"
+        },
+        {
+          "concepto": "Material pavimento habitación",
+          "descripcion": "Baldosa cerámica, laminado o vinílico para habitación, adhesivo, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador selecciona material (estimado 10-30€/m²)"
+        },
+        {
+          "concepto": "Pintura paredes y techo habitación y baño",
+          "descripcion": "Preparación superficies (limpieza, reparación grietas), imprimación y pintura acrílica 2 manos en habitación y baño. Incluye pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 8,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar m² según superficie real (paredes + techo, estimado 80-120 m²)"
+        },
+        {
+          "concepto": "Pintura acrílica y materiales",
+          "descripcion": "Pintura acrílica interior, imprimación, masilla, lija, pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador presupuesta (estimado 150-300€)"
+        },
+        {
+          "concepto": "Puertas habitación y baño",
+          "descripcion": "Suministro e instalación puerta acceso habitación (80x210 cm) y puerta baño (70x210 cm). Incluye marco, bisagras, cerradura, pequeño material.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 90,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puertas (marco, hoja, herrajes)",
+          "descripcion": "Puerta de madera o PVC con marco, bisagras, cerradura, pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador selecciona puertas (estimado 150-400€/ud)"
+        },
+        {
+          "concepto": "Proyecto técnico y licencia municipal",
+          "descripcion": "Proyecto técnico de reforma (cambio de uso garaje a vivienda), tramitación licencia municipal, inspecciones técnicas, pequeño material administrativo.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador presupuesta proyecto y trámites (estimado 1500-3500€ según municipio)"
+        },
+        {
+          "concepto": "Calefacción habitación (radiador o suelo radiante)",
+          "descripcion": "Instalación radiador de agua o suelo radiante con termostato. Incluye tuberías, válvulas, pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar según tipo calefacción elegida"
+        },
+        {
+          "concepto": "Radiador o suelo radiante",
+          "descripcion": "Radiador de aluminio o acero, o sistema suelo radiante con tuberías PEX, válvulas, termostato",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador presupuesta (radiador 200-600€, suelo radiante 800-1500€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 6524,
+        "iva_porcentaje": 21,
+        "iva": 1370.04,
+        "total": 7894.04
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica 'Cierre vano garaje con fábrica' en catálogo",
+        "Considerar partida 'Instalación completa baño' como agrupada si existe en catálogo",
+        "Revisar partida 'Reforma integral vivienda' para posible descuento por volumen"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cierre puerta garaje y demolición parcial",
+          "oficio": "albanileria",
+          "motivo": "Trabajo específico de cierre de vano garaje con fábrica"
+        },
+        {
+          "concepto": "Proyecto técnico y licencia municipal",
+          "oficio": "gestoria_tramites",
+          "motivo": "Cambio de uso garaje a vivienda requiere proyecto y licencia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_escalera_o_rampa_exterior",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "instalacion_alumbrado_garaje",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "instalacion_de_puerta_de_garaje_abatible_lateral"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3683,
+      "tokens_out": 6126
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 23,
+    "n_catalogo": 11,
+    "n_sugeridas": 12,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

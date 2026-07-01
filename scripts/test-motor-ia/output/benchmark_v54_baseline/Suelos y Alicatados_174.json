@@ -1,0 +1,167 @@
+{
+  "id": 174,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+  "http_status": 200,
+  "latency_ms": 17254,
+  "raw_response": {
+    "transcript": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Escalera exterior con piedra desgastada: requiere evaluación de estado estructural antes de aplicar antideslizante",
+          "Superficie irregular puede requerir nivelación previa o tratamiento especial",
+          "Especificar tipo de antideslizante (pintura, lámina adhesiva, mortero antideslizante, resina epoxi)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de revestimiento antideslizante en escalera (clasificado como trabajo de suelos especializado)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación de superficie, limpieza y posible reparación de piedra desgastada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de escalera de piedra",
+          "descripcion": "Limpieza profunda de 12 peldaños, eliminación de musgo/suciedad, lijado ligero de superficie desgastada para mejorar adherencia",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación/sellador adherente para piedra natural",
+          "descripcion": "Aplicación de imprimación específica para piedra natural desgastada, mejora adherencia del antideslizante",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: precio a confirmar por instalador según marca y cantidad exacta"
+        },
+        {
+          "concepto": "Revestimiento antideslizante para escalera exterior (12 peldaños)",
+          "descripcion": "Aplicación de sistema antideslizante (pintura epoxi, lámina adhesiva o mortero antideslizante) en 12 peldaños + contrahuellas. Incluye mano de obra de aplicación y curado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 32,
+          "total": 384,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa por peldaño: requiere confirmación del tipo de antideslizante elegido (pintura, lámina, mortero) que puede variar el tiempo de aplicación"
+        },
+        {
+          "concepto": "Material antideslizante (pintura, lámina o mortero)",
+          "descripcion": "Suministro de material antideslizante específico para escalera exterior (tipo a definir: pintura epoxi antideslizante, lámina adhesiva de seguridad, o mortero antideslizante con árido)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material principal: precio variable según tipo elegido (pintura 50-150€, lámina 80-200€, mortero 100-250€). Instalador debe especificar y cotizar"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Trapos, disolventes, masilla, cinta de protección, broches, etc.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles: estimado 20-40€ según cantidad de material"
+        }
+      ],
+      "calculos": {
+        "subtotal": 504,
+        "iva_porcentaje": 21,
+        "iva": 105.84,
+        "total": 609.84
+      },
+      "sugerencias_catalogo": [
+        "Especificar tipo de antideslizante: (1) Pintura epoxi antideslizante (más económica, 2-3 capas), (2) Lámina adhesiva de seguridad (aplicación rápida, reutilizable), (3) Mortero antideslizante con árido (más duradero, mejor agarre)",
+        "Evaluar si la piedra desgastada requiere reparación/nivelación previa (partida adicional de albanilería)",
+        "Considerar tratamiento hidrofóbico adicional para escalera exterior (protección contra humedad y heladas)",
+        "Medir superficie exacta de peldaños y contrahuellas para ajustar cantidad de material"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación/sellador adherente para piedra natural",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para mejorar adherencia en piedra natural desgastada"
+        },
+        {
+          "concepto": "Material antideslizante (pintura, lámina o mortero)",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Producto principal: tipo y precio a definir por instalador según solución elegida"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_exterior_terraza_o_patio",
+      "solado_de_marmol_o_piedra_natural",
+      "solado_ceramico_exterior_terraza",
+      "pintado_de_canchas_de_padel_interior",
+      "instalacion_suelo_de_marmol_o_piedra_natural_interior"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3814,
+      "tokens_out": 2165
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

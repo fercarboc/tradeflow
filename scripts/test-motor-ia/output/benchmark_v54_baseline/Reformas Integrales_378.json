@@ -1,0 +1,266 @@
+{
+  "id": 378,
+  "oficio": "Reformas Integrales",
+  "texto": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 27388,
+  "raw_response": {
+    "transcript": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "REFORMA INTEGRAL DETECTADA: obra nueva de ático requiere múltiples oficios simultáneos (albanilería, electricidad, fontanería, carpintería, cubiertas, acabados)",
+          "PROYECTO TÉCNICO OBLIGATORIO: construcción de nueva estructura requiere proyecto de arquitectura/ingeniería",
+          "PERMISOS Y LICENCIAS: obra nueva requiere licencia municipal de obras",
+          "CÁLCULO DE CARGAS: cubierta inclinada + terraza requiere cálculo estructural",
+          "CUMPLIMIENTO CTE: aislamiento térmico, impermeabilización, seguridad estructural obligatorios",
+          "PRESUPUESTO ESTIMADO: requiere desglose detallado por capítulos. Presupuesto orientativo para revisión del instalador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Obra nueva de ático con ≥3 oficios simultáneos: estructura, cubiertas, instalaciones, acabados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Estructura muros, forjados, tabiquería interior"
+        },
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cubierta inclinada nueva + terraza (cubierta plana transitable)"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización cubierta inclinada y terraza plana"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica nueva completa"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación fontanería nueva completa"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Carpintería interior: puertas, armarios, acabados"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura interior y exterior"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Alicatado baños y cocina"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Gestión de licencias, permisos y trámites municipales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – PROYECTO TÉCNICO Y GESTIÓN ADMINISTRATIVA",
+          "descripcion": "Proyecto de arquitectura/ingeniería para ático nuevo (estructura, instalaciones, CTE), licencia municipal de obras, gestión de permisos y trámites administrativos",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de proyecto técnico y gestión administrativa pendiente de definición según complejidad y municipio. Estimado: 3.000-8.000€"
+        },
+        {
+          "concepto": "CAP.2 – ESTRUCTURA Y OBRA CIVIL (Demolición, cimentación, muros, forjados, tabiquería)",
+          "descripcion": "Preparación solar, cimentación, estructura muros de carga, forjados (cubierta inclinada + terraza plana), tabiquería interior, escalera acceso, EPI, andamios, pequeño material. Incluye: saneo, encofrados, hormigonado, desencofrado, retirada residuos",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obra civil nueva requiere cálculo estructural. Estimado: 150-250€/m2 (mano de obra + materiales). Total estimado: 4.500-7.500€"
+        },
+        {
+          "concepto": "CAP.3 – CUBIERTAS E IMPERMEABILIZACIÓN (Cubierta inclinada + Terraza plana)",
+          "descripcion": "Cubierta inclinada: estructura soporte, teja cerámica/hormigón, mortero asiento, canalones, bajantes, impermeabilización bajo teja. Terraza plana (30 m²): formación pendientes, barrera vapor, aislante térmico CTE, membrana impermeabilizante, capa protección, sumideros, drenaje, EPI, pequeño material",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cubierta inclinada + terraza plana requiere especificación de materiales y pendientes. Estimado: 80-150€/m2 (mano de obra + materiales). Total estimado: 2.400-4.500€"
+        },
+        {
+          "concepto": "CAP.4 – INSTALACIONES (Electricidad, Fontanería, Climatización, Acabados interiores)",
+          "descripcion": "Instalación eléctrica nueva (cuadro, circuitos, enchufes, iluminación, protecciones). Fontanería nueva (ACS, distribución agua fría/caliente, desagües, sifones). Climatización (si aplica). Alicatado baños/cocina. Pintura interior/exterior. Carpintería interior (puertas, armarios). Gestión residuos construcción",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalaciones completas requieren desglose por especialidad. Estimado total: 8.000-15.000€ (electricidad 2.000-3.500€, fontanería 1.500-2.500€, alicatado 1.500-2.500€, pintura 1.500-2.500€, carpintería 1.500-2.500€, otros 1.000-2.000€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "OBRA NUEVA REQUIERE DESGLOSE COMPLETO: El presupuesto anterior agrupa por capítulos según regla de reforma integral. Para presupuesto ejecutivo, desglosar cada capítulo en partidas específicas (materiales + mano de obra)",
+        "PROYECTO TÉCNICO OBLIGATORIO: Antes de presupuestar, obtener proyecto de arquitectura con cálculo estructural, especificación de materiales, cumplimiento CTE DB-HE (aislamiento), DB-SI (seguridad incendios), DB-SUA (seguridad uso)",
+        "CUBIERTA INCLINADA: Especificar tipo teja (cerámica, hormigón, pizarra), pendiente mínima 30%, impermeabilización bajo teja según zona climática, canalones y bajantes dimensionados",
+        "TERRAZA PLANA: Formación pendientes mínima 1,5%, barrera vapor, aislante térmico (EPS/XPS/PUR según CTE), membrana impermeabilizante (EPDM/TPO/PVC), capa protección, sumideros y drenaje",
+        "INSTALACIONES: Desglosar electricidad (cuadro, circuitos, protecciones, iluminación), fontanería (ACS, distribución, desagües), climatización si aplica, alicatado, pintura, carpintería",
+        "GESTIÓN RESIDUOS: Incluir contenedor de escombros y gestión de residuos de construcción (obligatorio por ley)",
+        "SEGURIDAD EN ALTURA: Cubierta inclinada requiere andamios, línea de vida, arnés, EPI obligatorios",
+        "PRESUPUESTO ESTIMADO TOTAL: 20.000-40.000€ (sin incluir proyecto técnico ni gestión administrativa). Requiere revisión detallada según proyecto y especificaciones"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico arquitectura/ingeniería ático nuevo",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Obra nueva requiere proyecto técnico obligatorio"
+        },
+        {
+          "concepto": "Licencia municipal de obras y gestión permisos",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Construcción nueva requiere licencia municipal"
+        },
+        {
+          "concepto": "Estructura y obra civil ático nuevo",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Cimentación, muros, forjados, tabiquería nueva"
+        },
+        {
+          "concepto": "Cubierta inclinada con teja y terraza plana impermeabilizada",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Cubierta inclinada + terraza plana con impermeabilización CTE"
+        },
+        {
+          "concepto": "Instalaciones completas (electricidad, fontanería, climatización, acabados)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Múltiples instalaciones y acabados en obra nueva"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "renovacion_tejado_de_teja_ceramica_o_de_hormigon",
+      "impermeabilizacion_peto_o_murete_de_cubierta"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3926,
+      "tokens_out": 3997
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

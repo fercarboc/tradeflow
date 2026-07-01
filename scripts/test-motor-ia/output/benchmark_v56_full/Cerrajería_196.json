@@ -1,0 +1,121 @@
+{
+  "id": 196,
+  "oficio": "Cerrajería",
+  "texto": "Corte de llaves urgente de cerradura especial, necesito 4 copias para los trabajadores",
+  "http_status": 200,
+  "latency_ms": 12118,
+  "raw_response": {
+    "transcript": "Corte de llaves urgente de cerradura especial, necesito 4 copias para los trabajadores",
+    "quote": {
+      "resumen": {
+        "texto_original": "Corte de llaves urgente de cerradura especial, necesito 4 copias para los trabajadores",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Cerradura especial: requiere confirmación del tipo (antibumping, antitaladro, de seguridad, etc.)",
+          "Corte urgente: aplicar tarifa de urgencia/desplazamiento según horario",
+          "Precio unitario de llaves pendiente de revisión (depende del tipo de cerradura y complejidad)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 90
+          },
+          "motivo": "Corte de llaves y servicio de cerrajería especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desplazamiento urgente cerrajero",
+          "descripcion": "Desplazamiento y atención urgente para corte de llaves de cerradura especial",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de desplazamiento urgente según horario (diurno/nocturno/festivo) y distancia"
+        },
+        {
+          "concepto": "Corte de 4 copias de llave especial",
+          "descripcion": "Corte y reproducción de 4 copias de llave para cerradura especial (antibumping, antitaladro o de seguridad certificada)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario por llave especial pendiente: varía según tipo de cerradura (UNE EN 1303, cilindro de seguridad, etc.) y disponibilidad de matriz/tarjeta propietario"
+        },
+        {
+          "concepto": "Mano de obra corte y ajuste de llaves",
+          "descripcion": "Corte, ajuste y prueba de funcionamiento de 4 copias en cerradura",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 60,
+        "iva_porcentaje": 21,
+        "iva": 12.6,
+        "total": 72.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de cerradura especial: ¿antibumping?, ¿antitaladro?, ¿de seguridad certificada UNE EN 1303?",
+        "Solicitar tarjeta propietario o documento de autorización para reproducción de llaves de seguridad",
+        "Verificar si la cerradura permite corte de copias o requiere matriz original del fabricante",
+        "Aplicar tarifa de urgencia si el servicio es fuera de horario comercial"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Corte de llave especial",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico de cerradura especial sin precio en catálogo base"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "apertura_puerta_cerradura_sin_llave",
+      "instalacion_cerradura_antibumping_o_antitaladro",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "reparacion_puntual_de_gotera_en_cubierta_plana"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3844,
+      "tokens_out": 1392
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 1,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

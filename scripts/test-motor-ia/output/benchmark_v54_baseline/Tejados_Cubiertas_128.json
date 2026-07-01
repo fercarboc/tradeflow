@@ -1,0 +1,187 @@
+{
+  "id": 128,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm",
+  "http_status": 200,
+  "latency_ms": 23207,
+  "raw_response": {
+    "transcript": "Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas 78x118cm corresponden a tamaño estándar Velux MK06 o similar — confirmar marca/modelo exacto",
+          "Impermeabilización específica del fabricante es OBLIGATORIA para evitar goteras",
+          "Trabajos en altura requieren EPI y medidas de seguridad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de ventana de techo (lucernario/Velux) en cubierta inclinada"
+        },
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Impermeabilización específica de la apertura en tejado inclinado — trabajo de cubierta"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lucernario/Velux 78x118cm (MK06 o equivalente)",
+          "descripcion": "Ventana de techo tipo Velux o similar, tamaño MK06 (78x118cm), con vidrio laminado integrado, marco de aluminio/madera según modelo, apertura manual o motorizada",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca (Velux, Fakro, etc.), tipo de apertura (manual/motorizada) y accesorios. Rango típico: 250-650€/ud"
+        },
+        {
+          "concepto": "Collar/Kit impermeabilización específico modelo lucernario",
+          "descripcion": "Collar de impermeabilización específico del fabricante (ej: Velux EK, FK, ZK según modelo), lámina EPDM integrada, remates zinc/aluminio, sellado perimetral contra goteras",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Impermeabilización OBLIGATORIA específica del modelo. Rango: 80-200€/ud según marca y tipo de teja (plana, curva, pizarra)"
+        },
+        {
+          "concepto": "Desmontaje y preparación de apertura en tejado",
+          "descripcion": "Desmontaje de tejas/elementos existentes, corte de estructura (pares/vigas) si es necesario, preparación de marco de madera, limpieza y nivelación de zona de instalación",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de lucernario y marco en tejado",
+          "descripcion": "Colocación de marco de instalación específico, fijación de lucernario al marco, nivelación y alineación, sellado perimetral con silicona/masilla, prueba de apertura/cierre",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 45,
+          "total": 112.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización y remate de cubierta",
+          "descripcion": "Colocación de collar/kit impermeabilización, sellado de perforaciones con EPDM, remate de tejas alrededor de lucernario, comprobación de estanqueidad, limpieza de residuos",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en altura",
+          "descripcion": "Arnés de seguridad, línea de vida, cinturón de herramientas, escaleras/andamios, protecciones perimetrales, señalización de zona de trabajo",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de EPI y medidas de seguridad. Rango: 50-150€/jornada según altura y complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 362.5,
+        "iva_porcentaje": 21,
+        "iva": 76.125,
+        "total": 438.625
+      },
+      "sugerencias_catalogo": [
+        "Confirmar marca y modelo exacto del lucernario (Velux MK06, Fakro, etc.) para seleccionar kit impermeabilización correcto",
+        "Verificar tipo de teja existente (plana, curva, pizarra, hormigón) — cada una requiere collar específico",
+        "Medir entre pares de la estructura para confirmar que 78x118cm cabe sin cortar elementos estructurales",
+        "Considerar persiana interior o estor blackout si se requiere oscuridad (partida adicional de persianas)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lucernario/Velux 78x118cm",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Producto específico según marca/modelo — precio pendiente de revisión"
+        },
+        {
+          "concepto": "Collar/Kit impermeabilización específico",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Impermeabilización OBLIGATORIA específica del fabricante y tipo de teja"
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en altura",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Coste de equipos de protección y seguridad en trabajos en altura"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "instalacion_de_lucernarios_en_cubierta_inclinada",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_persiana_o_estor_en_ventana_de_techo",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3898,
+      "tokens_out": 2137
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "NO"
+  }
+}

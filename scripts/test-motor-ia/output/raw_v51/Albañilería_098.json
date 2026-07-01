@@ -1,0 +1,224 @@
+{
+  "id": 98,
+  "oficio": "Albañilería",
+  "texto": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+  "http_status": 200,
+  "latency_ms": 23229,
+  "raw_response": {
+    "transcript": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Obra de envergadura: requiere cálculo estructural y planos de ejecución",
+          "Barandilla: verificar cumplimiento CTE DB-SUA (altura mínima 90cm uso privado, 100cm uso público)",
+          "Desmontaje de escalera antigua: posible amianto si construcción previa a 2005"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil: desmontaje, encofrado, hormigonado, acabados escalera hormigón"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación barandilla metálica según normativa CTE"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje escalera de madera interior",
+          "descripcion": "Demolición y retirada selectiva de escalera de madera de 12 peldaños, incluyendo barandilla, estructura soporte y protecciones",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a criterio del instalador según acceso, complejidad y volumen de escombros"
+        },
+        {
+          "concepto": "Preparación obra civil y encofrado escalera hormigón",
+          "descripcion": "Replanteo, nivelación, encofrado de zancas, peldaños y rellanos para escalera de hormigón de 12 peldaños con dimensiones conforme CTE (huella mín. 28cm, contrahuella máx. 18cm)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de altura total, acceso y complejidad estructural"
+        },
+        {
+          "concepto": "Hormigonado escalera interior 12 peldaños",
+          "descripcion": "Suministro y colocación de hormigón estructural (HA-25), incluyendo vibrado, acabado superficial y curado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen a verificar según planos; incluir precio hormigonería + mano de obra colocación"
+        },
+        {
+          "concepto": "Armadura acero escalera hormigón",
+          "descripcion": "Suministro e instalación de barras acero corrugado, cercos y armado conforme cálculo estructural (zancas, peldaños y rellanos)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere cálculo estructural; kg estimado en proyecto de ejecución"
+        },
+        {
+          "concepto": "Acabado superficial peldaños y zancas",
+          "descripcion": "Tratamiento de superficie hormigón, pulido, aplicación de sellador o pintura antideslizante en peldaños (si se especifica)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie aproximada (12 peldaños × 1.5m ancho); ajustar según medidas reales"
+        },
+        {
+          "concepto": "Barandilla metálica escalera interior 12 peldaños",
+          "descripcion": "Suministro e instalación barandilla metálica (acero/aluminio) conforme CTE DB-SUA: altura mín. 90cm, separación barras máx. 10cm, incluyendo pasamanos tubo redondo, anclajes a hormigón, tratamiento antioxidante y acabado pintura/pulido",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Aproximado 8ml de perímetro (ajustar a geometría real); incluir diseño, materiales y acabados"
+        },
+        {
+          "concepto": "Instalación barandilla metálica: mano de obra",
+          "descripcion": "Instalación barandilla: anclaje a hormigón con taco químico, fijaciones, ajuste y acabados",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cálculo estructural y planos de ejecución",
+          "descripcion": "Proyecto técnico de escalera hormigón armado (cálculo estructura, planos constructivos, memoria justificativa cumplimiento CTE)",
+          "oficio": "informatica",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obra estructural obligada: estimar 300-800€ según complejidad"
+        },
+        {
+          "concepto": "Control y ensayos hormigón",
+          "descripcion": "Testigos hormigón (probetas rotura a 28 días) y ensayo en laboratorio acreditado",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Recomendable en obras civiles; estimar 150-250€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Base Maestra incluye: instalacion_escalera_de_madera_interior (referencia negativa en este caso) e instalacion_barandilla_metalica_de_escalera_interior (aplicable a la barandilla de hormigón)",
+        "Falta en catálogo: 'reconstruccion_escalera_hormigon_armado' — crear partida corporativa con estándares CTE DB-SUA y cálculo estructural obligatorio"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Demolición escalera madera interior",
+          "oficio": "albanileria",
+          "tipo": "mano_obra",
+          "unidad": "pa",
+          "sugerencia": "Crear entrada catálogo: desmontaje_escalera_interior_madera, precio estimado 400-1200€/pa según envergadura"
+        },
+        {
+          "partida": "Escalera hormigón armado interior",
+          "oficio": "albanileria",
+          "tipo": "material+mano_obra",
+          "unidad": "pa",
+          "sugerencia": "Crear entrada catálogo: construccion_escalera_hormigon_interior, rango 3000-8000€/pa según peldaños, acabados, barandilla"
+        },
+        {
+          "partida": "Proyecto técnico estructura",
+          "oficio": "informatica",
+          "tipo": "servicio",
+          "unidad": "pa",
+          "sugerencia": "Crear entrada: proyecto_tecnico_escalera_hormigon, rango 400-1000€/pa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_barandilla_metalica_de_escalera_interior",
+      "instalacion_escalera_de_madera_interior",
+      "instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_persiana_veneciana_de_madera_o_bambu"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 1,
+    "n_sugeridas": 8,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

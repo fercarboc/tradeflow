@@ -1,0 +1,283 @@
+{
+  "id": 105,
+  "oficio": "Climatización",
+  "texto": "Instalar recuperador de calor de doble flujo en vivienda de obra nueva, ventilación mecánica controlada",
+  "http_status": 200,
+  "latency_ms": 27891,
+  "raw_response": {
+    "transcript": "Instalar recuperador de calor de doble flujo en vivienda de obra nueva, ventilación mecánica controlada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar recuperador de calor de doble flujo en vivienda de obra nueva, ventilación mecánica controlada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Caudal de aire no especificado: se asume vivienda estándar 120-180 m³/h según CTE DB-HS3",
+          "Superficie vivienda no proporcionada: presupuesto estimado para vivienda tipo 100-150 m²",
+          "Obra nueva: verificar coordinar con electricista y obra civil para pasos de conductos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación recuperador de calor doble flujo - especialidad climatización"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Cableado alimentación y conexiones eléctricas recuperador"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Recuperador de calor doble flujo",
+          "descripcion": "Suministro unidad recuperadora de calor con eficiencia recuperación ≥75%, caudal 120-180 m³/h, filtros incluidos (G4 mínimo), para vivienda unifamiliar obra nueva",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material suministrado por instalador - revisar presupuesto proveedor (rango orientativo 1500-3500€)"
+        },
+        {
+          "concepto": "Red de conductos impulsión y retorno",
+          "descripcion": "Conductos de fibra de vidrio o metálicos (impulsión y retorno), secciones variables según caudal, incluyendo accesorios, manguetones y bridas. Estimado 50-80 ml según distribución vivienda",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 65,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - revisar presupuesto por ml (rango 8-15€/ml)"
+        },
+        {
+          "concepto": "Rejillas de impulsión en habitaciones secas",
+          "descripcion": "Rejillas difusoras de impulsión en dormitorios y sala de estar, acústicas, cantidad según estancias (estándar 3-4 rejillas)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - revisar presupuesto por unidad (rango 25-60€/ud)"
+        },
+        {
+          "concepto": "Rejillas de extracción en zonas húmedas",
+          "descripcion": "Rejillas de extracción con compuerta anti-retorno en baños y cocina, acústicas (estándar 2-3 rejillas)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - revisar presupuesto por unidad (rango 35-80€/ud)"
+        },
+        {
+          "concepto": "Bocas de toma exterior e impulsión exterior",
+          "descripcion": "Bocas de toma de aire exterior e impulsión/expulsión exterior con sombreretes antilluvias y filtrado previo, cantidad 2 unidades",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - revisar presupuesto por unidad (rango 80-150€/ud)"
+        },
+        {
+          "concepto": "Filtros adicionales G4 y recambios",
+          "descripcion": "Filtros de impulsión exterior tipo G4, recambios iniciales y repuestos (cantidad 2 sets)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - revisar presupuesto (rango 30-70€/set)"
+        },
+        {
+          "concepto": "Bandas resilientes perimetrales y pequeño material",
+          "descripcion": "Bandas de caucho resiliente perimetral, cinta aislante, bridas, tornillería, masilla de fijación y accesorios menores",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - revisar presupuesto (rango 100-250€)"
+        },
+        {
+          "concepto": "Instalación recuperador de calor y red de conductos",
+          "descripcion": "Instalación unidad recuperadora, colocación y fijación en ubicación prevista (falso techo, desván o cuarto técnico), conexión entrada/salida aire, estanquidad y pruebas. Incluyendo desmontaje de protecciones y preparación zona.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación red conductos, rejillas y accesorios",
+          "descripcion": "Tendido de red completa conductos impulsión/retorno, fijación mediante abrazaderas, colocación rejillas impulsión y extracción, instalación bocas exteriores con sombreretes, sellado y aislamiento acústico conductos",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 60,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado alimentación eléctrica recuperador",
+          "descripcion": "Suministro e instalación cable eléctrico (sección según potencia equipo, típicamente 2,5-4mm²) desde cuadro general a recuperador, protecciones (diferencial + magnetotérmico), enchufe/conexión directa según normativa, incluyendo tubos de protección",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Pruebas estanquidad conductos, verificación caudales impulsión/extracción con anemómetro, comprobación funcionamiento filtros, ajuste velocidades ventilador, pruebas presión diferencial, entrega instrucciones mantenimiento y garantía",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2540,
+        "iva_porcentaje": 21,
+        "iva": 533.4,
+        "total": 3073.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar especificación técnica: caudal exacto en m³/h según CTE DB-HS3 (típicamente 0,63 l/s·m² de superficie útil)",
+        "Si vivienda >150 m²: considerar recuperador de mayor caudal o sistema dual",
+        "Coordinar con obra civil para pasos de conductos antes de cierres (obra nueva)",
+        "Recomendación: instalar termostatos modulantes o control centralizado si presupuesto lo permite",
+        "Filtros G4 mínimo en impulsión exterior obligatorio por CTE DB-HS3"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Recuperador de calor doble flujo",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cliente - presupuesto en revisión"
+        },
+        {
+          "concepto": "Red de conductos impulsión y retorno",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según distribución vivienda - revisar metraje exacto"
+        },
+        {
+          "concepto": "Rejillas de impulsión en habitaciones secas",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material - cantidad ajustable según estancias reales"
+        },
+        {
+          "concepto": "Rejillas de extracción en zonas húmedas",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material - cantidad ajustable según baños/cocinas"
+        },
+        {
+          "concepto": "Bocas de toma exterior e impulsión exterior",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material - componentes exteriores críticas"
+        },
+        {
+          "concepto": "Filtros adicionales G4 y recambios",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible obligatorio CTE"
+        },
+        {
+          "concepto": "Bandas resilientes perimetrales y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Accesorios y consumibles varios"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_recuperador_de_calor_ventilacion_mecanica_controlada",
+      "instalacion_ventilacion_mecanica_controlada_vmc",
+      "instalacion_de_suelo_radiante_en_reforma",
+      "reforma_para_instalar_piscina_en_vivienda_unifamiliar",
+      "tabique_pladur_en_vivienda_unifamiliar_nueva"
+    ],
+    "kb_score": 4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

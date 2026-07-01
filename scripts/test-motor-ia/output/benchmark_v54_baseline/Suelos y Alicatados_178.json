@@ -1,0 +1,171 @@
+{
+  "id": 178,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Reparar baldosas rotas en portal del edificio, 3 metros cuadrados de mármol travertino",
+  "http_status": 200,
+  "latency_ms": 14542,
+  "raw_response": {
+    "transcript": "Reparar baldosas rotas en portal del edificio, 3 metros cuadrados de mármol travertino",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar baldosas rotas en portal del edificio, 3 metros cuadrados de mármol travertino",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material noble (mármol travertino): requiere especialista en piedra natural. Precio unitario de material pendiente de confirmación del instalador.",
+          "Verificar estado del soporte base antes de reponer baldosas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de pavimento exterior (baldosas rotas). Encaja en [reparacion_o_reposicion_de_pavimento_exterior_deteriorado]."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de baldosas rotas de mármol travertino",
+          "descripcion": "Demolición y retirada de baldosas rotas, limpieza de mortero antiguo y preparación del soporte. 3 m².",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Baldosas de mármol travertino reposición",
+          "descripcion": "Suministro de baldosas de mármol travertino del mismo tipo, color y acabado que las existentes. 3 m².",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material noble (mármol travertino). Precio muy variable según origen, acabado y disponibilidad. El instalador debe confirmar precio de mercado actual."
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior para piedra natural",
+          "descripcion": "Mortero adhesivo C2S2 deformable, especial para piedra natural y mármol, en exterior. Aplicación en capa de 3-5 mm. 3 m².",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mortero especializado para piedra natural. Precio pendiente de confirmación según marca y presentación."
+        },
+        {
+          "concepto": "Colocación de baldosas de mármol travertino",
+          "descripcion": "Colocación de baldosas con mortero cola, nivelación y alineación. 3 m².",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lechada de junta exterior para mármol",
+          "descripcion": "Lechada de junta flexible, resistente a humedad y cambios térmicos, para juntas de baldosas de mármol en exterior. Aplicación y limpieza. 3 m².",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lechada especializada para piedra natural en exterior. Precio pendiente de confirmación."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Esponjas, trapos, cuñas, espaciadores, sellador de protección temporal, y otros consumibles menores.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material. Precio estimado entre 15-30€. Confirmar con instalador."
+        }
+      ],
+      "calculos": {
+        "subtotal": 240,
+        "iva_porcentaje": 21,
+        "iva": 50.4,
+        "total": 290.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar estado del soporte base (mortero, humedad, grietas) antes de proceder a la reposición. Si hay deterioro importante, incluir regularización de soporte.",
+        "Mármol travertino es piedra natural porosa: considerar aplicación de sellador hidrofóbico tras la colocación para proteger contra manchas y humedad.",
+        "Confirmar que las baldosas nuevas coincidan exactamente en tipo, color, veteado y acabado (pulido, abujardado, etc.) con las existentes."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Baldosas de mármol travertino reposición",
+          "oficio": "albanileria",
+          "motivo": "Material noble específico. Precio muy variable según origen y acabado. Requiere confirmación de mercado."
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior para piedra natural",
+          "oficio": "albanileria",
+          "motivo": "Mortero especializado para mármol y piedra natural. Precio pendiente."
+        },
+        {
+          "concepto": "Lechada de junta exterior para mármol",
+          "oficio": "albanileria",
+          "motivo": "Lechada flexible especializada para piedra natural en exterior. Precio pendiente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_reposicion_de_pavimento_exterior_deteriorado",
+      "reparacion_de_piscina_con_filtraciones",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3610,
+      "tokens_out": 1851
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

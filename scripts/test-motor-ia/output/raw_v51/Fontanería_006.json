@@ -1,0 +1,185 @@
+{
+  "id": 6,
+  "oficio": "Fontanería",
+  "texto": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+  "http_status": 200,
+  "latency_ms": 14536,
+  "raw_response": {
+    "transcript": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se detecta problema de humedad en azulejos: se recomienda inspección de impermeabilización de ducha antes de alicatar",
+          "Verificar presión mínima de agua (1.5 bar) para correcto funcionamiento del termostático"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación grifo termostático de ducha con accesorios"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Picado, retallado y revoco de azulejos dañados por humedad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje grifo ducha existente",
+          "descripcion": "Desmontaje cuidadoso del grifo termostático o monomando existente, desconexión de tuberías y limpieza de zona",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo termostático ducha con accesorios",
+          "descripcion": "Grifo termostático de ducha con regulación de temperatura 38°C, excentricas 1/2\", embellecedores cromados, latiguillos flex y pequeño material de montaje",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del grifo termostático a definir según marca y modelo (rango típico 180-600€)"
+        },
+        {
+          "concepto": "Instalación grifo termostático ducha",
+          "descripcion": "Conexión de tuberías, ajuste de excentricas, nivelación, prueba de presión mínima 1.5 bar y verificación de regulación de temperatura",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Picado y retallado de azulejos dañados por humedad",
+          "descripcion": "Identificación, picado cuidadoso y retallado de azulejos afectados por humedad en zona de ducha, limpieza de mortero deteriorado y preparación de superficie",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Azulejos de reposición (estándar 20x20 o similar)",
+          "descripcion": "Azulejos cerámicos de reposición para cubrir zonas picadas, incluye mortero adhesivo y material de rejunta",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de azulejos a revisar según número exacto de piezas dañadas (estimación: 5-15 piezas)"
+        },
+        {
+          "concepto": "Alicatado y rejuntado de azulejos retallados",
+          "descripcion": "Colocación de azulejos con adhesivo, nivelación, rejuntado con mortero epoxi o cementoso y sellado con silicona sanitaria en encuentros",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección y diagnóstico de impermeabilización (recomendado)",
+          "descripcion": "Inspección visual de la impermeabilización de la ducha para detectar causas de humedad; si es necesario reparación, se presupuestará aparte",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 220,
+        "iva_porcentaje": 21,
+        "iva": 46.2,
+        "total": 266.2
+      },
+      "sugerencias_catalogo": [
+        "Si la humedad persiste, considere reparación de membrana impermeabilizante (ver actuación: [impermeabilizacion_zona_ducha_con_membrana_liquida])",
+        "Verificar presión mínima 1.5 bar del sistema antes de instalar termostático",
+        "Si hay daños estructurales en solera o soporte, puede ser necesario rebaje y refuerzo antes del alicatado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Grifo termostático ducha con accesorios",
+          "oficio": "fontaneria",
+          "razon_creacion": "Material fungible, precio variable según marca; instalador debe definir modelo y presupuesto"
+        },
+        {
+          "concepto": "Azulejos de reposición",
+          "oficio": "albanileria",
+          "razon_creacion": "Material fungible, cantidad a confirmar según inspección visual del estado; precio variable según tipo y formato"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_grifo_lavabo",
+      "impermeabilizacion_zona_ducha_con_membrana_liquida",
+      "sustitucion_columna_ducha",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "instalacion_grifo_termostatico_ducha"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

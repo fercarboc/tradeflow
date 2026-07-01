@@ -1,0 +1,184 @@
+{
+  "id": 169,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Colocar rodapié de porcelana de 10 centímetros en toda la vivienda, longitud total 60 metros",
+  "http_status": 200,
+  "latency_ms": 14849,
+  "raw_response": {
+    "transcript": "Colocar rodapié de porcelana de 10 centímetros en toda la vivienda, longitud total 60 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar rodapié de porcelana de 10 centímetros en toda la vivienda, longitud total 60 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Colocación de rodapié cerámico/porcelana. Oficio de alicatado especializado en remates y acabados de pavimentos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro rodapié porcelana 10 cm",
+          "descripcion": "Rodapié de porcelana de 10 centímetros de altura, longitud total 60 metros. Incluye piezas lineales y piezas de esquina interior/exterior según necesidad.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de rodapié porcelana. El instalador debe indicar precio unitario según marca, calidad y acabado (mate, brillo, rectificado, etc.). Incluir piezas de esquina en cantidad estimada."
+        },
+        {
+          "concepto": "Mortero cola C2 flexible blanco para rodapié",
+          "descripcion": "Mortero adhesivo flexible C2 blanco para fijación de rodapié porcelana a pared. Cantidad estimada según superficie y espesor de aplicación.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mortero adhesivo. Cantidad estimada en 12 kg (aprox. 0,2 kg/ml para 60 ml). Instalador revisa según espesor de junta y tipo de pared."
+        },
+        {
+          "concepto": "Lechada junta rodapié",
+          "descripcion": "Lechada de junta para sellado de juntas entre piezas de rodapié y entre rodapié y pared. Color a elegir según rodapié.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lechada de junta. Cantidad estimada en 3 kg. Revisar según ancho de junta y longitud total."
+        },
+        {
+          "concepto": "Silicona sanitaria sellado perimetral",
+          "descripcion": "Silicona sanitaria para sellado perimetral entre rodapié y pared, garantizando estanqueidad y acabado profesional.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "tubo",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Silicona sanitaria. Cantidad estimada en 2 tubos para 60 ml. Revisar según aplicación real."
+        },
+        {
+          "concepto": "Mano de obra colocación rodapié porcelana",
+          "descripcion": "Colocación de rodapié porcelana de 10 cm en toda la vivienda. Incluye: replanteo, preparación de superficie, aplicación de mortero, colocación de piezas lineales y esquinas, nivelación, limpieza de excedentes, lechada de juntas y sellado perimetral con silicona.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Pequeño material: esponjas, trapos, cubetas, nivel, espaciadores, protecciones. Herramientas menores para colocación y limpieza.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material estimado. Instalador revisa según necesidades reales de obra."
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: rodapié porcelana 10 cm (diferentes acabados y marcas)",
+        "Verificar en catálogo: mortero cola C2 flexible blanco (diferentes marcas y presentaciones)",
+        "Verificar en catálogo: lechada de junta (colores disponibles)",
+        "Verificar en catálogo: silicona sanitaria (marcas recomendadas)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro rodapié porcelana 10 cm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material específico de rodapié porcelana. Precio pendiente de revisión del instalador según marca y calidad."
+        },
+        {
+          "concepto": "Mortero cola C2 flexible blanco para rodapié",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Adhesivo específico para rodapié. Cantidad estimada, requiere revisión."
+        },
+        {
+          "concepto": "Lechada junta rodapié",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Lechada de junta. Cantidad estimada, requiere revisión según ancho de junta."
+        },
+        {
+          "concepto": "Silicona sanitaria sellado perimetral",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Sellado perimetral. Cantidad estimada, requiere revisión."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Pequeño material estimado. Requiere revisión según necesidades reales."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "colocacion_de_murales_o_azulejos_decorativos",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3913,
+      "tokens_out": 2135
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

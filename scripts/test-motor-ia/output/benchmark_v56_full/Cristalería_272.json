@@ -1,0 +1,213 @@
+{
+  "id": 272,
+  "oficio": "Cristalería",
+  "texto": "Instalar techo de cristal en patio interior de vivienda, superficie 8 metros cuadrados con perfilería",
+  "http_status": 200,
+  "latency_ms": 21074,
+  "raw_response": {
+    "transcript": "Instalar techo de cristal en patio interior de vivienda, superficie 8 metros cuadrados con perfilería",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar techo de cristal en patio interior de vivienda, superficie 8 metros cuadrados con perfilería",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Proyecto técnico OBLIGATORIO según CTE DB-SUA para techo de vidrio",
+          "Vidrio LAMINADO OBLIGATORIO en techo para seguridad (fragmentos no caigan)",
+          "Cálculo de cargas (peso vidrio + accidental) REQUERIDO",
+          "Impermeabilización de encuentros CRÍTICA en patio interior",
+          "Verificar si requiere licencia municipal por reforma estructural"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de techo de vidrio laminado con estructura de soporte y sellado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico techo de vidrio",
+          "descripcion": "Proyecto técnico con cálculo de cargas (peso vidrio + accidental), cálculo estructural de perfilería, cálculo de nieve/viento si aplica, y verificación CTE DB-SUA",
+          "oficio": "cristaleria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de proyecto técnico a definir por profesional. Imprescindible para techo de vidrio."
+        },
+        {
+          "concepto": "Vidrio laminado para techo",
+          "descripcion": "Suministro de vidrio laminado 8 mm (4+4 laminado) para techo de 8 m², seguridad CTE DB-SUA, transparente, corte a medida",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio laminado a definir según espesor, tipo laminado y proveedor"
+        },
+        {
+          "concepto": "Estructura soporte aluminio o acero",
+          "descripcion": "Suministro e instalación de perfilería de aluminio anodizado o acero inoxidable para soporte de techo de vidrio, incluye perfiles principales, secundarios, nudos y pequeño material",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfilería a definir según material (aluminio/acero), sección y diseño estructural"
+        },
+        {
+          "concepto": "Herraje de fijación y soporte",
+          "descripcion": "Suministro de herraje de fijación calculada: abrazaderas, pernos, tuercas, arandelas, anclajes a estructura existente, acero inoxidable",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de herraje según cálculo estructural final"
+        },
+        {
+          "concepto": "Impermeabilización de encuentros",
+          "descripcion": "Impermeabilización perimetral de encuentros entre vidrio y estructura, sellado con lámina EPDM o similar, canaleta de drenaje perimetral, juntas de dilatación estancas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales impermeabilizantes a definir. Perímetro estimado ~12 ml para 8 m²"
+        },
+        {
+          "concepto": "Sellado con silicona estructural",
+          "descripcion": "Sellado perimetral completo con silicona neutra de alta calidad, aplicación en juntas vidrio-perfilería, garantía 10 años",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de silicona y aplicación a definir"
+        },
+        {
+          "concepto": "Montaje e instalación techo de vidrio",
+          "descripcion": "Mano de obra de instalación: preparación estructura, colocación perfilería, fijación herraje, colocación vidrio laminado, sellado perimetral, pruebas de estanqueidad",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 24,
+          "precio_unitario": 45,
+          "total": 1080,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Pequeño material: tornillos, tuercas, arandelas, cinta de espuma, masilla, disolventes, trapos, etc.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de pequeño material a definir"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1080,
+        "iva_porcentaje": 21,
+        "iva": 226.8,
+        "total": 1306.8
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [instalacion_techo_de_vidrio_o_cristal_interior] — rango precio 60-380€/m² (mano de obra + materiales). Para 8 m² estimado 480-3040€ en materiales + mano de obra.",
+        "Vidrio laminado OBLIGATORIO según CTE DB-SUA para techos de vidrio (seguridad ante rotura).",
+        "Proyecto técnico OBLIGATORIO: cálculo de cargas propias (peso vidrio) + accidental (lluvia, nieve si aplica).",
+        "Impermeabilización de encuentros CRÍTICA en patio interior para evitar filtraciones.",
+        "Considerar protección solar interior (estor o vidrio control solar) si hay riesgo de sobrecalentamiento."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico techo de vidrio",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio técnico obligatorio no incluido en catálogo base"
+        },
+        {
+          "concepto": "Vidrio laminado para techo",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico, precio variable según espesor y proveedor"
+        },
+        {
+          "concepto": "Estructura soporte aluminio o acero",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico, precio variable según diseño estructural"
+        },
+        {
+          "concepto": "Impermeabilización de encuentros",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para estanqueidad en patio interior"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cubierta_acristalada_o_invernadero",
+      "instalacion_techo_de_vidrio_o_cristal_interior",
+      "instalacion_de_toldos_retractiles_para_invernadero_o_jardin_de_invierno",
+      "instalacion_lucernario_o_claraboya_fija",
+      "instalacion_ventana_madera_con_vidrio"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3980,
+      "tokens_out": 2848
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

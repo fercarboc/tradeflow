@@ -1,0 +1,163 @@
+{
+  "id": 33,
+  "oficio": "Electricidad",
+  "texto": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+  "http_status": 200,
+  "latency_ms": 14530,
+  "raw_response": {
+    "transcript": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume que existe falso techo de pladur o estructura compatible. Si no existe, se requiere crear falso techo previo.",
+          "Precio de focos LED a revisar por instalador (material).",
+          "Se recomienda coordinar con electricista para circuitos independientes por zona."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de circuitos eléctricos y conexión de focos empotrados."
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Apertura de rozas y recortes en pladur para alojamiento de aros empotrados."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Aros empotrables recortables para focos LED",
+          "descripcion": "8 unidades de aros empotrables recortables tipo pladur, diámetro ajustable 82-92mm, para alojar focos LED GU10/MR16",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de aros LED a establecer por instalador según marca y especificación técnica."
+        },
+        {
+          "concepto": "Focos LED GU10 o equivalente",
+          "descripcion": "8 unidades de focos LED GU10/MR16 (o equivalente según compatibilidad), potencia 5-7W, temperatura color 3000K-4000K, flujo luminoso 400-500lm",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de focos LED a establecer por instalador según marca, potencia y color."
+        },
+        {
+          "concepto": "Cable eléctrico y pequeño material",
+          "descripcion": "Cable flexible H07V-U o equivalente (sección según circuito, típicamente 1.5mm²), conectores, clips de fijación, cinta aislante, pequeño material para 8 focos",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de material eléctrico a revisar según longitud de trazado y complejidad."
+        },
+        {
+          "concepto": "Apertura y recorte de aros en pladur",
+          "descripcion": "Recorte, apertura y fijación de 8 aros empotrables en placas de pladur. Incluye marcado de posiciones, corte con sierra cala o circular, fijación de aros con tornillería.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de circuitos eléctricos y conexión de focos",
+          "descripcion": "Puesta en tensión, conexión de focos LED a circuitos eléctricos (recomendable 2 circuitos: baño + cocina), instalación de mecanismos de control (interruptores/pulsadores) si aplica, pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 380,
+        "iva_porcentaje": 21,
+        "iva": 79.8,
+        "total": 459.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe falso techo de pladur. Si no existe, se debe presupuestar falso techo previo (referencia: falso_techo_pladur_con_iluminacion_empotrada).",
+        "Considerar si se requiere instalación de interruptores, pulsadores o detectores de presencia en baño/cocina.",
+        "Recomendar circuitos separados: un circuito para baño (2-3 focos) y otro para cocina (5-6 focos) para mayor control y seguridad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aros empotrables recortables para focos LED",
+          "oficio": "pladur_escayola",
+          "motivo": "Material de soporte específico; no existe en catálogo base; precio a establecer."
+        },
+        {
+          "concepto": "Focos LED GU10 o equivalente",
+          "oficio": "electricidad",
+          "motivo": "Material de luminaria; no existe especificación detallada en catálogo base; precio a establecer."
+        },
+        {
+          "concepto": "Cable eléctrico y pequeño material",
+          "oficio": "electricidad",
+          "motivo": "Material auxiliar; cantidad y precio variable según trazado; a revisar por instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "falso_techo_pladur_con_iluminacion_empotrada",
+      "instalacion_de_techo_o_cubierta_de_madera_interior",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_barra_y_riel_para_cortinas_de_tela",
+      "instalacion_difusores_y_rejillas_climatizacion"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

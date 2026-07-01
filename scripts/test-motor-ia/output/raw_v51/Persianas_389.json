@@ -1,0 +1,275 @@
+{
+  "id": 389,
+  "oficio": "Persianas",
+  "texto": "Instalar persiana exterior de aluminio enrollable para local comercial, 3 metros de ancho",
+  "http_status": 200,
+  "latency_ms": 26148,
+  "raw_response": {
+    "transcript": "Instalar persiana exterior de aluminio enrollable para local comercial, 3 metros de ancho",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar persiana exterior de aluminio enrollable para local comercial, 3 metros de ancho",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume altura estándar de 2.0m (no especificada). Instalador debe confirmar altura exacta del hueco.",
+          "Anchura 3.0m requiere verificación de refuerzo de lama central según normativa de persianas enrollables.",
+          "No se especifica si incluye automatización motorizada. Presupuesto es para persiana manual. Si requiere motor, avisar."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de persiana enrollable de aluminio. Tarifa según tabla de tarifas multiservicio + especialización en persianas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cajón persiana aluminio 3.0m",
+          "descripcion": "Cajón/carcasa de aluminio para persiana enrollable exterior, ancho 3.0m, con guías integradas y refuerzo de lama central (ancho >2.2m)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material principal. Precio varía según calidad, refuerzos y acabados. Instalador debe cotizar con proveedor."
+        },
+        {
+          "concepto": "Lamas aluminio 3.0m ancho",
+          "descripcion": "Lamas de aluminio para persiana enrollable, ancho 3.0m, espesor y perfil estándar para enrollable exterior, cantidad suficiente para altura aproximada 2.0m",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de lamas según altura confirmada. Incluir en cotización con proveedor."
+        },
+        {
+          "concepto": "Guías laterales aluminio 3.0m",
+          "descripcion": "Guías laterales de aluminio para persianas enrollables, longitud 2.0m aproximado, anclaje a jamba/muro, 2 unidades (izq+dch)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario por guía a definir por instalador."
+        },
+        {
+          "concepto": "Cinta/cordón enrolladora",
+          "descripcion": "Cinta enrolladora o cordón de tracción manual para accionamiento de persiana, mecanismo antirretorno",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste del mecanismo de accionamiento. Varía según sistema (cadena/cordón). Incluir en cotización."
+        },
+        {
+          "concepto": "Tope inferior y final de carrera",
+          "descripcion": "Tope inferior de la persiana (tubo o lama especial) y mecanismo de final de carrera para cierre completo",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir en presupuesto de materiales."
+        },
+        {
+          "concepto": "Fijaciones y anclajes cajón",
+          "descripcion": "Herrajes, pernos, escuadras y fijaciones para anclaje del cajón a estructura fachada (techo/dintel), materiales de instalación",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material agrupado. Revisar según tipo de anclaje (hormigón, acero, etc.)."
+        },
+        {
+          "concepto": "Pequeño material (tacos, tornillos, sellado)",
+          "descripcion": "Tacos expansion, tornillos acero inoxidable, silicona neutra, masilla, sellante para uniones y juntas, material fungible",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar coste según material fungible necesario (aprox. 30-60€)."
+        },
+        {
+          "concepto": "Medición, replanteo y trazado",
+          "descripcion": "Toma de medidas precisas del hueco, verificación de escuadra, replanteo de puntos de anclaje, marcado de guías",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje de estructura anterior (si aplica)",
+          "descripcion": "Desinstalación y retirada de persiana antigua o estructuras existentes (si aplica), limpieza de zona",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación cajón y fijaciones",
+          "descripcion": "Montaje del cajón en posición, anclaje a estructura fachada (hormigón, acero, etc.), fijación de abrazaderas y soportes",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 45,
+          "total": 112.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje de lamas, guías y mecanismo",
+          "descripcion": "Inserción de lamas en el enrollador, montaje de guías laterales en jambas, instalación de cinta/cordón de accionamiento, ajuste de tensión",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba funcional y ajustes finales",
+          "descripcion": "Accionamiento completo de apertura y cierre, verificación de movimiento suave, ajuste de final de carrera, prueba de antirretorno, limpieza final",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 45,
+          "total": 33.75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de uniones y juntas",
+          "descripcion": "Aplicación de silicona neutra y sellante en uniones entre cajón y estructura, entre lamas y guías, impermeabilización de puntos críticos",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 371.25,
+        "iva_porcentaje": 21,
+        "iva": 78.06,
+        "total": 449.31
+      },
+      "sugerencias_catalogo": [
+        "Confirmar altura exacta del hueco (se asume 2.0m). Si difiere, recalcular lamas y guías.",
+        "Verificar si persiana debe ser motorizada. Si sí, agregar partida: Motor enrollable con mando inalámbrico (oficio=persianas, material, aprox. 200-600€ + instalación 1.5h).",
+        "Ancho 3.0m requiere refuerzo de lama central (incluido en cotización de lamas). Comunicar al proveedor.",
+        "Para local comercial exterior: considerar persiana con tela o protección solar adicional si aplica.",
+        "Incluir garantía de funcionamiento mínimo 2 años en presupuesto final."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cajón persiana aluminio 3.0m",
+          "oficio": "persianas",
+          "razon_deteccion": "Material específico para ancho 3.0m, no en catálogo base. Requiere cotización.",
+          "precio_estimado_rango": "400-800€"
+        },
+        {
+          "concepto": "Lamas aluminio 3.0m ancho",
+          "oficio": "persianas",
+          "razon_deteccion": "Material específico según altura a confirmar. Varía por medida.",
+          "precio_estimado_rango": "300-700€"
+        },
+        {
+          "concepto": "Guías laterales aluminio 3.0m",
+          "oficio": "persianas",
+          "razon_deteccion": "2 unidades a cotizar según especificaciones técnicas.",
+          "precio_estimado_rango": "80-200€"
+        },
+        {
+          "concepto": "Cinta/cordón enrolladora",
+          "oficio": "persianas",
+          "razon_deteccion": "Mecanismo de accionamiento manual, precio según calidad.",
+          "precio_estimado_rango": "50-150€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_estor_enrollable_interior",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_pantalla_de_proyeccion_motorizada",
+      "instalacion_de_canaleta_o_canalon_de_fachada"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 6,
+    "n_sugeridas": 7,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

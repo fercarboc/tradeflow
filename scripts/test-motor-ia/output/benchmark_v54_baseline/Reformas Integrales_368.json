@@ -1,0 +1,219 @@
+{
+  "id": 368,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+  "http_status": 200,
+  "latency_ms": 26519,
+  "raw_response": {
+    "transcript": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Cambio de uso de local a restaurante requiere LICENCIA URBANÍSTICA obligatoria",
+          "CRÍTICO: Proyecto técnico obligatorio para reforma integral con instalaciones completas",
+          "CRÍTICO: Cocina industrial requiere cumplimiento normativa sanitaria (AECOC) y seguridad alimentaria",
+          "CRÍTICO: Verificar altura libre mínima 2.5m según CTE",
+          "CRÍTICO: Iluminación natural y ventilación obligatoria en zonas de comedor según CTE DB-HS3",
+          "Presupuesto orientativo: requiere visita técnica y levantamiento de planos",
+          "Instalaciones completas: electricidad, fontanería, climatización, contra-incendios, extracción de humos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma integral: ≥3 oficios simultáneos (albanilería, electricidad, fontanería, climatización, contra-incendios, cocina industrial)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Distribución de sala, tabiques, revestimientos, solería"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación eléctrica completa, cuadro general, circuitos cocina industrial, iluminación"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Red agua fría/caliente, desagües, instalación cocina industrial, servicios (aseos)"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Climatización sala comedor, extracción de humos cocina industrial"
+        },
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 60
+          },
+          "motivo": "Sistema contra-incendios obligatorio: detectores, extintores, señalización, BIE si procede"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Gestión de licencia urbanística y proyecto técnico (servicios administrativos)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición, obra civil y distribución",
+          "descripcion": "Demolición selectiva de tabiques existentes, retirada de escombros, excavación si necesario para nivelar, tabiquería nueva para distribución de sala y servicios (aseos, almacén), solería y revestimientos, cumplimiento CTE altura libre mínima 2.5m",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado estimado 15000-35000€ según superficie y estado actual. Requiere visita técnica y levantamiento de planos. Incluye: demolición, escombros, tabiquería, solería, revestimientos, pequeño material."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización, contra-incendios)",
+          "descripcion": "Instalación eléctrica completa con cuadro general, circuitos independientes cocina industrial (trifásica si procede), iluminación LED comedor y cocina, tomas de corriente, puesta a tierra. Red agua fría/caliente con tuberías PEX/cobre, desagües, sifones, grifería cocina industrial, servicios (aseos con inodoro, lavabo, ducha si procede). Climatización: bomba calor o splits para comedor, extracción de humos cocina industrial con conductos y campana. Sistema contra-incendios: detectores de humo, extintores ABC, señalización fotoluminiscente, BIE si superficie >500m2.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado estimado 20000-50000€ según potencia eléctrica, número de servicios, superficie climatizada y equipamiento contra-incendios. Requiere proyecto técnico de instalaciones. Incluye: materiales, mano de obra, pruebas y puesta en marcha."
+        },
+        {
+          "concepto": "CAP.3 – Cocina industrial y acabados",
+          "descripcion": "Suministro e instalación cocina industrial: muebles base y altos, encimera acero inoxidable, fregadero industrial, horno, placa de cocción, campana extractora, frigorífico/congelador industrial. Acabados: pintura paredes y techo (pintura higiénica en cocina), alicatado cocina y servicios, puertas interiores, molduras, pequeño material.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado estimado 12000-30000€ según equipamiento cocina industrial elegido (marca, capacidad, número de servicios). Requiere especificación detallada de equipos. Incluye: suministro, instalación, conexiones, acabados."
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos, licencias y proyecto técnico",
+          "descripcion": "Gestión y retirada de escombros y residuos de construcción. Proyecto técnico obligatorio (arquitecto/ingeniero). Licencia urbanística cambio de uso local a restaurante. Certificado de instalaciones eléctricas. Inspección técnica de seguridad. Libro de mantenimiento contra-incendios.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado estimado 3000-8000€. Incluye: proyecto técnico (1500-3000€), licencia urbanística (500-1500€), gestión residuos (1000-2000€), certificados y trámites (500-1500€). Requiere consulta con gestoría local."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo: [reforma_integral_planta_baja_o_local_para_vivienda] — aplicable con adaptaciones a restaurante",
+        "Consultar catálogo: [instalacion_de_extintores_portatiles] — para sistema contra-incendios",
+        "Consultar catálogo: [tabique_pladur_para_zona_de_bar_o_cafeteria] — para distribución de sala si se usa pladur"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cocina industrial (suministro e instalación)",
+          "oficio": "reforma_integral",
+          "motivo": "Equipamiento específico restaurante no detallado en catálogo base. Requiere especificación de marca, modelo y capacidad."
+        },
+        {
+          "concepto": "Extracción de humos cocina industrial",
+          "oficio": "climatizacion",
+          "motivo": "Sistema especializado de ventilación para cocina profesional. Requiere cálculo de caudal según normativa sanitaria."
+        },
+        {
+          "concepto": "Proyecto técnico reforma integral",
+          "oficio": "gestoria_tramites",
+          "motivo": "Obligatorio para cambio de uso y cumplimiento CTE. Requiere profesional colegiado."
+        },
+        {
+          "concepto": "Licencia urbanística cambio de uso",
+          "oficio": "gestoria_tramites",
+          "motivo": "Trámite administrativo obligatorio. Tiempo y coste variable según municipio."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "aplicacion_pintura_de_pizarra_o_pared_escritura",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3762,
+      "tokens_out": 3484
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

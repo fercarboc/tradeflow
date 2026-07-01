@@ -1,0 +1,198 @@
+{
+  "id": 9,
+  "oficio": "Fontanería",
+  "texto": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+  "http_status": 200,
+  "latency_ms": 23586,
+  "raw_response": {
+    "transcript": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "SUSTITUCIÓN CRÍTICA: Cambio de plomo por multicapa requiere vaciado completo de instalación",
+          "Obra incluye rozas: apertura, paso de tuberías y cierre (reparación, sellado, posible pintura)",
+          "Presupuesto estimado para piso 80m² según referencia: 8000-15000€ (mano de obra + materiales)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sustitución completa de red de agua. Oficio principal."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Apertura, reposición y cierre de rozas. Sellado y posible reparación de enfoscado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y retirada de tuberías de plomo",
+          "descripcion": "Desmontaje completo de red de distribución de agua con tuberías de plomo, desconexión de tomas y preparación para nueva instalación. Gestión de residuos peligrosos conforme normativa (plomo).",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de tuberías multicapa PEX y accesorios",
+          "descripcion": "Tubería multicapa PEX ø20, ø16 y ø10 mm (diámetros principales y ramales según plano). Incluye codos, tes, adaptadores, latiguillos de conexión, llaves de corte por estancia, colector de distribución si aplica. Cantidad estimada para 80m² con recorrido medio 150-180ml de tubería.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 170,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe presupuestar metros reales, diámetros y accesorios según plano o medición in situ. Referencia típica: 8-15€/ml completo con accesorios."
+        },
+        {
+          "concepto": "Instalación de red de tuberías multicapa PEX",
+          "descripcion": "Tendido de tuberías por rozas abiertas, conexión a puntos de consumo (cocina, baño, lavadero), instalación de colector de distribución con llaves de corte por zona, prueba de estanqueidad a presión, purgado y llenado del sistema.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 400,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Apertura de rozas en muros y tabiques",
+          "descripcion": "Apertura de rozas con radial y buril para paso de tubería multicapa. Profundidad 25-30mm, recorrido estimado 150-180ml distribuido en muros portantes y tabiques interiores del piso.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 170,
+          "precio_unitario": 8,
+          "total": 1360,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cierre y sellado de rozas",
+          "descripcion": "Reposición de rozas con mortero de cemento o yeso (según profundidad), alisado, masilla en imperfecciones, lijado y preparación para pintura. Incluye pequeño material (mortero, masilla, lija). Recorrido 150-180ml.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 170,
+          "precio_unitario": 10,
+          "total": 1700,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de material para sellado de rozas",
+          "descripcion": "Mortero de cemento o escayola, masilla de poliéster, lija varios granos, pequeño material de reposición.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible: el instalador estima según cantidad de rozas y profundidad. Referencia: 150-300€ para 80m²."
+        },
+        {
+          "concepto": "Gestion de residuos y limpieza de obra",
+          "descripcion": "Retirada de escombro de apertura de rozas, residuo de tuberías de plomo (gestión conforme normativa), limpieza general de polvo y escombro. Transporte a gestor autorizado de residuos peligrosos (plomo).",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 200,
+          "total": 200,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y puesta en servicio",
+          "descripcion": "Prueba de presión (4 bar, 10 minutos) de la red completa, detección de fugas, purgado de aire, llenado progresivo, ajuste de presión en colector y verificación de funcionamiento en todos los puntos de consumo.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 5560,
+        "iva_porcentaje": 21,
+        "iva": 1167.6,
+        "total": 6727.6
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo: [renovacion_de_instalacion_de_fontaneria_en_vivienda] como referencia de partidas obligatorias y estructura completa.",
+        "Precio alzado típico para renovación 80m²: 8000-15000€ (incluye mano obra + materiales). Este presupuesto estructura el trabajo; el instalador revisa precios reales de tuberías y valida cantidad exacta de metros tras medición in situ.",
+        "Si el piso incluye cocina o baño de obra: considerar grifería nueva, conexión de electrodomésticos, adaptación de saneamiento."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de tuberías multicapa PEX y accesorios",
+          "motivo": "Material específico a presupuestar según diámetros, cantidad real de metros y accesorios (colector, válvulas de corte, latiguillos). Origen: sugerida_ia, requiere_revision: true."
+        },
+        {
+          "concepto": "Suministro de material para sellado de rozas",
+          "motivo": "Material consumible (mortero, masilla, lija). Origen: sugerida_ia, requiere_revision: true."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "renovacion_de_instalacion_de_fontaneria_en_vivienda",
+      "acabado_con_microcemento_suelo_o_pared",
+      "sustitucion_termo_electrico",
+      "instalacion_solado_de_barro_ceramico_o_terracota"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

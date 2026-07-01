@@ -1,0 +1,215 @@
+{
+  "id": 296,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+  "http_status": 200,
+  "latency_ms": 23892,
+  "raw_response": {
+    "transcript": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra en exterior agrícola: verificar acceso maquinaria y condiciones climáticas",
+          "Canal de hormigón: evaluar estado actual (grietas, filtraciones, antigüedad)",
+          "Almacenamiento agua: confirmar volumen, profundidad y dimensiones exactas del canal",
+          "Impermeabilización: elegir sistema según uso (agua potable vs riego) y durabilidad requerida"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de estructura de hormigón para contención de agua. Oficio especializado en sistemas estancos."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación de superficie: limpieza, reparación de grietas y mortero de agarre para impermeabilizante."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de superficie canal hormigón",
+          "descripcion": "Vaciado, limpieza mecánica de algas, musgo y depósitos, eliminación de suciedad y materia orgánica. Preparación de superficie para impermeabilizante.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 del canal no especificada. Instalador debe medir superficie total (fondo + paredes laterales)."
+        },
+        {
+          "concepto": "Reparación de grietas y fisuras en hormigón",
+          "descripcion": "Sellado de grietas con mortero hidrofugo o resina epoxídica según profundidad. Incluye limpieza previa de grieta y aplicación de sellador flexible.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 15,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total de grietas no especificada. Requiere inspección previa del canal."
+        },
+        {
+          "concepto": "Imprimación consolidante y selladora",
+          "descripcion": "Aplicación de imprimación epoxídica o acrílica para consolidar hormigón poroso y mejorar adherencia del impermeabilizante. Incluye preparación y aplicación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación pendiente. Cantidad según m2 total del canal."
+        },
+        {
+          "concepto": "Aplicación de membrana impermeabilizante líquida o lámina",
+          "descripcion": "Impermeabilización de canal con sistema de poliurea proyectada, pintura impermeabilizante de poliuretano, o lámina EPDM/TPO según especificación. Incluye aplicación en fondo y paredes laterales con solapamiento en juntas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema impermeabilizante no especificado (poliurea, poliuretano, EPDM, TPO). Precio varía significativamente según tipo. Instalador debe elegir y cotizar."
+        },
+        {
+          "concepto": "Mano de obra aplicación impermeabilizante",
+          "descripcion": "Aplicación de sistema impermeabilizante en fondo y paredes del canal. Incluye preparación, aplicación uniforme, solapamientos y acabado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de impermeabilización. Cantidad según m2 total del canal (fondo + 2 laterales)."
+        },
+        {
+          "concepto": "Sellado de juntas y encuentros con silicona flexible",
+          "descripcion": "Sellado de juntas de dilatación, encuentros fondo-paredes y esquinas con silicona flexible de grado alimentario (si es agua potable) o industrial. Incluye limpieza, aplicación y alisado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total de juntas no especificada. Precio de silicona según tipo (alimentaria vs industrial)."
+        },
+        {
+          "concepto": "Mano de obra sellado de juntas",
+          "descripcion": "Aplicación de silicona en juntas, encuentros y esquinas del canal. Incluye preparación, aplicación uniforme y alisado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de juntas no especificada. Instalador debe medir encuentros fondo-paredes y esquinas."
+        },
+        {
+          "concepto": "Prueba de estanqueidad y llenado de prueba",
+          "descripcion": "Llenado parcial del canal para verificar ausencia de filtraciones. Inspección visual de toda la superficie impermeabilizada. Documentación de resultado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo. Puede variar según volumen de agua de prueba y tiempo de inspección."
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: dimensiones exactas del canal (largo, ancho, profundidad en metros)",
+        "Evaluar estado actual: fotografías de grietas, filtraciones, antigüedad del hormigón",
+        "Confirmar uso: agua potable (requiere silicona alimentaria), agua riego (industrial), agua residual (especificación diferente)",
+        "Elegir sistema impermeabilizante: poliurea proyectada (más durable, 15-20 años), poliuretano líquido (10-15 años), EPDM lámina (20-25 años), pintura impermeabilizante (5-8 años)",
+        "Verificar acceso: maquinaria, espacio de trabajo, condiciones climáticas (no aplicar bajo lluvia o temperaturas extremas)",
+        "Considerar drenaje: si hay filtraciones laterales, puede requerirse drenaje perimetral adicional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación de grietas y fisuras en hormigón",
+          "oficio": "impermeabilizacion",
+          "motivo": "Partida específica para canal agrícola. No existe en catálogo base pero es obligatoria en preparación de superficie."
+        },
+        {
+          "concepto": "Aplicación de membrana impermeabilizante líquida o lámina",
+          "oficio": "impermeabilizacion",
+          "motivo": "Sistema impermeabilizante para canal de almacenamiento. Requiere especificación de tipo (poliurea, EPDM, TPO, poliuretano)."
+        },
+        {
+          "concepto": "Prueba de estanqueidad y llenado de prueba",
+          "oficio": "impermeabilizacion",
+          "motivo": "Servicio de verificación obligatorio en obras de impermeabilización de depósitos de agua."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_canaleta_de_recogida_agua_toldo_o_cubierta",
+      "instalacion_de_canaleta_de_drenaje_lineal",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3827,
+      "tokens_out": 3149
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 8,
+    "n_catalogo": 0,
+    "n_sugeridas": 8,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "id": 296,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+  "http_status": 200,
+  "latency_ms": 21977,
+  "raw_response": {
+    "transcript": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo en espacio abierto agrícola: verificar acceso maquinaria y condiciones climáticas",
+          "Canal de hormigón existente: requiere inspección previa de estado estructural",
+          "Almacenamiento de agua: cumplir normativa de calidad y salubridad si es para consumo",
+          "Dimensiones del canal no especificadas: presupuesto orientativo, requiere medición in situ"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de estructura de hormigón para contención de agua. Oficio prioritario según reglas de impermeabilización."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Preparación de superficie, reparación de grietas y fisuras en hormigón previas a impermeabilización."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza, vaciado y preparación del canal",
+          "descripcion": "Vaciado de agua residual, limpieza de sedimentos, algas y materia orgánica. Cepillado mecánico de superficie de hormigón. Reparación de grietas y fisuras con mortero de reparación estructural.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 de superficie a preparar no especificada. Instalador debe medir longitud × ancho del canal. Tarifa estimada 25-35€/m2 según complejidad de limpieza y reparación."
+        },
+        {
+          "concepto": "Imprimación consolidante y sellador de poros",
+          "descripcion": "Aplicación de imprimación epoxídica o acrílica consolidante para sellar poros del hormigón y mejorar adherencia de impermeabilizante. Cobertura: 1-2 manos según porosidad.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente. Rendimiento típico 0.5-1 L/m2. Instalador especifica producto y cantidad total en litros."
+        },
+        {
+          "concepto": "Impermeabilización con mortero hidrofugo o lámina elastomérica",
+          "descripcion": "Aplicación de mortero hidrofugo cementoso de 3-5 cm de espesor O lámina elastomérica (EPDM/TPO/PVC) de 1-2 mm adherida. Opción según presupuesto y durabilidad requerida. Incluye solapamientos y sellado de juntas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente según opción elegida (mortero hidrofugo 30-60€/m2 O lámina 15-40€/m2). Instalador especifica producto, espesor y cantidad total."
+        },
+        {
+          "concepto": "Aplicación de impermeabilizante (mano de obra)",
+          "descripcion": "Mano de obra para aplicación de mortero hidrofugo (proyección o extendido) o colocación de lámina elastomérica con solapamientos y sellado de juntas perimetrales y de dilatación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 no especificada. Instalador mide superficie total del canal (paredes + fondo). Tarifa: 45€/m2 recomendado para impermeabilización."
+        },
+        {
+          "concepto": "Sellado de juntas de dilatación y perimetrales",
+          "descripcion": "Sellado con silicona flexible de alta elasticidad o poliuretano en juntas de dilatación del hormigón, encuentro con muros perimetrales y zonas de paso de tuberías. Incluye limpieza previa y aplicación con pistola.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente. Rendimiento típico 1 cartucho (600 ml) por 10-15 ml de junta. Instalador mide perímetro y juntas internas."
+        },
+        {
+          "concepto": "Prueba de estanqueidad y ajustes finales",
+          "descripcion": "Llenado parcial del canal con agua para verificar ausencia de filtraciones. Inspección visual y táctil. Reparación puntual de fugas detectadas con mortero de taponamiento rápido o sellador adicional.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al instalador: longitud total del canal (m), ancho (m), profundidad (m), estado actual (grietas, filtraciones activas).",
+        "Especificar opción de impermeabilización: mortero hidrofugo cementoso (más económico, requiere mantenimiento) O lámina elastomérica (más durable, 20-30 años).",
+        "Incluir análisis de agua si es para consumo humano o ganadería: requiere certificación de potabilidad.",
+        "Considerar drenaje perimetral si hay riesgo de filtraciones desde terreno circundante.",
+        "Presupuesto orientativo INCOMPLETO: falta cuantificación de m2 de superficie. Una vez medido, recalcular con: (m2_superficie × 45€/m2_mano_obra) + (m2_superficie × precio_material_elegido) + (ml_juntas × precio_sellado)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Impermeabilización de canal de hormigón agrícola",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Trabajo específico de impermeabilización de estructura de contención de agua en finca agrícola. Requiere especificación de método (mortero vs. lámina) y mediciones precisas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_canaleta_de_recogida_agua_toldo_o_cubierta",
+      "instalacion_de_canaleta_de_drenaje_lineal",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3679,
+      "tokens_out": 2745
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

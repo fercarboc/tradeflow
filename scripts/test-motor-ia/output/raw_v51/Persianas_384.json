@@ -1,0 +1,167 @@
+{
+  "id": 384,
+  "oficio": "Persianas",
+  "texto": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+  "http_status": 200,
+  "latency_ms": 14893,
+  "raw_response": {
+    "transcript": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar in situ medidas exactas y tipo de soporte (pared, techo, vigas)",
+          "Confirmar acceso a electricidad para motorización",
+          "Revisar normativa municipal para instalación en terraza de negocio"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de toldos motorizados con sistemas de control"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro toldos motorizados 3x2m con cofre embellecedor",
+          "descripcion": "4 unidades de toldo motorizado de 3x2 metros, mecanismo motor incluido, cofre embellecedor de aluminio, tela acrílica tratada UV",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del toldo motorizado con cofre debe confirmar instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Instalación toldos motorizados con cofre",
+          "descripcion": "Instalación de 4 toldos motorizados 3x2m: fijación a soporte, nivelación, alineación, comprobación de motorización, conexión eléctrica del mecanismo motor (sin incluir acometida desde cuadro)",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y conexionado motorización toldos",
+          "descripcion": "Cableado eléctrico de baja sección para conexión de motores de los 4 toldos a cuadro existente o punto de toma de corriente (sin incluir instalación de nuevo circuito desde cuadro)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cableado (ml) a confirmar según distancia desde toma de corriente a cada toldo"
+        },
+        {
+          "concepto": "Accesorios de fijación y pequeño material",
+          "descripcion": "Tornillería inox, tacos especiales según tipo de soporte (pared/techo/viga), silicona, llave de tuercas, arandelas, material de nivelación",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de accesorios a presupuestar según tipo de soporte detectado in situ"
+        },
+        {
+          "concepto": "Control remoto inalámbrico para motores",
+          "descripcion": "Suministro e instalación de sistema de control remoto centralizado para los 4 motores de los toldos",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del sistema de control remoto a confirmar (marcas disponibles y compatibilidad con motores)"
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Pruebas de motorización, movimiento suave, sincronización de los 4 toldos, verificación de finales de carrera, ajuste de parámetros",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 810,
+        "iva_porcentaje": 21,
+        "iva": 170.1,
+        "total": 980.1
+      },
+      "sugerencias_catalogo": [
+        "Si los toldos requieren circuito eléctrico independiente desde cuadro general, solicitar presupuesto a electricidad",
+        "Confirmar si la motorización es con receptor integrado o requiere receptor externo",
+        "Verificar si se necesita certificado de instalación eléctrica (según normativa local)",
+        "Considerar mantenimiento anual: limpieza de tela y engrase de mecanismos (no incluido)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro toldos motorizados 3x2m con cofre embellecedor",
+          "razon": "Material específico con motorización integrada, no contemplado en Base Maestra con precisión de cofre embellecedor",
+          "sugerencia": "Precio orientativo toldo motorizado 3x2m con cofre: 250-450€/ud"
+        },
+        {
+          "concepto": "Cableado y conexionado motorización toldos",
+          "razon": "Específico para acometida eléctrica de múltiples motores",
+          "sugerencia": "Precio orientativo cableado motorización: 15-25€/ml"
+        },
+        {
+          "concepto": "Control remoto inalámbrico para motores",
+          "razon": "Sistema de control centralizado, depende de compatibilidad y marca",
+          "sugerencia": "Precio orientativo control remoto centralizado: 50-150€/ud"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_lampara_parasol_o_sombrilla_de_brazo",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

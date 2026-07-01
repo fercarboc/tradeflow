@@ -1,0 +1,144 @@
+{
+  "id": 383,
+  "oficio": "Persianas",
+  "texto": "Cambio de cinta de persiana rota en dormitorio, enroscador estropeado, se queda arriba",
+  "http_status": 200,
+  "latency_ms": 11000,
+  "raw_response": {
+    "transcript": "Cambio de cinta de persiana rota en dormitorio, enroscador estropeado, se queda arriba",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de cinta de persiana rota en dormitorio, enroscador estropeado, se queda arriba",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar ancho de cinta existente (18, 23 o 26 mm) antes de comprar material",
+          "Inspeccionar estado de guías y lamas durante la intervención",
+          "Comprobar funcionamiento completo tras cambio de cinta y recogedor"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de persiana enrollable: cambio de cinta rota y recogedor (enroscador) deteriorado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cinta enrolladora persiana dormitorio",
+          "descripcion": "Suministro de cinta de persiana nueva (ancho a determinar: 18, 23 o 26 mm según recogedor existente)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado según ancho de cinta y longitud. Instalador debe verificar medida exacta"
+        },
+        {
+          "concepto": "Recogedor (enroscador) persiana",
+          "descripcion": "Suministro de recogedor/enroscador nuevo con muelle para persiana enrollable",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado según compatibilidad con sistema existente"
+        },
+        {
+          "concepto": "Desmontaje y cambio de cinta y recogedor",
+          "descripcion": "Desmontaje de cinta rota, extracción de recogedor deteriorado, instalación de cinta nueva, montaje de recogedor nuevo, ajuste de tensión y pruebas de funcionamiento",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, arandelas, lubricante y otros accesorios necesarios para la reparación",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 5-15€ según necesidades de la reparación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 67.5,
+        "iva_porcentaje": 21,
+        "iva": 14.18,
+        "total": 81.68
+      },
+      "sugerencias_catalogo": [
+        "Antes de la intervención, medir el ancho de la cinta existente (18, 23 o 26 mm) para comprar la correcta",
+        "Inspeccionar guías laterales y lamas durante el trabajo; si están dañadas, incluir reparación adicional",
+        "Verificar que el recogedor nuevo sea compatible con el sistema de enrollado existente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cinta enrolladora persiana dormitorio",
+          "oficio": "persianas",
+          "motivo": "Material específico cuyo precio depende de ancho y longitud exacta"
+        },
+        {
+          "concepto": "Recogedor (enroscador) persiana",
+          "oficio": "persianas",
+          "motivo": "Componente de reemplazo cuyo precio varía según modelo y compatibilidad"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "persianas",
+          "motivo": "Tornillería y accesorios menores de reparación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cinta_enrolladora_persiana",
+      "reparacion_de_persiana_manual_atascada_o_rota",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "reparacion_o_cambio_guias_persiana"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3551,
+      "tokens_out": 1403
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

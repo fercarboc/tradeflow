@@ -1,0 +1,150 @@
+{
+  "id": 390,
+  "oficio": "Persianas",
+  "texto": "Reparar persiana de lama que no sube bien, motor atascado, revisión y engrase de guías",
+  "http_status": 200,
+  "latency_ms": 20434,
+  "raw_response": {
+    "transcript": "Reparar persiana de lama que no sube bien, motor atascado, revisión y engrase de guías",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar persiana de lama que no sube bien, motor atascado, revisión y engrase de guías",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diagnóstico de motor atascado requiere verificación in situ del par motor y estado mecánico",
+          "Engrase de guías: confirmar tipo de lubricante compatible con aluminio/PVC"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Reparación de persiana motorizada: diagnóstico, limpieza, engrase y ajuste mecánico"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y desmontaje de persiana motorizada",
+          "descripcion": "Inspección completa del motor, mecanismo de enrollado, guías y lamas. Identificación de causa del atasco. Desmontaje parcial si es necesario.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y engrase de guías y mecanismo de enrollado",
+          "descripcion": "Limpieza profunda de guías laterales, tubo enrollador y mecanismo de transmisión. Aplicación de lubricante específico para persianas (silicona o PTFE). Eliminación de óxido y residuos.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lubricante y pequeño material (limpieza y engrase)",
+          "descripcion": "Lubricante PTFE/silicona para guías, trapos, desengrasante, pequeño material de consumo",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar tipo y cantidad de lubricante + pequeño material consumible (estimado 15-30€)"
+        },
+        {
+          "concepto": "Ajuste y prueba de funcionamiento del motor",
+          "descripcion": "Reajuste de finales de carrera si es necesario. Prueba de subida/bajada completa. Verificación de velocidad y ausencia de ruidos anómalos. Ajuste de tensión de lamas si procede.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Posible sustitución de piezas desgastadas (si se detectan)",
+          "descripcion": "En caso de que el diagnóstico revele desgaste en rodillos, cojinetes, muelle de recogedor o cable de transmisión, se presupuestará por separado tras inspección",
+          "oficio": "persianas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto condicionado a diagnóstico. Si se requiere cambio de motor (100-550€), rodillos (30-80€) o cable (40-120€), se añadirá partida específica"
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Si tras el diagnóstico se detecta motor atascado irreparable, consultar partida [reparacion_o_cambio_de_motor_persiana_averiado] para sustitución completa",
+        "Si el problema es cinta enrolladora rota o desgastada, consultar [reparacion_cinta_enrolladora_persiana]",
+        "Confirmar con cliente si desea presupuesto cerrado (diagnóstico + reparación básica) o presupuesto abierto (diagnóstico + reparaciones adicionales según hallazgos)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lubricante y pequeño material (limpieza y engrase)",
+          "motivo": "Material consumible específico para persianas, precio variable según marca y cantidad"
+        },
+        {
+          "concepto": "Posible sustitución de piezas desgastadas (si se detectan)",
+          "motivo": "Partida condicionada a diagnóstico in situ; permite presupuesto abierto sin sorpresas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_cambio_de_motor_persiana_averiado",
+      "reparacion_de_persiana_motorizada_averiada",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reparacion_cinta_enrolladora_persiana",
+      "reparacion_puerta_garaje_averiada"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3509,
+      "tokens_out": 1904
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

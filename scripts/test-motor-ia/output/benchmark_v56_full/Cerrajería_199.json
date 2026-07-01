@@ -1,0 +1,213 @@
+{
+  "id": 199,
+  "oficio": "Cerrajería",
+  "texto": "Instalar barras antipánico en puertas de emergencia de local con aforo de 100 personas",
+  "http_status": 200,
+  "latency_ms": 29909,
+  "raw_response": {
+    "transcript": "Instalar barras antipánico en puertas de emergencia de local con aforo de 100 personas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar barras antipánico en puertas de emergencia de local con aforo de 100 personas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: No se especifica número exacto de puertas de emergencia. Se asume mínimo 2 puertas (normativa CTE DB-SI para aforo 100). Instalador debe confirmar cantidad real.",
+          "CRÍTICO: No se especifica ancho de puertas. Precio varía significativamente (90-900€/ud). Se presupuesta rango medio.",
+          "CRÍTICO: No se especifica si puertas son cortafuego (RF) o estándar. Afecta a precio y compatibilidad herraje.",
+          "RECOMENDACIÓN: Incluir señalización de emergencia (salida, recorrido evacuación) como partidas complementarias obligatorias por CTE DB-SI.",
+          "RECOMENDACIÓN: Verificar si local requiere Plan de Autoprotección (RD 393/2007) según actividad y aforo."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de barras antipánico en puertas de emergencia. Normativa UNE EN 1125 (barra antipánico) o UNE EN 179 (manilla antipánico). Requiere ajuste, regulación y coordinación con cierrapuertas."
+        },
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Señalización de emergencia (salida, recorrido evacuación) y coordinación con sistema de protección contra incendios del local."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Barra antipánico UNE EN 1125 instalación",
+          "descripcion": "Suministro e instalación de barra antipánico certificada UNE EN 1125 en puerta de emergencia. Incluye: barra antipánico según ancho de puerta (estándar 800-1200mm), herraje de fijación, regulación y ajuste, pequeño material (tornillería, tacos, etc.). Se presupuesta para 2 puertas de emergencia (mínimo normativo CTE DB-SI para aforo 100). Precio unitario pendiente de confirmación según ancho exacto y tipo puerta (cortafuego o estándar).",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de: (1) ancho exacto puerta (90-900€/ud rango catálogo), (2) tipo puerta (cortafuego RF vs estándar), (3) material puerta (madera, acero, aluminio). Instalador debe confirmar especificaciones técnicas y cotizar con proveedor."
+        },
+        {
+          "concepto": "Instalación barra antipánico - mano de obra",
+          "descripcion": "Mano de obra para instalación de barra antipánico: desmontaje de herraje existente (si aplica), taladrado y fijación de barra, regulación de cierre y apertura, ajuste de tolerancias, pruebas de funcionamiento. 2 puertas × 2 horas/puerta = 4 horas.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cierrapuertas coordinado con barra antipánico",
+          "descripcion": "Suministro e instalación de cierrapuertas hidráulico coordinado con barra antipánico. Garantiza cierre controlado de puerta tras apertura por barra antipánico. Incluye: cierrapuertas certificado, brazo de cierre, regulación de velocidad, pequeño material. Cantidad: 2 unidades (una por puerta).",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo cierrapuertas (hidráulico estándar 150-400€, con retardo 200-500€). Instalador debe cotizar según especificaciones técnicas."
+        },
+        {
+          "concepto": "Instalación cierrapuertas - mano de obra",
+          "descripcion": "Mano de obra para instalación de cierrapuertas: montaje en marco y hoja, regulación de velocidad de cierre y apertura, ajuste de fuerza de cierre, pruebas de funcionamiento. 2 puertas × 1.5 horas/puerta = 3 horas.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Señalización de emergencia - salida y recorrido evacuación",
+          "descripcion": "Suministro e instalación de señalización normalizada fotoluminiscente según CTE DB-SI: (1) señal 'SALIDA' en puertas de emergencia (2 ud), (2) señalización de recorrido de evacuación (flechas direccionales, mínimo 4 ud), (3) señalización de ubicación de equipos de protección (extintores, BIE si existen). Material: placas fotoluminiscentes certificadas UNE 23035, soportes, pequeño material. Total: 6-8 señales según configuración local.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo señal (fotoluminiscente 20-80€/ud, con iluminación LED 100-300€/ud). Instalador debe confirmar cantidad exacta según plano de evacuación del local."
+        },
+        {
+          "concepto": "Instalación señalización de emergencia - mano de obra",
+          "descripcion": "Mano de obra para instalación de señalización: localización de puntos según CTE DB-SI, taladrado y fijación de soportes, colocación de placas, verificación de visibilidad y legibilidad. 8 señales × 0.5 horas/señal = 4 horas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 55,
+          "total": 220,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plano de evacuación y plan de autoprotección básico",
+          "descripcion": "Elaboración e instalación de plano de evacuación por planta (formato A3 mínimo, normalizado según CTE DB-SI) con indicación de: puertas de emergencia, recorridos de evacuación, ubicación de equipos de protección (extintores, BIE, pulsadores), puntos de encuentro. Incluye: diseño técnico, impresión en material resistente, marco de protección, pequeño material. Precio alzado para local de aforo 100 (1-2 plantas estimadas).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según complejidad: local simple 300-600€, local con múltiples zonas 600-1200€. Instalador debe confirmar si es obligatorio Plan de Autoprotección técnico (RD 393/2007) según actividad del local."
+        }
+      ],
+      "calculos": {
+        "subtotal": 640,
+        "iva_porcentaje": 21,
+        "iva": 134.4,
+        "total": 774.4
+      },
+      "sugerencias_catalogo": [
+        "CONFIRMACIÓN URGENTE: ¿Cuántas puertas de emergencia exactas tiene el local? (Se presupuesta 2, mínimo normativo CTE DB-SI para aforo 100, pero puede haber más).",
+        "CONFIRMACIÓN URGENTE: ¿Ancho exacto de cada puerta? (Rango 800-1200mm estándar, afecta precio barra antipánico 90-900€/ud).",
+        "CONFIRMACIÓN: ¿Puertas son cortafuego (RF-30, RF-60, RF-90) o estándar? (Afecta compatibilidad herraje y precio).",
+        "CONFIRMACIÓN: ¿Existen puertas de emergencia ya instaladas o se deben instalar nuevas? (Presupuesto asume instalación en puertas existentes).",
+        "RECOMENDACIÓN: Incluir extintores portátiles (mínimo 1 cada 15m recorrido o cada 300m² según CTE DB-SI) como partida complementaria.",
+        "RECOMENDACIÓN: Verificar si local requiere BIE (Boca de Incendio Equipada) según actividad y aforo.",
+        "RECOMENDACIÓN: Incluir formación de personal en procedimiento de evacuación (opcional pero recomendado).",
+        "RECOMENDACIÓN: Realizar simulacro de evacuación tras instalación para validar eficacia del sistema."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Barra antipánico UNE EN 1125",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Elemento específico de seguridad en puertas de emergencia. Catálogo proporciona rango 90-900€/ud pero requiere especificación exacta de ancho y tipo puerta."
+        },
+        {
+          "concepto": "Cierrapuertas coordinado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Complemento obligatorio de barra antipánico para garantizar cierre controlado. Precio variable según tipo (hidráulico, con retardo, etc.)."
+        },
+        {
+          "concepto": "Señalización fotoluminiscente de emergencia",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "motivo": "Obligatoria por CTE DB-SI. Precio variable según tipo (fotoluminiscente pasiva vs. LED activa)."
+        },
+        {
+          "concepto": "Plano de evacuación normalizado",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "motivo": "Obligatorio por CTE DB-SI. Precio alzado según complejidad del local."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_luminarias_de_emergencia_antipanico",
+      "instalacion_de_barra_antipánico",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_plan_de_autoproteccion_y_señalizacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "max_tokens",
+      "tokens_in": 4057,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

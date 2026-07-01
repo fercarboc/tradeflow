@@ -1,0 +1,168 @@
+{
+  "id": 69,
+  "oficio": "Pintura",
+  "texto": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+  "http_status": 200,
+  "latency_ms": 13542,
+  "raw_response": {
+    "transcript": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Efecto estucoveneciano requiere técnica especializada y materiales de calidad superior",
+          "Se recomienda muestra previa en rincón o papel antes de aplicar en toda la pared"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura decorativa con efecto estucoveneciano - técnica especializada de pintura"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Imprimación fijadora base pared",
+          "descripcion": "Imprimación acrílica fijadora para preparación de superficie antes de aplicar efecto estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado - instalador debe confirmar marca y precio"
+        },
+        {
+          "concepto": "Pintura decorativa efecto estucoveneciano",
+          "descripcion": "Pintura acrílica o mineral con efecto estucoveneciano (imitación mármol/piedra pulida). Aplicación en 2-3 capas con técnica de alisado y bruñido",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado de calidad superior - precio variable según marca (Keim, Caparol, Luxens, etc.)"
+        },
+        {
+          "concepto": "Sellador/Protector final estucoveneciano",
+          "descripcion": "Barniz o sellador poliuretano/acrílico para protección y acabado brillante del efecto estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Producto de acabado especializado - precio según especificación"
+        },
+        {
+          "concepto": "Preparación y limpieza de superficie",
+          "descripcion": "Limpieza, lijado fino (grano 150-220) y masillado de imperfecciones en pared de 12 m2",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aplicación efecto estucoveneciano (2-3 capas + bruñido)",
+          "descripcion": "Aplicación técnica de pintura decorativa estucoveneciano con llana metálica, alisado y bruñido para conseguir efecto mármol/piedra pulida en pared 4x3m",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 32,
+          "total": 192,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas (cinta, esponjas, pinceles, llanas)",
+          "descripcion": "Cinta carrocero, esponjas, pinceles especiales, llana metálica, rodillos y pequeño material consumible para aplicación",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material - instalador debe presupuestar según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 256,
+        "iva_porcentaje": 21,
+        "iva": 53.76,
+        "total": 309.76
+      },
+      "sugerencias_catalogo": [
+        "Verificar disponibilidad de pintura estucoveneciano en catálogo de proveedores habituales (Keim, Caparol, Luxens, Bruguer)",
+        "Considerar realizar muestra previa en rincón o papel para aprobación del cliente antes de aplicar en toda la pared",
+        "Tiempo de secado entre capas: 24-48h según producto - planificar cronograma"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura decorativa efecto estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Técnica especializada de pintura decorativa - no es pintura estándar ni efecto textura simple"
+        },
+        {
+          "concepto": "Sellador/Protector final estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Acabado protector específico para estucoveneciano"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_decorativa_efecto_oxido_o_industrial",
+      "pintura_decorativa_efecto_tela_o_textura",
+      "pintado_paredes_con_efecto_delave_o_degradado",
+      "pintura_y_acabado_paredes_de_pladur_nuevo",
+      "acabado_con_microcemento_suelo_o_pared"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3699,
+      "tokens_out": 1757
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

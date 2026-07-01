@@ -1,0 +1,332 @@
+{
+  "id": 372,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de baño de minusválidos para adecuación a normativa, ducha nivel suelo y barra de apoyo",
+  "http_status": 200,
+  "latency_ms": 27257,
+  "raw_response": {
+    "transcript": "Reforma de baño de minusválidos para adecuación a normativa, ducha nivel suelo y barra de apoyo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de baño de minusválidos para adecuación a normativa, ducha nivel suelo y barra de apoyo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Baño minusválidos: debe cumplir normativa de accesibilidad (CTE DB SUA, UNE 170001)",
+          "Ducha a nivel suelo requiere impermeabilización completa y pendiente de desagüe",
+          "Barras de apoyo necesitan anclaje en estructura resistente (verificar si hay trasdosado de madera o aluminio)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Desmontaje de ducha existente, preparación de soporte, creación de pendiente desagüe"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 70
+          },
+          "motivo": "Impermeabilización de plato ducha nivel suelo, juntas y muros adyacentes"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Desagüe y canaletas ducha a nivel suelo, conexiones hidráulicas"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación barras de apoyo acero inoxidable, anclajes estructurales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje plato ducha existente y cerco",
+          "descripcion": "Retirada completa de ducha existente, grifo, tuberías, rejillas y estructuras auxiliares",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación y nivelación de soporte para ducha nivel suelo",
+          "descripcion": "Limpieza, regularización de hormigón existente, creación de pendiente mínima 2% hacia desagüe, aplicación de imprimación adherente",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero autonivelante para nivelación (suministro)",
+          "descripcion": "Mortero autonivelante 5-50mm, según espesor final requerido para crear pendiente desagüe ducha",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible: instalador añade presupuesto proveedor (típico 15-35€/m2)"
+        },
+        {
+          "concepto": "Impermeabilización plato ducha nivel suelo (pintura + silicona)",
+          "descripcion": "Aplicación pintura impermeabilizante 2 capas + silicona neutra fungicida en junta perímetro, conforme CTE DB HS 1",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 55,
+          "total": 165,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura impermeabilizante para ducha (suministro)",
+          "descripcion": "Pintura epoxi o poliuretano impermeabilizante, 2 capas, 3 m2",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible: típico 20-40€/m2"
+        },
+        {
+          "concepto": "Silicona neutra fungicida junta perímetro ducha (suministro)",
+          "descripcion": "Silicona flexible resistente a hongos para junta pared-suelo, ~10 ml",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: típico 2-5€/ml"
+        },
+        {
+          "concepto": "Instalación desagüe y canaleta ducha nivel suelo",
+          "descripcion": "Conexión tubería desagüe, instalación sifón, canaleta perimetral si necesario, pendiente hacia sifón",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sifón y accesorios desagüe ducha (suministro)",
+          "descripcion": "Sifón DN50 cromado, codos, tubería PVC, rejilla inoxidable",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: típico 40-80€/ud"
+        },
+        {
+          "concepto": "Instalación grifo/monomando ducha accesibilidad",
+          "descripcion": "Grifo monomando empotrado o sobrepuesto, acero inoxidable, diseño accesible para minusválidos (manillar largo)",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo/monomando ducha accesible (suministro)",
+          "descripcion": "Monomando ducha acero inoxidable AISI 316 con manillar ergonómico, ACS",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: típico 80-150€/ud"
+        },
+        {
+          "concepto": "Instalación barras apoyo acero inoxidable AISI 316",
+          "descripcion": "Colocación 2 barras horizontales (pared fondo + lateral), Ø 32mm, anclaje en estructura con tacos expansión o soldadura, conforme UNE 170001-1",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barras de apoyo acero inoxidable (suministro)",
+          "descripcion": "2 barras horizontales 70-80cm, Ø 32mm, acero inoxidable AISI 316, soportes cromados, anclajes tacos expansión M10",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: típico 50-120€/ud barra"
+        },
+        {
+          "concepto": "Prueba funcional y sellado final ducha",
+          "descripcion": "Prueba de desagüe sin fugas, verificación impermeabilización, prueba grifo, limpieza y protección obra",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión normativa accesibilidad (informe CTE DB SUA + UNE 170001)",
+          "descripcion": "Inspección final, mediciones de alturas, espacios libres, pendientes, anclajes barras, redacción informe conformidad normativa",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 38,
+          "total": 57,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1307,
+        "iva_porcentaje": 21,
+        "iva": 274.47,
+        "total": 1581.47
+      },
+      "sugerencias_catalogo": [
+        "Considerar piso antideslizante o pintura epoxi con árido antideslizante en plato ducha (CTE DB SUA exige μ ≥ 0.40)",
+        "Si estructura es de madera, reforzar anclaje barras con trasdosado aluminio Ø 50mm para garantizar carga mínima 1.5 kN por barra",
+        "Altura instalación grifo: 90-100cm, barras inferiores 60-70cm, superior 75-85cm (conforme UNE 170001-1:2009)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero autonivelante para nivelación",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "razon": "Material consumible, precio variable según espesor y marca"
+        },
+        {
+          "concepto": "Pintura impermeabilizante para ducha",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "razon": "Material consumible epoxi/poliuretano"
+        },
+        {
+          "concepto": "Silicona neutra fungicida junta perímetro",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "razon": "Material consumible"
+        },
+        {
+          "concepto": "Sifón y accesorios desagüe ducha",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "razon": "Material sanitario, variable según especificación"
+        },
+        {
+          "concepto": "Grifo/monomando ducha accesible",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "razon": "Material sanitario acero inoxidable, precio variable marca/modelo"
+        },
+        {
+          "concepto": "Barras de apoyo acero inoxidable",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "razon": "Material estructural, precio variable según longitud/acabado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "regularizacion_y_nivelacion_de_soporte",
+      "regularizacion_y_nivelacion_soporte_para_pavimento",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "impermeabilizacion_junta_suelo_pared_en_ducha_o_bano",
+      "diagnostico_y_presupuesto_suelos_y_alicatados"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 14,
+    "n_catalogo": 8,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

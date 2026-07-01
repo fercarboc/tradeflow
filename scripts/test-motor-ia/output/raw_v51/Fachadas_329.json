@@ -1,0 +1,270 @@
+{
+  "id": 329,
+  "oficio": "Fachadas",
+  "texto": "Reforma de fachada de chalet con piedra natural laminada, zona de 50 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 26798,
+  "raw_response": {
+    "transcript": "Reforma de fachada de chalet con piedra natural laminada, zona de 50 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de fachada de chalet con piedra natural laminada, zona de 50 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume sistema de anclaje mecánico obligatorio en fachada (peso y viento)",
+          "Se recomienda proyecto técnico si la altura supera 1 planta",
+          "Precios de materiales pendientes de revisión del instalador según proveedor y tipo de piedra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 75
+          },
+          "motivo": "Revestimiento de fachada con piedra natural laminada - oficio especializado en fachadas"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Trabajos auxiliares: preparación de superficie, limpieza, pequeña obra civil"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de revestimiento anterior",
+          "descripcion": "Desmontaje cuidadoso del revestimiento existente (si lo hay), retirada de escombros y limpieza de fachada. Incluye etapas previas de seguridad.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 8,
+          "total": 400,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado según complejidad de desmontaje; ajustar según estado actual de fachada"
+        },
+        {
+          "concepto": "Limpieza y preparación de superficie",
+          "descripcion": "Limpieza profunda, eliminación de polvo, restos de mortero antiguo y aplicación de imprimación si es necesario. Nivelación de base.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 6,
+          "total": 300,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende del estado de la superficie existente"
+        },
+        {
+          "concepto": "Suministro de piedra natural laminada",
+          "descripcion": "Piedra natural laminada (espesor típico 20-30mm) según tipo y acabado especificado. Cantidad calculada para 50 m2 con merma del 5%.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 52.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sin_definir",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo de piedra (pizarra, granito, caliza, etc.) y proveedor. Instalador debe obtener cotización"
+        },
+        {
+          "concepto": "Mortero-cola adhesivo C2S2 blanco",
+          "descripcion": "Mortero-cola blanco para piedra natural, clase C2S2. Rendimiento aprox. 3-4 kg/m2 según espesor de llagas.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sin_definir",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según marca y disponibilidad; típicamente 0.3-0.5€/kg"
+        },
+        {
+          "concepto": "Anclajes mecánicos inoxidables (OBLIGATORIO)",
+          "descripcion": "Sistema de anclaje mecánico en acero inoxidable calculado para peso de piedra y cargas de viento. Incluye tornillería, tacos químicos si es necesario. Obligatorio en fachada para seguridad estructural.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sin_definir",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo según cálculo de cargas. Precio 8-25€/anclaje según especificación"
+        },
+        {
+          "concepto": "Instalación de piedra natural laminada con anclaje",
+          "descripcion": "Colocación de placas de piedra natural laminada, aplicación de mortero-cola, fijación de anclajes mecánicos, ajuste de planeidad y alineación.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 45,
+          "total": 2250,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Juntas de dilatación cada 3 metros (OBLIGATORIO)",
+          "descripcion": "Ejecución de juntas de dilatación horizontal y vertical cada 3 metros máximo para absorber movimientos térmicos. Material: poliestireno o caucho cerrado.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 70,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sin_definir",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y precio a definir; típicamente 2-5€/ml"
+        },
+        {
+          "concepto": "Mano de obra colocación de juntas de dilatación",
+          "descripcion": "Ejecución, limpieza y preparación de juntas de dilatación horizontal y vertical.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 70,
+          "precio_unitario": 12,
+          "total": 840,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado; ajustar según complejidad de acceso"
+        },
+        {
+          "concepto": "Sellado de juntas con silicona flexible",
+          "descripcion": "Sellado de todas las juntas horizontales y verticales con silicona flexible acrílica o poliuretánica de alta elasticidad para absorber movimientos.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 70,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sin_definir",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rendimiento aprox. 10ml/cartucho; precio cartucho 8-15€"
+        },
+        {
+          "concepto": "Mano de obra aplicación de silicona en juntas",
+          "descripcion": "Preparación de juntas, enmascaramiento, aplicación uniforme de silicona y limpieza de excedentes.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 70,
+          "precio_unitario": 5,
+          "total": 350,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada para trabajo de precisión"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler y montaje de andamio o plataforma de trabajo segura para la ejecución de la reforma. Incluye montaje, desmontaje y protecciones de seguridad.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sin_definir",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de altura real, acceso y duración obra; típicamente 150-300€/día alquiler"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Cintas de enmascarar, trapos, esponjas, herramientas manuales consumibles, material de seguridad personal.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 2,
+          "total": 100,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación estándar; puede variar según especificidades"
+        },
+        {
+          "concepto": "Proyecto técnico de instalación de fachada (si altura > 1 planta)",
+          "descripcion": "Elaboración de proyecto técnico con cálculo estructural de anclajes, cargas de viento, planos de detalle constructivo. RECOMENDADO si altura supera planta baja.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sin_definir",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional; si es obligatorio por normativa local, precio 300-800€. Contactar con técnico proyectista."
+        }
+      ],
+      "calculos": {
+        "subtotal": 4640,
+        "iva_porcentaje": 21,
+        "iva": 974.4,
+        "total": 5614.4
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo exacto de piedra natural laminada (pizarra, granito, caliza, etc.) para obtener cotización precisa de materiales",
+        "Medir altura real de fachada para determinar necesidad de proyecto técnico y andamio especializado",
+        "Solicitar al cliente información sobre estado actual de revestimiento (¿hay revestimiento previo a desmontar? ¿fachada sana?)",
+        "Calcular número exacto de anclajes según peso total de piedra y velocidad de viento de zona (normativa local)",
+        "Considerar si piedra es muy porosa → puede requerir hidrofugo adicional post-instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Desmontaje y retirada de revestimiento anterior",
+          "motivo": "Tarea preliminar estándar en reformas de fachada; no encontrada en catálogo, creada como sugerida_ia"
+        },
+        {
+          "nombre": "Proyecto técnico de instalación de fachada",
+          "motivo": "Servicio complementario que puede ser obligatorio según altura y normativa local"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_revestimiento_de_piedra_natural_en_fachada_con_anclaje",
+      "instalacion_fachada_ventilada_con_piedra_natural",
+      "instalacion_de_pavimento_de_grava_o_gravilla_decorativa",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "forrado_exterior_fachada_ventilada"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 13,
+    "n_catalogo": 0,
+    "n_sugeridas": 13,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

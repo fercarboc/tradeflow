@@ -1,0 +1,196 @@
+{
+  "id": 199,
+  "oficio": "Cerrajería",
+  "texto": "Instalar barras antipánico en puertas de emergencia de local con aforo de 100 personas",
+  "http_status": 200,
+  "latency_ms": 19745,
+  "raw_response": {
+    "transcript": "Instalar barras antipánico en puertas de emergencia de local con aforo de 100 personas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar barras antipánico en puertas de emergencia de local con aforo de 100 personas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: Se debe confirmar número exacto de puertas de emergencia a equipar",
+          "Se recomienda revisión normativa CTE DB-SI y UNE EN-1125/EN-179 según tipo de puerta",
+          "Incluir señalización de emergencia complementaria como partida separada",
+          "Local con aforo 100 personas probablemente requiere Plan de Autoprotección (RD 393/2007)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de barras antipánico en puertas de emergencia según normativa CTE DB-SI"
+        },
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 55,
+            "max": 70
+          },
+          "motivo": "Señalización de emergencia y coordinación normativa obligatoria"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Barras antipánico certificadas UNE EN-1125",
+          "descripcion": "Suministro de barras antipánico para puertas de emergencia, certificadas según normativa UNE EN-1125 (puertas que abren en sentido de evacuación), con mecanismo de liberación a presión, acabado inoxidable, incluyendo herrajes de fijación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de modelo, ancho de puerta y especificaciones técnicas. Rango estimado 200-450€/ud"
+        },
+        {
+          "concepto": "Instalación de barras antipánico en puertas de emergencia",
+          "descripcion": "Instalación, regulación y ajuste de barras antipánico en puertas de emergencia. Incluye montaje de herrajes, fijación a marco, prueba de funcionamiento y coordinación con sistema de cierre automático si existe",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cierrapuertas coordinado con barra antipánico",
+          "descripcion": "Suministro e instalación de cierrapuertas de muelle hidráulico regulable, coordinado con mecanismo antipánico para cierre suave y controlado. Incluye ajuste de velocidad y fuerza de cierre",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de grado de cierre y especificaciones. Rango estimado 80-250€/ud"
+        },
+        {
+          "concepto": "Señalización normalizada de emergencia y salida",
+          "descripcion": "Suministro e instalación de señalización fotoluminiscente según normativa (flechas de evacuación, puertas de emergencia, puntos de encuentro). Incluye carteles normalizados UNE EN-ISO 7010, adhesivos o fijados mecánicamente",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 35-100€/ud según tipo y tamaño. Se recomienda al menos 1 cartel por puerta"
+        },
+        {
+          "concepto": "Instalación de señalización de emergencia",
+          "descripcion": "Instalación y colocación de señalética de emergencia fotoluminiscente en ubicaciones estratégicas (puertas de emergencia, recorridos de evacuación). Incluye fijación segura y verificación de visibilidad",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herrajes",
+          "descripcion": "Tornilería, tacos, pasadores, lubricantes, material consumible para instalación de barras antipánico y complementos",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 25-50€. Incluye accesorios varios"
+        },
+        {
+          "concepto": "Prueba de funcionamiento y certificación de instalación",
+          "descripcion": "Verificación del correcto funcionamiento de barras antipánico, mecanismo de liberación, coordinación con cierrapuertas. Documento de cumplimiento normativo CTE DB-SI y REBT",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 355,
+        "iva_porcentaje": 21,
+        "iva": 74.55,
+        "total": 429.55
+      },
+      "sugerencias_catalogo": [
+        "NOTA IMPORTANTE: El subtotal mostrado solo incluye MANO DE OBRA y SERVICIOS certificados. Los materiales (barras antipánico, cierrapuertas, señalización) tienen precio_unitario=0 y requieren revisión del profesional.",
+        "Subtotal materiales estimado (referencia): Barras antipánico 2×300€ + Cierrapuertas 2×150€ + Señalización 2×60€ + Pequeño material 40€ ≈ 1.160€",
+        "SUBTOTAL TOTAL ESTIMADO (sin revisar): ≈ 1.515€ + IVA = 1.834€",
+        "Se recomienda solicitar presupuesto detallado de proveedores de cerrajería para materiales certificados"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Barras antipánico certificadas UNE EN-1125",
+          "oficio": "cerrajeria",
+          "tipo": "material",
+          "motivo": "Material específico según norma técnica, precio variable según especificaciones"
+        },
+        {
+          "concepto": "Cierrapuertas coordinado con barra antipánico",
+          "oficio": "cerrajeria",
+          "tipo": "material",
+          "motivo": "Accesorio obligatorio para funcionamiento seguro"
+        },
+        {
+          "concepto": "Señalización normalizada de emergencia y salida",
+          "oficio": "contra_incendios",
+          "tipo": "material",
+          "motivo": "Obligatorio según CTE DB-SI y normativa de emergencia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_luminarias_de_emergencia_antipanico",
+      "instalacion_de_barra_antipánico",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_plan_de_autoproteccion_y_señalizacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

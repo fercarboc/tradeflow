@@ -1,0 +1,209 @@
+{
+  "id": 35,
+  "oficio": "Electricidad",
+  "texto": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+  "http_status": 200,
+  "latency_ms": 18501,
+  "raw_response": {
+    "transcript": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo regulado por normativa eléctrica (REBT). Requiere electricista autorizado y coordinación con distribuidora.",
+          "Gestión de trámites con compañía eléctrica es servicio administrativo, no mano de obra técnica directa.",
+          "Precio de materiales (CGP y contador) debe ser confirmado por distribuidor autorizado.",
+          "Puede requerir corte de suministro y acta de conformidad de la compañía."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de caja general de protección y contador. Trabajo especializado en baja tensión."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Coordinación y gestión administrativa con compañía eléctrica distribuidora."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje caja general de protección y contador existentes",
+          "descripcion": "Desconexión segura, desmontaje de CGP y contador antiguo, retirada de cableado de acometida si procede, preparación de zona para nueva instalación.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro caja general de protección (CGP) nueva",
+          "descripcion": "Caja general de protección nueva según normativa REBT, capacidad y características según acometida (monofásica/trifásica). Incluye bornes de conexión y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio debe ser confirmado por distribuidor autorizado. Rango orientativo: 150-400€ según tipo (monofásica/trifásica)."
+        },
+        {
+          "concepto": "Suministro contador eléctrico nuevo",
+          "descripcion": "Contador eléctrico nuevo (monofásico o trifásico según acometida), homologado por distribuidora, con accesorios de conexión.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio debe ser confirmado por distribuidora. Rango orientativo: 80-250€ según tipo. Contador es propiedad de la compañía en muchos casos."
+        },
+        {
+          "concepto": "Instalación caja general de protección y contador",
+          "descripcion": "Montaje de CGP en ubicación reglamentaria, instalación de contador, conexión de bornes de entrada y salida, verificación de continuidad y aislamiento, pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado de acometida (si requiere sustitución)",
+          "descripcion": "Suministro e instalación de cable de acometida nueva (Cu o Al según normativa), desde CGP hasta punto de entrada en vivienda/local, incluyendo tubería de protección y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida condicional. Solo si se requiere cambio de acometida. Cantidad y precio a confirmar según longitud y sección (típicamente 10-50m, 6-16mm²). Rango: 3-8€/m material + 25€/h instalación."
+        },
+        {
+          "concepto": "Coordinación y gestión con compañía eléctrica distribuidora",
+          "descripcion": "Solicitud de autorización previa, coordinación de fecha de corte de suministro, presencia en obra durante cambio, obtención de acta de conformidad y puesta en servicio por parte de la distribuidora.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo. Rango orientativo: 150-300€ según complejidad y distribuidora. Algunas distribuidoras cobran tasas administrativas adicionales (50-150€)."
+        },
+        {
+          "concepto": "Certificado de instalación y acta de conformidad",
+          "descripcion": "Emisión de certificado de instalación conforme a REBT, acta de conformidad de la instalación, documentación para registro en distribuidora.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documentación técnica obligatoria. Rango: 50-150€ según electricista y complejidad."
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar con distribuidora eléctrica local si el contador es suministrado por ellos (en muchos casos es propiedad de la compañía y no se factura al cliente).",
+        "Confirmar si la acometida actual es suficiente o requiere ampliación de sección.",
+        "Solicitar presupuesto de tasas administrativas de la distribuidora por separado.",
+        "Considerar si se requiere cambio de ICP (Interruptor de Control de Potencia) además de CGP y contador."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro caja general de protección (CGP) nueva",
+          "oficio": "electricidad",
+          "motivo": "Material específico regulado por REBT, precio variable según tipo y distribuidora."
+        },
+        {
+          "concepto": "Suministro contador eléctrico nuevo",
+          "oficio": "electricidad",
+          "motivo": "Material homologado por distribuidora, precio y propiedad variable según compañía."
+        },
+        {
+          "concepto": "Cableado de acometida (si requiere sustitución)",
+          "oficio": "electricidad",
+          "motivo": "Partida condicional, solo si se requiere cambio de acometida."
+        },
+        {
+          "concepto": "Coordinación y gestión con compañía eléctrica distribuidora",
+          "oficio": "gestoria_tramites",
+          "motivo": "Servicio administrativo especializado en trámites con distribuidora."
+        },
+        {
+          "concepto": "Certificado de instalación y acta de conformidad",
+          "oficio": "electricidad",
+          "motivo": "Documentación técnica obligatoria conforme a REBT."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_armario_empotrado_nuevo",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "sustitucion_termo_electrico",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_inodoro"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3632,
+      "tokens_out": 2468
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

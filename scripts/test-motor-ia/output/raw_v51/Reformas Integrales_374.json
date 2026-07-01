@@ -1,0 +1,630 @@
+{
+  "id": 374,
+  "oficio": "Reformas Integrales",
+  "texto": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+  "http_status": 200,
+  "latency_ms": 56257,
+  "raw_response": {
+    "transcript": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de garaje a vivienda: requiere coordinación de múltiples oficios",
+          "Licencia municipal incluida: presupuesto de gestoría no incluido, requiere revisión",
+          "Instalaciones completas: electricidad, fontanería, climatización, deben cumplir CTE",
+          "Baño completo: incluye trabajo sanitario, fontanería y alicatado",
+          "Se asume demolición de elemento garaje (puerta, estructuras) sin especificar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición, preparación de paredes, soleras, tabiquería interior"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Nueva instalación eléctrica, cuadro, circuitos, iluminación, enchufes, toma de tierra"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación agua fría/caliente, desagüe baño, fontanería completa"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Calefacción y refrigeración de nuevo espacio"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Pintura acabada de interiores"
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Preparación solera, colocación suelo habitación"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 42
+          },
+          "motivo": "Techos, trasdosados, enfoscados según reforma"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puerta de acceso habitación, marco de puerta baño, puertas interiores"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": false,
+          "nuevo_oficio": true,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Licencia municipal incluida: nuevo oficio, requiere presupuesto de gestoría especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición puerta garaje y elementos asociados",
+          "descripcion": "Desmontaje y retirada puerta garaje (abatible/enrollable), marco, automatismo si existe, basura a vertedero",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Jornada estimada según tamaño puerta; instalador ajusta precio"
+        },
+        {
+          "concepto": "Preparación y limpieza solera garaje",
+          "descripcion": "Limpieza profunda, resane fisuras, nivelación para nueva solera si es necesario",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de estado actual solera y m² garaje"
+        },
+        {
+          "concepto": "Nueva solera hormigón o contrapiso",
+          "descripcion": "Encofrado, hormigón, nivelación, acabado para capa de suelo",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona m² garaje y especifica tipo suelo/solera"
+        },
+        {
+          "concepto": "Tabiquería interior: paredes divisorias",
+          "descripcion": "Construcción tabiques para separar espacio (dormitorio/baño), ladrillo+mortero+enfoscado, incluye puertas",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona m lineal de tabiquería y tipo construcción (ladrillo/pladur)"
+        },
+        {
+          "concepto": "Instalación eléctrica completa: cuadro y derivación",
+          "descripcion": "Nuevo cuadro de mando, protecciones, derivación desde acometida general, regulación CTE DB-SB",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere revisión si debe ampliarse contador general o es derivación"
+        },
+        {
+          "concepto": "Cableado eléctrico: circuitos iluminación y fuerza",
+          "descripcion": "Conductor 2.5mm² y 1.5mm², tubería protección, cajas de derivación, según esquema CTE",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona m lineales cableado y tipo conductor"
+        },
+        {
+          "concepto": "Instalación luminarias y enchufes habitación",
+          "descripcion": "Luminaria techo (3 puntos luz estimado), 8 enchufes 10/16A + 2 enchufes 3-pin tierra, cajas empotradas, instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación estándar; ajustar según número real de puntos luz y enchufes"
+        },
+        {
+          "concepto": "Instalación eléctrica baño: luminarias e interruptores",
+          "descripcion": "Luminaria espejo (aplique o empotrada IP65), toma tierra para electrodomésticos baño, interruptor diferencial en baño, instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Baño requiere circuito independiente y diferencial según CTE DB-SB"
+        },
+        {
+          "concepto": "Toma de tierra nueva o ampliación",
+          "descripcion": "Puesta a tierra del nuevo circuito, pica+cable desnudo, conexión cuadro, medida de resistencia",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Si existe TT general, puede reaprovecharse; si TN-S/IT, requiere ampliación"
+        },
+        {
+          "concepto": "Instalación fontanería: agua fría/caliente",
+          "descripcion": "Red agua fría PEX desde contador, distribución a baño, circulación retorno si es necesario, válvulas corte, instalación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona m lineales red PEX y punto derivación agua caliente"
+        },
+        {
+          "concepto": "Instalación ACS (agua caliente sanitaria)",
+          "descripcion": "Termo eléctrico 50L o conexión a caldera existente, tubería agua caliente PEX, válvula mezcla, termostato",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: ¿nuevo termo o integración a sistema existente?"
+        },
+        {
+          "concepto": "Instalación desagüe baño",
+          "descripcion": "Tubería PVC desagüe lavabo, inodoro, plato ducha, sifones, derivación a colector/bajante, pendientes correctas",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Verificar acceso a colectores/bajantes existentes"
+        },
+        {
+          "concepto": "Instalación sanitarios baño: lavabo, inodoro, plato ducha",
+          "descripcion": "Suministro e instalación: mueble baño con lavabo, inodoro, plato ducha 90x90cm, grifería, válvulas cierre, anclajes",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precios sanitarios varían; incluir grifería y válvulas en presupuesto"
+        },
+        {
+          "concepto": "Mano de obra instalación sanitarios",
+          "descripcion": "Instalación lavabo sobre mueble, inodoro, plato ducha, conexiones agua/desagüe, pruebas estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación jornada completa instalación 3 puntos sanitarios"
+        },
+        {
+          "concepto": "Ventilación baño: extracción aire",
+          "descripcion": "Extractor baño 100-150m³/h, conducto flexible/rígido, rejilla exterior, interruptor/humidostato",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar caudal según volumen baño y existencia conducto evacuación"
+        },
+        {
+          "concepto": "Mano de obra instalación ventilación baño",
+          "descripcion": "Instalación extractor, conducto, rejilla, conexión eléctrica, prueba funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Climatización habitación: radiador o split",
+          "descripcion": "Suministro radiador agua o unidad split aire-aire, según sistema calefacción existente",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Decidir: ¿radiador de agua existente, split aire-aire, o aerotermia?"
+        },
+        {
+          "concepto": "Mano de obra climatización habitación",
+          "descripcion": "Instalación radiador o split, conexiones tuberías/eléctricas, purgado, pruebas",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa según tipo equipo (radiador ~6h, split ~8h)"
+        },
+        {
+          "concepto": "Aislamiento térmico y acústico paredes",
+          "descripcion": "Lana mineral o poliestireno expandido en cámaras/trasdosados, espesor 4-6cm, CTE DB-HE",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona m² paredes a aislar y espesor requerido"
+        },
+        {
+          "concepto": "Colocación placas pladur y acabado",
+          "descripcion": "Instalación placas pladur sobre aislamiento, juntas, masilla, lijado, imprimación para pintura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona m² totales pladur a colocar"
+        },
+        {
+          "concepto": "Falso techo: placas pladur o escayola",
+          "descripcion": "Perfiles metálicos, placas pladur/escayola, instalación, masilla, lija, acabado listo para pintar",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona m² falso techo garaje"
+        },
+        {
+          "concepto": "Pintura interiores: paredes y techo",
+          "descripcion": "Pintura blanca lisa/mate o coloreada, imprimación fondo, dos manos, rodillo/brocha, pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona m² totales a pintar (paredes+techo)"
+        },
+        {
+          "concepto": "Alicatado baño: paredes",
+          "descripcion": "Azulejo 20x20 o 25x25cm, adhesivo, lechada, rejuntado, acabado sellado en juntas, brillo/mate según diseño",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona m² paredes baño a alicatar"
+        },
+        {
+          "concepto": "Material alicatado baño: azulejos y adhesivo",
+          "descripcion": "Azulejos cerámicos, adhesivo cementoso flexible, lechada epoxídica o estándar",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar m² baño y tipo/marca azulejo seleccionado"
+        },
+        {
+          "concepto": "Pavimento suelo: colocación baldosa o laminado",
+          "descripcion": "Baldosa cerámica, gres o vinilo resistente, adhesivo, lechada, rejuntado, acabado antideslizante baño obligatorio",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona m² suelo habitación + baño"
+        },
+        {
+          "concepto": "Material pavimento suelo",
+          "descripcion": "Baldosa, laminado o vinilo, adhesivo, lechada si es baldosa",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar m² totales y tipo material suelo seleccionado"
+        },
+        {
+          "concepto": "Puerta acceso habitación: marco y puerta",
+          "descripcion": "Marco madera/aluminio, puerta de hoja única, bisagras, cerradura, pintura/acabado, instalación y aplomado",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar medida puerta (estándar 82.5x203cm) y tipo marco"
+        },
+        {
+          "concepto": "Puerta baño: marco y puerta",
+          "descripcion": "Marco, puerta vidriera opaca o standard, bisagras, picaporte, instalación, acabado",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar medida y tipo (con/sin cristal)"
+        },
+        {
+          "concepto": "Cierre acceso garaje: ventana/lucernario (opcional)",
+          "descripcion": "Si es necesario cierre de acceso desde garaje principal: marco, cristal, cierre hermético, instalación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Evaluar si es necesario: acceso directo desde garaje o desde exterior"
+        },
+        {
+          "concepto": "Gestión de licencia municipal y documentación técnica",
+          "descripcion": "Tramitación cambio uso garaje → vivienda, licencia obra, cédula de habitabilidad, inspección técnica, documentos legales",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CRÍTICO: presupuesto gestoría municipal no incluido en presupuesto obra. Contactar gestoría local para tarifa real (típicamente 300-800€ según municipio)"
+        },
+        {
+          "concepto": "Certificado técnico/Boletín instalaciones eléctricas",
+          "descripcion": "Boletín instalación eléctrica firmado por instalador autorizado, cálculos de carga, esquema unifilar",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio para uso habitacional; incluir en presupuesto electricista"
+        },
+        {
+          "concepto": "Inspección y certificado fontanería",
+          "descripcion": "Prueba presión tuberías, estanqueidad desagües, inspección según normativa CTE DB-HS",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Recomendado para habitación; instalador fontanería certifica"
+        }
+      ],
+      "calculos": {
+        "subtotal": 120,
+        "iva_porcentaje": 21,
+        "iva": 25.2,
+        "total": 145.2
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada en catálogo: 'Reforma integral garaje a vivienda' con desglose por fases (demolición, estructura, instalaciones, acabados)",
+        "Definir paquetes predefinidos: 'Baño completo' (sanitarios+fontanería+alicatado+ventilación)",
+        "Incluir plantilla de 'Reformas habitacionales con cambio de uso' con oficios y partidas estándar",
+        "Tabla de precios gestoría municipal por región/comunidad autónoma"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "gestoria_tramites_cambio_uso_garaje_vivienda",
+          "tipo": "servicio",
+          "descripcion": "Gestión administrativa cambio uso de garaje a vivienda, licencia municipal, cédula habitabilidad",
+          "tarifa_aproximada": "300-800€ (varía por municipio)",
+          "origen": "sugerida_ia",
+          "prioridad_catalogo": "ALTA"
+        },
+        {
+          "nombre": "demolicion_puerta_garaje_sistema_automatico",
+          "tipo": "mano_obra",
+          "descripcion": "Desmontaje puerta garaje abatible/enrollable con sistema automatizado",
+          "tarifa_aproximada": "150-300€ jornada",
+          "origen": "sugerida_ia",
+          "prioridad_catalogo": "MEDIA"
+        },
+        {
+          "nombre": "termo_electrico_instalacion_aislado",
+          "tipo": "material+mano_obra",
+          "descripcion": "Suministro termo eléctrico 30-50L + instalación específica para garaje sin ACS previo",
+          "tarifa_aproximada": "200-400€ material + 60€ mano obra",
+          "origen": "sugerida_ia",
+          "prioridad_catalogo": "MEDIA"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_escalera_o_rampa_exterior",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "instalacion_alumbrado_garaje",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "instalacion_de_puerta_de_garaje_abatible_lateral"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 32,
+    "n_catalogo": 6,
+    "n_sugeridas": 26,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "id": 264,
+  "oficio": "Cristalería",
+  "texto": "Instalar barandilla de cristal templado en terraza, longitud 6 metros con pasamanos de acero",
+  "http_status": 200,
+  "latency_ms": 23249,
+  "raw_response": {
+    "transcript": "Instalar barandilla de cristal templado en terraza, longitud 6 metros con pasamanos de acero",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar barandilla de cristal templado en terraza, longitud 6 metros con pasamanos de acero",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Barandilla exterior: verificar normativa CTE DB SUA (altura mínima 100cm en uso público, 90cm en privado)",
+          "Vidrio laminado OBLIGATORIO en barandillas (no solo templado) para evitar fragmentación en rotura",
+          "Pasamanos de acero: especificar si inox 316 (zona marítima) o inox 304 (interior seco)",
+          "Anclajes deben ser sellados impermeablemente para evitar corrosión en puntos de entrada de agua"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de vidrio de seguridad templado/laminado en barandilla exterior"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de pasamanos de acero inoxidable y anclajes metálicos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio laminado de seguridad para barandilla exterior",
+          "descripcion": "Suministro e instalación de vidrio laminado de seguridad (espesor 8-10mm recomendado para exterior), 6 metros lineales. Incluye corte, templado y certificación CE EN 12150. Obligatorio laminado para evitar fragmentación en rotura.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio laminado templado según espesor, medidas exactas y certificación. Rango estimado 120-180€/ml. Instalador debe confirmar especificaciones técnicas (espesor, tipo laminado, certificaciones)."
+        },
+        {
+          "concepto": "Perfil de sujeción inferior y horquillas de acero inoxidable",
+          "descripcion": "Suministro e instalación de perfil de sujeción inferior (aluminio anodizado o acero inox) y horquillas de fijación inoxidable para vidrio laminado. 6 metros lineales.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfiles y herrajes inoxidables. Rango estimado 40-80€/ml. Especificar si inox 304 o 316 (marítima)."
+        },
+        {
+          "concepto": "Pasamanos de acero inoxidable",
+          "descripcion": "Suministro e instalación de pasamanos de tubo redondo acero inoxidable (diámetro 40-50mm recomendado), 6 metros lineales. Incluye anclajes inoxidables a estructura y sellado impermeable de puntos de entrada de agua.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tubo inox, anclajes y sellado. Rango estimado 60-120€/ml. Confirmar tipo inox (304 interior seco / 316 zona marítima)."
+        },
+        {
+          "concepto": "Anclajes calculados a estructura y sellado impermeable",
+          "descripcion": "Cálculo de anclajes según carga mínima 1.5 kN/ml lineal (normativa CTE DB SUA). Instalación de anclajes inoxidables a soporte (hormigón, acero o madera). Sellado perimetral con silicona neutra o poliuretano para evitar infiltración de agua en puntos de entrada.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de vidrio laminado y herrajes",
+          "descripcion": "Mano de obra de instalación: colocación de vidrio laminado en perfiles de sujeción, fijación de horquillas, ajuste de alineación, sellado perimetral con silicona neutra. 6 metros lineales.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 45,
+          "total": 225,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de pasamanos y acabados",
+          "descripcion": "Mano de obra de instalación: fijación de pasamanos inoxidable a estructura, anclaje mecánico o soldadura TIG (si requiere), sellado impermeable de anclajes, pulido y limpieza final.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Silicona neutra, tacos químicos (si anclaje a hormigón), tornillos inox, arandelas, selladores, materiales de limpieza y protección.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 80-150€. Instalador debe confirmar según tipo de anclaje y cantidad de sellador necesario."
+        }
+      ],
+      "calculos": {
+        "subtotal": 645,
+        "iva_porcentaje": 21,
+        "iva": 135.45,
+        "total": 780.45
+      },
+      "sugerencias_catalogo": [
+        "Consultar norma CTE DB SUA para altura mínima de barandilla (100cm en uso público, 90cm en privado) y separación máxima de barrotes (10cm para evitar paso de niño).",
+        "Vidrio laminado es OBLIGATORIO en barandillas (no solo templado) para que fragmentos no caigan en caso de rotura.",
+        "Especificar tipo de acero inoxidable: INOX 316 en zonas marítimas, INOX 304 en interior seco.",
+        "Anclajes deben ser calculados para carga mínima 1.5 kN/ml lineal según normativa.",
+        "Sellado impermeable de anclajes es CRÍTICO en barandillas exteriores para evitar corrosión y filtraciones.",
+        "Plazo de fabricación del vidrio templado/laminado: 5-10 días. Medir exactamente antes de encargar (no se puede cortar en obra)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio laminado de seguridad para barandilla exterior",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Especificación de vidrio laminado (no solo templado) es obligatoria en barandillas por normativa de seguridad. Precio pendiente de revisión según espesor y certificaciones."
+        },
+        {
+          "concepto": "Perfil de sujeción inferior y horquillas de acero inoxidable",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Herrajes específicos para barandilla de vidrio exterior. Precio pendiente según tipo de perfil y acabado."
+        },
+        {
+          "concepto": "Pasamanos de acero inoxidable",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Pasamanos exterior requiere especificación de tipo inox (304 vs 316) y diámetro. Precio pendiente de confirmación."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Silicona, tacos, tornillos inox y selladores. Precio estimado pendiente de revisión según cantidad y tipo de anclaje."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_barandilla_metalica_de_escalera_interior",
+      "instalacion_barandilla_de_vidrio_templado_o_laminado",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "cambio_radiador"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3744,
+      "tokens_out": 3184
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

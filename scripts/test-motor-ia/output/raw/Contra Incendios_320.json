@@ -1,0 +1,52 @@
+{
+  "id": 320,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+  "http_status": 200,
+  "latency_ms": 28453,
+  "raw_response": {
+    "transcript": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_central_deteccion_y_alarma_incendios",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_recuperacion_aguas_pluviales",
+      "instalacion_bocas_de_incendio_equipadas_BIE_25mm"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "max_tokens",
+      "tokens_in": 4190,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

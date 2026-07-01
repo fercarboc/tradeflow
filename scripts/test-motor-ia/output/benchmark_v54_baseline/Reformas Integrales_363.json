@@ -1,0 +1,389 @@
+{
+  "id": 363,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de baño completo con ducha a ras de suelo, doble lavabo, sanitarios suspendidos y suelo calefactado",
+  "http_status": 200,
+  "latency_ms": 32647,
+  "raw_response": {
+    "transcript": "Reforma de baño completo con ducha a ras de suelo, doble lavabo, sanitarios suspendidos y suelo calefactado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de baño completo con ducha a ras de suelo, doble lavabo, sanitarios suspendidos y suelo calefactado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Reforma integral de baño: requiere coordinación entre albanilería, fontanería, electricidad e instalación de calefacción",
+          "Ducha a ras de suelo: impermeabilización obligatoria con pendiente y sumidero",
+          "Sanitarios suspendidos: requiere estructura de soporte (bastidor empotrado)",
+          "Suelo calefactado: instalación eléctrica especializada, requiere revisión de potencia disponible"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición, replanteo, formación de pendientes, alicatado paredes y suelo"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación desagüe ducha, doble lavabo, sanitarios suspendidos, grifería"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación suelo radiante eléctrico, circuitos, termostato, puntos de luz y enchufes"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado suelo antideslizante y paredes, impermeabilización zona ducha"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y retirada de sanitarios, muebles y revestimientos antiguos",
+          "descripcion": "Desmontaje completo de bañera/ducha antigua, lavabo, inodoro, azulejos, suelo y pequeño material. Incluye gestión de residuos y limpieza de zona",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización zona ducha a ras de suelo",
+          "descripcion": "Membrana impermeabilizante EPDM o lámina PVC en zona de ducha con pendiente hacia sumidero. Incluye sellado de encuentros y junta perimetral",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material impermeabilizante: instalador debe especificar tipo (EPDM/PVC/poliurea) y precio"
+        },
+        {
+          "concepto": "Instalación mano de obra impermeabilización ducha",
+          "descripcion": "Colocación de membrana impermeabilizante, formación de pendiente, sellado de juntas y encuentros",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suelo radiante eléctrico (material y accesorios)",
+          "descripcion": "Malla calefactora eléctrica, termostato digital, cable de conexión, aislamiento térmico bajo malla. Incluye pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material suelo radiante: instalador debe especificar potencia (W/m2), marca y precio total"
+        },
+        {
+          "concepto": "Instalación suelo radiante eléctrico",
+          "descripcion": "Colocación de aislamiento, malla calefactora, termostato, conexión a cuadro eléctrico y pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alicatado paredes baño (baldosa cerámica/porcelánico)",
+          "descripcion": "Colocación de azulejo/baldosa en paredes con mortero cola C2S2 flexible, lechada flexible, perfiles aluminio en esquinas y junta silicona en encuentros",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material alicatado paredes: instalador debe especificar tipo baldosa, precio/m2 y mortero"
+        },
+        {
+          "concepto": "Instalación mano de obra alicatado paredes",
+          "descripcion": "Replanteo, colocación de azulejos con mortero flexible, lechada, perfiles de aluminio y junta silicona",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 32,
+          "total": 576,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suelo antideslizante baño (baldosa R11 o superior)",
+          "descripcion": "Baldosa cerámica/porcelánico antideslizante R11 mínimo para suelo baño con ducha. Incluye mortero cola flexible y lechada",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material suelo antideslizante: instalador debe especificar tipo baldosa R11+, precio/m2"
+        },
+        {
+          "concepto": "Instalación mano de obra suelo antideslizante",
+          "descripcion": "Colocación de baldosa antideslizante sobre suelo radiante, mortero flexible, lechada y junta silicona perimetral",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 32,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ducha a ras de suelo (plato ducha, sumidero, grifería)",
+          "descripcion": "Plato ducha de obra o prefabricado, sumidero sifónico, válvula desagüe, grifería monomando termostática, mampara fija o corredera",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material ducha: instalador debe especificar tipo plato, grifería, mampara y precio total"
+        },
+        {
+          "concepto": "Instalación ducha a ras de suelo",
+          "descripcion": "Colocación de plato ducha, sumidero, válvula desagüe, grifería, mampara y sellado con silicona sanitaria",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Doble lavabo con mueble suspendido",
+          "descripcion": "Dos lavabos cerámicos/porcelánicos, mueble suspendido con estructura de soporte, grifería monomando, sifones y válvulas desagüe",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material lavabos: instalador debe especificar tipo lavabo, mueble, grifería y precio unitario"
+        },
+        {
+          "concepto": "Instalación doble lavabo suspendido",
+          "descripcion": "Colocación de estructura de soporte, mueble, lavabos, grifería, sifones y conexión a desagüe",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 50,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sanitarios suspendidos (inodoro + bidé o inodoro doble)",
+          "descripcion": "Inodoro suspendido de cerámica, bidé o segundo inodoro, bastidor empotrado de soporte, válvulas desagüe y alimentación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sanitarios: instalador debe especificar tipo inodoro/bidé, marca, bastidor y precio"
+        },
+        {
+          "concepto": "Instalación sanitarios suspendidos con bastidor empotrado",
+          "descripcion": "Colocación de bastidor de soporte empotrado en pared, inodoro/bidé, válvulas desagüe, alimentación y pruebas de funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación eléctrica baño (circuitos, puntos luz, enchufes, protecciones)",
+          "descripcion": "Circuitos independientes para suelo radiante, iluminación LED, enchufes con protección diferencial 30mA, espejo con luz, extractor de humos",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material eléctrico: instalador debe especificar cable, diferenciales, luminarias, enchufes y precio"
+        },
+        {
+          "concepto": "Instalación mano de obra electricidad baño",
+          "descripcion": "Tendido de circuitos, conexión suelo radiante, instalación puntos luz, enchufes, extractor y pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 50,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, silicona, lechada, crucetas y accesorios",
+          "descripcion": "Silicona sanitaria, lechada flexible, crucetas, perfiles aluminio, tornillería, cinta de teflón, pasta de fontanero y otros accesorios menores",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: instalador debe estimar cantidad y precio según proyecto"
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza final",
+          "descripcion": "Retirada de escombros, residuos de obra, limpieza profunda del baño y zona de trabajo",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión residuos: instalador debe presupuestar según volumen y gestor local"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4396,
+        "iva_porcentaje": 21,
+        "iva": 923.16,
+        "total": 5319.16
+      },
+      "sugerencias_catalogo": [
+        "Verificar disponibilidad de bastidores empotrados para sanitarios suspendidos (marca Geberit, Roca, Villeroy&Boch recomendadas)",
+        "Confirmar potencia disponible en cuadro eléctrico para suelo radiante (típicamente 1500-2000W para 5m2)",
+        "Especificar tipo de mampara ducha: fija, corredera o abatible según espacio disponible",
+        "Considerar espejo con luz LED integrada para doble lavabo (mejora funcionalidad)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Impermeabilización zona ducha",
+          "oficio": "impermeabilizacion",
+          "motivo": "Obligatoria en ducha a ras de suelo para evitar filtraciones"
+        },
+        {
+          "concepto": "Suelo radiante eléctrico",
+          "oficio": "electricidad",
+          "motivo": "Instalación especializada de calefacción por suelo"
+        },
+        {
+          "concepto": "Sanitarios suspendidos con bastidor empotrado",
+          "oficio": "fontaneria",
+          "motivo": "Requiere estructura de soporte especial diferente a sanitarios convencionales"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "sustitucion_banera_por_ducha",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "reforma_integral_atic_o_penthouse"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3925,
+      "tokens_out": 5204
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 19,
+    "n_catalogo": 9,
+    "n_sugeridas": 10,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

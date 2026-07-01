@@ -1,0 +1,248 @@
+{
+  "id": 54,
+  "oficio": "Carpintería",
+  "texto": "Fabricación de mueble de baño a medida con lavabo integrado y cajonera de cierre suave",
+  "http_status": 200,
+  "latency_ms": 21144,
+  "raw_response": {
+    "transcript": "Fabricación de mueble de baño a medida con lavabo integrado y cajonera de cierre suave",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación de mueble de baño a medida con lavabo integrado y cajonera de cierre suave",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Mueble a medida: requiere medidas exactas del espacio y aprobación de diseño",
+          "Lavabo integrado: coordinar con fontanería para desagüe y suministro agua",
+          "Cajonera cierre suave: incluye amortiguadores de calidad recomendados",
+          "Precio unitario de materiales pendiente de revisión (origen: sugerida_ia)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación y instalación de mueble a medida, estructura, cajones, herraje"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Conexión desagüe lavabo integrado y suministro agua fría"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Fabricación estructura mueble baño a medida",
+          "descripcion": "Estructura tablero melanina o madera según tipo, módulos con cajonera, fijación a pared, pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado a definir según diseño, materiales y dimensiones. Rango estimado 1200-4000€ según complejidad"
+        },
+        {
+          "concepto": "Suministro tablero melanina o madera para mueble baño",
+          "descripcion": "Tablero melanina, madera maciza o contrachapado según especificación de diseño",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio a definir según diseño final. Melanina 40-80€/m2, madera maciza 150-400€/m2"
+        },
+        {
+          "concepto": "Fabricación e instalación cajonera con cierre suave",
+          "descripcion": "Cajones con guías telescópicas de calidad, amortiguadores cierre suave, frentes según acabado, herraje tirador",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro guías telescópicas y amortiguadores cierre suave",
+          "descripcion": "Guías telescópicas de calidad (carga mínima 30kg), amortiguadores cierre suave para cajones",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según número de cajones. Estimado 80-200€ por juego completo"
+        },
+        {
+          "concepto": "Suministro e instalación lavabo integrado",
+          "descripcion": "Lavabo cerámica, porcelana o piedra artificial integrado en mueble, con rebosadero",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio lavabo 150-800€ según material y diseño. Instalación incluida en mano de obra carpintería"
+        },
+        {
+          "concepto": "Conexión fontanería lavabo integrado",
+          "descripcion": "Instalación desagüe lavabo (sifón, tubo desagüe), suministro agua fría, válvula cierre, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro materiales fontanería (sifón, tuberías, válvulas)",
+          "descripcion": "Sifón cromado, tuberías PVC/cobre, válvula cierre, codos, manguitos, teflón",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 60-150€ según materiales y complejidad de conexión"
+        },
+        {
+          "concepto": "Acabado y pintura mueble baño",
+          "descripcion": "Pintura, barniz o lacado según especificación de diseño, acabado frentes y laterales",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro pintura, barniz o lacado",
+          "descripcion": "Pintura acrílica, barniz poliuretano o lacado según acabado especificado",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio a definir según superficie y tipo de acabado. Estimado 40-120€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 241,
+        "iva_porcentaje": 21,
+        "iva": 50.61,
+        "total": 291.61
+      },
+      "sugerencias_catalogo": [
+        "Mueble baño a medida: considerar fabricación en taller con medidas exactas del espacio",
+        "Lavabo integrado: coordinar con fontanería ANTES de fabricación para huecos y desagüe",
+        "Cajonera cierre suave: amortiguadores de calidad recomendados para durabilidad",
+        "Acabado: definir tipo (pintura, barniz, lacado) según estética y humedad del baño"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Fabricación estructura mueble baño a medida",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Mueble a medida con lavabo integrado no está en catálogo base. Creada como partida de precio alzado"
+        },
+        {
+          "concepto": "Suministro tablero melanina o madera para mueble baño",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para mueble baño a medida"
+        },
+        {
+          "concepto": "Suministro guías telescópicas y amortiguadores cierre suave",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Herraje específico para cajonera con cierre suave"
+        },
+        {
+          "concepto": "Suministro e instalación lavabo integrado",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Lavabo integrado en mueble baño a medida"
+        },
+        {
+          "concepto": "Suministro materiales fontanería (sifón, tuberías, válvulas)",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Conexión específica para lavabo integrado"
+        },
+        {
+          "concepto": "Suministro pintura, barniz o lacado",
+          "oficio": "pintura",
+          "origen": "sugerida_ia",
+          "motivo": "Acabado específico para mueble baño a medida"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_cajonera_o_modulo_bajo_a_medida",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria",
+      "fabricacion_e_instalacion_mueble_cocina_a_medida",
+      "instalacion_ventiloconvector_suelo",
+      "fabricacion_de_estanterias_y_baldas_a_medida"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3846,
+      "tokens_out": 3109
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

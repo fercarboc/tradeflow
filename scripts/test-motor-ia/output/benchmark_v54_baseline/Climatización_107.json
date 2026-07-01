@@ -1,0 +1,230 @@
+{
+  "id": 107,
+  "oficio": "Climatización",
+  "texto": "Cambio de caldera de gas por otra de condensación de alta eficiencia, 24kW",
+  "http_status": 200,
+  "latency_ms": 15850,
+  "raw_response": {
+    "transcript": "Cambio de caldera de gas por otra de condensación de alta eficiencia, 24kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de caldera de gas por otra de condensación de alta eficiencia, 24kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si la instalación de gas actual requiere legalización tras cambio de caldera",
+          "Confirmar que el retorno de agua caliente no supera 55°C (requisito caldera condensación)",
+          "Revisar estado del vaso de expansión existente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de caldera de condensación de gas, 24kW. Trabajo especializado en sistemas de calefacción."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de caldera antigua",
+          "descripcion": "Desconexión segura, vaciado de circuito, desmontaje y retirada de caldera existente",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Caldera de condensación gas 24kW",
+          "descripcion": "Suministro e instalación de caldera de condensación de alta eficiencia, potencia 24kW, con todos los accesorios de conexión",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de caldera 24kW condensación a definir por instalador (rango orientativo: 1800-2800€)"
+        },
+        {
+          "concepto": "Kit evacuación humos (coaxial o doble tubo)",
+          "descripcion": "Suministro e instalación de kit completo de evacuación de humos, tuberías coaxiales o doble tubo según configuración",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio kit evacuación a definir (rango: 150-400€ según longitud y tipo)"
+        },
+        {
+          "concepto": "Válvulas de corte (gas y agua) + purgador automático",
+          "descripcion": "Suministro e instalación de válvulas de corte de gas y agua, purgador automático de aire en circuito",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio componentes a definir (rango: 80-200€)"
+        },
+        {
+          "concepto": "Vaso de expansión (si necesario)",
+          "descripcion": "Suministro e instalación de vaso de expansión cerrado, si el existente no es válido para caldera condensación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida condicional. Precio: 120-300€ si se requiere sustitución"
+        },
+        {
+          "concepto": "Termostato o cronotermostato",
+          "descripcion": "Suministro e instalación de termostato o cronotermostato para control de caldera condensación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir (rango: 80-250€)"
+        },
+        {
+          "concepto": "Conexiones agua caliente, retorno y pequeño material",
+          "descripcion": "Tuberías de conexión agua caliente y retorno, latiguillos, racores, silicona, tacos y pequeño material de fijación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir (rango: 60-150€)"
+        },
+        {
+          "concepto": "Mano de obra instalación caldera",
+          "descripcion": "Instalación completa: conexiones agua, gas, humos, pruebas de funcionamiento y puesta en marcha",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Legalización instalación gas (si nueva)",
+          "descripcion": "Trámites y legalización de instalación de gas natural ante organismo competente (si se requiere)",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida condicional. Precio: 150-400€ si se requiere legalización"
+        }
+      ],
+      "calculos": {
+        "subtotal": 510,
+        "iva_porcentaje": 21,
+        "iva": 107.1,
+        "total": 617.1
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente si vaso de expansión existente es compatible con caldera condensación (presión máxima 3 bar)",
+        "Verificar que la tubería de retorno de agua caliente pueda mantener temperatura ≤55°C (requisito caldera condensación)",
+        "Si la instalación de gas es nueva o se modifica significativamente, solicitar legalización ante organismo competente",
+        "Considerar instalación de termostato inteligente/cronotermostato para optimizar eficiencia energética"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Caldera de condensación gas 24kW",
+          "oficio": "climatizacion",
+          "motivo": "Material específico con precio variable según marca/modelo"
+        },
+        {
+          "concepto": "Kit evacuación humos",
+          "oficio": "climatizacion",
+          "motivo": "Material específico con precio variable según longitud y tipo"
+        },
+        {
+          "concepto": "Válvulas y purgador",
+          "oficio": "climatizacion",
+          "motivo": "Componentes específicos con precio variable"
+        },
+        {
+          "concepto": "Vaso de expansión (condicional)",
+          "oficio": "climatizacion",
+          "motivo": "Partida condicional según estado del existente"
+        },
+        {
+          "concepto": "Termostato/cronotermostato",
+          "oficio": "climatizacion",
+          "motivo": "Material específico con precio variable según funcionalidades"
+        },
+        {
+          "concepto": "Legalización gas (condicional)",
+          "oficio": "climatizacion",
+          "motivo": "Servicio administrativo condicional"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_caldera_condensacion_gas",
+      "cambio_valvula_seguridad_caldera",
+      "instalacion_sistema_hilo_musical_multizona",
+      "cambio_inodoro",
+      "tabique_pladur_armario_empotrado_nuevo"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3500,
+      "tokens_out": 2456
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

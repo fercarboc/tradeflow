@@ -1,0 +1,246 @@
+{
+  "id": 125,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Impermeabilizar terraza plana de 25 metros cuadrados con lámina de EPDM adherida",
+  "http_status": 200,
+  "latency_ms": 19364,
+  "raw_response": {
+    "transcript": "Impermeabilizar terraza plana de 25 metros cuadrados con lámina de EPDM adherida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar terraza plana de 25 metros cuadrados con lámina de EPDM adherida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de cubierta plana con lámina EPDM adherida — oficio especializado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de superficie de terraza",
+          "descripcion": "Limpieza, barrido y preparación de la superficie de terraza plana para recibir lámina EPDM. Eliminación de suciedad, polvo y pequeños escombros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 3,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación bituminosa o adhesivo de preparación",
+          "descripcion": "Aplicación de imprimación o adhesivo preparatorio sobre la superficie de terraza para mejorar la adherencia de la lámina EPDM.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — precio pendiente de revisión del instalador según marca y especificación técnica"
+        },
+        {
+          "concepto": "Lámina EPDM espesor 1,2-1,5 mm",
+          "descripcion": "Suministro de lámina de EPDM de espesor 1,2 a 1,5 mm para impermeabilización de terraza plana de 25 m². Incluye solapes mínimos de 10 cm.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 27,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — precio pendiente de revisión del instalador. Cantidad incluye 2 m² adicionales por solapes y encuentros (10% sobre 25 m²)"
+        },
+        {
+          "concepto": "Adhesivo específico EPDM en zonas adheridas",
+          "descripcion": "Adhesivo de contacto o adhesivo específico para EPDM en zonas de adherencia total o parcial según proyecto. Aplicación uniforme.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — precio pendiente de revisión del instalador según tipo de adhesivo (contacto, dispersión, poliuretano)"
+        },
+        {
+          "concepto": "Sellado de juntas y solapes con cinta EPDM específica",
+          "descripcion": "Sellado de todas las juntas y solapes de la lámina EPDM con cinta adhesiva específica EPDM o sellador de juntas compatible. Longitud estimada 50 ml (perímetro + juntas internas).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — precio pendiente de revisión del instalador según ancho y tipo de cinta"
+        },
+        {
+          "concepto": "Refuerzo en encuentros con lámina EPDM específica",
+          "descripcion": "Refuerzo de encuentros con paramentos, sumideros y puntos singulares mediante lámina EPDM adicional o cinta de refuerzo. Longitud estimada 30 ml.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — precio pendiente de revisión del instalador según tipo de refuerzo"
+        },
+        {
+          "concepto": "Colocación y adherencia de lámina EPDM",
+          "descripcion": "Mano de obra de colocación, extendido, alineación y adherencia de lámina EPDM sobre terraza plana. Incluye presionado y compactación de adhesivo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 45,
+          "total": 1125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de juntas y solapes — mano de obra",
+          "descripcion": "Mano de obra de sellado de todas las juntas y solapes con cinta EPDM específica o sellador. Incluye limpieza previa de juntas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 8,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de encuentros — mano de obra",
+          "descripcion": "Mano de obra de refuerzo de encuentros con paramentos, sumideros y puntos singulares. Incluye preparación, corte y adherencia de refuerzos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 12,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual (arnés, casco, guantes, gafas), herramientas menores, trapos, disolventes de limpieza y pequeño material consumible.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — precio pendiente de revisión del instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1960,
+        "iva_porcentaje": 21,
+        "iva": 411.6,
+        "total": 2371.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la terraza requiere formación de pendientes previa (mínimo 1,5% para evacuación de agua)",
+        "Confirmar si existen sumideros o desagües que requieran refuerzo especial",
+        "Considerar si la terraza será transitable tras impermeabilización (afecta a protección final)",
+        "Validar estado actual de la terraza: grietas, desperfectos o irregularidades que requieran reparación previa"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación bituminosa o adhesivo de preparación",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material específico para preparación de superficie antes de EPDM"
+        },
+        {
+          "concepto": "Lámina EPDM espesor 1,2-1,5 mm",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material principal de impermeabilización"
+        },
+        {
+          "concepto": "Adhesivo específico EPDM en zonas adheridas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Adhesivo especializado para EPDM"
+        },
+        {
+          "concepto": "Sellado de juntas y solapes con cinta EPDM específica",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Cinta de sellado específica para EPDM"
+        },
+        {
+          "concepto": "Refuerzo en encuentros con lámina EPDM específica",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material de refuerzo para puntos singulares"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Consumibles y equipos de protección"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM",
+      "impermeabilizacion_de_terraza_invertida_con_XPS",
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4145,
+      "tokens_out": 2856
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

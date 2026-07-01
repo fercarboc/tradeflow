@@ -1,0 +1,366 @@
+{
+  "id": 361,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+  "http_status": 200,
+  "latency_ms": 35023,
+  "raw_response": {
+    "transcript": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: 3+ oficios simultáneos (albanilería, suelos, cocina). Presupuesto estructurado en 12 partidas técnicas máximo.",
+          "Demolición de tabiques requiere verificación de carga estructural y permisos municipales.",
+          "Suelo nuevo: especificar tipo (tarima, cerámica, vinílico, etc.) para ajustar precio.",
+          "Cocina actualizada: incluye solo instalación. Muebles/electrodomésticos requieren presupuesto separado.",
+          "Requiere coordinación de gremios y plan de obra con fases."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 45,
+            "max": 45
+          },
+          "motivo": "Reforma completa con 3+ oficios: demolición, fontanería, electricidad, suelos, carpintería, pintura."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 40,
+            "max": 40
+          },
+          "motivo": "Demolición de tabiques, reposición de paredes, preparación de suelos."
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 32,
+            "recomendado": 32,
+            "max": 32
+          },
+          "motivo": "Instalación de suelo nuevo (tarima, laminado o similar)."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 25,
+            "max": 95
+          },
+          "motivo": "Alicatado en cocina y posible baño."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 50
+          },
+          "motivo": "Instalación fontanería cocina y baño."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 50
+          },
+          "motivo": "Instalación eléctrica completa con circuitos REBT, puntos cocina."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 45,
+            "max": 45
+          },
+          "motivo": "Puertas, marcos, armarios empotrados."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 32,
+            "recomendado": 32,
+            "max": 32
+          },
+          "motivo": "Pintura general de paredes y techos."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Gestión de residuos de demolición y obra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición de tabiques y vaciado selectivo",
+          "descripcion": "Demolición de tabiques interiores, retirada de escombros y clasificación selectiva. Incluye protección de instalaciones existentes y acopio temporal.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 15,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado. Verificar número y espesor de tabiques a demoler. Requiere inspección previa."
+        },
+        {
+          "concepto": "Instalación eléctrica completa con REBT",
+          "descripcion": "Cuadro eléctrico nuevo, cableado por rozas, circuitos según REBT (iluminación, enchufes, cocina, climatización), tomas e interruptores nuevos, boletín eléctrico obligatorio.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según superficie y circuitos. Rango típico 3000-6000€ para 80m². Instalador autorizado REBT obligatorio."
+        },
+        {
+          "concepto": "Instalación fontanería y saneamiento",
+          "descripcion": "Red PEX/multicapa completa, grifería cocina, instalación fregadero, sifones, desagües, válvulas de corte. Incluye pruebas de estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado. Rango típico 1500-3000€ para 80m² con cocina y baño. Especificar si incluye baño completo."
+        },
+        {
+          "concepto": "Alicatado cocina (paredes y suelo)",
+          "descripcion": "Azulejo/cerámica pared cocina, baldosa suelo cocina, mortero cola C2S2 flexible, lechada epoxi en juntas (recomendado para higiene), perfiles aluminio esquinas, junta silicona encuentros.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 12m² (paredes + suelo cocina). Ajustar según medidas reales. Lechada epoxi recomendada."
+        },
+        {
+          "concepto": "Suelo nuevo (tarima/laminado/vinílico) resto piso",
+          "descripcion": "Instalación de suelo flotante (tarima, laminado o vinílico) en zonas comunes y dormitorios. Incluye nivelación, adhesivo, rodapié perimetral.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 68,
+          "precio_unitario": 32,
+          "total": 2176,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 68m² (80m² total - 12m² cocina alicatada). Especificar tipo de suelo para ajustar precio material."
+        },
+        {
+          "concepto": "Pintura general (paredes y techos)",
+          "descripcion": "Preparación de superficies, masillado, imprimación y pintura plástica en 2 manos en paredes y techos. Incluye protección de zonas.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 320,
+          "precio_unitario": 4,
+          "total": 1280,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Carpintería interior (puertas, marcos, armarios)",
+          "descripcion": "Instalación de puertas interiores, marcos, cerraduras. Incluye ajuste y acabado. Armarios empotrados si aplica.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado. Rango típico 1200-2500€ según número de puertas y armarios. Especificar cantidad."
+        },
+        {
+          "concepto": "Cocina: instalación de muebles y electrodomésticos",
+          "descripcion": "Instalación de muebles de cocina (base y colgantes), encimera, fregadero, electrodomésticos (placa, horno, campana, frigorífico si aplica). Conexiones agua, gas y electricidad.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado. Rango típico 800-2000€ solo instalación (muebles y electrodomésticos presupuesto separado). Coordinar con fontanería y electricidad."
+        },
+        {
+          "concepto": "Pladur/escayola (si aplica: falsos techos, trasdosados)",
+          "descripcion": "Instalación de placas de yeso laminado para falsos techos o trasdosados. Incluye perfiles, tornillería, cinta y pasta de juntas, acabado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida opcional. Incluir solo si se requieren falsos techos o trasdosados. Cantidad a confirmar."
+        },
+        {
+          "concepto": "Gestión de residuos y contenedor de obra",
+          "descripcion": "Alquiler de contenedor de residuos, transporte y gestión selectiva de escombros, madera, metales y otros residuos de demolición y obra.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico 600-1200€ para reforma 80m². Depende de volumen de escombros y duración de obra."
+        },
+        {
+          "concepto": "Coordinación de gremios y plan de obra",
+          "descripcion": "Coordinación de fases de trabajo entre oficios, plan de obra con cronograma, protección de zonas, limpieza diaria, seguridad en obra.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico 500-1500€. Incluye dirección de obra, coordinación y supervisión."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillería, cinta de juntas, pasta de juntas, adhesivos, silicona, masilla, lijas, discos corte, protecciones, etc.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 3-5% del presupuesto total. Rango típico 800-1500€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 5196,
+        "iva_porcentaje": 21,
+        "iva": 1091.16,
+        "total": 6287.16
+      },
+      "sugerencias_catalogo": [
+        "Especificar tipo de suelo nuevo: tarima maciza, tarima flotante, laminado, vinílico o cerámica. Afecta precio material y mano de obra.",
+        "Confirmar si reforma incluye baño completo. Si es así, añadir alicatado baño con impermeabilización zona ducha.",
+        "Verificar si hay cambio de ventanas. Si aplica, añadir partida carpintería/cerrajería.",
+        "Solicitar plano o croquis de distribución actual y nueva para validar demoliciones y nuevas instalaciones.",
+        "Confirmar si cocina incluye electrodomésticos o solo instalación de muebles.",
+        "Boletín eléctrico OBLIGATORIO. Instalador debe estar autorizado REBT.",
+        "Licencia de obras: verificar con municipio si reforma requiere licencia mayor o menor.",
+        "Presupuesto de materiales (azulejos, suelo, pintura, muebles cocina, electrodomésticos) debe ser presupuesto separado."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Instalación eléctrica completa con REBT",
+          "oficio": "electricidad",
+          "motivo": "Reforma integral requiere instalación eléctrica nueva según normativa REBT. Precio alzado pendiente de revisión."
+        },
+        {
+          "concepto": "Instalación fontanería y saneamiento",
+          "oficio": "fontaneria",
+          "motivo": "Red completa de agua fría/caliente y saneamiento. Precio alzado pendiente de revisión."
+        },
+        {
+          "concepto": "Cocina: instalación de muebles y electrodomésticos",
+          "oficio": "reforma_integral",
+          "motivo": "Actualización de cocina incluye instalación de muebles, encimera y conexiones. Precio alzado pendiente de revisión."
+        },
+        {
+          "concepto": "Carpintería interior (puertas, marcos, armarios)",
+          "oficio": "carpinteria",
+          "motivo": "Puertas y marcos nuevos tras demolición de tabiques. Precio alzado pendiente de revisión."
+        },
+        {
+          "concepto": "Gestión de residuos y contenedor de obra",
+          "oficio": "gestion_residuos",
+          "motivo": "Demolición genera volumen importante de escombros. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Coordinación de gremios y plan de obra",
+          "oficio": "reforma_integral",
+          "motivo": "Reforma integral con múltiples oficios requiere coordinación. Precio pendiente de revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_completo_cocina",
+      "renovacion_de_instalacion_electrica_completa_en_vivienda",
+      "reforma_integral_vivienda_completa",
+      "tabique_pladur_en_rehabilitacion_edificio_existente",
+      "alicatado_y_solado_de_bano_completo"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4109,
+      "tokens_out": 4940
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 2,
+    "n_sugeridas": 10,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

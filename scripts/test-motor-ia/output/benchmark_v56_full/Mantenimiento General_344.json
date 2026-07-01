@@ -1,0 +1,173 @@
+{
+  "id": 344,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+  "http_status": 200,
+  "latency_ms": 13724,
+  "raw_response": {
+    "transcript": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto de mantenimiento general: 3 oficios distintos, trabajo puntual sin reforma",
+          "Grifo roto: requiere diagnóstico previo (reparación vs. sustitución)",
+          "Persiana caída: verificar si es solo bisagra o si hay daño en mecanismo",
+          "Todas las partidas incluyen pequeño material (tornillos, silicona, etc.)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Trabajo de mantenimiento puntual que combina 3 oficios distintos (fontanería, carpintería, cerrajería) sin reforma mayor"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y reparación grifo roto",
+          "descripcion": "Diagnóstico de avería en grifo, desmontaje, inspección de juntas y componentes internos, reparación o sustitución según estado, reposición de juntas y piezas de desgaste, prueba de funcionamiento y sellado con silicona sanitaria",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Piezas de repuesto grifo (juntas, arandelas, cartucho si necesario)",
+          "descripcion": "Juntas de goma, arandelas de latón, cartucho cerámico o monomando según tipo de grifo y estado de avería",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del tipo de grifo y piezas necesarias (rango estimado 15-80€)"
+        },
+        {
+          "concepto": "Reparación persiana caída - bisagra y mecanismo",
+          "descripcion": "Desmontaje de persiana enrollable, inspección de bisagras, guías y mecanismo de recogida, reposición de bisagras deterioradas, alineación de guías, reensambly y prueba de funcionamiento",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 90,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bisagras de persiana y pequeño material",
+          "descripcion": "Bisagras de aluminio o acero según tipo de persiana, tornillos de fijación, arandelas, lubricante para mecanismo",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del tipo y número de bisagras (rango estimado 20-60€)"
+        },
+        {
+          "concepto": "Reparación bisagra puerta",
+          "descripcion": "Desmontaje de puerta si es necesario, inspección de bisagras, reposición de tornillos flojos o rotos, alineación de puerta, ajuste de cierre y prueba de funcionamiento",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bisagra puerta y tornilería",
+          "descripcion": "Bisagra de acero o latón según tipo de puerta, tornillos de fijación de diferentes medidas, arandelas, tuercas si aplica",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del tipo de bisagra y material (rango estimado 10-40€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Antes de actuar en grifo: solicitar presupuesto previo al cliente si la reparación supera 80€ (puede ser más económico sustituir)",
+        "Persiana caída: verificar si hay daño en el mecanismo de recogida o solo en bisagras de soporte",
+        "Bisagra puerta: comprobar si es de 2 o 3 bisagras y si necesita ajuste de cierre (puede requerir limado de marco)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Piezas de repuesto grifo",
+          "oficio": "mantenimiento_general",
+          "motivo": "Material específico según diagnóstico de avería"
+        },
+        {
+          "concepto": "Bisagras de persiana y pequeño material",
+          "oficio": "mantenimiento_general",
+          "motivo": "Material específico según tipo de persiana"
+        },
+        {
+          "concepto": "Bisagra puerta y tornilería",
+          "oficio": "mantenimiento_general",
+          "motivo": "Material específico según tipo de puerta"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_grifo_o_griferia_averiada",
+      "reparacion_y_soldadura_de_estructura_metalica",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reparacion_cinta_enrolladora_persiana",
+      "reparacion_de_fisuras_y_grietas_en_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3755,
+      "tokens_out": 1909
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

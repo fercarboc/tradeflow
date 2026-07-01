@@ -1,0 +1,299 @@
+{
+  "id": 399,
+  "oficio": "Persianas",
+  "texto": "Automatizar apertura y cierre de portón de garaje con sensor de presencia y mando inalámbrico",
+  "http_status": 200,
+  "latency_ms": 23170,
+  "raw_response": {
+    "transcript": "Automatizar apertura y cierre de portón de garaje con sensor de presencia y mando inalámbrico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Automatizar apertura y cierre de portón de garaje con sensor de presencia y mando inalámbrico",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Especificar tipo de portón: seccional, basculante o corredera",
+          "Confirmar peso aproximado de la hoja para dimensionar motor",
+          "Verificar alimentación eléctrica disponible en garaje (monofásica/trifásica)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de motor, automatismos y sistemas de control de acceso"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Motor para portón de garaje",
+          "descripcion": "Motor eléctrico segun tipo de portón (seccional/basculante/corredera). Incluye accesorios de fijación y acoplamientos",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de portón (seccional/basculante/corredera), potencia del motor y par requerido"
+        },
+        {
+          "concepto": "Receptor radiocontrol y mando inalámbrico",
+          "descripcion": "Receptor integrado en motor + mando a distancia inalámbrico multifrecuencia. Incluye batería y pequeño material",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de frecuencia, seguridad del protocolo y marca del sistema de radiocontrol"
+        },
+        {
+          "concepto": "Sensor de presencia/movimiento (PIR)",
+          "descripcion": "Detector de movimiento PIR inalámbrico compatible con receptor del motor. Incluye soporte, alimentación y pequeño material",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de autonomía de batería, rango de detección y compatibilidad con sistema"
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad OBLIGATORIA",
+          "descripcion": "Par de células fotoeléctricas (emisor/receptor) para detención automática ante obstáculos. Montaje en laterales de portón",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de altura de montaje y tipo de célula (infrarroja/microondas)"
+        },
+        {
+          "concepto": "Sistema de desbloqueo de emergencia manual",
+          "descripcion": "Mecanismo de desbloqueo manual para acceso en caso de corte de energía. Palanca o tirador de seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo de mecanismo de desbloqueo (obligatorio por normativa CTE)"
+        },
+        {
+          "concepto": "Cable eléctrico y conexionado",
+          "descripcion": "Cable eléctrico para motor, células fotoeléctricas, sensor de presencia. Incluye conectores, tubo protector y pequeño material",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 15 ml. Ajustar según layout real del garaje y distancia a cuadro eléctrico"
+        },
+        {
+          "concepto": "Pequeño material (tornillería, enchufes, bornes, tuercas)",
+          "descripcion": "Consumibles para fijación e instalación: tornillos, tacos, tuercas, enchufes, bornes de conexión, cinta adhesiva",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado. Típicamente 50-150€ según complejidad"
+        },
+        {
+          "concepto": "Desmontaje de cierre manual existente (si aplica)",
+          "descripcion": "Desmontaje y retirada de mecanismos de cierre manual anteriores. Incluye retirada de piezas y limpieza",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de motor y accesorios en portón",
+          "descripcion": "Montaje del motor en estructura del portón. Fijación de brazos/cremallera según tipo. Conexión mecánica y eléctrica del motor",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de células fotoeléctricas",
+          "descripcion": "Montaje de células emisora y receptora en laterales del portón. Alineación y ajuste. Conexionado a motor",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de sensor de presencia (PIR)",
+          "descripcion": "Montaje y orientación del detector PIR. Ubicación óptima para cobertura del acceso al garaje. Configuración de sensibilidad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de receptor radiocontrol y mandos",
+          "descripcion": "Integración de receptor en circuito motor. Programación de mando inalámbrico. Emparejamiento sensor PIR + receptor. Pruebas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexionado eléctrico a cuadro/enchufe",
+          "descripcion": "Tendido de cable desde fuente de alimentación a motor. Conexión en cuadro eléctrico o enchufe de garage. Protecciones y pequeño material",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programación de finales de carrera y seguridades",
+          "descripcion": "Calibración de finales de carrera (apertura/cierre completos). Programación de tiempos de movimiento. Verificación de funcionamiento de células y sensor PIR",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales y entrega",
+          "descripcion": "Pruebas de apertura/cierre por mando, sensor PIR y ciclo automático. Verificación de seguridades. Entrega de mandos y documentación. Instrucciones de uso",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 600,
+        "iva_porcentaje": 21,
+        "iva": 126,
+        "total": 726
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de portón (seccional/basculante/corredera) para seleccionar motor adecuado",
+        "Estimar peso de hoja para dimensionar potencia y par motor (consultar ficha técnica portón)",
+        "Verificar disponibilidad de enchufe 230V en garaje o necesidad de obra eléctrica adicional",
+        "Considerar batería de respaldo (UPS) si se requiere funcionamiento en caso de corte de energía",
+        "Sensor PIR: evaluar si necesita programación horaria o temporizadores"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Motor para portón de garaje",
+          "origen": "sugerida_ia",
+          "razon": "Tipo y potencia del motor dependen de características específicas del portón"
+        },
+        {
+          "concepto": "Receptor radiocontrol y mando inalámbrico",
+          "origen": "sugerida_ia",
+          "razon": "Incluir sistema compatible con sensor PIR"
+        },
+        {
+          "concepto": "Sensor de presencia/movimiento (PIR)",
+          "origen": "sugerida_ia",
+          "razon": "Requiere especificación de marca y rango de detección"
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad OBLIGATORIA",
+          "origen": "sugerida_ia",
+          "razon": "Elemento de seguridad regulado en CTE DB SUA"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_motor_puerta_garaje_seccional_o_basculante",
+      "instalacion_sistema_de_deteccion_gas_en_aparcamiento",
+      "automatizacion_cancela_o_puerta_con_motor",
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "instalacion_toldo_de_brazos_extensibles_motorizado"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 15,
+    "n_catalogo": 0,
+    "n_sugeridas": 15,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

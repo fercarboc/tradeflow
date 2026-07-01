@@ -1,0 +1,196 @@
+{
+  "id": 83,
+  "oficio": "Albañilería",
+  "texto": "Reparar grieta grande en pared de fachada exterior, inyección de resina y rejuntado",
+  "http_status": 200,
+  "latency_ms": 18418,
+  "raw_response": {
+    "transcript": "Reparar grieta grande en pared de fachada exterior, inyección de resina y rejuntado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar grieta grande en pared de fachada exterior, inyección de resina y rejuntado",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Grieta en fachada exterior: requiere diagnóstico de tipo (activa/pasiva) antes de reparar",
+          "Inyección de resina epoxi: trabajo especializado, requiere revisión de precio",
+          "Material de inyección (resina epoxi): precio pendiente de revisión del instalador",
+          "Andamio/plataforma: necesario para acceso seguro en fachada, incluir en presupuesto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de grieta en fachada exterior con inyección de resina y rejuntado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y saneo de grieta en fachada",
+          "descripcion": "Inspección de grieta (activa/pasiva), saneo en V, limpieza y preparación para inyección",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml no especificada; instalador debe indicar longitud exacta de la grieta"
+        },
+        {
+          "concepto": "Inyección de resina epoxi en grieta",
+          "descripcion": "Inyección de resina epoxi de dos componentes para consolidación estructural de grieta grande en fachada",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado: instalador debe indicar volumen de resina necesario y precio unitario (€/litro)"
+        },
+        {
+          "concepto": "Mano de obra inyección de resina epoxi",
+          "descripcion": "Aplicación de resina epoxi mediante inyectores, presurización y curado controlado",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo estimado: 2 horas; ajustar según complejidad real de la grieta"
+        },
+        {
+          "concepto": "Mortero de rejuntado exterior flexible",
+          "descripcion": "Mortero de reparación flexible compatible con fachada para rejuntado final de grieta",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 5 kg; instalador debe confirmar según longitud y profundidad de grieta y precio unitario (€/kg)"
+        },
+        {
+          "concepto": "Mano de obra rejuntado y acabado",
+          "descripcion": "Rejuntado de grieta con mortero flexible, alisado y acabado final compatible con fachada",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml no especificada; instalador debe indicar longitud exacta de rejuntado"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio (si grieta > 3mm)",
+          "descripcion": "Malla de fibra de vidrio para refuerzo de grieta grande antes de rejuntado",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar: instalador debe confirmar necesidad y precio unitario (€/m2)"
+        },
+        {
+          "concepto": "Andamio o plataforma de acceso en fachada",
+          "descripcion": "Alquiler/montaje de andamio o plataforma elevadora para acceso seguro a zona de reparación en fachada",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio/plataforma: instalador debe indicar altura de fachada y presupuestar alquiler o montaje"
+        },
+        {
+          "concepto": "Imprimación y pintura de acabado (si incluida)",
+          "descripcion": "Imprimación e imprimación de zona reparada para integración cromática con fachada existente",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pintura de acabado: instalador debe confirmar si se incluye y presupuestar material y mano de obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [reparacion_de_fisuras_y_grietas_en_fachada] — partidas_obligatorias incluyen: saneo_fisura_en_V, mortero_de_reparacion_flexible, malla_fibra_vidrio, imprimacion, andamio, pequeño_material",
+        "Grieta grande + inyección de resina: considerar si es grieta ACTIVA (requiere testigos de seguimiento) o PASIVA",
+        "Si grieta es estructural: puede requerir proyecto técnico previo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inyección de resina epoxi en grieta",
+          "oficio": "fachadas",
+          "motivo": "Trabajo especializado de consolidación estructural; requiere especificación de volumen y tipo de resina"
+        },
+        {
+          "concepto": "Mortero de rejuntado exterior flexible",
+          "oficio": "fachadas",
+          "motivo": "Material específico para fachada; requiere confirmación de cantidad y compatibilidad con soporte"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reconstruccion_de_muro_con_lesiones_estructurales",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "reparacion_de_fisuras_y_grietas_en_fachada"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3879,
+      "tokens_out": 2557
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

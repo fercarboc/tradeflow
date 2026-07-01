@@ -1,0 +1,155 @@
+{
+  "id": 333,
+  "oficio": "Fachadas",
+  "texto": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 12989,
+  "raw_response": {
+    "transcript": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume acceso a fachada sin andamio (local bajo o acceso directo). Si requiere andamio, añadir partida específica.",
+          "Precio de material (gres porcelánico) pendiente de revisión según calidad y proveedor."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Aplacado de fachada es trabajo de revestimiento exterior de envolvente, clasificado como fachadas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Gres porcelánico para aplacado de fachada",
+          "descripcion": "Suministro de gres porcelánico para revestimiento exterior de fachada, 20 m² (incluye piezas, adhesivo y lechada)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material variable según calidad, formato y proveedor. Instalador debe introducir precio real."
+        },
+        {
+          "concepto": "Preparación y limpieza de soporte",
+          "descripcion": "Limpieza, saneo y preparación de fachada para recibir aplacado. Reparación de grietas y nivelación si procede.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de aplacado de gres porcelánico",
+          "descripcion": "Instalación de gres porcelánico en fachada con mortero cola C2S1 o superior, incluyendo replanteo, nivelación y rejuntado.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 35,
+          "total": 700,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero cola C2S1 para aplacado exterior",
+          "descripcion": "Suministro de mortero cola certificado C2S1 para fijación de gres porcelánico en fachada (aprox. 5-6 kg/m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 110,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente. Aproximadamente 110 kg para 20 m² (5.5 kg/m²)."
+        },
+        {
+          "concepto": "Lechada de rejuntado para gres porcelánico",
+          "descripcion": "Suministro de lechada epoxi o cementosa para rejuntado de aplacado exterior, resistente a humedad y cambios térmicos.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente. Aproximadamente 1-1.5 kg/m² según junta."
+        },
+        {
+          "concepto": "Imprimación y sellado de juntas",
+          "descripcion": "Aplicación de imprimación adherente en soporte y sellado de juntas perimetrales con silicona o poliuretano.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 5,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 960,
+        "iva_porcentaje": 21,
+        "iva": 201.6,
+        "total": 1161.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la fachada requiere andamio de seguridad. Si es necesario, añadir partida 'Colocación de andamio de fachada' (oficio: fachadas).",
+        "Confirmar tipo de gres porcelánico (formato, espesor, acabado antideslizante si aplica).",
+        "Especificar si hay encuentros con carpintería, canalones o elementos salientes que requieran remates especiales."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_gresite_o_mosaico_en_piscina_o_zona_acuatica",
+      "colocacion_de_andamio_de_fachada",
+      "impermeabilizacion_de_piscina_con_gresite_o_ceramica",
+      "construccion_de_piscina_de_obra",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4335,
+      "tokens_out": 1627
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "id": 339,
+  "oficio": "Fachadas",
+  "texto": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+  "http_status": 200,
+  "latency_ms": 16095,
+  "raw_response": {
+    "transcript": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Falta especificar: altura total de fachada, metros lineales de zócalo, tipo de pintura actual, estado de la fachada",
+          "Se recomienda visita previa para medir exactamente y evaluar preparación de superficie"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición y colocación de zócalo de gres"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintado de fachada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de zócalo antiguo",
+          "descripcion": "Demolición selectiva del zócalo existente, retirada de escombros y carga a contenedor",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario medir metros lineales exactos de zócalo a demoler"
+        },
+        {
+          "concepto": "Preparación de superficie para zócalo (nivelación y ejecución de mortero de asiento)",
+          "descripcion": "Limpieza, rasqueteado de superficie existente, aplicación de mortero adhesivo y de nivelación",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario medir metros lineales de zócalo"
+        },
+        {
+          "concepto": "Suministro e instalación de zócalo de gres",
+          "descripcion": "Suministro de gres cerámico para zócalo, cortes y colocación con adhesivo, rejuntado y limpieza final",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar metros lineales, dimensiones del gres (alto×ancho), espesor y calidad"
+        },
+        {
+          "concepto": "Limpieza y preparación de fachada para pintura",
+          "descripcion": "Limpieza de polvo, eflorescencias y residuos de obra, lavado si es necesario, cepillado de zonas desprendidas",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario calcular superficie de fachada a pintar (altura×ancho)"
+        },
+        {
+          "concepto": "Imprimación consolidante sobre fachada",
+          "descripcion": "Aplicación de imprimación fijadora o consolidante según estado de la fachada (ladrillo visto, mortero, etc.)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 8,
+          "total": 8,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio referencial; revisar según tipo de soporte (ladrillo visto, mortero, etc.)"
+        },
+        {
+          "concepto": "Pintado de fachada (2 manos)",
+          "descripcion": "Aplicación de 2 manos de pintura mineral, siloxano o acrílica de fachada según especificación",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 10,
+          "total": 10,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario especificar superficie exacta (m2) de fachada a pintar"
+        },
+        {
+          "concepto": "Suministro de pintura de fachada",
+          "descripcion": "Material: pintura mineral, siloxano o acrílica transpirable para fachada (2 manos)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar tipo (mineral/siloxano/acrílica), cantidad según m2 a pintar (rendimiento 8-12 m2/litro)"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (obra)",
+          "descripcion": "Andamios/plataformas móviles, cintas protección, plásticos, masillas, lijas, pinceles, rodillos, etc.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado según complejidad y duración estimada"
+        }
+      ],
+      "calculos": {
+        "subtotal": 18,
+        "iva_porcentaje": 21,
+        "iva": 3.78,
+        "total": 21.78
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: fotos de la fachada actual, medidas exactas de zona de acceso (ancho×alto), tipo y color de gres deseado, tipo de pintura y color preferido",
+        "Valorar necesidad de andamios/plataformas elevadoras si altura > 3m",
+        "Revisar si hay grietas, humedades o daños estructurales que requieran reparación previa"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desmontaje y retirada de zócalo antiguo",
+          "oficio": "albanileria",
+          "motivo": "Reforma de zócalo existente"
+        },
+        {
+          "concepto": "Preparación de superficie para zócalo (nivelación y ejecución de mortero de asiento)",
+          "oficio": "albanileria",
+          "motivo": "Trabajo preparatorio obligatorio"
+        },
+        {
+          "concepto": "Suministro e instalación de zócalo de gres",
+          "oficio": "albanileria",
+          "motivo": "Colocación de nuevo zócalo cerámico"
+        },
+        {
+          "concepto": "Limpieza y preparación de fachada para pintura",
+          "oficio": "pintura",
+          "motivo": "Preparación obligatoria antes de pintar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_y_informe_estado_pinturas_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "pintado_de_fachada_de_ladrillo_visto"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

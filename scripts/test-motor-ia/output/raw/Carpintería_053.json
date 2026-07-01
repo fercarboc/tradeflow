@@ -1,0 +1,121 @@
+{
+  "id": 53,
+  "oficio": "Carpintería",
+  "texto": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+  "http_status": 200,
+  "latency_ms": 13393,
+  "raw_response": {
+    "transcript": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere medición lineal total (ml) del perímetro del piso para cuantificar exactamente",
+          "Precio unitario de material (rodapié madera 10cm) pendiente de revisión según tipo de madera y acabado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de molduras y rodapié de madera, trabajo de carpintería de acabado interior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro rodapié madera 10cm",
+          "descripcion": "Rodapié/zócalo de madera de 10 centímetros de altura, incluye material para todo el perímetro del piso",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente: depende del tipo de madera (pino, roble, haya, etc.), acabado (natural, barnizado, pintado) y proveedor. Instalador debe introducir precio/ml"
+        },
+        {
+          "concepto": "Colocación rodapié y molduras madera",
+          "descripcion": "Instalación de rodapié de 10cm y molduras de madera en todo el perímetro del piso: preparación de superficie, fijación con adhesivo y/o tornillos, ajuste de esquinas, remates y acabados",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 12€/ml para colocación de rodapié estándar. Requiere medición exacta del perímetro total (ml) del piso"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillos, tacos, adhesivo de madera, masilla de retoque, lija, cinta de carrocero, plástico de protección",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado según cantidad de ml: típicamente 30-80€ para piso completo. Instalador revisa según alcance real"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente medición exacta del perímetro total en metros lineales (ml) del piso",
+        "Confirmar tipo de madera preferida: pino (económico), roble (premium), haya (intermedio)",
+        "Especificar acabado: natural, barnizado satinado, barnizado brillo, pintado (color a elegir)",
+        "Considerar si hay molduras decorativas adicionales o solo rodapié simple",
+        "Verificar si incluye remates en puertas, esquinas interiores y exteriores"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro rodapié madera 10cm",
+          "oficio": "carpinteria",
+          "razon": "Material específico de madera para rodapié, precio variable según tipo y acabado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_esmalte_carpinteria_madera_interior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "instalacion_persiana_mallorquina_o_librillo",
+      "instalacion_persiana_veneciana_de_madera_o_bambu",
+      "fabricacion_e_instalacion_puerta_exterior_madera"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3854,
+      "tokens_out": 1448
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 3,
+    "n_catalogo": 0,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "id": 93,
+  "oficio": "Albañilería",
+  "texto": "Cambiar piscina de skimmer a desbordante, reforma completa del vaso y sistema de filtración",
+  "http_status": 200,
+  "latency_ms": 23405,
+  "raw_response": {
+    "transcript": "Cambiar piscina de skimmer a desbordante, reforma completa del vaso y sistema de filtración",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar piscina de skimmer a desbordante, reforma completa del vaso y sistema de filtración",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de piscina: requiere desmontaje completo, impermeabilización y nueva instalación hidráulica",
+          "Cambio de sistema skimmer a desbordante implica nueva estructura de vaso y canaleta perimetral",
+          "Depuradora y bomba deben dimensionarse según volumen final de piscina",
+          "Requiere proyecto técnico y licencia municipal para cambio de sistema",
+          "Gestión de residuos y escombros obligatoria"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral de piscina: desmontaje sistema antiguo + obra civil + impermeabilización + instalaciones hidráulicas + electricidad + acabados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición vaso antiguo, excavación, estructura hormigón, canaleta desbordante, coronación"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización total vaso nuevo con lámina armada o gresite, sistema desbordante requiere estanqueidad crítica"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Red hidráulica nueva: tuberías PVC presión, canaleta desbordante, skimmers, sumideros, boquillas impulsión/retorno"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Cuadro eléctrico piscina, protecciones diferenciales, bomba recirculación, iluminación, cableado según REBT"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Retirada y gestión de escombros, hormigón, gresite antiguo, tuberías viejas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cap.1 – Demolición y obra civil",
+          "descripcion": "Desmontaje completo sistema skimmer antiguo, vaciado piscina, demolición vaso hormigón, excavación y retirada de tierras, estructura hormigón armado vaso nuevo con canaleta desbordante perimetral, coronación y bordillo",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según dimensiones piscina (largo×ancho×profundidad). Instalador debe especificar: m3 excavación, m2 vaso, ml canaleta. Rango estimado: 6000-15000€ según tamaño"
+        },
+        {
+          "concepto": "Cap.2 – Impermeabilización y revestimiento interior",
+          "descripcion": "Impermeabilización total vaso con lámina armada PVC o gresite cerámico, sellado juntas, tratamiento anti-filtraciones, preparación superficie",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad = (largo×ancho) + 2×(largo+ancho)×profundidad. Precio según material: lámina armada 15-25€/m2 + instalación, gresite 20-40€/m2 + instalación. Instalador especifica m2 total y material elegido"
+        },
+        {
+          "concepto": "Cap.3 – Instalaciones hidráulicas y depuración",
+          "descripcion": "Red hidráulica PVC presión nueva (aspiración e impulsión), canaleta desbordante con sumideros, skimmers nuevos, boquillas impulsión/retorno, depuradora filtro arena nueva, bomba recirculación, válvulas de corte, tuberías conexión, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según volumen piscina (m3). Depuradora: 0.75-1.5 kW según volumen. Rango estimado: 3000-8000€ (bomba, depuradora, tuberías, accesorios, mano obra instalación)"
+        },
+        {
+          "concepto": "Cap.4 – Instalaciones eléctricas, cuadro y acabados",
+          "descripcion": "Cuadro eléctrico piscina con protecciones diferenciales, cableado según REBT, conexión bomba recirculación, iluminación LED subacuática (opcional), llenado agua, puesta en marcha, ajuste químico inicial, gestión residuos escombros, proyecto técnico y licencia municipal",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado: cuadro 800-1500€, cableado 500-1000€, iluminación LED 1000-2000€ (opcional), puesta en marcha 500-1000€, gestión residuos 800-1500€, proyecto+licencia 1000-2000€. Total estimado: 5000-10000€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente dimensiones exactas piscina (largo×ancho×profundidad) para calcular m3 excavación, m2 vaso, ml canaleta",
+        "Confirmar material revestimiento: lámina armada PVC (más económica, 15-25€/m2) vs gresite cerámico (más estético, 20-40€/m2)",
+        "Especificar potencia bomba recirculación: volumen piscina ÷ 8 horas = m3/h requeridos",
+        "Incluir en presupuesto: proyecto técnico (1000-2000€), licencia municipal (500-1500€), gestión residuos (800-1500€)",
+        "Considerar iluminación LED subacuática (opcional, 1000-2000€) para sistema desbordante",
+        "Coordinar con gestoría para trámites administrativos y permisos",
+        "Presupuesto total estimado (piscina 8×4 m, profundidad 1.5 m): 18000-35000€ según calidades y acabados"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Canaleta desbordante perimetral",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "motivo": "Sistema desbordante requiere canaleta perimetral nueva (no incluida en skimmer antiguo)"
+        },
+        {
+          "concepto": "Depuradora filtro arena nueva",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "motivo": "Cambio sistema requiere nueva depuradora dimensionada para volumen piscina"
+        },
+        {
+          "concepto": "Proyecto técnico y licencia municipal",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "motivo": "Cambio de sistema de piscina requiere proyecto técnico y autorización municipal"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_piscina_con_filtraciones",
+      "reforma_integral_cocina_completa",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "construccion_de_piscina_de_obra",
+      "renovacion_de_instalacion_de_fontaneria_en_vivienda"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4263,
+      "tokens_out": 3240
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

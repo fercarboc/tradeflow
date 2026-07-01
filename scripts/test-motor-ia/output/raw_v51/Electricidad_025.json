@@ -1,0 +1,197 @@
+{
+  "id": 25,
+  "oficio": "Electricidad",
+  "texto": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+  "http_status": 200,
+  "latency_ms": 16450,
+  "raw_response": {
+    "transcript": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si la instalación requiere circuito dedicado para el microondas (carga > 2000W recomendable en circuito independiente)",
+          "Confirmar tipos de enchufe (Schuko estándar vs. enchufe industrial para microondas)",
+          "Revisar accesibilidad para el cableado (canalización, tubo corrugado, obra oculta)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de enchufes y circuitería eléctrica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Instalación de enchufes nuevos salón",
+          "descripcion": "Colocación de 4 enchufes Schuko estándar en salón, incluyendo cajas de empotrar, mecanismos, tornillería y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Caja empotrable pladur/obra para enchufes salón",
+          "descripcion": "Suministro de 4 cajas de empotrar estándar para enchufes en salón",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del material pendiente de confirmación por instalador (aprox. 2-5€/ud)"
+        },
+        {
+          "concepto": "Mecanismos de enchufes salón",
+          "descripcion": "Suministro de 4 mecanismos/tomas de corriente Schuko estándar para salón",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del material pendiente (aprox. 1-3€/ud según marca)"
+        },
+        {
+          "concepto": "Pequeño material eléctrico enchufes",
+          "descripcion": "Tornillería inox, cinta aislante, pasta térmica y consumibles para instalación de 5 enchufes",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio aproximado 5-10€ en total"
+        },
+        {
+          "concepto": "Instalación enchufe independiente cocina (microondas)",
+          "descripcion": "Colocación de 1 enchufe con circuito independiente en cocina para microondas, incluyendo caja de empotrar, mecanismo y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa superior (60€) porque incluye verificación de circuito independiente y conexionado a cuadro"
+        },
+        {
+          "concepto": "Caja empotrable cocina para enchufe microondas",
+          "descripcion": "Suministro de 1 caja de empotrar reforzada para enchufe de microondas en cocina",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente (aprox. 3-6€)"
+        },
+        {
+          "concepto": "Mecanismo enchufe cocina microondas",
+          "descripcion": "Suministro de 1 mecanismo/toma de corriente Schuko para cocina (microondas)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente (aprox. 1-3€)"
+        },
+        {
+          "concepto": "Derivación de circuito y conexionado a cuadro eléctrico",
+          "descripcion": "Derivación de nuevo circuito independiente desde cuadro eléctrico hasta enchufe de microondas, incluyendo cableado, elementos de protección (magnetotérmico) y bornes",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye conexión a cuadro, instalación de magnetotérmico y pequeño cableado"
+        },
+        {
+          "concepto": "Cable, magnetotérmico y pequeño material circuito microondas",
+          "descripcion": "Suministro de cableado 2.5mm² (aprox. 5-10ml según distancia), magnetotérmico 16A, bornes y consumibles",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de confirmación (aprox. 15-30€ dependiendo de longitud de cableado)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 310,
+        "iva_porcentaje": 21,
+        "iva": 65.1,
+        "total": 375.1
+      },
+      "sugerencias_catalogo": [
+        "Consultar si la instalación de cableado desde cuadro a cocina requiere canalización o tubo corrugado (obra oculta vs. vista) — esto podría añadir partida de canalización",
+        "Confirmar si el enchufe de microondas debe tener protección diferencial independiente (RCD tipo A) — recomendable para electrodomésticos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Derivación de circuito y conexionado a cuadro eléctrico",
+          "origen": "sugerida_ia",
+          "motivo": "Circuito independiente para microondas no es partida estándar en catálogo, creada por IA por ser obligatoria en este caso"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_electrica_local_hosteleria",
+      "instalacion_mampara_ducha",
+      "instalacion_vidrio_de_seguridad_templado",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

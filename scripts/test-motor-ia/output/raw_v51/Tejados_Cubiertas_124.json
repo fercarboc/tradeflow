@@ -1,0 +1,169 @@
+{
+  "id": 124,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Revisión y limpieza de tejado de pizarra después de la tormenta, recolocar piezas sueltas",
+  "http_status": 200,
+  "latency_ms": 12793,
+  "raw_response": {
+    "transcript": "Revisión y limpieza de tejado de pizarra después de la tormenta, recolocar piezas sueltas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y limpieza de tejado de pizarra después de la tormenta, recolocar piezas sueltas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: requiere EPI obligatorio (línea de vida + arnés)",
+          "Andamio perimetral recomendado para seguridad",
+          "Inspección completa necesaria para identificar daños estructurales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Oficio especializado en trabajos de cubiertas, pizarra y reposicionamiento de elementos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y revisión de tejado de pizarra",
+          "descripcion": "Limpieza completa de detritus, hojas, suciedad y musgo tras tormenta. Inspección visual del estado de la cubierta, revestimiento e impermeabilización",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recolocación de piezas de pizarra sueltas",
+          "descripcion": "Reposicionamiento y refijación de piezas de pizarra desprendidas por la tormenta. Incluye clavos inox o cobre (obligatorio para evitar oxidación)",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Clavos inox/cobre para pizarra",
+          "descripcion": "Clavos de acero inoxidable o cobre para refijación de piezas de pizarra (material obligatorio)",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar cantidad y precio unitario real de clavos"
+        },
+        {
+          "concepto": "EPI y equipos de seguridad (línea de vida, arnés, casco)",
+          "descripcion": "Equipamiento de protección personal obligatorio para trabajo en altura en tejado de pizarra",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir coste de EPI si no está disponible en obra"
+        },
+        {
+          "concepto": "Andamio perimetral (si necesario)",
+          "descripcion": "Montaje de andamio perimetral para acceso seguro durante la revisión y recolocación de piezas",
+          "oficio": "cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir coste de alquiler/montaje de andamio según dimensiones de cubierta"
+        },
+        {
+          "concepto": "Informe fotográfico de estado de cubierta",
+          "descripcion": "Documentación visual del estado de la cubierta tras tormenta, identificación de daños y recomendaciones de reparación",
+          "oficio": "cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir coste si se requiere informe técnico detallado"
+        },
+        {
+          "concepto": "Pequeño material (herramientas, material fungible)",
+          "descripcion": "Herramientas manuales, material de consumo y accesorios necesarios para la intervención",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador asigna coste aproximado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 350,
+        "iva_porcentaje": 21,
+        "iva": 73.5,
+        "total": 423.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la cubierta requiere tratamiento hidrofugo o biocida tras limpieza",
+        "Evaluar si hay desprendimientos de mortero en cumbreras que requieran reposición",
+        "Inspeccionar canalones y bajantes para posibles daños por tormenta"
+      ],
+      "partidas_nuevas_detectadas": [
+        "EPI y equipos de seguridad (línea de vida, arnés, casco)",
+        "Andamio perimetral (si necesario)",
+        "Informe fotográfico de estado de cubierta",
+        "Clavos inox/cobre para pizarra"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_mantenimiento_preventivo_de_cubierta",
+      "instalacion_de_cubierta_de_pizarra",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada",
+      "instalacion_de_cubierta_de_chapa_metalica_o_panel_sandwich",
+      "mantenimiento_anual_caldera_gas"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "id": 109,
+  "oficio": "Climatización",
+  "texto": "Mantenimiento anual de caldera de gas, limpieza quemador, revisión electrodos y gases de combustión",
+  "http_status": 200,
+  "latency_ms": 13117,
+  "raw_response": {
+    "transcript": "Mantenimiento anual de caldera de gas, limpieza quemador, revisión electrodos y gases de combustión",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento anual de caldera de gas, limpieza quemador, revisión electrodos y gases de combustión",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Técnico de gas certificado obligatorio para esta intervención",
+          "Emitir certificado de mantenimiento al finalizar",
+          "Revisar si el cliente tiene contrato de mantenimiento anual con aseguradora"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Mantenimiento anual de caldera de gas - trabajo especializado en sistemas de calefacción"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión quemador y cámara de combustión",
+          "descripcion": "Inspección visual y funcional del quemador, limpieza de depósitos de hollín y residuos en cámara de combustión",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluida en mantenimiento anual - instalador define precio según tarifa horaria y tiempo estimado"
+        },
+        {
+          "concepto": "Limpieza intercambiador de calor",
+          "descripcion": "Limpieza del intercambiador primario para eliminar incrustaciones y mejorar eficiencia térmica",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluida en mantenimiento anual - instalador define precio según tarifa horaria"
+        },
+        {
+          "concepto": "Revisión y limpieza de electrodos de ionización",
+          "descripcion": "Inspección, limpieza y ajuste de electrodos de ionización para correcta detección de llama",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluida en mantenimiento anual - instalador define precio según tarifa horaria"
+        },
+        {
+          "concepto": "Análisis de gases de combustión",
+          "descripcion": "Medición de CO, CO2, O2 y temperatura de humos con analizador de combustión certificado",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluida en mantenimiento anual - instalador define precio según tarifa horaria"
+        },
+        {
+          "concepto": "Verificación presión vaso de expansión y válvulas de seguridad",
+          "descripcion": "Comprobación de presión del vaso de expansión, prueba de válvulas de seguridad y purga de circuito si necesario",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluida en mantenimiento anual - instalador define precio según tarifa horaria"
+        },
+        {
+          "concepto": "Verificación evacuación de humos y conducto",
+          "descripcion": "Inspección del conducto de evacuación, comprobación de estanqueidad y limpieza si es necesario",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluida en mantenimiento anual - instalador define precio según tarifa horaria"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Juntas, filtros pequeños, lubricantes y otros consumibles necesarios para el mantenimiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible - instalador estima según necesidades reales"
+        },
+        {
+          "concepto": "Emisión de certificado de mantenimiento",
+          "descripcion": "Generación y entrega de certificado de mantenimiento anual conforme a normativa de seguridad",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo - instalador define si incluye en tarifa o cobra aparte"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Referencia BASE MAESTRA: [mantenimiento_anual_caldera_gas] - todas las partidas generadas coinciden con partidas_obligatorias del catálogo",
+        "Rango de precio típico para esta intervención: 250-400€ (mano de obra + pequeño material)",
+        "Si la caldera tiene más de 10 años, considerar inspección adicional de corrosión interna"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material y consumibles",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible variable según estado de la caldera"
+        },
+        {
+          "concepto": "Emisión de certificado de mantenimiento",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio administrativo obligatorio por normativa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_y_limpieza_de_caldera_de_gas",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_caldera",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_anual_split_o_aire_acondicionado"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3768,
+      "tokens_out": 2026
+    }
+  },
+  "classification": {
+    "category": "PRECIO_INVALIDO",
+    "n_partidas": 8,
+    "n_catalogo": 6,
+    "n_sugeridas": 2,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI",
+    "error_detalle": "Partida de catálogo con precio 0 o nulo"
+  }
+}

@@ -1650,7 +1650,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         try {
           const dbQuote = await saveQuote(
             orgId, clientId, finalQuote.descripcion ?? '',
-            (finalQuote.partidas ?? []).map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario })),
+            (finalQuote.partidas ?? []).map(p => ({
+              descripcion: p.descripcion,
+              tipo: p.tipo,
+              cantidad: p.cantidad,
+              precio_unitario: p.precioUnitario,
+              precio_material: p.precioCoste ?? null,
+              supplier_key: p.supplier_key ?? null,
+              supplier_name: p.supplier_name ?? null,
+              supplier_ref: p.supplier_ref ?? null,
+              catalog_variant_id: p.catalog_variant_id ?? null,
+            })),
             kbActuacionesSaved.length > 0 ? kbActuacionesSaved : undefined,
           );
           savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], kbActuaciones: dbQuote.kb_actuaciones ?? undefined };

@@ -1,0 +1,201 @@
+{
+  "id": 191,
+  "oficio": "Cerrajería",
+  "texto": "Instalar puerta corredera de cristal con cerradura para separar zona de trabajo",
+  "http_status": 200,
+  "latency_ms": 17083,
+  "raw_response": {
+    "transcript": "Instalar puerta corredera de cristal con cerradura para separar zona de trabajo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar puerta corredera de cristal con cerradura para separar zona de trabajo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas exactas de la puerta no proporcionadas — se requiere toma de medidas en obra antes de encargar vidrio templado",
+          "Tipo de cerradura no especificado (electromagnética, manual, sensor de movimiento) — afecta presupuesto final"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de vidrio templado y herraje de corredera"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de cerradura y sistema de bloqueo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado puerta corredera",
+          "descripcion": "Suministro vidrio templado 5mm para puerta corredera, medidas a definir en obra, marcado CE EN 12150",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medidas exactas en obra y especificación de espesor final (4mm o 5mm según carga)"
+        },
+        {
+          "concepto": "Perfiles aluminio guía superior e inferior",
+          "descripcion": "Suministro perfiles aluminio anodizado para sistema corredera (guía superior, inferior, topes laterales)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas finales y calidad del perfil"
+        },
+        {
+          "concepto": "Ruedas y herraje sistema corredera",
+          "descripcion": "Suministro ruedas ajustables, topes de goma, frenos y herraje completo sistema corredera",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Varía según tipo de sistema (económico, profesional, premium)"
+        },
+        {
+          "concepto": "Silicona sanitaria y sellado",
+          "descripcion": "Suministro silicona neutra inodora para sellado perimetral de vidrio y juntas",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible, precio estimado €8-15"
+        },
+        {
+          "concepto": "Tornillería inox y pequeño material",
+          "descripcion": "Tornillos, tuercas, arandelas acero inoxidable A4 y consumibles instalación",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible, precio estimado €5-12"
+        },
+        {
+          "concepto": "Instalación puerta corredera cristal",
+          "descripcion": "Mano de obra: toma de medidas, marcación, instalación perfiles, colocación vidrio templado, ajuste y nivelación sistema corredera, pruebas funcionamiento",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cerradura para puerta corredera",
+          "descripcion": "Suministro cerradura para vidrio templado (especificar tipo: manual, electromagnética o sensor movimiento)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango amplio: manual €25-60 | electromagnética €120-300 | sensor movimiento €80-200"
+        },
+        {
+          "concepto": "Instalación cerradura y bloqueo",
+          "descripcion": "Mano de obra: preparación vidrio, perforación si requiere, instalación cerradura, ajuste y pruebas funcionamiento bloqueo",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: ancho y alto exactos de la puerta en mm",
+        "Solicitar al cliente: espesor de vidrio preferido (4mm estándar, 5mm para mayor seguridad/durabilidad)",
+        "Solicitar al cliente: tipo de cerradura deseada (manual simple, electromagnética con botón, sensor de proximidad)",
+        "Solicitar al cliente: si los marcos/perfiles están ya instalados o es instalación completa desde cero",
+        "Si marco preexistente: verificar nivelación y estado en obra antes de presupuesto final"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado puerta corredera",
+          "oficio": "cristaleria",
+          "razon_creacion": "No se proporciona medida exacta; partida creada como marcador para revision de medidas en obra"
+        },
+        {
+          "concepto": "Cerradura para puerta corredera",
+          "oficio": "cerrajeria",
+          "razon_creacion": "Tipo de cerradura no especificado (manual/electromagnética/sensor); rango de precio muy variable, requiere cliente especifique"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_separacion_zona_oficina",
+      "instalacion_de_bordillos_o_delimitadores_de_cesped",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "NO"
+  }
+}

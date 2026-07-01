@@ -1,0 +1,175 @@
+{
+  "id": 22,
+  "oficio": "Electricidad",
+  "texto": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+  "http_status": 200,
+  "latency_ms": 16715,
+  "raw_response": {
+    "transcript": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si existe diferencial en el cuadro. Si no, incluir en presupuesto.",
+          "Confirmar distancia de zanja si requiere cable enterrado.",
+          "Inspeccionar estado de toma de tierra existente."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica en exterior con IP44 y protección diferencial."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Base enchufe Schuko IP44 exterior",
+          "descripcion": "Base de enchufe Schuko IP44 con grado de protección mínimo para exterior, carcasa estanca.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalar a definir precio según marca/modelo."
+        },
+        {
+          "concepto": "Cable H07RN-F para exterior",
+          "descripcion": "Cable de goma H07RN-F (3x2.5 mm²) para instalación en exterior, resistente a UV e intemperie.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad estimada 10 ml. Ajustar según distancia real."
+        },
+        {
+          "concepto": "Caja de superficie IP44 para enchufe",
+          "descripcion": "Caja de empotrar/superficie IP44 apta para terraza, con protección contra agua.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. A definir precio según modelo."
+        },
+        {
+          "concepto": "Interruptor diferencial 30 mA",
+          "descripcion": "Interruptor diferencial de 30 mA (sensibilidad protección contra contacto indirecto) para circuito enchufe exterior. Si ya existe en cuadro, no es necesario.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. REVISAR: ¿Existe diferencial en cuadro? Si sí, NO incluir esta partida."
+        },
+        {
+          "concepto": "Toma de tierra y inspección",
+          "descripcion": "Verificación de continuidad y resistencia de la toma de tierra existente con telurómetro. Medición de resistencia (máximo 37 Ω en vivienda). Mejora si fuese necesaria.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tornillos, bridas, cinta aislante, etc.)",
+          "descripcion": "Materiales auxiliares: tornillos, bridas, cinta aislante, terminales, pasta térmica.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible. A definir coste según consumo."
+        },
+        {
+          "concepto": "Mano de obra: Instalación de enchufe IP44 exterior y verificación de toma de tierra",
+          "descripcion": "Instalación de base enchufe, conexionado seguro, montaje en caja, verificación de diferencial y pruebas finales. Incluye inspección toma de tierra.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 220,
+        "iva_porcentaje": 21,
+        "iva": 46.2,
+        "total": 266.2
+      },
+      "sugerencias_catalogo": [
+        "Revisar en catálogo: cable_h07rn_f_exterior con precios por metro.",
+        "Revisar en catálogo: base_enchufe_schuko_ip44_exterior con referencias comerciales.",
+        "Revisar en catálogo: caja_superficie_ip44 con modelos disponibles."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable H07RN-F para exterior",
+          "oficio": "electricidad",
+          "motivo": "Expandir catálogo con referencias de cable de goma para exterior."
+        },
+        {
+          "concepto": "Caja de superficie IP44",
+          "oficio": "electricidad",
+          "motivo": "Expandir catálogo con modelos estancos para terraza."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_enchufe_exterior_ip44",
+      "instalacion_electrica_pergola_terraza",
+      "solado_ceramico_exterior_terraza",
+      "instalacion_suelo_flotante_sobre_plots_regulables",
+      "inspeccion_y_test_de_toma_de_tierra_y_diferencial"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

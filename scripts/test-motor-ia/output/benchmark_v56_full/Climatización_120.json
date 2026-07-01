@@ -1,0 +1,340 @@
+{
+  "id": 120,
+  "oficio": "Climatización",
+  "texto": "Convertir calefacción por gas a pellets, instalación de caldera de biomasa de 25kW",
+  "http_status": 200,
+  "latency_ms": 30751,
+  "raw_response": {
+    "transcript": "Convertir calefacción por gas a pellets, instalación de caldera de biomasa de 25kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Convertir calefacción por gas a pellets, instalación de caldera de biomasa de 25kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra de envergadura: requiere legalización RITE y certificado de instalador autorizado",
+          "Necesario cálculo de pérdidas térmicas para validar potencia 25kW",
+          "Silo de pellets: dimensionamiento según consumo mensual estimado",
+          "Desmontaje de caldera gas: gestión de residuos y desmantelamiento seguro obligatorio",
+          "Chimenea/salida humos: verificar tiro correcto y cumplimiento normativa"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación caldera biomasa, tuberías, vaso expansión, circuito hidráulico"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra sala calderas, preparación base, remates chimenea"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito eléctrico caldera, conexión termostato, cuadro control"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Desmontaje y gestión caldera gas antigua"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje caldera gas y accesorios",
+          "descripcion": "Desmontaje completo de caldera de gas existente, tuberías asociadas, vaso expansión, termostato y accesorios. Incluye desconexión segura de gas y electricidad.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según complejidad desmontaje y accesibilidad. Estimado 300-600€"
+        },
+        {
+          "concepto": "Gestión y transporte residuos caldera gas",
+          "descripcion": "Recogida, transporte y gestión de residuos de caldera gas antigua (chatarra, tuberías, accesorios). Cumplimiento normativa ambiental.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según volumen y gestor autorizado. Estimado 150-300€"
+        },
+        {
+          "concepto": "Caldera biomasa pellets 25kW",
+          "descripcion": "Suministro e instalación caldera de biomasa de 25kW, con quemador automático, sistema de control electrónico integrado, válvulas de seguridad y accesorios hidráulicos.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según marca y potencia. Estimado 4500-8000€"
+        },
+        {
+          "concepto": "Instalación caldera biomasa (mano de obra)",
+          "descripcion": "Instalación completa de caldera biomasa: conexión hidráulica al circuito existente, fijación a base, conexión eléctrica preliminar, pruebas de funcionamiento básicas.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Vaso expansión y válvulas de seguridad",
+          "descripcion": "Suministro e instalación vaso expansión cerrado (capacidad según circuito), válvula de seguridad, válvula antirretorno, manómetro y purgador automático.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según capacidad vaso. Estimado 400-800€"
+        },
+        {
+          "concepto": "Tuberías de conexión caldera (cobre/acero)",
+          "descripcion": "Suministro e instalación tuberías de cobre o acero inoxidable para conexión caldera biomasa al circuito de calefacción existente. Incluye aislamiento térmico.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según diámetro y material. Estimado 30-60€/ml"
+        },
+        {
+          "concepto": "Chimenea acero inoxidable doble pared",
+          "descripcion": "Suministro e instalación chimenea de acero inoxidable doble pared para evacuación de humos. Incluye codos, soportes, aislamiento y remate superior con sombrerete.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según diámetro y altura. Estimado 80-150€/ml"
+        },
+        {
+          "concepto": "Instalación chimenea y remates",
+          "descripcion": "Instalación chimenea: fijación a estructura, sellado de pasos, remate en cubierta/fachada, verificación tiro correcto.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 40,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silo de almacenamiento pellets",
+          "descripcion": "Suministro e instalación silo de pellets (capacidad según consumo estimado). Puede ser metálico, plástico o integrado en estructura. Incluye sistema de descarga automática.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según capacidad (1000-5000L). Estimado 1500-4000€"
+        },
+        {
+          "concepto": "Sistema extracción cenizas",
+          "descripcion": "Suministro e instalación sistema de extracción y almacenamiento de cenizas (depósito, tornillo sin fin o sistema automático según modelo caldera).",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según automatización. Estimado 400-1200€"
+        },
+        {
+          "concepto": "Circuito eléctrico y conexión caldera",
+          "descripcion": "Instalación circuito eléctrico independiente para caldera biomasa (línea protegida, interruptor diferencial, toma de tierra). Conexión a cuadro eléctrico.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Termostato y sistema de control",
+          "descripcion": "Suministro e instalación termostato digital programable para caldera biomasa. Incluye sonda de temperatura ambiente y cableado.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según funcionalidades. Estimado 300-800€"
+        },
+        {
+          "concepto": "Legalización RITE y certificado instalación",
+          "descripcion": "Tramitación legalización RITE (Reglamento de Instalaciones Térmicas en Edificios), inspección técnica, certificado de instalador autorizado y documentación de conformidad.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según comunidad autónoma. Estimado 400-800€"
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Pruebas de estanqueidad circuito hidráulico, purga de aire, verificación tiro chimenea, calibración termostato, prueba de funcionamiento completo y entrega de documentación.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Silicona sanitaria, teflón, abrazaderas, soportes, tornillería, aislamiento tuberías, cinta de embalaje, etiquetado y otros accesorios menores.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 200-400€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1980,
+        "iva_porcentaje": 21,
+        "iva": 415.8,
+        "total": 2395.8
+      },
+      "sugerencias_catalogo": [
+        "Validar potencia 25kW según cálculo de pérdidas térmicas de la vivienda (superficie, aislamiento, zona climática)",
+        "Dimensionar silo pellets: consumo estimado 25kW ≈ 5-6 toneladas/año ≈ 7000-8000 litros capacidad recomendada",
+        "Verificar acceso a sala calderas: espacio mínimo para mantenimiento y limpieza de chimenea",
+        "Considerar ayudas IDAE/fondos europeos para sustitución calefacción fósil por biomasa",
+        "Instalador debe estar colegiado y autorizado para legalización RITE"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Caldera biomasa pellets 25kW",
+          "oficio": "fontaneria",
+          "motivo": "Producto específico no en catálogo base. Requiere presupuesto de proveedor."
+        },
+        {
+          "concepto": "Silo de almacenamiento pellets",
+          "oficio": "fontaneria",
+          "motivo": "Accesorio específico biomasa. Precio según capacidad y tipo (metálico/plástico)."
+        },
+        {
+          "concepto": "Sistema extracción cenizas",
+          "oficio": "fontaneria",
+          "motivo": "Componente específico caldera biomasa. Varía según automatización."
+        },
+        {
+          "concepto": "Termostato digital programable",
+          "oficio": "electricidad",
+          "motivo": "Control específico para biomasa. Precio según funcionalidades (WiFi, histórico, etc.)."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_caldera_biomasa_pellets",
+      "instalacion_estufa_de_pellets",
+      "sustitucion_banera_por_ducha",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "reparacion_averia_caldera_gas"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3741,
+      "tokens_out": 4449
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 15,
+    "n_catalogo": 4,
+    "n_sugeridas": 11,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "NO"
+  }
+}

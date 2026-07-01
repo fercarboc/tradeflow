@@ -1,0 +1,249 @@
+{
+  "id": 150,
+  "oficio": "Pladur",
+  "texto": "Tabique curvo de pladur para zona de recepción de empresa, diseño específico con radio de 2 metros",
+  "http_status": 200,
+  "latency_ms": 29071,
+  "raw_response": {
+    "transcript": "Tabique curvo de pladur para zona de recepción de empresa, diseño específico con radio de 2 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique curvo de pladur para zona de recepción de empresa, diseño específico con radio de 2 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo especializado: tabique curvo requiere cálculo técnico y mano de obra cualificada",
+          "Radio de 2m es moderado pero requiere verificación de viabilidad con placa estándar",
+          "Falta definir: altura del tabique, superficie total (m²), acabado final, si lleva estructura reforzada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 65
+          },
+          "motivo": "Pladur especializado con geometría curva. Incremento de complejidad respecto a tabique recto."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cálculo técnico y diseño tabique curvo",
+          "descripcion": "Estudio de viabilidad, cálculo de radio, sistema de curvatura, refuerzos necesarios y detalles constructivos para tabique curvo radio 2m en zona de recepción",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de cálculo técnico especializado. Instalador define tarifa (150-300€ típico)"
+        },
+        {
+          "concepto": "Placa de yeso laminado 15mm estándar",
+          "descripcion": "Suministro e instalación de placa yeso 15mm para estructura curva. Cantidad a definir según altura y superficie final. Presupuestado por m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material base. Precio según m² total real (típico 8-12€/m² material + instalación 35€/h mano de obra)"
+        },
+        {
+          "concepto": "Perfil montante galvanizado reforzado para estructura curva",
+          "descripcion": "Perfiles montantes C galvanizados, sección reforzada (70mm mínimo recomendado), cortados y preparados para curvatura radio 2m",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perfil estructural reforzado. Cantidad en ml según altura. Precio típico 3-5€/ml material"
+        },
+        {
+          "concepto": "Perfil canal galvanizado para base y coronación",
+          "descripcion": "Perfil U galvanizado para anclaje perimetral de estructura curva, base y coronación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material soporte perimetral. Cantidad según perímetro curvado. Precio típico 2-4€/ml"
+        },
+        {
+          "concepto": "Arriostramientos y refuerzos para estabilidad curva",
+          "descripcion": "Perfiles de refuerzo radial y transversales para asegurar estabilidad de estructura curva, arriostramientos cada 1,5-2m en altura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema de refuerzos especializados para curvatura. Cantidad y tipo según cálculo. Presupuestar como partida global o por ml"
+        },
+        {
+          "concepto": "Tornillería inox y galvanizada",
+          "descripcion": "Tornillos autorroscantes reforzados, tacos, anclajes para estructura curva",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles. Cantidad variable. Presupuestar como parte del pequeño material o porcentaje sobre material principal (5-10%)"
+        },
+        {
+          "concepto": "Cinta de juntas y pasta de juntas",
+          "descripcion": "Cinta de papel y pasta juntas para acabado de uniones placa-placa y perfiles",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material acabado. Cantidad según ml de juntas. Típico 20-40€ por tabique"
+        },
+        {
+          "concepto": "Preparación, nivelación y curvatura de estructura",
+          "descripcion": "Mano de obra para replanteo, trazado curva, corte y preparación de perfiles para radio 2m, montaje estructura base curva",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 40,
+          "total": 240,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación 6-10h para geometría curva especializada. Ajustar según altura y complejidad real"
+        },
+        {
+          "concepto": "Montaje de estructura curva (montantes, arriostramientos, refuerzos)",
+          "descripcion": "Instalación de perfiles reforzados, arriostramientos radiales, fijación a suelo y techo/paredes, creación estructura resistente para curvatura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 40,
+          "total": 320,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación 8-12h para montaje estructura especializada. Requiere precisión y control de radio"
+        },
+        {
+          "concepto": "Colocación de placa curvada y tornillería",
+          "descripcion": "Corte, adaptación y fijación de placas yeso a estructura curva, tornillería reforzada, trabajo en curvatura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 40,
+          "total": 400,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación 10-14h colocación placa curva. Mayor dificultad que placa recta"
+        },
+        {
+          "concepto": "Acabado de juntas y preparation para pintura/revestimiento",
+          "descripcion": "Cintas, pasta juntas, masillado, lijado superficies curvas. Preparación para pintura o acabado final",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 35,
+          "total": 210,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación 6-8h acabado juntas en superficie curva. Mayor complejidad que superficies planas"
+        },
+        {
+          "concepto": "Pequeño material auxiliar (wastaca, anclajes, pequeños consumibles)",
+          "descripcion": "Consumibles varios, anclajes, fijaciones, herramientas consumibles durante ejecución",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles varios. Típico 50-100€ presupuestado por tabique o porcentaje sobre materiales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1170,
+        "iva_porcentaje": 21,
+        "iva": 245.7,
+        "total": 1415.7
+      },
+      "sugerencias_catalogo": [
+        "Base Maestra referencia: [tabique_pladur_con_estructura_metalica_para_grandes_alturas] — aunque este tabique NO es de gran altura, la estructura curva requiere arriostramientos similares y refuerzos puntuales",
+        "Base Maestra referencia: [estructura_pladur_para_zona_expositiva_o_showroom] — zona recepción es showroom/expositiva; aplicar refuerzo de puntos de fijación si se prevén accesorios (cartelería, iluminación)",
+        "Considerar acabado premium liso si va lacado o con pintura especial para zona recepción (imagen corporativa)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tabique pladur curvo especializado",
+          "categoria": "pladur_escayola_geometria_especializada",
+          "justificacion": "Geometría curva con radio específico (2m) no está cubierta por partidas estándar. Requiere cálculo técnico, estructura reforzada y mano de obra cualificada de mayor complejidad",
+          "campos_pendiente_instalador": [
+            "altura_total_tabique_m",
+            "superficie_total_m2",
+            "tipo_acabado_final (pintura/lacado/otro)",
+            "si_incluye_iluminacion_empotrada",
+            "si_requiere_aislamiento_acustico",
+            "sentido_curvatura (convexo/concavo_hacia_interior_o_exterior)",
+            "presencia_aberturas_puertas_ventanas"
+          ]
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "tabique_pladur_para_ducha_o_plato_de_ducha",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_hidrofugo_bano_o_cocina"
+    ],
+    "kb_score": 4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 12,
+    "n_catalogo": 0,
+    "n_sugeridas": 12,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

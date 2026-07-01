@@ -1,0 +1,254 @@
+{
+  "id": 176,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo de cemento pulido en loft industrial, 80 metros cuadrados con sellado protector",
+  "http_status": 200,
+  "latency_ms": 22266,
+  "raw_response": {
+    "transcript": "Instalar suelo de cemento pulido en loft industrial, 80 metros cuadrados con sellado protector",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo de cemento pulido en loft industrial, 80 metros cuadrados con sellado protector",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Superficie grande (80 m²): verificar estado actual del soporte y necesidad de base de zahorra",
+          "Loft industrial: confirmar si hay tráfico pesado o maquinaria que requiera endurecedor superficial adicional",
+          "Sellado protector: especificar tipo (poliuretano, epoxi) según uso final"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Instalación de suelo continuo de cemento pulido (microcemento/cemento bruñido)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y limpieza de soporte",
+          "descripcion": "Limpieza, barrido y preparación de la superficie para recibir hormigón/microcemento",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 3,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Base de zahorra compactada (si aplica)",
+          "descripcion": "Colocación y compactación de zahorra 15 cm como base de apoyo",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de zahorra y compactación pendiente de confirmación según disponibilidad local"
+        },
+        {
+          "concepto": "Hormigón HA-20 o microcemento bicomponente",
+          "descripcion": "Suministro de hormigón HA-20 con fibras o microcemento bicomponente para capa base de 5-8 cm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de hormigón/microcemento según proveedor y especificaciones técnicas"
+        },
+        {
+          "concepto": "Extendido, nivelación y fratasado de hormigón/microcemento",
+          "descripcion": "Extendido manual, nivelación con regla y fratasado mecánico (helicoptero si superficie >50m²) para obtener superficie plana y uniforme",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 18,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Juntas de retracción y dilatación",
+          "descripcion": "Ejecución de juntas de retracción cada 4-5 m y juntas de dilatación perimetral con sellante flexible",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Curado y protección inicial (7 días)",
+          "descripcion": "Curado con lámina de polietileno o líquido de curado para evitar evaporación rápida y fisuras",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 2,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pulido y acabado de cemento",
+          "descripcion": "Pulido progresivo con lijas de grano variable (80, 120, 220, 400) para obtener acabado liso y brillante",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 12,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Endurecedor superficial (tráfico industrial)",
+          "descripcion": "Aplicación de endurecedor superficial de color o incoloro para aumentar resistencia al desgaste en loft industrial",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de endurecedor superficial según marca y especificaciones"
+        },
+        {
+          "concepto": "Sellado protector poliuretano o epoxi",
+          "descripcion": "Aplicación de sellador de poliuretano o epoxi de alta resistencia para protección contra manchas, humedad y tráfico",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sellador según tipo (poliuretano 2K, epoxi, acrílico) y rendimiento"
+        },
+        {
+          "concepto": "Aplicación de sellador protector (mano de obra)",
+          "descripcion": "Aplicación manual o con rodillo del sellador protector en 1-2 capas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 6,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Lijas, llanas metálicas, cepillos, trapos, masilla, cinta de carrocero, protecciones, etc.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de consumibles según cantidad y tipo de trabajo"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3760,
+        "iva_porcentaje": 21,
+        "iva": 789.6,
+        "total": 4549.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la base actual permite aplicación directa o requiere zahorra compactada de 15 cm",
+        "Especificar tipo de sellador: poliuretano 2K (máxima resistencia, tráfico pesado), epoxi (buena resistencia, acabado brillante) o acrílico (económico, menor durabilidad)",
+        "En loft industrial con maquinaria: considerar endurecedor superficial de color para mejor visibilidad de derrames",
+        "Tiempo de curado: mínimo 7 días antes de tráfico ligero, 14-21 días antes de tráfico pesado",
+        "Mantenimiento: sellador requiere renovación cada 2-3 años según intensidad de uso"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Base de zahorra compactada",
+          "oficio": "suelos_alicatados",
+          "motivo": "Partida auxiliar de preparación de base, precio pendiente de confirmación"
+        },
+        {
+          "concepto": "Hormigón HA-20 o microcemento bicomponente",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material principal, precio variable según proveedor y especificaciones"
+        },
+        {
+          "concepto": "Endurecedor superficial",
+          "oficio": "suelos_alicatados",
+          "motivo": "Producto auxiliar para tráfico industrial, precio pendiente"
+        },
+        {
+          "concepto": "Sellador protector poliuretano o epoxi",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material de acabado protector, precio variable según tipo y marca"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "suelos_alicatados",
+          "motivo": "Estimación de herramientas y consumibles, requiere cuantificación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_suelo_de_cemento_portland_bruñido",
+      "instalacion_microcemento_suelo_interior",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "acabado_con_microcemento_suelo_o_pared",
+      "instalacion_pavimento_de_hormigon_impreso_o_decorativo"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4014,
+      "tokens_out": 3167
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "id": 256,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+  "http_status": 200,
+  "latency_ms": 18195,
+  "raw_response": {
+    "transcript": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema integrado de acceso y CCTV: requiere coordinación con central receptora si se desea monitorización profesional",
+          "Apertura remota desde smartphone: verificar compatibilidad con cerradura existente y tipo de accionamiento (electromagnético, motor, etc.)",
+          "Cableado: si no existe infraestructura previa, presupuestar canalización y tendido completo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema integrado de control de acceso, cámara IP, lector biométrico/tarjeta, software de gestión remota y cableado estructurado"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Adaptación/instalación de cerradura electrónica o electroimán para accionamiento remoto desde smartphone"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cámara IP para control de acceso",
+          "descripcion": "Cámara IP de vigilancia para portal, resolución mínima 2MP, visión nocturna, ángulo 120°, compatible con sistema de control de acceso integrado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cámara IP a definir por instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Lector de control de acceso (tarjeta/biométrico)",
+          "descripcion": "Lector de tarjeta RFID o lector biométrico (huella/facial) para acceso remoto, compatible con panel de control integrado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lector a definir según tecnología (RFID, biométrico, etc.)"
+        },
+        {
+          "concepto": "Panel de control de acceso con gestión remota",
+          "descripcion": "Central de control de acceso con módulo IP integrado, gestión desde smartphone, compatible con cámara IP y cerradura electrónica, software de administración incluido",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de panel de control a definir según capacidad y funcionalidades (número de puertas, usuarios, etc.)"
+        },
+        {
+          "concepto": "Cerradura electrónica o electroimán para apertura remota",
+          "descripcion": "Cerradura electrónica o electroimán de accionamiento remoto compatible con panel de control, para apertura desde smartphone. Incluye accionamiento de puerta",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cerradura electrónica a definir según tipo (electromagnética, motor, etc.) y compatibilidad con puerta existente"
+        },
+        {
+          "concepto": "Cableado CAT6 y cableado de alimentación",
+          "descripcion": "Cableado CAT6 para conexión de cámara IP y panel de control, cableado de alimentación 230V para electroimán/cerradura, pequeño material (conectores, regletas, etc.)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales y precio a definir según distancia desde cuadro a portal. Incluir canalización si no existe"
+        },
+        {
+          "concepto": "Instalación y configuración del sistema de control de acceso remoto",
+          "descripcion": "Montaje de cámara IP, lector de acceso, panel de control y cerradura electrónica. Conexionado completo. Configuración de software, integración con smartphone, pruebas de funcionamiento y apertura remota",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Adaptación e instalación de cerradura electrónica",
+          "descripcion": "Desmontaje de cerradura existente (si aplica), adaptación de marco/puerta para cerradura electrónica, instalación y ajuste de accionamiento remoto",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y capacitación de uso",
+          "descripcion": "Pruebas completas del sistema (acceso con tarjeta, apertura remota desde smartphone, grabación de cámara, alertas). Capacitación básica del usuario en manejo de app y panel de control",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 580,
+        "iva_porcentaje": 21,
+        "iva": 121.8,
+        "total": 701.8
+      },
+      "sugerencias_catalogo": [
+        "Considerar integración con central receptora de alarmas si se desea monitorización profesional 24/7",
+        "Verificar compatibilidad de cerradura electrónica con tipo de puerta (madera, aluminio, acero) y mecanismo de cierre existente",
+        "Recomendar batería de respaldo (UPS) para panel de control en caso de corte de suministro eléctrico",
+        "Incluir contrato de mantenimiento anual para actualización de software y revisión de componentes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cámara IP para control de acceso",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de sistema integrado de acceso remoto"
+        },
+        {
+          "concepto": "Lector de control de acceso (tarjeta/biométrico)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Componente de sistema de control de acceso remoto"
+        },
+        {
+          "concepto": "Panel de control de acceso con gestión remota",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Central de control integrada con módulo IP para smartphone"
+        },
+        {
+          "concepto": "Cerradura electrónica o electroimán para apertura remota",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Componente de accionamiento remoto específico para este sistema"
+        },
+        {
+          "concepto": "Cableado CAT6 y cableado de alimentación",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Infraestructura de red y alimentación para sistema integrado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_control_de_acceso_con_CCTV",
+      "instalacion_electrica_local_nuevo",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_sistema_de_riego_por_aspersion"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3836,
+      "tokens_out": 2617
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

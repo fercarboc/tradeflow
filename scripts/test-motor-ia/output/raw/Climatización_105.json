@@ -1,0 +1,278 @@
+{
+  "id": 105,
+  "oficio": "Climatización",
+  "texto": "Instalar recuperador de calor de doble flujo en vivienda de obra nueva, ventilación mecánica controlada",
+  "http_status": 200,
+  "latency_ms": 20321,
+  "raw_response": {
+    "transcript": "Instalar recuperador de calor de doble flujo en vivienda de obra nueva, ventilación mecánica controlada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar recuperador de calor de doble flujo en vivienda de obra nueva, ventilación mecánica controlada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Obra nueva: verificar cumplimiento CTE DB HS3 (renovaciones/hora según volumen vivienda)",
+          "Recuperador de doble flujo: eficiencia mínima 75% recomendada",
+          "Conductos: coordinar con estructura antes de cerrar tabiques",
+          "Filtros: especificar tipo (G4 mínimo en impulsión exterior)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de recuperador de calor y ventilación mecánica controlada"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión eléctrica del recuperador y controles"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Recuperador de calor de doble flujo",
+          "descripcion": "Unidad recuperadora de calor con eficiencia ≥75%, caudal según CTE DB HS3, incluye filtros G4 mínimo",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipo recuperador según marca, modelo y caudal (m³/h) a definir por instalador"
+        },
+        {
+          "concepto": "Red de conductos de impulsión y retorno",
+          "descripcion": "Conductos rígidos/flexibles de distribución aire impulsión (dormitorios, salón) y retorno (baños, cocina), incluye accesorios y soportes",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales y tipo de conducto (diámetro, material) a definir según plano de vivienda"
+        },
+        {
+          "concepto": "Rejillas de impulsión en dormitorios y salón",
+          "descripcion": "Rejillas de impulsión de aire en zonas secas (dormitorios, salón), incluye marco y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de rejillas según número de dormitorios y salón a definir"
+        },
+        {
+          "concepto": "Rejillas de extracción en baños y cocina",
+          "descripcion": "Rejillas de extracción de aire en zonas húmedas (baños, cocina), incluye marco y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de rejillas según número de baños y cocina a definir"
+        },
+        {
+          "concepto": "Bocas de toma exterior y expulsión exterior",
+          "descripcion": "Bocas de toma de aire exterior e impulsión/expulsión exterior, incluye rejillas antiinsectos y remates",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de bocas exteriores según tipo y acabado a definir"
+        },
+        {
+          "concepto": "Filtros de aire (G4 mínimo)",
+          "descripcion": "Filtros de aire clase G4 mínimo para impulsión exterior, incluye marco y accesorios de montaje",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del filtro según dimensiones y clase a definir"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, bridas, cinta aislante, selladores, soportes, abrazaderas y otros accesorios de montaje",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material según alcance de instalación"
+        },
+        {
+          "concepto": "Instalación del recuperador de calor",
+          "descripcion": "Montaje de unidad recuperadora, conexión de conductos de impulsión y retorno, pruebas de funcionamiento y ajuste de caudales",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de red de conductos",
+          "descripcion": "Tendido, fijación y conexión de conductos de impulsión y retorno, incluyendo accesorios y soportes",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 60,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de rejillas y bocas exteriores",
+          "descripcion": "Montaje de rejillas de impulsión, extracción y bocas exteriores, incluyendo marcos y remates",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica del recuperador",
+          "descripcion": "Instalación de cable de alimentación, conexión a cuadro eléctrico, termostato/control de velocidad y pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable de alimentación y pequeño material eléctrico",
+          "descripcion": "Cable de conexión, interruptor, termostato/control de velocidad, enchufes y accesorios eléctricos",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos según especificaciones técnicas a definir"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1760,
+        "iva_porcentaje": 21,
+        "iva": 369.6,
+        "total": 2129.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_recuperador_de_calor_ventilacion_mecanica_controlada' para obtener precios de equipos según caudal (m³/h)",
+        "Consultar especificaciones CTE DB HS3 para determinar caudal mínimo según volumen de vivienda",
+        "Coordinar con estructura: los conductos deben pasar antes de cerrar tabiques y forjados"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Recuperador de calor de doble flujo",
+          "oficio": "climatizacion",
+          "motivo": "Material específico cuyo precio depende de marca, modelo y caudal (m³/h)"
+        },
+        {
+          "concepto": "Red de conductos de impulsión y retorno",
+          "oficio": "climatizacion",
+          "motivo": "Cantidad variable según plano de vivienda (metros lineales y diámetros)"
+        },
+        {
+          "concepto": "Rejillas de impulsión en dormitorios y salón",
+          "oficio": "climatizacion",
+          "motivo": "Cantidad variable según número de estancias"
+        },
+        {
+          "concepto": "Rejillas de extracción en baños y cocina",
+          "oficio": "climatizacion",
+          "motivo": "Cantidad variable según número de baños y cocina"
+        },
+        {
+          "concepto": "Cable de alimentación y pequeño material eléctrico",
+          "oficio": "electricidad",
+          "motivo": "Materiales eléctricos específicos según control y potencia del equipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_recuperador_de_calor_ventilacion_mecanica_controlada",
+      "instalacion_ventilacion_mecanica_controlada_vmc",
+      "instalacion_de_suelo_radiante_en_reforma",
+      "reforma_para_instalar_piscina_en_vivienda_unifamiliar",
+      "tabique_pladur_en_vivienda_unifamiliar_nueva"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3997,
+      "tokens_out": 3092
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 4,
+    "n_sugeridas": 8,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

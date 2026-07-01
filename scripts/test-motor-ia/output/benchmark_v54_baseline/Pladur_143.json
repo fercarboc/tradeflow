@@ -1,0 +1,243 @@
+{
+  "id": 143,
+  "oficio": "Pladur",
+  "texto": "Falso techo de pladur en salón de 30 metros cuadrados con iluminación LED integrada y registro",
+  "http_status": 200,
+  "latency_ms": 22766,
+  "raw_response": {
+    "transcript": "Falso techo de pladur en salón de 30 metros cuadrados con iluminación LED integrada y registro",
+    "quote": {
+      "resumen": {
+        "texto_original": "Falso techo de pladur en salón de 30 metros cuadrados con iluminación LED integrada y registro",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Iluminación LED: precio de material y mano de obra pendiente de revisión (suministro e instalación eléctrica)",
+          "Registro: se asume trampilla metálica estándar 40x40cm; confirmar ubicación y dimensiones"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Falso techo de pladur con estructura, placas, juntas y acabados"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación de iluminación LED integrada en falso techo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 12,5mm para falso techo",
+          "descripcion": "Suministro e instalación de placa de yeso laminado estándar 12,5mm para falso techo registrable, 30 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material (placa + pequeño material) a definir por instalador según proveedor"
+        },
+        {
+          "concepto": "Estructura de cuelgue para falso techo",
+          "descripcion": "Suministro e instalación de estructura de cuelgue (perfiles maestros, varillas roscadas, horquillas) para 30 m² de falso techo",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura (perfiles, varillas, herrajes) a definir según altura de cuelgue y complejidad"
+        },
+        {
+          "concepto": "Mano de obra: instalación estructura y placas falso techo",
+          "descripcion": "Montaje de estructura de cuelgue, colocación de placas de yeso laminado, fijación y nivelación en 30 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 35,
+          "total": 1050,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cinta y pasta de juntas para falso techo",
+          "descripcion": "Suministro de cinta de papel y pasta de juntas para sellado y acabado de juntas en 30 m² de falso techo (3 pasadas)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de consumibles (cinta + pasta) a definir por instalador"
+        },
+        {
+          "concepto": "Mano de obra: acabado de juntas (cinta y pasta)",
+          "descripcion": "Aplicación de cinta de papel, pasta de juntas y lijado de acabado en 30 m² de falso techo",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 35,
+          "total": 1050,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Trampilla de registro metálica 40x40cm",
+          "descripcion": "Suministro e instalación de trampilla de registro metálica 40x40cm para acceso a instalaciones en falso techo",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de trampilla metálica a definir; confirmar dimensiones y ubicación con cliente"
+        },
+        {
+          "concepto": "Mano de obra: instalación trampilla de registro",
+          "descripcion": "Corte de placa, instalación de marco y trampilla de registro, acabado perimetral",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada por unidad; ajustar según complejidad de acceso"
+        },
+        {
+          "concepto": "Tira LED integrada en falso techo",
+          "descripcion": "Suministro de tira LED (metros lineales estimados según distribución en 30 m²) para iluminación integrada en falso techo",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales y tipo de LED (RGB, blanco cálido, etc.) a definir; precio de material pendiente"
+        },
+        {
+          "concepto": "Mano de obra: instalación iluminación LED integrada",
+          "descripcion": "Instalación de tira LED en falso techo, conexión a red eléctrica, pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura de acabado en falso techo",
+          "descripcion": "Imprimación y pintura de acabado (2 manos) en 30 m² de falso techo pladur",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura e imprimación a definir por instalador"
+        },
+        {
+          "concepto": "Mano de obra: pintura de acabado",
+          "descripcion": "Aplicación de imprimación y pintura de acabado (2 manos) en 30 m² de falso techo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 32,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 3360,
+        "iva_porcentaje": 21,
+        "iva": 705.6,
+        "total": 4065.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: tipo de iluminación LED (RGB, blanco cálido, blanco frío), distribución (perimetral, rejilla, lineal), y si incluye mando a distancia o control domótico",
+        "Ubicación de trampilla: debe estar sobre elementos que requieran mantenimiento (conductos, tuberías, cableado). Mínimo 40x40cm para acceso de persona",
+        "Altura de cuelgue: verificar distancia entre forjado y falso techo para paso de instalaciones (climatización, fontanería, electricidad)",
+        "Acabado de pintura: confirmar color y tipo (mate, satinado) con cliente antes de presupuestar"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tira LED integrada en falso techo",
+          "oficio": "electricidad",
+          "motivo": "Iluminación LED integrada no está desglosada en catálogo base; requiere especificación de metros lineales, tipo de LED y control"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "falso_techo_pladur_registrable_o_con_trampillas",
+      "falso_techo_pladur_ignifugo_o_cortafuego",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "falso_techo_pladur_con_lucernario_o_claraboya_artificial"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3631,
+      "tokens_out": 3097
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "id": 284,
+  "oficio": "Impermeabilización",
+  "texto": "Sellar grieta en muro de sótano por donde entra agua en época de lluvias, inyección de resina",
+  "http_status": 200,
+  "latency_ms": 18185,
+  "raw_response": {
+    "transcript": "Sellar grieta en muro de sótano por donde entra agua en época de lluvias, inyección de resina",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sellar grieta en muro de sótano por donde entra agua en época de lluvias, inyección de resina",
+        "tipo_presupuesto": "reparacion",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Grieta activa (entra agua en lluvias) - puede ser problema estructural",
+          "Inyección de resina es solución para grietas estructurales - requiere diagnóstico previo",
+          "Sótano enterrado - puede requerir impermeabilización complementaria del trasdos si presión hidrostática alta",
+          "Se recomienda: testigos de control, análisis de origen (capilaridad, presión, movimiento estructural)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de grietas en muro - oficio base"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Grieta con filtración de agua - impermeabilización complementaria recomendada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y testigos de grieta activa",
+          "descripcion": "Análisis del tipo de grieta (activa/pasiva), origen (capilaridad, presión hidrostática, movimiento estructural), instalación de testigos de control para monitorizar movimiento",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diagnóstico crítico para grietas activas con agua - instalador estima horas/coste"
+        },
+        {
+          "concepto": "Saneo y preparación de grieta",
+          "descripcion": "Apertura y saneo de grieta en V (extracción de material suelto, polvo), limpieza profunda, secado si es necesario",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 30,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inyección de resina epoxi",
+          "descripcion": "Inyección de resina epoxi bicomponente de baja viscosidad en grieta estructural con boquillas de inyección, presión controlada, para sellado y recuperación de resistencia",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado - coste depende de profundidad, anchura y longitud grieta. Instalador valida cantidad y precio"
+        },
+        {
+          "concepto": "Mano de obra inyección de resina",
+          "descripcion": "Colocación de boquillas, inyección bajo presión controlada, relleno progresivo, curado y limpieza",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación base 2h - revisar según longitud/profundidad grieta real"
+        },
+        {
+          "concepto": "Testigos de control para seguimiento",
+          "descripcion": "Instalación de testigos de yeso o plástico en grieta para detectar reaperturas futuras en época lluviosa",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible bajo coste - instalador confirma cantidad y precio unitario"
+        },
+        {
+          "concepto": "Impermeabilización complementaria por exterior (sótano)",
+          "descripcion": "Si grieta sigue filtrando tras inyección: impermeabilización de trasdos por exterior con membrana bituminosa/drenante, tubo drenaje pie muro, si presión hidrostática presente",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "TRABAJO COMPLEMENTARIO OPCIONAL - incluir solo si diagnóstico inicial indica presión hidrostática permanente. Superficie a valorar in situ"
+        }
+      ],
+      "calculos": {
+        "subtotal": 110,
+        "iva_porcentaje": 21,
+        "iva": 23.1,
+        "total": 133.1
+      },
+      "sugerencias_catalogo": [
+        "Ampliar búsqueda: 'reparacion_grieta_estructural_inyeccion_resina' no encontrada - crear en catálogo si es actuación recurrente",
+        "Vincular: diagnostico_grieta_activa + inyeccion_resina + impermeabilizacion_trasdos como 'kit_reparacion_filtracion_sotano'"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico y testigos de grieta activa",
+          "oficio": "albanileria",
+          "razon": "Grieta con filtración activa requiere análisis especializado antes de sellar"
+        },
+        {
+          "concepto": "Inyección de resina epoxi",
+          "oficio": "albanileria",
+          "razon": "Material especializado para grietas estructurales - no en catálogo estándar"
+        },
+        {
+          "concepto": "Impermeabilización complementaria por exterior (sótano)",
+          "oficio": "impermeabilizacion",
+          "razon": "Trabajo complementario si inyección no resuelve filtración por presión hidrostática"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_e_informe_de_humedades_y_filtraciones",
+      "reparacion_de_fisuras_y_grietas_en_fachada",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "impermeabilizacion_de_sotano_o_muro_enterrado_por_exterior",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

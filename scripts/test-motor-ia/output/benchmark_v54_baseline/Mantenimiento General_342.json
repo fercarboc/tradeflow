@@ -1,0 +1,194 @@
+{
+  "id": 342,
+  "oficio": "Mantenimiento General",
+  "texto": "Revisión general de vivienda antes de poner en alquiler, reparaciones menores y informe",
+  "http_status": 200,
+  "latency_ms": 15997,
+  "raw_response": {
+    "transcript": "Revisión general de vivienda antes de poner en alquiler, reparaciones menores y informe",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión general de vivienda antes de poner en alquiler, reparaciones menores e informe",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye revisión exhaustiva + reparaciones menores. Algunas partidas requieren confirmación de hallazgos en la visita inicial.",
+          "El precio final dependerá del alcance real de las reparaciones detectadas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Revisión integral de vivienda con múltiples oficios (electricidad, fontanería, carpintería, pintura, sanitarios). Clasificado como mantenimiento_general por ser inspección + reparaciones puntuales sin reforma mayor."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión visual instalación eléctrica",
+          "descripcion": "Inspección de cuadro eléctrico, enchufes, interruptores, tomas de tierra, estado general de cableado visible. Informe de seguridad.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión fontanería, fugas y presión",
+          "descripcion": "Inspección de tuberías visibles, grifería, desagües, válvulas de corte, presión de agua. Detección de fugas y humedad. Prueba de funcionamiento.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión carpintería, cerrajería y cerraduras",
+          "descripcion": "Inspección de puertas, ventanas, marcos, cerraduras, bisagras. Prueba de apertura/cierre y funcionamiento. Estado de sellados.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión estado paredes, techos y suelos",
+          "descripcion": "Inspección visual de grietas, humedades, manchas, desprendimientos, estado de pintura y revestimientos. Detección de filtraciones.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión sanitarios y grifería",
+          "descripcion": "Inspección de inodoros, lavabos, bañera/ducha, grifería. Prueba de funcionamiento, fugas, sellados. Estado de azulejos y juntas.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparaciones menores detectadas (mano de obra)",
+          "descripcion": "Ejecución de reparaciones puntuales: ajustes de puertas/ventanas, cambio de juntas, sellados, pequeños retoques de pintura, apriete de tornillería, etc. Presupuesto estimado sujeto a hallazgos reales.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Ajustar según reparaciones reales detectadas en revisión inicial."
+        },
+        {
+          "concepto": "Materiales para reparaciones menores",
+          "descripcion": "Pequeño material: juntas, selladores, tornillería, masilla, pintura de retoque, teflon, etc. Presupuesto estimado.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de confirmación según materiales reales necesarios. Estimado 50-150€."
+        },
+        {
+          "concepto": "Informe escrito con hallazgos y recomendaciones",
+          "descripcion": "Elaboración de informe detallado con fotografías, listado de hallazgos, prioridades de reparación, recomendaciones de mantenimiento y certificado de vivienda lista para alquiler.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de informe. Precio estimado 80-150€ según complejidad y número de páginas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Si se detecta caldera o sistema de climatización, añadir revisión específica de estos equipos (mantenimiento_general o especializado según tipo).",
+        "Si hay acceso a cubierta/terraza, incluir revisión de estado de tejas, canalones y filtraciones.",
+        "Considerar contrato de mantenimiento anual si el cliente lo solicita (más económico que visitas puntuales)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Materiales para reparaciones menores",
+          "oficio": "mantenimiento_general",
+          "motivo": "Pequeño material variable según hallazgos. Precio a confirmar por instalador."
+        },
+        {
+          "concepto": "Informe escrito con hallazgos y recomendaciones",
+          "oficio": "mantenimiento_general",
+          "motivo": "Servicio de documentación y certificación. Precio a confirmar por instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_zona_ducha_con_membrana_liquida",
+      "instalacion_llave_general_vivienda",
+      "sustitucion_llave_paso",
+      "revision_anual_instalacion_general_vivienda",
+      "revision_y_repaso_pintura_vivienda_completa"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3563,
+      "tokens_out": 2167
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 6,
+    "n_sugeridas": 2,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

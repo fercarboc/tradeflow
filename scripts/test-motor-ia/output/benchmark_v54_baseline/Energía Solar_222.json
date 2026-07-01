@@ -1,0 +1,224 @@
+{
+  "id": 222,
+  "oficio": "Energía Solar",
+  "texto": "Presupuesto para instalación solar con baterías de litio para desconectarse de la red eléctrica",
+  "http_status": 200,
+  "latency_ms": 23835,
+  "raw_response": {
+    "transcript": "Presupuesto para instalación solar con baterías de litio para desconectarse de la red eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Presupuesto para instalación solar con baterías de litio para desconectarse de la red eléctrica",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema aislado (off-grid): requiere dimensionamiento preciso del consumo diario y autonomía deseada",
+          "Baterías de litio: especificar química (LFP recomendada por seguridad y durabilidad)",
+          "Legalización: sistema aislado no requiere tramitación distribuidora, pero sí cumplir normativa eléctrica local",
+          "Falta información crítica: consumo diario (kWh), autonomía deseada (días), orientación y superficie disponible"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Instalación sistema fotovoltaico híbrido con baterías de litio para aislamiento de red"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulos fotovoltaicos",
+          "descripcion": "Paneles solares fotovoltaicos monocristalinos de alta eficiencia (potencia a definir según consumo y autonomía). Incluye suministro e instalación en estructura soporte.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Potencia en kWp a definir por instalador según consumo diario y horas de sol de la zona. Rango típico: 3-10 kWp para vivienda aislada. Precio estimado: 800-1200€/kWp instalado."
+        },
+        {
+          "concepto": "Banco de baterías de litio LFP",
+          "descripcion": "Sistema de almacenamiento en baterías de litio ferrofosfato (LFP) con BMS integrado. Capacidad a definir según autonomía deseada (típico 10-30 kWh para aislamiento total). Incluye suministro e instalación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWh",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Capacidad en kWh a definir por instalador según consumo nocturno y días de autonomía. LFP recomendada: 6000+ ciclos, más segura que NMC. Precio estimado: 800-1200€/kWh instalado."
+        },
+        {
+          "concepto": "Inversor híbrido/cargador-inversor",
+          "descripcion": "Inversor híbrido de corriente continua a alterna (DC/AC) con gestión integrada de paneles solares, baterías y cargas. Potencia a definir según consumo pico. Incluye suministro e instalación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Potencia en kW a definir según consumo pico de la vivienda (típico 3-6 kW). Precio estimado: 2000-5000€ según potencia."
+        },
+        {
+          "concepto": "Cableado DC y AC, protecciones y conexionado",
+          "descripcion": "Cableado de corriente continua (paneles-inversor-baterías) y alterna (inversor-cuadro de distribución). Incluye diferenciales, magnetotérmicos, fusibles DC, puesta a tierra y pequeño material de conexión.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según longitud de cableado y complejidad de instalación. Estimado: 800-1500€."
+        },
+        {
+          "concepto": "Estructura soporte paneles solares",
+          "descripcion": "Estructura metálica de aluminio o acero galvanizado para fijación de módulos fotovoltaicos en cubierta o terreno. Incluye suministro e instalación con anclajes.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según número de paneles y tipo de cubierta. Estimado: 400-1000€."
+        },
+        {
+          "concepto": "Mano de obra: instalación sistema fotovoltaico aislado completo",
+          "descripcion": "Instalación integral del sistema: montaje estructura, colocación paneles, instalación inversor híbrido, banco baterías, cableado DC/AC, protecciones, puesta a tierra, pruebas de funcionamiento y puesta en marcha.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 65,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a definir por instalador según complejidad (acceso a cubierta, longitud cableado, tipo baterías). Estimado: 40-80 horas para sistema completo aislado."
+        },
+        {
+          "concepto": "Sistema de monitoreo y control remoto",
+          "descripcion": "Aplicación móvil y/o pantalla de control para monitorización en tiempo real de producción solar, consumo, estado de baterías y alertas. Incluye suministro e instalación de dispositivo de comunicación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según marca e integración. Estimado: 300-800€."
+        },
+        {
+          "concepto": "Generador de respaldo (opcional)",
+          "descripcion": "Generador diésel o gasolina de respaldo para períodos de baja producción solar prolongada. Incluye suministro, instalación y conexión automática al inversor (si aplica).",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional. Potencia y tipo a definir. Estimado: 1500-4000€ si se incluye."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: consumo diario estimado (kWh/día), autonomía deseada (días sin sol), orientación y superficie disponible para paneles, presupuesto máximo.",
+        "Realizar estudio de viabilidad: análisis de radiación solar de la zona, sombras, inclinación óptima.",
+        "Especificar química de baterías: LFP (litio ferrofosfato) recomendada por seguridad, durabilidad (6000+ ciclos) y menor riesgo de incendio vs. NMC.",
+        "Incluir en presupuesto final: documentación técnica, manual de usuario, garantía de componentes (típico 10 años paneles, 10 años baterías, 5 años inversor).",
+        "Considerar generador de respaldo si autonomía < 3 días o consumo muy variable.",
+        "Cumplimiento normativa: verificar normativa eléctrica local, puesta a tierra, protecciones contra sobretensiones."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulos fotovoltaicos",
+          "oficio": "energia_solar",
+          "motivo": "Cantidad en kWp a definir por instalador"
+        },
+        {
+          "concepto": "Banco de baterías de litio LFP",
+          "oficio": "energia_solar",
+          "motivo": "Capacidad en kWh a definir por instalador"
+        },
+        {
+          "concepto": "Inversor híbrido/cargador-inversor",
+          "oficio": "energia_solar",
+          "motivo": "Potencia en kW a definir según consumo pico"
+        },
+        {
+          "concepto": "Cableado DC y AC, protecciones y conexionado",
+          "oficio": "energia_solar",
+          "motivo": "Precio a definir según longitud y complejidad"
+        },
+        {
+          "concepto": "Estructura soporte paneles solares",
+          "oficio": "energia_solar",
+          "motivo": "Precio a definir según número de paneles"
+        },
+        {
+          "concepto": "Sistema de monitoreo y control remoto",
+          "oficio": "energia_solar",
+          "motivo": "Precio a definir según marca e integración"
+        },
+        {
+          "concepto": "Generador de respaldo (opcional)",
+          "oficio": "energia_solar",
+          "motivo": "Opcional, precio a definir según potencia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_baterias_de_almacenamiento_solar",
+      "informe_y_presupuesto_sistema_solar",
+      "diagnostico_y_presupuesto_proteccion_solar_edificio",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3920,
+      "tokens_out": 3455
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "id": 54,
+  "oficio": "Carpintería",
+  "texto": "Fabricación de mueble de baño a medida con lavabo integrado y cajonera de cierre suave",
+  "http_status": 200,
+  "latency_ms": 16238,
+  "raw_response": {
+    "transcript": "Fabricación de mueble de baño a medida con lavabo integrado y cajonera de cierre suave",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación de mueble de baño a medida con lavabo integrado y cajonera de cierre suave",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere medición exacta del hueco del baño",
+          "Coordinar con fontanero para integración de lavabo y desagüe",
+          "Confirmar tipo de lavabo (cerámica, resina, piedra) y grifo incluido o no"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación a medida de mueble con cajonera"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Integración de lavabo y conexiones hidráulicas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura tablero mueble baño a medida",
+          "descripcion": "Fabricación de estructura/cuerpo en tablero melanina o madera según especificación, adaptado al hueco del baño",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de definir según dimensiones, material (melanina/madera maciza) y acabado solicitado"
+        },
+        {
+          "concepto": "Cajonera con guías telescópicas y cierre suave",
+          "descripcion": "Fabricación de cajonera de cierre suave con guías telescópicas de calidad, frentes según acabado especificado",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de definir según número de cajones, profundidad y sistema de cierre suave"
+        },
+        {
+          "concepto": "Integración lavabo en mueble",
+          "descripcion": "Recorte, preparación e integración de lavabo (cerámica/resina) en tablero superior del mueble baño. Sellado e impermeabilización perimetral",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lavabo integrado en mueble baño",
+          "descripcion": "Lavabo (cerámica, resina u otro material según especificación) para integración en mueble de baño",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de definir según tipo, material y dimensiones del lavabo"
+        },
+        {
+          "concepto": "Conexión hidráulica lavabo en mueble",
+          "descripcion": "Instalación de tuberías de entrada agua fría/caliente y salida desagüe para lavabo integrado en mueble baño",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo y válvulas para lavabo",
+          "descripcion": "Grifo monomando o termostático y válvulas de corte agua fría/caliente para lavabo integrado",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de definir según modelo de grifo y accesorios (válvulas, flexibles)"
+        },
+        {
+          "concepto": "Sifón y tuberías desagüe lavabo",
+          "descripcion": "Sifón botella y tubería de desagüe hacia bote sifón o bajante",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de definir según material tuberías y conexiones"
+        },
+        {
+          "concepto": "Fijación y anclaje mueble a pared",
+          "descripcion": "Fijación del mueble de baño a pared con tacos y tornillos según tipo de pared (yeso, hormigón, ladrillo)",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado, ajustes y pruebas funcionales",
+          "descripcion": "Ajuste de puertas/cajones, prueba de cierre suave, sellado final, prueba hidráulica lavabo, limpieza",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 392.5,
+        "iva_porcentaje": 21,
+        "iva": 82.425,
+        "total": 474.925
+      },
+      "sugerencias_catalogo": [
+        "Considerar mueble cocina a medida como referencia para estructura y herrajes (partidas obligatorias: módulos estructura, tablero, puertas/cajones, herraje bisagras y guías, zócalo, pequeño material)",
+        "Considerar cajonera a medida como referencia para sistema de cierre suave (partidas obligatorias: cuerpo tablero, cajones guías telescópicas, frentes, tirador, pequeño material, amortiguador cierre suave recomendado)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura tablero mueble baño a medida",
+          "origen": "sugerida_ia",
+          "motivo": "Variante de mueble a medida específica para baño; no existe entrada exacta en catálogo"
+        },
+        {
+          "concepto": "Integración lavabo en mueble",
+          "origen": "sugerida_ia",
+          "motivo": "Actuación específica de integración de lavabo en tablero; requiere precisión en medidas y sellado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_cajonera_o_modulo_bajo_a_medida",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria",
+      "fabricacion_e_instalacion_mueble_cocina_a_medida",
+      "instalacion_ventiloconvector_suelo",
+      "fabricacion_de_estanterias_y_baldas_a_medida"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "id": 259,
+  "oficio": "Telecomunicaciones",
+  "texto": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+  "http_status": 200,
+  "latency_ms": 16395,
+  "raw_response": {
+    "transcript": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+        "tipo_presupuesto": "mejora",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: Repetidor DEBE ser homologado CNAF. Los no homologados son ILEGALES",
+          "Sistema pasivo requiere antena EXTERIOR orientada hacia torre del operador",
+          "Notificación obligatoria al operador móvil y CNAF antes de instalación",
+          "Verificar cobertura exterior disponible antes de proceder"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema de cobertura móvil interior - catálogo BASE MAESTRA"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Repetidor de señal móvil homologado CNAF",
+          "descripcion": "Repetidor pasivo homologado CNAF obligatorio para amplificación cobertura móvil interior",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar marca/modelo homologado CNAF y precio"
+        },
+        {
+          "concepto": "Antena exterior donante orientada a torre operador",
+          "descripcion": "Antena exterior de recepción orientada hacia torre del operador móvil para sistema pasivo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio según especificaciones técnicas y ganancia de antena"
+        },
+        {
+          "concepto": "Antena interior de servicio",
+          "descripcion": "Antena interior para retransmisión de señal amplificada en zona de cobertura deficiente",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio según tipo de antena (omnidireccional/directiva)"
+        },
+        {
+          "concepto": "Cable coaxial de baja pérdida",
+          "descripcion": "Cableado coaxial de calidad para conexión antena exterior-repetidor-antena interior, baja pérdida",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe especificar metraje según recorrido interior/exterior"
+        },
+        {
+          "concepto": "Conectores y pequeño material",
+          "descripcion": "Conectores coaxiales, bridas, silicona, aislantes y pequeño material de instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio alzado según complejidad"
+        },
+        {
+          "concepto": "Instalación, orientación y pruebas de repetidor pasivo",
+          "descripcion": "Montaje de antenas (exterior e interior), orientación hacia torre operador, conexionado coaxial, sellado/impermeabilización, pruebas de cobertura y optimización",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Notificación CNAF y coordinación operador",
+          "descripcion": "Tramitación de notificación obligatoria a CNAF, coordinación con operador móvil, documentación de homologación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo: gestión de trámites CNAF obligatorios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Antes de presupuestar: solicitar estudio de cobertura exterior. Si no hay señal exterior, el sistema pasivo NO funciona",
+        "Alternativa si exterior sin cobertura: femtocell del operador (solución más sencilla, requiere banda ancha)"
+      ],
+      "partidas_nuevas_detectadas": [
+        "repetidor_pasivo_homologado_cnaf",
+        "antena_exterior_donante",
+        "antena_interior_servicio",
+        "cable_coaxial_baja_perdida",
+        "instalacion_orientacion_repetidor_pasivo",
+        "notificacion_cnaf_operador"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_mejora_de_cobertura_movil_en_interior",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_cerrojo_adicional"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

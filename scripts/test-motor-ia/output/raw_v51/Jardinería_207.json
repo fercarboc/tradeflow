@@ -1,0 +1,161 @@
+{
+  "id": 207,
+  "oficio": "Jardinería",
+  "texto": "Talar árbol peligroso próximo a la vivienda, pino de 10 metros de altura, gestión de residuos",
+  "http_status": 200,
+  "latency_ms": 13515,
+  "raw_response": {
+    "transcript": "Talar árbol peligroso próximo a la vivienda, pino de 10 metros de altura, gestión de residuos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Talar árbol peligroso próximo a la vivienda, pino de 10 metros de altura, gestión de residuos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura con riesgo. EPI obligatorio (casco, arnés, botas anticorte)",
+          "Verificar si el árbol está catalogado o en vía pública (requiere licencia municipal)",
+          "Recomendable evaluación previa de estabilidad y dirección de caída por especialista"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Tala de árbol de gran envergadura (10m) con gestión de residuos. Trabajo especializado en altura."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación previa, planificación de caída segura y dirección",
+          "descripcion": "Análisis de riesgo, estudio de estructura del árbol, planificación de caída dirigida y zona de seguridad",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tala del pino (10m) en secciones y descenso controlado",
+          "descripcion": "Tala de pino de 10 metros de altura mediante motosierra, descenso de troncos en secciones con cuerdas y arnés, trabajo en altura",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 25,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Astillado, troceado y gestión de residuos vegetales",
+          "descripcion": "Astillado de ramas y residuos, troceado de leña aprovechable, carga y transporte de residuos a gestor autorizado, gestión final",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Equipo especializado (motosierra, cuerdas, arnés, polea, EPI completo)",
+          "descripcion": "Suministro y uso de motosierra profesional, cuerdas dinámicas, arnés de seguridad, casco con protección facial, pantalón anticorte, botas de seguridad, guantes, polea y hardware",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "servicio",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe estimar coste de equipamiento y consumibles (gasolina, cadenas, cuerdas, etc.)"
+        },
+        {
+          "concepto": "Destocado del tocón y relleno de hoyo",
+          "descripcion": "Extracción de raíces principales, destocado total del tocón, relleno del hoyo con tierra vegetal compactada",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Licencia municipal (si aplica)",
+          "descripcion": "Solicitud y trámite de licencia municipal para tala de árbol si está catalogado o en vía pública. Gestión administrativa.",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe verificar si es necesaria y calcular honorarios o tasa municipal"
+        }
+      ],
+      "calculos": {
+        "subtotal": 375,
+        "iva_porcentaje": 21,
+        "iva": 78.75,
+        "total": 453.75
+      },
+      "sugerencias_catalogo": [
+        "Verificar clasificación del árbol en catálogo municipal antes de iniciar (puede requerir licencia)",
+        "Confirmar disponibilidad de gestor autorizado para residuos vegetales (obligatorio por normativa ambiental)",
+        "Recomendable contratación de empresa con certificación en trabajos en altura y seguro de responsabilidad civil"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Equipo especializado (motosierra, cuerdas, arnés, polea, EPI completo)",
+          "oficio": "jardineria",
+          "motivo": "Material y equipamiento especializado para trabajos en altura; instalador determina coste real"
+        },
+        {
+          "concepto": "Licencia municipal (si aplica)",
+          "oficio": "jardineria",
+          "motivo": "Trámite administrativo; depende de normativa local"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "construccion_de_piscina_de_obra",
+      "tala_y_extraccion_de_arbol",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_llave_escuadra"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

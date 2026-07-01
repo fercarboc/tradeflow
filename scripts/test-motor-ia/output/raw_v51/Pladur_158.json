@@ -1,0 +1,150 @@
+{
+  "id": 158,
+  "oficio": "Pladur",
+  "texto": "Reparar juntas y fisuras en falso techo de pladur con masilla y rejilla de fibra de vidrio",
+  "http_status": 200,
+  "latency_ms": 17343,
+  "raw_response": {
+    "transcript": "Reparar juntas y fisuras en falso techo de pladur con masilla y rejilla de fibra de vidrio",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar juntas y fisuras en falso techo de pladur con masilla y rejilla de fibra de vidrio",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Reparación de juntas y fisuras: se recomienda verificar la causa (movimientos estructurales, humedades, asentamientos) antes de proceder",
+          "El precio incluye solo reparación superficial; si hay daño estructural en placas, se requiere sustitución de placa"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Reparación de juntas y fisuras en pladur, actividad estándar de escayolista"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Reparación de juntas y fisuras en falso techo de pladur",
+          "descripcion": "Apertura controlada de fisuras, aplicación de rejilla de fibra de vidrio, masilla de juntas, lijado y acabado fino para pintura. Incluye pequeño material (tornillos, cinta papel juntas si necesario)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a reparar no especificada en descripción original; instalador debe indicar superficie total de juntas/fisuras"
+        },
+        {
+          "concepto": "Rejilla de fibra de vidrio autoadhesiva",
+          "descripcion": "Rejilla de fibra de vidrio autoadhesiva para reparación de fisuras en pladur, ancho 5 cm, resistencia refuerzo",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar metraje lineal de fisuras y especificar proveedor/marca"
+        },
+        {
+          "concepto": "Masilla de juntas de secado químico o aéreo",
+          "descripcion": "Pasta de juntas premezclada o polvo para aplicación en reparación de juntas y fisuras, con propiedades adhesivas y de endurecimiento rápido",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar cantidad según extensión y profundidad de fisuras"
+        },
+        {
+          "concepto": "Lija para acabado (grano 120 y 220)",
+          "descripcion": "Lija de papel abrasivo grano 120 para primera pasada y grano 220 para acabado fino, destinada a pulir masilla y preparar para pintura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pequeño material consumible, especificar cantidad según m2 a reparar"
+        },
+        {
+          "concepto": "Pequeño material (tornillería, cinta papel juntas, deshollinador si necesario)",
+          "descripcion": "Tornillos para pladur si hay fijación extra, cinta papel juntas para refuerzo de juntas, deshollinador para limpiar polvo de lijado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: lote consumible, instalador valida según necesidad real en obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 45,
+        "iva_porcentaje": 21,
+        "iva": 9.45,
+        "total": 54.45
+      },
+      "sugerencias_catalogo": [
+        "Verificar causa de fisuras antes de reparar: pueden deberse a movimientos estructurales, retracción natural, vibración o defecto de ejecución original",
+        "Si hay humedades o mohos, aplicar desinfectante y pintura antimoho después del acabado",
+        "Aplicar técnica de tres manos: rejilla → primera mano masilla → segunda mano → lijado → tercera mano masilla fina → lijado final",
+        "Tiempo de secado entre manos: 4-8 horas según tipo de masilla",
+        "Presupuesto completo requiere superficie exacta (m2) a reparar"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Rejilla de fibra de vidrio autoadhesiva",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "motivo": "Material específico para refuerzo de fisuras; incluir en catálogo con precios por rollo (45 m × 5 cm) o ml"
+        },
+        {
+          "concepto": "Masilla de juntas de secado químico",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "motivo": "Material fungible; incluir precios de marcas estándar (DAP, Knauf, Pladur) en kg"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_gotera_o_humedad_en_pladur",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "remate_y_acabado_juntas_pladur_para_pintar",
+      "falso_techo_pladur_con_lucernario_o_claraboya_artificial",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

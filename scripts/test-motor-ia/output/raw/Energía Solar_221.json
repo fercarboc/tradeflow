@@ -1,0 +1,241 @@
+{
+  "id": 221,
+  "oficio": "Energía Solar",
+  "texto": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+  "http_status": 200,
+  "latency_ms": 27749,
+  "raw_response": {
+    "transcript": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere legalización ante distribuidora de energía (obligatorio para autoconsumo)",
+          "Se recomienda verificar orientación y sombras en cubierta antes de instalación",
+          "Incluye EPI para trabajos en altura"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación sistema fotovoltaico autoconsumo vivienda unifamiliar 5kWp"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión cuadro eléctrico, protecciones CA, contador bidireccional"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulos fotovoltaicos 5kWp",
+          "descripcion": "Suministro e instalación de paneles fotovoltaicos monocristalinos de alta eficiencia, potencia total 5kWp (aprox. 12-13 módulos de 400-420W), incluye estructura soporte aluminio anodizado según tipo de cubierta",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de módulos y estructura soporte depende de tipo de cubierta (teja, pizarra, plana, metálica) y marca seleccionada. Rango típico: 800-1200€/kWp en materiales"
+        },
+        {
+          "concepto": "Inversor fotovoltaico monofásico 5kW",
+          "descripcion": "Suministro e instalación de inversor string monofásico 5kW con conexión a red, protecciones integradas, display LCD, garantía 10 años",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio inversor 5kW rango: 1200-1800€ según marca (SMA, Fronius, Huawei, Growatt)"
+        },
+        {
+          "concepto": "Cableado DC y AC sistema fotovoltaico",
+          "descripcion": "Suministro e instalación de cable solar RV-K 6mm² (tramos DC), cable RV 4mm² (tramos AC), conectores MC4, tuberías protección, bandejas portacables, pequeño material de fijación",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cableado y accesorios: rango 400-700€ según longitud de recorridos y complejidad"
+        },
+        {
+          "concepto": "Protecciones CC (cuadro DC) y CA (cuadro AC)",
+          "descripcion": "Suministro e instalación de cuadro DC con fusibles/magnetotérmicos DC, cuadro AC con interruptor diferencial, magnetotérmicos CA, protección sobretensiones (SPD), seccionadores, bornes de conexión",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cuadros de protecciones: rango 600-1000€ según componentes y certificaciones"
+        },
+        {
+          "concepto": "Contador bidireccional legalizado",
+          "descripcion": "Suministro e instalación de contador bidireccional homologado por distribuidora, con capacidad de medir inyección a red, incluye gestión de legalización ante distribuidora",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Contador bidireccional + legalización: rango 300-600€. Algunos distribuidores lo instalan sin coste adicional"
+        },
+        {
+          "concepto": "Mano de obra instalación sistema fotovoltaico 5kWp",
+          "descripcion": "Trabajos de instalación: montaje estructura soporte en cubierta, fijación módulos, conexionado DC, instalación cuadros protecciones, conexión inversor, pruebas funcionales, puesta en marcha y verificación de producción",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 65,
+          "total": 2600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra conexión cuadro eléctrico y legalización",
+          "descripcion": "Trabajos de electricidad: conexión a cuadro principal, instalación contador bidireccional, pruebas de aislamiento, verificación protecciones, tramitación legalización ante distribuidora",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y equipos de seguridad trabajos en altura",
+          "descripcion": "Arnés de seguridad, casco, guantes, botas de seguridad, línea de vida, anclajes temporales para trabajos en cubierta. Incluye inspección y certificación de equipos",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "EPI y equipos seguridad: rango 200-400€"
+        },
+        {
+          "concepto": "Pequeño material y accesorios instalación",
+          "descripcion": "Tornillería inoxidable, tuercas, arandelas, bridas, cinta aislante, pasta térmica, etiquetado, documentación técnica, manuales de usuario",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: rango 150-300€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3200,
+        "iva_porcentaje": 21,
+        "iva": 672,
+        "total": 3872
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_sistema_fotovoltaico_autoconsumo_vivienda' (referencia BASE MAESTRA) — rango típico 800-2600€/kWp instalado",
+        "Para 5kWp: presupuesto estimado TOTAL (materiales + mano de obra) = 4000-13000€ según marca y complejidad",
+        "Considerar sistema de monitoreo online (opcional): 200-500€ para seguimiento de producción en tiempo real",
+        "Si hay sombras parciales en cubierta: añadir optimizadores de potencia (200-400€) para maximizar rendimiento"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulos fotovoltaicos 5kWp",
+          "oficio": "energia_solar",
+          "motivo": "Material específico según potencia y marca — requiere cotización de proveedor"
+        },
+        {
+          "concepto": "Inversor fotovoltaico monofásico 5kW",
+          "oficio": "energia_solar",
+          "motivo": "Equipo específico según marca y características — requiere cotización"
+        },
+        {
+          "concepto": "Cableado DC y AC sistema fotovoltaico",
+          "oficio": "energia_solar",
+          "motivo": "Material específico según longitud de recorridos — requiere medición en obra"
+        },
+        {
+          "concepto": "Protecciones CC y CA",
+          "oficio": "electricidad",
+          "motivo": "Componentes específicos según normativa y potencia — requiere cálculo de protecciones"
+        },
+        {
+          "concepto": "Contador bidireccional legalizado",
+          "oficio": "electricidad",
+          "motivo": "Equipo específico y gestión de legalización — requiere coordinación con distribuidora"
+        },
+        {
+          "concepto": "EPI y equipos de seguridad",
+          "oficio": "energia_solar",
+          "motivo": "Material de seguridad obligatorio para trabajos en altura"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda",
+      "instalacion_fotovoltaica_autoconsumo",
+      "instalacion_solar_termica_para_ACS",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "solicitud_y_gestion_de_ayudas_para_energia_solar"
+    ],
+    "kb_score": 5,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4134,
+      "tokens_out": 3437
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "id": 98,
+  "oficio": "Albañilería",
+  "texto": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+  "http_status": 200,
+  "latency_ms": 24497,
+  "raw_response": {
+    "transcript": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral: incluye demolición (carpintería), obra civil (albanilería hormigón) e instalación barandilla (cerrajería). Requiere coordinación de oficios.",
+          "Escalera de hormigón: obra civil compleja. Precio estimado requiere revisión según dimensiones exactas (ancho, altura total, tipo barandilla).",
+          "Barandilla: especificar material (acero inoxidable, acero pintado, aluminio) y diseño para ajustar precio.",
+          "Gestión de residuos: desmontaje escalera madera genera escombros."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma que combina ≥3 oficios: demolición carpintería + obra civil albanilería + instalación barandilla cerrajería. Requiere coordinación."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Desmontaje escalera madera interior."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Construcción escalera hormigón armado, 12 peldaños, encofrado, hormigonado, desencofrado."
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación barandilla metálica según normativa CTE DB-SUA."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Retirada y gestión de escombros (escalera madera desmontada)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "descripcion": "Desmontaje escalera madera interior (12 peldaños, barandilla, estructura). Preparación zona. Encofrado, hormigonado y desencofrado escalera hormigón armado (12 peldaños, ancho estimado 1,0-1,2m, altura total ~2,5-3,0m). Acabado superficial peldaños (antideslizante si aplica). Incluye pequeño material, herramientas y medios auxiliares.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado: 2.500–4.500€ (incluye desmontaje, encofrado, hormigonado, desencofrado). Depende de: ancho escalera, altura total, accesibilidad zona, complejidad encofrado, acabado peldaños. Instalador debe revisar y ajustar según proyecto y medidas reales."
+        },
+        {
+          "concepto": "Suministro hormigón, acero y materiales obra civil",
+          "descripcion": "Hormigón H-25 (m³ estimado según dimensiones), acero corrugado B500S (kg estimado), encofrado madera/metálico reutilizable, desencofrador, aditivos, agua, arena, grava.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 800–1.500€. Requiere cálculo estructural y medidas exactas (volumen hormigón, kg acero, tipo encofrado). Instalador ajusta según proyecto."
+        },
+        {
+          "concepto": "CAP.2 – Instalación barandilla metálica",
+          "descripcion": "Barandilla metálica (acero inoxidable, acero pintado o aluminio) para escalera hormigón, 12 peldaños. Incluye: tubería pasamanos (Ø 40-50mm), balaustres/barrotes (separación máx. 10cm, altura mín. 90cm uso privado), anclajes químicos a hormigón, tratamiento antióxido (si acero), acabado pintura/lacado/pulido. Pequeño material, tornillería inox.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado: 1.200–2.500€ (mano de obra + material barandilla). Depende de: material (inox más caro), diseño (balaustres simples vs. complejos), longitud total barandilla (~6-8ml), acabado. Instalador especifica material y diseño."
+        },
+        {
+          "concepto": "Suministro barandilla metálica",
+          "descripcion": "Tubería pasamanos, balaustres/barrotes, anclajes químicos, tornillería inox, pintura/lacado/pulido según especificación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 600–1.500€ según material (acero pintado ~600€, inox ~1.200€). Instalador especifica tipo y ajusta."
+        },
+        {
+          "concepto": "CAP.3 – Gestión de residuos y limpieza",
+          "descripcion": "Retirada, carga y transporte escombros (escalera madera desmontada, restos hormigón, encofrado). Limpieza zona obra. Gestión residuos según normativa local.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 300–600€. Depende de volumen escombros y distancia vertedero. Instalador ajusta según zona."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar plano/croquis con dimensiones exactas: ancho escalera, altura total, número peldaños (confirmado 12), tipo barandilla deseada (acero inox, acero pintado, aluminio).",
+        "Confirmar normativa CTE DB-SUA: altura barandilla mín. 90cm (uso privado), separación balaustres máx. 10cm, huella peldaño mín. 28cm, contrahuella máx. 18cm.",
+        "Especificar acabado peldaños: hormigón pulido, antideslizante, revestimiento cerámico/piedra.",
+        "Incluir cálculo estructural (acero corrugado, hormigón) si no existe proyecto.",
+        "Permisos/licencia obra si aplica (reforma interior vivienda unifamiliar generalmente no requiere, pero en comunidad sí)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Escalera hormigón armado interior (demolición + construcción)",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo complejo que combina demolición carpintería + obra civil albanilería. Requiere coordinación y cálculo estructural. Precio alzado estimado 2.500–4.500€ (mano de obra)."
+        },
+        {
+          "concepto": "Barandilla metálica escalera hormigón",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "origen": "sugerida_ia",
+          "motivo": "Instalación barandilla según CTE DB-SUA. Precio alzado estimado 1.200–2.500€ (mano de obra + material). Especificar material y diseño."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_barandilla_metalica_de_escalera_interior",
+      "instalacion_escalera_de_madera_interior",
+      "instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_persiana_veneciana_de_madera_o_bambu"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3753,
+      "tokens_out": 3246
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 5,
+    "n_catalogo": 0,
+    "n_sugeridas": 5,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

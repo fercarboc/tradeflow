@@ -1,0 +1,171 @@
+{
+  "id": 350,
+  "oficio": "Mantenimiento General",
+  "texto": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+  "http_status": 200,
+  "latency_ms": 13918,
+  "raw_response": {
+    "transcript": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere medición de superficie en m² para ajustar cantidad total",
+          "Especificar tipo de pintura (epoxi, poliuretano, acrílica) según tráfico esperado",
+          "Confirmar si incluye preparación de superficie (limpieza, desengrasante)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura industrial de suelo con líneas de seguridad y señalización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y desengrasante de suelo",
+          "descripcion": "Limpieza profunda, desengrasante y preparación de superficie de hormigón en zona de carga y descarga",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 3,
+          "total": 3,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe confirmarse en obra"
+        },
+        {
+          "concepto": "Imprimación consolidante de hormigón",
+          "descripcion": "Aplicación de imprimación consolidante para mejorar adherencia de pintura en suelo de hormigón",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según marca y cantidad"
+        },
+        {
+          "concepto": "Pintura epoxi o poliuretano para suelo industrial",
+          "descripcion": "Pintura de tráfico intenso (epoxi o poliuretano) para zona de carga y descarga, 2 manos mínimo",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según tipo (epoxi/poliuretano) y rendimiento"
+        },
+        {
+          "concepto": "Aplicación de pintura de suelo (2 manos)",
+          "descripcion": "Mano de obra para aplicación de pintura con rodillo de pelo corto, 2 manos mínimo en zona de carga y descarga",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 8,
+          "total": 8,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe confirmarse en obra. Tarifa: 4-16€/m² según complejidad"
+        },
+        {
+          "concepto": "Líneas de seguridad y demarcación vial",
+          "descripcion": "Pintura de líneas de seguridad, pasos peatonales, zonas de carga/descarga y señalización de suelo según normativa",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a medir en obra. Precio: 2-5€/ml aproximadamente"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Rodillos, brochas, cintas de enmascarar, trapos, disolvente y material auxiliar para pintura",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto aproximado: 50-150€ según superficie"
+        }
+      ],
+      "calculos": {
+        "subtotal": 11,
+        "iva_porcentaje": 21,
+        "iva": 2.31,
+        "total": 13.31
+      },
+      "sugerencias_catalogo": [
+        "Confirmar superficie total en m² de la zona de carga y descarga",
+        "Especificar tipo de pintura recomendada: epoxi (máxima durabilidad, tráfico intenso) o poliuretano (buena relación precio-rendimiento)",
+        "Definir diseño de líneas de seguridad: pasos peatonales, zonas de carga, zonas de espera, señalización de peligro",
+        "Considerar antideslizante (cuarzo) si el suelo es muy liso o hay riesgo de resbalones",
+        "Incluir preparación de superficie: limpieza con hidrolimpiadora si hay grasa o suciedad acumulada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura epoxi o poliuretano para suelo industrial",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material específico para zona de carga/descarga con tráfico intenso"
+        },
+        {
+          "concepto": "Líneas de seguridad y demarcación vial",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "motivo": "Trabajo especializado de señalización y demarcación según normativa de seguridad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_garaje_o_parking_suelo",
+      "instalacion_de_tarima_o_entarimado_de_madera_elevado_para_escenario_o_zona",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria",
+      "pintado_de_canchas_de_padel_interior",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3811,
+      "tokens_out": 1848
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

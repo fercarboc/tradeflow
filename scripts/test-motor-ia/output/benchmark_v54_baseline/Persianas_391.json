@@ -1,0 +1,209 @@
+{
+  "id": 391,
+  "oficio": "Persianas",
+  "texto": "Instalar toldo vertical de lona en terraza de ático para sombra y privacidad lateral",
+  "http_status": 200,
+  "latency_ms": 19465,
+  "raw_response": {
+    "transcript": "Instalar toldo vertical de lona en terraza de ático para sombra y privacidad lateral",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar toldo vertical de lona en terraza de ático para sombra y privacidad lateral",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Toldo vertical (cortina enrollable) detectado. Se asume lona opaca o screen según preferencia del cliente.",
+          "Terraza de ático requiere verificación de resistencia estructural y anclajes.",
+          "Privacidad lateral sugiere faldón o sistema de cierre lateral adicional."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de cortina enrollable exterior (toldo vertical de lona). Oficio especializado en sistemas de protección solar y privacidad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tela lona o screen exterior enrollable",
+          "descripcion": "Suministro de tela acrílica tratada UV o screen opaco para toldo vertical, según medidas de terraza y preferencia de opacidad (100% opaco para privacidad máxima).",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas de terraza (ancho × alto) y tipo de tela (acrílica estándar vs. screen premium). Instalador debe medir y cotizar."
+        },
+        {
+          "concepto": "Mecanismo enrollador con tubo aluminio",
+          "descripcion": "Suministro e instalación de tubo aluminio con rodillos, cojinetes y sistema de enrollado manual o motorizado para toldo vertical.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio varía según ancho de toldo y si es manual o motorizado (motor +150-300€). Instalador define especificación."
+        },
+        {
+          "concepto": "Guías laterales o flejes de tensión",
+          "descripcion": "Suministro e instalación de guías laterales de aluminio o flejes de tensión para mantener tela tensa y evitar ondulaciones por viento en terraza de ático.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad = 2 × altura de toldo (ambos lados). Precio por ml según tipo de guía (aluminio estándar vs. reforzado)."
+        },
+        {
+          "concepto": "Soportes y fijación a estructura de ático",
+          "descripcion": "Suministro e instalación de soportes de acero inoxidable o aluminio, anclajes químicos y herrajes para fijación segura a techo/pared de terraza de ático.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye kit completo de fijación. Precio depende de tipo de soporte (simple vs. reforzado para ático con viento)."
+        },
+        {
+          "concepto": "Mano de obra: medición, instalación y ajuste de toldo vertical",
+          "descripcion": "Medición de terraza, preparación de soportes, instalación de tubo enrollador, guías laterales, fijación de anclajes, tensado de tela, pruebas de funcionamiento y ajustes finales.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Faldón o cenefa lateral para privacidad",
+          "descripcion": "Suministro e instalación de faldón de tela acrílica coordenada en lateral de toldo para cierre de privacidad lateral en terraza.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad = altura del toldo. Precio por ml según altura y tipo de fijación (bridas, grapas o costura a tela principal)."
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, bridas, grapas, selladores, cinta de teflón y otros accesorios menores para completar instalación.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada. Instalador estima según complejidad de fijación y número de accesorios."
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el cliente prefiere toldo motorizado (añadir motor +150-300€ y mano de obra +1h).",
+        "Confirmar medidas exactas de terraza (ancho × alto) para cotizar tela y guías.",
+        "Evaluar resistencia estructural de ático a cargas de viento (puede requerir refuerzo de soportes +100-200€).",
+        "Considerar tela screen (permite ver exterior, filtra UV) vs. lona opaca (máxima privacidad).",
+        "Si se requiere iluminación LED en faldón, añadir partida de electricidad (instalador_cctv o electricidad)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tela lona o screen exterior enrollable",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para toldo vertical. Precio depende de m2 y tipo de tela."
+        },
+        {
+          "concepto": "Mecanismo enrollador con tubo aluminio",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Componente mecánico de toldo. Precio varía según ancho y motorización."
+        },
+        {
+          "concepto": "Guías laterales o flejes de tensión",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Accesorios de fijación lateral. Cantidad en ml según altura de toldo."
+        },
+        {
+          "concepto": "Soportes y fijación a estructura de ático",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Kit de anclaje. Precio depende de tipo de soporte y resistencia requerida."
+        },
+        {
+          "concepto": "Faldón o cenefa lateral para privacidad",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Elemento adicional para privacidad lateral. Precio por ml según altura."
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Partida alzada de tornillería y accesorios menores."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cortina_exterior_de_lona_enrollable",
+      "instalacion_lampara_parasol_o_sombrilla_de_brazo",
+      "instalacion_de_faldones_o_cenefas_para_toldo",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_panel_o_malla_de_privacidad_para_valla_o_terraza"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3702,
+      "tokens_out": 2479
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

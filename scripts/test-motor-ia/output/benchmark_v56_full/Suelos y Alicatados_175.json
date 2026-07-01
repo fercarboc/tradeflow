@@ -1,0 +1,177 @@
+{
+  "id": 175,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 17816,
+  "raw_response": {
+    "transcript": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume suelo interior. Si es planta baja en contacto con terreno, se requiere barrera vapor.",
+          "Precio de tarima de roble pendiente de revisión (material sugerido por IA).",
+          "Rodapié no incluido en presupuesto base; cliente puede solicitarlo."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Retirada de moqueta y preparación de suelo + colocación de tarima flotante/pegada. Oficio suelos_alicatados cubre pavimentos (parquet, tarima, laminado)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada y gestión de moqueta antigua",
+          "descripcion": "Desmontaje completo de moqueta antigua, enrollado y retirada de obra. Incluye pequeño material y limpieza de residuos.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 8,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación y nivelación de suelo",
+          "descripcion": "Limpieza profunda, barrido, eliminación de clavos/grapas residuales, reparación de pequeñas irregularidades con mortero autonivelante si es necesario. Máximo desviación 3mm bajo regla de 2m.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 6,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de tarima de roble maciza o ingeniería",
+          "descripcion": "Tarima de roble (maciza o ingeniería según disponibilidad), espesor 14-20mm, acabado natural o barnizado. Incluye mermas 5-10%. Aclimatación 48-72h en obra obligatoria.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 48,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tarima de roble variable según calidad y proveedor. Instalador debe introducir precio real (rango típico 60-150€/m2)."
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "descripcion": "Lámina aislante de espuma polietileno (espesor 2-3mm) o lámina combinada con barrera vapor. Colocación bajo tarima flotante/pegada.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 48,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina aislante pendiente. Rango típico 3-8€/m2."
+        },
+        {
+          "concepto": "Colocación de tarima de roble (pegada o flotante)",
+          "descripcion": "Instalación de tarima con junta perimetral obligatoria de 10-12mm en todo el perímetro. Si es pegada: adhesivo MS-polímero. Si es flotante: sobre lámina aislante sin pegado. Incluye pequeño material (cuñas, herramientas).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 32,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Adhesivo MS-polímero (si colocación pegada)",
+          "descripcion": "Adhesivo MS-polímero de alta calidad para tarima de madera. Aplicación con llana dentada. Cantidad estimada 1.5-2 kg/m2.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de adhesivo pendiente. Rango típico 8-15€/m2 aplicado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2070,
+        "iva_porcentaje": 21,
+        "iva": 434.7,
+        "total": 2504.7
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si tarima es flotante o pegada. Flotante es más rápida y reversible; pegada es más estable.",
+        "Si es planta baja en contacto con terreno, añadir barrera vapor bajo lámina aislante.",
+        "Considerar rodapié de roble a juego (típicamente 8-10€/ml).",
+        "Tarima de roble requiere aclimatación 48-72h en obra antes de instalar.",
+        "Mantenimiento anual recomendado: aceite protector o barniz de renovación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de tarima de roble maciza o ingeniería",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material específico no en catálogo base. Precio variable según proveedor y calidad."
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material auxiliar obligatorio. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Adhesivo MS-polímero (si colocación pegada)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material auxiliar condicional (solo si tarima pegada). Precio pendiente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "colocacion_parquet_flotante_o_tarima_laminada",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "solado_de_parquet_o_madera"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4050,
+      "tokens_out": 2320
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,263 @@
+{
+  "id": 291,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 25146,
+  "raw_response": {
+    "transcript": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Obra de gran envergadura (500 m²). Requiere verificación de acceso, equipos de proyección especializada y medidas de seguridad en altura.",
+          "Poliurea proyectada requiere condiciones climáticas controladas (temperatura, humedad). Confirmar viabilidad según época del año.",
+          "EPI y línea de vida obligatorios para trabajos en cubierta."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de cubierta con membrana líquida (poliurea proyectada). Oficio especializado en tratamiento de humedades y cubiertas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza mecánica y preparación de cubierta",
+          "descripcion": "Limpieza mecánica de óxido, suciedad, musgo y restos de impermeabilización anterior. Barrido y aspirado de polvo. Preparación de superficie para aplicación de poliurea.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 3,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación antioxido y adherente",
+          "descripcion": "Aplicación de imprimación antioxido y promotor de adherencia sobre toda la superficie de cubierta metálica. Producto específico para poliurea.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado. Instalador debe confirmar producto específico y cantidad (típicamente 0.2-0.3 kg/m²)."
+        },
+        {
+          "concepto": "Proyección de membrana de poliurea elastómera",
+          "descripcion": "Aplicación de poliurea proyectada de 2-3 mm de espesor mediante equipo de proyección de dos componentes. Cobertura completa de 500 m² con solapamiento en encuentros y puntos singulares.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de alto coste. Instalador debe cotizar poliurea de calidad industrial (típicamente 25-50 €/m² en material)."
+        },
+        {
+          "concepto": "Mano de obra proyección de poliurea",
+          "descripcion": "Aplicación especializada de poliurea proyectada con equipo de dos componentes. Incluye preparación de equipos, proyección, control de espesor y acabado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 12,
+          "total": 6000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de solapes, encuentros y puntos singulares",
+          "descripcion": "Refuerzo con cinta o segunda mano de poliurea en solapes, encuentros con petos, chimeneas, lucernarios, canalones y puntos de riesgo de infiltración.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material adicional para refuerzos. Instalador debe estimar cantidad según número y complejidad de puntos singulares."
+        },
+        {
+          "concepto": "Mano de obra refuerzo de puntos singulares",
+          "descripcion": "Aplicación manual de refuerzos en solapes, encuentros con elementos emergentes, canalones y zonas de riesgo. Trabajo especializado de acabado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 15,
+          "total": 750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura reflectante blanca sobre poliurea",
+          "descripcion": "Aplicación de pintura reflectante blanca de alta reflectancia solar sobre membrana de poliurea. Mejora aislamiento térmico y durabilidad. Cobertura 500 m².",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de acabado. Instalador debe cotizar pintura reflectante específica para poliurea (típicamente 2-5 €/m²)."
+        },
+        {
+          "concepto": "Mano de obra aplicación pintura reflectante",
+          "descripcion": "Aplicación de pintura reflectante blanca mediante rodillo o pulverización. Dos manos si es necesario para cobertura uniforme.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 2,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI, línea de vida y medidas de seguridad",
+          "descripcion": "Suministro e instalación de línea de vida, arneses, cascos, gafas, guantes y mascarillas para protección contra vapores de poliurea. Señalización de zona de trabajo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Equipos de seguridad. Instalador debe cotizar según número de operarios y duración de obra (típicamente 500-2000 €)."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Trapos, disolventes, cinta de enmascarar, papel protector, selladores puntuales, pequeño material de aplicación y limpieza.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles varios. Instalador debe estimar según duración y complejidad (típicamente 300-800 €)."
+        },
+        {
+          "concepto": "Control de calidad y pruebas de impermeabilidad",
+          "descripcion": "Inspección visual de cobertura, medición de espesor de membrana con medidor ultrasónico, prueba de estanqueidad con agua en zonas críticas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 9610,
+        "iva_porcentaje": 21,
+        "iva": 2018.1,
+        "total": 11628.1
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo si existe partida específica de 'Impermeabilización de cubierta con poliurea proyectada' con rangos de precio por m².",
+        "Consultar disponibilidad de equipos de proyección de poliurea de dos componentes en la zona (requiere especialización).",
+        "Considerar si la nave requiere aislamiento térmico adicional bajo la membrana (aislante de espuma de poliuretano proyada)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación antioxido y adherente",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material especializado para preparación de superficie antes de poliurea. Requiere cotización específica del producto."
+        },
+        {
+          "concepto": "Proyección de membrana de poliurea elastómera",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material de alto coste y especialización. Precio muy variable según calidad y proveedor (25-50 €/m²)."
+        },
+        {
+          "concepto": "Refuerzo de solapes, encuentros y puntos singulares",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material adicional para refuerzos en puntos críticos. Cantidad variable según complejidad de la cubierta."
+        },
+        {
+          "concepto": "Pintura reflectante blanca sobre poliurea",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material de acabado con función de protección solar. Precio variable según especificación técnica."
+        },
+        {
+          "concepto": "EPI, línea de vida y medidas de seguridad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Equipos de protección obligatorios para trabajos en altura con poliurea. Coste variable según número de operarios."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Consumibles varios de aplicación. Estimación necesaria según duración de obra."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_cubierta_metalica_con_membrana_liquida",
+      "instalacion_cubierta_de_fibrocemento_ondulado_o_plano",
+      "impermeabilizacion_peto_o_murete_de_cubierta",
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3999,
+      "tokens_out": 3652
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

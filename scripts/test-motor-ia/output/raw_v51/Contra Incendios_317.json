@@ -1,0 +1,172 @@
+{
+  "id": 317,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+  "http_status": 200,
+  "latency_ms": 16146,
+  "raw_response": {
+    "transcript": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Falta especificar número de plantas del hospital",
+          "Falta longitud total de manguera o número de puntos de agua",
+          "Falta especificar tipo de manguera (diámetro, presión, material)",
+          "Falta especificar si incluye válvulas de corte, conexiones y accesorios",
+          "Instalación en hospital requiere cumplimiento normativa sanitaria y seguridad (UNE-EN 25961)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de red de agua y accesorios hidráulicos"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Rozas, pasos y reposición de muros para tendido de manguera"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro manguera primera intervención certificada",
+          "descripcion": "Manguera de primera intervención (diámetro a confirmar, presión de trabajo 16-25 bar), certificada UNE-EN 25961, con recubrimiento resistente y acoples rápidos",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere confirmación de: longitud total (ml), diámetro (12-25mm típico), presión de trabajo, marca y homologación"
+        },
+        {
+          "concepto": "Suministro válvulas de corte y accesorios",
+          "descripcion": "Válvulas de corte de bola, racores, tes de conexión, adaptadores y piezas de fijación para red de manguera de primera intervención",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere confirmación de número de puntos de agua y tipo de válvulas/accesorios necesarios"
+        },
+        {
+          "concepto": "Instalación de manguera de primera intervención por planta",
+          "descripcion": "Instalación, posicionamiento, fijación y conexión de manguera de primera intervención con válvulas de corte y accesorios en cada planta del hospital",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas pendiente de confirmación según número de plantas y complejidad de instalación"
+        },
+        {
+          "concepto": "Rozas, pasos y reposición de muros",
+          "descripcion": "Ejecución de rozas horizontales y verticales en muros para paso de manguera, reposición de paramento con mortero y acabado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas pendiente: requiere medición de rozas lineales y complejidad constructiva"
+        },
+        {
+          "concepto": "Prueba de presión y puesta en servicio",
+          "descripcion": "Prueba de presión hidrostática de la instalación según UNE-EN 25961, llenado del sistema y puesta en servicio con inspección final",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de revisión. Incluir inspección y documentación de cumplimiento normativo"
+        },
+        {
+          "concepto": "Suministro pequeño material (abrazaderas, tornillos, etc.)",
+          "descripcion": "Abrazaderas de fijación, tornillos, tacos, tuercas y pequeño material de consumo para fijación de manguera",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio y cantidad aproximada: estimar según longitud total de manguera"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: plano del hospital con ubicación de plantas y puntos de agua previstos",
+        "Confirmar longitud total de manguera (en metros lineales)",
+        "Especificar diámetro de manguera recomendado (típicamente 12, 16 ó 20 mm)",
+        "Verificar normativa local de hospitales (UNE-EN 25961, ISO 6134, normativa sanitaria autonómica)",
+        "Incluir: presupuesto de señalización, carteles y marcado de válvulas de corte",
+        "Considerar si se requiere inspección técnica oficial post-instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Instalación red manguera primera intervención hospital",
+          "oficio": "fontaneria",
+          "motivo": "Trabajo especializado en instalaciones de seguridad contra incendios en ámbito sanitario. No hay partida específica en catálogo pero cabe en 'instalacion_fontaneria_cocina_completa' como referencia de metodología"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toma_agua_nueva",
+      "instalacion_osmosis_inversa",
+      "sustitucion_desague_lavadora",
+      "instalacion_grifo_exterior_jardin",
+      "instalacion_fontaneria_cocina_completa"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "NO"
+  }
+}

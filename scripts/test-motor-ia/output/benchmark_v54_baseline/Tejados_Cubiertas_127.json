@@ -1,0 +1,157 @@
+{
+  "id": 127,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Cambio de teja árabe por teja plana de hormigón en tejado de chalet, 120 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14568,
+  "raw_response": {
+    "transcript": "Cambio de teja árabe por teja plana de hormigón en tejado de chalet, 120 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de teja árabe por teja plana de hormigón en tejado de chalet, 120 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: verificar disponibilidad de andamios y EPI de seguridad",
+          "Gestión de residuos: tejas árabe retiradas requieren transporte y gestión"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sustitución de cubierta inclinada: desmontaje teja árabe + instalación teja plana hormigón"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de teja árabe existente",
+          "descripcion": "Desmontaje completo de teja árabe cerámica, mortero de asiento en cumbreras y aleros, retirada selectiva y acopio para transporte. Incluye protección de zona de trabajo y pequeño material.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 12,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de teja plana de hormigón",
+          "descripcion": "Teja plana de hormigón, formato estándar, incluye transporte a obra. Cantidad calculada con 10% de roturas y ajustes.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según proveedor y calidad de teja plana hormigón"
+        },
+        {
+          "concepto": "Instalación de teja plana de hormigón",
+          "descripcion": "Colocación de teja plana sobre soporte existente, mortero de asiento en cumbreras y aleros, fijación mecánica en zonas de viento, lámina bajo teja si CTE lo requiere, sellado de uniones. Incluye EPI línea vida, andamio perimetral y pequeño material.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 18,
+          "total": 2160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cumbreras y remates de hormigón",
+          "descripcion": "Suministro e instalación de cumbreras y remates de hormigón, mortero de asiento, sellado flexible superior. Incluye pequeño material y EPI.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cumbreras y remates a definir según longitud de cumbrera y tipo de remate"
+        },
+        {
+          "concepto": "Gestión y transporte de residuos (tejas árabe retiradas)",
+          "descripcion": "Acopio, carga, transporte y gestión de residuos de construcción (tejas árabe cerámica). Incluye documentación de gestor autorizado.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de gestión de residuos a definir según volumen y distancia a gestor autorizado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3600,
+        "iva_porcentaje": 21,
+        "iva": 756,
+        "total": 4356
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la lámina bajo teja es obligatoria según CTE de la zona (clima, altitud)",
+        "Confirmar si el soporte existente (correas/cerchas) es compatible con teja plana hormigón (peso superior a teja árabe)",
+        "Considerar si hay bajantes y canalones existentes que requieran adaptación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de teja plana de hormigón",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico, precio variable según proveedor"
+        },
+        {
+          "concepto": "Cumbreras y remates de hormigón",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Accesorios de cubierta, precio variable según longitud y tipo"
+        },
+        {
+          "concepto": "Gestión y transporte de residuos",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de gestión de residuos de construcción"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cubierta_de_chapa_metalica_o_panel_sandwich",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "instalacion_de_canaleta_o_canalon_de_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3947,
+      "tokens_out": 1676
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

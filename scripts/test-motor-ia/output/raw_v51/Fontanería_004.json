@@ -1,0 +1,173 @@
+{
+  "id": 4,
+  "oficio": "Fontanería",
+  "texto": "Instalación de termo eléctrico de 80 litros con conexiones de agua y desagüe",
+  "http_status": 200,
+  "latency_ms": 15267,
+  "raw_response": {
+    "transcript": "Instalación de termo eléctrico de 80 litros con conexiones de agua y desagüe",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de termo eléctrico de 80 litros con conexiones de agua y desagüe",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de acumulador ACS eléctrico con conexiones hidráulicas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de termoacumulador eléctrico 80L",
+          "descripcion": "Termo eléctrico de 80 litros con resistencia y termostato integrado, aislamiento térmico, incluye tornillería de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar marca, modelo y precio del termo de 80L"
+        },
+        {
+          "concepto": "Conexión de agua fría al termo",
+          "descripcion": "Tubería, latiguillos, válvula de corte y llave de paso en entrada de agua fría, pequeño material (teflón, cinta, abrazaderas)",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión de agua caliente desde el termo",
+          "descripcion": "Tubería de distribución de agua caliente, latiguillos, válvula antiretorno si es necesario, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de desagüe y válvula de seguridad",
+          "descripcion": "Válvula de seguridad (grupo de seguridad si no incluido en termo), tuberías de desagüe, sifón, conexión a sumidero o tubería de evacuación, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fijación y anclaje del termo a pared o suelo",
+          "descripcion": "Localización de puntos de anclaje, taladrado si es necesario, instalación de soportes/ménsulas, tornillería de seguridad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica del termo",
+          "descripcion": "Empalme a circuito eléctrico exclusivo (si existe) o derivación, conexión a termostato, prueba de funcionamiento y regulación de temperatura",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material hidráulico y accesorio",
+          "descripcion": "Teflón, cinta de estanqueidad, abrazaderas, tornillería, tuercas de latón, sondas de temperatura si es aplicable",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe cuantificar accesorios, tuberías y materiales específicos según conexiones existentes"
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Considerar si el termo incluye grupo de seguridad integrado (válvula de seguridad + válvula de retención) — si no, cotizar como partida separada",
+        "Verificar si la instalación eléctrica requiere circuito dedicado con protección térmica (depende de potencia del termo, generalmente 1500-2000W)",
+        "Presupuestar desmontaje del equipo anterior si es sustitución (no contemplado en este presupuesto)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Suministro e instalación de termoacumulador eléctrico 80L",
+          "oficio": "fontaneria",
+          "tipo": "material",
+          "motivo": "Termo eléctrico estándar — incluido en sinónimos (termoacumulador, calentador eléctrico, acumulador ACS) pero no existe partida específica en Base Maestra con este rango"
+        },
+        {
+          "partida": "Pequeño material hidráulico y accesorio",
+          "oficio": "fontaneria",
+          "tipo": "material",
+          "motivo": "Material de fontanería accesorio — debe cuantificarse según proyecto específico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_aerotermia_para_acs_solar_hibrido",
+      "instalacion_acumulador_acs_solar",
+      "instalacion_acs_solar_termica",
+      "instalacion_suelo_radiante_hidraulico",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

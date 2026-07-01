@@ -1,0 +1,258 @@
+{
+  "id": 143,
+  "oficio": "Pladur",
+  "texto": "Falso techo de pladur en salón de 30 metros cuadrados con iluminación LED integrada y registro",
+  "http_status": 200,
+  "latency_ms": 22473,
+  "raw_response": {
+    "transcript": "Falso techo de pladur en salón de 30 metros cuadrados con iluminación LED integrada y registro",
+    "quote": {
+      "resumen": {
+        "texto_original": "Falso techo de pladur en salón de 30 metros cuadrados con iluminación LED integrada y registro",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Iluminación LED integrada: precio de luminarias y cableado pendiente de revisión del instalador",
+          "Registro de acceso: verificar ubicación sobre puntos de mantenimiento de instalaciones"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Instalación falso techo pladur con acabados"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación cableado y tira LED integrada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa yeso laminado 12,5mm para falso techo",
+          "descripcion": "Suministro e instalación placa de yeso laminado estándar 12,5mm para falso techo registrable",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar precio de placa (marca, acabado, disponibilidad local)"
+        },
+        {
+          "concepto": "Estructura cuelgue y maestras",
+          "descripcion": "Sistema completo de cuelgue: perfiles omega, varillas roscadas, horquillas y maestras de acero galvanizado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio por m2 según altura de cuelgue y densidad de estructura"
+        },
+        {
+          "concepto": "Tornillería, cinta y pasta de juntas",
+          "descripcion": "Tornillos, cinta de juntas, pasta de juntas (3 capas) y pequeño material para acabado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: incluye complementos necesarios para acabado profesional"
+        },
+        {
+          "concepto": "Instalación falso techo pladur (montaje estructura + colación placas)",
+          "descripcion": "Mano de obra para instalación completa: colocación perfiles, varillas, montaje y fijación placas de pladur",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 35,
+          "total": 1050,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado de juntas (masillado y lija)",
+          "descripcion": "Mano de obra para masillado de juntas en 3 capas, lija y preparación para pintura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 12,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa estándar acabado juntas pladur"
+        },
+        {
+          "concepto": "Trampilla registro metálica 40x40cm",
+          "descripcion": "Suministro e instalación trampilla de registro metálica con marco de refuerzo, eje de apertura y cierre suave",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio trampilla según tipo (metálica estándar, reforzada, etc.)"
+        },
+        {
+          "concepto": "Instalación trampilla registro",
+          "descripcion": "Mano de obra para colocación, alineación y acabado de trampilla de registro",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tira LED integrada en falso techo (suministro)",
+          "descripcion": "Tira LED profesional para iluminación indirecta integrada en falso techo (longitud según proyecto)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe especificar longitud total, potencia (W/m), temperatura color y marca de tira LED"
+        },
+        {
+          "concepto": "Instalación cableado y tira LED en falso techo",
+          "descripcion": "Mano de obra para cableado, conexión de tira LED a fuente alimentación, pruebas e integración en estructura pladur",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fuente alimentación LED (suministro)",
+          "descripcion": "Fuente de alimentación regulable para tira LED (dimensionamiento según potencia total)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio según potencia requerida (12V/24V, W totales, marca)"
+        },
+        {
+          "concepto": "Pintura de acabado falso techo",
+          "descripcion": "Pintura acrílica blanca mate para falso techo (1-2 manos según necesidad)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pintura según marca y tipo (acrílica, vinílica, ignífuga)"
+        },
+        {
+          "concepto": "Pintura de acabado falso techo (mano de obra)",
+          "descripcion": "Mano de obra para aplicación pintura de acabado en falso techo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 10,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1895,
+        "iva_porcentaje": 21,
+        "iva": 397.95,
+        "total": 2292.95
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el falso techo requiere aislamiento acústico (lana roca) — no incluido en presupuesto actual",
+        "Considerar si la iluminación LED es regulable (dimmer) — añadir coste si aplica",
+        "Confirmar si hay cajetines de empotrar o cableado visto para tira LED",
+        "Verificar altura de cuelgue y accesibilidad a estructura original para revisiones futuras"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tira LED integrada en falso techo",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Iluminación LED no estándar, requiere especificación de longitud, potencia y marca"
+        },
+        {
+          "concepto": "Fuente alimentación LED",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Componente eléctrico específico para tira LED, requiere dimensionamiento"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "falso_techo_pladur_registrable_o_con_trampillas",
+      "falso_techo_pladur_ignifugo_o_cortafuego",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "falso_techo_pladur_con_lucernario_o_claraboya_artificial"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 4,
+    "n_sugeridas": 8,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

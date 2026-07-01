@@ -1,0 +1,262 @@
+{
+  "id": 373,
+  "oficio": "Reformas Integrales",
+  "texto": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+  "http_status": 200,
+  "latency_ms": 32159,
+  "raw_response": {
+    "transcript": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "GRAN OBRA DETECTADA: Reforma integral de chalet completo (200 m²). Se aplica CASO 2 con estructura de CAPÍTULOS agrupados (máximo 4 partidas).",
+          "Alcance: distribución + acabados + eficiencia energética = múltiples oficios simultáneos (albanilería, electricidad, fontanería, climatización, energía solar, carpintería, pintura, suelos).",
+          "Cada capítulo requiere revisión del instalador para desglose detallado y precios específicos según proyecto técnico.",
+          "Se recomienda solicitar proyecto técnico previo para definir: planos de distribución, especificaciones de materiales, sistemas de climatización y energía solar, presupuesto de demoliciones."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral de chalet: ≥3 oficios simultáneos (albanilería, electricidad, fontanería, climatización, energía solar, carpintería, pintura, suelos). Estructura de capítulos agrupados obligatoria."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demoliciones, obra civil, tabiquería, revestimientos interiores."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa, cuadro general, circuitos, iluminación, enchufes."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Red de agua fría, ACS, desagües, sanitarios, grifería."
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Sistema de climatización (calefacción, refrigeración, ventilación), conductos, radiadores o splits."
+        },
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Eficiencia energética: paneles solares fotovoltaicos, aerotermia, sistemas de energía renovable."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Carpintería interior: puertas, armarios, revestimientos de madera."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura de paredes, techos, acabados decorativos."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado de baños y cocina."
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Tarimas, parquet, suelos laminados en zonas comunes."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de demolición."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "descripcion": "Demoliciones selectivas, retirada de tabiques, preparación de estructura, revestimientos antiguos, solados, instalaciones existentes. Incluye: desmontaje de elementos, picado de paredes, retirada de escombros, limpieza de obra, acopio temporal de materiales reutilizables. Obra civil: nivelación de soleras, reparación de grietas estructurales, impermeabilización de sótano/cimientos si aplica, preparación de zócalos y encuentros.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Capítulo agrupado. Requiere desglose según planos: m² de demolición, tipo de estructura, volumen de escombros, necesidad de apuntalamientos. Estimación orientativa: 8.000–15.000€ para chalet 200 m² según complejidad de demoliciones."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización, energía solar)",
+          "descripcion": "Instalación eléctrica completa: cuadro general, circuitos de iluminación y fuerza, enchufes, interruptores, protecciones diferenciales, puesta a tierra, cableado en conductos. Red de fontanería: tuberías agua fría/ACS, desagües, sifones, válvulas, grifería monomando, sanitarios (inodoros, lavabos, bañera/ducha). Sistema de climatización: caldera/bomba de calor, radiadores o splits, conductos de ventilación, termostatos. Energía solar: paneles fotovoltaicos (kWp según consumo), inversor, baterías si aplica, aerotermia para ACS.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Capítulo agrupado. Requiere especificación técnica: potencia eléctrica (kW), número de circuitos, puntos de agua, tipo de climatización (radiadores/splits/suelo radiante), potencia solar (kWp), tipo de aerotermia. Estimación orientativa: 18.000–35.000€ según sistemas elegidos (climatización y solar son variables principales)."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (pintura, suelos, carpintería, alicatados, pladur)",
+          "descripcion": "Pintura de paredes y techos (2 manos, acabado liso o texturado). Suelos: tarimas/parquet en zonas comunes, alicatado antideslizante en baños y cocina (baldosas, mortero, lechada, perfiles). Carpintería interior: puertas de paso, armarios empotrados, revestimientos de madera, molduras. Pladur: falsos techos, trasdosados acústicos, divisiones interiores. Pequeño material: rodapiés, juntas, silicona, adhesivos.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Capítulo agrupado. Requiere especificación: m² de pintura, m² de suelos (tipo y calidad), número de puertas, m² de alicatado, m² de pladur, acabados decorativos. Estimación orientativa: 12.000–22.000€ según calidad de materiales y acabados (acabados premium aumentan significativamente)."
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos, permisos y coordinación",
+          "descripcion": "Retirada y gestión de escombros y residuos de demolición (contenedor, transporte a vertedero autorizado). Licencia de obras si aplica según normativa local. Proyecto técnico de reforma (si requiere visado). Coordinación de seguridad y salud en obra. Inspecciones finales de instalaciones (electricidad, gas, climatización). Pequeño material de obra (protecciones, señalización, herramientas consumibles).",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Capítulo agrupado. Requiere confirmación: volumen de escombros (m³), necesidad de licencia/proyecto técnico según normativa local, inspecciones obligatorias. Estimación orientativa: 2.000–5.000€ (gestión residuos + permisos + coordinación)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: planos de distribución actual y propuesta, especificaciones de materiales (tipo de suelos, pintura, sanitarios, grifería), sistema de climatización preferido (radiadores, splits, suelo radiante), potencia solar deseada (kWp), presupuesto aproximado disponible.",
+        "Recomendar proyecto técnico previo (arquitecto o ingeniero) para definir: demoliciones, estructura, instalaciones, eficiencia energética (certificación energética), cumplimiento CTE.",
+        "Coordinar con: electricista (cuadro, circuitos, protecciones), fontanero (red agua, desagües, sanitarios), climatizador (sistema elegido), instalador solar (paneles, inversor, baterías), carpintero (puertas, armarios), pintor (acabados).",
+        "Considerar subvenciones: rehabilitación energética (PNRR, CCAA), mejora de eficiencia (paneles solares, aerotermia), accesibilidad si aplica.",
+        "Plazo estimado: 3–6 meses según complejidad y disponibilidad de oficios."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "oficio": "reforma_integral",
+          "motivo": "Capítulo agrupado para gran obra (chalet 200 m²). Incluye demoliciones, obra civil, preparación de estructura."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización, energía solar)",
+          "oficio": "reforma_integral",
+          "motivo": "Capítulo agrupado para gran obra. Agrupa todas las instalaciones técnicas (eléctrica, agua, clima, energía renovable)."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (pintura, suelos, carpintería, alicatados, pladur)",
+          "oficio": "reforma_integral",
+          "motivo": "Capítulo agrupado para gran obra. Agrupa todos los acabados interiores (pintura, suelos, carpintería, alicatados, pladur)."
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos, permisos y coordinación",
+          "oficio": "reforma_integral",
+          "motivo": "Capítulo agrupado para gran obra. Incluye gestión de residuos, permisos, proyecto técnico, coordinación de seguridad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "alicatado_y_solado_de_bano_completo",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "reforma_integral_atic_o_penthouse"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4201,
+      "tokens_out": 4479
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

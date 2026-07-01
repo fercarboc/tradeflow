@@ -1,0 +1,165 @@
+{
+  "id": 230,
+  "oficio": "Energía Solar",
+  "texto": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial de 1000 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14396,
+  "raw_response": {
+    "transcript": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial de 1000 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial de 1000 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Estudio preliminar: precio final de instalación FV dependerá del consumo real de la empresa (12 meses de histórico recomendado)",
+          "Se requiere información de orientación de cubierta, sombras y potencia disponible en acometida",
+          "ROI estimado 3-6 años en sector industrial por alto consumo durante horas solares"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Oficio especializado en energías renovables, fotovoltaica industrial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica y toma de datos en nave industrial",
+          "descripcion": "Desplazamiento a nave de 1000 m², inspección de cubierta, orientaciones, registro de consumo histórico y evaluación de punto de conexión a distribuidora",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de viabilidad técnica y económica",
+          "descripcion": "Evaluación de orientación de cubierta, cálculo de sombras, superficie disponible, estimación de producción anual, análisis de consumo energético de la empresa, cálculo de ROI y amortización",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cálculo de producción estimada y ahorro económico",
+          "descripcion": "Simulación energética con curva de carga de la empresa, estimación de kWh/año producidos, ahorro anual en factura eléctrica, comparativa con y sin baterías, ROI a 25 años",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico y propuesta de sistema fotovoltaico",
+          "descripcion": "Documento detallado con opciones de potencia (5-50 kWp típico en nave 1000 m²), esquema unifilar, lista de equipos (módulos, inversor trifásico, estructuras), presupuesto desglosado por partidas, trámites ante distribuidora",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de ayudas y subvenciones disponibles",
+          "descripcion": "Identificación de líneas de financiación, deducciones fiscales, ayudas autonómicas/locales, programas NextGeneration EU aplicables al sector industrial",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Propuestas de configuración del sistema",
+          "descripcion": "Presentación de 2-3 opciones: sistema básico sin baterías (máximo ahorro), sistema con baterías de almacenamiento, sistema híbrido con control inteligente de energía",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (desplazamientos, documentación)",
+          "descripcion": "Material fungible, documentos impresos, planos, derechos de estudio",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible estimado entre 50-150€ según complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 975,
+        "iva_porcentaje": 21,
+        "iva": 204.75,
+        "total": 1179.75
+      },
+      "sugerencias_catalogo": [
+        "Para la posterior instalación FV (si se adjudica), incluir: modelos inversor trifásico 10-30 kW (SMA, ABB, Solis típico), módulos fotovoltaicos monocristalinos 405-450W, estructuras aluminio para cubierta industrial",
+        "Solicitar consumo eléctrico 12 meses anterior para precisión en dimensionado",
+        "Obtener autorización previa de acceso a cubierta para inspección visual"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_fotovoltaica_en_empresa_o_polígono_industrial",
+      "informe_y_presupuesto_sistema_solar",
+      "instalacion_fotovoltaica_para_sector_agricola_o_ganadero",
+      "planificacion_y_presupuesto_reforma_integral",
+      "diagnostico_y_presupuesto_proteccion_solar_edificio"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "PRECIO_INVALIDO",
+    "n_partidas": 7,
+    "n_catalogo": 6,
+    "n_sugeridas": 1,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI",
+    "error_detalle": "Partida de catálogo con precio 0 o nulo"
+  }
+}

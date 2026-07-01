@@ -1,0 +1,228 @@
+{
+  "id": 144,
+  "oficio": "Pladur",
+  "texto": "Tabique de pladur entre cocina y salón con ventana fija de cristal de 60x60 centímetros",
+  "http_status": 200,
+  "latency_ms": 23490,
+  "raw_response": {
+    "transcript": "Tabique de pladur entre cocina y salón con ventana fija de cristal de 60x60 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique de pladur entre cocina y salón con ventana fija de cristal de 60x60 centímetros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Ventana fija de cristal 60x60cm requiere refuerzo perimetral doble y dintel metálico (hueco < 120cm pero con carga de vidrio)",
+          "Zona entre cocina-salón: verificar si tabique requiere placa hidrofuga en lado cocina",
+          "El suministro del marco/cristal está a precio 0 (instalador proporciona proveedor/precio)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Tabique de pladur con hueco para ventana fija. Oficio base validado en catálogo."
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de marco y cristal fijo 60x60cm"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa yeso laminado 15mm (tabique)",
+          "descripcion": "Suministro e instalación placa yeso estándar 15mm para tabique pladur entre cocina y salón. Superficie aproximada 8-12 m² (estimada según altura piso tipo 2.5m y largo variable)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar metraje exacto y proporcionar precio de placa + transporte"
+        },
+        {
+          "concepto": "Perfilería: canales y montantes galvanizados",
+          "descripcion": "Suministro perfiles canal 48mm y montantes 48mm galvanizados, espaciado 600mm. Pequeño material (tornillería, tacos)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe proporcionar precio/ml según proveedor y metrado exacto"
+        },
+        {
+          "concepto": "Refuerzo perimetral hueco ventana (montantes dobles + dintel metálico)",
+          "descripcion": "Refuerzo estructural obligatorio alrededor del hueco 60x60cm: montantes dobles en jambas + dintel metálico superior. Material: perfil montante 70mm + UPN acero",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del dintel metálico + perfilería de refuerzo debe revisar instalador"
+        },
+        {
+          "concepto": "Cinta papel juntas + pasta juntas (acabado)",
+          "descripcion": "Suministro cinta papel fibra 50mm + 3 manos de pasta juntas para sellado de juntas entre placas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador proporciona precio según marca/calidad"
+        },
+        {
+          "concepto": "Ángulos metálicos esquinas + jambas hueco",
+          "descripcion": "Suministro ángulos metálicos para remates de esquinas exteriores del tabique + jambas interiores del hueco ventana",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio/ml según especificación"
+        },
+        {
+          "concepto": "Mano de obra: Montaje estructura tabique",
+          "descripcion": "Instalación perfilería (canal/montantes), fijación a techo/piso/paredes laterales, espaciado 600mm, refuerzo perimetral hueco ventana",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Colocación placas + cintas juntas",
+          "descripcion": "Atornillado de placas yeso sobre estructura, aplicación cinta papel + 3 manos pasta juntas, lijado fino entre manos",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 35,
+          "total": 210,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Acabado jambas + angulares + preparación pintura",
+          "descripcion": "Colocación angulares metálicos esquinas, acabado jambas interior hueco, lija fina superficie, imprimación si aplica",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 35,
+          "total": 105,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Marco y cristal fijo 60x60cm",
+          "descripcion": "Suministro marco aluminio/acero + cristal templado fijo 60x60cm. Incluye junquillos, burletes, tornillería instalación",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe cotizar marco + cristal con proveedor especializado"
+        },
+        {
+          "concepto": "Mano de obra: Instalación marco ventana + cristal",
+          "descripcion": "Fijación marco en refuerzo perimetral, nivelación, ajuste, aplicación sellador perimetral silicona, instalación cristal templado",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 685,
+        "iva_porcentaje": 21,
+        "iva": 143.85,
+        "total": 828.85
+      },
+      "sugerencias_catalogo": [
+        "Si la cocina tiene equipos que generen vapor/humedad intenso, considerar usar placa hidrofuga (verde) en lado cocina del tabique: +5€/m² aprox.",
+        "Verificar normativa local acerca de aislamiento acústico entre cocina-salón: podría requerir lana de roca 40mm entre montantes (+8€/m²)",
+        "Si el cristal requiere protección solar/privacidad, añadir partida de película o cristal controlable"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Marco y cristal fijo 60x60cm",
+          "oficio": "cristaleria",
+          "razon": "Ventana fija de cristal no es un estándar de catálogo base. Requiere cotización específica con proveedor de carpintería metálica/aluminio"
+        },
+        {
+          "concepto": "Refuerzo perimetral hueco ventana (montantes dobles + dintel metálico)",
+          "oficio": "pladur_escayola",
+          "razon": "Aunque está en reglas de base maestra, el precio específico de dintel metálico para hueco 60x60 debe confirmar instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_hueco_pasaplatos_o_ventana_interior",
+      "tabique_pladur_con_ventana_de_paso_o_barra_americana",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "reparacion_fisura_en_tabique_pladur"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

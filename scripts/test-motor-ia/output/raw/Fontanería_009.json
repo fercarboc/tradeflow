@@ -1,0 +1,212 @@
+{
+  "id": 9,
+  "oficio": "Fontanería",
+  "texto": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+  "http_status": 200,
+  "latency_ms": 18229,
+  "raw_response": {
+    "transcript": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de fontanería integral: requiere coordinación con electricista si hay rozas compartidas",
+          "Verificar acceso a todas las zonas del piso para desmontaje de tuberías de plomo",
+          "Gestión de residuos de plomo: material peligroso, requiere tratamiento especial"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sustitución completa de instalación de fontanería: desmontaje tuberías plomo, instalación tuberías multicapa, apertura y cierre de rozas"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Apertura y cierre de rozas para paso de tuberías"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de tuberías de plomo",
+          "descripcion": "Desmontaje completo de instalación de tuberías de plomo en piso de 80 m². Incluye desconexión de acometida, desmontaje de tramos, desconexión de grifería y aparatos sanitarios. Gestión de residuos de plomo como material peligroso.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de tuberías multicapa PEX y accesorios",
+          "descripcion": "Tuberías multicapa PEX de 16mm y 20mm, codos, tes, manguitos, válvulas de corte por estancia, colectores de distribución, latiguillos de conexión. Cantidad estimada según 80 m² de vivienda con distribución estándar.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar según longitud real de tuberías, diámetros y accesorios necesarios. Estimado 1200-1800€ para piso 80m²"
+        },
+        {
+          "concepto": "Instalación de tuberías multicapa y accesorios",
+          "descripcion": "Instalación de nueva red de tuberías multicapa PEX en rozas abiertas. Incluye colocación de tuberías, conexión de accesorios, válvulas de corte por estancia, colectores de distribución, conexión a acometida y saneamiento, pruebas de estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Apertura de rozas en muros y tabiques",
+          "descripcion": "Apertura de rozas en muros y tabiques para paso de tuberías multicapa. Incluye corte con radial, extracción de escombros, limpieza de polvo. Estimado 150-200 ml de rozas según distribución estándar de piso 80 m².",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 180,
+          "precio_unitario": 8,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cierre y reposición de rozas",
+          "descripcion": "Cierre de rozas con mortero de cemento, reposición de enfoscado y acabado liso. Incluye limpieza previa, aplicación de mortero, alisado y preparación para pintura. Estimado 180 ml de rozas.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 180,
+          "precio_unitario": 12,
+          "total": 2160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero y pequeño material para rozas",
+          "descripcion": "Mortero de cemento, arena, agua, malla de refuerzo, imprimación y pequeño material para apertura y cierre de rozas.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Estimado 150-250€ para 180 ml de rozas"
+        },
+        {
+          "concepto": "Gestión de residuos de plomo y escombros",
+          "descripcion": "Retirada, transporte y gestión especializada de tuberías de plomo como residuo peligroso. Retirada de escombros de apertura de rozas. Incluye contenedor y transporte a gestor autorizado.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio especializado a presupuestar. Estimado 300-500€ por gestión de residuos peligrosos y escombros"
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y puesta en marcha",
+          "descripcion": "Pruebas de presión de la instalación, detección de fugas, purgado de aire, ajuste de válvulas, verificación de caudales y presiones en todos los puntos de consumo.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 5350,
+        "iva_porcentaje": 21,
+        "iva": 1123.5,
+        "total": 6473.5
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de tuberías multicapa PEX: diámetros 16mm (agua fría/caliente), 20mm (distribución principal)",
+        "Verificar disponibilidad de válvulas de corte por estancia (recomendado: una por zona: cocina, baño, lavadero)",
+        "Considerar instalación de colector de distribución para facilitar mantenimiento futuro",
+        "Solicitar presupuesto de gestor autorizado de residuos peligrosos para plomo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de tuberías multicapa PEX y accesorios",
+          "oficio": "fontaneria",
+          "motivo": "Material específico a presupuestar según longitud real y diámetros necesarios"
+        },
+        {
+          "concepto": "Mortero y pequeño material para rozas",
+          "oficio": "albanileria",
+          "motivo": "Material de construcción a presupuestar según cantidad de rozas"
+        },
+        {
+          "concepto": "Gestión de residuos de plomo y escombros",
+          "oficio": "fontaneria",
+          "motivo": "Servicio especializado de gestión de residuos peligrosos"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "renovacion_de_instalacion_de_fontaneria_en_vivienda",
+      "acabado_con_microcemento_suelo_o_pared",
+      "sustitucion_termo_electrico",
+      "instalacion_solado_de_barro_ceramico_o_terracota"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4005,
+      "tokens_out": 2543
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

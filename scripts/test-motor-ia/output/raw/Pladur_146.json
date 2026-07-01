@@ -1,0 +1,217 @@
+{
+  "id": 146,
+  "oficio": "Pladur",
+  "texto": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+  "http_status": 200,
+  "latency_ms": 18053,
+  "raw_response": {
+    "transcript": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume nicho de dimensiones estándar (aprox. 1,5m ancho × 0,9m alto × 0,35m fondo). El instalador debe confirmar medidas exactas.",
+          "Iluminación indirecta: se incluye instalación de perfil LED. Suministro de tira LED y transformador requiere revisión de precio.",
+          "No se incluye TV ni accesorios de montaje (estos son responsabilidad del cliente)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Construcción de nicho empotrado en pladur con estructura interna y acabados."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de circuito eléctrico para iluminación indirecta LED."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura y placas de yeso para nicho empotrado",
+          "descripcion": "Construcción de estructura de perfiles metálicos (canal y montantes 48mm) y revestimiento con placas de yeso laminado de 15mm a ambos lados. Incluye refuerzo interior para estabilidad.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 450,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales estructura pladur (perfiles, placas, tornillería)",
+          "descripcion": "Perfiles metálicos canal y montantes 48mm, placas de yeso laminado 15mm, tornillería, cinta de papel para juntas, pasta de juntas, ángulos metálicos para esquinas, tacos de fijación.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pladur a confirmar según proveedor y dimensiones exactas del nicho."
+        },
+        {
+          "concepto": "Acabado de juntas y esquinas del nicho",
+          "descripcion": "Aplicación de cinta de papel en juntas, masilla de acabado fino, lijado y preparación para pintura. Acabado de ángulos metálicos en esquinas interiores.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 35,
+          "total": 105,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura interior del nicho",
+          "descripcion": "Pintura de acabado en interior del nicho (paredes y fondo). Preparación de superficie, imprimación y dos manos de pintura blanca mate o color a elegir.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales pintura interior nicho",
+          "descripcion": "Pintura blanca mate o color, imprimación, pequeño material (brochas, rodillos, trapos).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura a confirmar según marca y cantidad necesaria."
+        },
+        {
+          "concepto": "Instalación de perfil LED para iluminación indirecta",
+          "descripcion": "Colocación de perfil de aluminio anodizado para tira LED en la parte superior interior del nicho. Incluye fijación mecánica y conexión eléctrica preliminar.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tira LED y transformador para iluminación indirecta",
+          "descripcion": "Tira LED RGB o blanca cálida (aprox. 2-3 metros), transformador/fuente de alimentación, conectores y pequeño material eléctrico.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tira LED y transformador a confirmar según especificaciones (RGB/blanca, potencia, marca)."
+        },
+        {
+          "concepto": "Circuito eléctrico para iluminación LED",
+          "descripcion": "Tendido de cable eléctrico desde cuadro o enchufe existente hasta el nicho. Instalación de interruptor o control remoto para la iluminación LED. Pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, interruptor, conectores)",
+          "descripcion": "Cable eléctrico H07V-U o similar, interruptor o control remoto inalámbrico, conectores, tubo corrugado protector, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos a confirmar según distancia de tendido y tipo de control seleccionado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 869,
+        "iva_porcentaje": 21,
+        "iva": 182.49,
+        "total": 1051.49
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones exactas del nicho (ancho, alto, profundidad) para ajustar cantidad de materiales y mano de obra.",
+        "Especificar tipo de iluminación LED: RGB con control remoto, blanca cálida fija, o dimmable.",
+        "Verificar disponibilidad de toma de corriente cercana o necesidad de tendido de cable desde cuadro eléctrico.",
+        "Considerar acabado de borde exterior del nicho (moldura, pintura de pared circundante) si se requiere integración visual."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tira LED y transformador para iluminación indirecta",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Material específico de iluminación LED no detallado en catálogo base. Requiere especificación de tipo (RGB/blanca), potencia y marca."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_sencillo_72mm",
+      "tabique_ladrillo_hueco_sencillo",
+      "nicho_o_estanteria_empotrada_en_pladur",
+      "apertura_hueco_en_muro_para_puerta_o_ventana",
+      "fabricacion_de_estanterias_y_baldas_a_medida"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3940,
+      "tokens_out": 2484
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

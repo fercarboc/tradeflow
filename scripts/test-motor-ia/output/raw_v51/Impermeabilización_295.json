@@ -1,0 +1,128 @@
+{
+  "id": 295,
+  "oficio": "Impermeabilización",
+  "texto": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+  "http_status": 200,
+  "latency_ms": 10991,
+  "raw_response": {
+    "transcript": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume terraza con azulejos existentes. Extensión (m² o ml de junta) debe ser confirmada por el instalador.",
+          "Cantidad de material (sellante) pendiente de medición en obra."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Sellado de juntas con material elástico es trabajo de pintor/impermeabilizador especializado en acabados."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de sellante antiguo de juntas",
+          "descripcion": "Eliminación completa del sellante existente de las juntas de azulejos de terraza, preparación de superficies.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 4,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de ml de junta a definir por instalador en medición de obra."
+        },
+        {
+          "concepto": "Sellante elástico de poliuretano para juntas de azulejos",
+          "descripcion": "Material sellante elástico de poliuretano de alta durabilidad para juntas de terraza descubierta, resistente a intemperie, UV y movimientos.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del material a definir según marca y especificaciones. Cantidad de ml según medición en obra."
+        },
+        {
+          "concepto": "Aplicación de sellante elástico en juntas",
+          "descripcion": "Sellado de todas las juntas de azulejos de terraza con sellante elástico de poliuretano, incluyendo limpieza, aplicación uniforme y alisado.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 5,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa orientativa 4-6€/ml según ancho de junta y dificultad. Cantidad de ml a definir en obra."
+        },
+        {
+          "concepto": "Material auxiliar y EPI",
+          "descripcion": "Masilla, cinta de protección, disolvente, guantes, mascarilla y pequeño material fungible.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a criterio del instalador según cantidad total de ml a sellar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar medición total de ml de junta en terraza (ancho de junta típico: 3-5 mm).",
+        "Especificar si hay juntas diagonales o cruzadas que requieran tratamiento especial.",
+        "Verificar estado del azulejo: si hay piezas rotas o sueltas, incluir reparación previa.",
+        "Sellante de poliuretano es recomendable para terrazas expuestas a intemperie; alternativa más económica sería sellante acrílico (menos flexible, menor durabilidad)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sellante elástico de poliuretano para juntas de azulejos",
+          "oficio": "pintura",
+          "motivo": "Producto específico para juntas de terraza descubierta. Precio y cantidad a definir según medición."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "impermeabilizacion_cubierta_plana_con_membrana_liquida_poliuretano",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

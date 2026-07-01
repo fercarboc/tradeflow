@@ -1,0 +1,184 @@
+{
+  "id": 59,
+  "oficio": "Carpintería",
+  "texto": "Restauración de persiana de madera antigua de finca, 3 hojas con bisagras nuevas",
+  "http_status": 200,
+  "latency_ms": 15600,
+  "raw_response": {
+    "transcript": "Restauración de persiana de madera antigua de finca, 3 hojas con bisagras nuevas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Restauración de persiana de madera antigua de finca, 3 hojas con bisagras nuevas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de restauración de persiana antigua: requiere inspección previa del estado de la madera y estructura",
+          "Se asume 3 hojas de persiana mallorquina o librillo de madera",
+          "Bisagras exteriores inox: obligatorio para exterior/finca"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Restauración y reparación de persiana de madera con cambio de bisagras"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y desmontaje de persiana antigua",
+          "descripcion": "Desmontaje cuidadoso de 3 hojas de persiana mallorquina/librillo de madera antigua, extracción de bisagras deterioradas y pequeño material. Preservación de estructura de madera para restauración.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Restauración y tratamiento de madera (3 hojas)",
+          "descripcion": "Limpieza, lijado, tratamiento de carcoma/humedad, reparación de grietas y fisuras en 3 hojas de madera antigua. Preparación para acabado final.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bisagras exteriores inox nuevas (6 ud)",
+          "descripcion": "Suministro de 6 bisagras exteriores de acero inoxidable (2 por hoja × 3 hojas) para persiana mallorquina/librillo. Calidad resistente a intemperie.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de bisagras inox a definir por instalador según marca y especificación técnica"
+        },
+        {
+          "concepto": "Instalación de bisagras nuevas (3 hojas)",
+          "descripcion": "Montaje de 6 bisagras exteriores inox en 3 hojas de persiana. Fijación a estructura de madera con tornillería inox. Ajuste y nivelación.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado: barniz o pintura exterior (3 hojas)",
+          "descripcion": "Aplicación de barniz protector o pintura exterior de calidad en 3 hojas restauradas. Protección contra intemperie y UV. Acabado mate o satinado según preferencia.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales: barniz/pintura exterior, tornillería inox y pequeño material",
+          "descripcion": "Suministro de barniz o pintura exterior de calidad, tornillería inox para fijación de bisagras, masilla de madera, lija y otros consumibles para restauración.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales (barniz, pintura, tornillería, consumibles) a definir por instalador según marcas y cantidades exactas"
+        },
+        {
+          "concepto": "Montaje y ajuste final de persiana restaurada",
+          "descripcion": "Reinstalación de 3 hojas en marco/fachada. Ajuste de bisagras, nivelación, prueba de apertura/cierre, ajuste de falleba o sistema de cierre si existe.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 720,
+        "iva_porcentaje": 21,
+        "iva": 151.2,
+        "total": 871.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar estado de falleba o sistema de cierre de la persiana antigua: si está deteriorado, incluir partida de reparación/sustitución",
+        "Inspeccionar marco y fachada donde se fija la persiana: si hay deterioro, considerar refuerzo de fijación",
+        "Considerar tratamiento anti-carcoma si la madera antigua muestra signos de ataque de insectos",
+        "Para persianas en fachada norte o zona muy expuesta: recomendar barniz de máxima protección UV"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Bisagras exteriores inox nuevas (6 ud)",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de marca, tamaño y especificación técnica de bisagras inox para persiana antigua"
+        },
+        {
+          "concepto": "Materiales: barniz/pintura exterior, tornillería inox y pequeño material",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Conjunto de materiales consumibles cuyo precio total depende de marcas seleccionadas y cantidades exactas de producto"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_persiana_mallorquina_o_librillo",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "instalacion_persiana_veneciana_de_madera_o_bambu",
+      "reparacion_o_cambio_guias_persiana",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3727,
+      "tokens_out": 2078
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "NO"
+  }
+}

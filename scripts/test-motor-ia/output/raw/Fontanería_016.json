@@ -1,0 +1,293 @@
+{
+  "id": 16,
+  "oficio": "Fontanería",
+  "texto": "Instalación de calefacción por suelo radiante en cocina y salón, aproximadamente 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 26752,
+  "raw_response": {
+    "transcript": "Instalación de calefacción por suelo radiante en cocina y salón, aproximadamente 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de calefacción por suelo radiante en cocina y salón, aproximadamente 40 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere levantamiento in situ para confirmar: estado del soporte, altura disponible bajo suelo, conexión a caldera/aerotermia, número de zonas de control, tipo de mortero final (autonivelante vs convencional)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de calefacción por suelo radiante hidráulico"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión de tuberías PEX, colector distribuidor, válvula mezcladora y conexión a caldera/aerotermia"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación de soporte, colocación de aislamiento y vertido de mortero de cubrición"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tubo PEX multicapa suelo radiante",
+          "descripcion": "Suministro e instalación de tubo PEX de 16mm para circuitos de suelo radiante, separación 15-20cm según cálculo térmico. Incluye pequeño material (abrazaderas, conectores). Aproximadamente 200-250ml por m² según diseño",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 240,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material PEX multicapa a confirmar por instalador según marca y especificación técnica"
+        },
+        {
+          "concepto": "Mano de obra instalación tuberías suelo radiante",
+          "descripcion": "Tendido, fijación y conexión de tuberías PEX en circuitos de suelo radiante. Incluye marcado de trazado, colocación de abrazaderas y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aislamiento base poliestireno expandido",
+          "descripcion": "Suministro e instalación de planchas de poliestireno expandido de 40-50mm como aislamiento térmico base bajo tuberías de suelo radiante. Incluye adhesivo y pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de aislamiento poliestireno a confirmar según espesor y densidad especificada"
+        },
+        {
+          "concepto": "Mano de obra colocación aislamiento",
+          "descripcion": "Preparación de soporte, limpieza, colocación de planchas de aislamiento, nivelación y fijación",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 5,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero autonivelante cubrición suelo radiante",
+          "descripcion": "Suministro de mortero autonivelante de 5-7cm de espesor para cubrición de tuberías de suelo radiante. Incluye pequeño material y aditivos fluidificantes",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mortero autonivelante a confirmar según marca y especificación técnica"
+        },
+        {
+          "concepto": "Mano de obra vertido y nivelación mortero",
+          "descripcion": "Vertido, extendido, nivelación y alisado de mortero autonivelante sobre tuberías de suelo radiante. Incluye control de espesor y pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 6,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colector distribuidor suelo radiante",
+          "descripcion": "Suministro e instalación de colector distribuidor con 2-3 circuitos según número de zonas (cocina y salón). Incluye válvulas de derivación, caudalímetros, sonda de temperatura y soporte de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de colector distribuidor a confirmar según número de circuitos y marca especificada"
+        },
+        {
+          "concepto": "Mano de obra instalación colector distribuidor",
+          "descripcion": "Instalación de colector distribuidor, conexión de tuberías de entrada/salida, equilibrado hidráulico de circuitos y pruebas de funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Válvula mezcladora termostática suelo radiante",
+          "descripcion": "Suministro e instalación de válvula mezcladora termostática con actuador termoelectrico y sonda de temperatura para regular salida a 40-45°C. Incluye pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de válvula mezcladora a confirmar según marca y especificación técnica"
+        },
+        {
+          "concepto": "Mano de obra instalación válvula mezcladora",
+          "descripcion": "Instalación de válvula mezcladora, conexión de tuberías, calibración de temperatura y pruebas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Termostatos digitales por zona",
+          "descripcion": "Suministro e instalación de 2 termostatos digitales programables (uno para cocina, uno para salón) con actuadores de válvulas en colector. Incluye pequeño material y cableado",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de termostatos digitales a confirmar según marca y funcionalidades"
+        },
+        {
+          "concepto": "Mano de obra instalación termostatos y control",
+          "descripcion": "Instalación de termostatos, conexión de sondas de temperatura, programación de zonas y pruebas de funcionamiento del sistema de control",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1130,
+        "iva_porcentaje": 21,
+        "iva": 237.3,
+        "total": 1367.3
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Existe caldera o aerotermia disponible para conexión? Si no, presupuestar equipo generador de calor por separado",
+        "Confirmar número exacto de zonas de control (mínimo 2: cocina y salón)",
+        "Levantamiento in situ para verificar: altura disponible bajo suelo, estado del soporte (debe estar sin fisuras ni movimientos), tipo de revestimiento final (baldosa, microcemento, parquet flotante)",
+        "Tiempo de espera: mortero requiere 28 días mínimo antes de uso real del sistema. Comunicar al cliente",
+        "Considerar banda perimetral de dilatación en encuentros con paredes (partida auxiliar no incluida en presupuesto base)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tubo PEX multicapa suelo radiante",
+          "oficio": "climatizacion",
+          "motivo": "Material específico de suelo radiante, requiere precio de mercado actual"
+        },
+        {
+          "concepto": "Aislamiento base poliestireno expandido",
+          "oficio": "albanileria",
+          "motivo": "Material específico, requiere confirmación de espesor y densidad"
+        },
+        {
+          "concepto": "Mortero autonivelante cubrición suelo radiante",
+          "oficio": "albanileria",
+          "motivo": "Material específico, requiere confirmación de marca y especificación técnica"
+        },
+        {
+          "concepto": "Colector distribuidor suelo radiante",
+          "oficio": "fontaneria",
+          "motivo": "Componente crítico, precio varía según número de circuitos y marca"
+        },
+        {
+          "concepto": "Válvula mezcladora termostática suelo radiante",
+          "oficio": "fontaneria",
+          "motivo": "Componente crítico para regulación de temperatura, requiere especificación técnica"
+        },
+        {
+          "concepto": "Termostatos digitales por zona",
+          "oficio": "climatizacion",
+          "motivo": "Componente de control, precio varía según funcionalidades y conectividad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_microcemento_suelo_interior",
+      "instalacion_valvula_mezcladora_suelo_radiante",
+      "instalacion_suelo_radiante_hidraulico",
+      "reparacion_fuga_suelo_radiante"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3660,
+      "tokens_out": 3856
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

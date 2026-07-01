@@ -1,0 +1,169 @@
+{
+  "id": 262,
+  "oficio": "Cristalería",
+  "texto": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+  "http_status": 200,
+  "latency_ms": 14438,
+  "raw_response": {
+    "transcript": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas de ducha 90x90 cm confirmadas. Vidrio templado 8mm especificado (espesor recomendado).",
+          "Silicona neutra en todos los encuentros con agua es obligatoria.",
+          "Verificar in situ nivelación del plato de ducha antes de instalar."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de mampara con vidrio templado y perfiles de aluminio. Oficio especializado en cristalería."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado 8mm para mampara ducha 90x90",
+          "descripcion": "Suministro de vidrio templado de 8mm de espesor, medidas ajustadas a hueco 90x90 cm, con marcado CE según EN 12150, templado en fábrica (no cortable en obra).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado 8mm según medida exacta 90x90 cm. Varía según proveedor y plazo de fabricación (5-10 días)."
+        },
+        {
+          "concepto": "Perfil de aluminio para mampara ducha",
+          "descripcion": "Suministro de perfiles de aluminio anodizado (vertical, horizontal, inferior) para mampara ducha 90x90 cm, incluye herrajes de fijación y guías.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfiles de aluminio según sistema (corredera, abatible, fijo). Incluye herrajes completos."
+        },
+        {
+          "concepto": "Silicona neutra sanitaria para encuentros",
+          "descripcion": "Suministro e instalación de silicona neutra de calidad sanitaria en todos los encuentros con agua (perímetro completo, juntas de dilatación, encuentro con plato de ducha).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Silicona neutra sanitaria (no acrílica). Cantidad según perímetro y encuentros a sellar."
+        },
+        {
+          "concepto": "Tornillería y pequeño material inoxidable",
+          "descripcion": "Suministro de tornillería inoxidable A2, tacos de fijación a pared, embellecedores, arandelas y pequeño material de montaje.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material según sistema de fijación (tacos químicos, mecánicos o especiales si gresite)."
+        },
+        {
+          "concepto": "Instalación mampara de ducha cristal templado 90x90",
+          "descripcion": "Mano de obra de instalación: nivelación del plato de ducha, fijación de perfiles de aluminio a pared y suelo, colocación de vidrio templado, sellado perimetral con silicona neutra, ajuste de herrajes y prueba de estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar medidas exactas del hueco de ducha in situ antes de encargar el vidrio templado (no se puede cortar en obra).",
+        "Confirmar tipo de sistema de mampara: corredera, abatible o fija (afecta a precio de perfiles y herrajes).",
+        "Si el plato de ducha es de gresite o cerámica, considerar tacos especiales de fijación.",
+        "Plazo de fabricación del vidrio templado: 5-10 días. Coordinar con cliente.",
+        "Silicona neutra OBLIGATORIA en todos los encuentros con agua para garantizar estanqueidad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado 8mm para mampara ducha 90x90",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según medida exacta. Precio variable según proveedor y plazo."
+        },
+        {
+          "concepto": "Perfil de aluminio para mampara ducha",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Componente de sistema de mampara. Precio según tipo de sistema (corredera, abatible, fijo)."
+        },
+        {
+          "concepto": "Silicona neutra sanitaria para encuentros",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material de sellado obligatorio. Cantidad según perímetro a sellar."
+        },
+        {
+          "concepto": "Tornillería y pequeño material inoxidable",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes de fijación. Cantidad y tipo según sistema de instalación."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_mampara_ducha",
+      "instalacion_ventana_madera_con_vidrio",
+      "sustitucion_columna_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3701,
+      "tokens_out": 1950
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

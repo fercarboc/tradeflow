@@ -1,0 +1,216 @@
+{
+  "id": 208,
+  "oficio": "Jardinería",
+  "texto": "Instalar cesped artificial en terraza de 20 metros cuadrados con drenaje y relleno de arena",
+  "http_status": 200,
+  "latency_ms": 16899,
+  "raw_response": {
+    "transcript": "Instalar cesped artificial en terraza de 20 metros cuadrados con drenaje y relleno de arena",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cesped artificial en terraza de 20 metros cuadrados con drenaje y relleno de arena",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Instalación de césped artificial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y compactación base",
+          "descripcion": "Preparación de base con zahorra compactada y nivelada para instalación de césped artificial en terraza",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 5,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Geotextil de base",
+          "descripcion": "Suministro e instalación de geotextil filtro como capa base bajo césped artificial (20 m²)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de geotextil a definir por instalador"
+        },
+        {
+          "concepto": "Césped artificial suministro e instalación",
+          "descripcion": "Suministro e instalación de rollo de césped artificial de calidad estándar (20 m²)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cesped artificial variable según calidad y tipo de fibra"
+        },
+        {
+          "concepto": "Adhesivo y cinta para juntas",
+          "descripcion": "Adhesivo profesional y cinta de unión para juntas de césped artificial",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de adhesivo a definir según m2 total"
+        },
+        {
+          "concepto": "Arena de relleno silícea",
+          "descripcion": "Suministro e instalación de arena silícea de relleno para César artificial (20 m²)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en kg y precio de arena a definir por instalador (estimado 15-25 kg/m²)"
+        },
+        {
+          "concepto": "Fijación perimetral",
+          "descripcion": "Fijación perimetral del césped artificial mediante sistema mecánico (clavos, grapas, etc.)",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro terraza a definir. Estimado para terraza 20 m² (aproximadamente 18-20 ml)"
+        },
+        {
+          "concepto": "Sistema drenaje terraza",
+          "descripcion": "Instalación de sistema de drenaje con sumidero o cazoleta en terraza con pendientes correctas",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 25,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sumidero o cazoleta drenaje",
+          "descripcion": "Suministro de sumidero o cazoleta para drenaje de terraza con impermeabilización perimetral",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sumidero/cazoleta a definir según tipo y diámetro"
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Pequeño material (tornillos, grapas, cintas, etc.) y equipo de protección individual",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado pequeño material 3-5% del presupuesto"
+        }
+      ],
+      "calculos": {
+        "subtotal": 125,
+        "iva_porcentaje": 21,
+        "iva": 26.25,
+        "total": 151.25
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de fibra de césped artificial (polietileno, polipropileno, poliamida) para definir rango de precio",
+        "Especificar sistema de drenaje: sumidero central, mehrere sumideros, o sistema de drenaje modular bajo el geotextil",
+        "Indicar si existe base de hormigón/pavimento previo o se requiere preparación desde tierra",
+        "Confirmar perímetro exacto de la terraza para cálculo de fijación perimetral",
+        "Verificar si la terraza dispone de pendientes hacia sumidero o requiere formación de pendientes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Geotextil de base",
+          "oficio": "jardineria",
+          "motivo": "Material de base específico para instalación de césped artificial"
+        },
+        {
+          "concepto": "Césped artificial suministro e instalación",
+          "oficio": "jardineria",
+          "motivo": "Material principal del proyecto"
+        },
+        {
+          "concepto": "Adhesivo y cinta para juntas",
+          "oficio": "jardineria",
+          "motivo": "Material auxiliar para uniones de rollos"
+        },
+        {
+          "concepto": "Arena de relleno silícea",
+          "oficio": "jardineria",
+          "motivo": "Relleno funcional requerido por cliente"
+        },
+        {
+          "concepto": "Sumidero o cazoleta drenaje",
+          "oficio": "jardineria",
+          "motivo": "Sistema de drenaje específico requerido"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_drenaje_cubierta_plana",
+      "instalacion_cesped_artificial",
+      "instalacion_de_sumidero_o_imbornal",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

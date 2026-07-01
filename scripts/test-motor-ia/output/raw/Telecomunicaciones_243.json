@@ -1,0 +1,191 @@
+{
+  "id": 243,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar punto de acceso WiFi adicional en zona muerta de empresa, cobertura de 200 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 16916,
+  "raw_response": {
+    "transcript": "Instalar punto de acceso WiFi adicional en zona muerta de empresa, cobertura de 200 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar punto de acceso WiFi adicional en zona muerta de empresa, cobertura de 200 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Zona de 200 m² requiere análisis previo de radiofrecuencia para ubicación óptima del AP",
+          "Se recomienda verificar si existe controladora WiFi centralizada o si se necesita implementar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de infraestructura WiFi profesional, cableado estructurado y configuración de red"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Access Point profesional WiFi 6 o WiFi 6E",
+          "descripcion": "Suministro e instalación de access point profesional de estándar WiFi 6/6E con cobertura para 200 m² en entorno empresarial, incluye alimentación PoE",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del AP depende de marca, modelo y características (WiFi 6 vs 6E, potencia, número de antenas). Instalador debe especificar modelo y precio"
+        },
+        {
+          "concepto": "Cable Cat6 desde switch/inyector PoE hasta ubicación AP",
+          "descripcion": "Suministro e instalación de cable de datos Cat6 blindado para exterior/interior según recorrido, con conectores RJ45 y pequeño material de fijación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros de cable depende del recorrido desde switch/inyector PoE hasta ubicación del AP. Instalador debe medir y especificar metraje"
+        },
+        {
+          "concepto": "Inyector PoE o switch PoE (si no existe)",
+          "descripcion": "Suministro de inyector PoE de 30W o switch PoE profesional para alimentación del access point sin necesidad de toma eléctrica separada",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Solo si no existe infraestructura PoE previa. Precio depende de capacidad y marca. Revisar si ya hay switch PoE en la instalación"
+        },
+        {
+          "concepto": "Montaje en techo o pared del access point",
+          "descripcion": "Instalación física del AP en ubicación óptima (techo o pared), incluye anclajes, bridas y pequeño material de fijación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración SSID, seguridad WPA3 y parámetros de red",
+          "descripcion": "Configuración del access point: creación de SSID, seguridad WPA3, canales WiFi, potencia de transmisión, integración con controladora WiFi si existe, y pruebas de conectividad",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de radiofrecuencia previo para ubicación óptima",
+          "descripcion": "Estudio de cobertura RF con herramientas de medición para determinar ubicación óptima del AP y evitar interferencias en zona de 200 m²",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Bridas, anclajes, conectores RJ45, pasta térmica, etiquetado y otros consumibles necesarios para la instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado entre 15-30€. Instalador debe revisar según cantidad y tipo de material utilizado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 175,
+        "iva_porcentaje": 21,
+        "iva": 36.75,
+        "total": 211.75
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe controladora WiFi centralizada en la empresa para gestión unificada de múltiples APs",
+        "Si hay más de un AP, configurar roaming transparente con mismo SSID y canales distintos (1, 6, 11 en 2.4GHz)",
+        "Considerar backhaul cableado (cable Cat6) en lugar de inalámbrico para mejor rendimiento y estabilidad",
+        "Documentar ubicación final del AP y parámetros de configuración para futuro mantenimiento"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Access Point profesional WiFi 6 o WiFi 6E",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de marca y modelo. Instalador debe especificar"
+        },
+        {
+          "concepto": "Cable Cat6 desde switch/inyector PoE hasta ubicación AP",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad variable según recorrido. Instalador debe medir metraje exacto"
+        },
+        {
+          "concepto": "Inyector PoE o switch PoE (si no existe)",
+          "origen": "sugerida_ia",
+          "motivo": "Infraestructura auxiliar cuya necesidad y precio dependen de instalación existente"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles varios cuyo precio total debe revisar el instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_punto_de_acceso_wifi_o_AP_profesional",
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "instalacion_electrica_pergola_terraza",
+      "instalacion_domotica_basica_wifi",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3875,
+      "tokens_out": 2176
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

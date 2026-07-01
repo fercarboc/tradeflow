@@ -1,0 +1,125 @@
+{
+  "id": 183,
+  "oficio": "Cerrajería",
+  "texto": "Apertura de urgencia de puerta de casa, me he quedado encerrado fuera sin llaves",
+  "http_status": 200,
+  "latency_ms": 10430,
+  "raw_response": {
+    "transcript": "Apertura de urgencia de puerta de casa, me he quedado encerrado fuera sin llaves",
+    "quote": {
+      "resumen": {
+        "texto_original": "Apertura de urgencia de puerta de casa, me he quedado encerrado fuera sin llaves",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio de urgencia: tarifa puede variar según horario (diurno/nocturno/festivo)",
+          "Desplazamiento incluido en presupuesto base",
+          "Si se detecta daño en cerradura durante apertura, se facturará como partida adicional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Apertura de puerta sin llave - servicio de urgencia cerrajería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desplazamiento urgente cerrajero",
+          "descripcion": "Desplazamiento a domicilio para servicio de apertura de urgencia",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de desplazamiento urgente variable según zona y horario (diurno 30-50€, nocturno/festivo 60-100€)"
+        },
+        {
+          "concepto": "Apertura técnica de puerta sin daño",
+          "descripcion": "Apertura de cerradura sin forzar ni dañar la puerta ni el mecanismo",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa apertura técnica: 90-150€ según complejidad de cerradura y tiempo empleado"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Herramientas especializadas, ganzúas, lubricantes y material fungible para apertura",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible: 15-30€ según complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Presupuesto estimado total (referencia): 150-280€ en horario diurno, 200-350€ en horario nocturno/festivo",
+        "El instalador debe confirmar: horario de la llamada, zona geográfica, tipo de cerradura (cilindro, de seguridad, inteligente)",
+        "Si durante la apertura se detecta daño en cerradura o cilindro, se facturará cambio de cerradura como partida adicional (90-300€)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desplazamiento urgente cerrajero",
+          "oficio": "cerrajeria",
+          "motivo": "Tarifa variable según horario y distancia - requiere confirmación del instalador"
+        },
+        {
+          "concepto": "Apertura técnica de puerta sin daño",
+          "oficio": "cerrajeria",
+          "motivo": "Partida obligatoria de la actuación base [apertura_puerta_cerradura_sin_llave]"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "apertura_puerta_cerradura_sin_llave",
+      "instalacion_reja_practicable_o_puerta_de_reja",
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "pintado_locales_comerciales_y_tiendas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3734,
+      "tokens_out": 1182
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 3,
+    "n_catalogo": 0,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

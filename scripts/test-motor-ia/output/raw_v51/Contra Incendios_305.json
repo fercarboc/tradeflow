@@ -1,0 +1,261 @@
+{
+  "id": 305,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar sistema de extinción de gas FM200 en sala de servidores de empresa de 15 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 30180,
+  "raw_response": {
+    "transcript": "Instalar sistema de extinción de gas FM200 en sala de servidores de empresa de 15 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de extinción de gas FM200 en sala de servidores de empresa de 15 metros cuadrados",
+        "tipo_presupuesto": "instalacion_sistema_extincion",
+        "requiere_revision_general": true,
+        "alertas": [
+          "PROYECTO TÉCNICO OBLIGATORIO antes de instalación — normativa UNE-EN 12094",
+          "FM200 (HFC-227ea) requiere señalización de peligro — concentración letal para ocupación humana",
+          "Cálculo de agente extintor y boquillas según volumen sala (15 m²) — asume altura 2.5m = 37.5 m³",
+          "Prueba estanqueidad sala CRÍTICA (Door Fan Test) — determina eficacia del sistema",
+          "Enclavamiento climatización y sistemas HVAC recomendado",
+          "Proyecto técnico debe incluir: cálculo concentración de diseño, planos, procedimientos evacuación, mantenimiento anual"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación sistemas extinción gas — especialidad contra-incendios con normativa UNE-EN 12094"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico sistema extinción FM200",
+          "descripcion": "Cálculo de agente extintor (FM200/HFC-227ea), determinación concentración de diseño según UNE-EN 12094, planos instalación, boquillas descarga, especificaciones panel control, procedimientos evacuación y señalización. Sala: 15 m² (asume altura 2.5m = 37.5 m³)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIO — Proyecto técnico debe ser redactado por ingeniero especializado. Instalador revisa coste según complejidad"
+        },
+        {
+          "concepto": "Depósito agente extintor FM200 (HFC-227ea)",
+          "descripcion": "Cilindro acero con FM200 (HFC-227ea) según cálculo proyecto. Agente seguro para ocupación humana (sin dióxido de carbono). Incluye válvula descarga, manómetro y soporte fijación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste según capacidad cilindro (kg FM200) — depende cálculo proyecto técnico. Rango estimado: 800-2000€"
+        },
+        {
+          "concepto": "Boquillas de descarga FM200",
+          "descripcion": "Boquillas de descarga de neblina según cálculo proyecto. Distribución uniforme agente en sala 15 m². Incluye tubería conexión, racores y pequeño material",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número y tipo boquillas según volumen sala — depende proyecto. Rango estimado: 300-800€"
+        },
+        {
+          "concepto": "Panel de control con retardo descarga",
+          "descripcion": "Central de control con retardo (permiso evacuación personal antes descarga gas), accionamiento automático/manual, indicadores estado sistema. Cumple UNE-EN 12094. Instalación mural",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Panel control especializado contra-incendios — Rango estimado: 400-1200€"
+        },
+        {
+          "concepto": "Pulsadores aborto y descarga manual",
+          "descripcion": "2 pulsadores: aborto (detiene cuenta atrás) y descarga (accionamiento manual). IP54 mínimo. Señalización identificación clara. Instalación acceso fácil sala",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pulsadores especializados — Rango estimado: 40-80€ c/u"
+        },
+        {
+          "concepto": "Señalización zona peligro descarga FM200",
+          "descripcion": "Señales adhesivas/placas advertencia: 'GAS EXTINTOR — PELIGRO — NO ENTRAR DURANTE DESCARGA'. Cumple normativa. Ubicación: entrada sala y puntos visibles. Idioma requerido (español mínimo)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Señalización normativa — Rango estimado: 25-50€ c/u"
+        },
+        {
+          "concepto": "Sistema detección previo doble zona",
+          "descripcion": "Detectores humo + temperatura (redundancia) — doble zona confirmación incendio antes descarga FM200. Previene falsas descargas. Cableado/conexión a panel control",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema detección especializado — Rango estimado: 200-500€"
+        },
+        {
+          "concepto": "Mano de obra: Instalación sistema extinción FM200 (suministro + montaje + pruebas)",
+          "descripcion": "Instalación depósito, boquillas, panel control, pulsadores, detección, cableado eléctrico, conexiones, verificación presiones, prueba funcionamiento sistema, documentación puesta en marcha",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba estanqueidad sala (Door Fan Test)",
+          "descripcion": "Medición presión diferencial y fuga aire sala con puerta-ventilador (Door Fan Test). Crítico para validar eficacia FM200. Ensayo + informe técnico. Cumple UNE-EN 12094",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Ensayo especializado door fan test — Rango estimado: 300-600€"
+        },
+        {
+          "concepto": "Enclavamiento climatización y sistemas HVAC",
+          "descripcion": "Modificación sistema climatización: cierre válvulas/dampers en descarga FM200 para evitar pérdida agente. Conexión automática panel control. Sincronización retardo descarga + cierre HVAC",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere coordinación con instalador climatización — Rango estimado: 200-600€"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, bridas, tuercas, racores, cinta teflón, etiquetas, documentación, manuales, planos as-built",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles instalación — Rango estimado: 80-150€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 960,
+        "iva_porcentaje": 21,
+        "iva": 201.6,
+        "total": 1161.6
+      },
+      "sugerencias_catalogo": [
+        "PRESUPUESTO INCOMPLETO — Solo mano obra tiene precio. TODOS los materiales requieren revisión instalador",
+        "COSTE ESTIMADO TOTAL SISTEMA (referencia): 3500-8000€ (incluyendo mano obra + materiales + proyecto + pruebas)",
+        "Desglose estimado: Proyecto técnico 400-800€ + Depósito FM200 800-2000€ + Boquillas 300-800€ + Panel control 400-1200€ + Detección 200-500€ + Pulsadores 80-160€ + Señalización 75-150€ + Enclavamiento HVAC 200-600€ + Door Fan Test 300-600€ + Mano obra 960€ + Pequeño material 80-150€",
+        "El proyecto técnico DEBE ser aprobado por ingeniería antes de proceder a compra de materiales",
+        "Coordinación con responsable climatización sala servidores (enclavamiento HVAC es crítico)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico sistema extinción FM200",
+          "oficio": "contra_incendios",
+          "razon_creacion": "Obligatorio UNE-EN 12094 — no en catálogo estándar"
+        },
+        {
+          "concepto": "Depósito agente extintor FM200",
+          "oficio": "contra_incendios",
+          "razon_creacion": "Material específico según volumen sala — precio variable capacidad"
+        },
+        {
+          "concepto": "Boquillas de descarga FM200",
+          "oficio": "contra_incendios",
+          "razon_creacion": "Elemento diseño dependiente de cálculo proyecto"
+        },
+        {
+          "concepto": "Panel de control con retardo descarga",
+          "oficio": "contra_incendios",
+          "razon_creacion": "Central especializada contra-incendios — precio según certificaciones"
+        },
+        {
+          "concepto": "Sistema detección previo doble zona",
+          "oficio": "contra_incendios",
+          "razon_creacion": "Redundancia seguridad — no típico en alarma estándar"
+        },
+        {
+          "concepto": "Prueba estanqueidad sala (Door Fan Test)",
+          "oficio": "contra_incendios",
+          "razon_creacion": "Ensayo especializado validación eficacia — servicio técnico"
+        },
+        {
+          "concepto": "Enclavamiento climatización y sistemas HVAC",
+          "oficio": "contra_incendios",
+          "razon_creacion": "Integración con sistemas existentes — coordinación requerida"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_extincion_por_gas_CO2_o_FM200",
+      "instalacion_de_sistema_audiovisual_en_sala_de_reuniones",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_sistema_climatizacion_para_server_room"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 1,
+    "n_sugeridas": 10,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

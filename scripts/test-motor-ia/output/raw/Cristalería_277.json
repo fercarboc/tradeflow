@@ -1,0 +1,156 @@
+{
+  "id": 277,
+  "oficio": "Cristalería",
+  "texto": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+  "http_status": 200,
+  "latency_ms": 12712,
+  "raw_response": {
+    "transcript": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Panel de vidrio lacado: verificar dimensiones exactas y espesor recomendado (6-8mm para seguridad térmica)",
+          "Instalación detrás de fuegos: confirmar distancia mínima a fuente de calor y compatibilidad térmica del lacado",
+          "Precio unitario del vidrio lacado pendiente de revisión (material suministrado por proveedor especializado)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de panel de vidrio lacado (cristalería especializada)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Panel de vidrio lacado blanco para salpicadero",
+          "descripcion": "Suministro de panel de vidrio lacado en blanco, espesor 6-8mm, dimensiones a medida para salpicadero detrás de fuegos. Incluye tratamiento térmico y acabado lacado profesional.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado (vidrio lacado): el instalador debe confirmar dimensiones exactas, espesor, proveedor y precio final con el cliente"
+        },
+        {
+          "concepto": "Silicona neutra de alta temperatura para fijación",
+          "descripcion": "Silicona neutra resistente a altas temperaturas (mínimo 150°C) para fijación del panel de vidrio lacado a la pared detrás de los fuegos.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio según marca y cantidad necesaria"
+        },
+        {
+          "concepto": "Preparación y limpieza de superficie",
+          "descripcion": "Limpieza, desengrasado y preparación de la pared para garantizar adherencia óptima de la silicona. Incluye protección de zonas adyacentes.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y fijación del panel de vidrio lacado",
+          "descripcion": "Colocación, nivelación y fijación del panel de vidrio lacado blanco con silicona de alta temperatura. Incluye aplicación de silicona, presionado y curado inicial.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Masilla, trapos, cinta de protección, espaciadores y otros consumibles necesarios para la instalación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: a presupuestar según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el cliente las dimensiones exactas del panel (ancho × alto) antes de encargar el vidrio lacado",
+        "Verificar con el fabricante de vidrio lacado la resistencia térmica del lacado a la proximidad de los fuegos (distancia mínima recomendada)",
+        "Considerar si es necesario tratamiento antirreflectante o protección adicional contra salpicaduras de aceite",
+        "El tiempo de curado de la silicona de alta temperatura puede ser de 24-48 horas: informar al cliente sobre restricción de uso"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Panel de vidrio lacado blanco para salpicadero",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Material especializado no presente en catálogo base; requiere especificación técnica y presupuesto del proveedor"
+        },
+        {
+          "concepto": "Silicona neutra de alta temperatura para fijación",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Material específico para aplicación térmica; precio variable según marca y cantidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio",
+      "instalacion_de_rodapie_de_madera_o_MDF",
+      "instalacion_rodapie_madera_mdf_o_pvc",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3822,
+      "tokens_out": 1652
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

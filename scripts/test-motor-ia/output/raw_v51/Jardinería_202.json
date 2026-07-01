@@ -1,0 +1,247 @@
+{
+  "id": 202,
+  "oficio": "Jardinería",
+  "texto": "Diseño y plantación de jardín en zona de 80 metros cuadrados de terreno, con plantas mediterráneas",
+  "http_status": 200,
+  "latency_ms": 29451,
+  "raw_response": {
+    "transcript": "Diseño y plantación de jardín en zona de 80 metros cuadrados de terreno, con plantas mediterráneas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Diseño y plantación de jardín en zona de 80 metros cuadrados de terreno, con plantas mediterráneas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto de diseño y plantación jardín nuevo. Requiere aprobación del cliente en plano/croquis ANTES de comprar plantas.",
+          "Plantas mediterráneas especificadas genéricamente: instalador debe seleccionar especies concretas según exposición solar exacta y tipo suelo.",
+          "Precio alzado estimado entre 300-4000€ según complejidad. Este presupuesto estructura trabajo base; revisar con cliente características del terreno."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Diseño, preparación terreno y plantación jardín. Oficio base del proyecto."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diseño plano o croquis aprobado cliente",
+          "descripcion": "Elaboración de croquis o plano a escala del diseño de jardín mediterráneo de 80 m², con distribución de plantas, zonas de riego y zonas de descanso. Aprobación previa con cliente ANTES de comprar plantas.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de diseño estimada por IA. Instalador ajusta según complejidad y tiempo real."
+        },
+        {
+          "concepto": "Preparación terreno: laboreo, nivelación y limpieza",
+          "descripcion": "Laboreo profundo del terreno (80 m²), eliminación de piedras/raíces previas, nivelación y limpieza de malas hierbas en zona de plantación mediterránea.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 2.5,
+          "total": 200,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de preparación estimada 2,5€/m². Ajustar según complejidad del terreno (piedras, raíces, etc.)."
+        },
+        {
+          "concepto": "Aporte tierra vegetal y enmienda de suelo",
+          "descripcion": "Suministro e incorporación de tierra vegetal de calidad (15-20 cm de espesor en zonas de plantación) con enmienda orgánica (compost) para plantas mediterráneas. Aproximadamente 12-16 m³.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 14,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio de tierra vegetal y compost a definir. Estimación: 14 m³. Revisar con proveedor."
+        },
+        {
+          "concepto": "Geotextil anti-malas hierbas",
+          "descripcion": "Instalación de geotextil anti-malas hierbas bajo acolchado en zonas de plantación (aprox. 70 m² en franjas de plantación y circulación).",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 70,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio geotextil (1,5-3€/m²). Revisar cantidad final según diseño."
+        },
+        {
+          "concepto": "Plantación plantas mediterráneas",
+          "descripcion": "Apertura de hoyos, plantación de plantas mediterráneas seleccionadas (romero, lavanda, salvia, cineraria, teucrium, lentisco, etc.), riego de asiento y tutores si necesario. Se estima 20-30 plantas según tamaño (arbustos medianos 1-1,5m).",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 25,
+          "precio_unitario": 15,
+          "total": 375,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa 15€/ud plantación (mano obra). Cantidad estimada 25 plantas. Revisar según diseño final."
+        },
+        {
+          "concepto": "Suministro plantas mediterráneas variadas",
+          "descripcion": "Compra y transporte de plantas mediterráneas: arbustos (romero, lavanda, salvia, teucrium), plantas tapizantes (sedum, delosperma) y plantas de porte (lentisco, acebuche) según proyecto. Aprox. 25 unidades de tamaño variado.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio plantas mediterráneas variable (5-30€/ud según especie y tamaño). Definir con vivero."
+        },
+        {
+          "concepto": "Acolchado con corteza de pino",
+          "descripcion": "Extendido de corteza de pino desmenuzada (espesor 5-8 cm) en zonas de plantación y bajo arbustos para protección de raíces, conservación humedad y control malas hierbas. Aprox. 70 m² (excluyendo zonas de paso).",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 70,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: corteza pino (8-15€/m³). Volumen necesario aprox. 5-6 m³. Revisar con proveedor."
+        },
+        {
+          "concepto": "Mano de obra: extendido acolchado",
+          "descripcion": "Mano de obra de extendido uniforme de corteza sobre geotextil en zonas de plantación (70 m²), compactación ligera y nivelación.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 70,
+          "precio_unitario": 1.2,
+          "total": 84,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa mano obra acolchado: 1-1,5€/m². Ajustar según accesibilidad del terreno."
+        },
+        {
+          "concepto": "Sistema de riego gota a gota básico",
+          "descripcion": "Suministro e instalación de red de riego gota a gota: tubería distribuidora, goteros, válvula reguladora y programador básico para 80 m² de jardín. Incluye conexión a fuente de agua.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material riego: presupuesto aproximado 150-400€ según complejidad y tomas disponibles. Revisar con instalador."
+        },
+        {
+          "concepto": "Mano de obra: instalación sistema riego",
+          "descripcion": "Instalación de línea de riego gota a gota: tendido de tubería, colocación de goteros, conexión válvulas y programador. Tiempo estimado 3-4 horas.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3.5,
+          "precio_unitario": 25,
+          "total": 87.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas (jardín)",
+          "descripcion": "Pequeño material: clavos, piquetas, cinta de riego, conectores, cintas adhesivas, abonos de asiento, bolsas de tierra, y desgaste herramientas. Estimado como partida porcentual del proyecto.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar: estimación 50-150€. Revisar según necesidades reales."
+        },
+        {
+          "concepto": "Retirada escombros y material vegetal sobrante",
+          "descripcion": "Retirada de material excavado sobrante, piedras, raíces y residuos vegetales. Traslado a gestor de residuos autorizado. Aprox. 4-6 m³.",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio gestor: tarifa local por m³ (10-25€/m³). Revisar con gestor autorizado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 896.5,
+        "iva_porcentaje": 21,
+        "iva": 188.27,
+        "total": 1084.77
+      },
+      "sugerencias_catalogo": [
+        "Si cliente desea mantenimiento periódico (riego, poda, desmalezado), incluir presupuesto de mantenimiento mensual/trimestral en jardinería: aprox. 50-150€/mes según complejidad.",
+        "Considerar instalación de mulching orgánico (corteza renovada cada 2-3 años) como mantenimiento preventivo.",
+        "Para zonas mediterráneas secas, plantas tapizantes (sedum, delosperma) son muy eficientes. Revisión anual en primavera recomendada."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Diseño plano o croquis aprobado cliente",
+          "oficio": "jardineria",
+          "motivo": "Diseño conceptual de jardín. Encontrado en BASE MAESTRA [diseno_y_creacion_jardin_nuevo_desde_cero] pero tarifa específica no está en catálogo de tarifas.",
+          "precio_sugerido_ia": 150
+        },
+        {
+          "partida": "Sistema de riego gota a gota básico",
+          "oficio": "jardineria",
+          "motivo": "Suministro e instalación riego. Auxiliar de plantación. Precio material pendiente revisión instalador.",
+          "precio_sugerido_ia": "150-400€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diseno_y_creacion_jardin_nuevo_desde_cero",
+      "instalacion_bomba_de_calor_para_piscina",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "acolchado_mulching_de_zonas_de_plantacion",
+      "instalacion_cubierta_verde_o_ajardinada"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 1,
+    "n_sugeridas": 11,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

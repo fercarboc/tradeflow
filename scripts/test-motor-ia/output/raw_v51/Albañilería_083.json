@@ -1,0 +1,218 @@
+{
+  "id": 83,
+  "oficio": "Albañilería",
+  "texto": "Reparar grieta grande en pared de fachada exterior, inyección de resina y rejuntado",
+  "http_status": 200,
+  "latency_ms": 17962,
+  "raw_response": {
+    "transcript": "Reparar grieta grande en pared de fachada exterior, inyección de resina y rejuntado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar grieta grande en pared de fachada exterior, inyección de resina y rejuntado",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Grieta estructural detectada: requiere diagnóstico previo de tipo (activa/pasiva)",
+          "Inyección de resina epoxi: requiere verificación de profundidad y anchura real de grieta",
+          "Material de inyección: precio pendiente de revisión (resina epoxi especializada)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de grietas estructurales en fachada, saneo y rejuntado"
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": false,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Trabajo en fachada exterior, especialización en reparación de grietas con inyección"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico de grieta (activa/pasiva) y mapeo",
+          "descripcion": "Inspección técnica para determinar si la grieta es activa o pasiva, medición de anchura y profundidad, colocación de testigos de seguimiento si es necesario",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "rango_base_maestra",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Saneo de grieta en V",
+          "descripcion": "Fresado y limpieza de grieta en forma de V (mínimo 2 cm de profundidad), eliminación de mortero suelto, polvo y residuos",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "rango_base_maestra",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inyección de resina epoxi estructural",
+          "descripcion": "Aplicación de resina epoxi de dos componentes mediante inyección a presión en grieta, reparación estructural de grietas mayores a 3 mm",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de resina epoxi estructural pendiente de verificación según marca y cantidad necesaria"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio para refuerzo",
+          "descripcion": "Colocación de malla de fibra de vidrio en zona de grieta mayor a 3 mm para refuerzo adicional antes del rejuntado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de malla de fibra pendiente según dimensiones reales de la grieta"
+        },
+        {
+          "concepto": "Rejuntado con mortero flexible exterior",
+          "descripcion": "Aplicación de mortero de reparación flexible compatible con fachada, rejuntado de grieta reparada, acabado liso y uniforme",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de mortero flexible exterior pendiente según volumen de grieta"
+        },
+        {
+          "concepto": "Imprimación y acabado final",
+          "descripcion": "Aplicación de imprimación compatible con el soporte y pintura/hidrofugo final para uniformidad cromática y protección de la zona reparada",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "rango_base_maestra",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma de acceso",
+          "descripcion": "Montaje de andamio, plataforma elevadora o sistemas de acceso para alcanzar grieta en fachada exterior con seguridad",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo de andamio/alquiler pendiente según altura y duración de obra"
+        },
+        {
+          "concepto": "Testigos de seguimiento (si grieta activa)",
+          "descripcion": "Colocación de testigos de yeso o plástico para monitorizar posibles movimientos futuros de la grieta",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y cantidad de testigos a confirmar según resultado del diagnóstico"
+        },
+        {
+          "concepto": "Pequeño material (herramientas, elementos consumibles)",
+          "descripcion": "Herramientas, elementos de seguridad, materiales consumibles menores para la ejecución completa de la reparación",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar estimada a criterio del profesional"
+        }
+      ],
+      "calculos": {
+        "subtotal": 132,
+        "iva_porcentaje": 21,
+        "iva": 27.72,
+        "total": 159.72
+      },
+      "sugerencias_catalogo": [
+        "Antes de proceder: realiza diagnóstico de grieta activa vs pasiva mediante testigos o técnica de monitorización",
+        "Si la grieta es ACTIVA: puede indicar problema estructural → considerar consulta con ingeniero técnico",
+        "Resina epoxi: especificar marca, viscosidad y capacidad de penetración según profundidad de grieta",
+        "Material de fachada: confirmar compatibilidad de mortero flexible con tipo de revestimiento (ladrillo visto, aplanado, piedra, etc.)",
+        "Presupuesto parcial (solo mano de obra): 132€. Materiales pendientes de revisión: resina, malla, mortero, andamio y testigos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inyección de resina epoxi estructural",
+          "razon_creacion": "Material especializado no presente en catálogo base. Grieta grande requiere inyección de resina epoxi de dos componentes.",
+          "oficio": "albanileria",
+          "precio_estimado": "50-150€/litro (requiere revisión según marca y cantidad)"
+        },
+        {
+          "concepto": "Andamio o plataforma de acceso",
+          "razon_creacion": "Acceso a fachada exterior. Costo variable según altura, duración y tipo de sistema (alquiler, propio o elevadora).",
+          "oficio": "albanileria",
+          "precio_estimado": "80-200€/día (requiere revisión según disponibilidad y duración)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reconstruccion_de_muro_con_lesiones_estructurales",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "reparacion_de_fisuras_y_grietas_en_fachada"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

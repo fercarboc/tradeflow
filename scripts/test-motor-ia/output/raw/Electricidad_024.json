@@ -1,0 +1,207 @@
+{
+  "id": 24,
+  "oficio": "Electricidad",
+  "texto": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+  "http_status": 200,
+  "latency_ms": 20559,
+  "raw_response": {
+    "transcript": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar potencia contratada actual (mínimo 7,4 kW recomendado para wallbox 7kW)",
+          "Confirmar distancia entre cuadro general y punto de instalación en garaje",
+          "Validar tipo de diferencial (Tipo A obligatorio para carga vehículos eléctricos según REBT)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de punto de carga vehículo eléctrico con wallbox integrado en sistema energético"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito eléctrico exclusivo, protecciones REBT, cableado y puesta a tierra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Wallbox 7kW monofásico",
+          "descripcion": "Suministro e instalación de wallbox 7kW (32A monofásico) con conectores tipo 2 (Mennekes) y protección integrada",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del wallbox 7kW a cargo del instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Cable de derivación 6mm² desde cuadro a wallbox",
+          "descripcion": "Suministro de cable H07Z1-K 6mm² (mínimo para 7,4kW monofásico) en longitud según distancia garaje-cuadro. Incluye manguera protectora y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (ml) y precio a definir según distancia real cuadro-garaje. Instalador debe medir in situ"
+        },
+        {
+          "concepto": "Magnetotérmico 40A monofásico",
+          "descripcion": "Suministro e instalación de interruptor automático magnetotérmico 40A monofásico (curva C) para circuito exclusivo wallbox",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del magnetotérmico 40A a cargo del instalador"
+        },
+        {
+          "concepto": "Diferencial Tipo A 40A",
+          "descripcion": "Suministro e instalación de interruptor diferencial Tipo A 40A (obligatorio para carga vehículos eléctricos según REBT). Sensibilidad 30mA",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del diferencial Tipo A 40A a cargo del instalador. CRÍTICO: debe ser Tipo A, no AC"
+        },
+        {
+          "concepto": "Puesta a tierra y electrodo",
+          "descripcion": "Suministro e instalación de electrodo de puesta a tierra (pica cobre 1m mínimo) y cable de tierra 6mm² desde wallbox a arqueta de tierra. Incluye pequeño material y conexiones",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de electrodo y material de tierra a cargo del instalador. Verificar si existe tierra previa"
+        },
+        {
+          "concepto": "Instalación circuito exclusivo wallbox",
+          "descripcion": "Mano de obra: apertura de rozas en pared/suelo garaje, tendido de cableado, conexión en cuadro general (magnetotérmico + diferencial), instalación de wallbox en pared, conexiones y pruebas de funcionamiento. Incluye verificación de protecciones y puesta en marcha",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y medición de tierra",
+          "descripcion": "Mano de obra: medición de resistencia de puesta a tierra (debe ser <10Ω), prueba de carga del wallbox, verificación de protecciones diferenciales y magnetotérmicas, comprobación de comunicación con vehículo (si aplica)",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Consultar con distribuidora eléctrica si es necesario ampliar potencia contratada (mínimo 7,4 kW recomendado)",
+        "Si la instalación incluye integración con paneles solares para carga inteligente, considerar partida adicional de 'Gestión de carga inteligente'",
+        "Solicitar certificado de instalación conforme a REBT tras finalización"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Wallbox 7kW monofásico",
+          "oficio": "energia_solar",
+          "motivo": "Material específico de punto de carga vehículo eléctrico"
+        },
+        {
+          "concepto": "Cable de derivación 6mm² desde cuadro a wallbox",
+          "oficio": "electricidad",
+          "motivo": "Cableado específico para circuito exclusivo wallbox"
+        },
+        {
+          "concepto": "Magnetotérmico 40A monofásico",
+          "oficio": "electricidad",
+          "motivo": "Protección específica para wallbox"
+        },
+        {
+          "concepto": "Diferencial Tipo A 40A",
+          "oficio": "electricidad",
+          "motivo": "Protección obligatoria REBT para carga vehículos eléctricos (Tipo A específico)"
+        },
+        {
+          "concepto": "Puesta a tierra y electrodo",
+          "oficio": "electricidad",
+          "motivo": "Sistema de puesta a tierra para wallbox"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cargador_de_vehiculo_electrico_en_vivienda",
+      "instalacion_cargador_vehiculo_electrico_wallbox",
+      "instalacion_proteccion_contra_rayos_pararrayo",
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "instalacion_de_pavimento_de_caucho_o_goma"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3828,
+      "tokens_out": 2659
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

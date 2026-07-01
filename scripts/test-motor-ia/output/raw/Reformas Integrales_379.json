@@ -1,0 +1,324 @@
+{
+  "id": 379,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+  "http_status": 200,
+  "latency_ms": 26196,
+  "raw_response": {
+    "transcript": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de local comercial (farmacia) — requiere coordinación de múltiples oficios",
+          "Nueva distribución implica obra civil, instalaciones y acabados simultáneos",
+          "Se recomienda solicitar planos/croquis de la nueva distribución antes de cerrar presupuesto",
+          "Verificar si requiere licencia municipal de actividad o reforma de local comercial",
+          "Confirmar si hay cambios en instalación eléctrica, fontanería o climatización según nueva distribución"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma integral de local comercial con ≥3 oficios simultáneos (obra civil, instalaciones, acabados)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición selectiva, tabiquería nueva, reposición de paredes"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación eléctrica nueva según distribución, circuitos mostrador, almacén, zona espera"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación fontanería nueva si aplica (lavamanos, desagües según nueva distribución)"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Mostrador nuevo, puertas, divisiones, muebles según nueva distribución"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura de paredes, acabados interiores"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Solado nuevo en zonas de mostrador, almacén y espera"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición selectiva y retirada de elementos existentes",
+          "descripcion": "Demolición de mostrador antiguo, tabiques, revestimientos y elementos no estructurales. Retirada selectiva de escombros y pequeño material. Preparación de superficie para nueva distribución.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de jornadas a confirmar según superficie y complejidad de demolición"
+        },
+        {
+          "concepto": "Tabiquería nueva y divisiones interiores",
+          "descripcion": "Construcción de tabiques de ladrillo o bloques para nueva distribución de almacén, zona de espera y separación de espacios. Incluye replanteo, levantado y reposición de mortero.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 40,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de tabiquería a confirmar según planos de nueva distribución"
+        },
+        {
+          "concepto": "Instalación eléctrica nueva según REBT",
+          "descripcion": "Cuadro eléctrico nuevo, cableado completo, circuitos independientes para mostrador (iluminación, enchufes, equipos), almacén (iluminación, enchufes) y zona espera (iluminación, climatización si aplica). Mecanismos, toma tierra, boletin electrico.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de trabajo a ajustar según complejidad de instalación y número de circuitos"
+        },
+        {
+          "concepto": "Instalación fontanería nueva (lavamanos, desagües)",
+          "descripcion": "Red de agua fría y desagüe para lavamanos en mostrador y/o almacén. Tuberías multicapa, válvulas, sifones, reposición de paredes. Pruebas de estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a confirmar según número de puntos de agua y complejidad de trazado"
+        },
+        {
+          "concepto": "Mostrador nuevo (suministro e instalación)",
+          "descripcion": "Mostrador de farmacia nuevo con encimera, estructura de madera o melamina, acabado según especificación. Incluye suministro, montaje y fijación a estructura.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mostrador a definir según dimensiones, materiales y acabados. Instalador debe cotizar con proveedor."
+        },
+        {
+          "concepto": "Instalación de mostrador",
+          "descripcion": "Montaje, nivelación y fijación del mostrador nuevo. Conexión de instalaciones (electricidad, fontanería si aplica). Ajustes y pruebas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a ajustar según complejidad de instalación y conexiones"
+        },
+        {
+          "concepto": "Puertas y marcos nuevos",
+          "descripcion": "Puertas de acceso a almacén, zona espera y otras divisiones. Marcos de madera o aluminio, cerraduras, bisagras. Suministro e instalación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de puertas a definir según tipo, material y acabado. Instalador debe cotizar."
+        },
+        {
+          "concepto": "Instalación de puertas y marcos",
+          "descripcion": "Colocación de marcos, ajuste de puertas, instalación de cerraduras y bisagras. Reposición de paredes. Pruebas de funcionamiento.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a ajustar según número de puertas y complejidad de instalación"
+        },
+        {
+          "concepto": "Solado nuevo (suministro e instalación)",
+          "descripcion": "Baldosas cerámicas o porcelánico para mostrador, almacén y zona espera. Mortero cola C2 flexible, lechada epoxi, perfiles aluminio esquinas, junta silicona encuentros. Incluye replanteo y pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 32,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de solado a confirmar según planos. Precio unitario es mano de obra; materiales a cotizar por separado."
+        },
+        {
+          "concepto": "Pintura de paredes y acabados",
+          "descripcion": "Pintura de paredes interiores (2 manos), techos y elementos nuevos. Preparación de superficies, masillado, lijado. Acabado mate o satinado según especificación.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 32,
+          "total": 4800,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie a confirmar según planos. Incluye paredes, techos y elementos nuevos."
+        },
+        {
+          "concepto": "Gestión de residuos y retirada de escombros",
+          "descripcion": "Transporte, carga y descarga de escombros y residuos de demolición. Gestión ambiental según normativa. Limpieza final de obra.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según volumen de escombros y distancia de transporte"
+        },
+        {
+          "concepto": "Coordinación y dirección de obra",
+          "descripcion": "Coordinación entre oficios, supervisión de trabajos, control de calidad, reuniones con cliente. Incluye visitas de seguimiento y ajustes durante ejecución.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 45,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de coordinación a ajustar según duración total de obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 12960,
+        "iva_porcentaje": 21,
+        "iva": 2721.6,
+        "total": 15681.6
+      },
+      "sugerencias_catalogo": [
+        "Solicitar planos o croquis de la nueva distribución (mostrador, almacén, zona espera) para ajustar presupuesto con precisión",
+        "Confirmar si la farmacia requiere licencia municipal de reforma o cambio de actividad",
+        "Verificar si hay cambios en climatización o ventilación según nueva distribución",
+        "Definir materiales de mostrador (madera, melamina, acero inoxidable) y encimera (granito, cuarzo, laminado)",
+        "Especificar tipo de baldosas/porcelánico para solado (resistencia, acabado, color)",
+        "Confirmar número y ubicación de puertas, lavamanos y puntos de agua",
+        "Revisar si se requiere señalización de seguridad o accesibilidad PMR",
+        "Cotizar suministro de materiales (mostrador, puertas, baldosas, pintura) por separado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mostrador nuevo (suministro e instalación)",
+          "oficio": "carpinteria",
+          "motivo": "Elemento específico de farmacia no incluido en catálogo estándar"
+        },
+        {
+          "concepto": "Gestión de residuos y retirada de escombros",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio auxiliar de reforma integral"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_cocina_completa",
+      "alicatado_y_solado_completo_cocina",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "tabique_pladur_para_ducha_o_plato_de_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4005,
+      "tokens_out": 3907
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 12,
+    "n_catalogo": 0,
+    "n_sugeridas": 12,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

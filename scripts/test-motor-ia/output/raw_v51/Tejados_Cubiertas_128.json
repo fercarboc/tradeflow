@@ -1,0 +1,178 @@
+{
+  "id": 128,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm",
+  "http_status": 200,
+  "latency_ms": 22050,
+  "raw_response": {
+    "transcript": "Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm",
+        "tipo_presupuesto": "instalacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas 78x118cm corresponden a tamaño estándar VELUX CK06 o similar. Confirmar marca y modelo exacto.",
+          "Impermeabilización específica del fabricante OBLIGATORIA según modelo y tipo de teja.",
+          "Trabajo en altura requiere EPI y medidas de seguridad.",
+          "Verificar resistencia de estructura de cubierta antes de intervención."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación de ventana de techo (lucernario/VELUX) en tejado inclinado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Ventana de techo VELUX o equivalente 78x118cm",
+          "descripcion": "Suministro de lucernario/ventana de techo tamaño CK06 o similar (78x118cm) con vidrio laminado integrado, según modelo específico y tipo de teja. Marca y código a confirmar por instalador.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sujeto a marca, modelo y especificaciones exactas. Rango típico 150-350€ según calidad y extras."
+        },
+        {
+          "concepto": "Impermeabilización específica para lucernario en tejado inclinado",
+          "descripcion": "Collar, tapajuntas y kit de impermeabilización específico del fabricante según tipo de teja (plana, curva, pizarra, etc.). OBLIGATORIO para evitar goteras. Material + sellado.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificidad según tipo de teja. Rango típico 40-120€."
+        },
+        {
+          "concepto": "Marco de instalación y fijación específicos",
+          "descripcion": "Estructura de fijación, perfiles y anclajes específicos para el modelo de lucernario seleccionado. Pequeño material de montaje (pernos, grapas, tornillería especializada).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en kits de instalación. Rango 20-60€."
+        },
+        {
+          "concepto": "Desmontaje de cubierta y preparación de zona",
+          "descripcion": "Retirada de tejas/elementos de cubierta en zona de instalación (aprox. 1,5-2m²), limpieza de superficies, preparación de estructura para recibir lucernario. Pequeños trabajos de carpintería de ajuste si es necesario.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de lucernario y fijación",
+          "descripcion": "Colocación del lucernario en abertura, alineación, fijación a estructura de cubierta, conexión de marcos. Prueba de operatividad del sistema de apertura (si aplica). Ajustes finales.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización, sellado y remate de cubierta",
+          "descripcion": "Aplicación del kit de impermeabilización específico (collar, tapajuntas, sellador), reposición de tejas alrededor de lucernario, prueba de estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en trabajo de altura",
+          "descripcion": "Arnés de seguridad, línea de vida, protecciones. Cumplimiento normativo RD 1627/1997. Instalación requiere trabajo a más de 2m de altura en tejado inclinado.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de seguridad. Rango 30-80€ si es suministro; puede ser del instalador."
+        }
+      ],
+      "calculos": {
+        "subtotal": 450,
+        "iva_porcentaje": 21,
+        "iva": 94.5,
+        "total": 544.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar marca y modelo exacto del lucernario (VELUX CK06, ROTO, FAKRO, etc.) para asegurar compatibilidad con impermeabilización.",
+        "Identificar tipo de teja de la cubierta (plana, curva, pizarra, cerámica) antes de suministrar kit de impermeabilización.",
+        "Verificar estado estructural de cubierta y resistencia de la madera de la estructura.",
+        "Considerar si se solicita persiana interior o estor blackout (partidas adicionales).",
+        "Documentar fotografías antes/después y pruebas de estanqueidad (lluvia simulada recomendada)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Ventana de techo VELUX o equivalente 78x118cm",
+          "razon": "Material específico sujeto a marca y modelo. Base Maestra referencia rango 80-650€/ud según tamaño y especificaciones.",
+          "sugerencia": "Crear SKU en catálogo para modelos estándar CK06, CK04, CK08 con precios diferenciados."
+        },
+        {
+          "partida": "Impermeabilización específica para lucernario en tejado inclinado",
+          "razon": "Componente crítico de instalación. Varía significativamente según tipo de teja.",
+          "sugerencia": "Crear familia de kits de impermeabilización por tipo de teja en catálogo."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "instalacion_de_lucernarios_en_cubierta_inclinada",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_persiana_o_estor_en_ventana_de_techo",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada"
+    ],
+    "kb_score": 4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "NO"
+  }
+}

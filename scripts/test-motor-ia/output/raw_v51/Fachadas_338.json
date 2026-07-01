@@ -1,0 +1,286 @@
+{
+  "id": 338,
+  "oficio": "Fachadas",
+  "texto": "Instalar cártel luminoso en fachada de local comercial con iluminación LED interior",
+  "http_status": 200,
+  "latency_ms": 28758,
+  "raw_response": {
+    "transcript": "Instalar cártel luminoso en fachada de local comercial con iluminación LED interior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cártel luminoso en fachada de local comercial con iluminación LED interior",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Dimensiones del cartel no especificadas: revisar medidas (ancho×alto×profundidad)",
+          "Material del cartel no indicado: asumir metacrilato/PVC. Confirmar con cliente",
+          "Potencia LED no definida: depende de tamaño y luminancia requerida",
+          "Normativa: verificar permisos municipales para instalación en fachada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de iluminación LED, cableado eléctrico, conexión a cuadro"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación/montaje estructura soporte cártel en fachada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de cartel o señalización existente (si aplica)",
+          "descripcion": "Desmontaje, descuelgue y retirada de elementos previos en fachada",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar según estado actual y accesibilidad en fachada"
+        },
+        {
+          "concepto": "Estructura soporte y fijación cártel luminoso",
+          "descripcion": "Perfilería aluminio/acero, soportes, anclajes químicos o mecánicos a fachada, pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones, material (aluminio/acero) y complejidad de anclaje. Instalador debe presupuestar estructura específica"
+        },
+        {
+          "concepto": "Cuerpo/marco cártel (metacrilato, PVC o similar)",
+          "descripcion": "Fabricación o adquisición del cuerpo principal del cartel luminoso, incluyendo cortes, cantos y preparación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según dimensiones (m²), material (metacrilato estándar, translúcido, acrílico), espesor. Confirmar especificaciones con cliente"
+        },
+        {
+          "concepto": "Montaje y fijación estructura soporte + cártel en fachada",
+          "descripcion": "Instalación de estructura en fachada, anclaje mecánico/químico, nivelación, verificación estabilidad",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar según altura de fachada, necesidad de andamios/plataformas elevadas y complejidad de anclaje"
+        },
+        {
+          "concepto": "Módulos LED para iluminación interior cártel",
+          "descripcion": "Tiras LED RGB o monocolor, potencia según luminancia requerida, temperatura color 4000-6500K (blanco neutro para comercios)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud de tiras, potencia (W), tipo (RGB, blanco, dinamización). Calcular según m² de cártel y luminancia objetivo"
+        },
+        {
+          "concepto": "Cableado eléctrico y pequeño material",
+          "descripcion": "Cables de conexión LED, bornes, conectores, tubo corrugado, bridas, cinta aislante, silicona neutra",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según longitud de cableado (m), tipos de conectores y accesorios. Estimar 40-80€ si no hay información"
+        },
+        {
+          "concepto": "Fuente de alimentación/transformador LED",
+          "descripcion": "Transformador 230V AC a 12V o 24V DC, potencia según consumo LED, montaje en cártel o cuadro eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (150-500W típico). Estimar 60-150€. Confirmar voltaje y amperaje de LEDs"
+        },
+        {
+          "concepto": "Controlador/regulador LED (opcional: dimmer, RGB, temporización)",
+          "descripcion": "Controlador LED simple (encendido/apagado), dimmer (regulación intensidad), RGB (multi-color), o temporizador",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir solo si cliente solicita control avanzado. Precio: controlador básico 20-40€, dimmer/RGB 50-150€. Confirmar con cliente"
+        },
+        {
+          "concepto": "Instalación y conexión iluminación LED",
+          "descripcion": "Montaje de tiras LED en interior cártel, conexión fuente, pruebas de funcionamiento, ajuste intensidad luminosa",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar según complejidad: simple (2-3h), con controlador avanzado (3-4h)"
+        },
+        {
+          "concepto": "Conexión a cuadro eléctrico local/acometida",
+          "descripcion": "Derivación desde cuadro eléctrico existente, circuito dedicado, magnetotérmico protección, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Verificar capacidad cuadro eléctrico. Si requiere ampliación o obra civil (rozas), aumentar tiempo"
+        },
+        {
+          "concepto": "Materiales eléctricos (magnetotérmico, cableado cuadro)",
+          "descripcion": "Magnetotérmico 10A monofásico, cable 2.5mm² tramo cuadro-transformador, tubo corrugado, bornes",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar 40-80€ según longitud cableado. Confirmar dimensiones cártel para ajustar protección eléctrica"
+        },
+        {
+          "concepto": "Pruebas finales y puesta en marcha",
+          "descripcion": "Verificación estabilidad estructura, pruebas iluminación (encendido/apagado, uniformidad luz, ausencia parpadeos), documentación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Adhesivos, silicona y sellantes",
+          "descripcion": "Silicona neutra incolora, adhesivos para electrónica (si necesario), sellado juntas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar 15-30€. Ajustar según tamaño cártel"
+        }
+      ],
+      "calculos": {
+        "subtotal": 570,
+        "iva_porcentaje": 21,
+        "iva": 119.7,
+        "total": 689.7
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: dimensiones exactas del cártel (ancho×alto×profundidad en cm)",
+        "Solicitar al cliente: material deseado (metacrilato transparente/translúcido, PVC, aluminio compuesto)",
+        "Solicitar al cliente: tipo de iluminación (blanca fija, RGB dinamizada, efecto parpadeo/destello)",
+        "Solicitar al cliente: ubicación exacta en fachada (altura, proximidad a líneas eléctricas, orientación)",
+        "Verificar: permisos municipales de instalación en fachada (algunos municipios exigen licencia de obras)",
+        "Verificar: necesidad de andamios o plataformas elevadas (presupuestar aparte si h > 3m)",
+        "Incluir en presupuesto final: garantía LED (típico 2-3 años), mantenimiento preventivo anual"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cuerpo/marco cártel (metacrilato, PVC o similar)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "No existe partida específica en catálogo para fabricación de cuerpo de cartel luminoso. Dimensiones y material variable"
+        },
+        {
+          "concepto": "Módulos LED para iluminación interior cártel",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Partida sugerida por IA. Material y potencia dependiente de especificaciones técnicas no proporcionadas"
+        },
+        {
+          "concepto": "Controlador/regulador LED (opcional: dimmer, RGB, temporización)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Controlador LED no especificado en demanda inicial. Incluir solo si cliente solicita funciones avanzadas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio",
+      "instalacion_red_electrica_local_comercial",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_iluminacion_comercial_led",
+      "instalacion_sistema_de_climatizacion_en_local_comercial"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 5,
+    "n_sugeridas": 8,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

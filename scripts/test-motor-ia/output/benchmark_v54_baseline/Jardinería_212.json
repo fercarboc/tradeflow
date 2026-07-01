@@ -1,0 +1,202 @@
+{
+  "id": 212,
+  "oficio": "Jardinería",
+  "texto": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+  "http_status": 200,
+  "latency_ms": 28794,
+  "raw_response": {
+    "transcript": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo en altura: requiere plataforma elevadora o andamios. Verificar acceso a finca y disponibilidad de equipos.",
+          "Palmeras de diferentes alturas: algunas pueden requerir medios especializados (grúa, plataforma articulada).",
+          "Gestión de residuos vegetales: volumen importante, considerar trituradora o transporte a gestor autorizado.",
+          "Seguridad en altura: EPI obligatorio, línea de vida si altura > 2m, coordinación con empresa de alquiler de plataforma."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Poda y formación de palmeras, trabajo especializado en altura con herramientas específicas."
+        },
+        {
+          "oficio": "multiservicio",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 38,
+            "max": 45
+          },
+          "motivo": "Coordinación de medios, gestión de residuos, apoyo logístico en finca."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Poda y formación de 6 palmeras de diferentes alturas",
+          "descripcion": "Poda selectiva y formación de copa en 6 palmeras de mediano a gran porte. Incluye: eliminación de hojas secas y dañadas, poda de formación según especie, desinfección de herramientas entre árboles, aplicación de cicatrizante en cortes principales, retirada de restos vegetales de cada árbol.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 150,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario estimado según complejidad (altura variable). Ajustar según accesibilidad real y altura máxima de cada palmera."
+        },
+        {
+          "concepto": "Alquiler y operación de plataforma elevadora articulada",
+          "descripcion": "Alquiler de plataforma elevadora articulada (tipo Snorkel o similar) para acceso seguro a palmeras de diferentes alturas. Incluye: transporte, montaje, operación durante jornada de trabajo, desmontaje y retirada. Jornada de 8 horas.",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de cotización con empresa de alquiler. Rango típico: 400-800€/jornada según alcance y zona."
+        },
+        {
+          "concepto": "Operador especializado de plataforma elevadora",
+          "descripcion": "Operador con certificación para manejo de plataforma elevadora articulada durante toda la jornada de trabajo. Incluye: supervisión de seguridad, posicionamiento óptimo, coordinación con podadores.",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 38,
+          "total": 304,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cicatrizante y mastique para cortes principales",
+          "descripcion": "Producto cicatrizante/mastique de calidad para sellar cortes de diámetro > 5cm en palmeras. Previene entrada de plagas y enfermedades. Cantidad estimada: 2-3 litros.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente. Rango típico: 15-25€/litro. Producto específico según especie de palmera."
+        },
+        {
+          "concepto": "Retirada, transporte y gestión de residuos vegetales",
+          "descripcion": "Retirada de restos de poda (hojas, ramas, troncos pequeños) de la finca. Transporte a gestor autorizado de residuos vegetales o trituradora in situ si volumen lo justifica. Estimado: 3-4 m³ de residuos.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 3.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente. Rango típico: 30-60€/m³ según distancia a gestor y tipo de residuo."
+        },
+        {
+          "concepto": "EPI y pequeño material de seguridad",
+          "descripcion": "Equipos de protección individual: arnés de seguridad, casco, guantes de trabajo, gafas protectoras, botas de seguridad. Pequeño material: desinfectante para herramientas, trapos, bolsas de residuos.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 80-150€. Incluye reposición de consumibles."
+        },
+        {
+          "concepto": "Herramientas especializadas de poda (motosierra, podadora telescópica, sierra de arco)",
+          "descripcion": "Uso de herramientas especializadas para poda de palmeras: motosierra para ramas gruesas, podadora telescópica para hojas altas, sierra de arco, tijeras de poda. Desinfección entre árboles obligatoria.",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 100-200€/jornada si no están incluidas en tarifa de mano de obra. Verificar con profesional."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1204,
+        "iva_porcentaje": 21,
+        "iva": 252.84,
+        "total": 1456.84
+      },
+      "sugerencias_catalogo": [
+        "Consultar con empresa especializada en poda de palmeras en altura: pueden tener equipos propios (plataforma, herramientas) incluidos en tarifa.",
+        "Solicitar presupuesto separado para alquiler de plataforma elevadora: puede ser más económico contratar empresa integral.",
+        "Verificar si la finca tiene acceso para vehículos de transporte de residuos o si requiere trituradora in situ.",
+        "Considerar contrato de mantenimiento periódico si las palmeras requieren poda anual de formación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Alquiler y operación de plataforma elevadora articulada",
+          "oficio": "multiservicio",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo en altura con palmeras de diferentes alturas requiere equipo especializado. No está en catálogo base."
+        },
+        {
+          "concepto": "Cicatrizante y mastique para cortes principales",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para poda de palmeras. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Retirada, transporte y gestión de residuos vegetales",
+          "oficio": "gestion_residuos",
+          "origen": "sugerida_ia",
+          "motivo": "Volumen importante de residuos. Requiere coordinación con gestor autorizado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "instalacion_de_sistema_de_monitoreo_solar_online",
+      "instalacion_de_tarima_o_entarimado_de_madera_elevado_para_escenario_o_zona",
+      "poda_de_arboles_de_mediano_porte",
+      "mantenimiento_jardin_y_zonas_verdes_periodico"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3810,
+      "tokens_out": 2883
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

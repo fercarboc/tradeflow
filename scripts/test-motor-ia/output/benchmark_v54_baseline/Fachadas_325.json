@@ -1,0 +1,246 @@
+{
+  "id": 325,
+  "oficio": "Fachadas",
+  "texto": "Instalar ventilación cruzada en fachada ventilada con paneles de composite de aluminio",
+  "http_status": 200,
+  "latency_ms": 25527,
+  "raw_response": {
+    "transcript": "Instalar ventilación cruzada en fachada ventilada con paneles de composite de aluminio",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar ventilación cruzada en fachada ventilada con paneles de composite de aluminio",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Fachada ventilada es trabajo de altura: requiere proyecto técnico si edificio plurifamiliar",
+          "Ventilación cruzada implica coordinación con instalaciones existentes (entrada/salida aire)",
+          "Precio de paneles composite elevado: requiere confirmación de proveedor",
+          "Andamio obligatorio: coste no incluido en presupuesto base"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de fachada ventilada con paneles composite: revestimiento exterior de edificio con cámara de ventilación"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación de estructura soporte, anclajes y remates en fachada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro paneles composite aluminio para fachada ventilada",
+          "descripcion": "Paneles composite aluminio-composite, espesor 4-6mm, resistentes a intemperie, para revestimiento exterior con cámara de ventilación cruzada. Incluye cortes y preparación según proyecto",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de paneles composite variable según proveedor, espesor y acabado (lacado/anodizado). Instalador debe confirmar con proveedor"
+        },
+        {
+          "concepto": "Estructura soporte aluminio anodizado para fachada ventilada",
+          "descripcion": "Perfiles aluminio anodizado (montantes y travesaños) para sujeción de paneles composite. Incluye cálculo de anclajes a estructura edificio, separación mínima 60cm entre puntos de fijación",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de estructura depende de dimensiones fachada y cargas de viento. Requiere cálculo estructural"
+        },
+        {
+          "concepto": "Anclajes calculados para fachada ventilada (tracción y corte)",
+          "descripcion": "Anclajes metálicos (acero inox o galvanizado) calculados para resistir cargas de viento y peso de paneles. Incluye tacos químicos o mecánicos según sustrato (hormigón/ladrillo)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de anclajes depende de superficie fachada y cálculo de viento. Típicamente 1 anclaje cada 0,5-1 m2"
+        },
+        {
+          "concepto": "Cámara de ventilación cruzada (malla + separadores)",
+          "descripcion": "Malla de ventilación (polietileno o poliéster) + separadores plásticos para crear cámara de aire mínimo 2cm entre panel y fachada existente. Permite circulación aire vertical y horizontal (ventilación cruzada)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Malla y separadores: precio variable según densidad y material. Incluye entrada aire base y salida aire superior"
+        },
+        {
+          "concepto": "Sellado de juntas entre paneles composite",
+          "descripcion": "Sellado de juntas abiertas entre paneles con silicona neutra o poliuretano elástico. Junta abierta (3-5mm) permite drenaje y ventilación. Incluye limpieza y preparación de juntas",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje lineal de juntas depende de disposición de paneles. Típicamente 2-3 ml de junta por m2 de fachada"
+        },
+        {
+          "concepto": "Instalación estructura soporte y anclajes",
+          "descripcion": "Mano de obra: montaje de perfiles aluminio, fijación a estructura edificio, colocación de anclajes, nivelación y aplomado. Incluye pequeño material (tornillos, tuercas, arandelas)",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas dependen de superficie fachada y complejidad de estructura existente. Estimación: 1-2 horas por m2"
+        },
+        {
+          "concepto": "Instalación paneles composite y cámara ventilación",
+          "descripcion": "Mano de obra: colocación de malla ventilación, separadores, paneles composite, fijación a estructura, sellado de juntas. Incluye cortes y ajustes en obra",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas dependen de superficie y complejidad. Estimación: 1,5-3 horas por m2 según detalles"
+        },
+        {
+          "concepto": "Remates, cornisas y encuentros con carpintería",
+          "descripcion": "Mano de obra: remates superiores (cornisa), encuentros con ventanas/puertas, remates laterales en esquinas. Incluye sellado y acabado",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas dependen de número de encuentros y complejidad. Estimación: 2-4 horas por fachada"
+        },
+        {
+          "concepto": "Proyecto técnico fachada ventilada (si aplica)",
+          "descripcion": "Proyecto técnico con cálculo de anclajes, cargas de viento, detalles constructivos, especificaciones de materiales. Obligatorio si edificio plurifamiliar o altura >6m",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proyecto técnico: 800-2500€ según complejidad. Instalador debe confirmar si es obligatorio según normativa local"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo (no incluido en presupuesto base)",
+          "descripcion": "Alquiler/montaje de andamio o plataforma de trabajo para acceso seguro a fachada. Coste variable según altura y duración de obra",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Andamio: 150-400€/día según altura y tipo. Instalador debe presupuestar por separado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones totales de fachada (m2) para calcular cantidad de paneles y estructura",
+        "Especificar altura de fachada: ¿edificio plurifamiliar? → requiere proyecto técnico obligatorio",
+        "Definir tipo de ventilación cruzada: ¿entrada aire en base + salida en cornisa? ¿o entrada/salida lateral?",
+        "Confirmar sustrato existente (hormigón, ladrillo, piedra) para seleccionar tipo de anclaje",
+        "Solicitar presupuesto de paneles composite a proveedor: rango 40-120€/m2 según acabado",
+        "Incluir presupuesto de andamio por separado (no incluido en mano de obra)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro paneles composite aluminio",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de fachada ventilada con composite"
+        },
+        {
+          "concepto": "Cámara de ventilación cruzada (malla + separadores)",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de ventilación cruzada: elemento clave de fachada ventilada"
+        },
+        {
+          "concepto": "Proyecto técnico fachada ventilada",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio profesional obligatorio en edificios plurifamiliares"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_fachada_ventilada_con_composite_o_panel_metalico",
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3850,
+      "tokens_out": 3405
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 3,
+    "n_sugeridas": 7,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

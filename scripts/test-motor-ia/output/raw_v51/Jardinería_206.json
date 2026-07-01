@@ -1,0 +1,177 @@
+{
+  "id": 206,
+  "oficio": "Jardinería",
+  "texto": "Siembra de césped natural en zona de 50 metros cuadrados, preparación del terreno y semilla",
+  "http_status": 200,
+  "latency_ms": 16967,
+  "raw_response": {
+    "transcript": "Siembra de césped natural en zona de 50 metros cuadrados, preparación del terreno y semilla",
+    "quote": {
+      "resumen": {
+        "texto_original": "Siembra de césped natural en zona de 50 metros cuadrados, preparación del terreno y semilla",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar época de siembra óptima (primavera/otoño recomendado, evitar verano)",
+          "Confirmar estado actual del terreno y necesidad de enmienda calcárea",
+          "Plan de riego post-siembra crítico: diario durante 2-3 semanas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Siembra de césped natural con preparación de terreno"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación terreno (laboreo, nivelación y rasante)",
+          "descripcion": "Laboreo del terreno, nivelación, eliminación de malas hierbas y preparación de rasante para siembra",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 3.5,
+          "total": 175,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aporte de tierra vegetal",
+          "descripcion": "Tierra vegetal de calidad, aportada y extendida para mejorar estructura del sustrato",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 2.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de aporte. Instalador debe confirmar volumen necesario (aprox. 5cm de espesor = 2.5 m3) y precio local"
+        },
+        {
+          "concepto": "Semilla de césped natural",
+          "descripcion": "Semilla de césped seleccionada según uso (jardín ornamental/tránsito). Dosis 30-40 g/m2",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de semilla variable según mezcla y calidad. Confirmar tipo de mezcla (uso ornamental/deportivo/resistente sombra)"
+        },
+        {
+          "concepto": "Abono de fondo de siembra",
+          "descripcion": "Abono granulado NPK de fondo para aporte nutricional inicial y favorecer germinación",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de aporte. Dosis aproximada 100 g/m2"
+        },
+        {
+          "concepto": "Rastrillado y enterrado de semilla",
+          "descripcion": "Rastrillado del terreno para incorporar semilla y abono, dejando cama de siembra uniforme",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 1.5,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Riego post-siembra",
+          "descripcion": "Riego abundante post-siembra para activar germinación (mínimo 2-3 semanas riego diario)",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 1,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Herramientas menores, lonas, cordel, desgaste de herramienta",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0.5,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 325,
+        "iva_porcentaje": 21,
+        "iva": 68.25,
+        "total": 393.25
+      },
+      "sugerencias_catalogo": [
+        "Si el terreno es muy ácido (pH<6): incluir ENMIENDA CALCÁREA (1-2 t/ha = aprox. 500-1000 kg para 50 m2 según análisis)",
+        "Si hay riesgo de erosión o clima seco: considerar GEOTEXTIL ANTIEROSIÓN (10-20 €/m2)",
+        "Para compactación post-siembra: RODILLO COMPACTACIÓN si terreno muy suelto (partida mano obra + alquiler rodillo)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aporte de tierra vegetal",
+          "motivo": "Material de aporte, precio variable según origen y transporte local"
+        },
+        {
+          "concepto": "Semilla de césped natural",
+          "motivo": "Material de aporte, precio variable según mezcla (estándar vs. premium vs. especializada)"
+        },
+        {
+          "concepto": "Abono de fondo de siembra",
+          "motivo": "Material de aporte, precio variable según formulación NPK"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cesped_natural_por_semilla",
+      "siembra_complementaria_o_resiembra_de_cesped",
+      "instalacion_persiana_veneciana_de_madera_o_bambu",
+      "tabique_pladur_zona_exterior_cubierta_sotillo",
+      "instalacion_ventana_madera_con_vidrio"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "id": 112,
+  "oficio": "Climatización",
+  "texto": "Revisar y limpiar conductos de ventilación de edificio de oficinas, 4 plantas con 20 difusores",
+  "http_status": 200,
+  "latency_ms": 14096,
+  "raw_response": {
+    "transcript": "Revisar y limpiar conductos de ventilación de edificio de oficinas, 4 plantas con 20 difusores",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y limpiar conductos de ventilación de edificio de oficinas, 4 plantas con 20 difusores",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda inspección con cámara tras limpieza para validar estado final",
+          "Verificar acceso a plenum y tomas de aire para evaluar complejidad real"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Limpieza, inspección y mantenimiento de sistemas de ventilación y difusores"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza conductos ventilación edificio",
+          "descripcion": "Limpieza integral de conductos de ventilación, 4 plantas, incluyendo polvo, suciedad y sedimentos acumulados. Con acceso a plenum y conductos principales",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y revisión difusores y rejillas",
+          "descripcion": "Desmontaje, limpieza, inspección y remontaje de 20 difusores/rejillas de aire en 4 plantas. Incluye pequeño material y tornillería",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 20,
+          "precio_unitario": 35,
+          "total": 700,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección de funcionamiento sistema ventilación",
+          "descripcion": "Verificación de presiones, caudales, funcionamiento de compuertas de regulación y estado general del sistema. Informe escrito con observaciones",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material de limpieza y desinfección",
+          "descripcion": "Productos de limpieza, desinfección bacteriana si es necesario, pequeño material (cepillos, trapos, filtros desechables para aspiración), tornillería de reposición",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "El instalador debe especificar cantidad y tipo de productos (desengrasantes, desinfectantes, filtros, etc.) y proporcionar precio de compra"
+        },
+        {
+          "concepto": "Informe y documentación post-limpieza",
+          "descripcion": "Informe técnico detallado con fotos de estado antes y después, observaciones por planta, recomendaciones de mantenimiento futuro y cronograma",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1150,
+        "iva_porcentaje": 21,
+        "iva": 241.5,
+        "total": 1391.5
+      },
+      "sugerencias_catalogo": [
+        "Si se requiere inspección con cámara endoscópica, considerar agregar partida específica de inspección técnica (origen sugerida_ia)",
+        "Evaluar si hay compuertas de regulación que requieran calibración o reposición (partida adicional si procede)",
+        "En edificios con sistemas VAV (Variable Air Volume), verificar si requiere calibración de cajas de regulación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Material de limpieza y desinfección",
+          "razon": "No hay partida específica en catálogo para productos de limpieza. El instalador debe proporcionar precio según marcas y cantidades elegidas"
+        },
+        {
+          "concepto": "Informe y documentación post-limpieza",
+          "razon": "Partida sugerida para documentación y seguimiento del cliente. Precio ajustable según nivel de detalle requerido"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_difusores_y_rejillas_climatizacion",
+      "limpieza_general_saneamiento_comunidad",
+      "mantenimiento_anual_split_o_aire_acondicionado",
+      "revision_general_fontaneria_comunidad",
+      "mantenimiento_preventivo_de_grupo_de_presion"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

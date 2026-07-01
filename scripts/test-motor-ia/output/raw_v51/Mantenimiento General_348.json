@@ -1,0 +1,317 @@
+{
+  "id": 348,
+  "oficio": "Mantenimiento General",
+  "texto": "Mantenimiento preventivo de instalaciones de hotel, revisión de fontanería, electricidad y clima",
+  "http_status": 200,
+  "latency_ms": 27709,
+  "raw_response": {
+    "transcript": "Mantenimiento preventivo de instalaciones de hotel, revisión de fontanería, electricidad y clima",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento preventivo de instalaciones de hotel, revisión de fontanería, electricidad y clima",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto multi-oficio: requiere definir alcance específico (número de plantas, puntos de inspección, equipos climatización)",
+          "Falta especificar: ¿es visita única o contrato anual?",
+          "Falta información de potencia de instalaciones (para RITE en clima)",
+          "Presupuesto estructura como 'servicio de revisión integral' - requiere definición de scope por el instalador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Revisión y mantenimiento preventivo de instalaciones de fontanería"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión y mantenimiento preventivo de instalaciones eléctricas"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Mantenimiento preventivo de sistemas de climatización y HVAC"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión instalación fontanería - inspección general",
+          "descripcion": "Inspección visual de tuberías, grifería, válvulas de corte, purgadores y puntos de consumo. Detección de fugas, corrosión y funcionamiento general del sistema de distribución de agua",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada - depende de tamaño hotel y complejidad instalación"
+        },
+        {
+          "concepto": "Revisión sistema ACS y acumuladores térmicos",
+          "descripcion": "Inspección de termos eléctricos/calentadores, verificación de aislamiento, prueba de funcionamiento termostatos, comprobación de válvula de seguridad y grupo de expansión",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada - requiere confirmar número y potencia acumuladores"
+        },
+        {
+          "concepto": "Limpieza y desincrustación filtros fontanería",
+          "descripcion": "Limpieza de filtros de sedimentos, desincrustación si aplica, reposición si está fuera de servicio",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de número de filtros y tipo de incrustación"
+        },
+        {
+          "concepto": "Revisión cuadro eléctrico y componentes",
+          "descripcion": "Inspección visual de componentes (magnetotérmicos, diferenciales, contadores), verificación conexiones, limpieza general del cuadro, revisión estado cables",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada - depende de número de cuadros y complejidad"
+        },
+        {
+          "concepto": "Prueba de diferenciales y magnetotérmicos",
+          "descripcion": "Ensayo de funcionamiento de todos los diferenciales (prueba de disparo), verificación de magnetotérmicos, comprobación de selectividad si aplica",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada - depende del número de diferenciales"
+        },
+        {
+          "concepto": "Medición de toma de tierra y resistencia",
+          "descripcion": "Medida de resistencia de toma de tierra con equipo de verificación, comprobación de continuidad de conductores PE, documentación de resultado",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión iluminación de emergencia y señalización",
+          "descripcion": "Inspección de luminarias de emergencia, prueba de funcionamiento en modo emergencia, verificación de baterías, comprobación de señalética de vías de evacuación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada - depende de número de puntos de emergencia"
+        },
+        {
+          "concepto": "Informe de revisión eléctrica y recomendaciones",
+          "descripcion": "Documentación de toda la inspección, listado de deficiencias detectadas, recomendaciones de mantenimiento y seguridad, documentación REBT si aplica",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza de pequeño material eléctrico",
+          "descripcion": "Repuesto de fusibles, pequeño material de reposición, lubricantes para contactores si aplica",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según necesidades encontradas"
+        },
+        {
+          "concepto": "Revisión equipos climatización - inspección visual y funcional",
+          "descripcion": "Inspección de unidades interiores y exteriores, verificación de filtros, comprobación de condensación, prueba de funcionamiento calor/frío, audición de ruidos anómalos",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada - depende de número de equipos split/cassette"
+        },
+        {
+          "concepto": "Verificación presiones y caudales refrigerante",
+          "descripcion": "Medida de presión de alta y baja del circuito frigorífico, comprobación de caudal si instalación de agua, inspección de fugas de refrigerante, toma de datos de consumo eléctrico",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada - requiere conocer número de circuitos"
+        },
+        {
+          "concepto": "Limpieza y cambio de filtros en unidades climatización",
+          "descripcion": "Limpieza de baterías (evaporador/condensador), cambio de filtros de aire, limpieza de bandejas de condensación y drenajes",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada - depende de número de equipos"
+        },
+        {
+          "concepto": "Reposición filtros y materiales climatización",
+          "descripcion": "Filtros de aire para unidades interiores, refrigerante de reposición si fugas menores, aceite compresor, pequeño material fungible",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo y cantidad de filtros necesarios"
+        },
+        {
+          "concepto": "Verificación equipos seguridad climatización (válvulas, termostatos)",
+          "descripcion": "Inspección de válvulas de expansión, válvulas de seguridad, revisión de termostatos y sondas de temperatura, comprobación de correcto funcionamiento sistemas de protección",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada - depende de número de equipos"
+        },
+        {
+          "concepto": "Informe de mantenimiento climatización y recomendaciones",
+          "descripcion": "Registro de todas las intervenciones realizadas, gráficos de presiones y temperaturas medidas, listado de deficiencias, plan de mantenimiento recomendado",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1290,
+        "iva_porcentaje": 21,
+        "iva": 270.9,
+        "total": 1560.9
+      },
+      "sugerencias_catalogo": [
+        "IMPORTANTE: Este presupuesto es una ESTRUCTURA de mantenimiento preventivo multi-oficio. El instalador debe DEFINIR:",
+        "1. ¿Es una VISITA ÚNICA de diagnóstico o un CONTRATO ANUAL de mantenimiento?",
+        "2. Tamaño del hotel: número de plantas, habitaciones, áreas comunes",
+        "3. Número de equipos de climatización (splits, cassettes, VRF, etc.) y su potencia total kW",
+        "4. Edad y estado actual de instalaciones",
+        "5. ¿Se incluyen pequeñas reparaciones o solo diagnóstico?",
+        "Si es CONTRATO ANUAL → aplicar rango 'mantenimiento_instalacion_grande_contrato_anual' (800-8000€ base según potencia RITE)",
+        "Si es VISITA ÚNICA → mantener estructura actual pero AJUSTAR HORAS por tamaño real del hotel"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Limpieza y desincrustación filtros fontanería",
+          "motivo": "Material fungible a definir según estado de instalación"
+        },
+        {
+          "concepto": "Reposición filtros y materiales climatización",
+          "motivo": "Materiales diversos según necesidades de mantenimiento"
+        },
+        {
+          "concepto": "Limpieza de pequeño material eléctrico",
+          "motivo": "Material fungible a definir según necesidades"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_persianas_y_toldos",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "mantenimiento_instalacion_grande_contrato_anual",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 15,
+    "n_catalogo": 12,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "NO"
+  }
+}

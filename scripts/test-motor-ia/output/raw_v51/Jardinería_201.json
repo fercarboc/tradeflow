@@ -1,0 +1,132 @@
+{
+  "id": 201,
+  "oficio": "Jardinería",
+  "texto": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+  "http_status": 200,
+  "latency_ms": 16519,
+  "raw_response": {
+    "transcript": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de jardinería especializada en frutales. Verificar accesibilidad y altura de árboles para determinar si se requiere equipo de elevación.",
+          "Incluye gestión de restos vegetales. Especificar si se retiran, compostan o trituran in situ."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Poda de árboles frutales, especialidad de jardinería. Tarifa base 25€/h según catálogo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Poda de árboles frutales (naranjos)",
+          "descripcion": "Poda de formación y producción de 4 naranjos. Corte de ramas secas, enfermas y de cruce. Equilibrado de copa. Eliminación de chupones.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario por árbol frutal de tamaño medio. Ajustar según altura real, densidad de copa y accesibilidad. Rango estimado 30-60€/ud."
+        },
+        {
+          "concepto": "Poda de árboles frutales (olivos)",
+          "descripcion": "Poda de mantenimiento y producción de 2 olivos. Corte de ramas muertas y enfermas. Aclareo de interior de copa. Formación según edad del árbol.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario por olivo de tamaño medio. Los olivos requieren técnica específica. Rango estimado 40-70€/ud según edad y densidad."
+        },
+        {
+          "concepto": "Limpieza y gestión de restos vegetales",
+          "descripcion": "Recogida, desmenuzamiento y retirada de todas las ramas y restos generados en la poda de 6 árboles frutales. Gestión de residuos vegetales según normativa local.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "h",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo estimado 2h para limpieza y gestión de restos de 6 árboles. Verificar volumen real de restos y disponibilidad de triturador o gestor."
+        },
+        {
+          "concepto": "Herramientas y pequeño material (EPI)",
+          "descripcion": "Guantes, gafas de protección, desinfectante para herramientas de corte, bolsas de recogida y pequeño material consumible.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Instalador debe valorar el coste de EPI, desinfectantes y bolsas. Estimación 15-30€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 330,
+        "iva_porcentaje": 21,
+        "iva": 69.3,
+        "total": 399.3
+      },
+      "sugerencias_catalogo": [
+        "La poda de frutales es una variante especializada de 'poda_de_palmeras' (jardinería). Aplicar la estructura de partidas obligatorias: EPI completo, eliminación de ramas, limpieza y gestión de restos.",
+        "Considerar si se requiere trepador o elevadora para acceso a copas altas.",
+        "Desinfectar herramientas es OBLIGATORIO en frutales para evitar transmisión de enfermedades (lepra del olivo, tristeza de cítricos, etc.)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Poda de árboles frutales (naranjos)",
+          "motivo": "Especialidad de frutales cítricos no explícitamente en catálogo. Sugerida como extensión de poda_jardineria.",
+          "recomendacion": "Incorporar a catálogo como 'poda_citricos' con rango 30-60€/ud según tamaño y técnica."
+        },
+        {
+          "concepto": "Poda de árboles frutales (olivos)",
+          "motivo": "Poda de frutales leñosos no explícitamente en catálogo. Sugerida como especialidad.",
+          "recomendacion": "Incorporar a catálogo como 'poda_olivos' con rango 40-70€/ud según edad del árbol."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "poda_de_palmeras",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores",
+      "pintado_paredes_habitacion_con_papel_pintado_retirado",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

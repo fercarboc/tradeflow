@@ -1,0 +1,223 @@
+{
+  "id": 254,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+  "http_status": 200,
+  "latency_ms": 22621,
+  "raw_response": {
+    "transcript": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere confirmación de: tipo de central (cloud vs on-premise), número de líneas externas SIP/ISDN, necesidad de gateway PSTN, opciones de IVR/grabación de llamadas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema telefónico IP con extensiones, cableado estructurado y configuración"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Central telefónica IP (PBX IP o Cloud)",
+          "descripcion": "Suministro e instalación de central telefónica IP para 10 extensiones. Incluye licencias de extensiones y acceso a plataforma de gestión",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de central (cloud: 50-300€/mes; on-premise: 800-2000€ inicial). Instalador debe confirmar modelo y proveedor"
+        },
+        {
+          "concepto": "Teléfonos IP (10 extensiones)",
+          "descripcion": "Suministro de 10 teléfonos IP profesionales con pantalla, auricular y base. Incluye pequeño material (cables RJ45, adaptadores)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por teléfono: 80-250€/ud según marca y funcionalidades (Yealink, Grandstream, Cisco, etc.)"
+        },
+        {
+          "concepto": "Switch PoE para telefonos IP",
+          "descripcion": "Suministro de switch gestionado con puertos PoE (Power over Ethernet) para alimentar los 10 teléfonos IP sin cables de corriente adicionales. Mínimo 12 puertos PoE",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio: 150-400€ según marca y número de puertos PoE (Cisco, Ubiquiti, TP-Link, etc.)"
+        },
+        {
+          "concepto": "Cableado Cat6 para red telefónica",
+          "descripcion": "Suministro e instalación de cableado Cat6 desde switch PoE a ubicaciones de los 10 teléfonos. Incluye canaletas, regletas y pequeño material. Estimado 150 ml de cableado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 0,8-1,5€/ml. Mano de obra incluida en partida siguiente"
+        },
+        {
+          "concepto": "Instalación y tendido de cableado Cat6",
+          "descripcion": "Mano de obra para tendido de cableado Cat6, fijación en canaletas, conexión en regletas y paneles de parcheo. Incluye etiquetado de cables",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de central IP y extensiones",
+          "descripcion": "Mano de obra para configuración de la central telefónica IP, creación de 10 extensiones, asignación de números internos, configuración de grupos de llamadas, desvíos y buzón de voz",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de líneas externas (SIP Trunk)",
+          "descripcion": "Mano de obra para configuración de líneas externas mediante SIP Trunk (más económico que ISDN). Incluye pruebas de llamadas entrantes y salientes. Número de líneas a confirmar",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de líneas SIP Trunk (número de empresa)",
+          "descripcion": "Contratación de líneas SIP Trunk con número de empresa. Incluye número principal y capacidad para llamadas simultáneas. Número de líneas a confirmar (típicamente 2-4 líneas para empresa de 10 personas)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio mensual: 20-60€/línea SIP según proveedor (Vodafone, Orange, Jazztel, Lowi, etc.). Instalador debe confirmar número de líneas y proveedor"
+        },
+        {
+          "concepto": "Pruebas y puesta en marcha",
+          "descripcion": "Mano de obra para pruebas completas del sistema: llamadas internas, externas, transferencias, buzón de voz, aplicación móvil (si aplica). Formación básica a usuario responsable",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 950,
+        "iva_porcentaje": 21,
+        "iva": 199.5,
+        "total": 1149.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la central será CLOUD (más económica, sin mantenimiento) u ON-PREMISE (más control, inversión inicial mayor)",
+        "Definir número de líneas externas SIP Trunk necesarias (típicamente 2-4 para empresa de 10 personas)",
+        "Considerar opciones adicionales: IVR (menú automático), grabación de llamadas, app móvil para extensiones, integración con CRM",
+        "Presupuestar contrato de mantenimiento anual (típicamente 10-15% del valor de la central)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central telefónica IP (PBX IP o Cloud)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Tipo y modelo de central a confirmar por instalador"
+        },
+        {
+          "concepto": "Teléfonos IP (10 extensiones)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Marca y modelo a confirmar por instalador"
+        },
+        {
+          "concepto": "Switch PoE para telefonos IP",
+          "oficio": "telecomunicaciones",
+          "motivo": "Marca y número de puertos a confirmar"
+        },
+        {
+          "concepto": "Cableado Cat6 para red telefónica",
+          "oficio": "telecomunicaciones",
+          "motivo": "Metraje estimado; ajustar según layout real de oficina"
+        },
+        {
+          "concepto": "Suministro de líneas SIP Trunk (número de empresa)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Proveedor y número de líneas a confirmar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_central_telefonica_IP_o_PBX",
+      "instalacion_armario_metalico_o_taquilla",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3938,
+      "tokens_out": 3023
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

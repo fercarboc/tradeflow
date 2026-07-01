@@ -1,0 +1,157 @@
+{
+  "id": 29,
+  "oficio": "Electricidad",
+  "texto": "Cambio de interruptor y dos enchufes en dormitorio principal, están quemados",
+  "http_status": 200,
+  "latency_ms": 10272,
+  "raw_response": {
+    "transcript": "Cambio de interruptor y dos enchufes en dormitorio principal, están quemados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de interruptor y dos enchufes en dormitorio principal, están quemados",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar causa de quemadura (sobrecarga, cortocircuito, defecto fabricación) antes de instalar nuevos mecanismos",
+          "Revisar estado del cableado interior de la caja de mecanismos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Sustitución de mecanismos eléctricos (interruptor y enchufes)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de mecanismos quemados",
+          "descripcion": "Desmontaje de 1 interruptor y 2 enchufes dañados, desconexión segura de cableado",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 15,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Interruptor simple 10A",
+          "descripcion": "Interruptor simple de empotrar, 10A, blanco o color a elegir",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según marca y modelo"
+        },
+        {
+          "concepto": "Enchufes de corriente 16A",
+          "descripcion": "2 enchufes de empotrar, 16A, blanco o color a elegir",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según marca y modelo"
+        },
+        {
+          "concepto": "Instalación de mecanismos",
+          "descripcion": "Instalación de 1 interruptor y 2 enchufes, conexión de cableado, pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tornillería, pasta térmica, etc.)",
+          "descripcion": "Tornillos, tuercas, arandelas, pasta térmica si necesario, cinta aislante",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material, a confirmar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 95,
+        "iva_porcentaje": 21,
+        "iva": 19.95,
+        "total": 114.95
+      },
+      "sugerencias_catalogo": [
+        "Confirmar marca y modelo de interruptor y enchufes (Legrand, Schneider, Bticino, etc.)",
+        "Verificar si la causa de quemadura requiere revisión de la instalación eléctrica general",
+        "Considerar instalar mecanismos con protección térmica si hay antecedentes de sobrecarga"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Interruptor simple 10A",
+          "oficio": "electricidad",
+          "motivo": "Material estándar, precio variable según marca"
+        },
+        {
+          "concepto": "Enchufes de corriente 16A",
+          "oficio": "electricidad",
+          "motivo": "Material estándar, precio variable según marca"
+        },
+        {
+          "concepto": "Pequeño material",
+          "oficio": "electricidad",
+          "motivo": "Consumibles varios, importe estimado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_instalacion_electrica_integrada",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "sustitucion_termo_electrico",
+      "instalacion_domotica_basica_wifi",
+      "cambio_inodoro"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3626,
+      "tokens_out": 1436
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

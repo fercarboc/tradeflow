@@ -1,0 +1,181 @@
+{
+  "id": 194,
+  "oficio": "Cerrajería",
+  "texto": "Reforzar puerta de madera antigua con plancha de acero y cerradura de seguridad adicional",
+  "http_status": 200,
+  "latency_ms": 14804,
+  "raw_response": {
+    "transcript": "Reforzar puerta de madera antigua con plancha de acero y cerradura de seguridad adicional",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforzar puerta de madera antigua con plancha de acero y cerradura de seguridad adicional",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo combinado: carpintería + cerrajería. Requiere coordinación entre oficios.",
+          "Puerta antigua: evaluar estado estructural antes de refuerzo.",
+          "Plancha de acero: especificar espesor, tipo de fijación y acabado (pintura/galvanizado)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Refuerzo estructural de puerta de madera, desmontaje, adaptación y fijación de plancha de acero."
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación de cerradura de seguridad adicional, evaluación de vulnerabilidades y ajuste de herrajes."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y evaluación de puerta antigua",
+          "descripcion": "Visita técnica para evaluar estado estructural de la puerta de madera, resistencia para soportar refuerzo, vulnerabilidades de seguridad y propuesta de mejora.",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plancha de acero de refuerzo",
+          "descripcion": "Suministro de plancha de acero (espesor 3-4mm, medidas adaptadas a puerta) para refuerzo de cara interior o exterior. Incluye tratamiento anticorrosión (galvanizado o pintura epoxi).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: precio depende de dimensiones exactas, espesor y acabado. Instalador debe cotizar con proveedor de acero."
+        },
+        {
+          "concepto": "Instalación de plancha de acero de refuerzo",
+          "descripcion": "Desmontaje de puerta si es necesario, preparación de superficie, fijación de plancha de acero con tornillería de seguridad (mínimo 12 puntos de anclaje), sellado de juntas y acabado (pintura o galvanizado).",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cerradura de seguridad adicional (cilindro de alta seguridad)",
+          "descripcion": "Suministro de cerradura/cilindro de seguridad certificado UNE EN 1303 (antibumping y antitaladro), con escudo protector antitaladro, llaves de seguridad con tarjeta de propietario y pequeño material de instalación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cerradura de seguridad: precio varía según marca, certificación y tipo (cilindro europeo, de botón, etc.). Instalador debe cotizar modelo específico."
+        },
+        {
+          "concepto": "Instalación de cerradura de seguridad y escudo antitaladro",
+          "descripcion": "Desmontaje de cerradura existente si aplica, instalación de nuevo cilindro de seguridad, colocación de escudo protector antitaladro, ajuste de cerraduras y pruebas de funcionamiento.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herraje de fijación",
+          "descripcion": "Tornillería de seguridad (M8-M10 inox), arandelas, tuercas, silicona neutra, masilla, cinta de carrocero, protecciones y material auxiliar para instalación completa.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 405,
+        "iva_porcentaje": 21,
+        "iva": 85.05,
+        "total": 490.05
+      },
+      "sugerencias_catalogo": [
+        "Considerar refuerzo adicional con barra de seguridad interior (pasador de acero) si la puerta es de acceso principal.",
+        "Evaluar necesidad de refuerzo de marco de puerta si está debilitado por antigüedad.",
+        "Proponer pintura de acabado en plancha de acero para mejor estética e impermeabilización.",
+        "Si la puerta es de acceso a vivienda, verificar exigencias de compañía aseguradora respecto a nivel de seguridad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plancha de acero de refuerzo",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Material específico no catalogado. Precio depende de dimensiones y espesor exactos."
+        },
+        {
+          "concepto": "Cerradura de seguridad adicional (cilindro de alta seguridad)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Material específico no catalogado. Precio varía según marca y certificación."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cerradura_antibumping_o_antitaladro",
+      "diagnostico_y_presupuesto_cerrajeria",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "instalacion_vidrio_de_seguridad_templado",
+      "pintura_esmalte_carpinteria_madera_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3792,
+      "tokens_out": 2010
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

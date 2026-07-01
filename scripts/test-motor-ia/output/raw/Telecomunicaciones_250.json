@@ -1,0 +1,132 @@
+{
+  "id": 250,
+  "oficio": "Telecomunicaciones",
+  "texto": "Reparar intercomunicador del portal que no funciona, revisión de centralita y terminales",
+  "http_status": 200,
+  "latency_ms": 10284,
+  "raw_response": {
+    "transcript": "Reparar intercomunicador del portal que no funciona, revisión de centralita y terminales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar intercomunicador del portal que no funciona, revisión de centralita y terminales",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diagnóstico técnico requerido: verificar si es fallo de alimentación, conexión o componente interno",
+          "Precio de materiales (posibles repuestos) pendiente de revisión tras diagnóstico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación de sistema de intercomunicación (centralita y terminales) - instalación de telecomunicaciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión centralita intercomunicador",
+          "descripcion": "Revisión completa de centralita, verificación de alimentación, conexiones internas, tarjeta electrónica y estado general del sistema",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y prueba de terminales intercomunicador",
+          "descripcion": "Inspección de todos los terminales (portero, viviendas), verificación de conexiones, pruebas de comunicación bidireccional",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación o sustitución de componentes defectuosos",
+          "descripcion": "Suministro e instalación de piezas de repuesto (relés, condensadores, conectores, fuente alimentación u otros componentes según diagnóstico)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de repuestos pendiente de diagnóstico técnico. El instalador debe especificar componentes defectuosos y sus costes"
+        },
+        {
+          "concepto": "Mano de obra instalación repuestos y ajustes finales",
+          "descripcion": "Instalación de componentes de repuesto, reajuste de conexiones, pruebas finales de funcionamiento completo del sistema",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 175,
+        "iva_porcentaje": 21,
+        "iva": 36.75,
+        "total": 211.75
+      },
+      "sugerencias_catalogo": [
+        "Si el diagnóstico revela fallo de fuente de alimentación: buscar 'fuente alimentación intercomunicador' en catálogo",
+        "Si hay terminales dañados: considerar 'terminal intercomunicador' o 'portero automático' según modelo",
+        "Si fallo es de cableado: incluir partida de 'cableado telecomunicaciones' con metraje específico"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación o sustitución de componentes defectuosos",
+          "razon": "Componentes específicos del intercomunicador no identificados hasta diagnóstico. Precio pendiente de revisión tras identificar pieza defectuosa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "reparacion_averia_caldera_gas",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3830,
+      "tokens_out": 1255
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

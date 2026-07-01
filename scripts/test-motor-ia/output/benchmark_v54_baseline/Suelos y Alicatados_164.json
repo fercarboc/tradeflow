@@ -1,0 +1,164 @@
+{
+  "id": 164,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Pulir y abrillantar suelo de terrazo antiguo en piso, 60 metros cuadrados con sellado final",
+  "http_status": 200,
+  "latency_ms": 12899,
+  "raw_response": {
+    "transcript": "Pulir y abrillantar suelo de terrazo antiguo en piso, 60 metros cuadrados con sellado final",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pulir y abrillantar suelo de terrazo antiguo en piso, 60 metros cuadrados con sellado final",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Restauración y pulido de terrazo existente. Tarifa por m² según Base Maestra: 25-95€/m²"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lijado progresivo terrazo con discos diamante grano 100-200",
+          "descripcion": "Lijado inicial de terrazo antiguo con máquina pulidora y discos diamante grano grueso para eliminar irregularidades y preparar superficie",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pulido intermedio terrazo grano 400-600",
+          "descripcion": "Pulido progresivo con discos diamante grano medio para refinar superficie y preparar para acabado brillante",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pulido fino y abrillantar terrazo grano 800+",
+          "descripcion": "Pulido final con discos diamante grano fino para conseguir acabado brillante y espejo",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cristalizador o sellador final terrazo",
+          "descripcion": "Aplicación de cristalizador o sellador protector final para fijar brillo y proteger superficie pulida",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material cristalizador/sellador. Instalador debe indicar producto específico y coste (típicamente 2-5€/m²)"
+        },
+        {
+          "concepto": "Aspiración, limpieza y acabado final",
+          "descripcion": "Aspiración de polvo de lijado, limpieza profunda de superficie y preparación final para sellado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 3,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles (lijas, discos, EPI)",
+          "descripcion": "Discos diamante, lijas de progresión, mascarillas, guantes, bolsas aspiración y otros consumibles",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles. Instalador debe presupuestar según cantidad de discos y lijas necesarios (típicamente 3-8€/m²)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1620,
+        "iva_porcentaje": 21,
+        "iva": 340.2,
+        "total": 1960.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar estado previo del terrazo: si hay fisuras o desperfectos importantes, añadir partida de reparación previa con masilla/mastic antes de lijar",
+        "Confirmar tipo de sellador final: cristalizador químico (más económico, 2-3€/m²) o sellador poliuretano (más duradero, 4-6€/m²)",
+        "Tiempo de curado: tras aplicar sellador, esperar mínimo 24-48h antes de tráfico normal",
+        "Rendimiento: 60 m² requiere aproximadamente 3-4 jornadas de trabajo (18-24 horas) según estado inicial del terrazo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cristalizador o sellador final terrazo",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material específico de acabado. Precio pendiente de especificación del instalador"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (lijas, discos, EPI)",
+          "oficio": "suelos_alicatados",
+          "motivo": "Consumibles variables según cantidad de discos y lijas necesarios"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "restauracion_y_pulido_terrazo_o_marmol_existente",
+      "pintado_suelo_resinas_decorativas",
+      "instalacion_suelo_epoxi_o_resina_decorativa",
+      "instalacion_suelo_industrial_de_terrazo_o_granito_in_situ",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3832,
+      "tokens_out": 1705
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

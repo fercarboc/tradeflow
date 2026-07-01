@@ -1,0 +1,182 @@
+{
+  "id": 32,
+  "oficio": "Electricidad",
+  "texto": "Instalación de sistema de alarma perimetral con detectores de movimiento y sirena exterior",
+  "http_status": 200,
+  "latency_ms": 14370,
+  "raw_response": {
+    "transcript": "Instalación de sistema de alarma perimetral con detectores de movimiento y sirena exterior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de sistema de alarma perimetral con detectores de movimiento y sirena exterior",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de alarma perimetral: requiere especificación de número de detectores y cobertura de zona",
+          "Sirena exterior: verificar nivel sonoro requerido (mínimo 65dB a 3m)",
+          "Recomendación: cliente debe especificar si desea conexión a central receptora homologada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de alarma perimetral antirrobo con detectores y sirena"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Central de alarma perimetral",
+          "descripcion": "Central de alarma antirrobo con capacidad para detectores de movimiento perimetral, entrada para sirena exterior, teclado de control y comunicador para central receptora",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de central según marca y funcionalidades a definir por instalador"
+        },
+        {
+          "concepto": "Detectores de movimiento perimetral (PIR)",
+          "descripcion": "Detectores de movimiento infrarrojo pasivo (PIR) para protección perimetral exterior, resistentes a intemperie, con óptica de gran angular",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 4 detectores; ajustar según perímetro real. Precio unitario a definir"
+        },
+        {
+          "concepto": "Sirena exterior certificada",
+          "descripcion": "Sirena exterior certificada EN 54-3, nivel sonoro mínimo 65dB a 3m, con estrobo óptico integrado, caja de protección IP65",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según marca y nivel sonoro especificado"
+        },
+        {
+          "concepto": "Teclado de control y programación",
+          "descripcion": "Teclado de control con pantalla LCD para programación de zonas, códigos de acceso y gestión del sistema de alarma",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según funcionalidades (pantalla, retroiluminación, etc.)"
+        },
+        {
+          "concepto": "Cableado y pequeño material",
+          "descripcion": "Cable de alarma de 4 hilos, conectores, regletas de bornes, tuercas de fijación, tornillería y material auxiliar para instalación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje estimado según perímetro; ajustar según plano de instalación"
+        },
+        {
+          "concepto": "Instalación y puesta en marcha del sistema",
+          "descripcion": "Montaje de central, detectores y sirena exterior. Cableado, conexionado, programación de zonas, pruebas de funcionamiento y entrega de documentación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Considerar conexión a central receptora homologada (servicio adicional con cuota mensual)",
+        "Opción de sistema inalámbrico para reducir tiempo de instalación",
+        "Detector de rotura de cristal recomendado para protección perimetral completa",
+        "App móvil de gestión y notificaciones en tiempo real (funcionalidad adicional)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central de alarma perimetral",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de sistema de alarma perimetral; precio a definir por instalador según marca y especificaciones"
+        },
+        {
+          "concepto": "Detectores de movimiento perimetral (PIR)",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Componente específico; cantidad y precio unitario a ajustar según perímetro real"
+        },
+        {
+          "concepto": "Sirena exterior certificada",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico con certificación EN 54-3; precio a definir"
+        },
+        {
+          "concepto": "Teclado de control y programación",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Componente de control; precio según funcionalidades"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_alarma_perimetral_o_antirrobo_basica",
+      "instalacion_de_sirenas_y_avisadores_acusticos_opticos",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_sistema_de_videovigilancia_CCTV"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4013,
+      "tokens_out": 1888
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

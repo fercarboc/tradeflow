@@ -1,0 +1,149 @@
+{
+  "id": 262,
+  "oficio": "Cristalería",
+  "texto": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+  "http_status": 200,
+  "latency_ms": 15640,
+  "raw_response": {
+    "transcript": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio templado y perfilería en mampara de ducha"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado 8mm para mampara ducha 90x90",
+          "descripcion": "Cristal templado 8mm de seguridad, medidas 90x90cm, con marcado CE EN 12150, cortado y templado en fábrica",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material cristal templado: el instalador debe confirmar precio según proveedor y espesor 8mm verificado"
+        },
+        {
+          "concepto": "Perfil aluminio anodizado para mampara ducha",
+          "descripcion": "Perfiles de aluminio anodizado (vertical, horizontal, esquinero) sistema cierre corredera o abatible 90x90cm, herraje completo, guías y bisagras",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perfilería aluminio: instalador debe confirmar precio según sistema (corredera/abatible) y acabado"
+        },
+        {
+          "concepto": "Junta estanqueidad goma y silicona neutra",
+          "descripcion": "Junta de estanqueidad en goma EPDM para todos los encuentros agua, silicona neutra sanitaria en perimetral, encuentros suelo y pared",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sellado: incluye junta goma + silicona, precio según cantidad necesaria para 90x90"
+        },
+        {
+          "concepto": "Pequeño material y herrajes (tornillería inox, tacos, clips)",
+          "descripcion": "Tornillería acero inoxidable A2, tacos Fischer expansivos, clips de fijación, arandelas, embellecedores cromo",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: lote completo de fijación y embellecedores"
+        },
+        {
+          "concepto": "Instalación mampara cristal templado 90x90 perfil aluminio",
+          "descripcion": "Mano de obra: medición exacta in situ, preparación y nivelación de suelo y paredes, fijación de perfiles a pared y suelo, colocación vidrio templado, sellado perimetral completo con silicona neutra, ajuste de puertas/corredera, prueba de estanqueidad y cierre, limpieza final",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la mampara es tipo corredera o abatible (afecta a perfilería y precio)",
+        "Verificar si se requiere estabilizador/barra en la puerta (recomendado en 90x90)",
+        "Confirmar tipo de fijación a suelo: plato ducha, encimera o suelo cerámico (afecta a tacos y material)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Vidrio templado 8mm para mampara ducha 90x90",
+          "motivo": "Material específico cristalería, requiere cotización de proveedor"
+        },
+        {
+          "partida": "Perfil aluminio anodizado para mampara ducha",
+          "motivo": "Material perfilería, depende de sistema constructivo elegido"
+        },
+        {
+          "partida": "Junta estanqueidad goma y silicona neutra",
+          "motivo": "Material sellado sanitario específico"
+        },
+        {
+          "partida": "Pequeño material y herrajes (tornillería inox, tacos, clips)",
+          "motivo": "Lote complementario de fijación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_mampara_ducha",
+      "instalacion_ventana_madera_con_vidrio",
+      "sustitucion_columna_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

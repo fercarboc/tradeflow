@@ -1,0 +1,177 @@
+{
+  "id": 174,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+  "http_status": 200,
+  "latency_ms": 16225,
+  "raw_response": {
+    "transcript": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Escalera exterior con piedra desgastada: se recomienda evaluación previa del estado estructural",
+          "Antideslizante en escalera: verificar compatibilidad con pendiente y tráfico esperado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de revestimiento antideslizante en escalera exterior (suelos_alicatados cubre pavimentos y revestimientos de suelo)"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Preparación y sellado de piedra desgastada antes de aplicar antideslizante (impermeabilización y protección de superficie)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de escalera de piedra desgastada",
+          "descripcion": "Limpieza mecánica, eliminación de musgo/suciedad, lijado superficial de piedra desgastada para mejorar adherencia",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador/imprimación en piedra natural desgastada",
+          "descripcion": "Aplicación de imprimación adherente y sellador en piedra desgastada para mejorar agarre del antideslizante",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: sellador/imprimación para piedra natural. Instalador debe confirmar producto y cantidad según estado de la piedra"
+        },
+        {
+          "concepto": "Aplicación de imprimación en escalera (12 peldaños)",
+          "descripcion": "Mano de obra para aplicación de imprimación/sellador en 12 peldaños (huella + contrahuella)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Banda/cinta antideslizante adhesiva para escalera (12 peldaños)",
+          "descripcion": "Suministro de banda antideslizante adhesiva de alta adherencia, resistencia UV y antideslizante R11 mínimo para 12 peldaños (huella + contrahuella)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: banda antideslizante adhesiva para escalera exterior. Instalador debe confirmar tipo (cinta adhesiva, pintura antideslizante, o banda de goma) y precio unitario"
+        },
+        {
+          "concepto": "Instalación de antideslizante en escalera (12 peldaños)",
+          "descripcion": "Mano de obra para colocación/aplicación de antideslizante en 12 peldaños, incluyendo corte, ajuste y fijación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios (escalera antideslizante)",
+          "descripcion": "Adhesivos, disolventes, trapos, masilla, tornillos, anclajes y otros materiales auxiliares para instalación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: cantidad y precio a confirmar según tipo de antideslizante elegido"
+        }
+      ],
+      "calculos": {
+        "subtotal": 546,
+        "iva_porcentaje": 21,
+        "iva": 114.66,
+        "total": 660.66
+      },
+      "sugerencias_catalogo": [
+        "Considerar si la piedra desgastada requiere reparación/nivelación previa (albanilería)",
+        "Evaluar si es necesario tratamiento anti-humedad adicional en escalera exterior",
+        "Confirmar tipo de antideslizante: cinta adhesiva, pintura epoxi antideslizante, o banda de goma vulcanizada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sellador/imprimación en piedra natural desgastada",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para preparación de piedra desgastada antes de antideslizante"
+        },
+        {
+          "concepto": "Banda/cinta antideslizante adhesiva para escalera",
+          "oficio": "suelos_alicatados",
+          "motivo": "Producto específico antideslizante para escalera exterior; precio y tipo a confirmar por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_exterior_terraza_o_patio",
+      "solado_de_marmol_o_piedra_natural",
+      "solado_ceramico_exterior_terraza",
+      "pintado_de_canchas_de_padel_interior",
+      "instalacion_suelo_de_marmol_o_piedra_natural_interior"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3962,
+      "tokens_out": 2162
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "id": 340,
+  "oficio": "Fachadas",
+  "texto": "Auditoría energética de fachada para certificado de eficiencia, informe con recomendaciones",
+  "http_status": 200,
+  "latency_ms": 14536,
+  "raw_response": {
+    "transcript": "Auditoría energética de fachada para certificado de eficiencia, informe con recomendaciones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Auditoría energética de fachada para certificado de eficiencia, informe con recomendaciones",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio de auditoría energética: requiere profesional certificado (Auditor Energético acreditado según RD 235/2013)",
+          "El informe debe incluir certificado de eficiencia energética del edificio",
+          "Recomendaciones deben ser cuantificadas en ahorro energético y económico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Auditoría energética y eficiencia energética de edificio/fachada. Incluye análisis de envolvente térmica, infiltraciones, puentes térmicos y propuestas de mejora energética."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Auditoría energética de fachada - Inspección técnica y toma de datos",
+          "descripcion": "Visita in situ, inspección visual de fachada, análisis de envolvente térmica, detección de puentes térmicos, infiltraciones de aire, estado de carpinterías, aislamiento. Toma de medidas, fotografías termográficas si aplica, recopilación de documentación técnica del edificio.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis energético y cálculo de demanda térmica",
+          "descripcion": "Procesamiento de datos, modelado energético de la fachada, cálculo de transmitancia térmica (U), análisis de condensaciones, infiltraciones, pérdidas térmicas. Simulación de comportamiento energético estacional. Cuantificación de consumo energético actual.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Elaboración de informe de eficiencia energética con certificado",
+          "descripcion": "Redacción de informe técnico completo con diagnóstico del estado energético de la fachada, identificación de deficiencias, cálculo de calificación energética (A-G), propuestas de mejora priorizadas, estimación de ahorro energético y económico, ROI de inversiones. Inclusión de certificado de eficiencia energética del edificio según normativa vigente (RD 235/2013).",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de informe y certificado pendiente de revisión. Incluye redacción, maquetación, certificado digital y entrega. Rango orientativo: 200-500€ según complejidad del edificio y número de recomendaciones."
+        },
+        {
+          "concepto": "Recomendaciones de mejora energética de fachada - Análisis de soluciones",
+          "descripcion": "Evaluación técnica de soluciones de mejora: aislamiento SATE, cambio de carpinterías, sellado de infiltraciones, tratamiento de puentes térmicos, mejora de ventilación. Cálculo de mejora de transmitancia térmica, ahorro energético anual, coste de inversión estimado y período de amortización para cada medida.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 390,
+        "iva_porcentaje": 21,
+        "iva": 81.9,
+        "total": 471.9
+      },
+      "sugerencias_catalogo": [
+        "Si la auditoría incluye termografía infrarroja profesional, añadir partida específica de 'Estudio termográfico de fachada' (200-400€ según superficie).",
+        "Si se requiere certificado de eficiencia energética oficial (CE3X o similar), verificar que el auditor está acreditado por organismo competente autonómico.",
+        "Considerar incluir propuesta de mejora con presupuesto desglosado si el cliente desea ejecutar las recomendaciones."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Elaboración de informe de eficiencia energética con certificado",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de redacción de informe técnico y certificado de eficiencia energética. Precio pendiente de revisión del profesional auditor según complejidad y normativa autonómica aplicable."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_rejillas_de_ventilacion_de_camara_de_fachada",
+      "diagnostico_y_informe_estado_pinturas_fachada",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "aplicacion_pintura_termica_o_aislante"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3583,
+      "tokens_out": 1602
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "id": 286,
+  "oficio": "Impermeabilización",
+  "texto": "Aplicar pintura impermeabilizante en pared medianera con problemas de humedad por capilaridad",
+  "http_status": 200,
+  "latency_ms": 20750,
+  "raw_response": {
+    "transcript": "Aplicar pintura impermeabilizante en pared medianera con problemas de humedad por capilaridad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar pintura impermeabilizante en pared medianera con problemas de humedad por capilaridad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Humedad por capilaridad requiere diagnóstico previo y posible tratamiento de inyecciones antes de pintar. La pintura impermeabilizante SOLA no resuelve capilaridad activa.",
+          "Se recomienda: (1) Diagnóstico de origen humedad, (2) Inyecciones de resina hidrofóbica en hilada si es necesario, (3) Saneado de mortero deteriorado, (4) ENTONCES pintura impermeabilizante.",
+          "Presupuesto generado asume pintura como solución complementaria. Si capilaridad es activa, requiere inyecciones previas (oficio: albanileria)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Pintura impermeabilizante en pared con humedad → impermeabilizacion (no pintura general). Regla: aunque sea pintura, si el OBJETIVO es impermeabilizar/sellar humedad → impermeabilizacion."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Diagnóstico y posible saneado de mortero deteriorado por capilaridad. Recomendado como trabajo previo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico de origen humedad por capilaridad",
+          "descripcion": "Inspección técnica de la pared medianera para determinar origen, alcance y profundidad de la humedad capilar. Incluye medición de humedad relativa, evaluación de mortero y recomendación de tratamiento.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diagnóstico previo obligatorio. Instalador debe confirmar si capilaridad es activa y requiere inyecciones."
+        },
+        {
+          "concepto": "Saneado de mortero deteriorado por humedad",
+          "descripcion": "Eliminación de mortero degradado, eflorescencias y sales en zona afectada por capilaridad. Preparación de superficie para tratamiento impermeabilizante.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (m2) a definir por instalador tras diagnóstico. Tarifa: 40€/h aprox."
+        },
+        {
+          "concepto": "Imprimación fijadora y consolidante",
+          "descripcion": "Aplicación de imprimación fijadora para consolidar superficie y mejorar adherencia de pintura impermeabilizante. Incluye pequeño material (brochas, rodillos).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (m2) a definir. Material específico y precio a confirmar por instalador."
+        },
+        {
+          "concepto": "Pintura impermeabilizante (membrana líquida o acrílica hidrofóbica)",
+          "descripcion": "Aplicación de pintura impermeabilizante de alta calidad (membrana líquida, acrílica hidrofóbica o siloxano) en 2 capas sobre pared medianera. Protege contra humedad capilar y filtraciones.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (m2) a definir. Tipo de pintura (membrana líquida, acrílica, siloxano) y precio a confirmar."
+        },
+        {
+          "concepto": "Mano de obra: aplicación pintura impermeabilizante",
+          "descripcion": "Aplicación de pintura impermeabilizante en 2 capas con rodillo y brocha. Incluye preparación, mascarilla de zonas adyacentes y limpieza final.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 12€/m2 (rango 4-16€/m2 según complejidad). Cantidad (m2) a definir por instalador."
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Brochas, rodillos, cinta de carrocero, protecciones, mascarillas, guantes, bolsas residuos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar por instalador según cantidad de material necesario."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Antes de aplicar pintura impermeabilizante, CONFIRMAR con cliente si capilaridad es activa. Si lo es, considerar inyecciones de resina hidrofóbica (oficio: albanileria) como tratamiento previo.",
+        "Medir superficie exacta (m2) de pared afectada para cuantificar partidas de material y mano de obra.",
+        "Especificar tipo de pintura impermeabilizante: membrana líquida (más cara, mejor rendimiento), acrílica hidrofóbica (estándar) o siloxano (premium, transpirable).",
+        "Incluir en presupuesto: diagnóstico previo (jornada), saneado de mortero si es necesario, imprimación, 2 capas de pintura impermeabilizante.",
+        "Coordinar con propietario de medianera si es necesario acceso desde su lado."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico de origen humedad por capilaridad",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "motivo": "Trabajo previo obligatorio no incluido en catálogo estándar. Requiere revisión e inclusión en presupuesto final."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_antihumedad_paredes_con_filtraciones",
+      "reparacion_de_humedades_por_capilaridad_en_muro",
+      "pintado_de_medianeras_o_paredes_ciegas",
+      "pintado_de_foso_de_ascensor",
+      "pintura_de_medianera_o_pared_ciega_exterior"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3726,
+      "tokens_out": 2638
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

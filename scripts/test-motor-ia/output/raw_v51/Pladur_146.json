@@ -1,0 +1,259 @@
+{
+  "id": 146,
+  "oficio": "Pladur",
+  "texto": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+  "http_status": 200,
+  "latency_ms": 23900,
+  "raw_response": {
+    "transcript": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume nicho de dimensiones estándar para TV 55-65\". Confirmar medidas exactas (ancho×alto×fondo).",
+          "Precio de iluminación LED indirecta pendiente de revisión según tipo (tira LED, downlight empotrado, etc.)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Construcción nicho empotrado en pladur con acabados"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación iluminación LED indirecta, circuito y conexiones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm para estructura nicho",
+          "descripcion": "Suministro e instalación placa YL standard 15mm para caras frontal y laterales nicho empotrado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible, precio según proveedor y tipo de placa"
+        },
+        {
+          "concepto": "Perfiles metálicos (canal y montantes) para estructura nicho",
+          "descripcion": "Suministro perfiles de acero galvanizado UW y CW para estructura interior nicho (canal 48mm, montantes 48mm)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipos de perfiles según dimensiones finales del nicho"
+        },
+        {
+          "concepto": "Refuerzo estructura interna nicho (madera/perfiles)",
+          "descripcion": "Suministro e instalación refuerzos internos para soportar peso TV y distribuir cargas (perfiles o madera tratada)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Dimensionado según peso TV y profundidad nicho"
+        },
+        {
+          "concepto": "Tornillería, cinta de juntas y pasta de escayola",
+          "descripcion": "Pequeño material: tornillos pladur, cinta papel juntas, pasta de escayola para acabado nicho",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material fungible, estimación según superficie"
+        },
+        {
+          "concepto": "Ángulos metálicos para aristas y esquinas",
+          "descripcion": "Suministro ángulos metálicos para esquinas salientes y aristas del nicho (protección e impermeabilización)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje según perímetro de aristas del nicho"
+        },
+        {
+          "concepto": "Construcción y montaje estructura nicho empotrado",
+          "descripcion": "Mano de obra: replanteo, montaje perfiles, colocación placas YL, fijación refuerzos internos, clavado a estructura existente",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 35,
+          "total": 210,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Entelado, gotele y acabado superficial nicho",
+          "descripcion": "Mano de obra: aplicación cinta y pasta juntas, lija, entelado aristas, gotele o acabado liso según preferencia",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 35,
+          "total": 140,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura interior nicho",
+          "descripcion": "Suministro e instalación pintura blanca mate o color a elegir en interior y frente nicho (3 manos si necesario)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pintura y acabado según calidad y tipo solicitado"
+        },
+        {
+          "concepto": "Mano de obra pintura interior nicho",
+          "descripcion": "Aplicación pintura interior y frente nicho (preparación, masilla, lija y 3 manos)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tira LED indirecta para iluminación nicho",
+          "descripcion": "Suministro tira LED RGB o blanco cálido con transformador, control remoto o mediante pulsador (longitud según ancho nicho)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según marca, potencia, color (RGB/blanco) y accesorios de control"
+        },
+        {
+          "concepto": "Instalación iluminación LED indirecta",
+          "descripcion": "Mano de obra: apertura rozas si necesario, montaje tira LED, instalación transformador, conexión a circuito existente o nuevo, pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 50,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y conexionado LED (si circuito nuevo)",
+          "descripcion": "Suministro cable flexible 2×1.5mm², regletas de conexión, protecciones, pequeño material eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje y tipo cable según distancia transformador a tira LED y circuitería existente"
+        }
+      ],
+      "calculos": {
+        "subtotal": 571,
+        "iva_porcentaje": 21,
+        "iva": 120,
+        "total": 691
+      },
+      "sugerencias_catalogo": [
+        "Confirmar categoría BASE MAESTRA: [nicho_o_estanteria_empotrada_en_pladur] — partidas obligatorias todas presentes",
+        "Si el cliente requiere toma de corriente 230V interior nicho para TV → añadir partida 'Base enchufe doble empotrada' (electricidad)",
+        "Si se requiere canaleta o tubo cable visible → especificar tipo y cantidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tira LED indirecta para iluminación nicho",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "precio_origen": "sugerida_ia",
+          "motivo": "Material específico no en catálogo, precio cliente según especificaciones"
+        },
+        {
+          "concepto": "Cableado y conexionado LED",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "precio_origen": "sugerida_ia",
+          "motivo": "Pequeño material eléctrico, cantidad según proyecto específico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_sencillo_72mm",
+      "tabique_ladrillo_hueco_sencillo",
+      "nicho_o_estanteria_empotrada_en_pladur",
+      "apertura_hueco_en_muro_para_puerta_o_ventana",
+      "fabricacion_de_estanterias_y_baldas_a_medida"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 4,
+    "n_sugeridas": 8,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

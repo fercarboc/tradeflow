@@ -1,0 +1,216 @@
+{
+  "id": 24,
+  "oficio": "Electricidad",
+  "texto": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+  "http_status": 200,
+  "latency_ms": 22605,
+  "raw_response": {
+    "transcript": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar potencia contratada en vivienda (mínimo 7,4 kW recomendado para wallbox 7kW)",
+          "Confirmar distancia entre cuadro eléctrico y punto de instalación en garaje",
+          "Revisar si existe toma de tierra existente o requiere nueva instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de cargador vehículo eléctrico wallbox (energía renovable/eficiencia energética)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito eléctrico exclusivo, protecciones REBT, cableado y puesta a tierra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Wallbox 7kW monofásico Modo 3",
+          "descripcion": "Suministro e instalación de wallbox de 7kW, monofásico, con conectores Modo 3 (IEC 62196-2), incluye cable integrado o conexión a manguera",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del wallbox 7kW varía según marca y funcionalidades (básico 400-600€, con gestión inteligente 800-1200€). Instalador debe confirmar modelo y precio"
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo desde cuadro general",
+          "descripcion": "Derivación monofásica exclusiva desde cuadro general a punto de carga: cable 6mm² (mínimo REBT para 7kW monofásico), magnetotérmico 40A, diferencial tipo A 40A, pequeño material (bornes, tuercas, etiquetado)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales eléctricos (cable 6mm², magnetotérmico, diferencial tipo A, pequeño material): precio según proveedor y cantidad. Estimado 150-250€"
+        },
+        {
+          "concepto": "Cableado desde cuadro a punto de instalación",
+          "descripcion": "Tendido de cable 6mm² (manguera de cobre) desde cuadro general hasta punto de carga en garaje, incluye tubo protector, soportes y remates",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Distancia entre cuadro y garaje desconocida. Estimado 5-15 metros. Precio aproximado 8-12€/ml (cable + tubo + soportes). Instalador debe medir y confirmar"
+        },
+        {
+          "concepto": "Puesta a tierra y toma de tierra",
+          "descripcion": "Instalación o verificación de toma de tierra exclusiva para wallbox (electrodo cobre 1,5m o conexión a tierra existente), arqueta de registro, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Si existe toma de tierra en vivienda, solo verificación (50-100€). Si requiere nueva instalación, electrodo + arqueta (200-400€). Confirmar estado actual"
+        },
+        {
+          "concepto": "Instalación y conexión del wallbox",
+          "descripcion": "Montaje del wallbox en pared, conexión de cableado, pruebas de funcionamiento, verificación de protecciones y seguridades según REBT, entrega y explicación de uso",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de circuito eléctrico y protecciones",
+          "descripcion": "Montaje de magnetotérmico y diferencial en cuadro, conexionado de derivación, pruebas de continuidad y aislamiento, verificación de funcionamiento diferencial",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tendido de cableado y remates",
+          "descripcion": "Instalación de tubo protector, tendido de cable 6mm², fijación de soportes, remates en cuadro y en wallbox, etiquetado de circuito",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de toma de tierra y medición de resistencia",
+          "descripcion": "Comprobación de continuidad de tierra, medición de resistencia (debe ser <10Ω según CTE), ajustes si es necesario, informe de medición",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 445,
+        "iva_porcentaje": 21,
+        "iva": 93.45,
+        "total": 538.45
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Wallbox con gestión inteligente de carga (carga diferida, integración solar)? Afecta precio y funcionalidad",
+        "Sugerir comunicación a distribuidora eléctrica si potencia contratada es <7,4 kW (puede requerir aumento de potencia)",
+        "Ofrecer cable de carga adicional (Tipo 2 a Schuko) si wallbox no lo incluye (50-150€)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Wallbox 7kW monofásico Modo 3",
+          "oficio": "energia_solar",
+          "motivo": "Material específico de cargador vehículo eléctrico, precio variable según marca y funcionalidades"
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo desde cuadro general",
+          "oficio": "electricidad",
+          "motivo": "Conjunto de materiales eléctricos (cable, magnetotérmico, diferencial, pequeño material) agrupados en una partida"
+        },
+        {
+          "concepto": "Cableado desde cuadro a punto de instalación",
+          "oficio": "electricidad",
+          "motivo": "Partida de material con cantidad variable (ml) según distancia real en garaje"
+        },
+        {
+          "concepto": "Puesta a tierra y toma de tierra",
+          "oficio": "electricidad",
+          "motivo": "Instalación o verificación de tierra, variable según estado actual de la vivienda"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cargador_de_vehiculo_electrico_en_vivienda",
+      "instalacion_cargador_vehiculo_electrico_wallbox",
+      "instalacion_proteccion_contra_rayos_pararrayo",
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "instalacion_de_pavimento_de_caucho_o_goma"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3680,
+      "tokens_out": 2952
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

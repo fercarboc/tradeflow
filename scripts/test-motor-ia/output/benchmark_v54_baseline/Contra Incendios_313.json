@@ -1,0 +1,125 @@
+{
+  "id": 313,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar detector de monóxido de carbono en garaje privado de vivienda con caldera de gas",
+  "http_status": 200,
+  "latency_ms": 12087,
+  "raw_response": {
+    "transcript": "Instalar detector de monóxido de carbono en garaje privado de vivienda con caldera de gas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar detector de monóxido de carbono en garaje privado de vivienda con caldera de gas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Detector CO en garaje privado: verificar si es obligatorio por normativa local (algunos municipios lo exigen en garajes con caldera de gas)",
+          "Caldera de gas en vivienda: si está en garaje, requiere ventilación adecuada según CTE DB HS3"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Instalación de detector de monóxido de carbono (CO) es sistema de seguridad contraincendios/detección de gases tóxicos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Detector de monóxido de carbono (CO) certificado",
+          "descripcion": "Detector autónomo de CO con sensor electroquímico, certificado EN 50291, con alarma acústica y visual, batería de larga duración (2-5 años), apto para garajes con caldera de gas",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar modelo específico (rango típico 80-250€ según marca y certificación)"
+        },
+        {
+          "concepto": "Instalación detector CO en garaje",
+          "descripcion": "Colocación del detector en pared a altura 1,5-2m (según instrucciones fabricante), alejado de fuentes de calor y corrientes de aire, verificación de funcionamiento y prueba de alarma",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tacos, tornillos, cableado si aplica)",
+          "descripcion": "Tacos de fijación, tornillos, pequeño material de instalación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: rango típico 5-15€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 55,
+        "iva_porcentaje": 21,
+        "iva": 11.55,
+        "total": 66.55
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la caldera de gas está correctamente ventilada según CTE DB HS3 (obligatorio en garajes)",
+        "Considerar instalación de detector de CO + detector de humo si hay riesgo de incendio en garaje",
+        "Detector autónomo con batería es suficiente para garaje privado; si hay central de incendios en vivienda, considerar modelo conectado a central",
+        "Mantenimiento: revisar funcionamiento mensualmente pulsando botón de prueba; cambiar batería según instrucciones (típicamente cada 2-5 años)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Detector de monóxido de carbono (CO) certificado",
+          "oficio": "contra_incendios",
+          "motivo": "Material específico de seguridad; precio variable según marca y certificación (80-250€)"
+        },
+        {
+          "concepto": "Pequeño material (tacos, tornillos, cableado si aplica)",
+          "oficio": "contra_incendios",
+          "motivo": "Material auxiliar; rango típico 5-15€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_ventilacion_aparcamiento_segun_cte",
+      "instalacion_de_detectores_de_humo_opticos",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_sistema_de_deteccion_gas_en_aparcamiento",
+      "instalacion_de_central_de_incendios_deteccion_automatica"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3961,
+      "tokens_out": 1256
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 1,
+    "n_sugeridas": 2,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

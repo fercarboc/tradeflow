@@ -1,0 +1,141 @@
+{
+  "id": 265,
+  "oficio": "Cristalería",
+  "texto": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+  "http_status": 200,
+  "latency_ms": 16892,
+  "raw_response": {
+    "transcript": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio monolítico de 8mm en escaparate: verificar si cumple CTE DB-SUA (seguridad). Considerar vidrio templado o laminado según normativa local y riesgo de rotura.",
+          "Superficie: 5 m² — trabajo de envergadura, requiere medios de elevación y seguridad en fachada."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Cambio de luna en escaparate comercial — cristalería especializada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de vidrio roto con medidas de seguridad",
+          "descripcion": "Desmontaje y retirada segura de vidrio monolítico roto de 8mm (5 m²). Incluye protección de zona, gestión de residuos de vidrio y pequeño material.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 15,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro vidrio monolítico 8mm templado o laminado",
+          "descripcion": "Luna de vidrio monolítico 8mm, 2.00 m × 2.50 m (5 m²). Recomendación: vidrio templado o laminado según normativa CTE DB-SUA para escaparates. Precio unitario a definir por instalador según proveedor y tipo final elegido.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado/laminado 8mm a cargo del instalador. Rango orientativo: 80–200 €/m² según proveedor y tratamiento."
+        },
+        {
+          "concepto": "Silicona estructural neutra para fijación en marco",
+          "descripcion": "Silicona neutra de alta resistencia para fijación perimetral del vidrio en marco de escaparate. Incluye preparación de superficie, desengrasan te y aplicación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 9,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumo estimado: 9 ml (perímetro 2×(2.00+2.50)=9 m). Precio silicona a cargo del instalador. Rango: 5–15 €/ml."
+        },
+        {
+          "concepto": "Instalación y fijación de vidrio en marco",
+          "descripcion": "Colocación, nivelación, fijación con silicona estructural y sellado perimetral del vidrio monolítico 8mm en marco de escaparate. Incluye medios de elevación (andamio o plataforma), protección de zona y pruebas de estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Cinta carrocero, espátulas, desengrasan te, trapos, protecciones, anclajes auxiliares y consumibles varios para instalación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado: 20–40 €. A cargo del instalador."
+        }
+      ],
+      "calculos": {
+        "subtotal": 255,
+        "iva_porcentaje": 21,
+        "iva": 53.55,
+        "total": 308.55
+      },
+      "sugerencias_catalogo": [
+        "Verificar con cliente si el vidrio monolítico 8mm cumple normativa CTE DB-SUA para escaparates. Si no, presupuestar vidrio templado (recomendado) o laminado (mayor coste, máxima seguridad).",
+        "Considerar si el marco de escaparate requiere refuerzo o reparación tras rotura. Si hay daño en perfilería, añadir partida de reparación/sustitución de perfil aluminio o acero.",
+        "Medios de elevación (andamio, plataforma elevadora): si no están incluidos en tarifa de mano de obra, presupuestar alquiler aparte (rango: 50–150 €/día)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "sellado_y_rejuntado_de_vidrios_con_silicona",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "cambio_luna_ventana_rota",
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3895,
+      "tokens_out": 2043
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

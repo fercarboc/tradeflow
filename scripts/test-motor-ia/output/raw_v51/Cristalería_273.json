@@ -1,0 +1,136 @@
+{
+  "id": 273,
+  "oficio": "Cristalería",
+  "texto": "Cambiar mampara de baño rota, sistema corredero de 2 hojas en bañera de 170 centímetros",
+  "http_status": 200,
+  "latency_ms": 13134,
+  "raw_response": {
+    "transcript": "Cambiar mampara de baño rota, sistema corredero de 2 hojas en bañera de 170 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar mampara de baño rota, sistema corredero de 2 hojas en bañera de 170 centímetros",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material (mampara corredero 2 hojas 170cm) requiere confirmación de precio por instalador",
+          "Verificar estado de carril inferior y accesorios antes de presupuesto final"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Sustitución de mampara de baño sistema corredero — clasificado como trabajo de cristalería/acristalamiento"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje mampara corredero rota",
+          "descripcion": "Desmontaje completo de mampara de baño de 2 hojas sistema corredero, incluyendo carriles, perfiles y accesorios. Retirada de escombros.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mampara corredero 2 hojas 170cm",
+          "descripcion": "Suministro mampara de baño sistema corredero 2 hojas aluminio/PVC para bañera 170cm, incluyendo carriles, perfiles, accesorios (topes, rodillos, mangos), vidrio templado o similar.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente de cotización. Rango típico mercado: 200-600€ según marca y calidad. Instalador revisa y ajusta."
+        },
+        {
+          "concepto": "Instalación mampara corredero 2 hojas",
+          "descripcion": "Instalación completa: nivelación y fijación de carriles superiores e inferiores en bañera, colocación de hojas correderas, ajuste de rodillos, colocación de topes y mangos, sellado perimetral con silicona.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y sellado",
+          "descripcion": "Silicona sanitaria, tornillos acero inoxidable, tacos, cintas de ajuste, limpieza final.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material fungible. Rango típico: 15-30€. Instalador revisa."
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Confirmar medidas exactas de bañera (ancho, alto, profundidad) para ajuste de mampara",
+        "Verificar si carril inferior está deteriorado — podría necesitar sustitución adicional",
+        "Comprobar estado de sellados y desagüe tras colocación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mampara corredero 2 hojas 170cm",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Producto específico de sustitución — material con precio variable según marca/modelo"
+        },
+        {
+          "concepto": "Pequeño material y sellado",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles y fungibles de instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "revision_y_recambio_de_filtros_de_agua_o_osmosis",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "cambio_interruptor_averiado"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

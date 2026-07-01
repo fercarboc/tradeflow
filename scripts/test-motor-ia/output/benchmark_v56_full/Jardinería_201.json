@@ -1,0 +1,119 @@
+{
+  "id": 201,
+  "oficio": "Jardinería",
+  "texto": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+  "http_status": 200,
+  "latency_ms": 9556,
+  "raw_response": {
+    "transcript": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de jardinería especializada en árboles frutales",
+          "Incluye gestión de restos vegetales",
+          "Se recomienda especificar altura de árboles y volumen de poda para ajustar precio final"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Poda de árboles frutales y limpieza de restos vegetales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Poda de árboles frutales (naranjos y olivos)",
+          "descripcion": "Poda de formación y mantenimiento de 4 naranjos y 2 olivos. Incluye corte de ramas secas, enfermas y excesivo crecimiento, desinfección de herramientas entre árboles para evitar transmisión de plagas",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recogida, acopio y gestión de restos vegetales",
+          "descripcion": "Recogida de ramas podadas, acopio en zona de trabajo, transporte a punto de acopio o gestor autorizado. Incluye uso de soplador/aspirador y pequeño material",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "h",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material (guantes, desinfectante, bolsas)",
+          "descripcion": "Equipos de protección individual (guantes resistentes, gafas), desinfectante para herramientas, bolsas para restos, pequeño material fungible",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible - instalador debe revisar y ajustar según consumo real (aprox. 15-30€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 320,
+        "iva_porcentaje": 21,
+        "iva": 67.2,
+        "total": 387.2
+      },
+      "sugerencias_catalogo": [
+        "Si los árboles superan 4-5 metros de altura o requieren elevadora/trepador, solicitar presupuesto adicional de empresa especializada",
+        "Confirmar si los restos se transportan a gestor autorizado (puede generar coste adicional de transporte/gestión)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "EPI y pequeño material",
+          "oficio": "jardineria",
+          "motivo": "Material fungible específico para poda de árboles frutales"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "poda_de_palmeras",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores",
+      "pintado_paredes_habitacion_con_papel_pintado_retirado",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3906,
+      "tokens_out": 1104
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 2,
+    "n_sugeridas": 1,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

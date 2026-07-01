@@ -1,0 +1,262 @@
+{
+  "id": 122,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Cambio completo de cubierta plana en piso ático, impermeabilización con lámina líquida",
+  "http_status": 200,
+  "latency_ms": 24393,
+  "raw_response": {
+    "transcript": "Cambio completo de cubierta plana en piso ático, impermeabilización con lámina líquida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio completo de cubierta plana en piso ático, impermeabilización con lámina líquida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra de envergadura media: requiere inspección previa de estado estructural de la cubierta",
+          "Lámina líquida requiere confirmación de tipo específico (poliurea, acrílica, poliéster)",
+          "Necesario verificar si hay aislamiento existente y estado de la estructura",
+          "Gestión de residuos de cubierta antigua es obligatoria"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Desmontaje y sustitución de cubierta plana completa"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Aplicación de lámina líquida impermeabilizante en cubierta plana"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Retirada y gestión de residuos de cubierta antigua"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje cubierta plana antigua",
+          "descripcion": "Desmontaje completo de cubierta plana existente, incluyendo lámina impermeabilizante antigua, aislamiento si existe, y preparación de soporte. Incluye apuntalamiento de seguridad y protección de accesos.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 de cubierta no especificada. Instalador debe indicar superficie total."
+        },
+        {
+          "concepto": "Limpieza y preparación de soporte",
+          "descripcion": "Limpieza exhaustiva de la superficie, eliminación de polvo, restos de mortero y materiales sueltos. Reparación de grietas y fisuras en la estructura. Nivelación de puntos altos.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Depende de superficie total de cubierta."
+        },
+        {
+          "concepto": "Imprimación asfáltica/bituminosa",
+          "descripcion": "Aplicación de imprimación asfáltica bituminosa sobre soporte preparado para mejorar adherencia de lámina líquida. Cobertura uniforme.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión. Cantidad depende de m2 de cubierta."
+        },
+        {
+          "concepto": "Aplicación lámina líquida impermeabilizante",
+          "descripcion": "Aplicación de lámina líquida impermeabilizante (poliurea, acrílica o poliéster según especificación). Incluye imprimación, aplicación en 2-3 capas cruzadas, sellado de juntas y encuentros con paramentos. Espesor mínimo 2-3 mm.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 18,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Tarifa incluye mano de obra de aplicación."
+        },
+        {
+          "concepto": "Suministro lámina líquida impermeabilizante",
+          "descripcion": "Suministro de lámina líquida impermeabilizante de calidad (poliurea, acrílica o poliéster). Cantidad según m2 de cubierta y espesor especificado (2-3 mm).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión según tipo específico de lámina líquida elegida."
+        },
+        {
+          "concepto": "Refuerzo de encuentros y sumideros",
+          "descripcion": "Refuerzo de lámina líquida en encuentros con paramentos, sumideros, desagües y zonas singulares. Aplicación de capas adicionales y sellado con cinta especial. Incluye protección de bordes.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 15,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales de encuentros no especificada. Instalador debe medir perímetro y encuentros."
+        },
+        {
+          "concepto": "Capa de protección/acabado",
+          "descripcion": "Aplicación de capa de protección mecánica (pintura acrílica reflectante, grava suelta o baldosa flotante) para proteger lámina líquida de rayos UV y tránsito. Según especificación de uso de cubierta.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Tipo de protección debe confirmarse (pintura, grava o baldosa)."
+        },
+        {
+          "concepto": "Suministro capa de protección",
+          "descripcion": "Suministro de material de protección: pintura acrílica reflectante, grava de protección o baldosas flotantes según especificación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente según tipo de protección elegido."
+        },
+        {
+          "concepto": "Retirada y gestión de residuos de cubierta",
+          "descripcion": "Retirada selectiva de residuos de cubierta antigua (lámina, aislamiento, mortero). Transporte a gestor autorizado. Documentación de gestión de residuos.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Precio depende de volumen y tipo de residuos."
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y control de calidad",
+          "descripcion": "Prueba de estanqueidad con agua (flood test) en zonas críticas. Inspección visual de toda la cubierta. Documentación de conformidad.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio: precio pendiente de revisión según complejidad de pruebas."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Pequeño material: cintas de refuerzo, selladores, adhesivos especiales, EPI (arnés, casco, guantes, gafas), herramientas menores, protecciones temporales.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión según cantidad final de m2."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo específico de lámina líquida: poliurea (máxima durabilidad, 20-30 años), acrílica (económica, 10-15 años) o poliéster (intermedia, 15-20 años)",
+        "Especificar si cubierta es transitable o no transitable (afecta a tipo de protección)",
+        "Verificar si existen sumideros o desagües que requieran refuerzo especial",
+        "Considerar aislamiento térmico si no existe o está deteriorado (mejora eficiencia energética)",
+        "Solicitar inspección previa de estructura para detectar grietas o filtraciones existentes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aplicación lámina líquida impermeabilizante",
+          "oficio": "impermeabilizacion",
+          "motivo": "Lámina líquida es variante de impermeabilización de cubierta plana. Incluida en catálogo base pero requiere especificación de tipo."
+        },
+        {
+          "concepto": "Refuerzo de encuentros y sumideros",
+          "oficio": "impermeabilizacion",
+          "motivo": "Partida específica de refuerzo en zonas singulares de cubierta plana con lámina líquida."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_inodoro",
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3986,
+      "tokens_out": 3630
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 11,
+    "n_catalogo": 0,
+    "n_sugeridas": 11,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

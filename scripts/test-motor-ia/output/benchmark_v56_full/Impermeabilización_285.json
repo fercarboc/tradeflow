@@ -1,0 +1,226 @@
+{
+  "id": 285,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar cubierta plana de chalet con lámina de EPDM adherida, 80 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 16861,
+  "raw_response": {
+    "transcript": "Impermeabilizar cubierta plana de chalet con lámina de EPDM adherida, 80 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar cubierta plana de chalet con lámina de EPDM adherida, 80 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de cubierta plana con lámina EPDM adherida — oficio especializado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lámina EPDM espesor 1,2-1,5 mm",
+          "descripcion": "Suministro de lámina EPDM de espesor 1,2-1,5 mm para impermeabilización de cubierta plana adherida, 80 m²",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material EPDM — instalador debe confirmar espesor, marca y precio de suministro"
+        },
+        {
+          "concepto": "Adhesivo específico EPDM",
+          "descripcion": "Adhesivo de contacto específico para EPDM en zonas adheridas, aplicación uniforme sobre base preparada",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Adhesivo especializado EPDM — cantidad y precio según marca y rendimiento"
+        },
+        {
+          "concepto": "Sellado de juntas y solapes EPDM",
+          "descripcion": "Cinta de sellado específica EPDM para juntas y solapes (mínimo 10 cm), sellado hermético de uniones",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cinta de sellado EPDM — cantidad según perímetro de juntas y solapes"
+        },
+        {
+          "concepto": "Refuerzo de encuentros con lámina específica",
+          "descripcion": "Refuerzo de encuentros con paramentos, sumideros y puntos singulares mediante lámina EPDM adicional y productos específicos",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Refuerzo en encuentros — cantidad estimada al 15-20% de superficie; ajustar según proyecto"
+        },
+        {
+          "concepto": "Preparación de base y limpieza",
+          "descripcion": "Limpieza, barrido, eliminación de suciedad y preparación de la base para adhesión correcta de lámina EPDM",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación y adhesión de lámina EPDM",
+          "descripcion": "Colocación, extendido y adhesión de lámina EPDM sobre base preparada, asegurando contacto uniforme y sin arrugas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 12,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de juntas, solapes y encuentros",
+          "descripcion": "Sellado hermético de juntas, solapes (mínimo 10 cm) y encuentros con paramentos, sumideros y puntos singulares",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y control de calidad",
+          "descripcion": "Pruebas de estanqueidad, inspección visual de juntas y solapes, verificación de adhesión correcta",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual (arnés, casco, guantes, gafas), herramientas menores y pequeño material de consumo",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "EPI y pequeño material — cantidad estimada; instalador ajusta según necesidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1725,
+        "iva_porcentaje": 21,
+        "iva": 362.25,
+        "total": 2087.25
+      },
+      "sugerencias_catalogo": [
+        "Confirmar espesor de lámina EPDM (1,2 mm o 1,5 mm) — afecta a precio y durabilidad",
+        "Verificar si la cubierta requiere geotextil de protección o lastre de grava (no adherida) — en este caso es adherida, pero revisar especificaciones del proyecto",
+        "Solicitar certificado de adhesivo específico EPDM — debe ser compatible con la marca de lámina",
+        "Durabilidad esperada: 40-50 años con mantenimiento adecuado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lámina EPDM espesor 1,2-1,5 mm",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material especializado — precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Adhesivo específico EPDM",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Producto especializado — cantidad y precio según marca y rendimiento"
+        },
+        {
+          "concepto": "Sellado de juntas y solapes EPDM",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Cinta de sellado especializada — cantidad según perímetro de juntas"
+        },
+        {
+          "concepto": "Refuerzo de encuentros con lámina específica",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Refuerzo en puntos singulares — cantidad estimada al 15-20%"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Consumibles y protección — cantidad estimada"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM",
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "impermeabilizacion_de_terraza_invertida_con_XPS",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4149,
+      "tokens_out": 2490
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

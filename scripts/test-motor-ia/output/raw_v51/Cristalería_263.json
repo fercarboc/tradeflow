@@ -1,0 +1,144 @@
+{
+  "id": 263,
+  "oficio": "Cristalería",
+  "texto": "Poner espejo grande en baño de 100x80 centímetros con biseles decorativos, sin marco",
+  "http_status": 200,
+  "latency_ms": 15200,
+  "raw_response": {
+    "transcript": "Poner espejo grande en baño de 100x80 centímetros con biseles decorativos, sin marco",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner espejo grande en baño de 100x80 centímetros con biseles decorativos, sin marco",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Espejo en zona húmeda: protector posterior OBLIGATORIO para evitar oxidación",
+          "Espejo de gran formato (8 m²): requiere fijación reforzada y verificación de carga en pared",
+          "Biseles decorativos: verificar disponibilidad en proveedor habitual"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de espejos en baño, fijación especializada, trabajo en zona húmeda"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Espejo con biseles decorativos 100x80 cm",
+          "descripcion": "Espejo de gran formato (0,8 m²) con biseles decorativos, medidas 100x80 cm, templado 6mm, sin marco, apto para baño",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material con biseles decorativos: revisar disponibilidad, especificaciones técnicas y precio con proveedor"
+        },
+        {
+          "concepto": "Fijación reforzada espejo grande - ventosas o tirafondos con taco",
+          "descripcion": "Sistema de fijación especializado para espejo de 0,8 m² en baño: ventosas de alta capacidad o tirafondos con tacos expansion (mínimo 4 puntos fijación)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Verificar tipo de pared (azulejos/mampostería) y elegir fijación óptima"
+        },
+        {
+          "concepto": "Protector posterior de espejo en baño",
+          "descripcion": "Protección posterior del espejo mediante lámina protectora o papel especial para evitar oxidación por humedad en zona húmeda de baño",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material protector: revisar opciones (lámina reflectante, papel especial zona húmeda)"
+        },
+        {
+          "concepto": "Instalación espejo con biseles 100x80 cm en baño",
+          "descripcion": "Mano de obra de instalación: levantamiento, replanteo, fijación reforzada, ajuste de horizontalidad, silicona neutra en encuentros, limpieza",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silicona neutra y pequeño material",
+          "descripcion": "Silicona neutra para encuentros pared-espejo, masilla, paños, desengrasante, material auxiliar instalación",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: calcular según cotización local"
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "Consulta la actuación [instalacion_espejo_en_bano_o_salon] en Base Maestra para rangos de precio 80-650€/ud según tamaño y tipo",
+        "Espejo con biseles en baño de 0,8 m²: se ajusta al rango medio-alto (300-450€ estimado, sin incluir mano de obra)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Espejo con biseles decorativos 100x80 cm",
+          "razon": "Especificación de biseles decorativos no estándar requiere revisión con proveedor"
+        },
+        {
+          "partida": "Fijación reforzada espejo grande - ventosas o tirafondos con taco",
+          "razon": "Gran formato (0,8 m²) requiere sistema de fijación reforzado, precio variable según tipo de pared"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_espejo_en_bano_o_salon",
+      "solado_gres_porcelanico_interior",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_de_jardineras_o_macetones_grandes_en_exterior"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

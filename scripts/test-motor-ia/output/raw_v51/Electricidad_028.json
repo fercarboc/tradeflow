@@ -1,0 +1,180 @@
+{
+  "id": 28,
+  "oficio": "Electricidad",
+  "texto": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+  "http_status": 200,
+  "latency_ms": 19656,
+  "raw_response": {
+    "transcript": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Requiere verificación de cobertura WiFi en todos los puntos de la vivienda",
+          "Necesario comprobar disponibilidad de neutro en cajas de interruptores",
+          "Definir marca/ecosistema de domótica (Google Home, Alexa, Apple Home, etc.)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de dispositivos domoticos WiFi, actuadores, sensores y cableado electrico"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Interruptores inteligentes WiFi (luces)",
+          "descripcion": "Suministro e instalación de interruptores inteligentes WiFi para control de iluminación desde aplicación móvil. Compatibles con principales asistentes de voz. Cantidad según puntos de luz a controlar",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y modelo de interruptores a definir por instalador según número de puntos de luz. Precio unitario pendiente de revisar"
+        },
+        {
+          "concepto": "Actuadores domóticos para calefacción",
+          "descripcion": "Suministro e instalación de válvulas termostáticas inteligentes WiFi o actuadores para control de temperatura de calefacción desde móvil. Incluye sensor de temperatura ambiente",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo de sistema de calefacción (radiadores, suelo radiante, bomba calor) a confirmar. Cantidad de zonas a definir"
+        },
+        {
+          "concepto": "Motorización y control de persianas enrollables",
+          "descripcion": "Suministro e instalación de motors tubulares y receptores WiFi para control remoto de persianas desde aplicación móvil. Incluye mando a distancia o botonera de control local",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de persianas, anchos, pesos de lamas y tipo de instalación (cambio motor existente o nueva instalación) a especificar"
+        },
+        {
+          "concepto": "Hub/Controlador domótico WiFi",
+          "descripcion": "Suministro e instalación de hub o pasarela central para gestión y control integrado de todos los dispositivos domóticos (luces, persianas, calefacción) desde aplicación móvil. Incluye configuración inicial y sincronización de dispositivos",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Modelo de hub según ecosistema elegido (Google Home Hub, Amazon Echo, Aqara, Homey, etc.). Precio a definir"
+        },
+        {
+          "concepto": "Instalación electrica y conexionado domótica",
+          "descripcion": "Mano de obra de instalación: apertura de cajas, colocación de interruptores inteligentes, conexión de actuadores a circuitos de calefacción, instalación de receptores WiFi en motores de persianas, cableado de hub central, pruebas funcionales y puesta en marcha",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de aplicación móvil y asistentes de voz",
+          "descripcion": "Configuración e instalación de aplicación móvil en smartphone/tablet del cliente. Emparejamiento de todos los dispositivos domóticos. Pruebas de funcionamiento de control remoto (luces, persianas, calefacción). Instrucción de uso básico. Integración con asistentes de voz si aplica",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y complementos",
+          "descripcion": "Tornillos, tacos, tubería corrugada, cinta aislante, conectores, placas de acabado y otros materiales menores necesarios para la instalación domótica",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe a estimar según alcance final de instalación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 500,
+        "iva_porcentaje": 21,
+        "iva": 105,
+        "total": 605
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo [instalacion_domotica_basica_wifi] para detalles técnicos obligatorios",
+        "Verificar compatibilidad de todos los dispositivos con el mismo ecosistema/Hub elegido",
+        "Confirmar cobertura WiFi mediante medición previa en todos los puntos de control"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Interruptores inteligentes WiFi (luces)",
+          "oficio": "electricidad",
+          "motivo": "Elemento específico de domótica WiFi que requiere especificación de cantidad y modelo"
+        },
+        {
+          "concepto": "Actuadores domóticos para calefacción",
+          "oficio": "electricidad",
+          "motivo": "Control inteligente de calefacción requiere definición de tipo de sistema y número de zonas"
+        },
+        {
+          "concepto": "Motorización y control de persianas enrollables",
+          "oficio": "persianas",
+          "motivo": "Integración WiFi de persianas requiere especificación de número de persianas y características"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_domotica_basica_wifi",
+      "instalacion_sistema_knx_bus",
+      "instalacion_cuadro_electrico_piscina",
+      "instalacion_persiana_enrollable_aluminio_motorizada",
+      "instalacion_sistema_climatizacion_para_server_room"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "id": 102,
+  "oficio": "Climatización",
+  "texto": "Cambio de caldera de gasoil por aerotermia para calefacción y agua caliente en chalet",
+  "http_status": 200,
+  "latency_ms": 22778,
+  "raw_response": {
+    "transcript": "Cambio de caldera de gasoil por aerotermia para calefacción y agua caliente en chalet",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de caldera de gasoil por aerotermia para calefacción y agua caliente en chalet",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral: desmontaje caldera gasoil + instalación aerotermia + adaptación circuitos. Requiere revisión de viabilidad técnica (espacio exterior, potencia eléctrica disponible, tipo emisores actuales).",
+          "Aerotermia requiere acometida eléctrica reforzada. Verificar disponibilidad de potencia en cuadro general.",
+          "Desmontaje caldera gasoil: gestión de depósito gasoil y residuos especiales obligatoria.",
+          "Presupuesto agrupado en capítulos. Instalador debe desglosar precios unitarios de materiales y mano de obra específica."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: desmontaje caldera gasoil + instalación aerotermia + adaptación instalaciones (fontanería, electricidad, calefacción). ≥3 oficios simultáneos."
+        },
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación aerotermia (bomba de calor aire-aire/aire-agua). Clasificada en energías renovables/eficiencia energética."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Adaptación circuitos agua caliente sanitaria y calefacción. Conexiones hidráulicas."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Acometida eléctrica reforzada, cuadro de control, conexionado aerotermia."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Desmontaje y gestión de residuos caldera gasoil, depósito gasoil, tuberías cobre/acero."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y desmontaje",
+          "descripcion": "Desmontaje caldera gasoil, tuberías de distribución, radiadores/emisores existentes si requieren adaptación, depósito gasoil (vaciado y retirada), pequeño material y accesorios. Incluye limpieza de zona.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe estimar jornadas reales según complejidad desmontaje (accesibilidad, tuberías soldadas, depósito gasoil). Tarifa: 40-45€/h. Estimado: 320-360€/jornada."
+        },
+        {
+          "concepto": "CAP.2 – Instalación aerotermia y adaptación instalaciones",
+          "descripcion": "Suministro e instalación bomba de calor aire-agua (potencia según demanda térmica chalet, típicamente 8-15 kW). Incluye: unidad exterior, unidad interior/acumulador ACS integrado, grupo hidráulico, válvulas 3 vías, anticongelante circuito primario, tuberías cobre/PEX, aislamiento, conexionado eléctrico, centralita de control, pruebas de funcionamiento y puesta en marcha. Adaptación circuitos calefacción existentes (radiadores o suelo radiante).",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material aerotermia: 4000-12000€ según potencia y marca. Instalador debe cotizar equipo específico. Mano de obra instalación: 40-60h (65€/h recomendado) = 2600-3900€."
+        },
+        {
+          "concepto": "CAP.3 – Acometida eléctrica y cuadro de control",
+          "descripcion": "Refuerzo acometida eléctrica desde cuadro general (si necesario), instalación línea dedicada aerotermia (sección cable según potencia, típicamente 6-10 mm²), magnetotérmico diferencial, cuadro de control y automatismo aerotermia, conexionado y pruebas.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material eléctrico: 800-2000€. Mano de obra: 15-25h (50€/h recomendado) = 750-1250€. Requiere verificación disponibilidad potencia en cuadro general."
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos y trámites",
+          "descripcion": "Retirada y gestión de residuos (caldera gasoil, depósito gasoil, tuberías, radiadores desmontados). Certificado de retirada depósito gasoil. Pequeño material y accesorios varios.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión residuos + certificado: 300-600€. Incluye transporte y tratamiento especializado depósito gasoil."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_bomba_calor_aire_agua_para_calefaccion_y_ACS' (energía_solar).",
+        "Verificar en catálogo: 'desmontaje_caldera_gasoil_y_gestion_residuos' (gestion_residuos).",
+        "Verificar en catálogo: 'refuerzo_acometida_electrica_y_cuadro_control' (electricidad).",
+        "Considerar: 'adaptacion_circuitos_calefaccion_existentes' (fontanería) si radiadores requieren rebalanceo."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Bomba de calor aire-agua para calefacción y ACS",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "motivo": "Equipo principal. Precio variable según potencia (8-15 kW típico en chalet): 4000-12000€. Requiere cotización específica."
+        },
+        {
+          "concepto": "Desmontaje caldera gasoil y gestión residuos especiales",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "motivo": "Depósito gasoil requiere certificado de retirada. Coste: 300-600€."
+        },
+        {
+          "concepto": "Refuerzo acometida eléctrica y cuadro de control aerotermia",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "motivo": "Línea dedicada, magnetotérmico, cuadro control. Coste: 800-2000€ + mano de obra 750-1250€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_caldera_o_termocalentador_averiado",
+      "reparacion_averia_caldera_gas",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "instalacion_solar_termica_para_piscina",
+      "instalacion_sistema_solar_termico_colectivo_para_edificio"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3841,
+      "tokens_out": 3008
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

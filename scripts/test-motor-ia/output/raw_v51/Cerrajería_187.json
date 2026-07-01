@@ -1,0 +1,168 @@
+{
+  "id": 187,
+  "oficio": "Cerrajería",
+  "texto": "Instalar reja de seguridad en ventanas del bajo, 4 ventanas de diferentes medidas",
+  "http_status": 200,
+  "latency_ms": 12823,
+  "raw_response": {
+    "transcript": "Instalar reja de seguridad en ventanas del bajo, 4 ventanas de diferentes medidas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar reja de seguridad en ventanas del bajo, 4 ventanas de diferentes medidas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Las medidas exactas de las 4 ventanas son necesarias para cotizar las rejas (material)",
+          "Verificar accesibilidad de las ventanas para montaje y anclaje",
+          "Confirmar si alguna ventana requiere sistema de apertura de emergencia"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Instalación de rejas metálicas de seguridad en ventanas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de rejas metálicas de seguridad",
+          "descripcion": "4 rejas de acero/aluminio según medidas y diseño de cada ventana, con acabado antioxidante",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas de cada ventana, diseño y material"
+        },
+        {
+          "concepto": "Anclajes a jamba/muro para rejas",
+          "descripcion": "Anclajes metálicos mínimo 4 puntos por reja, profundidad mínima 8cm, para 4 ventanas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 16,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir químicos de anclaje (resina epoxi) y tornillería según tipo de superficie"
+        },
+        {
+          "concepto": "Tratamiento antioxido y pintura protectora",
+          "descripcion": "Tratamiento antióxido + pintura de acabado para 4 rejas de seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir producto antioxido y pintura epoxi/poliéster según acabado requerido"
+        },
+        {
+          "concepto": "Pequeño material y herrajes diversos",
+          "descripcion": "Tornillería, arandelas, clavos de impacto, sellantes y consumibles para instalación de 4 rejas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidades aproximadas, revisar según complejidad real del montaje"
+        },
+        {
+          "concepto": "Instalación de rejas de seguridad",
+          "descripcion": "Montaje y anclaje de 4 rejas metálicas en ventanas del bajo, incluye nivelación, ajuste y control de seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 60,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento antioxido y pintura en obra",
+          "descripcion": "Aplicación de tratamiento antioxido y pintura protectora sobre rejas ya instaladas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 960,
+        "iva_porcentaje": 21,
+        "iva": 201.6,
+        "total": 1161.6
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente medidas exactas (alto x ancho) de cada una de las 4 ventanas",
+        "Confirmar tipo de material preferido: acero galvanizado, aluminio anodizado o acero pintado",
+        "Verificar si alguna ventana es de salida de emergencia (requeriría sistema de apertura)",
+        "Evaluar tipo de jamba/muro (hormigón, ladrillo, piedra) para determinar sistema de anclaje",
+        "Confirmar color de acabado final de las rejas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Suministro de rejas metálicas de seguridad",
+          "razon": "Requiere medidas específicas de cada ventana para cotización exacta",
+          "origen": "sugerida_ia"
+        },
+        {
+          "partida": "Anclajes a jamba/muro para rejas",
+          "razon": "Cantidad y tipo varían según medidas y material de soporte",
+          "origen": "sugerida_ia"
+        },
+        {
+          "partida": "Tratamiento antioxido y pintura protectora",
+          "razon": "Cantidades dependen de superficie total de rejas",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_reja_fija_en_ventana_o_puerta",
+      "instalacion_alarma_intrusion",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_cerrojo_adicional"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

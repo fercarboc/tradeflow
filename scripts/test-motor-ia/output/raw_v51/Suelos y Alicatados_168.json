@@ -1,0 +1,203 @@
+{
+  "id": 168,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Reparar baldosas sueltas y rotas en terraza exterior, ajuste y rejuntado, 8 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 17150,
+  "raw_response": {
+    "transcript": "Reparar baldosas sueltas y rotas en terraza exterior, ajuste y rejuntado, 8 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar baldosas sueltas y rotas en terraza exterior, ajuste y rejuntado, 8 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar estado del soporte base antes de reposición",
+          "Confirmar si es necesaria impermeabilización previa (terraza sobre espacio habitable)",
+          "Pendiente mínima 1.5% hacia desagüe obligatoria en exteriores"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Reparación de pavimento exterior: desmontaje, ajuste y rejuntado de baldosas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de baldosas rotas/sueltas",
+          "descripcion": "Desmontaje cuidadoso de baldosas deterioradas, retirada de mortero antiguo y limpieza de base",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 25,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Baldosa exterior antideslizante R11 (reposición)",
+          "descripcion": "Baldosas cerámicas antideslizante mínimo R11, mismo tipo y características que las existentes",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material baldosa a revisar según especificación técnica y marca"
+        },
+        {
+          "concepto": "Mortero cola flexible C2S2 exterior",
+          "descripcion": "Mortero cola de clase C2S2 (deformabilidad S2) para exteriores, aplicación en base",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material mortero a revisar según marca y rendimiento"
+        },
+        {
+          "concepto": "Instalación y colocación de baldosas",
+          "descripcion": "Colocación de baldosas con mortero, ajuste de nivel y aplomado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lechada junta exterior flexible",
+          "descripcion": "Lechada de junta flexible para exteriores, resistente a heladas y UV",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material lechada a revisar según marca y color"
+        },
+        {
+          "concepto": "Rejuntado y limpieza de juntas",
+          "descripcion": "Aplicación de lechada en juntas, limpieza y acabado final",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 20,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta de dilatación perimetral y en campo",
+          "descripcion": "Junta de dilatación flexible perimetral y en campo cada 3-4m (obligatoria exterior CTE)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de junta de dilatación a revisar según tipo y material"
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Crucetas, esponjas, herramientas auxiliares, EPI de seguridad",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material a revisar según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 640,
+        "iva_porcentaje": 21,
+        "iva": 134.4,
+        "total": 774.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la terraza está sobre espacio habitable: si es así, incluir IMPERMEABILIZACIÓN PREVIA (banda autoadhesiva o tratamiento impermeabilizante)",
+        "Confirmar pendiente mínima del 1.5% hacia desagüe/sumidero",
+        "Inspeccionar soporte base: si está deteriorado, añadir regularización o mortero de nivelación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Baldosa exterior antideslizante R11",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Reposición de piezas rotas según especificación CTE exterior R11 mínimo"
+        },
+        {
+          "concepto": "Mortero cola flexible C2S2 exterior",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Adhesivo para colocación en exterior con flexibilidad S2"
+        },
+        {
+          "concepto": "Lechada junta exterior flexible",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Relleno de juntas en exterior con resistencia a heladas y UV"
+        },
+        {
+          "concepto": "Junta de dilatación perimetral y en campo",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Obligatoria en exteriores CTE cada 3-4m"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_reposicion_de_pavimento_exterior_deteriorado",
+      "solado_exterior_terraza_o_patio",
+      "solado_ceramico_exterior_terraza",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "sustitucion_lamas_persiana_enrollable_aluminio"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

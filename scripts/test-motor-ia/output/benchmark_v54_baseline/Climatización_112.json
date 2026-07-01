@@ -1,0 +1,186 @@
+{
+  "id": 112,
+  "oficio": "Climatización",
+  "texto": "Revisar y limpiar conductos de ventilación de edificio de oficinas, 4 plantas con 20 difusores",
+  "http_status": 200,
+  "latency_ms": 17173,
+  "raw_response": {
+    "transcript": "Revisar y limpiar conductos de ventilación de edificio de oficinas, 4 plantas con 20 difusores",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y limpiar conductos de ventilación de edificio de oficinas, 4 plantas con 20 difusores",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de mantenimiento preventivo en instalación de climatización/ventilación existente",
+          "Incluye acceso a difusores en 4 plantas: verificar accesibilidad y seguridad en altura",
+          "Se recomienda inspección con cámara endoscópica para evaluar estado real de conductos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Limpieza y revisión de sistema de ventilación/climatización, difusores y conductos"
+        },
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Coordinación de acceso a múltiples plantas, inspección general del sistema"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección visual y con cámara endoscópica de conductos de ventilación",
+          "descripcion": "Inspección completa de conductos principales y ramales en 4 plantas, con cámara endoscópica para evaluar acumulación de polvo, suciedad y estado general. Informe fotográfico detallado.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 350,
+          "total": 350,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado según complejidad (4 plantas, inspección con equipo especializado). Instalador ajusta según tiempo real y equipo disponible."
+        },
+        {
+          "concepto": "Limpieza de conductos principales y ramales",
+          "descripcion": "Limpieza mecánica de conductos de ventilación en 4 plantas mediante cepillos rotativos y aspiración profesional. Incluye limpieza de ramales secundarios y puntos de conexión a difusores.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "h",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de 8 horas para 4 plantas. Ajustar según accesibilidad real y grado de suciedad detectado en inspección."
+        },
+        {
+          "concepto": "Limpieza y desinfección de 20 difusores",
+          "descripcion": "Desmontaje, limpieza química y desinfección de 20 difusores de ventilación distribuidos en 4 plantas. Incluye limpieza de marcos, rejillas y pequeño material. Reinstalación y verificación de funcionamiento.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 35,
+          "total": 700,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada por difusor (desmontaje, limpieza, reinstalación). Incluye desplazamientos entre plantas."
+        },
+        {
+          "concepto": "Limpieza de filtros de unidad central de ventilación",
+          "descripcion": "Acceso a cuarto de máquinas, limpieza o sustitución de filtros de la unidad central de ventilación/climatización. Verificación de presión diferencial y estado de sellos.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado. Puede incluir sustitución de filtros (material a presupuestar aparte si es necesario)."
+        },
+        {
+          "concepto": "Verificación de funcionamiento y equilibrado de caudales",
+          "descripcion": "Comprobación de funcionamiento de la unidad central, medición de caudales en difusores principales, verificación de presiones en conductos y equilibrado con compuertas de regulación si es necesario.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "h",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico de mantenimiento y recomendaciones",
+          "descripcion": "Elaboración de informe detallado con fotografías, estado de conductos, difusores, filtros y unidad central. Recomendaciones de mantenimiento futuro y frecuencia de limpieza. Entrega en formato digital.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 100,
+          "total": 100,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado por informe técnico completo. Ajustar según nivel de detalle requerido."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1900,
+        "iva_porcentaje": 21,
+        "iva": 399,
+        "total": 2299
+      },
+      "sugerencias_catalogo": [
+        "Considerar contrato de mantenimiento preventivo anual para edificios de oficinas: revisión semestral de conductos y difusores reduce riesgo de acumulación de contaminantes y mejora calidad del aire interior.",
+        "Si se detecta suciedad severa en conductos, valorar limpieza química adicional con biocida para eliminar bacterias y hongos.",
+        "Verificar si la instalación dispone de compuertas de regulación en ramales; si no las tiene, considerar instalación para mejor equilibrado de caudales entre plantas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inspección visual y con cámara endoscópica de conductos de ventilación",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Actividad de inspección especializada no explícitamente en catálogo base, pero necesaria para evaluar estado real de conductos antes de limpieza."
+        },
+        {
+          "concepto": "Limpieza y desinfección de 20 difusores",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de desmontaje, limpieza y reinstalación de difusores. Tarifa unitaria estimada."
+        },
+        {
+          "concepto": "Informe técnico de mantenimiento y recomendaciones",
+          "oficio": "mantenimiento_general",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de documentación y asesoramiento técnico post-mantenimiento."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_difusores_y_rejillas_climatizacion",
+      "limpieza_general_saneamiento_comunidad",
+      "mantenimiento_anual_split_o_aire_acondicionado",
+      "revision_general_fontaneria_comunidad",
+      "mantenimiento_preventivo_de_grupo_de_presion"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3481,
+      "tokens_out": 2224
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "id": 85,
+  "oficio": "Albañilería",
+  "texto": "Alicatar el baño completo con azulejos nuevos, superficie 25 metros cuadrados de paredes y suelo",
+  "http_status": 200,
+  "latency_ms": 18092,
+  "raw_response": {
+    "transcript": "Alicatar el baño completo con azulejos nuevos, superficie 25 metros cuadrados de paredes y suelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Alicatar el baño completo con azulejos nuevos, superficie 25 metros cuadrados de paredes y suelo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Se asume 25 m² totales (paredes + suelo). Revisar desglose: m² paredes vs m² suelo para precisión de materiales.",
+          "Zona ducha requiere impermeabilización previa obligatoria.",
+          "Suelo debe ser antideslizante R11 mínimo en baño.",
+          "Junta silicona en encuentros suelo-pared es obligatoria."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Alicatado completo baño (paredes y suelo). Oficio suelos_alicatados cubre alicatado integral de baños."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Impermeabilización zona ducha y bañera",
+          "descripcion": "Aplicación de lámina impermeabilizante o pintura impermeabilizante en zona de ducha/bañera antes del alicatado. Superficie estimada 8-10 m².",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 9,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material impermeabilizante: precio pendiente de revisión (tipo: lámina EPDM, TPO, PVC o pintura impermeabilizante)."
+        },
+        {
+          "concepto": "Azulejos/cerámica pared baño",
+          "descripcion": "Suministro de azulejos o cerámica para paredes de baño. Estimado 15 m² de paredes. Incluye pequeño material (crucetas, espaciadores).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de azulejos/cerámica pared: pendiente de revisión según calidad y tipo elegido."
+        },
+        {
+          "concepto": "Baldosa suelo antideslizante R11 baño",
+          "descripcion": "Suministro de baldosa antideslizante R11 para suelo de baño. Estimado 10 m² de suelo. Incluye pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio baldosa antideslizante R11: pendiente de revisión según calidad y tipo elegido."
+        },
+        {
+          "concepto": "Mortero cola C2S2 flexible",
+          "descripcion": "Suministro de mortero cola flexible C2S2 para fijación de azulejos y baldosas. Estimado 25 m² × 3 kg/m² = 75 kg.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 75,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio mortero cola C2S2: pendiente de revisión."
+        },
+        {
+          "concepto": "Lechada flexible junta",
+          "descripcion": "Suministro de lechada flexible para juntas entre azulejos y baldosas. Estimado 25 m² × 1.5 kg/m² = 37.5 kg.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 38,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio lechada flexible: pendiente de revisión."
+        },
+        {
+          "concepto": "Perfiles aluminio esquinas y remates",
+          "descripcion": "Suministro de perfiles de aluminio para esquinas exteriores y remates. Estimado 20 ml.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio perfiles aluminio: pendiente de revisión."
+        },
+        {
+          "concepto": "Junta silicona encuentros suelo-pared",
+          "descripcion": "Suministro e instalación de silicona en junta perimetral entre suelo y pared. Estimado perímetro 12 ml.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio silicona: pendiente de revisión."
+        },
+        {
+          "concepto": "Mano de obra alicatado completo baño",
+          "descripcion": "Mano de obra para alicatado completo de baño: replanteo, impermeabilización, colocación azulejos paredes, colocación baldosas suelo, rejuntado, perfiles, silicona. 25 m² totales.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 32,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 800,
+        "iva_porcentaje": 21,
+        "iva": 168,
+        "total": 968
+      },
+      "sugerencias_catalogo": [
+        "Confirmar desglose de 25 m²: ¿cuántos m² de paredes y cuántos de suelo? Esto afecta a cantidades de materiales.",
+        "Especificar tipo de azulejo/cerámica (porcelánico, gres, cerámica estándar) para precisar precio.",
+        "Confirmar si hay zona de ducha con plato de ducha o bañera (afecta impermeabilización).",
+        "Especificar color y tipo de lechada (blanca, gris, epoxi) para precisar precio.",
+        "Revisar si se incluye rodapié o remate superior en paredes."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "alicatado_y_solado_completo_cocina",
+      "instalacion_azulejos_o_ceramica_en_zona_de_cocina_profesional",
+      "alicatado_ceramico_pared_interior"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3937,
+      "tokens_out": 2552
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "NO"
+  }
+}

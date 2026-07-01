@@ -1,0 +1,169 @@
+{
+  "id": 220,
+  "oficio": "Jardinería",
+  "texto": "Plantar fila de árboles para crear pantalla visual entre vivienda y vecinos, 8 cipreses",
+  "http_status": 200,
+  "latency_ms": 13705,
+  "raw_response": {
+    "transcript": "Plantar fila de árboles para crear pantalla visual entre vivienda y vecinos, 8 cipreses",
+    "quote": {
+      "resumen": {
+        "texto_original": "Plantar fila de árboles para crear pantalla visual entre vivienda y vecinos, 8 cipreses",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Plantación de árboles (cipreses) para crear pantalla visual. Trabajo de jardinería especializada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de 8 cipreses para pantalla visual",
+          "descripcion": "Suministro de 8 árboles cipreses de altura y calibre adecuado para crear pantalla visual entre viviendas. Incluye transporte a obra.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del árbol cipres según calibre y altura a definir por instalador (típicamente 80-250€/ud según tamaño)"
+        },
+        {
+          "concepto": "Preparación del terreno y excavación de hoyos",
+          "descripcion": "Preparación del terreno, excavación de 8 hoyos de plantación con dimensiones adecuadas (0,60x0,60x0,60m), aflojamiento y enmienda del suelo.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 25,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantación de 8 cipreses",
+          "descripcion": "Plantación de los 8 árboles cipreses en hoyos preparados, colocación correcta de raíces, relleno con tierra enriquecida y compactación.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Riego inicial y acolchado de protección",
+          "descripcion": "Riego abundante post-plantación de los 8 árboles, aplicación de acolchado (mulch) alrededor de cada árbol para retención de humedad y protección de raíces.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de tierra enriquecida y acolchado",
+          "descripcion": "Suministro de tierra vegetal enriquecida con materia orgánica y acolchado (mulch) para protección y mantenimiento de las plantaciones.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tierra y acolchado a definir por instalador (típicamente 30-60€/m3)"
+        },
+        {
+          "concepto": "Tutores y sistemas de sujeción",
+          "descripcion": "Suministro e instalación de tutores de madera o bambú y sistemas de sujeción (cintas elásticas) para estabilización de los 8 árboles durante el primer año.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tutores y sistemas de sujeción a definir por instalador (típicamente 15-40€/ud)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 225,
+        "iva_porcentaje": 21,
+        "iva": 47.25,
+        "total": 272.25
+      },
+      "sugerencias_catalogo": [
+        "Considerar si los cipreses requieren tratamiento fitosanitario previo a plantación",
+        "Verificar disponibilidad de agua para riego post-plantación durante primeras semanas",
+        "Evaluar si es necesario sistema de riego por goteo para mantenimiento a largo plazo",
+        "Confirmar altura y calibre de los cipreses según distancia a vivienda y efecto visual deseado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de cipreses",
+          "oficio": "jardineria",
+          "motivo": "Material vegetal con precio variable según calibre y altura"
+        },
+        {
+          "concepto": "Tierra enriquecida y acolchado",
+          "oficio": "jardineria",
+          "motivo": "Material de enmienda y protección del suelo"
+        },
+        {
+          "concepto": "Tutores y sistemas de sujeción",
+          "oficio": "jardineria",
+          "motivo": "Accesorios de estabilización de árboles jóvenes"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_pantalla_de_proyeccion_motorizada",
+      "instalacion_de_sistema_audiovisual_en_sala_de_reuniones",
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "instalacion_enchufe_exterior_ip44"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4024,
+      "tokens_out": 1753
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

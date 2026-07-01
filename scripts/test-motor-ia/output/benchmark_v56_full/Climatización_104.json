@@ -1,0 +1,169 @@
+{
+  "id": 104,
+  "oficio": "Climatización",
+  "texto": "Reparar aire acondicionado que no enfría, revisar gas y compresor de la unidad exterior",
+  "http_status": 200,
+  "latency_ms": 15816,
+  "raw_response": {
+    "transcript": "Reparar aire acondicionado que no enfría, revisar gas y compresor de la unidad exterior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar aire acondicionado que no enfría, revisar gas y compresor de la unidad exterior",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Diagnóstico técnico pendiente: revisar presión de gas y estado del compresor requiere inspección previa",
+          "Si hay fuga de gas o compresor dañado, el presupuesto puede aumentar significativamente",
+          "Recomendación: realizar diagnóstico completo antes de confirmar presupuesto final"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Reparación de sistema de climatización split, revisión de gas refrigerante y compresor"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión técnica del sistema",
+          "descripcion": "Inspección completa de la unidad exterior: verificación de presión de gas refrigerante, estado del compresor, fugas, conexiones eléctricas y funcionamiento general",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Carga de gas refrigerante R32",
+          "descripcion": "Recarga de gas refrigerante si se detecta pérdida o nivel bajo en el sistema",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del gas refrigerante pendiente de revisión según cantidad exacta necesaria y tipo de refrigerante"
+        },
+        {
+          "concepto": "Limpieza y mantenimiento de unidad exterior",
+          "descripcion": "Limpieza de condensador, ventilador y componentes externos de la unidad exterior para optimizar transferencia térmica",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de presiones y funcionamiento",
+          "descripcion": "Comprobación de presiones de alta y baja, verificación de drenaje de condensados, prueba de funcionamiento en modo frío y calor",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación o sustitución de compresor (si procede)",
+          "descripcion": "Desmontaje, reparación o sustitución del compresor de la unidad exterior si se detecta avería. Incluye mano de obra de desmontaje e instalación",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 60,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida condicionada: solo aplica si el compresor requiere reparación o sustitución. Cantidad de horas y precio del compresor pendientes de diagnóstico"
+        },
+        {
+          "concepto": "Material auxiliar y pequeño material",
+          "descripcion": "Juntas, tuercas, tornillos, cinta teflón, aceite refrigerante y otros consumibles necesarios para la reparación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente según necesidades específicas detectadas en diagnóstico"
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de compresores compatibles si se requiere sustitución",
+        "Verificar disponibilidad de gas refrigerante R32 en stock",
+        "Considerar mantenimiento anual preventivo para evitar futuras averías"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Carga de gas refrigerante R32",
+          "motivo": "Material específico cuyo precio depende de cantidad y proveedor"
+        },
+        {
+          "concepto": "Reparación o sustitución de compresor",
+          "motivo": "Partida condicionada al resultado del diagnóstico; requiere inspección previa"
+        },
+        {
+          "concepto": "Material auxiliar y pequeño material",
+          "motivo": "Consumibles varios cuyo importe exacto depende de la reparación específica"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_split_o_aire_acondicionado",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "instalacion_sistema_climatizacion_nave_industrial",
+      "instalacion_split_1x1_pared",
+      "instalacion_split_1x1_cassette_techo"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3962,
+      "tokens_out": 1985
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

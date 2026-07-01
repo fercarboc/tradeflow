@@ -1,0 +1,231 @@
+{
+  "id": 314,
+  "oficio": "Contra Incendios",
+  "texto": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+  "http_status": 200,
+  "latency_ms": 26270,
+  "raw_response": {
+    "transcript": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Sustitución de central de incendios requiere empresa instaladora REGISTRADA según RITE e Industria",
+          "CRÍTICO: Cableado resistente al fuego E30 OBLIGATORIO en toda la instalación",
+          "CRÍTICO: Batería de respaldo mínimo 72h según REBT y EN 54",
+          "CRÍTICO: Revisión semestral OBLIGATORIA post-instalación",
+          "CRÍTICO: Norma UNE 23007 y CTE DB-SI aplicables",
+          "Revisar si central antigua requiere desmontaje especializado (residuos peligrosos)",
+          "Confirmar tipo de detectores existentes (ionización/ópticos) para compatibilidad",
+          "Confirmar número de zonas y detectores para dimensionar batería y cableado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de detección y alarma de incendios — oficio especializado contra_incendios por normativa CTE DB-SI y RITE"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica, alimentación y batería de respaldo 72h"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Desmontaje y gestión de central obsoleta (posibles residuos especiales)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje central de incendios obsoleta",
+          "descripcion": "Desmontaje completo de central analógica antigua, desconexión de cableado, detectores y periféricos. Incluye etiquetado de líneas y documentación de estado actual.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 440,
+          "total": 440,
+          "precio_origen": "tarifa_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo de desmontaje depende de complejidad de instalación antigua y número de líneas"
+        },
+        {
+          "concepto": "Central de incendios analógica certificada EN 54-2 y EN 54-4",
+          "descripcion": "Central de detección y alarma de incendios analógica con protocolo de comunicación, certificada EN 54-2 (equipos) y EN 54-4 (fuente alimentación), con módulo de supervisión de líneas, capacidad mínimo 4 zonas, entrada para batería de respaldo 72h.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de central analógica con protocolo comunicación pendiente de cotización — rango estimado 800-2000€ según capacidad y protocolo (Modbus, TCP/IP, etc.)"
+        },
+        {
+          "concepto": "Batería de respaldo 72h para central incendios",
+          "descripcion": "Batería de respaldo de 72 horas mínimo para central de incendios, según REBT y EN 54-4, con cargador integrado y conectores de seguridad.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio batería 72h pendiente — rango estimado 300-800€ según capacidad (Ah) requerida"
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 para central incendios",
+          "descripcion": "Suministro e instalación de cableado resistente al fuego categoría E30 (mínimo) para todas las líneas de detectores, pulsadores y sirenas. Incluye bandejas, canalizaciones y pequeño material de fijación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cableado E30 a determinar según plano de instalación existente — rango estimado 8-15€/ml instalado"
+        },
+        {
+          "concepto": "Instalación y conexión central de incendios",
+          "descripcion": "Instalación de central en armario/cuadro, conexión de alimentación eléctrica, batería de respaldo, cableado de detectores y periféricos, pruebas de funcionamiento y configuración de zonas según plano de sectores.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1.5,
+          "precio_unitario": 440,
+          "total": 660,
+          "precio_origen": "tarifa_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo instalación depende de número de zonas, detectores y complejidad de cableado existente"
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha central incendios",
+          "descripcion": "Pruebas de funcionamiento de central, detectores, pulsadores y sirenas. Verificación de comunicación de protocolo. Prueba de batería de respaldo. Documentación de pruebas y entrega de manual de operación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 0.5,
+          "precio_unitario": 440,
+          "total": 220,
+          "precio_origen": "tarifa_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo pruebas depende de número de detectores y complejidad de sistema"
+        },
+        {
+          "concepto": "Gestión y retirada de central obsoleta",
+          "descripcion": "Retirada de central antigua, embalaje, transporte y gestión de residuos especiales (baterías, componentes electrónicos) según normativa de residuos peligrosos.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio gestión residuos pendiente — rango estimado 100-300€ según peso y tipo de residuos"
+        },
+        {
+          "concepto": "Documentación técnica y legalización",
+          "descripcion": "Elaboración de certificado de instalación según UNE 23007, plano de sectores de incendio actualizado, libro de mantenimiento, solicitud de revisión inicial a organismo de control si aplica.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio documentación y legalización pendiente — rango estimado 200-500€ según complejidad y si requiere organismo de control"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1320,
+        "iva_porcentaje": 21,
+        "iva": 277.2,
+        "total": 1597.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Cuántas zonas tiene la instalación actual? (determina capacidad central)",
+        "Confirmar: ¿Número aproximado de detectores, pulsadores y sirenas? (determina cableado E30 necesario)",
+        "Confirmar: ¿Protocolo de comunicación específico requerido? (Modbus, TCP/IP, radio, etc.)",
+        "Confirmar: ¿Requiere integración con BMS, control de acceso o transmisión a central receptora?",
+        "OBLIGATORIO: Empresa instaladora debe estar REGISTRADA según RITE e Industria",
+        "OBLIGATORIO: Contratación de mantenimiento semestral post-instalación (revisión obligatoria)",
+        "Considerar: ¿Necesita revisión por organismo de control independiente? (depende de uso del edificio)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central de incendios analógica certificada EN 54-2 y EN 54-4",
+          "oficio": "contra_incendios",
+          "motivo": "Material específico — precio pendiente de cotización según marca y protocolo"
+        },
+        {
+          "concepto": "Batería de respaldo 72h para central incendios",
+          "oficio": "electricidad",
+          "motivo": "Material específico — precio pendiente de cotización según capacidad Ah"
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 para central incendios",
+          "oficio": "contra_incendios",
+          "motivo": "Material específico — cantidad y precio pendiente según plano de instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "recalificacion_instalacion_fontaneria_comunidad",
+      "sustitucion_tuberia_multicapa",
+      "mantenimiento_de_instalacion_contra_incendios_en_local",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_central_deteccion_y_alarma_incendios"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3894,
+      "tokens_out": 3466
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 8,
+    "n_catalogo": 0,
+    "n_sugeridas": 8,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

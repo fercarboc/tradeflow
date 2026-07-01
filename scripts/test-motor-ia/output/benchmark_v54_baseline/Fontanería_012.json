@@ -1,0 +1,225 @@
+{
+  "id": 12,
+  "oficio": "Fontanería",
+  "texto": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+  "http_status": 200,
+  "latency_ms": 18787,
+  "raw_response": {
+    "transcript": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Instalación de grupo de presión: requiere verificación de caudal, altura manométrica y potencia de bomba",
+          "Calderín de 24L: confirmar si es suficiente para consumo de la vivienda",
+          "Presostato y cuadro eléctrico: deben revisarse tras instalación",
+          "Conexión eléctrica: verificar disponibilidad de toma y protecciones"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de grupo de presión, bomba, válvulas, racores y conexiones hidráulicas"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica de la bomba de presión al cuadro de control"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro bomba de presión centrífuga",
+          "descripcion": "Bomba de presión centrífuga para grupo de presión, potencia según caudal requerido, con motor eléctrico monofásico",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de bomba pendiente de selección según potencia (0.5-1.5 kW típico). Rango estimado: 150-400€"
+        },
+        {
+          "concepto": "Suministro calderín de 24 litros",
+          "descripcion": "Calderín acumulador de presión de 24 litros con membrana EPDM, presión máxima 10 bar, conexión 1\" roscada",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de calderín pendiente. Rango estimado: 80-200€"
+        },
+        {
+          "concepto": "Suministro válvula de retención y racores de unión",
+          "descripcion": "Válvula de retención de 1\", racores de latón, tuercas de unión, teflón y pequeño material de conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de accesorios hidráulicos pendiente. Rango estimado: 40-100€"
+        },
+        {
+          "concepto": "Suministro presostato y manómetro",
+          "descripcion": "Presostato electrónico de 0-10 bar con rango ajustable, manómetro analógico de glicerina 0-10 bar, conexión 1/4\"",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de presostato y manómetro pendiente. Rango estimado: 60-150€"
+        },
+        {
+          "concepto": "Suministro base antivibrante y pequeño material",
+          "descripcion": "Base antivibrante para bomba, arandelas, tornillos, tuercas, teflón, pasta de sellado y material auxiliar",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de accesorios auxiliares pendiente. Rango estimado: 30-80€"
+        },
+        {
+          "concepto": "Instalación grupo de presión: desmontaje, montaje y conexiones hidráulicas",
+          "descripcion": "Desmontaje de instalación anterior si existe, montaje de bomba en base antivibrante, conexión de calderín, válvula de retención, manómetro y presostato. Pruebas de presión y funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica de bomba de presión",
+          "descripcion": "Conexión de bomba al cuadro eléctrico con cable de sección adecuada, protección diferencial, interruptor magnetotérmico y puesta a tierra. Pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro cable eléctrico y protecciones",
+          "descripcion": "Cable de cobre 2x2.5 mm² o 3x2.5 mm² según potencia, tubo corrugado, interruptor magnetotérmico 16A, diferencial 30mA, pequeño material eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material eléctrico pendiente. Rango estimado: 50-120€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Verificar caudal necesario en el cuarto de baño (típicamente 0.3-0.5 l/s) para seleccionar potencia de bomba correcta",
+        "Confirmar altura manométrica requerida (diferencia de altura entre toma de agua y punto más alto de consumo)",
+        "Revisar presión de red actual antes de instalar grupo de presión",
+        "Calderín de 24L es adecuado para vivienda unifamiliar; si hay múltiples baños considerar 50L",
+        "Presostato debe ajustarse a rango 1.5-2.5 bar (encendido) y 3.5-4.5 bar (apagado) típicamente",
+        "Realizar prueba de presión a 10 bar tras instalación",
+        "Mantenimiento preventivo recomendado cada 6 meses: revisión de presiones y estado de membrana del calderín"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Bomba de presión centrífuga",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Material específico para grupo de presión, no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Calderín de 24 litros",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Acumulador de presión específico, no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Presostato y manómetro",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Componentes de control de presión, no encontrados en catálogo base"
+        },
+        {
+          "concepto": "Cable eléctrico y protecciones",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Material eléctrico específico para conexión de bomba, no encontrado en catálogo base"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_bomba_presion",
+      "mantenimiento_preventivo_de_grupo_de_presion",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "instalacion_suelo_radiante_hidraulico",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3691,
+      "tokens_out": 2665
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

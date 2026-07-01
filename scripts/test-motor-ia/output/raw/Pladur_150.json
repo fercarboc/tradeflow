@@ -1,0 +1,181 @@
+{
+  "id": 150,
+  "oficio": "Pladur",
+  "texto": "Tabique curvo de pladur para zona de recepción de empresa, diseño específico con radio de 2 metros",
+  "http_status": 200,
+  "latency_ms": 21551,
+  "raw_response": {
+    "transcript": "Tabique curvo de pladur para zona de recepción de empresa, diseño específico con radio de 2 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique curvo de pladur para zona de recepción de empresa, diseño específico con radio de 2 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Tabique curvo requiere cálculo técnico y plantilla de curvatura",
+          "Radio de 2 metros es moderado; verificar si requiere refuerzo estructural adicional",
+          "Precio unitario de mano de obra ajustado por complejidad de curvatura",
+          "Material de placa curva (flexible o cortada) debe especificarse en revisión"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Tabique de pladur con complejidad añadida por curvatura; tarifa incrementada respecto a tabique recto (25€/m²) por trabajo especializado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cálculo técnico y plantilla de curvatura",
+          "descripcion": "Diseño, cálculo de radio de curvatura (2m) y elaboración de plantilla para ejecución de tabique curvo",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio técnico especializado; instalador debe valorar según complejidad del diseño y planos disponibles"
+        },
+        {
+          "concepto": "Perfiles metálicos (canal y montante) para tabique curvo",
+          "descripcion": "Suministro de perfiles canal y montante galvanizados, cortados y preparados para conformar la curvatura de radio 2m. Incluye arriostramientos horizontales",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y peso dependen de altura y longitud total del tabique; instalador debe medir y calcular"
+        },
+        {
+          "concepto": "Placa de yeso laminado estándar 15mm",
+          "descripcion": "Suministro de placa de yeso laminado 15mm para revestimiento de estructura curva. Cantidad según superficie total",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total del tabique curvo a medir en obra; considerar desperdicio por cortes curvos (10-15% adicional)"
+        },
+        {
+          "concepto": "Tornillería inox y pequeño material",
+          "descripcion": "Tornillos autorroscantes inox, cinta de juntas, pasta de juntas, angulares metálicos y pequeño material para montaje de tabique curvo",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de tornillería y material de juntas proporcional a superficie; instalador ajusta según m² final"
+        },
+        {
+          "concepto": "Montaje de estructura metálica curva",
+          "descripcion": "Instalación de perfiles metálicos conformados a radio 2m, fijación a suelo y techo, arriostramientos horizontales cada 2m, nivelación y aplomado de estructura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de montaje dependen de altura, longitud y complejidad de curvatura; estimación inicial 40€/h (tarifa pladur especializado). Instalador ajusta cantidad de horas según mediciones"
+        },
+        {
+          "concepto": "Colocación de placa de yeso curva y acabado de juntas",
+          "descripcion": "Corte, adaptación y fijación de placas de yeso a estructura curva. Aplicación de cinta de juntas, pasta de juntas en dos manos, lijado y preparación para pintura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Trabajo especializado por curvatura; tarifa 40€/h. Horas totales según m² de superficie y complejidad de acabado (zona recepción requiere acabado de calidad)"
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora (si altura > 3m)",
+          "descripcion": "Alquiler y montaje de andamio o plataforma elevadora para acceso seguro durante montaje y acabado de tabique curvo de altura superior a 3 metros",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "servicio",
+          "unidad": "día",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario solo si altura > 3m; instalador confirma altura y duración de obra para calcular días de alquiler"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [tabique_pladur_con_estructura_metalica_para_grandes_alturas] si altura > 3.5m",
+        "Consultar Base Maestra: [estructura_pladur_para_zona_expositiva_o_showroom] para acabado premium en zona de recepción",
+        "Considerar placa de yeso flexible (si disponible en catálogo) para radio 2m, o técnica de cortes paralelos en placa estándar"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tabique curvo de pladur con radio específico",
+          "razon": "Trabajo especializado no cubierto directamente en Base Maestra; requiere cálculo técnico, conformado de perfiles y corte adaptado de placas",
+          "oficios_implicados": [
+            "pladur_escayola"
+          ],
+          "complejidad": "alta",
+          "recomendacion": "Instalador debe medir altura total, longitud de arco, radio confirmado (2m) y especificar si usa placa flexible o técnica de cortes. Todas las partidas requieren revisión de cantidades y precios en obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "tabique_pladur_para_ducha_o_plato_de_ducha",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_hidrofugo_bano_o_cocina"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3947,
+      "tokens_out": 2556
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 7,
+    "n_catalogo": 0,
+    "n_sugeridas": 7,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

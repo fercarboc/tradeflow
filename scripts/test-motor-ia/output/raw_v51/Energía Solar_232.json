@@ -1,0 +1,196 @@
+{
+  "id": 232,
+  "oficio": "Energía Solar",
+  "texto": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+  "http_status": 200,
+  "latency_ms": 20733,
+  "raw_response": {
+    "transcript": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Este presupuesto cubre SOLO gestión administrativa y trámites legales, NO incluye obra civil, paneles, inversor ni instalación física",
+          "El cliente debe proporcionar documentación técnica: planos, memoria técnica, certificado de instalador autorizado",
+          "Plazo estimado: 4-8 semanas según distribuidora y comunidad autónoma",
+          "Compensación requiere solicitud ante distribuidora y puede requerir auditoría energética adicional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Gestión de trámites, legalización y conexión a red de instalación fotovoltaica de autoconsumo con compensación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Solicitud de acceso a red distribuidora",
+          "descripcion": "Gestión administrativa de solicitud de acceso y conexión a la red de distribución eléctrica. Incluye comunicación con distribuidora, presentación de solicitud, seguimiento de trámite hasta otorgación de punto de acceso",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico 300-800€ según distribuidora y complejidad administrativa. El instalador debe valorar complejidad local"
+        },
+        {
+          "concepto": "Legalización instalación fotovoltaica 8kW ante organismos competentes",
+          "descripcion": "Tramitación de legalización de instalación fotovoltaica ante Administración Pública competente (inspección técnica, certificado de instalación, solicitud de licencia de actividad si aplica). Incluye coordinación con inspectorado y presentación de documentación técnica",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico 400-1000€. Varía según comunidad autónoma y si requiere inspección técnica de tercero"
+        },
+        {
+          "concepto": "Tramitación régimen de compensación de excedentes",
+          "descripcion": "Gestión de solicitud ante distribuidora para acceder a régimen de compensación de excedentes (Art. 16 RD 244/2019). Incluye cálculo de energía a compensar, negociación de precio de compensación, presentación de solicitud y seguimiento hasta formalización",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico 200-600€. Requiere coordinación con distribuidora y comercializadora"
+        },
+        {
+          "concepto": "Proyecto técnico y memoria de cálculo instalación fotovoltaica 8kW",
+          "descripcion": "Elaboración de proyecto técnico conforme a normativa vigente, cálculo de producción estimada, dimensionado de equipos, memoria de cálculo estructural y eléctrico, planos de instalación. Documento base para legalización",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico 600-1500€. Depende si es proyecto simplificado o completo"
+        },
+        {
+          "concepto": "Gestión de permisos y comunicaciones administrativas",
+          "descripcion": "Tramitación de comunicaciones previas, permisos de obra si procede, comunicación a hacienda (impuestos), registro ante organismos de control, obtención de certificados y documentación requerida",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico 250-500€. Varía según número de organismos implicados"
+        },
+        {
+          "concepto": "Seguimiento y coordinación con distribuidora durante proceso de conexión",
+          "descripcion": "Supervisión y seguimiento del expediente ante distribuidora desde solicitud hasta autorización de conexión. Comunicaciones periódicas, resolución de incidencias, coordinación de inspecciones, obtención de autorización final de conexión",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra gestión administrativa y trámites (80 horas estimadas)",
+          "descripcion": "Tiempo dedicado a redacción de solicitudes, contactos administrativos, correos con distribuidora y administración pública, seguimiento de expedientes, coordinación de inspecciones, recopilación de documentación, tramitación de certificados",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 80,
+          "precio_unitario": 55,
+          "total": 4400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 4920,
+        "iva_porcentaje": 21,
+        "iva": 1033.2,
+        "total": 5953.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar si cliente requiere también: Auditoría energética previa (200-400€), Certificado de origen renovable (100-300€)",
+        "Compensación puede requerir análisis de consumo actual para optimización: considerar oferta complementaria de estudio de consumo",
+        "Plazo real de tramitación: 4-8 semanas. Informar cliente que distribuidora puede solicitar ampliaciones de documentación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Solicitud de acceso a red distribuidora",
+          "oficio": "energia_solar",
+          "motivo": "Gestión administrativa de trámites de conexión a red - no hay partida exacta en catálogo",
+          "precio_estimado": "300-800€"
+        },
+        {
+          "concepto": "Legalización instalación fotovoltaica ante organismos competentes",
+          "oficio": "energia_solar",
+          "motivo": "Tramitación legal y administrativa ante administración pública",
+          "precio_estimado": "400-1000€"
+        },
+        {
+          "concepto": "Tramitación régimen de compensación de excedentes",
+          "oficio": "energia_solar",
+          "motivo": "Gestión específica de compensación según RD 244/2019",
+          "precio_estimado": "200-600€"
+        },
+        {
+          "concepto": "Proyecto técnico instalación fotovoltaica 8kW",
+          "oficio": "energia_solar",
+          "motivo": "Documento técnico base para legalización",
+          "precio_estimado": "600-1500€"
+        },
+        {
+          "concepto": "Gestión de permisos y comunicaciones administrativas",
+          "oficio": "energia_solar",
+          "motivo": "Tramitación de permisos y comunicaciones previas",
+          "precio_estimado": "250-500€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "instalacion_vidrio_antibalas_o_antiatraco",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_energia_solar_para_caravana_o_autocaravana"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

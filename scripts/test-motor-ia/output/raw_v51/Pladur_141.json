@@ -1,0 +1,261 @@
+{
+  "id": 141,
+  "oficio": "Pladur",
+  "texto": "Hacer un tabique de pladur para dividir el salón en dos zonas, longitud 4 metros con puerta",
+  "http_status": 200,
+  "latency_ms": 19501,
+  "raw_response": {
+    "transcript": "Hacer un tabique de pladur para dividir el salón en dos zonas, longitud 4 metros con puerta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer un tabique de pladur para dividir el salón en dos zonas, longitud 4 metros con puerta",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "No se especifica altura del tabique. Se asume altura estándar 2.5m. Verificar in situ.",
+          "No se especifica si requiere aislamiento acústico. Se incluye lana mineral como auxiliar.",
+          "Puerta: no se especifica tipo (hueco + marco + puerta). Se presupuesta instalación de marco y hueco."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 50
+          },
+          "motivo": "Instalación tabique pladur sencillo con estructura metálica"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación marco de puerta en tabique pladur"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura metálica tabique pladur 4m x 2.5m",
+          "descripcion": "Perfiles canal 48mm base y techo, montantes 48mm cada 600mm, tornillería, fijación suelo-techo",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales (perfil canal, montantes, tornillería, tacos) pendiente de verificación por instalador"
+        },
+        {
+          "concepto": "Placas yeso laminado 15mm ambas caras tabique pladur",
+          "descripcion": "Placa de yeso estándar 15mm, ambas caras, 4m x 2.5m = 20m² total (10m² por cara)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio placas yeso laminado pendiente de verificación"
+        },
+        {
+          "concepto": "Cinta de juntas, pasta de juntas y ángulos metálicos",
+          "descripcion": "Cinta papel juntas, pasta multifunción para juntas, ángulos metálicos esquinas, pequeño material",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de acabado (cinta, pasta, ángulos) pendiente de presupuesto detallado"
+        },
+        {
+          "concepto": "Lana mineral aislante acústico 40mm",
+          "descripcion": "Lana mineral 40mm para aislamiento acústico interior tabique (opcional según necesidad cliente)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar - incluir solo si cliente requiere aislamiento acústico"
+        },
+        {
+          "concepto": "Montaje estructura tabique pladur",
+          "descripcion": "Instalación perfiles, fijación suelo-techo, nivelación, aplomado estructura metálica completa",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 35,
+          "total": 140,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación placas yeso laminado ambas caras",
+          "descripcion": "Fijación con tornillería de placas 15mm cara 1 y cara 2, alineación y joint",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 35,
+          "total": 175,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado de juntas: cinta, pasta y lijado",
+          "descripcion": "Aplicación cinta de juntas, pases de pasta multifunción, lijado y acabado de juntas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 35,
+          "total": 105,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Marco de puerta en pared de pladur",
+          "descripcion": "Marco o cerco adaptado a grosor tabique pladur (~72mm), tapetas ambas caras, fijación a estructura metálica, espuma poliuretano sellado perimetral",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio marco puerta (tipo, material) pendiente de especificación y presupuesto"
+        },
+        {
+          "concepto": "Refuerzo en zona de bisagras tabique pladur",
+          "descripcion": "Refuerzo previo en estructura metálica donde irán bisagras, reforzado para soportar peso puerta",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales refuerzo (perfiles, tornillería especial) pendiente de presupuesto"
+        },
+        {
+          "concepto": "Instalación marco puerta en tabique pladur",
+          "descripcion": "Fijación marco a estructura metálica (no solo a placa), nivelación, aplomado, sellado perimetral con espuma poliuretano",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 510,
+        "iva_porcentaje": 21,
+        "iva": 107.1,
+        "total": 617.1
+      },
+      "sugerencias_catalogo": [
+        "Si el cliente requiere puerta incluida: presupuestar hoja de puerta por separado (modelo, material: madera, DM, vidrio).",
+        "Si requiere aislamiento acústico reforzado: considerar doble placa de yeso o lana mineral de mayor espesor.",
+        "Si la altura del salón es >3m: verificar que los montantes sean suficientes o si requieren arriostramientos adicionales.",
+        "Solicitar al cliente altura exacta del tabique para ajustar cantidad de material y mano de obra."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura metálica tabique pladur 4m x 2.5m",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material desglosado para facilitar presupuesto detallado"
+        },
+        {
+          "concepto": "Placas yeso laminado 15mm ambas caras tabique pladur",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material desglosado para facilitar presupuesto detallado"
+        },
+        {
+          "concepto": "Cinta de juntas, pasta de juntas y ángulos metálicos",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Conjunto materiales acabado juntas"
+        },
+        {
+          "concepto": "Lana mineral aislante acústico 40mm",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Auxiliar opcional - incluir si cliente requiere privacidad acústica"
+        },
+        {
+          "concepto": "Marco de puerta en pared de pladur",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para fijación en pladur"
+        },
+        {
+          "concepto": "Refuerzo en zona de bisagras tabique pladur",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Refuerzo obligatorio para soportar peso puerta"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_en_local_comercial_o_bar",
+      "tabique_pladur_separacion_zona_oficina",
+      "instalacion_de_marcos_de_puertas_en_pared_de_pladur",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_sencillo_72mm"
+    ],
+    "kb_score": 4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

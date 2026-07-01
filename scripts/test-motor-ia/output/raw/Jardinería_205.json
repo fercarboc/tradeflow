@@ -1,0 +1,173 @@
+{
+  "id": 205,
+  "oficio": "Jardinería",
+  "texto": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+  "http_status": 200,
+  "latency_ms": 13331,
+  "raw_response": {
+    "transcript": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "El profesional debe confirmar la especie final (mirto o boj) antes de compra de plantas",
+          "Se recomienda época de plantación: otoño o primavera para mejor enraizamiento",
+          "Riego de asiento es crítico en las primeras semanas post-plantación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Plantación de seto, preparación de terreno, riego de asiento"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación línea de plantación (zanjas/hoyos)",
+          "descripcion": "Excavación y preparación de zanjas para plantación de seto de 25 ml, incluye limpieza y nivelación del terreno",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 8,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantas de seto (mirto o boj)",
+          "descripcion": "Suministro de plantas de seto mirto o boj según especie confirmada, altura 40-60 cm, distancia 0,5 m entre plantas (aprox. 50 unidades para 25 ml)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de plantas variable según especie (mirto 3-8€/ud, boj 4-10€/ud) y tamaño. Instalador debe confirmar proveedor y coste unitario"
+        },
+        {
+          "concepto": "Abono de fondo y enmienda de suelo",
+          "descripcion": "Aportación de abono orgánico y enmienda de suelo para mejora de estructura y retención de humedad en línea de plantación",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste variable según tipo de abono (compost, turba, enmienda). Típicamente 5-15€/ml"
+        },
+        {
+          "concepto": "Plantación y colocación de plantas",
+          "descripcion": "Plantación de 50 unidades de seto, colocación en línea, compactación de tierra y ajuste de profundidad",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 50,
+          "precio_unitario": 3,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Riego de asiento y primer riego",
+          "descripcion": "Riego abundante de asiento post-plantación para asentamiento de tierra y eliminación de bolsas de aire. Riego profundo inicial",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 2,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tutores y pequeño material",
+          "descripcion": "Tutores de madera o caña para sujeción inicial de plantas, grapas, alambre de sujeción y pequeño material de plantación",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste variable según tipo de tutor. Típicamente 3-8€/ml"
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Confirmar especie: mirto (Myrtus communis) es más delicado, requiere clima templado; boj (Buxus sempervirens) es más rústico y tolera mejor el frío",
+        "Considerar geotextil y corteza bajo el seto para control de malezas y retención de humedad (partida auxiliar opcional)",
+        "Si el terreno es muy pobre, aumentar cantidad de abono de fondo",
+        "Riego por goteo recomendado para primeras 4-6 semanas post-plantación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plantas de seto (mirto o boj)",
+          "oficio": "jardineria",
+          "motivo": "Material variable según especie y proveedor, requiere confirmación de precio"
+        },
+        {
+          "concepto": "Abono de fondo y enmienda de suelo",
+          "oficio": "jardineria",
+          "motivo": "Material variable según tipo y cantidad, requiere confirmación de precio"
+        },
+        {
+          "concepto": "Tutores y pequeño material",
+          "oficio": "jardineria",
+          "motivo": "Material variable según tipo de tutor y cantidad, requiere confirmación de precio"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "instalacion_de_plantas_trepadoras",
+      "plantacion_de_setos_o_sebes",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3954,
+      "tokens_out": 1816
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

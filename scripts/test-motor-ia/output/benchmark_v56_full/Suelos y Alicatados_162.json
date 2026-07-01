@@ -1,0 +1,176 @@
+{
+  "id": 162,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo de parquet laminado en toda la vivienda excepto baño y cocina, 80 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 18416,
+  "raw_response": {
+    "transcript": "Poner suelo de parquet laminado en toda la vivienda excepto baño y cocina, 80 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo de parquet laminado en toda la vivienda excepto baño y cocina, 80 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume superficie total de 80 m² de parquet laminado flotante",
+          "No se especifica tipo de laminado (calidad, espesor, acabado) — revisar con cliente",
+          "No se especifica si incluye rodapié — presupuesto base sin rodapié",
+          "Merma estimada 5-10% incluida en cálculo de material"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de tarima laminada flotante — oficio especializado en suelos de tarimas/laminados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tarima laminada flotante AC3-AC4",
+          "descripcion": "Suministro de tarima laminada flotante (calidad AC3-AC4, espesor 7-8mm, acabado a elegir). Incluye merma 8%.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 86.4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir según marca, calidad y acabado elegido por cliente"
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "descripcion": "Lámina aislante de espuma polietileno (espesor 2-3mm) bajo tarima laminada flotante. Incluye merma 5%.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 84,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir según espesor y tipo de lámina"
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "descripcion": "Junta perimetral de 10-12mm en todo el perímetro de la vivienda, cuñas de separación, cinta de sellado y pequeño material de instalación.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según perímetro real y tipo de junta elegida"
+        },
+        {
+          "concepto": "Preparación y nivelación del soporte",
+          "descripcion": "Limpieza, barrido y nivelación del soporte existente. Verificación de planitud (máx. desviación 3mm bajo regla de 2m). Reparación de pequeñas irregularidades si es necesario.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 5,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de tarima laminada flotante",
+          "descripcion": "Colocación de tarima laminada flotante con sistema click, incluyendo colocación de lámina aislante, junta perimetral de 10-12mm OBLIGATORIA en todo el perímetro, y pequeño material. Aclimatación previa 48-72h en obra.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rodapié de madera (opcional)",
+          "descripcion": "Suministro e instalación de rodapié de madera a juego con tarima laminada. Perímetro estimado según superficie (referencia: ~100-120ml para 80m²). Precio unitario a definir según tipo de rodapié.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rodapié es opcional — incluir solo si cliente lo solicita. Cantidad y precio a confirmar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2960,
+        "iva_porcentaje": 21,
+        "iva": 621.6,
+        "total": 3581.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: tipo de laminado (AC3 económico vs AC4 premium), espesor (7mm vs 8mm), acabado (mate, satinado, brillante) y color",
+        "Confirmar si incluye rodapié de madera — si sí, solicitar perímetro exacto y tipo de rodapié",
+        "Verificar estado del soporte actual — si hay irregularidades >3mm, puede requerir nivelación adicional (mortero autonivelante)",
+        "Aclimatación obligatoria: tarima debe estar 48-72h en la vivienda antes de instalar",
+        "Humedad ambiente recomendada: 40-60% — verificar antes de instalar",
+        "Junta perimetral de 10-12mm es OBLIGATORIA en todo el perímetro para permitir dilatación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tarima laminada flotante AC3-AC4",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material específico — precio a definir por instalador según marca y calidad"
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material específico — precio a definir por instalador según espesor"
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material específico — precio a definir según perímetro y tipo de junta"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_de_parquet_o_madera",
+      "colocacion_parquet_flotante_o_tarima_laminada",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_de_suelo_de_bambu_interior",
+      "solado_ceramico_exterior_terraza"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4045,
+      "tokens_out": 2391
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "SI"
+  }
+}

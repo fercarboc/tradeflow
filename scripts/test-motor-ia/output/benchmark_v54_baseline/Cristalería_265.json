@@ -1,0 +1,141 @@
+{
+  "id": 265,
+  "oficio": "Cristalería",
+  "texto": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+  "http_status": 200,
+  "latency_ms": 12395,
+  "raw_response": {
+    "transcript": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio monolítico de 8mm en escaparate: verificar si cumple CTE DB-SUA (seguridad). Considerar vidrio templado o laminado según normativa local.",
+          "Superficie: 5 m². Retirada de vidrio roto requiere medidas de seguridad (cortes, astillas)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Cambio de luna/vidrio en escaparate comercial. Oficio cristalería."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de vidrio roto con medidas de seguridad",
+          "descripcion": "Desmontaje y retirada segura de vidrio monolítico roto de 8mm (5 m²). Incluye protección, recogida de fragmentos y limpieza de marco.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 15,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro vidrio monolítico 8mm para escaparate",
+          "descripcion": "Vidrio monolítico incoloro de 8mm, dimensiones 2.00 m × 2.50 m (5 m²). Corte a medida y transporte. NOTA: Revisar si debe ser templado o laminado por normativa CTE DB-SUA.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio monolítico 8mm a definir por instalador. Rango orientativo: 80-150€/m² según proveedor y tipo (monolítico vs. templado)."
+        },
+        {
+          "concepto": "Silicona neutra de fijación en marco",
+          "descripcion": "Silicona neutra para sellado y fijación del vidrio en marco existente. Perímetro aproximado: 9 ml.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 9,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio silicona neutra a definir. Rango: 3-8€/ml aplicado."
+        },
+        {
+          "concepto": "Instalación y fijación del vidrio nuevo",
+          "descripcion": "Colocación, nivelación, fijación con silicona neutra y sellado perimetral del vidrio monolítico 8mm en marco existente. Incluye curado y limpieza final.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Cinta carrocero, desengrasan te, espátula, trapos, protecciones, etc.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pequeño material: 15-30€ (a definir por instalador)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 210,
+        "iva_porcentaje": 21,
+        "iva": 44.1,
+        "total": 254.1
+      },
+      "sugerencias_catalogo": [
+        "Verificar normativa CTE DB-SUA: escaparates en planta baja pueden requerir vidrio templado o laminado en lugar de monolítico. Consultar con cliente si necesita refuerzo de seguridad.",
+        "Si el marco está dañado, considerar reparación o refuerzo antes de instalar vidrio nuevo.",
+        "Solicitar presupuesto de vidrio templado 8mm como alternativa más segura (rango: 120-200€/m²)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "sellado_y_rejuntado_de_vidrios_con_silicona",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "cambio_luna_ventana_rota",
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3747,
+      "tokens_out": 1526
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

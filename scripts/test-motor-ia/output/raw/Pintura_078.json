@@ -1,0 +1,195 @@
+{
+  "id": 78,
+  "oficio": "Pintura",
+  "texto": "Pintar piscina con pintura de clorocaucho, vaciado y dos manos, superficie 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 13624,
+  "raw_response": {
+    "transcript": "Pintar piscina con pintura de clorocaucho, vaciado y dos manos, superficie 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar piscina con pintura de clorocaucho, vaciado y dos manos, superficie 60 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye vaciado, preparación y pintura completa de piscina",
+          "Se asume piscina vacía y seca antes de iniciar trabajos de pintura"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura especializada de piscina con clorocaucho, incluye preparación y dos manos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y limpieza piscina",
+          "descripcion": "Vaciado completo de piscina y limpieza de superficie antes de pintar",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 250,
+          "total": 250,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de jornada de vaciado y limpieza a criterio del instalador según equipamiento disponible"
+        },
+        {
+          "concepto": "Lija y preparación superficie piscina",
+          "descripcion": "Lijado de superficie de vasos, paredes y fondo con grano 120-220 para adhesión de pintura",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 6,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación específica para piscina",
+          "descripcion": "Imprimación fijadora y selladora específica para piscinas, preparación de superficie para pintura clorocaucho",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador. Rendimiento aproximado: 8-10 m2/litro"
+        },
+        {
+          "concepto": "Pintura clorocaucho - Primera mano",
+          "descripcion": "Pintura clorocaucho para piscinas, primera mano de cobertura completa en vasos, paredes y fondo",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador. Rendimiento aproximado: 6-8 m2/litro"
+        },
+        {
+          "concepto": "Pintura clorocaucho - Segunda mano",
+          "descripcion": "Pintura clorocaucho para piscinas, segunda mano de acabado y protección",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador. Rendimiento aproximado: 6-8 m2/litro"
+        },
+        {
+          "concepto": "Aplicación pintura clorocaucho - Dos manos",
+          "descripcion": "Mano de obra de aplicación de pintura clorocaucho en dos capas sobre superficie de 60 m2 (vasos, paredes y fondo)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 10,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y protecciones",
+          "descripcion": "Cinta carrocero, plástico de protección, brochas, rodillos, bandejas, trapos y material auxiliar para pintura de piscina",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según necesidades reales de consumibles"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1210,
+        "iva_porcentaje": 21,
+        "iva": 254.1,
+        "total": 1464.1
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la piscina está completamente vaciada y seca antes de iniciar trabajos",
+        "Tiempo de secado entre manos: mínimo 24 horas según condiciones climáticas",
+        "Considerar protección de áreas adyacentes (jardín, mobiliario) durante aplicación",
+        "Llenado de piscina: esperar mínimo 7 días después de última mano de pintura"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vaciado y limpieza piscina",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "motivo": "Trabajo específico de preparación de piscina, no incluido en catálogo base"
+        },
+        {
+          "concepto": "Imprimación específica para piscina",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material especializado para piscinas, requiere especificación de marca y cantidad"
+        },
+        {
+          "concepto": "Pintura clorocaucho - Primera mano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material especializado, requiere especificación de marca, cantidad y coste"
+        },
+        {
+          "concepto": "Pintura clorocaucho - Segunda mano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material especializado, requiere especificación de marca, cantidad y coste"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "pintura_de_piscina",
+      "pintado_de_medianeras_o_paredes_ciegas",
+      "pintado_y_decoracion_habitacion_infantil",
+      "pintado_locales_comerciales_y_tiendas"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3641,
+      "tokens_out": 2043
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

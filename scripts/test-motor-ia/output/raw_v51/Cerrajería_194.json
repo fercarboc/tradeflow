@@ -1,0 +1,237 @@
+{
+  "id": 194,
+  "oficio": "Cerrajería",
+  "texto": "Reforzar puerta de madera antigua con plancha de acero y cerradura de seguridad adicional",
+  "http_status": 200,
+  "latency_ms": 24065,
+  "raw_response": {
+    "transcript": "Reforzar puerta de madera antigua con plancha de acero y cerradura de seguridad adicional",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforzar puerta de madera antigua con plancha de acero y cerradura de seguridad adicional",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Refuerzo estructural de puerta antigua: verificar estado actual de la madera (grietas, humedad, deformaciones)",
+          "Plancha de acero: especificar espesor (3-5mm recomendado) y tipo de fijación",
+          "Cerradura de seguridad adicional: confirmar si es cilindro antibumping o cerradura de seguridad estándar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Refuerzo estructural y adaptación de puerta de madera"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación de cerradura de seguridad adicional"
+        },
+        {
+          "oficio": "mecanica",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Fijación y atornillado de plancha de acero (trabajo mecánico de precisión)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y diagnóstico de puerta antigua",
+          "descripcion": "Evaluación del estado estructural de la puerta de madera: grietas, deformaciones, humedad, capacidad de soportar refuerzo",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plancha de acero para refuerzo de puerta",
+          "descripcion": "Plancha de acero laminado en frío, espesor 4mm, dimensiones ajustadas a puerta (estimado 900x2100mm), incluyendo corte, biselado de bordes y preparación de orificios para fijación",
+          "oficio": "mecanica",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "requiere_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: precio depende de espesor exacto, dimensiones finales y acabado (pintura/galvanizado)"
+        },
+        {
+          "concepto": "Fijación de plancha de acero a puerta",
+          "descripcion": "Atornillado y anclaje de plancha de acero a marco de puerta: perforación de guías, inserción de tornillos de cabeza avellanada inox M8-M10, ajuste y alineación",
+          "oficio": "mecanica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 55,
+          "total": 137.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tornillería inox para fijación de plancha",
+          "descripcion": "Tornillos M8-M10 DIN 965 cabeza avellanada, acero inoxidable A4, arandelas y tuercas, cantidad según distribución de anclajes (estimado 16-20 unidades)",
+          "oficio": "mecanica",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "requiere_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de pequeño consumo: confirmar diámetro y cantidad definitiva en obra"
+        },
+        {
+          "concepto": "Refuerzo adicional de marco si es necesario",
+          "descripcion": "Adecuación de marco de madera: refuerzo con angular de acero o travesaños de madera según evaluación, fijación a estructura portante",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de inspección previa: puede no ser necesario si la puerta tiene buen estado estructural"
+        },
+        {
+          "concepto": "Cerradura de seguridad antibumping adicional",
+          "descripcion": "Cilindro de seguridad de alta protección (UNE EN 1303 o equivalente) con escudo protector antitaladro, resistencia contra bump picking y manipulación, incluye 3 llaves de seguridad con tarjeta de propietario",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "requiere_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio varía según marca (ASSA ABLOY, Mul-T-Lock, Keso) y tipo de certificación. Rango estimado 250-600€"
+        },
+        {
+          "concepto": "Instalación de cerradura de seguridad",
+          "descripcion": "Desmontaje de cerradura/cilindro existente, instalación de nuevo cilindro antibumping con escudo antitaladro, ajuste y prueba de funcionamiento, entrega de llaves de seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado y protección de plancha de acero",
+          "descripcion": "Limpieza de cascarilla y óxido superficial, aplicación de imprimación antioxidante y esmalte de poliuretano en color a elegir (2 manos), protección de zona de bisagras y cerraduras",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura y esmalte para acabado de acero",
+          "descripcion": "Imprimación antioxidante (0.5L) y esmalte de poliuretano satinado (0.75L) para protección de plancha de acero, color personalizable",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1.25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "requiere_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio depende de marca y tipo de esmalte elegido (económico 15€/L, premium 35€/L)"
+        },
+        {
+          "concepto": "Pequeño material, consumibles y protecciones",
+          "descripcion": "Cinta carrocero, plástico protección, disolvente, trapos, masilla de retoque, lija, destornilladores, nivel, metro, marcador, gafas seguridad, guantes",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "requiere_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles: agrupar con presupuesto final (estimado 25-40€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 374,
+        "iva_porcentaje": 21,
+        "iva": 78.54,
+        "total": 452.54
+      },
+      "sugerencias_catalogo": [
+        "Solicitar muestras de pinturas/esmaltes antioxidantes si el cliente tiene preferencia de color",
+        "Ofrecer diferentes marcas de cilindros de seguridad (gama económica 250-350€, premium 450-600€)",
+        "Considerar acabado galvanizado en frío para plancha de acero en lugar de pintura (mayor durabilidad en exterior)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plancha de acero para refuerzo de puerta",
+          "razon": "Trabajos de refuerzo estructural no estándar, requiere materialización específica"
+        },
+        {
+          "concepto": "Refuerzo adicional de marco si es necesario",
+          "razon": "Partida condicional según diagnóstico: requiere confirmación en inspección"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cerradura_antibumping_o_antitaladro",
+      "diagnostico_y_presupuesto_cerrajeria",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "instalacion_vidrio_de_seguridad_templado",
+      "pintura_esmalte_carpinteria_madera_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

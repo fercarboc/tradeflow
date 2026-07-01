@@ -1,0 +1,197 @@
+{
+  "id": 90,
+  "oficio": "Albañilería",
+  "texto": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+  "http_status": 200,
+  "latency_ms": 16070,
+  "raw_response": {
+    "transcript": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Chimenea exterior: verificar acceso seguro y necesidad de andamios/línea de vida",
+          "Rejuntado: confirmar extensión (chimenea completa vs. zona puntual)",
+          "Impermeabilización: si hay encuentro con cubierta, aplicar protocolo específico de encuentro chimenea-tejado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Rejuntado de ladrillo, reparación de fábrica de chimenea"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de remate superior de chimenea"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y limpieza de zona afectada en chimenea",
+          "descripcion": "Limpieza, cepillado y saneo de juntas deterioradas en fábrica de ladrillo de chimenea exterior",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado de ladrillo en chimenea exterior",
+          "descripcion": "Rejuntado completo de juntas de ladrillo con mortero de cal-cemento, incluye preparación y acabado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero de rejuntado cal-cemento",
+          "descripcion": "Mortero de cal-cemento para rejuntado de juntas de ladrillo (sacos/cubos según necesidad)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cantidad y tipo de mortero a confirmar por instalador según extensión real de rejuntado"
+        },
+        {
+          "concepto": "Impermeabilización de remate superior de chimenea",
+          "descripcion": "Aplicación de membrana líquida impermeabilizante o lámina flexible en remate superior de chimenea, sellado de juntas y encuentros",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Membrana impermeabilizante o sellador flexible para remate",
+          "descripcion": "Lámina EPDM, TPO, membrana líquida poliuretano o sellador flexible de poliurea para impermeabilización de remate superior",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: tipo y cantidad de impermeabilizante a confirmar según dimensiones de remate y solución elegida"
+        },
+        {
+          "concepto": "Revisión y limpieza de conducto de chimenea",
+          "descripcion": "Inspección visual del conducto interior, limpieza de depósitos y verificación de funcionamiento y estanqueidad",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material (línea de vida, arnés, cepillos, esponjas)",
+          "descripcion": "Equipos de protección individual para trabajo en altura, pequeño material de limpieza y aplicación",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: EPI y consumibles a presupuestar según altura y accesibilidad real de chimenea"
+        }
+      ],
+      "calculos": {
+        "subtotal": 350,
+        "iva_porcentaje": 21,
+        "iva": 73.5,
+        "total": 423.5
+      },
+      "sugerencias_catalogo": [
+        "Si la chimenea tiene encuentro con cubierta/tejado: aplicar protocolo específico 'reparacion_de_encuentro_de_chimenea_con_cubierta' (lámina de plomo/zinc, retirada de tejas zona, refuerzo geotextil)",
+        "Si hay filtraciones activas o humedades en interior: considerar inspección con cámara térmica o sonda de humedad",
+        "Confirmar si chimenea está activa (en uso) o desactivada: afecta a tipo de impermeabilizante y necesidad de ventilación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero de rejuntado cal-cemento",
+          "oficio": "albanileria",
+          "motivo": "Material específico para rejuntado; precio a confirmar por instalador"
+        },
+        {
+          "concepto": "Membrana impermeabilizante o sellador flexible para remate",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para impermeabilización; tipo y cantidad a definir según solución elegida"
+        },
+        {
+          "concepto": "EPI y pequeño material (línea de vida, arnés, cepillos, esponjas)",
+          "oficio": "albanileria",
+          "motivo": "Consumibles y equipos de seguridad; cantidad a confirmar según accesibilidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "tabique_pladur_para_sepultar_conductos_climatizacion",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3948,
+      "tokens_out": 2111
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

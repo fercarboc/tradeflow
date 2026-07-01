@@ -1,0 +1,217 @@
+{
+  "id": 288,
+  "oficio": "Impermeabilización",
+  "texto": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+  "http_status": 200,
+  "latency_ms": 16515,
+  "raw_response": {
+    "transcript": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Instalación de sistema de drenaje en jardín y gestión de aguas pluviales"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Excavación y obra civil para sistema de drenaje perimetral"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Excavación de zanja perimetral",
+          "descripcion": "Excavación de zanja para drenaje perimetral, profundidad 60-80 cm, longitud 20 metros, incluyendo retirada de tierras",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 12,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal estimado; ajustar según dificultad del terreno y profundidad real"
+        },
+        {
+          "concepto": "Suministro tubería de drenaje perforada",
+          "descripcion": "Tubería de drenaje perforada PVC/HDPE diámetro 80-100mm, longitud 20 metros, incluyendo accesorios de conexión",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión según diámetro y calidad especificada"
+        },
+        {
+          "concepto": "Suministro geotextil y grava drenante",
+          "descripcion": "Geotextil de filtración (gramaje 200g/m²) y grava drenante (5-20mm), cantidad aproximada 3-4 m³ para cobertura tubería",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 3.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión según cantidad real de grava y geotextil"
+        },
+        {
+          "concepto": "Instalación tubería de drenaje y sistema de capa drenante",
+          "descripcion": "Colocación de geotextil, tubería perforada, grava drenante y compactación, longitud 20 metros",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal estimado; ajustar según complejidad de la instalación"
+        },
+        {
+          "concepto": "Construcción arqueta de registro y salida de drenaje",
+          "descripcion": "Arqueta de registro de 60x40cm con tapa de registrable, conexión de tubería de drenaje y conexión a sistema de evacuación o sumidero",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 80,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado para construcción y acabado de arqueta; revisar según profundidad y complejidad"
+        },
+        {
+          "concepto": "Suministro arqueta de registro prefabricada",
+          "descripcion": "Arqueta de registro prefabricada hormigón 60x40cm con tapa registrable y accesorios de conexión",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión según tipo de arqueta (prefabricada u obra)"
+        },
+        {
+          "concepto": "Restitución de terreno y acabado superficial",
+          "descripcion": "Relleno y compactación de zanja con tierra vegetal, nivelación y acabado superficial del terreno, longitud 20 metros",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 6,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal estimado; incluye compactación y acabado"
+        },
+        {
+          "concepto": "Prueba y verificación del sistema de drenaje",
+          "descripcion": "Prueba de funcionamiento del sistema, verificación de pendientes, evacuación de agua y limpieza final",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 650,
+        "iva_porcentaje": 21,
+        "iva": 136.5,
+        "total": 786.5
+      },
+      "sugerencias_catalogo": [
+        "Considerar si el drenaje debe conectarse a red pública o sumidero privado; esto afecta a la profundidad y tipo de arqueta final",
+        "Verificar pendientes mínimas (2-3%) para asegurar evacuación correcta del agua",
+        "En terrenos muy compactados o arcillosos, puede ser necesario incluir capa de arena de drenaje adicional",
+        "Si hay vegetación existente (árboles, arbustos), considerar reposición después de los trabajos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Excavación de zanja perimetral para drenaje",
+          "oficio": "albanileria",
+          "tipo": "mano_obra",
+          "razon": "Obra civil necesaria para instalación de sistema de drenaje perimetral"
+        },
+        {
+          "nombre": "Suministro tubería de drenaje perforada",
+          "oficio": "jardineria",
+          "tipo": "material",
+          "razon": "Material específico para drenaje perimetral (tubería perforada PVC/HDPE)"
+        },
+        {
+          "nombre": "Suministro geotextil y grava drenante",
+          "oficio": "jardineria",
+          "tipo": "material",
+          "razon": "Material de acompañamiento para crear capa drenante efectiva"
+        },
+        {
+          "nombre": "Instalación sistema de drenaje perimetral",
+          "oficio": "jardineria",
+          "tipo": "mano_obra",
+          "razon": "Colocación de tubería, geotextil y grava drenante"
+        },
+        {
+          "nombre": "Construcción arqueta de registro",
+          "oficio": "albanileria",
+          "tipo": "mano_obra",
+          "razon": "Obra civil para punto de registro y salida del sistema de drenaje"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_sistema_de_riego_por_aspersion",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_alarma_perimetral_o_antirrobo_basica"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 8,
+    "n_catalogo": 0,
+    "n_sugeridas": 8,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "id": 89,
+  "oficio": "Albañilería",
+  "texto": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+  "http_status": 200,
+  "latency_ms": 20397,
+  "raw_response": {
+    "transcript": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA ESTRUCTURAL CRÍTICA: Demolición de muro de carga requiere proyecto técnico obligatorio (incluido en presupuesto)",
+          "Apuntalamiento y apeos obligatorios antes de demolición",
+          "Viga de acero debe ser dimensionada por cálculo estructural",
+          "Requiere supervisión técnica durante ejecución",
+          "Posible necesidad de licencia municipal/visado colegio profesional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición de muro de carga, apuntalamiento, recibido de viga"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico de demolición y cálculo viga",
+          "descripcion": "Proyecto técnico obligatorio para demolición de muro de carga, cálculo estructural de viga de acero, dimensionado de apeos y apuntalamiento, planos de ejecución",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del proyecto técnico a definir por profesional (típicamente 800-2000€ según complejidad)"
+        },
+        {
+          "concepto": "Apuntalamiento y apeos de forjado superior",
+          "descripcion": "Colocación de puntuales metálicos, sopandas, durmientes y tablones de base para apeo de estructura durante demolición. Verificación de puntos de apoyo. Incluye pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según proyecto técnico (típicamente 1200-3000€ según luz y cargas)"
+        },
+        {
+          "concepto": "Demolición gradual de muro de carga",
+          "descripcion": "Demolición manual y controlada de muro de carga, por fases, con extracción de escombros, protección de zonas contiguas, aspiración de polvo. Incluye medios de demolición, contenedor de escombros y pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según dimensiones y espesor del muro (típicamente 1500-5000€)"
+        },
+        {
+          "concepto": "Suministro e instalación viga de acero",
+          "descripcion": "Suministro de viga de acero dimensionada según proyecto técnico. Colocación, nivelación, placas de asiento, anclajes a pilares o muros existentes, recibido con mortero de cemento y acabado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de viga de acero a definir según perfil, luz y peso (típicamente 2000-8000€ material + instalación)"
+        },
+        {
+          "concepto": "Reposición de pavimento y techo bajo viga",
+          "descripcion": "Reparación y acabado de pavimento y falso techo en zona de demolición. Retirada de apeos. Limpieza final de escombros",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según superficie y acabados (típicamente 800-2000€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar con ingeniero técnico o arquitecto para validar proyecto antes de ejecución",
+        "Solicitar presupuesto detallado de viga de acero a proveedor especializado (incluir transporte e izado)",
+        "Coordinar con administración municipal para licencia de obra si aplica",
+        "Considerar seguro de responsabilidad civil durante obra estructural"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico de demolición y cálculo viga",
+          "oficio": "albanileria",
+          "motivo": "Servicio profesional obligatorio en obra estructural"
+        },
+        {
+          "concepto": "Apuntalamiento y apeos de forjado superior",
+          "oficio": "albanileria",
+          "motivo": "Partida obligatoria según Base Maestra [demolicion_muro_de_carga_con_viga]"
+        },
+        {
+          "concepto": "Demolición gradual de muro de carga",
+          "oficio": "albanileria",
+          "motivo": "Partida obligatoria según Base Maestra [demolicion_muro_de_carga_con_viga]"
+        },
+        {
+          "concepto": "Suministro e instalación viga de acero",
+          "oficio": "albanileria",
+          "motivo": "Partida obligatoria según Base Maestra [demolicion_muro_de_carga_con_viga]"
+        },
+        {
+          "concepto": "Reposición de pavimento y techo bajo viga",
+          "oficio": "albanileria",
+          "motivo": "Partida auxiliar según Base Maestra [demolicion_muro_de_carga_con_viga]"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "demolicion_muro_de_carga_con_viga",
+      "recalce_y_apeo_de_estructura_para_reforma",
+      "desmontaje_tabique_pladur_existente",
+      "demolicion_tabique_interior",
+      "pintado_de_medianeras_o_paredes_ciegas"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3721,
+      "tokens_out": 2169
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 5,
+    "n_catalogo": 0,
+    "n_sugeridas": 5,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

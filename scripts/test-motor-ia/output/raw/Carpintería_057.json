@@ -1,0 +1,184 @@
+{
+  "id": 57,
+  "oficio": "Carpintería",
+  "texto": "Cambio de marco de puerta exterior que está podrido por la lluvia, madera de iroko",
+  "http_status": 200,
+  "latency_ms": 15599,
+  "raw_response": {
+    "transcript": "Cambio de marco de puerta exterior que está podrido por la lluvia, madera de iroko",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de marco de puerta exterior que está podrido por la lluvia, madera de iroko",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Deterioro por humedad detectado: verificar causa raíz (canalones, pendiente, sellados)",
+          "Madera de iroko: material de alta durabilidad, precio superior a madera estándar",
+          "Sustitución completa de marco: incluye desmontaje, suministro y instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sustitución de marco de puerta exterior en madera"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Diagnóstico y reparación de marco deteriorado por humedad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y desmontaje de marco de puerta exterior deteriorado",
+          "descripcion": "Inspección de causa de deterioro (humedad, falta de mantenimiento), desmontaje cuidadoso del marco podrido, retirada de herrajes y accesorios reutilizables",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Marco de puerta exterior madera de iroko con junta de estanqueidad",
+          "descripcion": "Suministro de marco de puerta exterior en madera de iroko (alta durabilidad, resistencia a humedad), con junta de estanqueidad integrada, dimensiones según hueco existente",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de marco de iroko variable según dimensiones y proveedor. Instalador debe cotizar con carpintería/proveedor de marcos"
+        },
+        {
+          "concepto": "Instalación y fijación de marco de puerta exterior",
+          "descripcion": "Colocación del nuevo marco en hueco, aplomado y nivelación, fijación con tacos y tornillos inox, sellado perimetral con silicona de poliuretano de alta durabilidad",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y tratamiento de estanqueidad perimetral",
+          "descripcion": "Aplicación de silicona de poliuretano exterior de alta durabilidad en juntas perimetrales, cinta de estanqueidad en zonas críticas, tratamiento de puentes térmicos",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de sellado (silicona, cinta): precio según cantidad y marca. Instalador debe cotizar"
+        },
+        {
+          "concepto": "Recolocación de herrajes y accesorios",
+          "descripcion": "Reinstalación de bisagras inox, cerradura/cerrojo, mirilla y otros accesorios reutilizables del marco anterior",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado exterior: imprimación y protección UV en marco",
+          "descripcion": "Aplicación de imprimación de madera exterior + esmalte o barniz marino con filtro UV en marco de iroko para protección contra intemperie y rayos solares",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Productos de acabado exterior: precio según marca y cantidad. Instalador debe cotizar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 330,
+        "iva_porcentaje": 21,
+        "iva": 69.3,
+        "total": 399.3
+      },
+      "sugerencias_catalogo": [
+        "Verificar causa raíz del deterioro: revisar canalones, pendiente de cubierta, sellados perimetrales anteriores",
+        "Madera de iroko: excelente elección por durabilidad, pero requiere acabado exterior de calidad (barniz marino o esmalte UV)",
+        "Considerar tratamiento preventivo de la zona: limpiar y secar bien antes de instalar nuevo marco",
+        "Presupuesto parcial (mano de obra): 330€. Materiales pendientes de cotización por instalador"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Marco de puerta exterior madera de iroko con junta de estanqueidad",
+          "oficio": "carpinteria",
+          "motivo": "Material específico no en catálogo base, requiere cotización según dimensiones"
+        },
+        {
+          "concepto": "Sellado y tratamiento de estanqueidad perimetral",
+          "oficio": "carpinteria",
+          "motivo": "Materiales de sellado (silicona, cinta): precio variable según cantidad y marca"
+        },
+        {
+          "concepto": "Acabado exterior: imprimación y protección UV en marco",
+          "oficio": "pintura",
+          "motivo": "Productos de acabado exterior: precio según marca y cantidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "pintado_de_ventanas_de_madera_exterior",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "pintado_de_puerta_de_entrada_o_exterior_madera"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3876,
+      "tokens_out": 1980
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

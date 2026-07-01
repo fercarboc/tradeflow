@@ -1,0 +1,248 @@
+{
+  "id": 253,
+  "oficio": "Telecomunicaciones",
+  "texto": "Ampliar red WiFi en hotel con sistema de puntos de acceso gestionados, 20 habitaciones",
+  "http_status": 200,
+  "latency_ms": 27042,
+  "raw_response": {
+    "transcript": "Ampliar red WiFi en hotel con sistema de puntos de acceso gestionados, 20 habitaciones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Ampliar red WiFi en hotel con sistema de puntos de acceso gestionados, 20 habitaciones",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si el hotel dispone de infraestructura PoE existente o requiere inyectores",
+          "Confirmar si se incluye análisis radiofrecuencia previo para optimizar ubicación de APs",
+          "Validar si existe controladora WiFi o si se requiere sistema cloud de gestión",
+          "Revisar ancho de banda disponible en la red principal para soportar 20 APs simultáneos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de red WiFi profesional con APs gestionados en infraestructura hotelera"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Access points WiFi 6 profesional PoE",
+          "descripcion": "Suministro e instalación de 20 puntos de acceso WiFi 6 profesionales (802.11ax) con alimentación PoE, configuración SSID, WPA3 y seguridad básica",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 50,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado Cat6 hacia APs (20 habitaciones)",
+          "descripcion": "Suministro e instalación de cable Ethernet Cat6 desde switch/cuarto técnico hasta ubicación de cada AP en techo/pared. Estimado 30 metros lineal por habitación (distribución horizontal + vertical)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 600,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe cotizar cable Cat6 profesional (típico 0.15-0.40€/ml) y considerar bandejas, tubos, conectores RJ45 profesionales"
+        },
+        {
+          "concepto": "Montaje en techo/pared de APs",
+          "descripcion": "Instalación física de 20 puntos de acceso en techo o pared, anclajes profesionales, alineación y fijación segura",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 50,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Infraestructura PoE (switch gestionable + inyectores)",
+          "descripcion": "Suministro e instalación de switch PoE gestionable (24-48 puertos) o inyectores PoE individuales según necesidad para alimentación de 20 APs. Incluye rack, parcheo Cat6 y configuración básica",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: Switch PoE profesional 24-48 puertos (300-1500€), inyectores PoE (20-80€ c/u), cableado interno cuarto técnico. Revisar infraestructura existente"
+        },
+        {
+          "concepto": "Configuración inicial y SSID WiFi",
+          "descripcion": "Configuración de SSIDs, seguridad WPA3, canales, potencia de transmisión y parámetros básicos de los 20 APs",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Controladora WiFi profesional o sistema cloud",
+          "descripcion": "Suministro e instalación de controladora WiFi (on-premise) o acceso a plataforma cloud de gestión centralizada para 20 APs. Incluye creación de cuenta, configuración inicial de grupos y políticas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material/licencia: Controladora local (500-2000€) o suscripción cloud anual (200-600€/año para 20 APs). Revisar qué sistema el hotel prefiere"
+        },
+        {
+          "concepto": "Separación de redes por VLAN (red huéspedes / red gestión)",
+          "descripcion": "Configuración de VLANs en switch para segregar tráfico: red de huéspedes y red de gestión/staff. Incluye configuración de puertos, trunks y políticas de acceso",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis radiofrecuencia y optimización de ubicación",
+          "descripcion": "Estudio previo con equipo analizador RF para determinar ubicación óptima de los 20 APs, minimizar interferencias, optimizar cobertura y evitar zonas muertas en las 20 habitaciones + áreas comunes",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa especializada: análisis RF requiere herramientas y experiencia. Se recomienda 60€/h, pero revisar si cliente lo requiere o lo da por incluido"
+        },
+        {
+          "concepto": "Pequeño material (anclajes, conectores RJ45, canaletas)",
+          "descripcion": "Tornillería, anclajes tipo taco/tarugo profesional, conectores RJ45 Cat6 (AMP), canaletas, protectores, presilla y otros accesorios de fijación para la instalación de 20 APs y cableado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible: 100-300€ aproximado. Revisar presupuesto proveedor de conectiva profesional"
+        },
+        {
+          "concepto": "Pruebas de conectividad y velocidad",
+          "descripcion": "Pruebas funcionales de cobertura WiFi en todas las habitaciones, medición de velocidad, latencia, estabilidad de conexión y roaming entre APs",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documentación y entrega (manual de usuario, credenciales)",
+          "descripcion": "Elaboración de documentación técnica, manual de usuario, listado de SSIDs, contraseñas, procedimientos de acceso, reset y contacto técnico para el hotel",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 3010,
+        "iva_porcentaje": 21,
+        "iva": 632.1,
+        "total": 3642.1
+      },
+      "sugerencias_catalogo": [
+        "Verificar con el hotel si existe controladora WiFi corporativa o si necesita sistema cloud nuevo",
+        "Considerar incluir análisis radiofrecuencia previo si hay zonas con posible cobertura deficiente",
+        "Evaluar si se requiere integración con PMS (Property Management System) del hotel para autenticación de huéspedes",
+        "Confirmar ancho de banda del enlace principal para soportar potencial concurrencia de usuarios en las 20 habitaciones",
+        "Revisar si el switch existente es PoE o si requiere infraestructura nueva (mayor coste)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cableado Cat6 hacia APs (20 habitaciones)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Material fungible no en catálogo básico; incluido por obligatoriedad en instalación de APs profesionales"
+        },
+        {
+          "concepto": "Infraestructura PoE (switch gestionable + inyectores)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Elemento crítico de la instalación; precio muy variable según existencia de infraestructura previa"
+        },
+        {
+          "concepto": "Controladora WiFi profesional o sistema cloud",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Requerida para gestión centralizada de 20 APs; precio depende de marca y tipo (local vs cloud)"
+        },
+        {
+          "concepto": "Análisis radiofrecuencia y optimización de ubicación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "motivo": "Especialidad de telecomunicaciones; tarifa elevada justificada por equipo y expertise"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "instalacion_de_sistema_de_IPTV_en_hotel_o_residencia",
+      "instalacion_de_red_de_datos_en_hotel_u_hospitality",
+      "instalacion_de_punto_de_acceso_wifi_o_AP_profesional",
+      "ampliacion_y_redistribucion_de_espacios_en_vivienda"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

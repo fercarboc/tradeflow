@@ -1,0 +1,124 @@
+{
+  "id": 178,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Reparar baldosas rotas en portal del edificio, 3 metros cuadrados de mármol travertino",
+  "http_status": 200,
+  "latency_ms": 10914,
+  "raw_response": {
+    "transcript": "Reparar baldosas rotas en portal del edificio, 3 metros cuadrados de mármol travertino",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar baldosas rotas en portal del edificio, 3 metros cuadrados de mármol travertino",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material mármol travertino requiere productos específicos de reposición",
+          "Zona de portal: tránsito intenso, verificar resistencia del material"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de pavimento exterior deteriorado, catálogo: reparacion_o_reposicion_de_pavimento_exterior_deteriorado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de baldosas rotas de mármol travertino",
+          "descripcion": "Demolición y retirada de 3 m² de baldosas rotas, incluyendo pequeño material y escombro",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de baldosas mármol travertino igual o similar",
+          "descripcion": "Baldosas de mármol travertino de reposición, mismo tipo, color y dimensiones. Incluye mortero cola C2S2 exterior, lechada de junta exterior",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material mármol travertino pendiente de presupuesto proveedor. Incluye baldosas, mortero cola C2S2, lechada junta exterior y pequeño material"
+        },
+        {
+          "concepto": "Colocación de baldosas mármol travertino",
+          "descripcion": "Preparación de soporte, extensión de mortero cola, colocación de baldosas y rejuntado completo",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Regularización de soporte si fuera necesario",
+          "descripcion": "Reparación y regularización de base deteriorada antes de colocación de baldosas (si aplica)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar condicionada. Aplica solo si durante la inspección se detecta soporte deteriorado que requiera reparación previa"
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Partida de material mármol travertino: solicitar presupuesto a proveedor de materiales de construcción. Rango estimado 60-120€/m² según calidad y origen"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de baldosas mármol travertino igual o similar",
+          "motivo": "Material específico requiere presupuesto proveedor, incluye mortero cola y lechada"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_reposicion_de_pavimento_exterior_deteriorado",
+      "reparacion_de_piscina_con_filtraciones",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

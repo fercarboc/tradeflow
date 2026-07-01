@@ -1,0 +1,185 @@
+{
+  "id": 242,
+  "oficio": "Telecomunicaciones",
+  "texto": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+  "http_status": 200,
+  "latency_ms": 16919,
+  "raw_response": {
+    "transcript": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de telecomunicaciones en instalación colectiva: requiere cumplimiento RD 346/2011 (ICT)",
+          "Diagnóstico previo obligatorio para identificar causa exacta (amplificador, cable, derivadores, tomas)",
+          "Si se detecta falta de amplificación o pérdida de señal por longitud: puede requerir amplificador adicional o mejora de red de distribución"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación y ajuste de antena colectiva TDT, diagnóstico de cobertura, revisión de red de distribución"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión de antena colectiva TDT",
+          "descripcion": "Inspección visual de antena UHF, medición de nivel de señal en mastil y en tomas de usuario, verificación de conexiones, estado de amplificador y red de distribución (splitters, derivadores, cables coaxial)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste y reorientación de antena UHF TDT",
+          "descripcion": "Reorientación de antena hacia repetidor más cercano, ajuste de inclinación y azimut, apriete de conexiones en mastil, verificación de nivel de señal post-ajuste",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y tratamiento anticorrosión de conexiones antena y mastil",
+          "descripcion": "Limpieza de óxido y corrosión en conectores coaxiales, bornes de amplificador y estructura metálica del mastil. Aplicación de grasa dieléctrica de protección",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible (grasa dieléctrica, limpiadores): precio a definir por instalador según cantidad y marca"
+        },
+        {
+          "concepto": "Revisión y ajuste de amplificador de mastil",
+          "descripcion": "Inspección de amplificador (ganancia, alimentación, estado de fuente), ajuste de nivel de ganancia si es necesario, verificación de nivel de ruido, prueba de funcionamiento",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión de red de distribución (splitters y derivadores)",
+          "descripcion": "Inspección visual de splitters y derivadores en cuadro de distribución, medición de nivel de señal en cada rama, identificación de pérdidas excesivas, apriete de conexiones coaxiales",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Medición de nivel de señal en tomas de usuario (pisos afectados)",
+          "descripcion": "Verificación de nivel de señal en tomas de usuario de los pisos con mala cobertura, identificación de tomas defectuosas o con pérdida excesiva, registro de mediciones",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles (conectores, tapones, cinta aislante)",
+          "descripcion": "Conectores coaxiales de repuesto, tapones de protección, cinta aislante, bridas, material de fijación menor",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: precio a definir según cantidad y tipo de conectores/material utilizado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 350,
+        "iva_porcentaje": 21,
+        "iva": 73.5,
+        "total": 423.5
+      },
+      "sugerencias_catalogo": [
+        "Si el diagnóstico detecta pérdida de señal por longitud de cable o número excesivo de derivadores: considerar instalación de amplificador adicional de banda ancha (partida nueva)",
+        "Si se detectan tomas defectuosas: presupuestar sustitución de tomas de usuario (partida nueva por unidad)",
+        "Si el amplificador está averiado o es muy antiguo: presupuestar sustitución de amplificador de mastil (partida nueva)",
+        "Si hay cables coaxiales dañados o con pérdida excesiva: presupuestar sustitución de tramos de cable (partida nueva por ml)",
+        "Cumplimiento RD 346/2011: verificar que la instalación cumple niveles de señal mínimos en todas las tomas (según banda de frecuencia)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Limpieza y tratamiento anticorrosión de conexiones antena y mastil",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Material consumible no especificado en catálogo base"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (conectores, tapones, cinta aislante)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Material consumible no especificado en catálogo base"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "reparacion_o_mejora_de_cobertura_movil_en_interior",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3964,
+      "tokens_out": 2143
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

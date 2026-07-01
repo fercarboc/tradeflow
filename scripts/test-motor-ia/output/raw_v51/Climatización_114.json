@@ -1,0 +1,147 @@
+{
+  "id": 114,
+  "oficio": "Climatización",
+  "texto": "Reparación urgente de caldera sin calefacción en invierno, diagnóstico y sustitución de piezas",
+  "http_status": 200,
+  "latency_ms": 16429,
+  "raw_response": {
+    "transcript": "Reparación urgente de caldera sin calefacción en invierno, diagnóstico y sustitución de piezas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación urgente de caldera sin calefacción en invierno, diagnóstico y sustitución de piezas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "URGENCIA: Avería de calefacción en invierno - requiere intervención inmediata",
+          "Precio de diagnóstico + reparación pendiente de identificación de pieza defectuosa",
+          "Se recomienda presupuesto previo obligatorio antes de iniciar trabajos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Reparación y diagnóstico de calderas - oficio técnico especializado en climatización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico de avería en caldera",
+          "descripcion": "Inspección completa, medición de presión, verificación de presostato, sensor temperatura, cámara combustión y quemador. Identificación de causa de falta de calefacción",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustitución de pieza defectuosa (según diagnóstico)",
+          "descripcion": "Desmontaje y retirada de pieza defectuosa, instalación de componente de reemplazo, pruebas de funcionamiento y puesta en marcha. Pieza específica a determinar tras diagnóstico",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material: Piezas de sustitución según avería",
+          "descripcion": "Presostato, sensor NTC temperatura, electrodo encendido, válvulas, bomba circuladora, intercambiador o componente específico según resultado del diagnóstico",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de identificación exacta de la pieza defectuosa tras diagnóstico técnico"
+        },
+        {
+          "concepto": "Pequeño material: Juntas, teflón, sellantes, etc.",
+          "descripcion": "Material fungible necesario para la reparación: juntas de goma, cinta teflón, sellantes de tuberías, aceite lubricante, pequeños acoplamientos",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a revisar según necesidades específicas identificadas en diagnóstico"
+        },
+        {
+          "concepto": "Pruebas de funcionamiento, purga de circuito y puesta en marcha",
+          "descripcion": "Llenado del circuito de calefacción, purga de aire, verificación de presión del vaso de expansión, comprobación de válvulas de seguridad, prueba de combustión, control de temperatura y eficiencia energética",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Aplica la actuación BASE MAESTRA: [reparacion_averia_caldera_gas] - rango 250-3500€/ud según complejidad",
+        "El precio final será sustancialmente mayor al subtotal actual tras identificación de la pieza defectuosa",
+        "Si la caldera tiene más de 15 años, valorar sustitución completa vs reparación (actuación: renovacion_de_instalacion_de_calefaccion_en_vivienda)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Material: Piezas de sustitución según avería",
+          "origen": "sugerida_ia",
+          "motivo": "Tipo específico de pieza defectuosa (presostato, sensor, bomba, intercambiador, etc.) pendiente de identificación tras diagnóstico"
+        },
+        {
+          "concepto": "Pequeño material: Juntas, teflón, sellantes, etc.",
+          "origen": "sugerida_ia",
+          "motivo": "Material fungible de reparación - precio variable según alcance"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_averia_caldera_gas",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_caldera_gasoil",
+      "mantenimiento_anual_caldera_gas"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

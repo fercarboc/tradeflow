@@ -1,0 +1,519 @@
+{
+  "id": 371,
+  "oficio": "Reformas Integrales",
+  "texto": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 43254,
+  "raw_response": {
+    "transcript": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA MAYOR: Requiere proyecto técnico de estructura y cimentación",
+          "LICENCIA DE OBRAS MAYOR obligatoria",
+          "Verificación CRÍTICA: garaje soporta carga nueva planta",
+          "Proyecto debe incluir cálculo de forjado/viga de refuerzo si aplica",
+          "Coordinación con arquitecto e ingeniero técnico obligatoria",
+          "Declaración responsable de cumplimiento LSST (Ley Seguridad y Salud en el Trabajo)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reformas_integrales",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Coordinación obra mayor, demoliciones, nuevas instalaciones"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra de fábrica, muros, tabiquería nueva"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica nueva planta"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación fontanería nueva planta"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Acabados pintura interior nueva planta"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "PROYECTO TÉCNICO - Estructura y cimentación",
+          "descripcion": "Proyecto técnico de ingeniería para nueva planta sobre garaje existente. Incluye cálculo de capacidad portante del forjado/garaje, refuerzo estructural si necesario, distribución de cargas, planos constructivos",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto del proyectista según complejidad estructural. Rango estimado 2.000-4.000€"
+        },
+        {
+          "concepto": "LICENCIA DE OBRAS MAYOR",
+          "descripcion": "Tramitación y obtención de licencia municipal de obras mayor para ampliación vertical",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Varía según ayuntamiento. Rango estimado 300-1.200€"
+        },
+        {
+          "concepto": "VERIFICACIÓN Y REFUERZO ESTRUCTURAL - Garaje existente",
+          "descripcion": "Inspección in situ de estructura garaje, verificación de capacidad portante forjado, cálculo y ejecución de refuerzo estructural (viga, perfiles metálicos, inyecciones estructurales si necesario)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de jornadas depende de alcance refuerzo. Revisar tras inspección técnica"
+        },
+        {
+          "concepto": "SUMINISTRO REFUERZO ESTRUCTURAL - Materiales (perfiles, hormigón, etc.)",
+          "descripcion": "Materiales para refuerzo estructural: perfiles de acero, vigas, inyecciones estructurales, hormigón, pernos, etc.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto del proveedor según especificaciones técnicas del proyecto. Rango estimado 1.500-5.000€"
+        },
+        {
+          "concepto": "ESTRUCTURA NUEVA PLANTA - Forjado/Losa",
+          "descripcion": "Suministro e instalación forjado o losa de hormigón armado para nueva planta 40 m²",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto constructor/proveedor. Rango estimado 200-400€/m² (forjado + instalación)"
+        },
+        {
+          "concepto": "TABIQUERÍA NUEVA - Muros y tabiques",
+          "descripcion": "Construcción de muros de fábrica y tabiques interiores 40 m² planta nueva. Incluye mortero, bloques/ladrillos, pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto constructor. Rango estimado 80-150€/m² (materiales + mano obra)"
+        },
+        {
+          "concepto": "MANO DE OBRA - Albañilería tabiquería y muros",
+          "descripcion": "Ejecución de tabiquería, muros y acabados en bruto 40 m²",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 40,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "CUBIERTA NUEVA PLANTA",
+          "descripcion": "Suministro e instalación de cubierta: estructura, impermeabilización, tejas/pizarra/teja cerámica según proyecto",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según tipo cubierta y pendiente. Rango estimado 80-250€/m²"
+        },
+        {
+          "concepto": "MANO DE OBRA - Colocación cubierta",
+          "descripcion": "Instalación estructura cubierta, impermeabilización y colocación material de cobertura",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 40,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "INSTALACIÓN ELÉCTRICA NUEVA PLANTA - Completa",
+          "descripcion": "Cuadro secundario, cableado completo (fases, neutro, tierra), tubería protección, mecanismos (interruptores, enchufes, luminarias), circuitos independientes, toma tierra, boletín eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según proyecto eléctrico. Rango estimado 60-120€/m² (materiales + mano obra)"
+        },
+        {
+          "concepto": "MANO DE OBRA - Instalación eléctrica",
+          "descripcion": "Colocación de circuitos eléctricos, mecanismos, pruebas y legalización con boletín",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 30,
+          "precio_unitario": 50,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas aproximadas. Revisar tras conocer proyecto eléctrico detallado"
+        },
+        {
+          "concepto": "INSTALACIÓN FONTANERÍA NUEVA PLANTA - Completa",
+          "descripcion": "Red de distribución agua fría y caliente, desagües, sifones, válvulas, puntos de suministro (cocina, baños), tubería PEX o cobre según proyecto",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según puntos de agua. Rango estimado 40-100€/m² (materiales + mano obra)"
+        },
+        {
+          "concepto": "MANO DE OBRA - Instalación fontanería",
+          "descripcion": "Colocación de tuberías, conexiones, pruebas de estanqueidad y llenado circuito",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 50,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas aproximadas según puntos de agua. Revisar tras plano fontanería"
+        },
+        {
+          "concepto": "ACABADOS - Alicatado muros baños",
+          "descripcion": "Suministro e instalación azulejos/gres en muros baños, cocina 40 m² (estimado 50% superficie)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según calidad azulejo. Rango estimado 25-60€/m² (material + mano obra)"
+        },
+        {
+          "concepto": "MANO DE OBRA - Alicatado",
+          "descripcion": "Colocación de azulejos, lechada, rejuntado",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 32,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "ACABADOS - Pintura interior nuevas paredes",
+          "descripcion": "Preparación, imprimación y pintura acrílica paredes y techo 40 m² (aprox 120 m² superficie incluida techo)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según pintura (calidad estándar o premium). Rango estimado 3-8€/m² (material)"
+        },
+        {
+          "concepto": "MANO DE OBRA - Pintura",
+          "descripcion": "Preparación muros, imprimación, pintura acrílica paredes y techo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 32,
+          "total": 3840,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "SUELO NUEVO PLANTA - Baldosa/tarima",
+          "descripcion": "Suministro e instalación pavimento (baldosa, tarima, cerámica) 40 m²",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según tipo pavimento. Rango estimado 20-100€/m² (material + mano obra)"
+        },
+        {
+          "concepto": "MANO DE OBRA - Instalación suelo",
+          "descripcion": "Preparación base, colocación pavimento, lechada/encolado, rejuntado",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 32,
+          "total": 1280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "VENTANAS Y PUERTAS NUEVAS",
+          "descripcion": "Suministro e instalación ventanas, puerta acceso a nueva planta (estimado 2 ventanas + 1 puerta de acceso)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según material (aluminio/PVC) y acristalamiento. Rango 300-800€/ud"
+        },
+        {
+          "concepto": "MANO DE OBRA - Instalación ventanas y puertas",
+          "descripcion": "Colocación de marcos, sellado de juntas, regulación de herrajes",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "ESCALERAS DE ACCESO A NUEVA PLANTA",
+          "descripcion": "Suministro e instalación escaleras interiores o exteriores de acceso a nueva planta (estructura metálica o hormigón + peldaños)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según tipo escalera. Rango estimado 1.500-4.000€"
+        },
+        {
+          "concepto": "MANO DE OBRA - Instalación escaleras",
+          "descripcion": "Instalación estructura escaleras, fijación, acabados barandilla",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "GESTIÓN Y RETIRADA DE RESIDUOS",
+          "descripcion": "Gestión selectiva de residuos de construcción, transporte a gestor autorizado, documentación ambiental",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto gestor autorizado. Rango estimado 30-60€/m3"
+        },
+        {
+          "concepto": "PEQUEÑO MATERIAL - Obra completa",
+          "descripcion": "Herramientas, consumibles (clavos, tornillos, adhesivos, masillas, etc.) durante toda la obra",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado 5-10% del presupuesto materiales = 1.500-3.000€"
+        },
+        {
+          "concepto": "SEGURIDAD Y SALUD EN OBRA - Plan LSST",
+          "descripcion": "Coordinación de seguridad, plan de seguridad y salud, EPIs, vallado, señalización",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado 2-5% presupuesto total = 2.000-5.000€"
+        },
+        {
+          "concepto": "CONEXIÓN A INSTALACIONES EXISTENTES - Eléctrica",
+          "descripcion": "Derivación y conexión nueva planta a cuadro principal vivienda, ampliación línea general si necesario",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según capacidad cuadro existente. Rango estimado 500-1.500€"
+        },
+        {
+          "concepto": "CONEXIÓN A INSTALACIONES EXISTENTES - Fontanería",
+          "descripcion": "Derivación y conexión nueva planta a red agua fría/caliente existente",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según trazado. Rango estimado 400-1.000€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 12120,
+        "iva_porcentaje": 21,
+        "iva": 2545.2,
+        "total": 14665.2
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada catálogo 'Ampliación con nueva planta sobre garaje existente' oficio=reformas_integrales unidad=m2 precio=600-1.200€/m2 (presupuesto total según complejidad estructural)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Refuerzo estructural garaje existente",
+          "oficio": "albanileria",
+          "motivo": "Nueva planta requiere verificación capacidad portante forjado garaje"
+        },
+        {
+          "concepto": "Cubierta nueva planta",
+          "oficio": "albanileria",
+          "motivo": "Elemento constructivo específico ampliación vertical"
+        },
+        {
+          "concepto": "Escaleras de acceso",
+          "oficio": "carpinteria",
+          "motivo": "Elemento obligatorio para conectar nueva planta con vivienda existente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "ampliacion_y_redistribucion_de_espacios_en_vivienda",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "impermeabilizacion_techos_de_semisotano_o_losa_de_planta_baja"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 28,
+    "n_catalogo": 10,
+    "n_sugeridas": 18,
+    "oficio_detectado": "reformas_integrales",
+    "coincide_oficio": "SI"
+  }
+}

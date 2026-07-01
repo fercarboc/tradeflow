@@ -1,0 +1,456 @@
+{
+  "id": 239,
+  "oficio": "Energía Solar",
+  "texto": "Proyecto de comunidad energética solar en barrio, 20 viviendas participantes, gestoría incluida",
+  "http_status": 200,
+  "latency_ms": 47835,
+  "raw_response": {
+    "transcript": "Proyecto de comunidad energética solar en barrio, 20 viviendas participantes, gestoría incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Proyecto de comunidad energética solar en barrio, 20 viviendas participantes, gestoría incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Proyecto de comunidad energética requiere aprobación de TODOS los propietarios participantes",
+          "CRÍTICO: Tramitación ante distribuidora eléctrica OBLIGATORIA para cada punto de suministro",
+          "CRÍTICO: Requiere figura legal de Comunidad Energética Renovable (CER) o cooperativa",
+          "Requiere proyecto técnico detallado y memoria justificativa",
+          "Requiere asesoramiento legal y fiscal para estructura de reparto de energía",
+          "Presupuesto PRELIMINAR: requiere estudios previos de viabilidad, orientación, sombreados, capacidad estructural",
+          "Gestoría incluida: requiere estimación de horas administrativas y legales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica comunitaria + diseño sistema reparto energía"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cuadros, protecciones, cableado de distribución entre viviendas"
+        },
+        {
+          "oficio": "informatica",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Sistema de monitorización, aplicación de reparto de energía, contadores inteligentes"
+        },
+        {
+          "oficio": "multiservicio",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 38,
+            "max": 45
+          },
+          "motivo": "Apoyo general instalación, pequeño material, obras menores"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Aprobación de comunidad energética y junta de vecinos",
+          "descripcion": "Gestión de asambleas, votaciones, documentación de acuerdo de participación y estatutos de CER/cooperativa para 20 viviendas",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de honorarios de gestoría para tramitación legal de CER/cooperativa energética"
+        },
+        {
+          "concepto": "Proyecto técnico y estudio de viabilidad fotovoltaica comunitaria",
+          "descripcion": "Estudio solar, análisis de sombreados, cálculo de potencia instalable, diseño arquitectónico de instalación, memoria técnica CTE DB HE5, propuesta de reparto energético entre 20 viviendas",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proyecto técnico comunitario requiere cálculo específico de potencia según número viviendas, superficie disponible y consumo agregado"
+        },
+        {
+          "concepto": "Asesoramiento legal y fiscal para Comunidad Energética Renovable (CER)",
+          "descripcion": "Redacción de estatutos CER, contrato de adhesión, modelo de reparto de ahorros, estructura fiscal, registro de CER ante Administración",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere estimación de horas de gestoría especializada en derecho energético"
+        },
+        {
+          "concepto": "Solicitud de autorización y tramitación ante distribuidora eléctrica",
+          "descripcion": "Gestión administrativa para 20 puntos de suministro: solicitud de nueva modalidad de suministro comunitario, actualización de contratos, coordinación con distribuidora local",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tramitación distribuidora incluida en presupuesto de gestoría; requiere desglose de gestiones por vivienda"
+        },
+        {
+          "concepto": "Módulos fotovoltaicos (monocristalinos/bifaciales) para instalación comunitaria",
+          "descripcion": "Módulos fotovoltaicos de alta eficiencia (450-550W) dimensionados según estudio solar y capacidad estructural de cubierta/terraza comunitaria",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Potencia total en kWp pendiente de estudio solar. Rango referencia: 800-2600€/kWp; para 20 viviendas típicamente 30-60 kWp"
+        },
+        {
+          "concepto": "Estructura soporte fotovoltaica comunitaria",
+          "descripcion": "Estructura metálica galvanizada/aluminio para fijación de módulos en cubierta/terraza, anclajes, soportes ajustables, tornillería marina",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estructura comunitaria requiere cálculo de resistencia y dimensionamiento según m² de módulos y pendiente"
+        },
+        {
+          "concepto": "Inversor/inversores fotovoltaicos para reparto de energía comunitaria",
+          "descripcion": "Inversor(es) trifásico(s) de string o central (8-30 kW según estudio) con capacidad de reparto inteligente de energía entre 20 viviendas, protecciones anti-islanding",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y potencia de inversores según potencia total instalada y arquitectura de reparto"
+        },
+        {
+          "concepto": "Cableado de potencia y protecciones DC/AC para distribución comunitaria",
+          "descripcion": "Cable solar DC 6mm²-10mm², canalización, protecciones DC (fusibles/magnetotérmicos), cableado AC 16mm²-35mm² desde inversor a cuadro de distribución comunitario",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de cableado pendiente de topología comunitaria; estimación inicial 150-300 ml"
+        },
+        {
+          "concepto": "Cuadro de distribución y reparto de energía para 20 viviendas",
+          "descripcion": "Cuadro eléctrico central comunitario con protecciones generales, diferenciales, magnetotérmicos 63A, seccionadores, embarrados, bornes de conexión para derivaciones a 20 viviendas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cuadro personalizado para 20 derivaciones; requiere especificación de protecciones y esquema de reparto"
+        },
+        {
+          "concepto": "Contadores inteligentes/medidores de energía para 20 viviendas",
+          "descripcion": "20 medidores inteligentes bidireccionales (consumo + generación) con comunicación remota, compatible con sistema de reparto energético",
+          "oficio": "informatica",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Contadores inteligentes con capacidad de comunicación telemétrica para reparto automático; precio unitario 150-350€"
+        },
+        {
+          "concepto": "Sistema software de monitorización y reparto energético comunitario",
+          "descripcion": "Plataforma digital para visualización en tiempo real, cálculo automático de cuotas de participación según generación/consumo, algoritmo de reparto equitativo, interfaz web y móvil para 20 usuarios",
+          "oficio": "informatica",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Software de CER comunitario requiere desarrollo/integración específica; rango estimado 3000-8000€"
+        },
+        {
+          "concepto": "Instalación de módulos fotovoltaicos comunitarios",
+          "descripcion": "Montaje de estructura, fijación de módulos, conexionado DC, pruebas de continuidad y aislamiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 65,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de instalación fotovoltaica comunitaria pendiente de m² de estructura; estimación 60-120 horas para 30-60 kWp"
+        },
+        {
+          "concepto": "Instalación de inversor/inversores comunitarios",
+          "descripcion": "Montaje de inversor/inversores, conexionado AC/DC, protecciones, puesta a tierra, pruebas funcionales",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 65,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalación de inversor/inversores; estimación 16-32 horas según cantidad y complejidad de reparto"
+        },
+        {
+          "concepto": "Instalación de cableado de distribución comunitaria DC/AC",
+          "descripcion": "Tendido de cableado solar DC y AC, canalizaciones, regletas, etiquetado, pruebas de aislamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cableado comunitario 150-300 ml; estimación 30-60 horas"
+        },
+        {
+          "concepto": "Instalación de cuadro de distribución y reparto comunitario",
+          "descripcion": "Montaje de cuadro, instalación de protecciones, bornes, derivaciones a 20 viviendas, conexionado, pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de 20 contadores inteligentes en viviendas",
+          "descripcion": "Montaje de medidores bidireccionales, conexionado, configuración, pruebas de lectura, instalación de módulo de comunicación por vivienda",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y configuración sistema software de monitorización comunitaria",
+          "descripcion": "Instalación de plataforma, integración con medidores, configuración de algoritmo de reparto, creación de cuentas usuario, capacitación inicial de 20 vecinos",
+          "oficio": "informatica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 60,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Configuración software comunitario y capacitación; estimación 40-80 horas"
+        },
+        {
+          "concepto": "Pruebas funcionales, puesta en marcha y certificación instalación fotovoltaica comunitaria",
+          "descripcion": "Medición de tensiones DC/AC, pruebas de aislamiento, secuenciación, pruebas anti-islanding, generación de certificados, informe de conformidad técnica",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 24,
+          "precio_unitario": 65,
+          "total": 1560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inscripción y legalización ante distribuidora eléctrica (20 puntos)",
+          "descripcion": "Gestión técnica de inscripción ante distribuidora, envío de documentación técnica, coordinación de inspección de distribuidora, obtención de aceptación de nueva modalidad comunitaria",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 65,
+          "total": 1040,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Capacitación de comunidad sobre uso y ahorro energético",
+          "descripcion": "Sesión de formación con 20 vecinos sobre funcionamiento de instalación, lectura de consumos en app, derechos y obligaciones en CER, protección de datos",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 38,
+          "total": 304,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, conexionado, consumibles y EPI instalación fotovoltaica",
+          "descripcion": "Tornillos, abrazaderas, regletas, etiquetas, conectores MC4, silicona, disolventes, cintas aislantes, guantes, cascos, arneses, protecciones contra caídas",
+          "oficio": "multiservicio",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material comunitario; estimación 800-1500€"
+        },
+        {
+          "concepto": "Gestión administrativa recurrente (primer año)",
+          "descripcion": "Gestión de cobros de cuotas, liquidación de energía compartida mensual, soporte administrativo a vecinos, resolución de incidencias menores",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestoría recurrente; estimación 150-250€/mes para 20 viviendas"
+        },
+        {
+          "concepto": "Mantenimiento preventivo anual instalación fotovoltaica comunitaria",
+          "descripcion": "Limpieza de módulos, inspección visual de estructura, revisión de conexionado, pruebas de funcionamiento inversor, medición de producción esperada vs real",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 7424,
+        "iva_porcentaje": 21,
+        "iva": 1559.04,
+        "total": 8983.04
+      },
+      "sugerencias_catalogo": [
+        "Proyecto de comunidad energética requiere estructura similar a [instalacion_fotovoltaica_en_comunidad_de_propietarios] pero ampliada con componentes de gestoría",
+        "Considerar si comunidad energética requiere baterías comunitarias para almacenamiento (decisión estratégica de viabilidad económica)",
+        "Documentación obligatoria: Aprobación asamblea, estatutos CER, contrato de adhesión, certificado técnico, inscripción distribuidora"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico y estudio de viabilidad fotovoltaica comunitaria",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Requiere estimación de honorarios de ingeniero técnico especializado en CER"
+        },
+        {
+          "concepto": "Asesoramiento legal y fiscal para Comunidad Energética Renovable (CER)",
+          "oficio": "multiservicio",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de gestoría especializada en derecho energético no está en catálogo estándar"
+        },
+        {
+          "concepto": "Sistema software de monitorización y reparto energético comunitario",
+          "oficio": "informatica",
+          "origen": "sugerida_ia",
+          "motivo": "Plataforma digital específica para CER con algoritmo de reparto; requiere desarrollo personalizado"
+        },
+        {
+          "concepto": "Solicitud de autorización y tramitación ante distribuidora eléctrica",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Gestión administrativa de 20 puntos con nueva modalidad de suministro comunitario"
+        },
+        {
+          "concepto": "Gestión administrativa recurrente (primer año)",
+          "oficio": "multiservicio",
+          "origen": "sugerida_ia",
+          "motivo": "Gestoría mensual para comunidad energética; parte de contrato de 'gestoría incluida'"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_foco_solar_exterior",
+      "instalacion_fotovoltaica_en_comunidad_de_propietarios",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 23,
+    "n_catalogo": 10,
+    "n_sugeridas": 13,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

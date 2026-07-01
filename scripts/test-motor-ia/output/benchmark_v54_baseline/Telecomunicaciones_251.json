@@ -1,0 +1,200 @@
+{
+  "id": 251,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+  "http_status": 200,
+  "latency_ms": 24440,
+  "raw_response": {
+    "transcript": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto requiere medición en sitio: longitud total de fibra, tipo de canalización existente, accesibilidad",
+          "Especificar tipo de fibra (OM3/OM4 multimodo vs OS2 monomodo) según distancias y velocidad requerida",
+          "Confirmar si incluye ODF (Optical Distribution Frame) en sala técnica",
+          "Validar si los 20 puntos incluyen switches con SFP o solo terminales de fibra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de red de fibra óptica, cableado estructurado, conectores, paneles de distribución y configuración de equipos activos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de cable de fibra óptica multimodo OM4 (20 puntos)",
+          "descripcion": "Cable de fibra óptica multimodo OM4 (4 fibras mínimo) con vaina exterior reforzada, apto para canalización en edificio. Incluye tendido, fijación y protección en 3 plantas. Estimado 400-500 ml según distribución vertical y horizontal.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 450,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cable OM4 a confirmar por instalador según proveedor y cantidad exacta tras medición en sitio"
+        },
+        {
+          "concepto": "Conectores LC duplex y paneles de fibra óptica (20 puntos)",
+          "descripcion": "20 conectores LC duplex (40 conectores individuales) con adaptadores, paneles de distribución de fibra óptica (2 paneles de 24 puertos) para sala técnica y puntos de trabajo. Incluye etiquetado y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de conectores y paneles a confirmar. Rango típico: 15-35€/conector LC duplex, 200-400€/panel 24 puertos"
+        },
+        {
+          "concepto": "Switch gestionado con puertos SFP+ para fibra óptica",
+          "descripcion": "Switch de capa 3 gestionado con mínimo 4 puertos SFP+ (10 Gbps) para interconexión de fibra entre plantas y conexión a equipos activos. Incluye alimentación redundante y montaje en rack.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de switch SFP+ a confirmar. Rango típico: 800-2500€ según marca y número de puertos"
+        },
+        {
+          "concepto": "Transceptores SFP+ para fibra óptica",
+          "descripcion": "Small Form Factor Transceiver SFP+ (10 Gbps) para conexión de equipos activos a la red de fibra. Cantidad: 4 unidades (2 para switch principal + 2 para redundancia/futuros equipos).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de SFP+ a confirmar. Rango típico: 150-400€/ud según tipo (OM4, monomodo, marca)"
+        },
+        {
+          "concepto": "Medidor de potencia óptica y herramienta de fusión/conectores",
+          "descripcion": "Medidor de potencia óptica para validación de atenuación en cada punto. Herramienta de fusión o kit de conectores mecánicos para terminación de fibra en campo. Incluye pequeño material de instalación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herramientas a confirmar. Rango típico: 200-600€ (medidor) + 300-800€ (fusionadora o kit conectores)"
+        },
+        {
+          "concepto": "Instalación de red de fibra óptica: tendido, terminación y pruebas",
+          "descripcion": "Mano de obra para: tendido de cable en canalización (3 plantas, 20 puntos), terminación de conectores LC en paneles y puntos de trabajo, fusión o conexión mecánica de fibras, medición de atenuación con medidor óptico, etiquetado, documentación y pruebas funcionales. Incluye coordinación con obra civil si es necesario.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación inicial 40h. Ajustar según complejidad real: accesibilidad de canalización, número de fusiones, distancia vertical entre plantas, necesidad de nuevas canalizaciones"
+        },
+        {
+          "concepto": "Certificación OTDR de la red de fibra óptica",
+          "descripcion": "Medición y certificación con OTDR (Optical Time Domain Reflectometer) de todos los tramos de fibra. Generación de informe técnico con atenuación, pérdidas por conector y empalme, y mapa de la red.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de certificación OTDR a confirmar. Rango típico: 300-800€ según número de tramos y complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2000,
+        "iva_porcentaje": 21,
+        "iva": 420,
+        "total": 2420
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la empresa requiere redundancia de fibra (2 rutas independientes) para mayor disponibilidad",
+        "Evaluar si es necesario ODF (Optical Distribution Frame) en sala técnica para gestión centralizada de 20+ puntos",
+        "Especificar si los 20 puntos incluyen: solo terminales de fibra, o también switches/equipos activos en cada planta",
+        "Considerar canalización: ¿existe canalización disponible o requiere instalación de nuevas bandejas/tubos?",
+        "Validar distancias: OM4 cubre hasta 400m a 10 Gbps; si distancias mayores, considerar OS2 monomodo",
+        "Incluir contrato de mantenimiento preventivo y soporte técnico post-instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable de fibra óptica multimodo OM4",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico para red de fibra; precio variable según proveedor y cantidad"
+        },
+        {
+          "concepto": "Conectores LC duplex y paneles de fibra",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componentes de terminación; precio variable según marca y especificaciones"
+        },
+        {
+          "concepto": "Switch gestionado con puertos SFP+",
+          "oficio": "telecomunicaciones",
+          "motivo": "Equipo activo central; precio variable según capacidad y marca"
+        },
+        {
+          "concepto": "Transceptores SFP+ para fibra",
+          "oficio": "telecomunicaciones",
+          "motivo": "Módulos de conexión; precio variable según tipo y velocidad"
+        },
+        {
+          "concepto": "Certificación OTDR",
+          "oficio": "telecomunicaciones",
+          "motivo": "Servicio de validación técnica; precio variable según complejidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_de_punto_de_acceso_wifi_o_AP_profesional",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_electrica_pergola_terraza",
+      "instalacion_de_central_telefonica_IP_o_PBX"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3967,
+      "tokens_out": 3021
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,244 @@
+{
+  "id": 131,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reforma de cubierta plana transitable con baldosas filtrantes sobre plots, 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 24742,
+  "raw_response": {
+    "transcript": "Reforma de cubierta plana transitable con baldosas filtrantes sobre plots, 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de cubierta plana transitable con baldosas filtrantes sobre plots, 60 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma de cubierta: requiere verificación de estado actual (impermeabilización existente, drenaje, cargas)",
+          "Sistema de plots: altura y capacidad de carga deben validarse según normativa CTE DB-HS y cargas previstas",
+          "Baldosas filtrantes: especificar material (hormigón permeable, cerámica drenante, etc.) y espesor",
+          "Drenaje: confirmar si existe sistema de drenaje bajo plots o si requiere instalación",
+          "Acceso a cubierta: verificar si hay escalera/acceso seguro para trabajos en altura"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reforma de cubierta plana transitable con sistema de drenaje y acabado en baldosas"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Verificación/renovación de impermeabilización bajo sistema de plots"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de cubierta existente",
+          "descripcion": "Desmontaje de pavimento/acabado existente en cubierta, retirada de escombros y carga en contenedor. Incluye protección de sumideros y desagües.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección y reparación de impermeabilización existente",
+          "descripcion": "Inspección visual de lámina impermeabilizante, reparación de fisuras, grietas o despegues. Sellado de encuentros con sumideros. Aplicación de imprimación bituminosa en zonas reparadas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 12,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del estado actual de la impermeabilización; si requiere renovación completa, aumentar a 25-35€/m2"
+        },
+        {
+          "concepto": "Suministro e instalación de plots/soportes de altura regulable",
+          "descripcion": "Suministro de plots de polipropileno o PVC con altura regulable (rango típico 20-100mm). Instalación sobre impermeabilización con separación según especificación técnica. Incluye nivelación y fijación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de plots depende de altura, material y cantidad. Rango estimado: 8-25€/unidad. Instalador debe especificar modelo y altura."
+        },
+        {
+          "concepto": "Instalación de plots: mano de obra",
+          "descripcion": "Colocación, nivelación y fijación de plots sobre impermeabilización. Incluye verificación de pendientes y drenaje.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 6,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de baldosas filtrantes/drenantes",
+          "descripcion": "Baldosas filtrantes de hormigón permeable, cerámica drenante o similar. Espesor mínimo 40mm. Incluye material de agarre (arena/mortero drenante si aplica).",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baldosas filtrantes: 25-80€/m2 según material y espesor. Instalador debe especificar tipo y proveedor."
+        },
+        {
+          "concepto": "Instalación de baldosas filtrantes sobre plots",
+          "descripcion": "Colocación de baldosas sobre plots con separación uniforme. Nivelación, aplomado y fijación. Incluye cortes perimetrales y encuentros con sumideros/paramentos.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 15,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de juntas y encuentros",
+          "descripcion": "Sellado de juntas entre baldosas con silicona drenante o mortero flexible. Sellado de encuentros con paramentos, sumideros y remates perimetrales.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 4,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de material de sellado y pequeño material",
+          "descripcion": "Silicona drenante, mortero flexible, arena de nivelación, EPI (arnés, casco, guantes), herramientas menores.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado: 150-300€ según cantidad de sellado y EPI. Instalador ajusta según necesidad."
+        },
+        {
+          "concepto": "Pruebas de drenaje y estanqueidad",
+          "descripcion": "Prueba de drenaje del sistema (riego controlado). Verificación de ausencia de encharcamientos. Inspección visual de impermeabilización y juntas.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza final",
+          "descripcion": "Retirada de escombros, embalajes y residuos de obra. Limpieza de cubierta. Carga en contenedor o transporte a gestor autorizado.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 2,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2870,
+        "iva_porcentaje": 21,
+        "iva": 602.7,
+        "total": 3472.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'impermeabilizacion_cubierta_plana_no_transitable_con_lamina' — si la impermeabilización requiere renovación completa, aplicar tarifa 30-140€/m2",
+        "Verificar en catálogo: 'pintado_de_cubierta_plana_transitable' — si se requiere acabado protector UV adicional tras baldosas",
+        "Considerar partida de 'formacion_pendientes' si la cubierta no tiene pendiente mínima 1.5% para drenaje"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de plots/soportes de altura regulable",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Sistema de plots no está explícitamente en Base Maestra; es componente estándar en cubiertas transitables modernas. Precio pendiente de especificación del instalador."
+        },
+        {
+          "concepto": "Suministro de baldosas filtrantes/drenantes",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Baldosas filtrantes son acabado específico para cubiertas drenantes. Precio variable según material (hormigón permeable, cerámica, etc.). Instalador especifica."
+        },
+        {
+          "concepto": "Suministro de material de sellado y pequeño material",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Lote de consumibles (silicona drenante, mortero flexible, EPI). Precio estimado; instalador ajusta según necesidad real."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_aislante_termico_en_cubierta_plana_invertida",
+      "pintado_de_cubierta_plana_transitable",
+      "impermeabilizacion_de_terraza_invertida_con_XPS",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3858,
+      "tokens_out": 3387
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 7,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

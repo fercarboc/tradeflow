@@ -1,0 +1,283 @@
+{
+  "id": 298,
+  "oficio": "Impermeabilización",
+  "texto": "Renovar impermeabilización de cubierta plana transitada con sistema de Büttner o similar",
+  "http_status": 200,
+  "latency_ms": 29010,
+  "raw_response": {
+    "transcript": "Renovar impermeabilización de cubierta plana transitada con sistema de Büttner o similar",
+    "quote": {
+      "resumen": {
+        "texto_original": "Renovar impermeabilización de cubierta plana transitada con sistema de Büttner o similar",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cubierta TRANSITADA: requiere sistema de protección mecánica resistente (baldosas, placas, sistema modular Büttner)",
+          "Sistema Büttner es modular con drenaje integrado: incluye lámina EPDM + capa drenante + geotextil + protección",
+          "Presupuesto requiere confirmación de superficie exacta de la cubierta",
+          "Revisar estado actual de impermeabilización, drenaje y estructuras de soporte"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Especialidad en cubiertas planas con sistemas de impermeabilización y drenaje"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Colocación de baldosas o placas de protección en cubierta transitada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de impermeabilización antigua",
+          "descripcion": "Desmontaje completo de sistema de impermeabilización existente, retirada de lámina, capas de protección, grava y material de drenaje. Carga y transporte a punto de acopio. Limpieza de superficies.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 8,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 debe confirmarse in situ"
+        },
+        {
+          "concepto": "Reparación y nivelación de base",
+          "descripcion": "Reparación de grietas, pequeños desperfectos en solera o losa. Nivelación de zonas irregulares. Regularización de superficie para colocación de nuevo sistema.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 12,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 y estado de base deben confirmarse"
+        },
+        {
+          "concepto": "Capa de separación/geotextil de base",
+          "descripcion": "Suministro e instalación de geotextil de protección entre la base y el nuevo sistema de impermeabilización Büttner. Protege la lámina EPDM frente a puntas y rugosidades.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de geotextil (300-500 g/m²) debe introducirlo el instalador. Referencia: 1.5-3€/m²"
+        },
+        {
+          "concepto": "Lámina impermeabilizante EPDM sistema Büttner",
+          "descripcion": "Suministro e instalación de lámina EPDM de 1.5mm de espesor (o según especificación del sistema Büttner). Colocación adherida con adhesivo específico EPDM. Incluye sellado de juntas, solapes (mín. 10cm) y refuerzo en encuentros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio lámina EPDM + instalación debe introducirlo. Referencia catálogo: 15-70€/m² según especificación Büttner"
+        },
+        {
+          "concepto": "Instalación lámina EPDM: mano de obra",
+          "descripcion": "Mano de obra para colocación, adhesión, sellado de juntas y solapes, refuerzo de encuentros con lámina EPDM en sistema Büttner.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 18,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Capa drenante modular sistema Büttner",
+          "descripcion": "Suministro e instalación de capa drenante modular (tablero drenante o grava drenante según sistema Büttner). Facilita evacuación rápida de agua hacia sumideros. Incluye geotextil filtro encima.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio capa drenante debe introducirlo. Referencia: 8-25€/m² según tipo (modular vs grava)"
+        },
+        {
+          "concepto": "Instalación capa drenante: mano de obra",
+          "descripcion": "Mano de obra para distribución, nivelación y fijación de capa drenante. Colocación de geotextil filtro sobre capa drenante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 6,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de protección mecánica para cubierta transitada",
+          "descripcion": "Suministro e instalación de baldosas cerámicas, placas de hormigón o sistema modular Büttner compatible para cubierta transitada. Proporciona protección UV y mecánica a la impermeabilización. Incluye lecho de mortero o soportes plásticos.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baldosas/placas debe introducirlo. Referencia: 15-60€/m² según material y sistema"
+        },
+        {
+          "concepto": "Instalación sistema de protección: mano de obra",
+          "descripcion": "Mano de obra para colocación de baldosas o placas sobre capa drenante. Preparación de lechada/soportes, nivelación, rejuntado si aplica, acabados.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 16,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión/renovación de sumideros",
+          "descripcion": "Revisión, limpieza y refuerzo de impermeabilización perimetral en puntos de desagüe. Refuerzo con lámina EPDM adicional. Instalación de rejilla o sombrero guardahojas. Se asume 1 sumidero cada 25-50 m² aproximadamente.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 120,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de sumideros debe confirmarse según superficie real. Estimación: 2-4 unidades para 100 m²"
+        },
+        {
+          "concepto": "Pendientes y formación de desagües",
+          "descripcion": "Formación de pendientes mínima 1.5% hacia sumideros. Regularización en encuentros con paramentos verticales. Sellado de encuentros con lámina EPDM reforzada.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 80,
+          "precio_unitario": 12,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro a medir in situ"
+        },
+        {
+          "concepto": "Materiales auxiliares: adhesivos, selladores, complementos",
+          "descripcion": "Suministro de adhesivo específico EPDM, selladores de juntas, cintas de refuerzo EPDM, pequeño material (clavos, grapas, arandelas), EPI (arnés de seguridad, cascos, guantes), herramientas menores.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "global",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales auxiliares. Referencia: 500-1500€ en función de superficie y complejidad"
+        },
+        {
+          "concepto": "Pruebas de hermeticidad y estanqueidad",
+          "descripcion": "Prueba de agua en zona de sumideros y puntos críticos. Verificación de drenaje correcto. Pruebas funcionales del sistema.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 8350,
+        "iva_porcentaje": 21,
+        "iva": 1753.5,
+        "total": 10103.5
+      },
+      "sugerencias_catalogo": [
+        "Sistema Büttner es un estándar de cubierta invertida transitada. Confirmar marca/modelo exacto con el cliente para especificar componentes.",
+        "Si existe formación de pendientes insuficiente, considerar añadir capa de mortero de regularización previa.",
+        "Revisar especificación de lámina EPDM: espesores 1.0, 1.2 o 1.5 mm según sistema Büttner y normativa local.",
+        "Baldosas o placas de protección: confirmr si son cerámicas, hormigón o módulos Büttner específicos (requiere precio diferente).",
+        "Desbordadero de emergencia recomendado si solo 1-2 sumideros en cubierta de 100 m²."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lámina impermeabilizante EPDM sistema Büttner",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de marca/sistema; precio debe introducir el instalador"
+        },
+        {
+          "concepto": "Capa drenante modular sistema Büttner",
+          "origen": "sugerida_ia",
+          "motivo": "Componente modular específico; precio depende de tipo (tablero vs grava)"
+        },
+        {
+          "concepto": "Sistema de protección mecánica para cubierta transitada",
+          "origen": "sugerida_ia",
+          "motivo": "Material de baldosas/placas; precio varía según material y especificación"
+        },
+        {
+          "concepto": "Materiales auxiliares: adhesivos, selladores, complementos",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agregada; presupuesto de consumibles debe desglosarse"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_drenaje_cubierta_plana",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 8,
+    "n_sugeridas": 5,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

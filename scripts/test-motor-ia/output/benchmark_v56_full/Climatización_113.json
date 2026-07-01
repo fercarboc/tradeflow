@@ -1,0 +1,270 @@
+{
+  "id": 113,
+  "oficio": "Climatización",
+  "texto": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 21295,
+  "raw_response": {
+    "transcript": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar humedad relativa del clima local (sistema eficaz si HR < 60%)",
+          "Confirmar disponibilidad de agua y drenaje en nave",
+          "Validar altura de nave para distribución de conductos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación sistema climatización evaporativa industrial"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión eléctrica del climatizador y circuito de control"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión agua de alimentación y drenaje del sistema"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Climatizador evaporativo industrial 500 m²",
+          "descripcion": "Suministro e instalación de climatizador evaporativo/adiabático con capacidad para 500 m² de nave industrial. Incluye cuerpo principal, ventilador centrífugo, almohadillas evaporativas, bandeja de agua y estructura de montaje.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipo según marca, modelo y capacidad frigorífica (estimado 2500-6000€)"
+        },
+        {
+          "concepto": "Red de conductos y difusores de distribución",
+          "descripcion": "Suministro e instalación de red de conductos de chapa galvanizada aislados, difusores de aire y rejillas de retorno para distribución homogénea del aire frío en nave de 500 m². Incluye soportería y pequeño material.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por m² según complejidad de distribución (estimado 8-25€/m²)"
+        },
+        {
+          "concepto": "Instalación red de conductos y difusores",
+          "descripcion": "Mano de obra para montaje, fijación y conexión de conductos, difusores y rejillas de retorno en nave industrial.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 60,
+          "total": 2400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión agua de alimentación y drenaje",
+          "descripcion": "Suministro e instalación de tubería de alimentación de agua (PEX o cobre) desde fuente disponible, válvula de corte, filtro de agua y tubería de drenaje hacia sumidero o desagüe. Incluye pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según distancia a fuente de agua y complejidad (estimado 300-800€)"
+        },
+        {
+          "concepto": "Instalación conexión agua y drenaje",
+          "descripcion": "Mano de obra para conexión de tubería de agua, válvulas, filtro y drenaje del climatizador evaporativo.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuito eléctrico y conexión climatizador",
+          "descripcion": "Suministro e instalación de cable RZ1-K 4x6 mm² desde cuadro eléctrico hasta climatizador, magnetotérmico 3x16A, enchufe industrial CEE 16A trifásico, pequeño material y puesta a tierra.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según distancia a cuadro eléctrico (estimado 250-600€)"
+        },
+        {
+          "concepto": "Instalación circuito eléctrico climatizador",
+          "descripcion": "Mano de obra para tendido de cable, instalación de magnetotérmico, enchufe CEE, conexiones y puesta a tierra del climatizador evaporativo.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de control y termostato",
+          "descripcion": "Suministro e instalación de termostato digital con sensor de temperatura y humedad relativa, panel de control del climatizador, cableado de control y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo de control (estimado 150-400€)"
+        },
+        {
+          "concepto": "Instalación sistema de control",
+          "descripcion": "Mano de obra para instalación de termostato, sensor de humedad, panel de control y programación del climatizador evaporativo.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Pruebas de estanqueidad de conductos, verificación de caudal de aire, comprobación de consumo de agua, calibración de termostato, pruebas de drenaje y puesta en marcha del sistema completo.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 3540,
+        "iva_porcentaje": 21,
+        "iva": 743.4,
+        "total": 4283.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_sistema_evaporativo_o_enfriamiento_adiabático' para validar precios de equipos según potencia",
+        "Consultar tarifa de 'instalacion_red_electrica_nave_industrial' si hay más conexiones eléctricas en nave",
+        "Considerar partida de 'sistema_purga_automatica' si se requiere limpieza automática de almohadillas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Climatizador evaporativo industrial 500 m²",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo específico según capacidad de nave; precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Red de conductos y difusores de distribución",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Distribución personalizada según layout de nave; precio por m² a validar"
+        },
+        {
+          "concepto": "Conexión agua de alimentación y drenaje",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Instalación específica según ubicación de fuente de agua; precio a revisar"
+        },
+        {
+          "concepto": "Circuito eléctrico y conexión climatizador",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Cableado y protecciones según distancia a cuadro; precio a validar"
+        },
+        {
+          "concepto": "Sistema de control y termostato",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Control digital con sensor HR; precio según especificaciones a revisar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_evaporativo_o_enfriamiento_adiabático",
+      "instalacion_red_electrica_nave_industrial",
+      "instalacion_cuadro_electrico_industrial_trifasico",
+      "instalacion_conexion_maquina_industrial",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3759,
+      "tokens_out": 3023
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

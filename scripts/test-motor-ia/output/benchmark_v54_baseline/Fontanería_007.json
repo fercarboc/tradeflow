@@ -1,0 +1,215 @@
+{
+  "id": 7,
+  "oficio": "Fontanería",
+  "texto": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas de buena calidad",
+  "http_status": 200,
+  "latency_ms": 22650,
+  "raw_response": {
+    "transcript": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas de buena calidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas de buena calidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de baño: requiere coordinación de múltiples oficios (fontanería, albañilería, pladur, impermeabilización, alicatado)",
+          "Inodoro suspendido: implica estructura de soporte (pladur/albañilería) + instalación fontanería",
+          "Lavabo empotrado: requiere obra de encofrado/pladur + fontanería",
+          "Ducha: requiere impermeabilización obligatoria + desagüe + grifo termostático recomendado",
+          "Griferías cromadas de buena calidad: precio pendiente de especificación del cliente",
+          "Presupuesto agrupado en capítulos por complejidad (reforma integral)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral de baño con 4+ oficios simultáneos: fontanería, albañilería, pladur, impermeabilización, alicatado"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de griferías, inodoro suspendido, lavabo empotrado, desagüe ducha"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición, preparación solera, rebaje para ducha, formación de pendientes"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Estructura soporte inodoro suspendido, encofrado lavabo empotrado, falso techo si aplica"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización obligatoria zona ducha antes de alicatado"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado paredes y suelo baño, rejuntado, sellado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición, obra civil y preparación",
+          "descripcion": "Demolición de elementos existentes (si aplica), rebaje de solera para ducha a nivel, formación de pendientes hacia desagüe, preparación de ramal de desagüe, pequeño material y gestión de residuos",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado según complejidad de demolición y preparación. Instalador debe revisar según estado actual del baño"
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (fontanería, pladur estructura, impermeabilización)",
+          "descripcion": "Estructura pladur para inodoro suspendido, encofrado lavabo empotrado, instalación de desagüe ducha con pendiente, impermeabilización zona ducha (lámina EPDM o poliurea), instalación de griferías (grifo ducha termostático, grifo lavabo monomando, válvulas escuadra), latiguillos flex, sifón lavabo, manguito descarga WC, juntas y sellados sanitarios",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coordinación de fontanería, pladur e impermeabilización. Precio estimado según complejidad de estructura suspendida y desagüe"
+        },
+        {
+          "concepto": "CAP.3 – Acabados (alicatado, rejuntado, sellado)",
+          "descripcion": "Alicatado de paredes y suelo baño (material no incluido), rejuntado con lechada, sellado de juntas perimetrales con silicona sanitaria, acabado cromado de griferías",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado según m² de alicatado. Instalador debe especificar superficie total"
+        },
+        {
+          "concepto": "Materiales: Inodoro suspendido, lavabo empotrado, griferías cromadas, sanitarios y accesorios",
+          "descripcion": "Inodoro suspendido completo (taza + cisterna empotrada), lavabo empotrado de cerámica, grifo ducha termostático cromado, grifo lavabo monomando cromado, sifón PVC, manguito descarga, latiguillos flex, válvulas escuadra, juntas goma, silicona sanitaria, tacos fijación, lámina impermeabilizante EPDM/poliurea, pequeño material",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Griferías cromadas de buena calidad: precio pendiente de especificación. Instalador debe detallar marcas y modelos (Roca, Grohe, Hansgrohe, etc.). Rango estimado: inodoro suspendido 400-800€, lavabo 150-400€, griferías 300-600€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Especificar marca y modelo de griferías cromadas (ej: Roca, Grohe, Hansgrohe, Dornbracht)",
+        "Confirmar si inodoro suspendido incluye cisterna empotrada o se suministra por separado",
+        "Detallar tipo de ducha: plato ducha estándar, ducha italiana a ras de suelo, o ducha con mampara",
+        "Especificar superficie total de alicatado (m²) para ajustar presupuesto de mano de obra",
+        "Confirmar si hay demolición previa o es baño nuevo desde cero",
+        "Especificar tipo de lámina impermeabilizante (EPDM, TPO, poliurea, pintura impermeabilizante)",
+        "Incluir presupuesto separado para mampara/cortina ducha si no está incluida"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura pladur inodoro suspendido",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "motivo": "Elemento específico de reforma integral de baño con inodoro suspendido"
+        },
+        {
+          "concepto": "Encofrado lavabo empotrado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "motivo": "Elemento específico de reforma integral de baño con lavabo empotrado"
+        },
+        {
+          "concepto": "Impermeabilización zona ducha",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "motivo": "Obligatoria en reforma de baño con ducha antes de alicatado"
+        },
+        {
+          "concepto": "Griferías cromadas de buena calidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Material de especificación premium, precio pendiente de detallar marca/modelo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_sifon",
+      "cambio_grifo_lavabo",
+      "cambio_inodoro",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_lavabo"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3445,
+      "tokens_out": 3055
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "id": 92,
+  "oficio": "Albañilería",
+  "texto": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 16974,
+  "raw_response": {
+    "transcript": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Piso antiguo: verificar estado de humedad, grietas estructurales y necesidad de reparaciones previas",
+          "Superficie 120 m²: considerar andamios si hay paredes altas (>3m)",
+          "Presupuesto orientativo: el instalador debe revisar y ajustar precios según materiales y accesibilidad real"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Enfocar (guarnecido) y enlucir (acabado yeso) son trabajos de albañilería según Base Maestra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Yeso grueso de proyección/manual para guarnecido",
+          "descripcion": "Aplicación de yeso grueso como primera capa de guarnecido en paredes interiores, espesor 10-15mm, incluye maestras y guías",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe cotizar yeso grueso según marca y calidad (típico 8-15€/m² en material)"
+        },
+        {
+          "concepto": "Yeso fino de acabado para enlucido",
+          "descripcion": "Aplicación de yeso fino como segunda capa de acabado en paredes, espesor 5-8mm, acabado liso y uniforme",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe cotizar yeso fino según marca y calidad (típico 6-12€/m² en material)"
+        },
+        {
+          "concepto": "Mano de obra: guarnecido y enlucido de paredes",
+          "descripcion": "Ejecución completa de guarnecido (yeso grueso) y enlucido (yeso fino) en 120 m² de paredes interiores, incluye colocación de maestras, guías, regla de aluminio y pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 40,
+          "total": 4800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación fijadora en paredes",
+          "descripcion": "Aplicación de imprimación fijadora para sellar porosidad y mejorar adherencia de futuras capas de pintura, en 120 m² de paredes",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe cotizar imprimación (típico 2-4€/m² en material, rendimiento 10-12 m²/litro)"
+        },
+        {
+          "concepto": "Guardavivos metálicos en esquinas salientes",
+          "descripcion": "Colocación de guardavivos/ángulos metálicos en esquinas salientes para protección y acabado limpio, cantidad según número de esquinas (estimado 40-50 ml)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe cotizar guardavivos metálicos (típico 1-2€/ml en material)"
+        },
+        {
+          "concepto": "Pequeño material y herramientas (yeso, agua, cinta, etc.)",
+          "descripcion": "Suministro de pequeño material: agua, cinta de carrocero, plástico de protección, trapos, esponjas, y desgaste de herramientas menores",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe estimar pequeño material (típico 2-5€/m² en total)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4800,
+        "iva_porcentaje": 21,
+        "iva": 1008,
+        "total": 5808
+      },
+      "sugerencias_catalogo": [
+        "Verificar en Base Maestra: [guarnecido_y_maestreado_yeso_paredes_y_techo] y [enlucido_de_yeso_paredes_interiores] — ambas actuaciones están validadas",
+        "Rango de precio típico según Base Maestra: 22-110€/m² (mano de obra + material). Presupuesto actual: 40€/m² (solo mano de obra). Materiales pendientes de cotización.",
+        "Si las paredes superan 3m de altura, considerar partida adicional de andamios"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Yeso grueso de proyección/manual para guarnecido",
+          "oficio": "albanileria",
+          "motivo": "Partida de material obligatoria según Base Maestra [guarnecido_y_maestreado_yeso_paredes_y_techo]"
+        },
+        {
+          "concepto": "Yeso fino de acabado para enlucido",
+          "oficio": "albanileria",
+          "motivo": "Partida de material obligatoria según Base Maestra [enlucido_de_yeso_paredes_interiores]"
+        },
+        {
+          "concepto": "Imprimación fijadora en paredes",
+          "oficio": "albanileria",
+          "motivo": "Partida auxiliar recomendada en Base Maestra para sellar porosidad en pisos antiguos"
+        },
+        {
+          "concepto": "Guardavivos metálicos en esquinas salientes",
+          "oficio": "albanileria",
+          "motivo": "Partida auxiliar obligatoria en Base Maestra para esquinas salientes"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "guarnecido_y_maestreado_yeso_paredes_y_techo",
+      "pintura_plastica_paredes_interiores",
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "reforma_integral_vivienda_completa",
+      "enlucido_de_yeso_paredes_interiores"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3693,
+      "tokens_out": 2462
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

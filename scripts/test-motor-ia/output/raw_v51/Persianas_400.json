@@ -1,0 +1,268 @@
+{
+  "id": 400,
+  "oficio": "Persianas",
+  "texto": "Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor",
+  "http_status": 200,
+  "latency_ms": 23125,
+  "raw_response": {
+    "transcript": "Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto para instalación en fachada de hotel: verificar accesibilidad, andamios y normativa de seguridad en altura",
+          "10 unidades de toldos motorizado: coordinar logística y cronograma de instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de estructuras metálicas y sistemas de anclaje en fachada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro toldos extensibles con cofre y motor",
+          "descripcion": "10 unidades de toldo extensible 2.5m con cofre integrado y motor eléctrico, incluye brazos articulados y mecanismo de extensión-retracción",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del toldo motorizado con cofre depende de marca, calidad de tela y accionamiento (debe indicarse por el profesional)"
+        },
+        {
+          "concepto": "Anclajes y elementos de fijación estructural",
+          "descripcion": "Anclajes químicos, pernos estructurales, ménsulas y herrajes para fijación de toldos a fachada de hotel, según cálculos de carga",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material variable según tipo de fachada (hormigón, ladrillo, piedra); incluir cálculo estructural por profesional"
+        },
+        {
+          "concepto": "Cableado eléctrico y conexión motores",
+          "descripcion": "Línea eléctrica H07RN-F, tubería PVC, cajas de conexión y puesta a tierra para 10 motores de toldos con protección diferencial 30mA",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de línea y sección de cable dependen del trazado en fachada del hotel"
+        },
+        {
+          "concepto": "Impermeabilización encuentro fachada",
+          "descripcion": "Sellado y rejuntado de puntos de anclaje y encuentros toldo-fachada con masilla elástica y sellador profesional para evitar filtraciones",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de sellado variable según tipo de fachada"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillería, arandelas, tapas, silicona, cinta adhesiva, etc.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación a forfait, revisable tras detalle"
+        },
+        {
+          "concepto": "Preparación y replanteo en fachada",
+          "descripcion": "Trabajos previos: medición, replanteo, marcaje de puntos de anclaje, protección de fachada y zona de trabajo",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de anclajes y estructura soporte",
+          "descripcion": "Taladrado, colocación de anclajes químicos, instalación de ménsulas y estructura soporte para 10 toldos",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje de toldos extensibles",
+          "descripcion": "Colocación, regulación y sujeción de 10 toldos en sus estructuras, ajuste de brazos y mecanismo de extensión-retracción",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 60,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y conexión eléctrica motores",
+          "descripcion": "Tendido de línea eléctrica, conexión de motores con protección diferencial, pruebas de funcionamiento y seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado e impermeabilización",
+          "descripcion": "Sellado de encuentros, rejuntado de anclajes y tratamiento de puntos críticos con masilla y sellador",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas, ajustes y entrega",
+          "descripcion": "Prueba de funcionamiento de los 10 toldos, ajuste de finales de carrera, verificación de seguridad, formación al cliente y entrega",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora (si requerido)",
+          "descripcion": "Alquiler y colocación de andamio tubular o plataforma elevadora para trabajos en altura en fachada del hotel",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "A incluir si la altura de fachada requiere medidas de protección en altura; presupuesto a gestionar con empresa especializada"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4000,
+        "iva_porcentaje": 21,
+        "iva": 840,
+        "total": 4840
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica en catálogo para 'Instalación de toldos motorizados en fachada' para unificar criterios de mano de obra",
+        "Considerar crear partida estándar para 'Cableado eléctrico exterior para motores de persiana/toldo' con tarifa por metro lineal"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro toldos extensibles con cofre y motor",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Producto con especificaciones técnicas precisas; precio depende de proveedor y calidad"
+        },
+        {
+          "concepto": "Anclajes y elementos de fijación estructural",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Cálculo estructural específico por tipo de fachada"
+        },
+        {
+          "concepto": "Cableado eléctrico y conexión motores",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Longitud y sección variable según trazado en fachada"
+        },
+        {
+          "concepto": "Impermeabilización encuentro fachada",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material variable según tipo de fachada"
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora (si requerido)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "origen": "sugerida_ia",
+          "motivo": "Requiere evaluación de altura de fachada y normativa de seguridad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_motor_puerta_garaje_seccional_o_basculante",
+      "instalacion_alumbrado_exterior_jardin",
+      "instalacion_pantalla_de_proyeccion_motorizada",
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "instalacion_de_toldos_y_marquesinas_metalicas_estructurales"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

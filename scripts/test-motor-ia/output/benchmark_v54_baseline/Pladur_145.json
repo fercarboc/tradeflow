@@ -1,0 +1,134 @@
+{
+  "id": 145,
+  "oficio": "Pladur",
+  "texto": "Reparar agujero en tabique de pladur del pasillo, diámetro 20 centímetros, dejar listo para pintar",
+  "http_status": 200,
+  "latency_ms": 12883,
+  "raw_response": {
+    "transcript": "Reparar agujero en tabique de pladur del pasillo, diámetro 20 centímetros, dejar listo para pintar",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar agujero en tabique de pladur del pasillo, diámetro 20 centímetros, dejar listo para pintar",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Reparación de agujero en pladur, incluye retirada de material dañado, colocación de parche, masillado y acabado fino para pintar"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Imprimación sobre zona reparada antes de pintar final"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Reparación de agujero en pladur (diámetro 20 cm)",
+          "descripcion": "Reparación de agujero en tabique de pladur mediante colocación de parche de placa de yeso, fijación con tornillería, cinta de juntas y pasta de juntas. Incluye tres manos de masilla, lijado entre manos y acabado fino listo para pintar.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales para reparación de agujero pladur",
+          "descripcion": "Trozo de placa de yeso de 15 mm, tornillería (tornillos de 25 mm), cinta de papel para juntas, pasta de juntas (masilla flexible y masilla acabado fino), lija grano 120 y 220, pequeño material (espátulas, etc.)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir por instalador según proveedores locales. Estimado: 15-25€"
+        },
+        {
+          "concepto": "Imprimación sobre zona reparada",
+          "descripcion": "Aplicación de imprimación fijadora acrílica sobre zona reparada y masillada. Una mano de imprimación para sellar porosidad del yeso nuevo y preparar para pintura final.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0.35,
+          "precio_unitario": 8,
+          "total": 2.8,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación (material)",
+          "descripcion": "Imprimación fijadora poliuretano o acrílica de calidad, rendimiento 12-15 m²/litro",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio a definir por instalador. Para 0.35 m² se necesita aprox. 0.03 litros (incluido en bote mínimo)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 57.8,
+        "iva_porcentaje": 21,
+        "iva": 12.14,
+        "total": 69.94
+      },
+      "sugerencias_catalogo": [
+        "Verificar que el agujero no sea síntoma de movimiento estructural o humedad en el tabique antes de reparar",
+        "Si la zona reparada requiere pintura final de color, añadir partida de pintura de acabado (no incluida en este presupuesto)"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "reparacion_fisura_en_tabique_pladur",
+      "remate_y_acabado_juntas_pladur_para_pintar",
+      "reparacion_golpe_o_agujero_en_pladur",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "imprimacion_especial_sobre_yeso_nuevo"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3559,
+      "tokens_out": 1357
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "id": 216,
+  "oficio": "Jardinería",
+  "texto": "Renovar jardín con macizos de plantas de temporada y arbustos perennes, zona de 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 16572,
+  "raw_response": {
+    "transcript": "Renovar jardín con macizos de plantas de temporada y arbustos perennes, zona de 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Renovar jardín con macizos de plantas de temporada y arbustos perennes, zona de 30 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye preparación de terreno, plantación de arbustos y plantas de temporada. Revisar especies y cantidades con cliente."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Preparación de terreno, plantación de arbustos y plantas de temporada, acolchado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y limpieza de terreno",
+          "descripcion": "Retirada de malas hierbas, maleza y restos vegetales. Nivelación y acondicionamiento del suelo en zona de 30 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 3,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aporte de tierra vegetal y abono",
+          "descripcion": "Aporte de tierra vegetal de calidad y abono orgánico para enriquecimiento del suelo. Aproximadamente 6-9 m³ (espesor 20-30 cm en 30 m²)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 7.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado local. Revisar proveedor y transporte"
+        },
+        {
+          "concepto": "Plantación de arbustos perennes",
+          "descripcion": "Plantación de arbustos perennes (aproximadamente 8-12 unidades según especie y tamaño). Incluye apertura de hoyo doble tamaño del cepellón, plantación a nivel correcto, riego de asiento y tutores si es necesario",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 25,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de arbustos perennes",
+          "descripcion": "Suministro de arbustos perennes variados (10 unidades). Especies según condiciones de luz y suelo del jardín",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según especie, tamaño y vivero. Rango típico 30-150€/ud"
+        },
+        {
+          "concepto": "Plantación de plantas de temporada",
+          "descripcion": "Plantación de plantas de temporada (flores anuales, plantas de color). Aproximadamente 40-60 plantas en macizos. Incluye apertura de hoyo, plantación y riego de asiento",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 50,
+          "precio_unitario": 2,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de plantas de temporada",
+          "descripcion": "Suministro de plantas de temporada variadas (50 unidades). Flores anuales, plantas de color según diseño de macizos",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según especie y tamaño. Rango típico 1-5€/ud en bandeja"
+        },
+        {
+          "concepto": "Acolchado mulching de zonas de plantación",
+          "descripcion": "Acolchado con corteza de pino o madera decorativa en zonas de plantación. Espesor 5-8 cm en 30 m². Incluye geotextil anti-malas hierbas bajo la corteza",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 4,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de corteza y geotextil para acolchado",
+          "descripcion": "Corteza de pino o madera decorativa (aproximadamente 4-5 m³ para espesor 5-8 cm en 30 m²) y geotextil anti-malas hierbas",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado. Corteza 8-15€/m³, geotextil 0,5-1€/m²"
+        },
+        {
+          "concepto": "Riego de asiento y acabado",
+          "descripcion": "Riego abundante de asiento tras plantación. Comprobación de nivelación y acabado general de la zona",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 610,
+        "iva_porcentaje": 21,
+        "iva": 128.1,
+        "total": 738.1
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: número exacto de arbustos perennes (tamaño y especie)",
+        "Confirmar con cliente: número exacto de plantas de temporada y especies preferidas",
+        "Considerar sistema de riego por goteo si zona grande o clima seco (partida adicional)",
+        "Acolchado se debe renovar cada 2-3 años según degradación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aporte de tierra vegetal y abono",
+          "oficio": "jardineria",
+          "motivo": "Material de aporte, precio variable según proveedor local"
+        },
+        {
+          "concepto": "Suministro de arbustos perennes",
+          "oficio": "jardineria",
+          "motivo": "Material vegetal, precio variable según especie y vivero"
+        },
+        {
+          "concepto": "Suministro de plantas de temporada",
+          "oficio": "jardineria",
+          "motivo": "Material vegetal, precio variable según especie y vivero"
+        },
+        {
+          "concepto": "Suministro de corteza y geotextil para acolchado",
+          "oficio": "jardineria",
+          "motivo": "Material de acolchado, precio variable según proveedor"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "instalacion_cubierta_verde_o_ajardinada",
+      "acolchado_mulching_de_zonas_de_plantacion",
+      "pintura_de_escalera_comunitaria_completa",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4022,
+      "tokens_out": 2392
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

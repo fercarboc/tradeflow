@@ -1,0 +1,167 @@
+{
+  "id": 297,
+  "oficio": "Impermeabilización",
+  "texto": "Tratar filtraciones en muro de hormigón de garaje subterráneo con mortero cristalizante",
+  "http_status": 200,
+  "latency_ms": 19997,
+  "raw_response": {
+    "transcript": "Tratar filtraciones en muro de hormigón de garaje subterráneo con mortero cristalizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tratar filtraciones en muro de hormigón de garaje subterráneo con mortero cristalizante",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de impermeabilización interior. Se recomienda diagnóstico previo del origen de la filtración (presión hidrostática, capilaridad, grietas).",
+          "El mortero cristalizante es solución paliativa. Si hay presión hidrostática activa, considerar drenaje exterior complementario.",
+          "Requiere secado previo del muro (mínimo 2-3 semanas en condiciones normales)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamiento de filtraciones en hormigón con mortero cristalizante. Oficio especializado en impermeabilización interior."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y preparación de zona con filtraciones",
+          "descripcion": "Limpieza, eliminación de eflorescencias, mortero deteriorado y zona afectada por humedad. Cepillado mecánico y eliminación de depósitos salinos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar superficie afectada (m2) y tarifa horaria aplicable. Referencia: 20-30€/m2 según complejidad."
+        },
+        {
+          "concepto": "Imprimación mineral previa",
+          "descripcion": "Aplicación de imprimación mineral o consolidante para preparar la superficie y mejorar la adherencia del mortero cristalizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador define superficie. Referencia: 3-8€/m2 (imprimación)."
+        },
+        {
+          "concepto": "Mortero hidrofugo cristalizante",
+          "descripcion": "Suministro e instalación de mortero cristalizante (tipo Xypex, Krystol u equivalente) en 2-3 capas según espesor requerido. Penetra en poros del hormigón y cristaliza ante presencia de agua.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador define superficie y número de capas. Referencia: 25-60€/m2 (mortero + aplicación)."
+        },
+        {
+          "concepto": "Refuerzo de encuentros y grietas",
+          "descripcion": "Sellado y refuerzo de encuentros suelo-pared, grietas y puntos singulares con mortero cristalizante reforzado o banda hidrofuga de refuerzo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador define longitud de encuentros/grietas. Referencia: 8-15€/ml."
+        },
+        {
+          "concepto": "Aplicación y acabado del mortero cristalizante",
+          "descripcion": "Mano de obra de aplicación del mortero cristalizante en capas sucesivas, curado y acabado. Incluye herramientas, EPI y pequeño material (brochas, rodillos, mascarillas).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador define horas de trabajo según superficie. Tarifa recomendada: 45€/h (impermeabilización)."
+        },
+        {
+          "concepto": "Protección y curado del mortero cristalizante",
+          "descripcion": "Protección de la zona tratada durante el curado (mínimo 7-14 días). Mantenimiento de humedad controlada para activación óptima del cristalizante. Inspección final.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de seguimiento. Instalador define si incluye visitas de control. Referencia: 150-250€/jornada."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Partida 'impermeabilizacion_de_sotano_por_interior_con_mortero_hidrofugo' disponible en Base Maestra. Rango: 15-70€/m2. Incluye saneo, imprimación, mortero cristalizante, refuerzo encuentros y EPI.",
+        "Si hay presión hidrostática activa (agua brotando), considerar complementar con drenaje interior o sistema de bombeo.",
+        "Diagnóstico previo recomendado: identificar origen (capilaridad, grietas, presión hidrostática) para optimizar solución."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero hidrofugo cristalizante",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material especializado. Precio pendiente de revisión del instalador según marca y cantidad."
+        },
+        {
+          "concepto": "Protección y curado del mortero cristalizante",
+          "oficio": "impermeabilizacion",
+          "motivo": "Servicio de seguimiento y control. Instalador define alcance y duración."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_sotano_por_interior_con_mortero_hidrofugo",
+      "impermeabilizacion_de_sotano_por_exterior",
+      "trasdosado_pladur_en_edificio_con_humedad_por_capilaridad",
+      "inyeccion_de_resinas_hidrofobas_para_capilaridad",
+      "pintura_sotano_o_zona_bajo_rasante"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3899,
+      "tokens_out": 2509
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

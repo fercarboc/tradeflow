@@ -1,0 +1,252 @@
+{
+  "id": 321,
+  "oficio": "Fachadas",
+  "texto": "Rehabilitar fachada de edificio con revestimiento de mortero monocapa y zócalo de piedra",
+  "http_status": 200,
+  "latency_ms": 20655,
+  "raw_response": {
+    "transcript": "Rehabilitar fachada de edificio con revestimiento de mortero monocapa y zócalo de piedra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitar fachada de edificio con revestimiento de mortero monocapa y zócalo de piedra",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto requiere mediciones en obra: superficie total de fachada, altura del edificio, estado actual del soporte",
+          "Zócalo de piedra requiere especificación: tipo de piedra, espesor, acabado (pulido, apomazado, etc.)",
+          "Necesario replanteo previo para determinar extensión real de saneo y preparación de soporte",
+          "Si altura > planta baja, confirmar necesidad de andamio y medidas de seguridad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de fachada con mortero monocapa - oficio especializado en rehabilitación de envolvente"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Colocación de zócalo de piedra en fachada - técnica de alicatado/revestimiento con material pétreo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y preparación de soporte en fachada",
+          "descripcion": "Limpieza, eliminación de revestimiento suelto, reparación de grietas y fisuras, imprimación de adherencia en zonas necesarias",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (m2 de fachada) debe medirse en obra. Precio unitario estimado según complejidad media de saneo"
+        },
+        {
+          "concepto": "Mortero monocapa predosificado para fachada",
+          "descripcion": "Suministro de mortero monocapa coloreado según especificación, textura y color a definir en obra",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de textura (fina, media, gruesa), color personalizado y cantidad total. Rendimiento típico 15-20 kg/m2"
+        },
+        {
+          "concepto": "Aplicación de mortero monocapa en fachada",
+          "descripcion": "Colocación de mortero monocapa con maestras-guías, espesor 15-20 mm, acabado según especificación",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (m2) debe medirse en obra. Tarifa incluye maestras-guías y pequeño material"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio en encuentros y juntas",
+          "descripcion": "Colocación de malla de fibra de vidrio en encuentros entre materiales distintos y juntas de dilatación",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (ml) depende de encuentros y juntas. Precio unitario a definir según ancho y calidad de malla"
+        },
+        {
+          "concepto": "Juntas de dilatación en fachada",
+          "descripcion": "Ejecución de juntas de dilatación cada 6 m (vertical y horizontal) con material flexible y sellado",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (ml) depende de perímetro y altura. Material y sellado a especificar"
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora",
+          "descripcion": "Alquiler y montaje de andamio o plataforma elevadora para acceso seguro a toda la fachada durante la ejecución",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Duración (jornadas) y tipo de andamio dependen de altura y superficie. Presupuesto a solicitar a proveedor"
+        },
+        {
+          "concepto": "Piedra natural para zócalo de fachada",
+          "descripcion": "Suministro de piedra natural (tipo, espesor y acabado a especificar) para zócalo en base de fachada",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (m2) y precio dependen de tipo de piedra (granito, pizarra, caliza, etc.), espesor y acabado"
+        },
+        {
+          "concepto": "Colocación de zócalo de piedra",
+          "descripcion": "Instalación de piedra natural en zócalo con mortero cola C2S2 exterior, doble encolado si piezas pesadas, junta de dilatación perimetral",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (m2) debe medirse en obra. Tarifa incluye preparación, encolado y junta"
+        },
+        {
+          "concepto": "Lechada de junta para zócalo de piedra",
+          "descripcion": "Suministro e instalación de lechada de junta flexible exterior para zócalo de piedra",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (ml) depende de longitud de juntas. Precio unitario a definir según tipo de lechada"
+        },
+        {
+          "concepto": "Perfil goteron en alfeizares y arranque de zócalo",
+          "descripcion": "Colocación de perfil goteron para protección de agua en alfeizares y arranque del zócalo",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (ml) depende de longitud de alfeizares. Material y precio a especificar"
+        },
+        {
+          "concepto": "Señalización y protección de zona de obra",
+          "descripcion": "Señalización de zona de peligro, vallas de protección y medidas de seguridad durante la ejecución de la obra",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Duración (jornadas) depende del plazo total de obra. Presupuesto a definir según normativa local"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar en obra: medición exacta de superficie de fachada (m2), altura del edificio, estado actual del soporte",
+        "Especificar tipo, color y textura del mortero monocapa (fina, media, gruesa)",
+        "Definir tipo de piedra para zócalo (granito, pizarra, caliza, etc.), espesor y acabado (pulido, apomazado, flameado)",
+        "Confirmar altura de zócalo (típicamente 0,80-1,20 m)",
+        "Solicitar presupuesto de andamio/plataforma elevadora a proveedor especializado",
+        "Considerar replanteo previo para determinar extensión real de saneo y preparación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero monocapa predosificado para fachada",
+          "oficio": "fachadas",
+          "motivo": "Material específico de fachada, requiere especificación de color y textura en obra"
+        },
+        {
+          "concepto": "Piedra natural para zócalo de fachada",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material pétreo específico, requiere especificación de tipo y acabado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_mortero_monocapa_en_fachada",
+      "revestimiento_con_mortero_monocapa",
+      "forrado_exterior_fachada_ventilada",
+      "alicatado_de_fachada_exterior_con_ceramica_o_piedra",
+      "reparacion_de_desprendimiento_de_revestimiento_fachada"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3985,
+      "tokens_out": 3071
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 2,
+    "n_sugeridas": 9,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

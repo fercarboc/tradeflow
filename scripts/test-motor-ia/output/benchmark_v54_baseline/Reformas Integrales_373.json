@@ -1,0 +1,258 @@
+{
+  "id": 373,
+  "oficio": "Reformas Integrales",
+  "texto": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+  "http_status": 200,
+  "latency_ms": 25836,
+  "raw_response": {
+    "transcript": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de 200 m² requiere proyecto técnico y posibles licencias de obra",
+          "Eficiencia energética implica aislamiento, climatización y posible energía solar",
+          "Distribución interior requiere coordinación entre albanilería, electricidad y fontanería",
+          "Presupuesto agrupado en capítulos por complejidad — cada capítulo requiere desglose detallado en fase de ejecución"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral con 3+ oficios simultáneos: albanilería (distribución), electricidad, fontanería, climatización, acabados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demoliciones, tabiquería, revestimientos, suelos"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa, cuadro, circuitos, iluminación"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Red de agua fría/caliente, desagües, sanitarios"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Calefacción, refrigeración, eficiencia energética"
+        },
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Paneles solares fotovoltaicos para eficiencia energética"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Acabados de pintura en paredes y techos"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, armarios, revestimientos de madera"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado en baños y cocina"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión de escombros y residuos de demolición"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición, obra civil y estructura",
+          "descripcion": "Demolición selectiva de tabiques, suelos y revestimientos; retirada de escombros; preparación de solera; reparación de grietas estructurales si las hay; nivelación de suelos; apertura de huecos para distribución nueva; canalización de instalaciones",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 12000,
+          "total": 12000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado para 200 m² de demolición y obra civil. Requiere inspección in situ para confirmar volumen de escombros, estado estructural y complejidad de accesos"
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización)",
+          "descripcion": "Instalación eléctrica completa (cuadro general, circuitos, enchufes, interruptores, iluminación LED); red de agua fría/caliente (tuberías PEX o cobre); desagües y sifones; caldera o bomba de calor; radiadores o suelo radiante; conductos de climatización; toma de tierra y protecciones diferenciales",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 18000,
+          "total": 18000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado para instalaciones completas en 200 m². Incluye mano de obra y materiales básicos. Requiere desglose detallado según marca de equipos, tipo de calefacción (radiadores vs. suelo radiante) y potencia de climatización"
+        },
+        {
+          "concepto": "CAP.3 – Acabados (pintura, suelos, carpintería, pladur)",
+          "descripcion": "Alicatado de baños y cocina (baldosas antideslizantes); suelos de tarima flotante o laminado en zonas de estar; pintura de paredes y techos (2 manos); puertas interiores de madera o PVC; armarios empotrados; molduras y rodapiés; revestimiento de pladur en techos si aplica",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 14000,
+          "total": 14000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado para acabados en 200 m². Incluye mano de obra y materiales estándar. Requiere especificación de calidades (tipo de baldosa, marca de pintura, espesor de tarima, número de puertas)"
+        },
+        {
+          "concepto": "CAP.4 – Eficiencia energética y otros",
+          "descripcion": "Aislamiento térmico en fachadas o cubierta (si aplica); paneles solares fotovoltaicos (3-5 kW estimado); ventanas de doble acristalamiento si se sustituyen; gestión de residuos y escombros; permisos y licencias de obra; pequeño material y herramientas",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 10000,
+          "total": 10000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado para eficiencia energética y gestión. Paneles solares (3-5 kW) pueden oscilar entre 6000-12000€. Requiere decisión sobre inclusión de paneles solares, aislamiento SATE y tipo de ventanas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 54000,
+        "iva_porcentaje": 21,
+        "iva": 11340,
+        "total": 65340
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: ¿Incluir paneles solares fotovoltaicos? (sí/no) → Impacta CAP.4 en +6000-12000€",
+        "Solicitar al cliente: ¿Tipo de calefacción? (radiadores, suelo radiante, bomba de calor) → Impacta CAP.2",
+        "Solicitar al cliente: ¿Sustituir ventanas? (sí/no) → Impacta CAP.3 y eficiencia",
+        "Solicitar al cliente: ¿Aislamiento SATE en fachada? (sí/no) → Impacta CAP.4",
+        "Solicitar al cliente: ¿Número de baños y cocinas? → Afecta alicatado y sanitarios",
+        "Solicitar al cliente: ¿Estado actual de estructura y cubierta? → Afecta CAP.1",
+        "Recomendación: Proyecto técnico obligatorio para reforma integral de esta envergadura (200 m²) — presupuestar 1500-3000€",
+        "Recomendación: Licencia de obra municipal — presupuestar 500-1500€ según municipio"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico reforma integral",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "precio_estimado": "1500-3000€",
+          "motivo": "Obligatorio para reforma integral de 200 m² con cambios de distribución"
+        },
+        {
+          "concepto": "Licencia de obra municipal",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "precio_estimado": "500-1500€",
+          "motivo": "Trámite administrativo según municipio"
+        },
+        {
+          "concepto": "Paneles solares fotovoltaicos (3-5 kW)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kW",
+          "precio_estimado": "1200-2000€/kW",
+          "motivo": "Opcional pero recomendado para eficiencia energética — incluido en CAP.4"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "alicatado_y_solado_de_bano_completo",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "reforma_integral_atic_o_penthouse"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4053,
+      "tokens_out": 3660
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

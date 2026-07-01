@@ -1,0 +1,130 @@
+{
+  "id": 275,
+  "oficio": "Cristalería",
+  "texto": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+  "http_status": 200,
+  "latency_ms": 13065,
+  "raw_response": {
+    "transcript": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Requiere especificación de: superficie total en m², tipo de cristal (templado/laminado), accesibilidad (altura, ubicación), si incluye limpieza previa"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamientos especiales en cristales, films y recubrimientos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de cristales",
+          "descripcion": "Limpieza profunda, desengrasado y secado de cristales previo a aplicación de tratamiento antirreflejo",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere estimación de superficie total de cristales en m² y tarifa específica según complejidad de acceso"
+        },
+        {
+          "concepto": "Aplicación de tratamiento antirreflejo (film o recubrimiento)",
+          "descripcion": "Aplicación de film antirreflejo o recubrimiento transparente especializado para reducir reflejos y deslumbramiento en cristales de oficina",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado: precio depende de tipo (film adhesivo vs recubrimiento líquido), marca y especificaciones técnicas (% reducción de reflejo, filtro UV, etc.)"
+        },
+        {
+          "concepto": "Mano de obra: aplicación del tratamiento antirreflejo",
+          "descripcion": "Instalación/aplicación del tratamiento antirreflejo en cristales con alineación, eliminación de burbujas y acabado perfecto",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa especializada en aplicación de tratamientos; requiere m² exactos y tipo de tratamiento elegido"
+        },
+        {
+          "concepto": "Control de calidad y pruebas de aplicación",
+          "descripcion": "Inspección final, control de reflejos residuales, ajustes menores si requiere",
+          "oficio": "cristaleria",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 45,
+        "iva_porcentaje": 21,
+        "iva": 9.45,
+        "total": 54.45
+      },
+      "sugerencias_catalogo": [
+        "Especificar superficie total de cristales a tratar (m²)",
+        "Definir tipo de tratamiento: film adhesivo antirreflejo vs recubrimiento nanotecnológico",
+        "Indicar si también requiere filtro UV o control solar adicional",
+        "Confirmar accesibilidad (altura, fachada, interior, escaleras, etc.)",
+        "Estimar número de cristales individuales si aplica (divisiones, tabiques, mamparas)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aplicación de tratamiento antirreflejo (film o recubrimiento)",
+          "oficio": "cristaleria",
+          "razon_inclusion": "Servicio especializado de cristalería; no es tratamiento estándar en base maestra pero sí trabajo habitual del sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tabique_o_division_de_vidrio_en_oficina",
+      "impermeabilizacion_de_cubierta_de_fibrocemento_con_tratamiento",
+      "instalacion_de_extintores_portatiles",
+      "aplicacion_pintura_termica_o_aislante",
+      "tabique_pladur_separacion_zona_oficina"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

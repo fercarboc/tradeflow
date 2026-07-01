@@ -1,0 +1,181 @@
+{
+  "id": 45,
+  "oficio": "Carpintería",
+  "texto": "Instalación de tarima flotante de madera maciza de roble en salón y dos dormitorios, 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 13697,
+  "raw_response": {
+    "transcript": "Instalación de tarima flotante de madera maciza de roble en salón y dos dormitorios, 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de tarima flotante de madera maciza de roble en salón y dos dormitorios, 60 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Aclimatación de madera: 72h mínimo en obra antes de instalar",
+          "Soporte debe estar plano (máx. 3mm de desviación bajo regla de 2m)",
+          "Junta perimetral de 10-12mm OBLIGATORIA en todo el perímetro"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de tarima flotante de madera maciza (roble) - oficio especializado en suelos de tarimas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tarima maciza de roble, calidad primera, espesor 20mm, aclimatada",
+          "descripcion": "Suministro de tarima flotante de madera maciza de roble, 60 m², incluye aclimatación 72h en obra",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tarima maciza de roble a definir por instalador según calidad y proveedor"
+        },
+        {
+          "concepto": "Lámina aislante con barrera vapor integrada",
+          "descripcion": "Lámina aislante de espuma + barrera vapor para tarima flotante, 60 m²",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina aislante a definir por instalador"
+        },
+        {
+          "concepto": "Junta perimetral de 10-12mm",
+          "descripcion": "Junta perimetral de 10-12mm en todo el perímetro de las 3 estancias (salón + 2 dormitorios), incluye pequeño material (cuñas, topes)",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de ml de perímetro a medir en obra; precio unitario a definir"
+        },
+        {
+          "concepto": "Instalación de tarima flotante maciza de roble",
+          "descripcion": "Colocación de tarima flotante sin pegado, incluyendo: preparación soporte, colocación lámina aislante, instalación tarima con sistema click, ajuste de juntas, colocación cuñas perimetrales. 60 m²",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 32,
+          "total": 1920,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rodapié de madera de roble",
+          "descripcion": "Suministro e instalación de rodapié de madera de roble, altura 7-10cm, perímetro de 3 estancias",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de ml de rodapié a medir en obra; precio unitario a definir"
+        },
+        {
+          "concepto": "Limpieza y acabado final",
+          "descripcion": "Limpieza de polvo y residuos tras instalación, barrido y aspirado de las 3 estancias",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1984,
+        "iva_porcentaje": 21,
+        "iva": 416.64,
+        "total": 2400.64
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: precio de tarima maciza de roble (rango típico 45-95€/m²)",
+        "Verificar en catálogo: precio de lámina aislante con barrera vapor (rango típico 3-8€/m²)",
+        "Verificar en catálogo: precio de rodapié de roble (rango típico 8-15€/ml)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tarima maciza de roble, calidad primera, espesor 20mm, aclimatada",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de roble macizo - instalador debe definir proveedor y precio"
+        },
+        {
+          "concepto": "Lámina aislante con barrera vapor integrada",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Partida obligatoria en tarima flotante - precio a definir"
+        },
+        {
+          "concepto": "Junta perimetral de 10-12mm",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Partida obligatoria en tarima flotante - cantidad y precio a definir en obra"
+        },
+        {
+          "concepto": "Rodapié de madera de roble",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Acabado complementario - cantidad y precio a definir en obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_solado_de_madera_maciza_flotante_ingenieria_o_click",
+      "colocacion_parquet_ingenieria_pegado_o_flotante",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_suelo_vinilico_o_lvt_click",
+      "instalacion_tarima_maciza_pegada"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3987,
+      "tokens_out": 1974
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "NO"
+  }
+}

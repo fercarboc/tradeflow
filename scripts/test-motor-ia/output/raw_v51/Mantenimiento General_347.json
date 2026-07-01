@@ -1,0 +1,227 @@
+{
+  "id": 347,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar goteras en tejado de nave industrial, revisión de cubierta y sellado de juntas",
+  "http_status": 200,
+  "latency_ms": 21074,
+  "raw_response": {
+    "transcript": "Reparar goteras en tejado de nave industrial, revisión de cubierta y sellado de juntas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar goteras en tejado de nave industrial, revisión de cubierta y sellado de juntas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda inspección previa in situ para determinar superficie exacta y estado de deterioro",
+          "Presupuesto sin superficie definida: se generan partidas unitarias, el instalador debe cuantificar m2 reales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de goteras, revisión de cubierta y sellado de juntas en tejado industrial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y diagnóstico de cubierta",
+          "descripcion": "Inspección completa de tejado, identificación de puntos de filtración, juntas deterioradas y zonas críticas",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza mecánica de óxido, suciedad y residuos",
+          "descripcion": "Eliminación de óxido, suciedad, algas y residuos en superficie de cubierta metálica o envejecida",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 12,
+          "total": 12,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 a definir por instalador según superficie real de cubierta"
+        },
+        {
+          "concepto": "Imprimación antióxido en zonas afectadas",
+          "descripcion": "Aplicación de imprimador antióxido en puntos de corrosión y áreas preparadas",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pendiente de precio. Estimar coste según litros requeridos y producto específico"
+        },
+        {
+          "concepto": "Pintura elastomérica o poliuretano para cubierta",
+          "descripcion": "Sellado y protección con pintura elástica impermeabilizante, resistente a movimientos y rayos UV",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de material según superficie m2 y tipo de pintura elegida (elastomérica o poliuretano)"
+        },
+        {
+          "concepto": "Sellado flexible de juntas y transiciones",
+          "descripcion": "Aplicación de sellador elástico de poliuretano o silicona en todas las juntas, transiciones y encuentros de cubierta",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste por ml según longitud de juntas a sellar y tubo de sellador"
+        },
+        {
+          "concepto": "Aplicación de sellador en juntas y grietas",
+          "descripcion": "Mano de obra de sellado elástico con herramientas de precisión en juntas, grietas y encuentros",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 3,
+          "total": 3,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml a cuantificar según longitud total de juntas a reparar"
+        },
+        {
+          "concepto": "Refuerzo de solapes con banda de refuerzo geotextil",
+          "descripcion": "Colocación de banda de refuerzo geotextil en solapes y encuentros críticos antes de sellado final",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de banda geotextil según ml necesarios"
+        },
+        {
+          "concepto": "EPI y equipos de seguridad en altura",
+          "descripcion": "Arnés anticaídas, línea de vida, cascos, guantes y equipos de protección personal para trabajos en altura en nave industrial",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir coste de alquiler de arnés y línea de vida si es necesario"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Brochas, rodillos, trapos, disolventes, cinta de protección, desengrasantes y otros consumibles necesarios",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según cantidad de jornadas y consumibles reales"
+        },
+        {
+          "concepto": "Prueba de impermeabilidad post-reparación",
+          "descripcion": "Inspección visual y prueba de agua en puntos críticos para validar estanqueidad tras reparación",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Puede ser fracción de jornada según complejidad; ajustar si es necesario"
+        }
+      ],
+      "calculos": {
+        "subtotal": 420,
+        "iva_porcentaje": 21,
+        "iva": 88.2,
+        "total": 508.2
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: superficie exacta de cubierta (m2), longitud total de juntas a reparar (ml), tipo de material de cubierta (chapa galvanizada, fibrocemento, teja, etc.)",
+        "Si existen puntos con oxidación severa o perforaciones, incluir partida de 'Sustitución de piezas muy deterioradas' a precio alzado",
+        "Si hay canalones o bajantes afectadas, incorporar partida de 'Reparación o sustitución de canalón/bajante'",
+        "Considerar si la nave requiere andamios o plataformas elevadas; en ese caso, sumar coste de alquiler/montaje"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación antióxido en zonas afectadas",
+          "origen": "sugerida_ia",
+          "razon": "Material específico no cuantificable sin inspección previa"
+        },
+        {
+          "concepto": "Pintura elastomérica o poliuretano para cubierta",
+          "origen": "sugerida_ia",
+          "razon": "Coste variable según tipo y cantidad de pintura; requiere presupuesto de proveedor"
+        },
+        {
+          "concepto": "Sellado flexible de juntas y transiciones",
+          "origen": "sugerida_ia",
+          "razon": "Coste de sellador según ml de juntas a definir en obra"
+        },
+        {
+          "concepto": "Refuerzo de solapes con banda de refuerzo geotextil",
+          "origen": "sugerida_ia",
+          "razon": "Material de refuerzo; coste según metros lineales necesarios"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "reforma_de_cubierta_de_edificio_comunitario",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "impermeabilizacion_de_encuentro_fachada_cubierta",
+      "reparacion_o_sustitucion_de_canalon_o_bajante_en_tejado"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "NO"
+  }
+}

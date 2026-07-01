@@ -1,0 +1,168 @@
+{
+  "id": 92,
+  "oficio": "Albañilería",
+  "texto": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 17251,
+  "raw_response": {
+    "transcript": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Piso antiguo: verificar estado de humedad, grietas estructurales y necesidad de tratamiento previo",
+          "Superficie 120 m²: confirmar si incluye preparación/limpieza previa de paredes",
+          "Enfocar (guarnecido grueso) + Enlucir (acabado fino) = trabajo en dos fases"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Guarnecido, enlucido y preparación de paredes. Oficio clasificado como 'enlucido_de_yeso_paredes_interiores' y 'guarnecido_y_maestreado_yeso_paredes_y_techo' en Base Maestra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de paredes antiguas",
+          "descripcion": "Rasquetado, limpieza y preparación de superficie previa. Incluye eliminación de pintura suelta, polvo y material no adherente.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 8,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Yeso grueso de proyección o manual (guarnecido/enfoscado)",
+          "descripcion": "Primera mano de yeso grueso para regularización de paredes. Espesor aprox. 10-15 mm. Incluye maestras-guías y regla de aluminio.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 28,
+          "total": 3360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Yeso fino de acabado (enlucido)",
+          "descripcion": "Segunda mano de yeso fino para acabado liso y uniforme. Espesor aprox. 5-8 mm. Lijado y preparación para pintura.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 22,
+          "total": 2640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Maestras-guías y regla de aluminio",
+          "descripcion": "Colocación y retirada de maestras de yeso y uso de regla para obtener superficie plana y regular en toda la extensión.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 4,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Guardavivos/ángulo metálico en esquinas",
+          "descripcion": "Colocación de guardavivos metálicos en esquinas salientes para protección y acabado limpio.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible: proveedor debe indicar metraje lineal de esquinas y precio/ml de guardavivos"
+        },
+        {
+          "concepto": "Pequeño material de obra (yeso, agua, trapos, esponjas, etc.)",
+          "descripcion": "Materiales menores: yeso en sacos, agua, trapos, esponjas, cinta de carrocero, plástico de protección, lijas finas, masilla de repaso.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de pequeño material consumible a nivel de obra: instalador debe ajustar según cantidad real de sacos de yeso y accesorios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 7440,
+        "iva_porcentaje": 21,
+        "iva": 1562.4,
+        "total": 9002.4
+      },
+      "sugerencias_catalogo": [
+        "Si piso tiene grietas estructurales o humedad: agregar partida de 'Reparación de grietas con masilla elástica' o 'Tratamiento antihumedad previo'",
+        "Si hay molduras o encuentros complejos: considerar 'Malla de fibra en encuentros' para evitar fisuras",
+        "Confirmar altura de paredes: si hay paños superiores a 3 m, puede requerir andamio (partida adicional)",
+        "Post-enlucido: enlace con partida de 'Pintura plástica paredes interiores' para acabado final"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Guardavivos/ángulo metálico en esquinas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "justificacion": "Material de protección de esquinas: necesario en piso antiguo con paredes irregulares para obtener acabado profesional",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Pequeño material de obra",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "justificacion": "Estimación general de consumibles en obra de enlucido: sacos de yeso, agua, trapos, lijas, etc.",
+          "requiere_revision": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "guarnecido_y_maestreado_yeso_paredes_y_techo",
+      "pintura_plastica_paredes_interiores",
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "reforma_integral_vivienda_completa",
+      "enlucido_de_yeso_paredes_interiores"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

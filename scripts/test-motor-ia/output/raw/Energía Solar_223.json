@@ -1,0 +1,192 @@
+{
+  "id": 223,
+  "oficio": "Energía Solar",
+  "texto": "Añadir 4 paneles solares a instalación existente y actualizar inversor para ampliar potencia",
+  "http_status": 200,
+  "latency_ms": 16642,
+  "raw_response": {
+    "transcript": "Añadir 4 paneles solares a instalación existente y actualizar inversor para ampliar potencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Añadir 4 paneles solares a instalación existente y actualizar inversor para ampliar potencia",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Ampliación fotovoltaica: requiere verificación de compatibilidad inversor existente",
+          "Legalizado ante distribuidora OBLIGATORIO tras ampliación",
+          "Especificar potencia (kWp) de los 4 paneles nuevos para cálculo preciso"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Ampliación instalación fotovoltaica existente con sustitución/ampliación inversor"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación instalación existente, inversor y estructura",
+          "descripcion": "Diagnóstico técnico de instalación fotovoltaica actual: medición potencia inversor, verificación capacidad admisión nuevos módulos, inspección estructura soporte, estado cableado y protecciones",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro 4 módulos fotovoltaicos nuevos",
+          "descripcion": "4 paneles solares fotovoltaicos monocristalinos de alta eficiencia (especificar potencia unitaria en kWp: típicamente 400-550W). Incluye embalaje y transporte a obra",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia unitaria (kWp) y marca. Rango típico: 150-250€/panel. Instalador debe confirmar especificaciones técnicas"
+        },
+        {
+          "concepto": "Instalación 4 módulos fotovoltaicos en estructura existente",
+          "descripcion": "Montaje de 4 paneles en estructura existente: fijación mecánica, alineación, conexionado en serie/paralelo según configuración, sellado de penetraciones",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación inversor ampliado o nuevo",
+          "descripcion": "Inversor solar compatible con nueva potencia total (ampliación o sustitución según diagnóstico). Incluye: inversor, cableado DC/AC, protecciones CC y CA, conexionado a cuadro existente, configuración parámetros y prueba funcionamiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio inversor: 800-2000€ según potencia (kW). Instalador debe confirmar si ampliación o sustitución completa tras diagnóstico"
+        },
+        {
+          "concepto": "Instalación y conexionado inversor ampliado",
+          "descripcion": "Desmontaje inversor antiguo (si aplica), instalación nuevo/ampliado, conexionado a paneles, cuadro eléctrico y red, configuración MPPT, prueba funcionamiento y mediciones",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Actualización legalizado ante distribuidora",
+          "descripcion": "Tramitación administrativa: modificación de potencia instalada en registro distribuidora, actualización contrato autoconsumo, inspección técnica si requiere, documentación técnica y certificados",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste típico: 200-500€ según comunidad autónoma y complejidad. Instalador o gestoría debe confirmar"
+        },
+        {
+          "concepto": "Cableado, protecciones y pequeño material",
+          "descripcion": "Cable DC tinned copper, tubo corrugado, conectores MC4, fusibles, interruptores DC/AC, bridas, silicona, EPI (arnés, casco, guantes), herramientas especializadas",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado: 150-300€. Depende de longitud cableado y complejidad conexionado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 585,
+        "iva_porcentaje": 21,
+        "iva": 122.85,
+        "total": 707.85
+      },
+      "sugerencias_catalogo": [
+        "Confirmar potencia total nueva instalación (kWp) para dimensionar inversor correctamente",
+        "Verificar si inversor existente admite ampliación o requiere sustitución completa",
+        "Especificar marca y modelo de paneles nuevos para compatibilidad con estructura",
+        "Consultar con distribuidora local sobre trámites legalizado (algunos requieren inspección técnica)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro 4 módulos fotovoltaicos nuevos",
+          "origen": "sugerida_ia",
+          "motivo": "Precio unitario depende de especificaciones técnicas (potencia kWp, marca, eficiencia)"
+        },
+        {
+          "concepto": "Suministro e instalación inversor ampliado o nuevo",
+          "origen": "sugerida_ia",
+          "motivo": "Precio inversor variable según potencia requerida y compatibilidad con instalación existente"
+        },
+        {
+          "concepto": "Actualización legalizado ante distribuidora",
+          "origen": "sugerida_ia",
+          "motivo": "Coste administrativo variable por comunidad autónoma"
+        },
+        {
+          "concepto": "Cableado, protecciones y pequeño material",
+          "origen": "sugerida_ia",
+          "motivo": "Presupuesto estimado según longitud y complejidad de la ampliación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "reparacion_o_sustitucion_de_inversor_solar_averiado",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4116,
+      "tokens_out": 2211
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

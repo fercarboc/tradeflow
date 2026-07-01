@@ -1,0 +1,164 @@
+{
+  "id": 268,
+  "oficio": "Cristalería",
+  "texto": "Instalar puerta de vidrio templado sin marco con herrajes de acero inoxidable para despacho",
+  "http_status": 200,
+  "latency_ms": 23163,
+  "raw_response": {
+    "transcript": "Instalar puerta de vidrio templado sin marco con herrajes de acero inoxidable para despacho",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar puerta de vidrio templado sin marco con herrajes de acero inoxidable para despacho",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas exactas de la puerta no especificadas — instalador debe medir antes de encargar vidrio templado",
+          "Espesor de vidrio no indicado — se recomienda mínimo 8mm, 10mm para puertas de tráfico frecuente",
+          "Tipo de cierre/cerradura no especificado — revisar si requiere cierre automático, cerradura o solo magnético"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de puerta de vidrio templado frameless — oficio especializado en cristalería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado para puerta frameless",
+          "descripcion": "Suministro de vidrio templado mínimo 8mm (recomendado 10mm) cortado y templado a medida exacta, con certificación CE según EN 12150, para puerta sin marco",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas (ancho×alto), espesor y acabados. Instalador debe medir y solicitar presupuesto a proveedor de vidrio templado"
+        },
+        {
+          "concepto": "Herrajes bisagras y cierre inoxidable AISI 316",
+          "descripcion": "Juego completo de herrajes de acero inoxidable AISI 316 (o superior) para puerta frameless: bisagras de pivote superior e inferior, cierre automático o magnético, y fijación a suelo y dintel",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo de cierre (automático, magnético, cerradura integrada) y calidad AISI. Revisar especificación exacta con cliente"
+        },
+        {
+          "concepto": "Fijación a suelo, dintel y laterales",
+          "descripcion": "Anclajes, tacos y tornillería inoxidable para fijación segura del vidrio templado a estructura (suelo, dintel, laterales). Incluye pequeño material (silicona neutra, selladores, etc.)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye pequeño material. Precio estimado 80-150€ según tipo de fijación y acabado"
+        },
+        {
+          "concepto": "Instalación puerta vidrio templado frameless",
+          "descripcion": "Mano de obra: colocación de herrajes, fijación del vidrio templado a suelo y dintel, ajuste de bisagras, prueba de funcionamiento del cierre, sellado con silicona neutra en encuentros",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tira antichoque y señalización",
+          "descripcion": "Tira antichoque adhesiva en borde inferior del vidrio (opcional pero recomendado para seguridad) y pegatina o vinilo de señalización si la puerta no es suficientemente visible",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 30-60€. Revisar si cliente requiere señalización especial"
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Consultar con proveedor de vidrio templado: medidas exactas (ancho×alto), espesor (8mm o 10mm), y si requiere tratamientos especiales (antirreflectante, privacidad, etc.)",
+        "Especificar tipo de cierre: automático (cierre de puerta), magnético (solo retención), o cerradura integrada",
+        "Confirmar tipo de herraje: bisagras de pivote (recomendado para frameless) vs. bisagras laterales",
+        "Revisar si el despacho requiere puerta de seguridad o resistencia al fuego — en ese caso, consultar normativa específica"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado para puerta frameless",
+          "oficio": "cristaleria",
+          "razon": "Material específico cuyo precio depende de medidas exactas y espesor — requiere presupuesto de proveedor"
+        },
+        {
+          "concepto": "Herrajes bisagras y cierre inoxidable AISI 316",
+          "oficio": "cristaleria",
+          "razon": "Componente especializado cuyo precio varía según tipo de cierre y acabado — requiere especificación exacta"
+        },
+        {
+          "concepto": "Fijación a suelo, dintel y laterales",
+          "oficio": "cristaleria",
+          "razon": "Pequeño material y anclajes — precio estimado, revisar según tipo de estructura"
+        },
+        {
+          "concepto": "Tira antichoque y señalización",
+          "oficio": "cristaleria",
+          "razon": "Elemento de seguridad opcional — precio variable según tipo y extensión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_marcos_de_puertas_en_pared_de_pladur",
+      "instalacion_puerta_de_cristal_templado_frameless",
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3974,
+      "tokens_out": 2275
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

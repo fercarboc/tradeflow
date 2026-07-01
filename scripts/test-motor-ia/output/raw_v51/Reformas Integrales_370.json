@@ -1,0 +1,590 @@
+{
+  "id": 370,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de oficina de 200 metros cuadrados con nueva distribución, iluminación y mobiliario",
+  "http_status": 200,
+  "latency_ms": 50093,
+  "raw_response": {
+    "transcript": "Reforma de oficina de 200 metros cuadrados con nueva distribución, iluminación y mobiliario",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de oficina de 200 metros cuadrados con nueva distribución, iluminación y mobiliario",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de oficina: requiere coordinación multidisciplinar (electricidad, datos, climatización, carpintería)",
+          "Iluminación: debe cumplir normativa UNE-EN 12464 (500 lux mínimo en puestos de trabajo, UGR<16)",
+          "Mobiliario: precio pendiente de revisión (suministro externo o interno)",
+          "Distribución: requiere posibles rozas, reposición de obra, demoliciones selectivas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación eléctrica completa, iluminación LED, circuitos, cuadro eléctrico"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Red de datos CAT6 obligatoria en reformas de oficinas"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Climatización según RITE para ocupación de oficina"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Divisiones, tabiques, puertas, reorganización espacios"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 32,
+            "recomendado": 32,
+            "max": 35
+          },
+          "motivo": "Preparación, pintura y acabados de 200 m²"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demoliciones selectivas, rozas, reposición, pequeña obra civil"
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 32,
+            "recomendado": 32,
+            "max": 35
+          },
+          "motivo": "Suelo técnico o tarima flotante (opcional según especificación)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demoliciones selectivas y desmontaje instalaciones antiguas",
+          "descripcion": "Demolición selectiva de tabiques no estructurales, desmontaje de elementos a reutilizar o desechar, gestión selectiva de residuos",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 8,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cuadro eléctrico nuevo con protecciones",
+          "descripcion": "Cuadro eléctrico moderno con interruptores automáticos, diferenciales, protecciones selectivas según circuitos de oficina",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cuadro y componentes a determinar según configuración exacta"
+        },
+        {
+          "concepto": "Cableado eléctrico completo (circuitos iluminación, enchufes, climatización)",
+          "descripcion": "Tendido de cableado VV-75, bandejas, tuberías y conductos según REBT. Circuitos independientes: iluminación (mínimo 500 lux), enchufes por zonas, climatización, emergencia",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mecanismos eléctricos completos (enchufes, interruptores, conmutadores)",
+          "descripcion": "Enchufes de seguridad, interruptores, conmutadores, reguladores de intensidad para iluminación. Cantidad según nueva distribución",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mecanismos según marca y calidad a determinar por instalador"
+        },
+        {
+          "concepto": "Iluminación LED oficina (luminarias + instalación)",
+          "descripcion": "Luminarias LED de empotrar/suspender con CRI>90, UGR<16, 500 lux garantizados en puestos de trabajo según UNE-EN 12464. Incluye difusores, drivers, conexionado",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 25,
+          "precio_unitario": 50,
+          "total": 1250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Luminarias LED (suministro)",
+          "descripcion": "25 luminarias LED de oficina (empotrable, suspensión o superficie) con óptica profesional",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de luminarias según especificación técnica (potencia, CRI, control DALI)"
+        },
+        {
+          "concepto": "Alumbrado de emergencia",
+          "descripcion": "Baterías de emergencia, señalización de salidas, iluminación de recorridos de evacuación según normativa",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Baterías y luminarias de emergencia (suministro)",
+          "descripcion": "8 luminarias de emergencia con baterías integradas, señalización según normativa",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baterías y luminarias de emergencia"
+        },
+        {
+          "concepto": "Toma de tierra y protección diferencial",
+          "descripcion": "Instalación de jabalina de tierra, cable de cobre desnudo, anillo de tierra perimetral, medición de resistencia",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Boletín eléctrico (certificado REBT)",
+          "descripcion": "Redacción, tramitación y firma del boletín eléctrico ante organismo de control verificador",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa organismo de control certificador (estimado 150-300€)"
+        },
+        {
+          "concepto": "Red de datos CAT6 (cableado + instalación)",
+          "descripcion": "Cableado estructurado CAT6 con bandejas, canaletas, rosetas de datos en puestos de trabajo. Incluye trazado, fijación, etiquetado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 400,
+          "precio_unitario": 3,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable CAT6 + rosetas de datos (suministro)",
+          "descripcion": "Cable CAT6 UTP/FTP 400 ml, conectores RJ45, rosetas dobles con etiquetado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 400,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cable CAT6 y rosetas según longitud final"
+        },
+        {
+          "concepto": "Punto de acceso WiFi (instalación)",
+          "descripcion": "Instalación de punto de acceso WiFi 6 (802.11ax) con cobertura total 200 m²",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puntos de acceso WiFi 6 (suministro)",
+          "descripcion": "2 puntos de acceso WiFi 6 con PoE integrado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de puntos WiFi 6 profesionales"
+        },
+        {
+          "concepto": "Climatización (unidades + instalación)",
+          "descripcion": "Sistema de climatización tipo bomba de calor inverter o fancoils, conductos, rejillas, válvulas, termostatos según RITE. Cálculo: 200 m² × 150 W/m² = 30 kW aprox.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 35,
+          "precio_unitario": 60,
+          "total": 2100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Unidad climatizadora y conductos (suministro)",
+          "descripcion": "Bomba calor inverter o unidad multi-split, conductos, aislamiento, rejillas, válvulas, termostato inteligente",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio sistema climatización 30 kW aprox. (consultar con fabricante)"
+        },
+        {
+          "concepto": "Certificado RITE (climatización)",
+          "descripcion": "Redacción y firma de certificado RITE por instalador autorizado",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa certificado RITE (estimado 100-200€)"
+        },
+        {
+          "concepto": "Divisiones, tabiques y puertas",
+          "descripcion": "Tabiques de pladur, puertas acústicas, perfiles metálicos, vidrieras, cierre de huecos según nueva distribución",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 35,
+          "total": 5250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales carpintería (pladur, perfiles, puertas, herrajes)",
+          "descripcion": "Placas de pladur, perfiles omega, tornillos, masilla, puertas acústicas, marcos, cerraduras, bisagras, guías",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio materiales pladur y puertas según especificación (acústico, resistencia fuego, etc.)"
+        },
+        {
+          "concepto": "Puertas interiores y vidrieras",
+          "descripcion": "4-6 puertas acústicas de entrada a despachos/salas, vidrieras con perfiles de aluminio",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio puertas acústicas y vidrieras según especificación"
+        },
+        {
+          "concepto": "Rozas y reposición para instalaciones",
+          "descripcion": "Apertura de rozas en paredes para cableado eléctrico, datos, climatización. Reposición con mortero y pintura",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 300,
+          "precio_unitario": 8,
+          "total": 2400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material reposición (mortero, escayola, espuma, herramientas)",
+          "descripcion": "Sacos mortero, escayola, espuma expansiva, tornillos, tacos, material consumible obra",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto consumibles obra (estimado 500-800€)"
+        },
+        {
+          "concepto": "Suelo técnico o tarima flotante",
+          "descripcion": "Suelo técnico modular con sistema anti-estático o tarima flotante de madera/vinilo sobre estructura de apoyo",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 32,
+          "total": 6400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material suelo técnico o tarima (suministro)",
+          "descripcion": "Baldosas suelo técnico, vigas soporte, niveladores, o tarima flotante según especificación",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio suelo técnico/tarima según tipo (suelo técnico 80-150€/m², tarima 40-80€/m²)"
+        },
+        {
+          "concepto": "Preparación, limpieza y pintura de paredes",
+          "descripcion": "Limpieza de polvo, reparación pequeños defectos, imprimación, pintura 2 manos en todos los paramentos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 800,
+          "precio_unitario": 4,
+          "total": 3200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura (suministro)",
+          "descripcion": "Pintura acrílica interior de buena calidad, imprimación, rodillos, brochas, cinta, lona protección",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 800,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pintura según calidad (eco, antibacteriana, acústica, etc.)"
+        },
+        {
+          "concepto": "Mobiliario de oficina (suministro e instalación)",
+          "descripcion": "Mesas, sillas, armarios, estanterías modulares según nueva distribución. Incluye montaje y fijación a estructura",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio mobiliario muy variable (200 m² oficina: estimado 15000-40000€ según especificación)"
+        },
+        {
+          "concepto": "Montaje y fijación mobiliario",
+          "descripcion": "Montaje de mesas, armarios, estanterías, sillas de oficina y fijación a suelo/pared",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 45,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión y retirada de residuos",
+          "descripcion": "Acarreo, segregación selectiva y acopio de residuos de obra, transporte a gestor autorizado",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa gestor residuos (estimado 25-50€/m³)"
+        },
+        {
+          "concepto": "Coordinación, planificación y supervisión de obras",
+          "descripcion": "Coordinación diaria de oficios, control de tiempos, seguridad en obra, comunicación con cliente",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "semana",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de coordinación (estimado 800-1500€/semana según complejidad)"
+        },
+        {
+          "concepto": "Pruebas finales y certificaciones",
+          "descripcion": "Pruebas funcionales de instalaciones (eléctrica, datos, climatización), mediciones luminotécnicas, comprobar 500 lux, UGR<16",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa pruebas e informe luminotécnico (estimado 500-800€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 26700,
+        "iva_porcentaje": 21,
+        "iva": 5607,
+        "total": 32307
+      },
+      "sugerencias_catalogo": [
+        "La reforma integral de oficina está documentada en [reforma_integral_oficina_o_espacio_de_trabajo] con rango 8000-90000€ (precio alzado). Este presupuesto se alinea dentro de ese rango en partidas de mano de obra identificadas (26700€ sin mobiliario).",
+        "Obligatorio: cumplir normativa UNE-EN 12464 (500 lux en puestos de trabajo, UGR<16). Verificar luminotecnia.",
+        "Obligatorio: RITE para climatización (certificado requerido).",
+        "Obligatorio: Boletín eléctrico REBT (certificado verificador).",
+        "Sugerencia: incluir suelo técnico si se prevé cambios en distribución de datos/electricidad futuros.",
+        "Sugerencia: domótica/control centralizado (iluminación DALI, climatización inteligente) mejora eficiencia energética.",
+        "Nota: mobiliario no incluido en subtotal (pendiente de presupuesto cliente). Estimado adicional 15000-40000€."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Mobiliario de oficina (suministro)",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Especificación de mobiliario no estándar; requiere catálogo de muebles o estudio personalizado"
+        },
+        {
+          "partida": "Coordinación y supervisión de obras",
+          "oficio": "multiservicio",
+          "origen": "sugerida_ia",
+          "motivo": "Obra con múltiples oficios simultáneos (electro, datos, climati, carpintería, pintura); coordinación obligatoria"
+        },
+        {
+          "partida": "Pruebas luminotécnicas y certificaciones finales",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Verificación de cumplimiento 500 lux y UGR<16 requiere instrumental y ensayos especializados"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_electrica_oficina_completa",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "instalacion_fontaneria_cocina_completa"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 31,
+    "n_catalogo": 13,
+    "n_sugeridas": 18,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

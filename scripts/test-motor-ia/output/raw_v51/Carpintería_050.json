@@ -1,0 +1,191 @@
+{
+  "id": 50,
+  "oficio": "Carpintería",
+  "texto": "Instalación de tarima exterior de madera de ipe en terraza de 25 metros cuadrados con estructura",
+  "http_status": 200,
+  "latency_ms": 22164,
+  "raw_response": {
+    "transcript": "Instalación de tarima exterior de madera de ipe en terraza de 25 metros cuadrados con estructura",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de tarima exterior de madera de ipe en terraza de 25 metros cuadrados con estructura",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Madera IPE es de alta durabilidad (clase 1-2). Verificar si necesita tratamiento adicional según ubicación geográfica",
+          "Se asume estructura de rastreles: confirmar si incluye base de regularización o pilares de soporte",
+          "Presupuesto agrupa mano de obra de instalación según tarifa carpintería"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de tarima exterior con estructura de madera"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tabla de madera IPE tratada para tarima exterior",
+          "descripcion": "Suministro de tabla de madera IPE (Handroanthus sp.) para terraza exterior, espesor 20-25mm, clasificación para uso exterior clase 1-2, con separación de 3-5mm entre tablas para drenaje",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de madera IPE variable según calidad, origen y grosor. Instalador debe confirmar precio comercial"
+        },
+        {
+          "concepto": "Rastreles de soporte para tarima",
+          "descripcion": "Rastreles de madera tratada clase 4 o perfil de aluminio para estructura de base, espaciados cada 40-50cm, fijados al forjado o base existente",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad aproximada (6 líneas × 25m). Precio variable según material (madera/aluminio). Confirmar cotas exactas de terraza"
+        },
+        {
+          "concepto": "Tornillos de acero inoxidable y clips de fijación",
+          "descripcion": "Tornillos A4 inoxidable para fijación de tablas a rastreles y clips ocultos si aplica, con arandelas de goma para evitar óxido",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material. Incluido en presupuesto de mano de obra, pero confirmar sistema de fijación (tornillos o clips ocultos)"
+        },
+        {
+          "concepto": "Preparación de base y nivelación",
+          "descripcion": "Limpieza, barrido y nivelación de terraza existente, colocación de geotextil antimalas hierbas si es necesario, regularización de puntos altos",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de rastreles y estructura",
+          "descripcion": "Instalación de rastreles espaciados cada 40-50cm, fijación a base de terraza (atornillado o empotrado), nivelación y alineación de estructura",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de tablas de tarima IPE",
+          "descripcion": "Instalación de tablas de madera IPE sobre rastreles con tornillos inoxidable, respetando separación de 3-5mm entre tablas para drenaje y dilatación, alineación y nivelación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 32,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado y tratamiento de madera IPE",
+          "descripcion": "Lijado suave de superficies si es necesario, aplicación de aceite protector exterior (si el instalador lo recomienda) o sellador transparente para preservar color natural y proteger de intemperie",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "l",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "IPE tiene baja necesidad de tratamiento pero puede beneficiarse de aceite protector cada 2-3 años. Precio de producto y mano de obra de aplicación pendiente"
+        },
+        {
+          "concepto": "Pruebas y control de calidad",
+          "descripcion": "Revisión de alineación, niveles, separaciones entre tablas, fijaciones seguras y drenaje. Ajustes menores si son necesarios",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1340,
+        "iva_porcentaje": 21,
+        "iva": 281.4,
+        "total": 1621.4
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Instalación de tarima exterior madera o composite' (carpinteria, 120-650€/m2) cubre este trabajo. Se ha desglosado en componentes de mano de obra de catálogo (45€/h) y materiales sugeridos",
+        "Confirmar si la terraza tiene pendiente natural que requiera plots regulables o base de regularización adicional",
+        "IPE es madera noble tropical de alta durabilidad (clase 1-2 según EN 350). No requiere tratamiento químico adicional, pero puede beneficiarse de aceite protector cada 2-3 años"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tabla de madera IPE tratada para tarima exterior",
+          "motivo": "Madera IPE específica. Aunque existe 'tabla_madera_tratada_clase_4_o_composite' en catálogo, IPE es variante de madera noble tropical que requiere cotización específica de mercado"
+        },
+        {
+          "concepto": "Rastreles de soporte para tarima",
+          "motivo": "Material de estructura. Cantidad y tipo (aluminio/madera) deben confirmarse según diseño de terraza"
+        },
+        {
+          "concepto": "Acabado y tratamiento de madera IPE",
+          "motivo": "Tratamiento protector. IPE tiene baja necesidad de mantenimiento, pero producto y mano de obra de aplicación requieren revisión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "solado_de_tarima_exterior_de_madera_o_composite",
+      "instalacion_tarima_exterior_madera_o_composite",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_de_pavimento_flotante_sobre_plots"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,396 @@
+{
+  "id": 361,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+  "http_status": 200,
+  "latency_ms": 34839,
+  "raw_response": {
+    "transcript": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto con múltiples oficios y fases complejas — coordinación recomendada",
+          "Demolición de tabiques requiere verificación estructural previa",
+          "Reforma integral requiere licencia de obras según municipio",
+          "Varias partidas de materiales requieren confirmación de calidades y precios"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reformas_integrales",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Coordinación y gestión de proyecto de reforma integral"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición de tabiques, reposición estructural"
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Instalación de suelo nuevo (m2)"
+        },
+        {
+          "oficio": "cocina_amueblada",
+          "existe_en_catalogo": false,
+          "nuevo_oficio": true,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Actualización cocina (suministro + instalación)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Adaptación de instalación eléctrica a nueva distribución"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Adaptación de instalación de agua y saneamiento"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Pintura general de interiores post-reforma"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": false,
+          "nuevo_oficio": true,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 30,
+            "max": 40
+          },
+          "motivo": "Gestión y contenedor de escombros de demolición"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto o memoria valorada reforma integral",
+          "descripcion": "Elaboración de proyecto técnico con planos y memoria descriptiva para reforma integral de 80 m²",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del proyecto debe negociarse según complejidad (típico 500-1500€)"
+        },
+        {
+          "concepto": "Licencia de obras y trámites municipales",
+          "descripcion": "Gestión y obtención de licencia de obras menor/mayor según municipio (análisis, documentación, tasas)",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste varía por municipio (típico 300-800€ + tasas)"
+        },
+        {
+          "concepto": "Demolición y vaciado selectivo de tabiques",
+          "descripcion": "Demolición de tabiques, retirada de escombros y vaciado selectivo de espacio (80 m²)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 8,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio demolición 6-12€/m² según complejidad estructural — VERIFICAR si hay tabiques portantes"
+        },
+        {
+          "concepto": "Acopio y retirada de escombros en contenedor",
+          "descripcion": "Gestión de escombros con contenedor tipo 12m³ o similar (incluye transporte y gestión residuos)",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste alquiler contenedor + gestión: típico 400-800€"
+        },
+        {
+          "concepto": "Adaptación instalación eléctrica a nueva distribución",
+          "descripcion": "Nuevas rozas, cableado, tomas e interruptores según nueva distribución de espacios (80 m²)",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 15,
+          "total": 1200,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalación eléctrica adaptada 12-20€/m² — requiere boletin REBT por instalador autorizado"
+        },
+        {
+          "concepto": "Adaptación instalación fontanería y saneamiento",
+          "descripcion": "Nuevas canalizaciones agua caliente/fría y saneamiento según nueva distribución (80 m²)",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 12,
+          "total": 960,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Fontanería adaptada 10-15€/m² — incluye solo mano de obra, tubería incluida en partida 'Suministro tubería'"
+        },
+        {
+          "concepto": "Suministro tubería multicapa PEX, accesorios fontanería y saneamiento",
+          "descripcion": "Tuberías PEX 16-20mm, conexiones latón, válvulas, PVC saneamiento y accesorios para reforma fontanería",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales fontanería: típico 200-400€ para 80m² (tubería + accesorios)"
+        },
+        {
+          "concepto": "Suministro cableado eléctrico, tomas, interruptores y canaletas",
+          "descripcion": "Cable H07V-U 2.5-6mm², tomas, interruptores, mecanismos, canaletas y pequeño material eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales eléctricos: típico 400-800€ para 80m² (cableado + tomas + interruptores)"
+        },
+        {
+          "concepto": "Instalación suelo nuevo (tarima, parquet o similar)",
+          "descripcion": "Colocación de suelo nuevo en 80 m² (preparación subsuelo, nivelación, instalación y remates)",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro material suelo (tarima, parquet, laminado o vinilo)",
+          "descripcion": "Material de suelo (tarima maciza, parquet multicapa, laminado o vinilo de calidad media-alta) para 80 m²",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material suelo: tarima 30-80€/m², parquet 40-120€/m², laminado 15-40€/m², vinilo 20-60€/m² — CLIENTE ELIGE CALIDAD"
+        },
+        {
+          "concepto": "Actualización cocina — Suministro muebles y electrodomésticos",
+          "descripcion": "Módulos muebles cocina (base y pared), encimera, fregadero, grifo, electrodomésticos integrados (horno, vitro, campana, frigorífico si aplica)",
+          "oficio": "cocina_amueblada",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cocina amueblada: rango 2500-8000€ según marca y equipamiento — CLIENTE SELECCIONA LÍNEA Y ACABADOS"
+        },
+        {
+          "concepto": "Instalación cocina (conexiones eléctrica, agua, gas y anclajes)",
+          "descripcion": "Instalación completa de cocina amueblada: conexión electrical, agua fría/caliente, gas (si aplica), anclaje estructural y pruebas",
+          "oficio": "cocina_amueblada",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra instalación cocina: 250-500€ según complejidad conexiones"
+        },
+        {
+          "concepto": "Pintura de interiores (paredes y techos)",
+          "descripcion": "Pintura interior de 80 m² (paredes + techo): preparación, imprimación y 2 manos pintura plástica",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 8,
+          "total": 640,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pintura interior 6-10€/m² según acabado — incluye preparación, imprimación, 2 manos"
+        },
+        {
+          "concepto": "Suministro pintura, materiales y pequeño material pintura",
+          "descripcion": "Pintura plástica interior, imprimación, masilla, lijas, cintas, trapos y pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales pintura: típico 150-300€ para 80m² (pintura + imprimación + pequeño material)"
+        },
+        {
+          "concepto": "Coordinación de gremios y gestión de obra",
+          "descripcion": "Coordinación entre oficios (estructura, instalaciones, remates), supervisión de plazos, control de calidad y logística en obra",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión de obra: 5-10% del presupuesto total o 1000-3000€ forfait según complejidad"
+        },
+        {
+          "concepto": "Pequeño material general de obra",
+          "descripcion": "Tornillería, conexiones, cintas, masilla, puntas, espumas, juntas, pegamentos y consumibles varios",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: típico 3-8€/m² (200-640€ para 80m²)"
+        },
+        {
+          "concepto": "Reparación y reposición de encuentros y remates finales",
+          "descripcion": "Reposición de guarniciones, rodapiés, remates perimetrales, puertas interiores si aplica",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Remates y guarniciones: incluir presupuesto específico si hay cambio de puertas o rodapiés"
+        }
+      ],
+      "calculos": {
+        "subtotal": 6400,
+        "iva_porcentaje": 21,
+        "iva": 1344,
+        "total": 7744
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si reforma incluye cambio de ventanas (no mencionado, agregar si aplica)",
+        "Verificar si hay climatización o aire acondicionado (no mencionado, agregar si solicitado)",
+        "Confirmar tipo de suelo preferido: tarima, parquet, laminado o vinilo (afecta precio material)",
+        "Especificar cocina: marca, módulos, electrodomésticos a incluir",
+        "Verificar existencia de tabiques portantes (requiere cálculo estructural previo)",
+        "Confirmar si se cambian puertas interiores (no mencionado, agregar si aplica)",
+        "Validar instalación eléctrica actual vs. REBT — puede requerir nuevo cuadro general",
+        "Confirmar si incluye cambio de sanitarios en baños (no mencionado, agregar si aplica)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "cocina_amueblada",
+          "motivo": "Actualización de cocina requiere partidas de suministro + instalación, no existía en catálogo específicamente"
+        },
+        {
+          "concepto": "gestion_residuos",
+          "motivo": "Gestión de escombros y residuos de demolición es oficio auxiliar clave en reformas integrales"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_completo_cocina",
+      "renovacion_de_instalacion_electrica_completa_en_vivienda",
+      "reforma_integral_vivienda_completa",
+      "tabique_pladur_en_rehabilitacion_edificio_existente",
+      "alicatado_y_solado_de_bano_completo"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 17,
+    "n_catalogo": 1,
+    "n_sugeridas": 16,
+    "oficio_detectado": "reformas_integrales",
+    "coincide_oficio": "SI"
+  }
+}

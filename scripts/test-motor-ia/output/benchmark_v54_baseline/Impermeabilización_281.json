@@ -1,0 +1,200 @@
+{
+  "id": 281,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar terraza plana de piso con goteras en la planta de abajo, 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 20430,
+  "raw_response": {
+    "transcript": "Impermeabilizar terraza plana de piso con goteras en la planta de abajo, 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar terraza plana de piso con goteras en la planta de abajo, 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Terraza con goteras activas: verificar estado de la estructura y drenaje antes de impermeabilizar",
+          "Superficie 20 m² es pequeña pero crítica por daños en planta inferior: prioridad alta"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de terraza plana con lámina o pintura impermeabilizante. Oficio especializado en soluciones contra humedades y goteras."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de superficie terraza",
+          "descripcion": "Limpieza profunda de terraza, eliminación de suciedad, musgo y restos de mortero. Reparación de fisuras y grietas con mortero de reparación. Preparación de la superficie para aplicación de impermeabilizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación adherente bituminosa",
+          "descripcion": "Aplicación de imprimación bituminosa sobre superficie preparada para mejorar adherencia de membrana impermeabilizante. Cobertura aproximada 1 litro/10 m².",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar marca, tipo y precio de imprimación bituminosa"
+        },
+        {
+          "concepto": "Membrana líquida poliuretano impermeabilizante",
+          "descripcion": "Aplicación de membrana líquida de poliuretano en dos manos sobre terraza. Producto de curado rápido, flexible y resistente a movimientos. Rendimiento aproximado 1.2-1.5 kg/m².",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar marca (ej: Sika, Mapei, Ceys), tipo de poliuretano y precio por kg"
+        },
+        {
+          "concepto": "Refuerzo de encuentros con tela geotextil",
+          "descripcion": "Colocación de tela geotextil de refuerzo en encuentros de terraza con paredes, sumideros y cambios de nivel. Ancho mínimo 30 cm. Cantidad estimada 15 ml de encuentros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar tipo de geotextil, ancho y precio por metro lineal"
+        },
+        {
+          "concepto": "Cinta de aluminio en uniones y juntas",
+          "descripcion": "Colocación de cinta de aluminio adhesiva en juntas de dilatación y uniones críticas para refuerzo y estanqueidad. Cantidad estimada 10 ml.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar tipo y precio de cinta de aluminio"
+        },
+        {
+          "concepto": "Aplicación de membrana impermeabilizante (mano de obra)",
+          "descripcion": "Aplicación de membrana líquida poliuretano en dos manos sobre toda la superficie de terraza (20 m²). Incluye aplicación en encuentros reforzados y juntas. Tiempo estimado 2-3 horas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 45,
+          "total": 112.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protección solar y acabado (pintura reflectante opcional)",
+          "descripcion": "Aplicación de pintura reflectante de protección solar sobre membrana impermeabilizante para aumentar durabilidad y reducir temperatura de terraza. Opcional pero recomendado en terrazas transitables.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional: instalador debe confirmar si aplica y precio de pintura reflectante"
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Brochas, rodillos, espátulas, trapos, disolvente, guantes, gafas de protección, mascarilla. Material fungible necesario para la ejecución.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe estimar coste de pequeño material y EPI"
+        }
+      ],
+      "calculos": {
+        "subtotal": 272.5,
+        "iva_porcentaje": 21,
+        "iva": 57.225,
+        "total": 329.725
+      },
+      "sugerencias_catalogo": [
+        "Considerar si la terraza es transitable o no transitable: afecta a tipo de protección final",
+        "Verificar si existen sumideros o desagües en la terraza: requieren refuerzo especial",
+        "Evaluar si hay movimientos estructurales o grietas activas: pueden requerir reparación previa más profunda",
+        "Confirmar si la goteras son puntuales (grietas) o generalizadas (falta de pendiente): afecta a solución"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Membrana líquida poliuretano impermeabilizante",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para impermeabilización de terrazas con goteras. Requiere especificación de marca y precio."
+        },
+        {
+          "concepto": "Imprimación adherente bituminosa",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material preparatorio obligatorio. Requiere especificación de marca y precio."
+        },
+        {
+          "concepto": "Refuerzo de encuentros con tela geotextil",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material de refuerzo en zonas críticas. Requiere especificación de tipo y precio."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM",
+      "impermeabilizacion_de_terraza_invertida_con_XPS"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3974,
+      "tokens_out": 2696
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

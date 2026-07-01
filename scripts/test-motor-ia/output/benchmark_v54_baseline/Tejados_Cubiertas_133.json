@@ -1,0 +1,179 @@
+{
+  "id": 133,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Impermeabilizar junta de dilatación en cubierta plana de edificio comunitario, 15 metros lineales",
+  "http_status": 200,
+  "latency_ms": 20977,
+  "raw_response": {
+    "transcript": "Impermeabilizar junta de dilatación en cubierta plana de edificio comunitario, 15 metros lineales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar junta de dilatación en cubierta plana de edificio comunitario, 15 metros lineales",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de junta de dilatación en cubierta plana — oficio especializado en sistemas estancos y membranas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de material existente en junta de dilatación",
+          "descripcion": "Limpieza, saneo y retirada completa del material antiguo (sellador, polvo, restos) de la junta de dilatación en cubierta plana. Preparación de la superficie para nueva impermeabilización.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 8,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fondo de junta elastómero celular",
+          "descripcion": "Colocación de fondo de junta elastómero celular (espuma de polietileno o similar) para limitar la profundidad del sellador y permitir movimientos de la junta. Material de relleno base.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material elastómero celular — el instalador debe especificar espesor y proveedor. Rango estimado: 3-8€/ml"
+        },
+        {
+          "concepto": "Sistema específico de sellado para cubierta (lámina de puente o perfilería)",
+          "descripcion": "Colocación de sistema específico para cubierta plana: lámina de puente elastómera o perfilería metálica de cubrición, según ancho y características de la junta. Garantiza estanqueidad y admite movimientos significativos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema específico cubierta (lámina o perfil) — depende de ancho junta y solicitaciones. Rango estimado: 12-35€/ml"
+        },
+        {
+          "concepto": "Sellado superior con material elastómero",
+          "descripcion": "Aplicación de sellador elastómero de poliuretano o silicona de alta calidad (resistencia UV y movimientos) en la parte superior de la junta. Acabado estanco y flexible.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sellador elastómero exterior — especificar marca y tipo (poliuretano/silicona). Rango estimado: 5-12€/ml"
+        },
+        {
+          "concepto": "Mano de obra: Impermeabilización junta de dilatación en cubierta",
+          "descripcion": "Ejecución completa de impermeabilización de junta de dilatación: preparación, colocación de fondo, sistema de sellado y acabado. Incluye medidas de seguridad en cubierta (EPI, línea de vida si aplica).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 35,
+          "total": 525,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI, pequeño material y herramientas",
+          "descripcion": "Equipos de protección individual (arnés, casco, guantes), herramientas menores (espátulas, cepillos, trapos), consumibles (disolventes, limpiadores) y pequeño material auxiliar.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles y EPI — estimado 2-5€/ml. Incluir en presupuesto final."
+        }
+      ],
+      "calculos": {
+        "subtotal": 645,
+        "iva_porcentaje": 21,
+        "iva": 135.45,
+        "total": 780.45
+      },
+      "sugerencias_catalogo": [
+        "Confirmar ancho y profundidad de la junta de dilatación — determina el sistema específico (lámina de puente vs. perfilería).",
+        "Especificar si la cubierta es transitable o no — afecta a la resistencia del sistema.",
+        "Indicar si hay movimientos significativos esperados (dilatación térmica) — influye en elasticidad del sellador.",
+        "Considerar si la junta requiere refuerzo adicional en encuentros o esquinas.",
+        "Presupuesto base: 645€ (mano de obra + retirada). Materiales pendientes de revisión: estimado 20-60€/ml adicionales (300-900€ totales en materiales)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Fondo de junta elastómero celular",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para junta de cubierta — requiere especificación de espesor y proveedor"
+        },
+        {
+          "concepto": "Sistema específico de sellado para cubierta (lámina de puente o perfilería)",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema especializado cubierta plana — depende de características geométricas de la junta"
+        },
+        {
+          "concepto": "Sellado superior con material elastómero",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Sellador elastómero exterior de alta calidad — requiere especificación de marca y tipo"
+        },
+        {
+          "concepto": "EPI, pequeño material y herramientas",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles y equipos de protección — estimado según volumen de trabajo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta",
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3847,
+      "tokens_out": 2520
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

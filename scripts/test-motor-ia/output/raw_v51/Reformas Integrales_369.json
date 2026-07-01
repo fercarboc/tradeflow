@@ -1,0 +1,401 @@
+{
+  "id": 369,
+  "oficio": "Reformas Integrales",
+  "texto": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+  "http_status": 200,
+  "latency_ms": 44438,
+  "raw_response": {
+    "transcript": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Casa antigua de piedra: revisar estructura ANTES de presupuestar definitivamente",
+          "Aislamiento en piedra requiere solución especializada (SATE o aislamiento interior)",
+          "Instalaciones nuevas (eléctrica + fontanería) en obra antigua: prever imprevistos",
+          "Se recomienda inspección previa y levantamiento de planos",
+          "Precio es ORIENTATIVO hasta confirmar estado real y alcance exacto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reformas_integrales",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 8000,
+            "recomendado": 45000,
+            "max": 90000
+          },
+          "motivo": "Rehabilitación completa de vivienda antigua: estructura, instalaciones, aislamiento, acabados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Trabajos de obra: reparación estructura piedra, enlucidos, revoco, paños"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Nueva instalación eléctrica completa en casa antigua"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Nueva instalación fontanería (ACS, distribución, saneamiento)"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 32,
+            "recomendado": 32,
+            "max": 35
+          },
+          "motivo": "Acabados interiores: pintura, preparación de paramentos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y revisión estado estructural",
+          "descripcion": "Revisión completa de estructura, muros de piedra, cubiertas, humedades y cimientos. Levantamiento de daños. Recomendación: realizar ANTES de presupuestar obra completa.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Casa antigua requiere inspección previa. Precio depende de extensión y complejidad."
+        },
+        {
+          "concepto": "Reparación y consolidación de muros de piedra",
+          "descripcion": "Limpieza de juntas, inyección de lechada, refuerzo de paños deficientes, reparación de huecos con mortero de cal hidráulica o cemento reforzado.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² de muros a reparar debe confirmarse en inspección. Tarifa alba incluye materiales pequeños; mortero especializado requiere presupuesto separado."
+        },
+        {
+          "concepto": "Aislamiento térmico en fachada (SATE o interior)",
+          "descripcion": "Sistema de aislamiento en fachada exterior (SATE con poliestireno expandido o lana mineral) o aislamiento interior según decisión proyecto. Espesor mínimo 100 mm según CTE. Incluye colocación de malla, adhesivo, anclajes, enfoscado y acabado.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de: tipo aislamiento (SATE exterior ≈25-35€/m², interior ≈15-20€/m²), espesor, acabado. Confirmación de superficie real y tipo solución elegida."
+        },
+        {
+          "concepto": "Reparación y estanqueidad de cubiertas",
+          "descripcion": "Revisión, reparación de goteras, cambio de tejas rotas, impermeabilización de encuentros con chimeneas, refuerzo de aleros. Incluye pequeños trabajos de carpintería en estructura techo si necesario.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 40,
+          "total": 4800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa albanería base. Materiales de cubierta (tejas, impermeabilizante) deben presupuestarse separadamente a precio de coste+margen."
+        },
+        {
+          "concepto": "Instalación eléctrica nueva completa",
+          "descripcion": "Cuadro de protección nuevo, cableado completo en tubo protector (mínimo 2.5 mm²), enchufes, interruptores, puntos de luz, iluminación emergencia si requiere. Cumplimiento REBT. Pruebas y certificación.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalación nueva completa. Precio depende de: superficie vivienda, número de circuitos, cargas previstas. Rango estimado 3000-8000€ mano de obra + materiales según complejidad. Requiere certificación."
+        },
+        {
+          "concepto": "Instalación fontanería nueva completa",
+          "descripcion": "Tuberías de suministro agua fría (PEX multicapa), ACS (termo eléctrico o caldera), saneamiento interior con derivaciones. Sifones, válvulas, aireadores. Prueba de presión. Válvula corta-fugas, llaves de paso, cálculo de caudales.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalación nueva completa. Precio depende de: número de puntos de agua, longitud de tuberías, tipo ACS elegido (termo eléctrico ≈1500€, caldera condensación ≈3500€). Rango estimado 2500-6000€ mano de obra + equipos."
+        },
+        {
+          "concepto": "Mejora de ventilación y extractores",
+          "descripcion": "Instalación de extractor cocina, baños con conducto hacia exterior. Si se requiere VMC (ventilación mecánica controlada), conductos y filtros. Rejillas de ventilación.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puertas interiores de madera nueva",
+          "descripcion": "Suministro e instalación de puertas interiores en madera (pino o similar). Marcos, bisagras, cerradoras, manillas. Ajuste y acabado.",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por puerta: 250-600€ según calidad y acabado. Confirmación de cantidad de puertas y tipo revestimiento."
+        },
+        {
+          "concepto": "Ventanas de aluminio o madera con doble acristalamiento",
+          "descripcion": "Suministro e instalación de ventanas con doble acristalamiento (aislamiento térmico mínimo según CTE). Marcos, herrajes, junquillo, sellado periférico, cortavientos.",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por ventana: 400-1200€ según tamaño y tipo (aluminio ≈500€/ud, madera ≈800€/ud). Confirmación de medidas y cantidad."
+        },
+        {
+          "concepto": "Enyesado, enlucido y acabado de paramentos interiores",
+          "descripcion": "Preparación de superficies, enyesado de muros y techos, enlucido final, lijado, masillado. Superficie lista para pintar. En zonas húmedas (baños, cocina) preparación especial con impermeabilizante.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 350,
+          "precio_unitario": 40,
+          "total": 14000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alicatado de cocina y baños",
+          "descripcion": "Preparación de superficies, alicatado con azulejos cerámicos o similar en baños y cocina, lechada, agroceramias. Incluye encuentros, esquinas, remates.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 40,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa mano de obra. Precio azulejos y material debe presupuestarse separadamente. Rango 40-60€/m² según complejidad."
+        },
+        {
+          "concepto": "Pintura interior paredes y techos",
+          "descripcion": "Imprimación, pintura plástica interior en 2 capas. Preparación de superficies, tratamiento de grietas previas.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 400,
+          "precio_unitario": 32,
+          "total": 12800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suelos: colocación de baldosa cerámica o pavimento similar",
+          "descripcion": "Preparación de base, colocación de baldosas cerámicas, porcelánicas o similares con adhesivo y lechada. Incluye perfiles de transición, zócalos.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 180,
+          "precio_unitario": 32,
+          "total": 5760,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estándar. Baldosa y lechada presupuestadas separadamente. Si se requiere parquet o tarima, precio mano obra puede variar 35-45€/m²."
+        },
+        {
+          "concepto": "Sanitarios: WC, lavabos, bañera/ducha",
+          "descripcion": "Suministro e instalación de sanitarios (inodoro, lavabo, bañera o ducha). Sifones, válvulas, tuberías de conexión. Pruebas de funcionamiento.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mano obra ≈150-250€/ud. Sanitarios precio según marca y calidad (WC básico ≈150€, lavabo ≈200€, bañera ≈400-1000€). Confirmación de cantidad y tipo."
+        },
+        {
+          "concepto": "Climatización: calefacción y/o refrigeración",
+          "descripcion": "Sistema de calefacción nuevo: bomba de calor aerotérmica, caldera condensación o similar según zona climática. Radiadores o suelo radiante según decisión. Termostato inteligente.",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Decisión clave: caldera condensación ≈3500-5000€ vs. aerotermia ≈6000-10000€. Radiadores/suelo radiante adicional. Confirmación de sistema elegido y superficie a climatizar."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Pasta para juntas, espuma poliuretano, cinta adhesiva, tornillería, anclajes, tuercas, clavos, discos de corte, lijas, adhesivos, siliconas, masillas.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada estimada 1500-3000€ según alcance. Se calcula como % del presupuesto total (5-8%)."
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "descripcion": "Acopio, clasificación y retirada de escombros, tierras, residuos de obra. Cantera o gestor autorizado. Incluye transporte.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 1000-3000€ según volumen de escombros. Casa antigua → volumen importante. Confirmación en inspección previa."
+        },
+        {
+          "concepto": "Licencia municipal y tramitación",
+          "descripcion": "Proyecto técnico (si requerido), licencia de obra, tramitación administrativa, inspecciones municipales, certificados finales.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango 500-2000€ según complejidad y municipio. Casa antigua de piedra puede requerir proyecto de reforma (≈3000-6000€ si Arquitecto)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 38710,
+        "iva_porcentaje": 21,
+        "iva": 8129,
+        "total": 46839
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada en catálogo: 'Aislamiento térmico en fachada (SATE)' con rangos de precio por m² según tipo material",
+        "Crear entrada: 'Reparación de muros de piedra antigua' con tarifa alba especial y materiales especializados",
+        "Crear entrada: 'Instalación fontanería completa (nueva)' con desglose termo eléctrico vs caldera",
+        "Crear entrada: 'Inspección estructural de vivienda antigua' con tarifa por jornada y entregable (informe)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aislamiento térmico en fachada (SATE o interior)",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "motivo": "No existe en catálogo para casas de piedra con SATE especial"
+        },
+        {
+          "concepto": "Reparación y consolidación de muros de piedra",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "motivo": "Técnica especializada en piedra antigua con inyección y morteros de cal"
+        },
+        {
+          "concepto": "Instalación eléctrica nueva completa",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "motivo": "Nueva instalación integrada REBT en vivienda antigua"
+        },
+        {
+          "concepto": "Instalación fontanería nueva completa",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "motivo": "Nueva red completa ACS + suministro + saneamiento"
+        },
+        {
+          "concepto": "Climatización: calefacción y/o refrigeración",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "motivo": "Sistema integral nuevo (bomba calor, radiadores, termostato)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_segunda_residencia_o_casa_campo",
+      "cambio_de_cerradura_completa",
+      "reforma_de_vivienda_para_eficiencia_energetica",
+      "reforma_para_instalar_piscina_en_vivienda_unifamiliar",
+      "diseno_y_creacion_jardin_nuevo_desde_cero"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 18,
+    "n_catalogo": 6,
+    "n_sugeridas": 12,
+    "oficio_detectado": "reformas_integrales",
+    "coincide_oficio": "SI"
+  }
+}

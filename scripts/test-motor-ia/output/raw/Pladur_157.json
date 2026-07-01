@@ -1,0 +1,172 @@
+{
+  "id": 157,
+  "oficio": "Pladur",
+  "texto": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 16816,
+  "raw_response": {
+    "transcript": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si el local requiere normativa de resistencia al fuego (RF) según actividad y regulaciones locales",
+          "Confirmar altura disponible para cuelgue de estructura (mínimo 10-15 cm recomendado)",
+          "Revisar si hay instalaciones (electricidad, climatización, fontanería) que pasen por el falso techo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Instalación de falso techo registrable con placas de yeso laminado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura de cuelgue acero para falso techo registrable",
+          "descripcion": "Perfiles de acero galvanizado, varillas roscadas, horquillas y accesorios de fijación para estructura portante del falso techo registrable en 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de estructura: instalador debe confirmar especificaciones técnicas y proveedor"
+        },
+        {
+          "concepto": "Placas de yeso laminado registrables",
+          "descripcion": "Placas de yeso laminado estándar o ignífugas (según normativa local) de 12,5-15 mm, formato registrable/desmontable, para 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar tipo de placa (estándar/ignífuga) según normativa de resistencia al fuego requerida"
+        },
+        {
+          "concepto": "Montaje estructura y colocación placas falso techo registrable",
+          "descripcion": "Mano de obra para montaje completo de estructura de cuelgue, nivelación, colocación y fijación de placas registrables en 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 35,
+          "total": 3500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento de juntas y acabado",
+          "descripcion": "Cinta de juntas, pasta de juntas, masilla y sellador para acabado de juntas entre placas registrables en 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de acabado: cantidad y tipo según especificaciones finales"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, tacos, anclajes, herramientas consumibles y material auxiliar para instalación completa",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de pequeño material según desarrollo final del proyecto"
+        },
+        {
+          "concepto": "Documentación técnica y certificación del sistema",
+          "descripcion": "Documentación de sistema constructivo, certificados de materiales y cumplimiento normativo si aplica resistencia al fuego",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Verificar si se requiere documentación técnica según normativa local y actividad del local"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3500,
+        "iva_porcentaje": 21,
+        "iva": 735,
+        "total": 4235
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [falso_techo_pladur_en_local_con_normativa_incendios] para verificar si se requiere placa ignífuga y sistema certificado",
+        "Rango de precio referencia: 25-65 €/m² según complejidad y normativa aplicable",
+        "Si el local requiere RF (resistencia al fuego), las placas deben ser ignífugas (rosa) y el sistema debe estar certificado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura de cuelgue acero para falso techo registrable",
+          "oficio": "pladur_escayola",
+          "motivo": "Material específico de estructura portante"
+        },
+        {
+          "concepto": "Placas de yeso laminado registrables",
+          "oficio": "pladur_escayola",
+          "motivo": "Material específico de acabado registrable/desmontable"
+        },
+        {
+          "concepto": "Tratamiento de juntas y acabado",
+          "oficio": "pladur_escayola",
+          "motivo": "Material de acabado de juntas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "falso_techo_pladur_en_local_con_normativa_incendios",
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_de_sistema_de_megafonia_y_hilo_musical",
+      "instalacion_iluminacion_comercial_led",
+      "instalacion_red_electrica_local_comercial"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3907,
+      "tokens_out": 2161
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

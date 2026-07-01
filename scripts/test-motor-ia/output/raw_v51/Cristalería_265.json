@@ -1,0 +1,134 @@
+{
+  "id": 265,
+  "oficio": "Cristalería",
+  "texto": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+  "http_status": 200,
+  "latency_ms": 16144,
+  "raw_response": {
+    "transcript": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar vidrio de escaparate roto, monolítico de 8mm, 2 metros de ancho por 2.5 de alto",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio monolítico 8mm en escaparate: verificar si cumple CTE DB-SUA (vidrio de seguridad obligatorio en fachada comercial). Se recomienda templado o laminado según normativa local.",
+          "Dimensión 2×2.5m (5m²): considerar si requiere sistema de fijación reforzada o perfilería de soporte."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sustitución de luna/vidrio en escaparate comercial. Trabajo especializado de cristalería."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada vidrio roto escaparate 8mm, 2×2.5m",
+          "descripcion": "Desmontaje y retirada segura de luna monolítica rota de 8mm, dimensiones 2m ancho × 2.5m alto. Incluye medidas de seguridad, protección perimetral y gestión de residuos.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro luna vidrio monolítico 8mm templado, 2×2.5m (5m²)",
+          "descripcion": "Luna de vidrio templado de 8mm de espesor, dimensiones 2.0m × 2.5m (5m²). Monolítico según especificación. Recomendado templado para cumplir CTE DB-SUA en fachada comercial.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio vidrio templado 8mm a determinar por instalador según proveedor. Rango orientativo: 180-280€/m² (900-1400€ total para 5m²)."
+        },
+        {
+          "concepto": "Instalación y fijación luna en marco escaparate",
+          "descripcion": "Colocación de la nueva luna de vidrio, fijación en marco/perfilería existente con silicona neutra estructural de alta resistencia. Ajuste de nivelación y sellado hermético.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silicona neutra estructural y pequeño material",
+          "descripcion": "Silicona neutra de alta adherencia para fijación de luna en marco, cinta carrocero, disolvente limpiador, herramientas menores y material de protección.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales auxiliares: silicona estructural (~40-60€), cinta carrocero, disolvente y pequeño material (~25-35€). Total estimado 65-95€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "La Base Maestra incluye [cambio_luna_ventana_rota] y [instalacion_de_escaparate_o_fachada_comercial_en_vidrio]. Este trabajo es una combinación de ambas.",
+        "Vidrio monolítico 8mm en escaparate comercial: considerar upgrade a vidrio TEMPLADO o LAMINADO según CTE DB-SUA (obligatorio en zonas de circulación peatonal). El templado es más resistente a impactos.",
+        "Para escaparates comerciales de gran tamaño (5m²), verificar si existe perfilería de aluminio o inox que requiera atención adicional (limpieza, oxidación, ajustes de herrajes)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro luna vidrio monolítico 8mm templado, 2×2.5m",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico no detallado en catálogo base. Precio a revisar según proveedor y tipo de vidrio (monolítico templado vs. laminado)."
+        },
+        {
+          "concepto": "Silicona neutra estructural y pequeño material",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales auxiliares estándar en cristalería. Precio a revisar según volumen y marcas seleccionadas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "sellado_y_rejuntado_de_vidrios_con_silicona",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "cambio_luna_ventana_rota",
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,244 @@
+{
+  "id": 233,
+  "oficio": "Energía Solar",
+  "texto": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+  "http_status": 200,
+  "latency_ms": 30988,
+  "raw_response": {
+    "transcript": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema de seguimiento solar: tecnología especializada, requiere ingeniería de cálculo de estructura y motorización",
+          "Precio de seguidores solares muy variable según tipo (eje horizontal, eje vertical, dual-axis) y fabricante",
+          "Requiere cimentación/anclaje estructural: posible obra civil adicional no especificada",
+          "Legalización ante distribuidora OBLIGATORIA si está conectado a red",
+          "Mantenimiento periódico de motores y sensores: considerar contrato de mantenimiento"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema fotovoltaico con seguimiento solar automático, especialidad en energías renovables"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Cimentación y anclaje estructural de seguidores solares (obra civil)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de seguidores solares dual-axis 6kW",
+          "descripcion": "Estructura de seguimiento solar automático (dual-axis: seguimiento este-oeste y norte-sur) para 6kW de potencia fotovoltaica. Incluye: estructura metálica galvanizada, motores paso a paso, sensores de posición, centralita de control, cableado de control, protecciones eléctricas, puesta en marcha y calibración del sistema de seguimiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de seguidores solares muy variable (3000-15000€ según tipo y fabricante). Instalador debe cotizar con proveedor especializado. Rango orientativo: 6000-12000€ para sistema 6kW dual-axis."
+        },
+        {
+          "concepto": "Modulos fotovoltaicos 6kW para seguidor solar",
+          "descripcion": "Paneles fotovoltaicos monocristalinos de alta eficiencia, 6kW de potencia pico total, adaptados para instalación en estructura de seguimiento. Incluye: módulos, cajas de conexión, conectores MC4, pequeño material.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de módulos fotovoltaicos: 150-250€/kWp (2024). Rango estimado: 900-1500€ para 6kWp. Instalador debe cotizar según marca y eficiencia."
+        },
+        {
+          "concepto": "Inversor fotovoltaico 6kW para sistema con seguimiento",
+          "descripcion": "Inversor trifásico o monofásico 6kW, compatible con seguimiento solar, con protecciones CC/CA, monitoreo online, legalización ante distribuidora. Incluye: inversor, cableado AC, protecciones, pequeño material.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio inversor 6kW: 800-1500€. Rango estimado: 1000-1200€. Instalador debe cotizar según marca (SMA, Fronius, Huawei, etc.)."
+        },
+        {
+          "concepto": "Cimentación y anclaje estructural de seguidores solares",
+          "descripcion": "Excavación, cimentación de hormigón (zapatas o losa según cálculo), anclaje de estructura de seguimiento, nivelación y compactación del terreno. Incluye: hormigón, acero de refuerzo, pequeño material, EPI.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Jornadas estimadas según complejidad del terreno. Requiere inspección previa y cálculo de cimentación por ingeniero."
+        },
+        {
+          "concepto": "Instalación mecánica y eléctrica de seguidor solar 6kW",
+          "descripcion": "Montaje de estructura de seguimiento, instalación de motores y sensores, conexión de cableado de control, pruebas de funcionamiento del sistema de seguimiento (movimiento este-oeste y norte-sur), calibración de sensores solares, puesta en marcha y verificación de seguridad.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 24,
+          "precio_unitario": 65,
+          "total": 1560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de módulos fotovoltaicos en estructura de seguimiento",
+          "descripcion": "Montaje de 6kW de paneles fotovoltaicos en estructura de seguimiento, conexión en serie/paralelo según esquema, instalación de cajas de conexión, cableado DC, protecciones CC, pruebas de continuidad y aislamiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 65,
+          "total": 1040,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de inversor y conexión a red",
+          "descripcion": "Montaje de inversor 6kW, conexión de cableado AC, instalación de protecciones (magnetotérmico, diferencial), contador bidireccional si aplica, legalización ante distribuidora, pruebas de funcionamiento, sincronización con red.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 65,
+          "total": 780,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado DC, protecciones y pequeño material",
+          "descripcion": "Cable DC 6mm² (o según cálculo), conectores MC4, fusibles DC, protecciones CC, canaletas, abrazaderas, pequeño material, EPI.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado: 300-600€. Instalador debe cotizar según longitud de cableado y protecciones necesarias."
+        },
+        {
+          "concepto": "Legalización y trámites ante distribuidora",
+          "descripcion": "Solicitud de legalización de instalación fotovoltaica con seguimiento solar ante distribuidora, inspección técnica, obtención de certificado de instalación, contrato de conexión a red.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado: 200-500€ según distribuidora y complejidad. Instalador debe gestionar o derivar a gestoría."
+        }
+      ],
+      "calculos": {
+        "subtotal": 3500,
+        "iva_porcentaje": 21,
+        "iva": 735,
+        "total": 4235
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada en catálogo: 'Seguidores solares dual-axis 6kW' con rango de precio 6000-12000€ y especificaciones técnicas (tipo de seguimiento, velocidad de giro, precisión angular).",
+        "Crear entrada: 'Módulos fotovoltaicos 6kW' con precio unitario 150-250€/kWp y especificaciones (eficiencia, garantía, certificaciones).",
+        "Crear entrada: 'Inversor fotovoltaico 6kW' con precio 800-1500€ y compatibilidad con sistemas de seguimiento.",
+        "Crear entrada: 'Cimentación para seguidores solares' con tarifa por m² de superficie de cimentación (40-60€/m²).",
+        "Crear entrada: 'Legalización instalación fotovoltaica' como servicio con precio fijo 200-500€."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de seguidores solares dual-axis 6kW",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "motivo": "Sistema especializado de seguimiento solar automático, no encontrado en catálogo base. Requiere cotización de proveedor especializado."
+        },
+        {
+          "concepto": "Modulos fotovoltaicos 6kW para seguidor solar",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "motivo": "Especificación de cantidad en kWp para sistema con seguimiento. Precio variable según marca y eficiencia."
+        },
+        {
+          "concepto": "Inversor fotovoltaico 6kW para sistema con seguimiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "motivo": "Inversor específico compatible con seguimiento solar. Precio variable según marca y características."
+        },
+        {
+          "concepto": "Cimentación y anclaje estructural de seguidores solares",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "motivo": "Obra civil específica para anclaje de estructura de seguimiento. Requiere cálculo estructural previo."
+        },
+        {
+          "concepto": "Legalización y trámites ante distribuidora",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "motivo": "Trámite administrativo obligatorio para conexión a red. Precio variable según distribuidora."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4089,
+      "tokens_out": 4094
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "id": 260,
+  "oficio": "Telecomunicaciones",
+  "texto": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+  "http_status": 200,
+  "latency_ms": 26339,
+  "raw_response": {
+    "transcript": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Edificio de 20 años: probable obsolescencia de infraestructura ICT (cobre, canalizaciones antiguas)",
+          "ICT2 implica Red de Distribución interna obligatoria según normativa española",
+          "Se recomienda auditoría previa para detectar deterioro de cableado y canalizaciones",
+          "Puede requerir actualización a Cat6A o fibra óptica si demanda de ancho de banda es alta",
+          "Revision general recomendada: inspección visual, test continuidad, medidas de aislamiento"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalaciones de telecomunicaciones, cableado estructurado, actualización ICT"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y auditoría de infraestructura ICT existente",
+          "descripcion": "Revisión completa del estado de canalizaciones, regletas de bornes, cableado existente (cobre, fibra), identificación de deterioro, obsolescencia y cumplimiento normativa ICT2",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje y retirada de cableado obsoleto (cobre, pares telefónicos)",
+          "descripcion": "Retirada selectiva de cableado de cobre deteriorado, pares telefónicos antiguos, conectores RJ11 obsoletos, pequeño material y gestión de residuos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y mantenimiento de canalizaciones existentes",
+          "descripcion": "Limpieza interior de tubos, bandejas y canalizaciones, retirada de suciedad y obstrucciones, verificación de continuidad y accesibilidad para nuevos cableados",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro cableado Cat6A (UTP/FTP) para Red de Distribución",
+          "descripcion": "Cable de telecomunicaciones categoría 6A (o superior fibra si aplica), para distribución interna según normativa ICT2, incluye conectores RJ45, pequeño material",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros depende del plano de canalización y número de plantas. Instalador debe definir metraje real y elegir tipo de cable (Cat6A, fibra monomodo, etc.)"
+        },
+        {
+          "concepto": "Instalación de cableado Cat6A en canalizaciones",
+          "descripcion": "Tendido, pasada y fijación de nuevo cableado Cat6A en canalizaciones existentes, marcado de extremos, numeración de pares",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de Regleta de Bornes (RB) conforme ICT2",
+          "descripcion": "Regleta de bornes de telecomunicaciones normalizada, con espacios para pares de cobre y puertos ópticos, montaje en armario de distribución o cuadro ICT",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del número de puertos (16, 32, 64). Instalador elige según demanda"
+        },
+        {
+          "concepto": "Instalación Regleta de Bornes",
+          "descripcion": "Montaje de RB en armario, conexionado de cableados de entrada y salida, test de continuidad",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de Punto de Acceso (PA) de entrada",
+          "descripcion": "Derivador o punto de acceso de entrada de red pública (fibra o cobre) con protección contra sobretensiones y filtros, conforme ICT2",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio y tipo (derivador cobre, PA fibra) depende del operador y tecnología de entrada. Instalador define"
+        },
+        {
+          "concepto": "Instalación PA de entrada",
+          "descripcion": "Montaje de PA, conexionado de entrada de red pública, test de señal, etiquetado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro Tomas de Usuario (TU) actualizadas Cat6A",
+          "descripcion": "Conectores RJ45 Cat6A de nueva generación, placas de mecanismo, pequeño material para instalación en puntos de usuario",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende del número de tomas de usuario a actualizar. Instalador define cantidad real"
+        },
+        {
+          "concepto": "Instalación de Tomas de Usuario (TU) Cat6A",
+          "descripcion": "Montaje de enchufes RJ45 en cajas de pared, terminación de pares, test de continuidad por toma",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de tomas de usuario a instalar debe ser definida. Tarifa: 50€/toma"
+        },
+        {
+          "concepto": "Certificación y test de Red de Distribución",
+          "descripcion": "Medidas de continuidad, aislamiento y atenuación en todos los cableados instalados. Certificado de conformidad ICT2 y report técnico",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documentación técnica y planos actualizados ICT2",
+          "descripcion": "Elaboración de planos de canalización, esquema de distribución, listado de tomas, manual de mantenimiento conforme normativa ICT2",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2350,
+        "iva_porcentaje": 21,
+        "iva": 493.5,
+        "total": 2843.5
+      },
+      "sugerencias_catalogo": [
+        "Si el edificio dispone de acceso a fibra óptica, considerar actualizar a infraestructura de fibra monomodo en ductería principal (mayor capacidad futura)",
+        "Evaluar necesidad de armario de distribución nuevo si el actual es obsoleto o insuficiente",
+        "Considerar instalación de sistemas de gestión de red (switches gestionables, controladora) si se requiere segmentación VLAN",
+        "Revisar estado de toma de tierra y puesta a tierra del armario ICT (obligatorio normativa)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro cableado Cat6A",
+          "razon": "Material, cantidad depende del plano de distribución",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Suministro Regleta de Bornes ICT2",
+          "razon": "Precio depende de capacidad (puertos)",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Suministro PA de entrada",
+          "razon": "Precio depende de tecnología (cobre/fibra) y operador",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Suministro Tomas de Usuario Cat6A",
+          "razon": "Cantidad a definir por instalador",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Instalación de Tomas de Usuario",
+          "razon": "Cantidad a definir. Tarifa: 50€/toma",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_sistema_agua_helada_chiller",
+      "falso_techo_pladur_ignifugo_o_cortafuego",
+      "instalacion_de_red_de_datos_en_hotel_u_hospitality",
+      "instalacion_de_columna_seca_en_edificio"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 9,
+    "n_sugeridas": 4,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

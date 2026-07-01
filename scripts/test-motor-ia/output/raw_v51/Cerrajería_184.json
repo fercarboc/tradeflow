@@ -1,0 +1,176 @@
+{
+  "id": 184,
+  "oficio": "Cerrajería",
+  "texto": "Hacer llave maestra para 6 puertas de apartamentos turísticos, sistema de cerrojo unificado",
+  "http_status": 200,
+  "latency_ms": 16259,
+  "raw_response": {
+    "transcript": "Hacer llave maestra para 6 puertas de apartamentos turísticos, sistema de cerrojo unificado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer llave maestra para 6 puertas de apartamentos turísticos, sistema de cerrojo unificado",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de cerrajería especializada: requiere validación de compatibilidad de cerrojos y normativa de acceso en alojamientos turísticos",
+          "Se asume instalación de cerrojos unificados + llaves maestras. Si los cerrojos ya existen, aclarar si es solo cambio de llaves o sustitución de mecanismo completo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Trabajo de cerrajería especializada: instalación de sistema de cerrojo unificado con llaves maestras para múltiples accesos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita de inspección y evaluación de puertas",
+          "descripcion": "Inspección técnica de las 6 puertas de apartamentos turísticos para evaluar estado de cerrojos actuales, compatibilidad de sistema unificado y propuesta de solución",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 90,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico y presupuesto detallado",
+          "descripcion": "Informe con propuestas de mejora de seguridad, compatibilidad de cerrojos, tipo de sistema maestro recomendado y presupuesto desglosado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en visita de diagnóstico. Confirmar si se cobra por separado o va incluido"
+        },
+        {
+          "concepto": "Sustitución de cerrojos sistema maestro unificado",
+          "descripcion": "Desmontaje de cerrojos existentes e instalación de 6 cerrojos de nuevo sistema unificado (compatibles con llave maestra) en las 6 puertas de apartamentos",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cerrojos de cilindro unificado (6 ud)",
+          "descripcion": "Suministro de 6 cerrojos cilíndricos de sistema maestro unificado, compatibles con llave maestra única. Material y tipo a definir según evaluación técnica (níquel, acero, grado de seguridad)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales especializado cerrajería. Instalador debe ajustar según marca/modelo de cerrojos elegido (rango típico: 25-120€/ud según sistema)"
+        },
+        {
+          "concepto": "Llaves maestras (juego completo)",
+          "descripcion": "Fabricación de llaves maestras (mínimo 3-5 copias) para acceso unificado a las 6 puertas. Sistema de codificación según tipo de cerrojo",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por juego de llaves maestras a definir. Rango típico: 30-150€ según cantidad de copias y complejidad del sistema"
+        },
+        {
+          "concepto": "Pruebas funcionales del sistema maestro",
+          "descripcion": "Verificación de funcionamiento correcto de todos los cerrojos con llave maestra en las 6 puertas. Pruebas de cierre/apertura, ajuste de tolerancias si es necesario",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tornillería, tuercas, arandelas, pasta lubricante)",
+          "descripcion": "Tornillería, tuercas, arandelas, pasta lubricante para instalación y ajuste de cerrojos",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar pequeño material. Rango típico: 15-30€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 540,
+        "iva_porcentaje": 21,
+        "iva": 113.4,
+        "total": 653.4
+      },
+      "sugerencias_catalogo": [
+        "IMPORTANTE: Aclarar con el cliente si requiere cerrojos de seguridad de grado específico (compatibilidad con seguros de alojamientos turísticos)",
+        "Considerar si el sistema necesita también llaves de emergencia para personal de mantenimiento (copias adicionales)",
+        "Validar normativa de alojamientos turísticos respecto a sistemas de acceso unificado y trazabilidad de llaves",
+        "Si las puertas tienen cerrojos muy antiguos o dañados, la extracción puede requerir tiempo adicional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cerrojos de cilindro unificado",
+          "oficio": "cerrajeria",
+          "motivo": "Especialidad cerrajería: sistemas maestros no están detallados en catálogo base. Requiere especificación técnica del instalador"
+        },
+        {
+          "concepto": "Llaves maestras (fabricación)",
+          "oficio": "cerrajeria",
+          "motivo": "Servicio especializado de fabricación de llaves maestras. Precio depende de cantidad, tipo de cierre y complejidad del sistema"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_y_presupuesto_cerrajeria",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_arqueta_de_registro"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "PRECIO_INVALIDO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI",
+    "error_detalle": "Partida de catálogo con precio 0 o nulo"
+  }
+}

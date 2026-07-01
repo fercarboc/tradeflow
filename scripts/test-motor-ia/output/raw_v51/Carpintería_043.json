@@ -1,0 +1,207 @@
+{
+  "id": 43,
+  "oficio": "Carpintería",
+  "texto": "Armario empotrado a medida en el dormitorio, de suelo a techo, con puertas correderas y espejo",
+  "http_status": 200,
+  "latency_ms": 25922,
+  "raw_response": {
+    "transcript": "Armario empotrado a medida en el dormitorio, de suelo a techo, con puertas correderas y espejo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Armario empotrado a medida en el dormitorio, de suelo a techo, con puertas correderas y espejo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto requiere medidas exactas del hueco (alto, ancho, fondo)",
+          "Material de puertas no especificado (vidrio templado vs. madera)",
+          "Acabado interior no definido (melanina vs. madera vista)",
+          "Presupuesto de mano de obra estructurado; precios de materiales pendiente de cotización"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Estructura interior, baldas, zócalo, cornisa del armario empotrado"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación de puertas correderas con espejo (vidrio templado o laminado)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura interior armario empotrado (tablero melanina/madera)",
+          "descripcion": "Fabricación e instalación de estructura interior con tablero melanina o madera vista, incluyendo laterales, fondo y refuerzos. Medidas de suelo a techo según hueco real del dormitorio.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado variable según dimensiones exactas, material (melanina €/m² vs. madera vista) y complejidad de anclaje estructural. Rango referencia: 600-2000€"
+        },
+        {
+          "concepto": "Baldas interiores y refuerzos estructurales",
+          "descripcion": "Fabricación e instalación de baldas regulables o fijas según distribución solicitada. Incluye refuerzos internos para armario de suelo a techo. Pequeño material de fijación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número y tipo de baldas no definido. Presupuestar según necesidades cliente. Rango aproximado: 200-600€"
+        },
+        {
+          "concepto": "Zócalo inferior y cornisa superior",
+          "descripcion": "Instalación de zócalo en base del armario (ocultación de anclajes y acabado) y cornisa superior (cierre visual si llega a techo). Acabado según material principal.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud exacta del perímetro del armario pendiente de medición. Presupuestar según ml de zócalo + cornisa. Rango: 150-400€"
+        },
+        {
+          "concepto": "Puertas correderas con sistema de herraje y guías",
+          "descripcion": "Fabricación e instalación de 2-3 puertas correderas de suelo a techo según ancho del armario. Incluye sistema completo de carriles guía superior e inferior, ruedas de calidad, amortiguadores de cierre suave y tapas laterales.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de puertas no especificado (madera lacada vs. vidrio templado). Si es madera: competencia carpintería. Si es vidrio: cristalería. Rango mano de obra: 300-800€"
+        },
+        {
+          "concepto": "Puertas correderas de vidrio templado/laminado con espejo",
+          "descripcion": "Instalación de puertas correderas con vidrio templado 5mm o laminado espejado. Incluye perfil aluminio de guía superior e inferior, ruedas sistema corredera de precisión, tapas laterales, pequeño material y ajuste de nivelación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² de superficie de vidrio/espejo pendiente de medición exacta del hueco. Presupuestar según m² real de puertas correderas"
+        },
+        {
+          "concepto": "Material: Vidrio templado/laminado espejado para puertas",
+          "descripcion": "Suministro de vidrio templado 5mm o laminado espejado, perfiles de aluminio, ruedas sistema corredera, guías, tapas laterales y accesorios de herraje.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio espejado templado/laminado muy variable: 80-200€/m² según espesor, calidad espejo y sistema herraje. Cotizar según m² exacto y proveedor"
+        },
+        {
+          "concepto": "Fijación y anclaje estructural del armario",
+          "descripcion": "Anclaje del armario empotrado a estructura de pared (tacos, tornillos expansion según tipo de pared: yeso, hormigón o ladrillo). Aseguración contra vuelco. Nivelación precisa de guías superiores.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en estructura pero crítico para seguridad. Tarifa aproximada: 100-250€ según complejidad pared"
+        },
+        {
+          "concepto": "Pequeño material, tornilería y accesorios",
+          "descripcion": "Tornillos, tacos, tuercas, arandelas, cola madera, silicona, cinta teflon, bisagras ajustables, espárragos y otros materiales auxiliares necesarios para montaje completo.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar lote pequeño material aproximado: 80-150€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de puertas correderas: (A) Madera lacada/chapa → competencia carpintería, precio 600-3000€ mano de obra; (B) Vidrio templado espejado → competencia cristalería, 80-200€/m² material + 45€/h mano obra",
+        "Solicitar medidas exactas: ancho total, alto (suelo-techo), fondo de armario. Estas dimensiones determinan volumen de trabajo y coste material",
+        "Definir acabado interior: melanina blanca/color estándar (económica) vs. madera vista/lacado (premium)",
+        "Aclarar número de baldas/estantes internos solicitadas y si son regulables o fijas",
+        "Especificar si espejo ocupa toda la puerta corredera o solo sectores. Espejo templado/laminado = +30-50€/m² vs. vidrio claro"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Estructura interior armario empotrado (tablero melanina/madera)",
+          "motivo": "Incluida en Base Maestra 'instalacion_armario_empotrado_a_medida' pero desagregada por componentes para mayor claridad presupuestaria",
+          "tarifa_aplicada": "carpinteria: 45€/h (recomendado)"
+        },
+        {
+          "partida": "Puertas correderas con herraje y guías",
+          "motivo": "Incluida en Base Maestra pero requiere confirmación de material (madera vs. vidrio) para asignación correcta de oficio",
+          "tarifa_aplicada": "carpinteria 45€/h o cristaleria 45€/h (según material)"
+        },
+        {
+          "partida": "Material: Vidrio templado/laminado espejado",
+          "motivo": "Material sin precio en catálogo. Presupuestar según m² real y proveedor. Rango mercado: 80-200€/m²"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_armario_empotrado_a_medida",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "pintado_armarios_empotrados_interiores",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

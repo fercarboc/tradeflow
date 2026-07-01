@@ -1,0 +1,158 @@
+{
+  "id": 188,
+  "oficio": "Cerrajería",
+  "texto": "Cambio de cerradura antipunto multipoint en puerta de piso, por cerradura nueva de 3 puntos",
+  "http_status": 200,
+  "latency_ms": 14577,
+  "raw_response": {
+    "transcript": "Cambio de cerradura antipunto multipoint en puerta de piso, por cerradura nueva de 3 puntos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de cerradura antipunto multipoint en puerta de piso, por cerradura nueva de 3 puntos",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cerradura multipoint a 3 puntos: verificar compatibilidad de medidas (backset, distancia entre puntos)",
+          "Revisar si la puerta requiere refuerzo de escudo o placa embellecedora tras desmontaje"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Cambio de cerradura completa: desmontaje, suministro e instalación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje cerradura antipunto multipoint existente",
+          "descripcion": "Desmontaje completo de cerradura multipoint antigua, extracción de cilindro, herrajes y pequeño material. Preparación de hueco para nueva cerradura.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cerradura de 3 puntos nueva",
+          "descripcion": "Cerradura de seguridad de 3 puntos (cierre superior, central e inferior) con cilindro de alta seguridad, herrajes de acero inoxidable y accesorios de instalación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cerradura 3 puntos variable según marca y calidad (rango típico 150-400€). Instalador debe confirmar modelo y precio."
+        },
+        {
+          "concepto": "Juego de llaves de trabajo",
+          "descripcion": "Suministro de 5 llaves de trabajo para cerradura nueva de 3 puntos, cortadas según cilindro.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por llave variable (típico 3-8€/ud). Incluir en presupuesto de cerradura o desglosar."
+        },
+        {
+          "concepto": "Instalación y ajuste cerradura 3 puntos",
+          "descripcion": "Instalación completa de cerradura de 3 puntos en hueco existente, ajuste de puntos de cierre (superior, central, inferior), pruebas de funcionamiento y cierre suave.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tornillos, tacos, silicona)",
+          "descripcion": "Tornillos de fijación, tacos de anclaje, silicona neutra para sellado de huecos y material auxiliar de instalación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material típico 10-20€. Incluir en presupuesto global o desglosar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 120,
+        "iva_porcentaje": 21,
+        "iva": 25.2,
+        "total": 145.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar medidas exactas de la puerta: backset (distancia cilindro-borde), distancia entre puntos de cierre, tipo de puerta (madera maciza, aglomerado, metálica).",
+        "Verificar si la cerradura multipoint antigua deja huecos que requieran refuerzo de escudo o placa embellecedora.",
+        "Considerar si se necesita cambio de cilindro de alta seguridad (antipicking, antibumping) según nivel de seguridad requerido.",
+        "Presupuesto de mano de obra: 120€ (desmontaje + instalación). Materiales pendientes de revisión: cerradura 3 puntos (150-400€) + llaves (15-40€) + pequeño material (10-20€)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cerradura de 3 puntos nueva",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico cuyo precio depende de marca, modelo y calidad. Rango estimado 150-400€."
+        },
+        {
+          "concepto": "Juego de llaves de trabajo",
+          "oficio": "cerrajeria",
+          "motivo": "Suministro de llaves cortadas. Precio variable 3-8€/ud."
+        },
+        {
+          "concepto": "Pequeño material",
+          "oficio": "cerrajeria",
+          "motivo": "Tornillos, tacos, silicona. Típico 10-20€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_de_cerradura_completa",
+      "cambio_de_cilindro_bombín",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "apertura_puerta_cerradura_sin_llave",
+      "instalacion_control_acceso_rfid"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3684,
+      "tokens_out": 1755
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

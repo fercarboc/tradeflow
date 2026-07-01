@@ -1,0 +1,146 @@
+{
+  "id": 137,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Revisar y rellenar juntas de cubierta de chapa grecada de nave industrial, 400 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 13801,
+  "raw_response": {
+    "transcript": "Revisar y rellenar juntas de cubierta de chapa grecada de nave industrial, 400 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y rellenar juntas de cubierta de chapa grecada de nave industrial, 400 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda inspección previa de oxidación en soldaduras y puntos de fijación",
+          "Verificar estado de sellador/junta existente antes de proceder"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Trabajos de mantenimiento y sellado de cubiertas metálicas en naves industriales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y limpieza de juntas de cubierta grecada",
+          "descripcion": "Inspección completa, limpieza mecánica y manual de juntas, eliminación de musgo, óxido superficial y suciedad acumulada en juntas de chapa grecada",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 400,
+          "precio_unitario": 3.5,
+          "total": 1400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Relleno y sellado de juntas con sellador elastómerico",
+          "descripcion": "Aplicación de sellador elastómerico poliuretano o silicona de alta calidad en todas las juntas longitudinales, transversales y puntos singulares para impermeabilización y prevención de filtraciones",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 400,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sellador: especificar tipo (poliuretano/silicona), marca y volumen necesario. Estimado 2-4 kg por cada 100 m2 según anchura de junta"
+        },
+        {
+          "concepto": "Aplicación de sellador en juntas (mano de obra)",
+          "descripcion": "Mano de obra para aplicación, nivelación y acabado de sellador en juntas de cubierta grecada, incluyendo pequeño material (aplicadores, cepillos, trapos)",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 400,
+          "precio_unitario": 2.8,
+          "total": 1120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación puntual de óxido en soldaduras y puntos de fijación",
+          "descripcion": "Tratamiento antioxidante, decapado mecánico e imprimación anticorrosiva en puntos de soldadura y tornillería oxidada detectados durante revisión (estimado 10-15% de la superficie total)",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 4,
+          "total": 200,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada condicionada a inspección previa. Ajustar según hallazgos reales"
+        },
+        {
+          "concepto": "Material antioxidante e imprimación (reparaciones puntuales)",
+          "descripcion": "Productos antioxidantes, imprimación y pintura elastómericapara tratamiento de puntos de oxidación en soldaduras y fijaciones",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar productos: imprimación anticorrosiva y pintura elastómericapara cubiertas metálicas. Cantidad a definir según inspección"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2720,
+        "iva_porcentaje": 21,
+        "iva": 571.2,
+        "total": 3291.2
+      },
+      "sugerencias_catalogo": [
+        "Considerar incluir línea de vida y arnés si la altura de la nave > 2 m y existe riesgo de caída",
+        "Para naves con problemas de condensación interior, valorar aplicación de barrera de vapor adicional",
+        "Si las juntas presentan separación > 10 mm, valorar relleno previo con cordón de espuma antes del sellador"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sellador elastómerico para juntas",
+          "oficio": "cubiertas",
+          "motivo": "Término técnico estándar en reparación de cubiertas metálicas; precio unitario pendiente de especificación de marca/volumen"
+        },
+        {
+          "concepto": "Reparación puntual de óxido en soldaduras",
+          "oficio": "cubiertas",
+          "motivo": "Partida secundaria condicionada a hallazgos de inspección; cantidad estimada requiere confirmación in situ"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cubierta_de_fibrocemento_ondulado_o_plano",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "instalacion_de_cubierta_de_chapa_metalica_o_panel_sandwich",
+      "impermeabilizacion_de_cubierta_de_fibrocemento_con_tratamiento",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

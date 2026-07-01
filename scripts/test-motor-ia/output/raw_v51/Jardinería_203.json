@@ -1,0 +1,260 @@
+{
+  "id": 203,
+  "oficio": "Jardinería",
+  "texto": "Instalación de riego automático por goteo en jardín de 100 metros cuadrados con programador",
+  "http_status": 200,
+  "latency_ms": 19654,
+  "raw_response": {
+    "transcript": "Instalación de riego automático por goteo en jardín de 100 metros cuadrados con programador",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de riego automático por goteo en jardín de 100 metros cuadrados con programador",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto generado con partidas estándar. El instalador debe revisar cantidad de goteros y zonas según plano del jardín y tipo de vegetación.",
+          "Se asume conexión a red de agua existente. Si requiere bomba adicional (depósito sin presión), avisar.",
+          "Sensor de lluvia y sonda de humedad recomendados pero no incluidos en presupuesto base."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Instalación de sistema de riego automatizado en zona ajardinada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnostico y levantamiento de plano del jardín",
+          "descripcion": "Evaluación del terreno, mediciones, determinación de zonas de riego según tipo de vegetación y necesidades hídricas",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programador de riego digital con batería",
+          "descripcion": "Programador automático con pantalla digital, múltiples programas, conexión a red eléctrica y batería de respaldo",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por el instalador. Rango típico: 80-200€"
+        },
+        {
+          "concepto": "Electroválvulas para zonas de riego",
+          "descripcion": "Válvulas solenoide de 3/4\" o 1\" para control automático de zonas (se asume 2 zonas para 100m²)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Rango típico: 40-80€ cada una"
+        },
+        {
+          "concepto": "Tuberías de polietileno PE para distribución principal",
+          "descripcion": "Tubería de polietileno de 20mm para línea principal de distribución desde conexión de agua",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Rango típico: 0,80-1,50€/ml"
+        },
+        {
+          "concepto": "Tuberías secundarias de goteo PE y manguera de conexión",
+          "descripcion": "Tuberías secundarias de polietileno de 16mm y mangueras de conexión para tendido en 100m² de jardín",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Rango típico: 0,40-0,80€/ml"
+        },
+        {
+          "concepto": "Goteros autocompensantes",
+          "descripcion": "Goteros autocompensantes de 2-4 l/h para garantizar caudal uniforme independientemente de la presión (aproximadamente 80-100 unidades para 100m²)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 90,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Rango típico: 0,30-0,60€ cada uno"
+        },
+        {
+          "concepto": "Filtro de riego y reductor de presión",
+          "descripcion": "Filtro en línea de malla 120-200 micras y reductor de presión para proteger goteros de obstrucciones",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Rango típico: 60-150€"
+        },
+        {
+          "concepto": "Conexión a red de agua existente",
+          "descripcion": "Adaptadores, codos, tes, abrazaderas y pequeño material para conexión del sistema a toma de agua existente",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Rango típico: 30-80€"
+        },
+        {
+          "concepto": "Instalación y tendido de tuberías",
+          "descripcion": "Tendido de tuberías principales y secundarias, colocación de goteros, conexión de electroválvulas y componentes",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 25,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión del programador e instalación eléctrica",
+          "descripcion": "Montaje del programador, conexión de electroválvulas, pruebas eléctricas básicas",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y calibración",
+          "descripcion": "Puesta en marcha del sistema, verificación de presión en todas las zonas, calibración de programador, pruebas de riego completo",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Bridas, cierres, tapones finales, cinta teflón, pegamento PVC y otros accesorios menores",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Rango típico: 25-50€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 350,
+        "iva_porcentaje": 21,
+        "iva": 73.5,
+        "total": 423.5
+      },
+      "sugerencias_catalogo": [
+        "Considerar incluir sensor de lluvia (ahorro de agua, aproximadamente 40-80€) para suspender riego automático en caso de precipitación",
+        "Considerar sonda de humedad de suelo (control inteligente, aproximadamente 60-150€) para optimizar frecuencia de riego",
+        "Para jardines con pendiente pronunciada, considerar reguladores de presión adicionales por zona",
+        "Si existe depósito sin presión, incluir bomba de riego (estimado 200-800€ según potencia)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Programador de riego digital con batería",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "razon_creacion": "Material específico del sistema, no en catálogo. Instalador debe presupuestar."
+        },
+        {
+          "concepto": "Electroválvulas para zonas de riego",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "razon_creacion": "Material específico del sistema, cantidad determinada por zonas."
+        },
+        {
+          "concepto": "Goteros autocompensantes",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "razon_creacion": "Material específico del sistema, cantidad según superficie (100m²)."
+        },
+        {
+          "concepto": "Filtro de riego y reductor de presión",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "razon_creacion": "Componente obligatorio del sistema para evitar obstrucciones."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_riego_automatico_para_zona_interior",
+      "instalacion_riego_automatico",
+      "reparacion_de_piscina_con_filtraciones",
+      "mantenimiento_y_reparacion_de_sistema_de_riego",
+      "instalacion_sistema_de_riego_por_goteo"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 4,
+    "n_sugeridas": 8,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

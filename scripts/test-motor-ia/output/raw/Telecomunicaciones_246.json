@@ -1,0 +1,157 @@
+{
+  "id": 246,
+  "oficio": "Telecomunicaciones",
+  "texto": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+  "http_status": 200,
+  "latency_ms": 12896,
+  "raw_response": {
+    "transcript": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+    "quote": {
+      "resumen": {
+        "texto_original": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema CCTV existente: revisar estado físico de cámaras, cableado y grabador antes de presupuestar",
+          "Diagnóstico previo recomendado para identificar causa de mal funcionamiento (cámaras, NVR/DVR, almacenamiento, red)",
+          "Posible necesidad de reemplazo de componentes (disco duro, fuente alimentación, cámaras dañadas)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "instalador_cctv",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Configuración, diagnóstico y puesta en marcha de sistema CCTV existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión sistema CCTV existente",
+          "descripcion": "Inspección completa del sistema: estado cámaras, conexiones, grabador NVR/DVR, almacenamiento, red y alimentación. Identificación de causas de mal funcionamiento.",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y ajuste óptico de cámaras",
+          "descripcion": "Limpieza de lentes, ajuste de enfoque, orientación correcta de cámaras para optimizar captura de imagen. Verificación de ángulos de visión.",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación y reconfiguración grabador NVR/DVR",
+          "descripcion": "Revisión de parámetros de grabación (resolución, fps, bitrate), configuración de almacenamiento, verificación de espacio disponible en disco duro, ajuste de retención de datos.",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y grabación",
+          "descripcion": "Verificación de grabación en todos los canales, prueba de reproducción, comprobación de continuidad de grabación, ajuste de sensibilidad de detección de movimiento si aplica.",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración acceso remoto y aplicación móvil",
+          "descripcion": "Configuración de acceso remoto al sistema CCTV, instalación y configuración de aplicación móvil para visualización en tiempo real desde dispositivos remotos.",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe de puesta en marcha y recomendaciones",
+          "descripcion": "Generación de informe técnico con estado del sistema, parámetros configurados, recomendaciones de mantenimiento y posibles mejoras o reemplazos necesarios.",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de documentación técnica - precio a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Si durante el diagnóstico se detecta disco duro defectuoso, incluir partida de sustitución disco duro NVR/DVR",
+        "Si hay cámaras dañadas o con mal funcionamiento, presupuestar reemplazo de cámaras IP o analógicas según tipo",
+        "Si hay problemas de alimentación, considerar revisión/sustitución de fuente de alimentación o PoE",
+        "Considerar instalación de UPS si el cliente requiere continuidad ante cortes de energía"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_sistema_cctv_videovigilancia",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "instalacion_sistema_de_riego_por_goteo",
+      "puesta_en_marcha_y_ajuste_instalacion_termica"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3913,
+      "tokens_out": 1655
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 5,
+    "n_sugeridas": 1,
+    "oficio_detectado": "instalador_cctv",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "id": 142,
+  "oficio": "Pladur",
+  "texto": "Trasdosado de pared exterior con pladur e insulación, para mejorar el aislamiento térmico y acústico",
+  "http_status": 200,
+  "latency_ms": 21381,
+  "raw_response": {
+    "transcript": "Trasdosado de pared exterior con pladur e insulación, para mejorar el aislamiento térmico y acústico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Trasdosado de pared exterior con pladur e insulación, para mejorar el aislamiento térmico y acústico",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume trasdosado con estructura y aislante de alta densidad (zona climática templada/fría)",
+          "Se requiere barrera de vapor obligatoria en fachada exterior",
+          "Medición en m² pendiente de confirmación en obra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 65
+          },
+          "motivo": "Trasdosado con estructura, aislante y acabado en yeso laminado — especialidad pladur/escayola"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm",
+          "descripcion": "Suministro e instalación de placas de yeso laminado de 15mm para trasdosado de fachada exterior",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — instalador debe indicar precio según proveedor y cantidad m² real"
+        },
+        {
+          "concepto": "Lana mineral alta densidad 80mm (aislante térmico-acústico)",
+          "descripcion": "Suministro de lana mineral o lana de roca de alta densidad (80mm mínimo) para aislamiento térmico y acústico en trasdosado de fachada",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — instalador debe indicar precio según densidad (70-80 kg/m³) y cantidad m² real"
+        },
+        {
+          "concepto": "Barrera de vapor",
+          "descripcion": "Suministro e instalación de barrera de vapor obligatoria en trasdosado de fachada exterior para evitar condensación intersticial",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — instalador debe indicar precio y cantidad m² real"
+        },
+        {
+          "concepto": "Perfiles metálicos (canal y montante 70mm)",
+          "descripcion": "Suministro de perfiles de canal y montantes de acero galvanizado 70mm para estructura de trasdosado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — instalador debe indicar precio y cantidad ml real"
+        },
+        {
+          "concepto": "Tornillería, cinta de papel y pasta de juntas",
+          "descripcion": "Suministro de tornillería (autorroscante), cinta de papel para juntas y pasta de agarre/juntas para remate de trasdosado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — instalador debe indicar precio según cantidad m² total"
+        },
+        {
+          "concepto": "Banda resiliente perimetral",
+          "descripcion": "Suministro e instalación de banda resiliente/antivibratoria en perimetro (suelo, techo y encuentros) para desacoplamiento acústico",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — instalador debe indicar precio y cantidad ml real (perímetro)"
+        },
+        {
+          "concepto": "Sellado perimetral con silicona",
+          "descripcion": "Suministro e instalación de silicona de sellado en encuentros perimetrales para evitar infiltraciones de aire y humedad",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — instalador debe indicar precio y cantidad ml real"
+        },
+        {
+          "concepto": "Imprimación de pared base (si porosa)",
+          "descripcion": "Suministro e imprimación de la pared base si es porous, para mejorar adherencia de barrera de vapor",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar — opcional según estado de pared; instalador debe confirmar necesidad y precio"
+        },
+        {
+          "concepto": "Instalación: estructura metálica, aislante, barrera de vapor y placas",
+          "descripcion": "Mano de obra: montaje de estructura metálica, colocación de barrera de vapor, instalación de lana mineral, fijación de placas de yeso y preparación para acabado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado: cintas, pastas y lijado de juntas",
+          "descripcion": "Mano de obra: colocación de cinta de papel en juntas, aplicación de pasta de agarre y pasta de juntas, lijado y preparación de superficie para pintura final",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 70,
+        "iva_porcentaje": 21,
+        "iva": 14.7,
+        "total": 84.7
+      },
+      "sugerencias_catalogo": [
+        "Confirmar espesor del aislante según zona climática CTE DB-HE (80mm es mínimo recomendado)",
+        "Verificar si pared exterior requiere antisismicidad (perfil especial si zona sísmica)",
+        "Si acabado final es pintura: presupuestar partida pintura por separado",
+        "Medición en obra: cantidad total m² de superficie a trasdosar"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lana mineral alta densidad 80mm",
+          "oficio": "pladur_escayola",
+          "razon_nueva": "Material específico para mejora energética con especificaciones de densidad (70-80 kg/m³) no en catálogo base"
+        },
+        {
+          "concepto": "Barrera de vapor",
+          "oficio": "pladur_escayola",
+          "razon_nueva": "Material obligatorio en fachada exterior para trasdosado térmico-acústico"
+        },
+        {
+          "concepto": "Banda resiliente perimetral",
+          "oficio": "pladur_escayola",
+          "razon_nueva": "Sistema desacoplamiento acústico en trasdosado de medianera/fachada"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "trasdosado_directo_pladur_sobre_pared_existente",
+      "trasdosado_con_estructura_pladur_y_aislante",
+      "trasdosado_pladur_para_mejora_energetica_fachada",
+      "instalacion_sistema_SATE_aislamiento_exterior_fachada",
+      "trasdosado_acustico_pared_medianera"
+    ],
+    "kb_score": 4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 2,
+    "n_sugeridas": 8,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

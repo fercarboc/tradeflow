@@ -1,0 +1,226 @@
+{
+  "id": 354,
+  "oficio": "Mantenimiento General",
+  "texto": "Revisión y mantenimiento de grupo electrógeno de emergencia, prueba de carga y cambio de aceite",
+  "http_status": 200,
+  "latency_ms": 17582,
+  "raw_response": {
+    "transcript": "Revisión y mantenimiento de grupo electrógeno de emergencia, prueba de carga y cambio de aceite",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y mantenimiento de grupo electrógeno de emergencia, prueba de carga y cambio de aceite",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Grupo electrógeno: revisión y mantenimiento anual/semestral recomendado",
+          "Prueba de carga: verificar capacidad nominal y autonomía",
+          "Cambio de aceite: seguir especificaciones del fabricante (viscosidad, cantidad)",
+          "Documentación: generar informe de revisión y cumplimiento normativo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 85
+          },
+          "motivo": "Revisión, prueba de carga y mantenimiento de grupo electrógeno requiere especialización en máquinas térmicas e instalaciones de emergencia"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión visual y funcional del grupo electrógeno",
+          "descripcion": "Inspección completa: estructura, carcasa, conexiones, indicadores, panel de control",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de presiones, temperaturas y parámetros de funcionamiento",
+          "descripcion": "Control de presión de aceite, temperatura refrigerante, voltaje salida, frecuencia, carga de baterías de arranque",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de carga del grupo electrógeno",
+          "descripcion": "Arranque bajo carga nominal o parcial, verificación de estabilidad de voltaje y frecuencia, prueba de desconexión automática si aplica, registro de parámetros",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cambio de aceite y filtro del motor",
+          "descripcion": "Drenaje de aceite usado, sustitución de filtro de aceite, llenado con aceite nuevo según especificación del fabricante, sangrado de aire si necesario",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aceite de motor (litros)",
+          "descripcion": "Aceite nuevo según viscosidad y especificación del fabricante del grupo electrógeno",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de litros y especificación técnica del aceite según marca/modelo del grupo (consultar manual fabricante)"
+        },
+        {
+          "concepto": "Filtro de aceite",
+          "descripcion": "Elemento filtrante de aceite del motor del grupo electrógeno",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según marca/modelo del grupo (consultar proveedor o manual fabricante)"
+        },
+        {
+          "concepto": "Revisión de sistema de combustible y filtros",
+          "descripcion": "Inspección de líneas de combustible, estado del depósito, filtros, purgado si es necesario",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión de sistema eléctrico y batería de arranque",
+          "descripcion": "Control de conexiones eléctricas, bornes, carga de batería, comprobación de sistema de carga del alternador",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lubricación de componentes y mecanismos",
+          "descripcion": "Engrase de ejes, cojinetes, articulaciones, rotulas según necesidad técnica y recomendación del fabricante",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 65,
+          "total": 48.75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe de revisión, pruebas y cumplimiento normativo",
+          "descripcion": "Documento técnico con resultados de pruebas, parámetros medidos, recomendaciones de mantenimiento, constancia de conformidad regulatoria",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye documentación normativa; considerar tarifa según cliente (pueden ser 30-50€ por informe)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 568.75,
+        "iva_porcentaje": 21,
+        "iva": 119.44,
+        "total": 688.19
+      },
+      "sugerencias_catalogo": [
+        "Crear partida estándar en catálogo: 'Mantenimiento anual grupo electrógeno' con rango 500-1500€ según potencia (kVA)",
+        "Considerar paquetes por potencia: <10kVA, 10-50kVA, >50kVA con tarifas diferenciadas",
+        "Incluir frecuencia de mantenimiento recomendada: revisión cada 6 meses o 500 horas de funcionamiento"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aceite de motor (litros)",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "motivo": "Material consumible; cantidad y marca según modelo específico del grupo"
+        },
+        {
+          "concepto": "Filtro de aceite",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "motivo": "Elemento de reemplazo; modelo específico según fabricante"
+        },
+        {
+          "concepto": "Informe de revisión, pruebas y cumplimiento normativo",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "motivo": "Documentación técnica obligatoria para grupo de emergencia; revisar tarifa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_preventivo_de_grupo_de_presion",
+      "revision_y_prueba_de_sistema_de_alarma",
+      "revision_y_recarga_de_extintores",
+      "mantenimiento_anual_persianas_y_toldos",
+      "revision_y_recarga_sistema_refrigerante_instalacion_grande"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 7,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mecanica_especializada",
+    "coincide_oficio": "NO"
+  }
+}

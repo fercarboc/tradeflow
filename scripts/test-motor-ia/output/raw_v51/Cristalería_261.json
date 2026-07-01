@@ -1,0 +1,158 @@
+{
+  "id": 261,
+  "oficio": "Cristalería",
+  "texto": "Cambio de luna de ventana rota, vidrio de seguridad de 4mm en ventana de 80x120 centímetros",
+  "http_status": 200,
+  "latency_ms": 12421,
+  "raw_response": {
+    "transcript": "Cambio de luna de ventana rota, vidrio de seguridad de 4mm en ventana de 80x120 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de luna de ventana rota, vidrio de seguridad de 4mm en ventana de 80x120 centímetros",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio de seguridad templado o laminado requerido según CTE DB-SUA",
+          "Medida exacta 80x120cm (0.96m²) confirmada en descripción"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Actuación de cambio de luna en ventana - cristalería especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de vidrio roto",
+          "descripcion": "Desmontaje seguro de luna rota de 80x120cm con medidas de protección",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo_tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Vidrio de seguridad templado 4mm",
+          "descripcion": "Luna de vidrio templado de seguridad 4mm, medida 80x120cm (0.96m²), clasificación 1B1, marcado CE EN 12150",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de seguridad - precio variable según proveedor y clasificación. Rango estimado: 120-280€/ud"
+        },
+        {
+          "concepto": "Silicona neutra de fijación",
+          "descripcion": "Sellado perimetral con silicona neutra para fijación en marco de ventana",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumible - precio por cartucho/cantidad necesaria"
+        },
+        {
+          "concepto": "Instalación de luna y sellado",
+          "descripcion": "Colocación de vidrio templado en marco, alineación y sellado perimetral con silicona",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo_tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y limpieza",
+          "descripcion": "Gastos de pequeño material (trapos, protecciones), limpieza de vidrio e interior de marco",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Valoración según consumibles utilizados"
+        }
+      ],
+      "calculos": {
+        "subtotal": 112.5,
+        "iva_porcentaje": 21,
+        "iva": 23.625,
+        "total": 136.125
+      },
+      "sugerencias_catalogo": [
+        "Verificar que el marco tiene rebaje suficiente para espesor de vidrio templado 4mm (típicamente requiere ≥8mm de profundidad)",
+        "Confirmar tipo de vidrio de seguridad requerido por normativa: templado básico (1B1) o laminado si hay riesgo de caída de altura",
+        "El vidrio templado NO puede cortarse en obra - debe fabricarse a medida exacta antes de templar",
+        "Plazo de fabricación típico: 5-10 días para vidrio templado personalizado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio de seguridad templado 4mm",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "razon_creacion": "Material específico de seguridad con precio variable según fabricante y clasificación",
+          "precio_estimado_referencia": "120-280€/ud según dimensiones y proveedor"
+        },
+        {
+          "concepto": "Silicona neutra de fijación",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "razon_creacion": "Consumible de obra - cantidad y coste variable",
+          "precio_estimado_referencia": "5-15€ según cantidad necesaria"
+        },
+        {
+          "concepto": "Pequeño material y limpieza",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "razon_creacion": "Partida auxiliar de gastos menores",
+          "precio_estimado_referencia": "10-25€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio",
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "cambio_luna_ventana_rota",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_vidrio_laminado_de_seguridad"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

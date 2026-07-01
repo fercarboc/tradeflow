@@ -1,0 +1,223 @@
+{
+  "id": 233,
+  "oficio": "Energía Solar",
+  "texto": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+  "http_status": 200,
+  "latency_ms": 25486,
+  "raw_response": {
+    "transcript": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema de seguimiento solar: requiere cálculo estructural y motorización. Presupuesto orientativo, necesita revisión técnica del instalador.",
+          "Incluye desmontaje de estructura existente, nueva estructura con motores y sensores, y reconfiguración eléctrica.",
+          "Precio de materiales (motores, sensores, estructura) pendiente de revisión según marca y modelo específico."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema fotovoltaico con seguimiento solar (tracker). Requiere especialización en energía solar y electrónica de control."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Preparación de cimentación y base estructural para soportar sistema de seguimiento con motores."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de estructura existente de paneles solares",
+          "descripcion": "Desmontaje completo de estructura fija existente, desconexión eléctrica segura, retirada de cableado y protecciones. Incluye clasificación de materiales para reciclaje.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 520,
+          "total": 1040,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación de cimentación y base estructural para tracker",
+          "descripcion": "Excavación, nivelación y preparación de base de hormigón para soportar estructura de seguimiento solar con motores. Incluye anclajes y puntos de fijación reforzados.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de estructura de seguimiento solar (tracker) 6kW",
+          "descripcion": "Estructura metálica motorizada de seguimiento solar de 2 ejes (azimutal y elevación) para 6kW de paneles. Incluye motores paso a paso, reductoras, sensores de posición, cableado de control y centralita de seguimiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura tracker 6kW varía según fabricante (Soltec, Array, Nextracker, etc.). Rango estimado: 8000-15000€. Instalador debe confirmar modelo y precio."
+        },
+        {
+          "concepto": "Instalación de estructura de seguimiento solar y motores",
+          "descripcion": "Montaje de estructura tracker sobre cimentación, instalación de motores paso a paso, reductoras, sensores de posición y cableado de control. Alineación y calibración de ejes de seguimiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 520,
+          "total": 1560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reinstalación de paneles solares 6kW sobre estructura tracker",
+          "descripcion": "Montaje de 12-16 paneles solares (según potencia unitaria) sobre estructura de seguimiento. Conexionado en serie/paralelo según esquema eléctrico. Incluye marcos de fijación ajustables.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 520,
+          "total": 1040,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de centralita de control y sensores de seguimiento",
+          "descripcion": "Centralita electrónica de control de seguimiento solar con algoritmo de posicionamiento. Incluye sensores de luz (LDR) o GPS, reloj astronómico, protecciones contra viento fuerte. Cableado de control desde centralita a motores.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio centralita + sensores: 1500-3500€ según tecnología (LDR simple vs GPS + algoritmo avanzado). Instalador debe especificar."
+        },
+        {
+          "concepto": "Reconfiguración eléctrica y conexionado DC/AC del sistema tracker",
+          "descripcion": "Reconexionado de cableado DC desde paneles a inversor, verificación de polaridad y aislamiento. Instalación de protecciones (fusibles, magnetotérmicos) para circuito de control de motores. Pruebas de funcionamiento y sincronización con inversor existente.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 520,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento, calibración y puesta en marcha del tracker",
+          "descripcion": "Pruebas de movimiento de ejes en ambas direcciones, verificación de sensores, calibración de algoritmo de seguimiento, pruebas de seguridad (parada de emergencia, límites de movimiento). Documentación de funcionamiento y entrega de manual de operación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 520,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, EPI y herramientas especializadas",
+          "descripcion": "Tornillería inoxidable, tuercas, arandelas, cinta de teflón, pasta térmica, grasa de engranajes, cables de control, conectores, bridas, cinta aislante, EPI (arnés, casco, guantes), herramientas de medición (multímetro, pinza amperimétrica).",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado: 500-1200€. Incluye consumibles y EPI. Instalador debe revisar según necesidades específicas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 5320,
+        "iva_porcentaje": 21,
+        "iva": 1117.2,
+        "total": 6437.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe catálogo específico de estructuras tracker (Soltec, Array, Nextracker, Ideematec) para obtener precios reales de suministro.",
+        "Considerar si el sistema incluye monitoreo remoto (SCADA) para optimización en tiempo real.",
+        "Evaluar si es necesario permiso municipal para estructura motorizada (altura, movimiento).",
+        "Confirmar compatibilidad del inversor existente con sistema de control de tracker (algunos inversores híbridos integran control)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura de seguimiento solar (tracker) 6kW",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "motivo": "Sistema especializado de seguimiento solar de 2 ejes. No existe en catálogo base. Precio muy variable según fabricante y tecnología (8000-15000€)."
+        },
+        {
+          "concepto": "Centralita de control y sensores de seguimiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "motivo": "Electrónica de control específica para tracker. Precio variable (1500-3500€) según tecnología de sensores y algoritmo."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4237,
+      "tokens_out": 3151
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 6,
+    "n_sugeridas": 3,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

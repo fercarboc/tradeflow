@@ -1,0 +1,262 @@
+{
+  "id": 226,
+  "oficio": "Energía Solar",
+  "texto": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+  "http_status": 200,
+  "latency_ms": 22407,
+  "raw_response": {
+    "transcript": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema fotovoltaico conectado a red (on-grid) para empresa con consumo 2000 kWh/mes. Requiere estudio de viabilidad técnica y económica previo.",
+          "Potencia estimada necesaria: 5-7 kWp según irradiancia solar de la zona (pendiente de confirmación).",
+          "Incluye estudio previo, diseño, permisos y trámites administrativos.",
+          "Presupuesto requiere revisión de instalador para confirmar potencia real, tipo de inversor, estructura y ubicación de paneles."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación sistema fotovoltaico on-grid para empresa. Oficio especializado en energía solar."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión a red, cuadro de protecciones, cableado de baja tensión, puesta a tierra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estudio previo y diseño sistema fotovoltaico",
+          "descripcion": "Estudio de viabilidad técnica, análisis de consumo, cálculo de potencia necesaria, estudio de sombras, diseño de instalación, presupuesto detallado.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estudio previo a definir por instalador según complejidad y zona. Rango orientativo: 300-800€."
+        },
+        {
+          "concepto": "Módulos fotovoltaicos",
+          "descripcion": "Paneles fotovoltaicos monocristalinos de alta eficiencia, potencia estimada 5-7 kWp (aprox. 14-18 paneles de 400-450W). Incluye suministro.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de módulos fotovoltaicos a definir. Rango orientativo: 150-250€/kWp según marca y eficiencia."
+        },
+        {
+          "concepto": "Inversor fotovoltaico trifásico",
+          "descripcion": "Inversor trifásico on-grid de 5-7 kW con conexión a red, monitoreo integrado, protecciones según RD 1699/2011.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de inversor trifásico a definir. Rango orientativo: 1200-2500€ según potencia y marca."
+        },
+        {
+          "concepto": "Estructura y montaje paneles solares",
+          "descripcion": "Estructura metálica galvanizada para montaje en cubierta o terraza, anclajes, tornillería, incluye suministro e instalación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura a definir. Rango orientativo: 200-400€/kWp según tipo de cubierta y ubicación."
+        },
+        {
+          "concepto": "Cableado DC y protecciones fotovoltaicas",
+          "descripcion": "Cable solar DC 6mm², fusibles DC, interruptores DC, protecciones contra sobretensiones, pequeño material.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado y protecciones a definir. Rango orientativo: 400-800€."
+        },
+        {
+          "concepto": "Cuadro de protecciones AC y conexión a red",
+          "descripcion": "Cuadro de protecciones en AC con interruptor diferencial, magnetotérmicos, protección contra inyección de corriente, contador bidireccional, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cuadro AC a definir. Rango orientativo: 600-1200€."
+        },
+        {
+          "concepto": "Instalación y montaje sistema fotovoltaico",
+          "descripcion": "Montaje de estructura, instalación de paneles, conexionado DC, instalación inversor, cuadro protecciones, cableado AC, puesta a tierra, pruebas de funcionamiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 65,
+          "total": 2600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de 40 horas para sistema 6 kWp. Puede variar según accesibilidad, tipo de cubierta y complejidad."
+        },
+        {
+          "concepto": "Conexión a red eléctrica y trámites administrativos",
+          "descripcion": "Solicitud de conexión a distribuidora, tramitación de permisos, inspección técnica, puesta en servicio, documentación final.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de trámites administrativos a definir. Rango orientativo: 400-1000€ según comunidad autónoma y distribuidora."
+        },
+        {
+          "concepto": "Monitoreo y aplicación móvil",
+          "descripcion": "Sistema de monitoreo en tiempo real, aplicación móvil para seguimiento de producción, alertas de fallos.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de monitoreo a definir. Rango orientativo: 200-600€ (algunos inversores lo incluyen)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2600,
+        "iva_porcentaje": 21,
+        "iva": 546,
+        "total": 3146
+      },
+      "sugerencias_catalogo": [
+        "Confirmar consumo real de la empresa (2000 kWh/mes = aprox. 24 MWh/año). Potencia estimada: 5-7 kWp según irradiancia solar de la zona (1000-1200 kWh/kWp/año en España).",
+        "Definir ubicación de paneles: cubierta plana, inclinada, terraza o fachada. Esto afecta a estructura, orientación y producción.",
+        "Verificar disponibilidad de espacio: aprox. 30-40 m² para 6 kWp.",
+        "Considerar sistema de almacenamiento (batería) si se desea independencia parcial de la red (off-grid híbrido).",
+        "Solicitar presupuesto de distribuidora para conexión a red y cambio de contador bidireccional.",
+        "Revisar incentivos y subvenciones disponibles (fondos europeos, ayudas autonómicas, deducción fiscal)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estudio previo y diseño sistema fotovoltaico",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de estudio y diseño previo solicitado explícitamente."
+        },
+        {
+          "concepto": "Módulos fotovoltaicos",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material fotovoltaico. Precio a definir por instalador según marca y eficiencia."
+        },
+        {
+          "concepto": "Inversor fotovoltaico trifásico",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo especializado. Precio a definir según potencia y marca."
+        },
+        {
+          "concepto": "Estructura y montaje paneles solares",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material de estructura. Precio a definir según tipo de cubierta."
+        },
+        {
+          "concepto": "Cableado DC y protecciones fotovoltaicas",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material eléctrico especializado. Precio a definir."
+        },
+        {
+          "concepto": "Cuadro de protecciones AC y conexión a red",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material eléctrico. Precio a definir según componentes."
+        },
+        {
+          "concepto": "Conexión a red eléctrica y trámites administrativos",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio administrativo. Precio a definir según distribuidora."
+        },
+        {
+          "concepto": "Monitoreo y aplicación móvil",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de monitoreo. Precio a definir (algunos inversores lo incluyen)."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_recuperacion_aguas_pluviales"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4074,
+      "tokens_out": 3277
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 1,
+    "n_sugeridas": 8,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

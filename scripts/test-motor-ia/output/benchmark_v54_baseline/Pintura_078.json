@@ -1,0 +1,163 @@
+{
+  "id": 78,
+  "oficio": "Pintura",
+  "texto": "Pintar piscina con pintura de clorocaucho, vaciado y dos manos, superficie 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 12585,
+  "raw_response": {
+    "transcript": "Pintar piscina con pintura de clorocaucho, vaciado y dos manos, superficie 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar piscina con pintura de clorocaucho, vaciado y dos manos, superficie 60 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye vaciado, secado, preparación y dos manos de pintura clorocaucho",
+          "Superficie total: 60 m² (paredes + fondo)",
+          "Requiere confirmación de estado actual de la piscina y tiempo de secado disponible"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura de piscina con clorocaucho - especialidad pintura"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y secado de piscina",
+          "descripcion": "Vaciado completo de la piscina, limpieza de residuos y secado de superficie antes de pintar",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador según volumen piscina y acceso a desagüe"
+        },
+        {
+          "concepto": "Limpieza y preparación de superficie de piscina",
+          "descripcion": "Lija, hidrolimpieza o decapante de superficie existente, reparación de grietas con mortero hidrofugo, masilla en imperfecciones. Superficie: 60 m²",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación específica para piscina",
+          "descripcion": "Imprimación fijadora y adherente específica para superficies de piscina. Rendimiento: 8-10 m²/litro",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 7,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación a definir por instalador"
+        },
+        {
+          "concepto": "Pintura clorocaucho para piscina - dos manos",
+          "descripcion": "Pintura clorocaucho de alta resistencia al cloro y agua. Dos manos completas. Rendimiento: 6-8 m²/litro por mano. Total: 60 m² × 2 manos = 120 m² a cubrir",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura clorocaucho a definir por instalador"
+        },
+        {
+          "concepto": "Aplicación de pintura clorocaucho - dos manos",
+          "descripcion": "Mano de obra para aplicación de dos manos de pintura clorocaucho en superficie de 60 m². Incluye rodillo, brocha, mascarilla de protección contra vapores",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 10,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rodillos, brochas, cinta carrocero, plástico de protección, mascarilla vapores orgánicos, trapos, disolvente de limpieza",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de consumibles a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1080,
+        "iva_porcentaje": 21,
+        "iva": 226.8,
+        "total": 1306.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar estado actual de la piscina (grietas, desprendimientos, antigüedad de pintura anterior)",
+        "Validar tiempo disponible para secado completo entre vaciado y aplicación de imprimación (mínimo 48-72 horas)",
+        "Especificar marca y calidad de pintura clorocaucho (resistencia UV, durabilidad esperada)",
+        "Considerar si es necesario reparación estructural previa (grietas, fugas)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vaciado y secado de piscina",
+          "oficio": "pintura",
+          "motivo": "Actividad previa específica de pintura de piscina, requiere estimación de tiempo según volumen"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "pintura_de_piscina",
+      "pintado_de_medianeras_o_paredes_ciegas",
+      "pintado_y_decoracion_habitacion_infantil",
+      "pintado_locales_comerciales_y_tiendas"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3493,
+      "tokens_out": 1717
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

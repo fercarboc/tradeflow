@@ -1,0 +1,216 @@
+{
+  "id": 326,
+  "oficio": "Fachadas",
+  "texto": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+  "http_status": 200,
+  "latency_ms": 28407,
+  "raw_response": {
+    "transcript": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Falta superficie en m² — se necesita medir fachada para calcular material y tiempo. Presupuesto base estructurado, revisar mediciones en obra.",
+          "CRÍTICO: Falta información sobre andamio — verificar si el cliente lo proporciona, si está incluido en presupuesto o es partida separada.",
+          "Falta información sobre estado actual (grietas, fisuras, necesidad de reparación previa).",
+          "Falta información sobre tipo de soporte (ladrillo visto, enfoscado, etc.) — puede afectar consumo de pintura.",
+          "Edificio de 4 plantas implica trabajo en altura — confirmar acceso, seguridad y equipo de protección colectiva (EPC)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura exterior — tarifa estándar de catálogo"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de grietas y fisuras previas (si aplica) — estimado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa de fachada a presión",
+          "descripcion": "Limpieza con agua a presión de toda la fachada exterior para eliminar suciedad, algas y depósitos. 4 plantas.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Falta medir superficie total de fachada. Rendimiento aproximado 100-150 m²/jornada. Confirmar con profesional en obra."
+        },
+        {
+          "concepto": "Reparación de grietas y fisuras",
+          "descripcion": "Sellado y reparación de grietas, fisuras y desperfectos en fachada antes del pintado. Aplicación de masilla de reparación o mortero exterior.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Depende del estado actual de la fachada. Si no hay grietas significativas, puede omitirse o reducirse."
+        },
+        {
+          "concepto": "Imprimación fijadora exterior",
+          "descripcion": "Aplicación de imprimación fijadora sobre soporte poroso o irregular para mejorar adherencia de pintura siloxánica. 2 manos de preparación.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — instalador debe definir litros según m² y rendimiento (6-8 m²/L). Precio por litro a revisión."
+        },
+        {
+          "concepto": "Pintura siloxánica impermeabilizante exterior",
+          "descripcion": "Aplicación de pintura siloxánica impermeabilizante de alta calidad, 2 manos mínimo. Proporciona protección anti-humedad, transpirabilidad y durabilidad de 10-15 años.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — instalador debe definir litros según m² y rendimiento (6-8 m²/L pintura exterior). Precio unitario a revisión."
+        },
+        {
+          "concepto": "Mano de obra pintura fachada (2 manos)",
+          "descripcion": "Aplicación de 2 manos de pintura siloxánica con rodillo y brocha. Incluye preparación de superficie, enmascaramiento, aplicación uniforme y sellado de juntas.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa base 32€/h. Rendimiento 6-8 m²/h ≈ 4-5€/m² base. Aplicadas 2 manos ≈ 8-12€/m². Confirmar cantidad de m²."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora (alquiler + montaje)",
+          "descripcion": "Alquiler, montaje y desmontaje de andamio tubular o plataforma elevadora para acceso a 4 plantas. Incluye piezas de anclaje, protecciones y señalización.",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de andamio varía según altura, metros lineales y duración del alquiler. Puede ser partida aparte o incluida según acuerdo. Revisar con cliente."
+        },
+        {
+          "concepto": "Protecciones y materiales auxiliares",
+          "descripcion": "Cinta carrocero, plásticos de protección, lonas, papel, trapos, etc. para protección de zonas no a pintar y suelos.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "partida",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado según volumen de obra. Típicamente 50-150€ para fachada de 4 plantas. Precio a consensuar."
+        },
+        {
+          "concepto": "Equipo de protección personal (EPC) y seguridad en altura",
+          "descripcion": "Arnés, casco, línea de vida, guantes, gafas de protección y señalización. Trabajo en altura en edificio de 4 plantas.",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "partida",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio por normativa. Estimado 100-300€ según riesgos y duración. Revisar con coordinador de seguridad."
+        },
+        {
+          "concepto": "Permiso municipal para ocupación de vía pública (andamio)",
+          "descripcion": "Solicitud y trámite de permiso municipal para instalación de andamio en vía pública, si aplica.",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "partida",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Verificar si la fachada ocupa vía pública. Si sí, gestión de permiso obligatoria. Coste típico 50-200€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA [pintura_fachada_exterior_plastica_o_siloxano]: Referencia prioritaria. Partidas obligatorias: pintura + imprimación + andamio + protecciones + mano de obra.",
+        "Medir superficie neta de fachada sin huecos de puertas/ventanas (cuantificar por plantas si es posible).",
+        "Rendimiento pintura exterior: 6-8 m²/litro (2 manos). Rendimiento mano de obra: 6-8 m²/hora.",
+        "Confirmar estado actual: ¿hay grietas, fisuras, eflorescencias? → puede requerir reparación previa.",
+        "Tipo de soporte: ¿ladrillo visto, enfoscado liso, arenisca? → afecta a consumo y coste.",
+        "Andamio: ¿cliente lo proporciona? ¿incluido en presupuesto? ¿partida separada? Definir antes de presupuestar."
+      ],
+      "partidas_nuevas_detectadas": [
+        "Limpieza previa de fachada a presión (sugerida_ia — origen del profesional)",
+        "Imprimación fijadora exterior (sugerida_ia — obligatoria según BASE MAESTRA)",
+        "Pintura siloxánica impermeabilizante exterior (sugerida_ia — material solicitado)",
+        "Andamio o plataforma elevadora (sugerida_ia — crítica para 4 plantas)",
+        "Protecciones y materiales auxiliares (sugerida_ia — obligatorios)",
+        "Equipo de protección personal en altura (sugerida_ia — obligatorio por seguridad)",
+        "Permiso municipal para ocupación de vía pública (sugerida_ia — si aplica)"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_fachada_exterior",
+      "pintura_de_medianera_o_pared_ciega_exterior",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "pintura_fachada_exterior_plastica_o_siloxano",
+      "pintado_de_chimenea_exterior"
+    ],
+    "kb_score": 4.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 1,
+    "n_sugeridas": 8,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "id": 290,
+  "oficio": "Impermeabilización",
+  "texto": "Tratar humedad en paredes de cocina y comedor de planta baja, saneado y electroósmosis",
+  "http_status": 200,
+  "latency_ms": 23616,
+  "raw_response": {
+    "transcript": "Tratar humedad en paredes de cocina y comedor de planta baja, saneado y electroósmosis",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tratar humedad en paredes de cocina y comedor de planta baja, saneado y electroósmosis",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Superficie exacta de paredes no especificada — se requiere medición en obra",
+          "Sistema electroósmosis: requiere diagnóstico previo detallado del origen de humedad",
+          "Superficie a saneado no cuantificada — estimar en función del deterioro observado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de humedades por capilaridad, inyecciones, saneado y reposición de mortero"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación y conexión sistema electroósmosis (deshumectador activo)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico origen humedad por capilaridad",
+          "descripcion": "Análisis técnico previo: identificación de origen (capilaridad, infiltración, rotura red), medición de humedad, propuesta de solución",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según complejidad de diagnóstico (honorarios técnico/capataz)"
+        },
+        {
+          "concepto": "Inyecciones de resina hidrófoba en hiladas",
+          "descripcion": "Inyecciones de resina hidrofóbica en hiladas de muro cada 12-15 cm para bloquear capilaridad. Incluye taladrado, inyección y sellado de orificios",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml de perímetro a tratar — medición en obra obligatoria"
+        },
+        {
+          "concepto": "Material resina hidrófoba para inyecciones",
+          "descripcion": "Resina polimérica hidrófoba de inyección (cartuchos o bidones según cantidad)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según cantidad de perímetro y espesor muro (consumo 1,5-2,5 L/ml aproximadamente)"
+        },
+        {
+          "concepto": "Saneado mortero deteriorado por humedad",
+          "descripcion": "Retirada de mortero, mampostería y revestimientos dañados por humedad y eflorescencias hasta superficie sana. Incluye eliminación de residuos",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie exacta a saneado no especificada — medición obligatoria en cocina y comedor"
+        },
+        {
+          "concepto": "Reposición mortero hidrofugo",
+          "descripcion": "Mortero de reparación hidrófugo con aditivos repelentes de agua para rellenar cavidades post-inyección y zonas saneadas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según superficie saneada (consumo ~60-80 kg/m2 de espesor)"
+        },
+        {
+          "concepto": "Mano de obra reposición mortero hidrofugo",
+          "descripcion": "Aplicación de mortero hidrófugo en zonas saneadas, alisado y fratasado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Vinculado a superficie saneada"
+        },
+        {
+          "concepto": "Sistema electroósmosis (deshumectador activo)",
+          "descripcion": "Instalación de equipo de electroósmosis: electrodo de cobre en base muro, caja de control con batería recargable o 230V, generación de campo eléctrico que invierte flujo capilar",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar equipo: rango típico 1.200-3.500€ según marca y prestaciones"
+        },
+        {
+          "concepto": "Instalación y conexión sistema electroósmosis",
+          "descripcion": "Taladrado e inserción de electrodo cobre en base muro, conexión caja control, pruebas funcionamiento, instrucciones de mantenimiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillería inox, cinta carrocero, mascarillas, guantes, bolsas residuos, consumibles herramienta",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar como partida alzada: típico 100-250€"
+        },
+        {
+          "concepto": "Aireación mecánica (si espacios confinados)",
+          "descripcion": "Ventilador extractores o deshumidificadores temporales durante tratamiento y curacion de mortero (7-14 días)",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "dia",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional según diagnóstico — evaluar ventilación natural disponible en cocina/comedor"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Diagnóstico origen humedad por capilaridad' — considerar enlazarla con actuación BASE MAESTRA [reparacion_de_humedades_por_capilaridad_en_muro]",
+        "Para 'Sistema electroósmosis' — verificar disponibilidad en catálogo de proveedores/fabricantes recomendados en Base Maestra",
+        "Pintado antihumedad post-tratamiento: si se requiere repintar paredes tras saneado, incluir partida de pintura interior zona húmeda ([pintado_interior_zona_humeda_bano_cocina])"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico origen humedad por capilaridad",
+          "oficio": "albanileria",
+          "motivo": "Servicio técnico previo no cuantificado en catálogo — esencial para determinar alcance real"
+        },
+        {
+          "concepto": "Sistema electroósmosis (deshumectador activo)",
+          "oficio": "electricidad",
+          "motivo": "Equipo especializado de control de humedad — presupuesto de material pendiente según especificación técnica"
+        },
+        {
+          "concepto": "Aireación mecánica (si espacios confinados)",
+          "oficio": "albanileria",
+          "motivo": "Servicio complementario opcional — depende de diagnóstico de ventilación natural"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_interior_zona_humeda_bano_cocina",
+      "reparacion_de_humedades_por_capilaridad_en_muro",
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "impermeabilizacion_techos_de_semisotano_o_losa_de_planta_baja",
+      "pintado_de_foso_de_ascensor"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

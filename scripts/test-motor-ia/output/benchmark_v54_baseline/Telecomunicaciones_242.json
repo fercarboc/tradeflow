@@ -1,0 +1,163 @@
+{
+  "id": 242,
+  "oficio": "Telecomunicaciones",
+  "texto": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+  "http_status": 200,
+  "latency_ms": 16328,
+  "raw_response": {
+    "transcript": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Revisión de cobertura en múltiples plantas: verificar pérdidas por cable, derivadores y amplificación",
+          "Posible necesidad de amplificador de banda ancha si hay muchas tomas de usuario",
+          "Comprobar nivel de señal en tomas según RD 346/2011"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación y ajuste de instalación colectiva de antena TDT. Trabajo de telecomunicaciones en infraestructura común del edificio."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y diagnóstico de antena colectiva TDT",
+          "descripcion": "Inspección completa de antena UHF, amplificador de mástil, red de distribución (splitters y derivadores), cables coaxiales y tomas de usuario. Medición de nivel de señal en puntos críticos de los pisos afectados.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste y reorientación de antena UHF",
+          "descripcion": "Reposicionamiento de antena colectiva en mástil para optimizar recepción en zonas de sombra. Incluye fijaciones y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y limpieza de amplificador de mástil",
+          "descripcion": "Inspección de amplificador, limpieza de conectores, verificación de alimentación y ganancia. Ajuste de niveles si es necesario.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección de red de distribución (splitters, derivadores y cables)",
+          "descripcion": "Revisión de continuidad, pérdidas por cable coaxial 75Ω, estado de conectores en splitters y derivadores. Identificación de puntos de fuga de señal.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustitución de derivadores o splitters defectuosos (si aplica)",
+          "descripcion": "Desmontaje e instalación de derivadores o splitters dañados. Incluye pequeño material y reajuste de niveles. Cantidad a determinar tras diagnóstico.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de derivadores/splitters a sustituir depende del diagnóstico. Instalador debe confirmar número de unidades y precio unitario."
+        },
+        {
+          "concepto": "Medición y certificación de niveles de señal en tomas de usuario",
+          "descripcion": "Verificación de nivel de señal en tomas de los pisos afectados según RD 346/2011. Generación de informe de conformidad.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 500,
+        "iva_porcentaje": 21,
+        "iva": 105,
+        "total": 605
+      },
+      "sugerencias_catalogo": [
+        "Si tras el diagnóstico se detecta que el amplificador de mástil está defectuoso, considerar sustitución completa (partida: amplificador_mastil_TDT_nuevo).",
+        "Si hay muchas tomas de usuario (>8 viviendas) y pérdidas elevadas, valorar instalación de amplificador de banda ancha adicional.",
+        "Si se detectan cables coaxiales dañados, presupuestar sustitución de tramos afectados (partida: cable_coaxial_75_ohmios_por_metro)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sustitución de derivadores o splitters defectuosos (si aplica)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Elemento potencial a sustituir según diagnóstico. Precio unitario y cantidad pendiente de confirmación tras revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "reparacion_o_mejora_de_cobertura_movil_en_interior",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3816,
+      "tokens_out": 2111
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 5,
+    "n_sugeridas": 1,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

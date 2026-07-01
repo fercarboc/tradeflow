@@ -1,0 +1,189 @@
+{
+  "id": 276,
+  "oficio": "Cristalería",
+  "texto": "Poner espejo de cuerpo entero con luz LED integrada en zona de vestidor, 180x60 centímetros",
+  "http_status": 200,
+  "latency_ms": 16258,
+  "raw_response": {
+    "transcript": "Poner espejo de cuerpo entero con luz LED integrada en zona de vestidor, 180x60 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner espejo de cuerpo entero con luz LED integrada en zona de vestidor, 180x60 centímetros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de espejo de medida con fijación especializada"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Conexión e instalación de iluminación LED integrada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Espejo de cuerpo entero 180x60 cm",
+          "descripcion": "Espejo de cristal templado 180x60 cm, borde biselado, acabado premium para vestidor",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del espejo según proveedor y especificaciones finales (templado, biselado, tratamiento anti-vaho opcional)"
+        },
+        {
+          "concepto": "Fijación especializada para espejo de cuerpo entero",
+          "descripcion": "Sistema de fijación con tirafondos, tacos de expansión y herrajes de acero inoxidable para espejo 180x60 cm en pared",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herrajes y sistema de fijación según tipo de pared (pladur, hormigón, ladrillo)"
+        },
+        {
+          "concepto": "Instalación de espejo con fijación",
+          "descripcion": "Colocación, nivelación y fijación segura del espejo de cuerpo entero en pared de vestidor",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Luminaria LED integrada para espejo",
+          "descripcion": "Módulo LED integrado o adosado al espejo, 180 cm, luz blanca neutra 4000K, potencia 20-30W, con control de intensidad",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del módulo LED según marca, tipo de integración (empotrado vs. adosado) y características (regulable, sensor movimiento, etc.)"
+        },
+        {
+          "concepto": "Instalación de iluminación LED y conexión eléctrica",
+          "descripcion": "Conexión de luminaria LED al circuito eléctrico, instalación de cableado, interruptor o control de intensidad en vestidor",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y sellado",
+          "descripcion": "Silicona sanitaria, tornillería, cinta de enmascarar, material de protección y acabados menores",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 15-25€ según cantidad y tipo de materiales consumibles"
+        }
+      ],
+      "calculos": {
+        "subtotal": 165,
+        "iva_porcentaje": 21,
+        "iva": 34.65,
+        "total": 199.65
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el espejo debe ser con tratamiento anti-vaho (recomendado en vestidores con humedad)",
+        "Especificar tipo de control LED: interruptor simple, regulador de intensidad o sensor de movimiento",
+        "Verificar tipo de pared para seleccionar sistema de fijación adecuado (tacos de expansión, tirafondos, etc.)",
+        "Considerar protector posterior si hay riesgo de humedad o condensación en el vestidor"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Espejo de cuerpo entero 180x60 cm",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según medidas y acabado solicitado"
+        },
+        {
+          "concepto": "Fijación especializada para espejo de cuerpo entero",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de fijación según tipo de pared"
+        },
+        {
+          "concepto": "Luminaria LED integrada para espejo",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Módulo LED específico para espejo de 180 cm"
+        },
+        {
+          "concepto": "Pequeño material y sellado",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles y acabados menores"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_lavabo",
+      "instalacion_de_pavimento_de_grava_o_gravilla_decorativa",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "instalacion_espejo_en_bano_o_salon",
+      "impermeabilizacion_zona_ducha_con_membrana_liquida"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3738,
+      "tokens_out": 1917
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

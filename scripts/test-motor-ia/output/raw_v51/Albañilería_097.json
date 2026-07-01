@@ -1,0 +1,180 @@
+{
+  "id": 97,
+  "oficio": "Albañilería",
+  "texto": "Tabique de ladrillo visto para separar salón comedor, longitud 3 metros sin revestir",
+  "http_status": 200,
+  "latency_ms": 17644,
+  "raw_response": {
+    "transcript": "Tabique de ladrillo visto para separar salón comedor, longitud 3 metros sin revestir",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique de ladrillo visto para separar salón comedor, longitud 3 metros sin revestir",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume altura estándar de 2.5m (no especificada). Confirmar con cliente.",
+          "Ladrillo visto sin revestimiento: requiere control de calidad en juntas y rejuntado.",
+          "Longitud 3m × altura estándar 2.5m = 7.5 m² de superficie."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Ejecución de tabique de fábrica de ladrillo visto. Oficio base en catálogo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Replanteo, nivelación y trazado de base",
+          "descripcion": "Replanteo geométrico de la alineación del tabique, nivelación de solera y marcado de anclajes perimetrales",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 7.5,
+          "precio_unitario": 8,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ladrillo hueco sencillo 4cm",
+          "descripcion": "Suministro de ladrillo hueco cerámico sencillo de 4cm para tabique de 7.5 m². Incluye transporte a obra.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 7.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. El instalador debe revisar cantidad (rendimiento ~40-45 ladrillos/m²) y precio de mercado local."
+        },
+        {
+          "concepto": "Mortero de agarre M-5",
+          "descripcion": "Suministro de mortero de cemento M-5 (250kg/m³) para tendido de ladrillo. Incluye aditivos si precisa.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 7.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Consumo aproximado 100-120 kg/m². Instalador revisa disponibilidad y coste local."
+        },
+        {
+          "concepto": "Ejecución de tabique de ladrillo visto",
+          "descripcion": "Colocación de ladrillo hueco sencillo, tendido de mortero, nivelación y aplomado. Incluye enjarjes en muros perimetrales.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 7.5,
+          "precio_unitario": 40,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Malla armadura de fibra (si aplica)",
+          "descripcion": "Suministro e instalación de malla de refuerzo en hiladas alternas para garantizar estabilidad (longitud 3m, altura 2.5m). Incluye fijación con mortero.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional pero recomendado para altura de 2.5m. Instalador confirma necesidad técnica y coste."
+        },
+        {
+          "concepto": "Rejuntado visto en ladrillo visto",
+          "descripcion": "Rejuntado de todas las juntas (horizontales y verticales) con mortero de color a juego. Repasado y limpieza final del ladrillo visto sin revestimiento.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 7.5,
+          "precio_unitario": 25,
+          "total": 187.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles (clavos, tacos, plomos)",
+          "descripcion": "Acopio de pequeño material: tacos de anclaje, clavos, consumibles de obra, etc.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 7.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar. Estimación por m²."
+        }
+      ],
+      "calculos": {
+        "subtotal": 547.5,
+        "iva_porcentaje": 21,
+        "iva": 114.975,
+        "total": 662.475
+      },
+      "sugerencias_catalogo": [
+        "Si el tabique hubiera sido de pladur en lugar de ladrillo visto, consultar partida [tabique_pladur_sencillo_72mm].",
+        "Si se requiere aislamiento acústico, considerar malla armadura + capa de mortero cola de acabado fino en ambas caras.",
+        "Ladrillo visto no requiere revoque, pero sí un rejuntado de calidad. Establecer estándar de juntas (1cm recomendado)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Ladrillo hueco sencillo 4cm",
+          "oficio": "albanileria",
+          "motivo": "Catalogado genéricamente en [tabique_ladrillo_hueco_sencillo] pero aquí materializado para 7.5 m² específicos."
+        },
+        {
+          "concepto": "Mortero de agarre M-5",
+          "oficio": "albanileria",
+          "motivo": "Partida obligatoria en ejecutable de tabiques. Material a coste de mercado."
+        },
+        {
+          "concepto": "Malla armadura de fibra (si aplica)",
+          "oficio": "albanileria",
+          "motivo": "Partida auxiliar/condicional según cálculo técnico de altura y carga. Recomendada para tabiques de 2.5m."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_ladrillo_hueco_sencillo",
+      "tabique_pladur_sencillo_72mm",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_separacion_zona_oficina"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

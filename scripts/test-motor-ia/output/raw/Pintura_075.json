@@ -1,0 +1,137 @@
+{
+  "id": 75,
+  "oficio": "Pintura",
+  "texto": "Pintar dormitorio infantil con motivos de colores y figuras de dibujos, superficies 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14271,
+  "raw_response": {
+    "transcript": "Pintar dormitorio infantil con motivos de colores y figuras de dibujos, superficies 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar dormitorio infantil con motivos de colores y figuras de dibujos, superficies 30 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye decoración mural personalizada. Se recomienda aprobación previa de diseño y colores con cliente."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura decorativa infantil con motivos y figuras. Tarifa recomendada 32€/h según tabla de tarifas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Pintura base habitación infantil",
+          "descripcion": "Imprimación fijadora y pintura ecológica sin COV o baja emisión para paredes de dormitorio infantil. Incluye preparación de superficies, cinta carrocero y protección de zona.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 6,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Decoración mural con motivos y figuras de dibujos",
+          "descripcion": "Pintura decorativa de motivos infantiles, figuras de dibujos animados y elementos de colores. Incluye plantillas decorativas, pinceles finos para detalle, pintura adicional de colores específicos y acabado personalizado.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 10,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales pintura base y acabados",
+          "descripcion": "Pintura ecológica sin COV, imprimación fijadora, rodillo, pinceles, cinta carrocero, plástico de protección y pequeño material de aplicación.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir por instalador según marcas y cantidades específicas. Incluye pintura base, imprimación, rodillos, pinceles y protecciones."
+        },
+        {
+          "concepto": "Materiales decoración mural (pinturas colores, plantillas, pinceles finos)",
+          "descripcion": "Pinturas de colores específicos para motivos infantiles, plantillas decorativas reutilizables, pinceles finos para detalle, masilla si es necesario para preparación de superficies.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales decorativos a definir por instalador según complejidad de diseño, número de colores y tipo de plantillas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente aprobación previa de diseño, colores y distribución de motivos antes de iniciar trabajo.",
+        "Considerar realizar muestra de color en zona pequeña para validación.",
+        "Tiempo de ejecución puede ser mayor si decoración es muy elaborada o requiere múltiples capas de color."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Materiales pintura base y acabados",
+          "razon": "Agrupación de materiales de pintura base (imprimación, pintura ecológica, rodillos, pinceles, protecciones)",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Materiales decoración mural",
+          "razon": "Agrupación de materiales específicos para decoración infantil (pinturas colores, plantillas, pinceles finos)",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_chapas_de_datos_y_marcado_industrial",
+      "pintado_canalizaciones_y_tuberias_vista",
+      "pintado_y_decoracion_habitacion_infantil",
+      "pintado_de_medianeras_o_paredes_ciegas",
+      "pintura_de_valla_o_cerca_madera_exterior"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3585,
+      "tokens_out": 1394
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

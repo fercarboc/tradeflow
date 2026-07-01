@@ -1,0 +1,144 @@
+{
+  "id": 14,
+  "oficio": "Fontanería",
+  "texto": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+  "http_status": 200,
+  "latency_ms": 13145,
+  "raw_response": {
+    "transcript": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio especializado de saneamiento. Requiere gestor autorizado y documentación de residuos.",
+          "Precio de material (camión + gestión residuos) pendiente de revisión según proveedor local."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Vaciado, limpieza y gestión de residuos de fosa séptica. Incluye transporte y tratamiento de lodos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado de fosa séptica con camión de bombeo",
+          "descripcion": "Desplazamiento, conexión, bombeo y extracción de lodos y aguas residuales de fosa séptica de 3000 litros. Incluye maniobra del camión cisterna especializado.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del servicio de bombeo y transporte depende de empresa gestora autorizada y distancia. Rango típico: 150-400€ según zona y volumen."
+        },
+        {
+          "concepto": "Limpieza interior de fosa séptica",
+          "descripcion": "Limpieza manual/mecánica de paredes interiores, eliminación de incrustaciones y depósitos adheridos. Desinfección si se requiere.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión y tratamiento de residuos (lodos y aguas residuales)",
+          "descripcion": "Transporte, tratamiento y disposición final de lodos y aguas residuales extraídas de fosa séptica según normativa ambiental. Documentación de residuos peligrosos si aplica.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de gestión ambiental y tratamiento de residuos. Incluido en tarifa de gestor autorizado o facturado aparte. Rango: 80-200€."
+        },
+        {
+          "concepto": "Certificado de vaciado y gestión de residuos",
+          "descripcion": "Documentación oficial de vaciado, albarán de residuos y certificado de gestor autorizado para cumplimiento normativo.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en servicio de gestor autorizado. Si se factura por separado: 20-50€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 80,
+        "iva_porcentaje": 21,
+        "iva": 16.8,
+        "total": 96.8
+      },
+      "sugerencias_catalogo": [
+        "Contactar con gestor autorizado de residuos peligrosos (lodos de fosa séptica) en la zona.",
+        "Solicitar presupuesto cerrado que incluya: bombeo, transporte, tratamiento y documentación.",
+        "Verificar si la fosa requiere inspección/reparación tras vaciado (grietas, fugas).",
+        "Frecuencia recomendada: cada 3-5 años según ocupación y tamaño fosa."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vaciado de fosa séptica con camión de bombeo",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio especializado de saneamiento. No existe partida específica en catálogo base."
+        },
+        {
+          "concepto": "Gestión y tratamiento de residuos (lodos y aguas residuales)",
+          "oficio": "gestion_residuos",
+          "motivo": "Coste ambiental y de tratamiento. Requiere gestor autorizado."
+        },
+        {
+          "concepto": "Certificado de vaciado y gestión de residuos",
+          "oficio": "gestion_residuos",
+          "motivo": "Documentación obligatoria para cumplimiento normativo."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3849,
+      "tokens_out": 1559
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "gestion_residuos",
+    "coincide_oficio": "NO"
+  }
+}

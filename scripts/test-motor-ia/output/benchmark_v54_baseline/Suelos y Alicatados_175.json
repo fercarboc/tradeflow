@@ -1,0 +1,222 @@
+{
+  "id": 175,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 25137,
+  "raw_response": {
+    "transcript": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material tarima roble: precio pendiente de revisión (calidad, espesor, origen)",
+          "Estado del suelo base: se asume regularización si es necesaria, incluida en preparación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Retirada de moqueta y preparación de suelo base para colocación de tarima"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de tarima de madera de roble (colocación, ajuste, acabados)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada y acopio de moqueta antigua",
+          "descripcion": "Desmontaje completo de moqueta antigua, enrollado y acopio en obra para posterior gestión de residuos. Incluye retirada de adhesivos y restos.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 5,
+          "total": 225,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación y regularización de suelo base",
+          "descripcion": "Limpieza profunda del suelo, reparación de grietas, nivelación con mortero autonivelante si es necesario. Máxima desviación permitida: 3mm bajo regla de 2m. Incluye lijado ligero si procede.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 8,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tarima de madera de roble maciza",
+          "descripcion": "Suministro de tarima de roble maciza (espesor, acabado y calidad a definir por instalador). Incluye mermas del 5-10%. Cantidad: 45 m2 + mermas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 48,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tarima roble maciza variable según calidad, espesor (12-20mm), acabado (bruto/lijado/barnizado) y origen. Rango típico: 40-120€/m2. Instalador debe especificar."
+        },
+        {
+          "concepto": "Lámina aislante de espuma de polietileno",
+          "descripcion": "Suministro e instalación de lámina aislante de espuma de polietileno (espesor 2-3mm) bajo tarima. Función: aislamiento térmico, acústico y barrera de vapor. Cantidad: 45 m2 + 5% mermas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 47,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio lámina aislante: 2-8€/m2 según espesor y tipo. Instalador debe confirmar especificación."
+        },
+        {
+          "concepto": "Colocación de tarima de roble maciza",
+          "descripcion": "Instalación de tarima maciza de roble mediante pegado con adhesivo MS-polímero o clavado según sistema. Incluye: cortes, ajustes perimetrales, nivelación, acabado de juntas. Junta perimetral obligatoria 8-10mm en todo el perímetro.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 35,
+          "total": 1575,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rodapié de roble y umbral de transición",
+          "descripcion": "Suministro e instalación de rodapié de roble macizo (altura 7-10cm) en todo el perímetro. Incluye umbral de transición si hay cambio de nivel con otras estancias. Longitud estimada: 60ml (perímetro aproximado para 45m2).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio rodapié roble: 8-25€/ml según calidad y acabado. Instalador debe medir perímetro real y especificar."
+        },
+        {
+          "concepto": "Adhesivo MS-polímero y pequeño material",
+          "descripcion": "Suministro de adhesivo MS-polímero de calidad (tipo Sikaflex o similar) para pegado de tarima, más pequeño material: tornillos, cuñas, cinta de carrocero, etc.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Adhesivo MS + pequeño material: estimado 150-300€ para 45m2. Instalador debe revisar según sistema de fijación elegido."
+        },
+        {
+          "concepto": "Acabado: lijado y barnizado de tarima (opcional)",
+          "descripcion": "Lijado de toda la superficie de tarima (si se requiere acabado uniforme) y aplicación de barniz de poliuretano de 2 capas. OPCIONAL: solo si se solicita acabado profesional post-instalación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OPCIONAL. Si se incluye: lijado 5-8€/m2 + barnizado 3-5€/m2. Total estimado: 360-585€. Instalador debe confirmar si está incluido o es servicio adicional."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2160,
+        "iva_porcentaje": 21,
+        "iva": 453.6,
+        "total": 2613.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de tarima roble: maciza (12-20mm) vs. ingeniería (3-6mm capa noble). Maciza es más cara pero más duradera.",
+        "Especificar acabado de tarima: bruto (requiere lijado+barnizado en obra), pre-lijado, o pre-barnizado (más caro pero listo para usar).",
+        "Definir sistema de fijación: pegado (más estético, requiere adhesivo MS) vs. clavado (más rápido, visible).",
+        "Medir perímetro real para rodapié y confirmar si incluye umbral de transición con otras estancias.",
+        "Aclaración: ¿Tarima flotante o pegada? Presupuesto asume pegada (más común en roble macizo). Si es flotante, cambiar adhesivo por lámina barrera vapor.",
+        "Aclimatación: tarima roble debe aclimatar 48-72h en obra antes de instalar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tarima de madera de roble maciza",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Material específico no en catálogo base. Precio variable según calidad, espesor y acabado."
+        },
+        {
+          "concepto": "Lámina aislante de espuma de polietileno",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Material auxiliar obligatorio. Precio pendiente de especificación de espesor."
+        },
+        {
+          "concepto": "Rodapié de roble y umbral de transición",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Acabado perimetral. Precio por ml variable según calidad y acabado."
+        },
+        {
+          "concepto": "Adhesivo MS-polímero y pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Consumibles para instalación. Precio estimado según cantidad y sistema."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "colocacion_parquet_flotante_o_tarima_laminada",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "solado_de_parquet_o_madera"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3902,
+      "tokens_out": 3282
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

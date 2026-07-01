@@ -1,0 +1,132 @@
+{
+  "id": 359,
+  "oficio": "Mantenimiento General",
+  "texto": "Cambio de luminarias de emergencia caducadas en escaleras y pasillos de edificio, 20 unidades",
+  "http_status": 200,
+  "latency_ms": 10463,
+  "raw_response": {
+    "transcript": "Cambio de luminarias de emergencia caducadas en escaleras y pasillos de edificio, 20 unidades",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de luminarias de emergencia caducadas en escaleras y pasillos de edificio, 20 unidades",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Luminarias de emergencia: verificar normativa vigente (RD 486/1997, UNE 20392) y certificación de las nuevas unidades",
+          "Retirada de residuos electrónicos: gestión según RAEE obligatoria"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sustitución de luminarias de emergencia, desmontaje e instalación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de luminarias de emergencia caducadas",
+          "descripcion": "Retirada de 20 unidades de luminarias de emergencia antiguas de escaleras y pasillos, desconexión eléctrica segura, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 15,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de luminarias de emergencia homologadas",
+          "descripcion": "20 unidades de luminarias de emergencia LED certificadas según UNE 20392, con autonomía mínima 3 horas, fotoluminiscencia, apta para escaleras y pasillos",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de cotización según modelo y características (autonomía, certificaciones, marca)"
+        },
+        {
+          "concepto": "Instalación de luminarias de emergencia",
+          "descripcion": "Instalación y conexión eléctrica de 20 unidades de luminarias de emergencia en escaleras y pasillos, regulación, pruebas de funcionamiento y autonomía",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 18,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos electrónicos (RAEE)",
+          "descripcion": "Recogida, clasificación y gestión ambiental de 20 luminarias de emergencia antiguas según normativa RAEE",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio: precio pendiente según volumen y gestor de residuos contratado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 660,
+        "iva_porcentaje": 21,
+        "iva": 138.6,
+        "total": 798.6
+      },
+      "sugerencias_catalogo": [
+        "Considerar solicitar certificado de conformidad CE de las nuevas luminarias de emergencia",
+        "Verificar que las instalaciones cumplan RD 486/1997 (lugares de trabajo) y legislación local",
+        "Incluir pruebas de autonomía y funcionamiento en 20 unidades (recomendado: prueba mínimo 10% al azar)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de luminarias de emergencia homologadas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de emergencia: precio variable según especificaciones técnicas (autonomía, luminancia, certificaciones)"
+        },
+        {
+          "concepto": "Gestión de residuos electrónicos (RAEE)",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio ambiental obligatorio no incluido en tarifario base"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_iluminacion_led_completa",
+      "pintura_reflectante_o_fosforescente_senalizacion",
+      "sustitucion_termo_electrico",
+      "instalacion_plan_de_autoproteccion_y_señalizacion",
+      "instalacion_de_barra_antipánico"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

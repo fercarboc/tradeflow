@@ -1,0 +1,177 @@
+{
+  "id": 311,
+  "oficio": "Contra Incendios",
+  "texto": "Revisión trimestral de sistema de rociadores en supermercado, inspección y test de funcionamiento",
+  "http_status": 200,
+  "latency_ms": 15082,
+  "raw_response": {
+    "transcript": "Revisión trimestral de sistema de rociadores en supermercado, inspección y test de funcionamiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión trimestral de sistema de rociadores en supermercado, inspección y test de funcionamiento",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto para UNA revisión trimestral. Recordar que RD 513/2017 exige revisiones TRIMESTRALES (4 al año). El cliente debe contratar servicio anual con visitas periódicas.",
+          "Se asume instalación contra incendios COMPLETA (rociadores + detectores + extintores + iluminación emergencia). Si la instalación es parcial, revisar alcance."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 100,
+            "max": 150
+          },
+          "motivo": "Mantenimiento y revisión de sistemas contra incendios según RD 513/2017"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección visual rociadores y estado general",
+          "descripcion": "Recorrido por todas las zonas del supermercado. Comprobación de que rociadores no tienen obstáculos, verificación de estado físico, limpieza de cabezales.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 100,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de funcionamiento detectores de humo/temperatura",
+          "descripcion": "Test de muestreo de detectores repartidos por áreas. Verificación de activación y transmisión a central. Limpieza si es necesario.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 100,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión visual BIEs (bocas de incendio equipadas)",
+          "descripcion": "Comprobación de accesibilidad, señalización visible, estado de manguera, facilidad de apertura, estanqueidad de conexiones.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 100,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión extintores (estado, presión, accesibilidad)",
+          "descripcion": "Inspección visual de todos los extintores. Verificación de presión con manómetro. Comprobación de señalización y acceso. Recuento y ubicación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 100,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de iluminación de emergencia y señalética",
+          "descripcion": "Verificación de funcionamiento de todos los puntos de luz de emergencia. Comprobación de señalización de rutas de evacuación. Prueba en oscuridad si es posible.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 100,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Comprobación central de control y señales de fallo",
+          "descripcion": "Verificación del estado de la central de incendios. Comprobación de que no hay alarmas activas sin causa. Prueba de pulsador de silencio. Lectura de registro de eventos.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 100,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Actualización libro de mantenimiento trimestral",
+          "descripcion": "Registro detallado de todas las inspecciones, pruebas realizadas, estado de cada elemento, observaciones y cualquier deficiencia detectada. Documentación para archivo cliente.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 100,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material consumible (pilas, limpiadores, etc.)",
+          "descripcion": "Pilas para detectores, aerosoles de limpieza, trapos microfiber, lubricantes, etc. Material consumible necesario para inspección.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe estimar cantidad y coste real de consumibles por supermercado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 650,
+        "iva_porcentaje": 21,
+        "iva": 136.5,
+        "total": 786.5
+      },
+      "sugerencias_catalogo": [
+        "Este presupuesto es para UNA revisión trimestral única. El cliente debe contratar un contrato anual de mantenimiento con 4 visitas trimestrales (recomendación: ajustar precio total anual entre 240-650€ según la BASE MAESTRA para 'mantenimiento_trimestral_de_instalacion_contra_incendios').",
+        "Si se detectan deficiencias (extintores a recargar, detectores averiados, etc.), serían partidas adicionales de mantenimiento correctivo.",
+        "Verificar que la empresa que realiza la revisión está AUTORIZADA como mantenedora de sistemas contra incendios según normativa local."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "mantenimiento_anual_de_instalacion_contra_incendios",
+      "mantenimiento_trimestral_de_instalacion_contra_incendios",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_sistema_agua_helada_chiller"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 7,
+    "n_sugeridas": 1,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

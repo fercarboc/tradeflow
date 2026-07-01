@@ -1,0 +1,187 @@
+{
+  "id": 121,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar tejado de teja árabe, hay goteras en la zona del canalón y en un lucernario",
+  "http_status": 200,
+  "latency_ms": 21086,
+  "raw_response": {
+    "transcript": "Reparar tejado de teja árabe, hay goteras en la zona del canalón y en un lucernario",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar tejado de teja árabe, hay goteras en la zona del canalón y en un lucernario",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: requiere EPI y línea de vida",
+          "Goteras en canalón y lucernario: puntos críticos de infiltración",
+          "Inspección previa recomendada para detectar daños ocultos en la estructura"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación de tejado de teja árabe, canalón y lucernario. Oficio especializado en cubiertas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y saneo de zona de goteras en canalón",
+          "descripcion": "Inspección visual de la zona del canalón, retirada de tejas dañadas, limpieza de sedimentos y suciedad, saneo de la zona afectada por infiltración",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación y recolocación de canalón",
+          "descripcion": "Suministro e instalación de canalón nuevo (o reparación del existente si es viable), abrazaderas inox/galvanizadas, unión con sistema existente, pendiente correcta hacia bajante",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro canalón, abrazaderas y accesorios",
+          "descripcion": "Canalón de aluminio o PVC, abrazaderas inox/galvanizadas, adaptadores, tornillería, pequeño material",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según tipo y calidad de canalón"
+        },
+        {
+          "concepto": "Reparación de encuentro lucernario con cubierta",
+          "descripcion": "Saneo de zona afectada, lámina de plomo/zinc o membrana líquida en encuentro, refuerzo con geotextil, sellado flexible superior, retirada y recolocación de tejas en zona",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 200,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro lámina de plomo/zinc y selladores para lucernario",
+          "descripcion": "Lámina de plomo o zinc para encuentro, geotextil de refuerzo, sellador flexible de poliuretano o silicona neutra, pequeño material",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según tipo de lámina y sellador"
+        },
+        {
+          "concepto": "Recolocación de tejas árabes en zona reparada",
+          "descripcion": "Retirada, limpieza y recolocación de tejas árabes en zona de canalón y lucernario, mortero de agarre, pequeño material",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI, línea de vida y medidas de seguridad en altura",
+          "descripcion": "Arnés de seguridad, línea de vida, casco, guantes, botas antideslizantes, protecciones en bordes, pequeño material de seguridad",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de EPI y medidas de seguridad a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 950,
+        "iva_porcentaje": 21,
+        "iva": 199.5,
+        "total": 1149.5
+      },
+      "sugerencias_catalogo": [
+        "Considerar inspección previa con cámara térmica para detectar filtraciones ocultas",
+        "Verificar estado de la estructura de madera bajo las tejas antes de recolocar",
+        "Aplicar tratamiento hidrofugo en tejas si están muy porosas",
+        "Coordinar con pintor si hay necesidad de pintar canalón o bajantes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro canalón, abrazaderas y accesorios",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico cuyo precio depende de tipo y longitud"
+        },
+        {
+          "concepto": "Suministro lámina de plomo/zinc y selladores para lucernario",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico cuyo precio depende de tipo de lámina y sellador"
+        },
+        {
+          "concepto": "EPI, línea de vida y medidas de seguridad en altura",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Coste de equipos de seguridad a definir por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "reforma_de_cubierta_de_edificio_comunitario",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "tabique_pladur_zona_exterior_cubierta_sotillo",
+      "reparacion_o_sustitucion_de_canalon_o_bajante_en_tejado"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3805,
+      "tokens_out": 2042
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

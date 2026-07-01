@@ -1,0 +1,186 @@
+{
+  "id": 118,
+  "oficio": "Climatización",
+  "texto": "Carga de gas refrigerante R32 en unidad split que ha perdido gas por vibración",
+  "http_status": 200,
+  "latency_ms": 17571,
+  "raw_response": {
+    "transcript": "Carga de gas refrigerante R32 en unidad split que ha perdido gas por vibración",
+    "quote": {
+      "resumen": {
+        "texto_original": "Carga de gas refrigerante R32 en unidad split que ha perdido gas por vibración",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: Antes de cargar gas, DEBE localizarse y repararse la fuga por vibración. Si no se repara, el gas volverá a escapar.",
+          "Se recomienda instalar antivibradores en la unidad exterior para evitar fugas futuras.",
+          "Verificación de pérdida de presión obligatoria antes de proceder a la carga."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Carga de refrigerante y mantenimiento de sistema split"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Verificación de pérdida de presión y localización de fuga",
+          "descripcion": "Inspección completa del circuito frigorífico, prueba de estanqueidad con nitrógeno y localización del punto de fuga por vibración en conexiones o soldaduras",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación de fuga por vibración",
+          "descripcion": "Soldadura o reapriete de conexión frigorífica afectada por vibración. Incluye pequeño material (soldadura, flux, etc.)",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de estanqueidad con nitrógeno",
+          "descripcion": "Presurización del circuito con nitrógeno a presión de prueba, verificación de caída de presión durante 24h mínimo",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Nitrógeno y pequeño material de prueba. Instalador debe revisar coste según cantidad y proveedor."
+        },
+        {
+          "concepto": "Refrigerante R32 para carga",
+          "descripcion": "Gas refrigerante R32 según cantidad necesaria para completar carga del sistema (cantidad a determinar según capacidad del equipo y pérdida verificada)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de refrigerante a determinar según ficha técnica del equipo. Precio típico 250-3500€/kg según cantidad y proveedor."
+        },
+        {
+          "concepto": "Carga de refrigerante R32 en circuito",
+          "descripcion": "Carga controlada del gas refrigerante R32 en el circuito frigorífico, verificación de presiones de trabajo y funcionamiento del equipo en todos los modos",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de antivibradores en unidad exterior",
+          "descripcion": "Colocación de soportes antivibradores específicos bajo la unidad exterior para evitar futuras fugas por vibración. Incluye desmontaje, reposicionamiento y fijación",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Antivibradores para unidad exterior split",
+          "descripcion": "Juego de soportes antivibradores de elastómero/caucho para unidad exterior (cantidad según modelo, típicamente 4 unidades)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de antivibradores según modelo de equipo. Rango típico 30-150€ el juego."
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar capacidad frigorífica del equipo (kW o frigorías) para calcular cantidad exacta de R32 necesario.",
+        "Solicitar al instalador que especifique el modelo de antivibradores compatibles con la unidad exterior.",
+        "Documentar la reparación de la fuga (tipo de conexión, método de soldadura) para garantía."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Prueba de estanqueidad con nitrógeno",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible de prueba, cantidad variable según protocolo."
+        },
+        {
+          "concepto": "Refrigerante R32 para carga",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad a determinar según ficha técnica del equipo y pérdida verificada."
+        },
+        {
+          "concepto": "Antivibradores para unidad exterior split",
+          "origen": "sugerida_ia",
+          "motivo": "Material preventivo, coste variable según modelo y proveedor."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "carga_de_gas_refrigerante_split",
+      "instalacion_condensadora_exterior_split_en_cubierta",
+      "instalacion_vrv_o_vrf_sistema_multiple",
+      "instalacion_split_1x1_pared",
+      "mantenimiento_de_sistema_de_climatizacion_split"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3780,
+      "tokens_out": 2269
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "id": 259,
+  "oficio": "Telecomunicaciones",
+  "texto": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+  "http_status": 200,
+  "latency_ms": 15594,
+  "raw_response": {
+    "transcript": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+        "tipo_presupuesto": "mejora",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema pasivo detectado: requiere verificación de homologación CNAF obligatoria",
+          "Antena exterior donante no especificada: debe orientarse hacia torre operador",
+          "Operador móvil no identificado: confirmar cobertura objetivo",
+          "Presupuesto requiere revisión de precios de materiales y confirmación de superficie del local"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema de cobertura móvil interior con repetidor pasivo y antenas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Repetidor de señal móvil pasivo homologado CNAF",
+          "descripcion": "Repetidor pasivo (amplificador de señal) homologado CNAF para interior. Incluye certificación de conformidad normativa obligatoria. Sistema sin alimentación eléctrica.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del repetidor pasivo homologado pendiente de confirmación del instalador. Rango típico: 300-800€ según ganancia y banda de frecuencia"
+        },
+        {
+          "concepto": "Antena exterior donante orientada a torre operador",
+          "descripcion": "Antena exterior de recepción orientada hacia torre operador más cercana. Incluye soporte de fijación, cable de conexión y pequeño material de montaje.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de antena exterior y accesorios de montaje pendiente. Rango típico: 150-400€"
+        },
+        {
+          "concepto": "Antena interior de servicio",
+          "descripcion": "Antena interior de distribución de señal amplificada en el local. Incluye soporte de pared/techo y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de antena interior pendiente. Rango típico: 80-250€"
+        },
+        {
+          "concepto": "Cable coaxial de baja pérdida",
+          "descripcion": "Cable coaxial de calidad (tipo RG-213 o equivalente) para conexión entre antena exterior, repetidor y antena interior. Incluye conectores N y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cable y precio pendiente. Confirmar distancia entre antena exterior e interior. Rango típico: 15-50€/metro instalado"
+        },
+        {
+          "concepto": "Instalación, orientación y puesta en marcha del sistema",
+          "descripcion": "Montaje de antena exterior en fachada/tejado, instalación de antena interior, conexionado de cables, orientación de antena donante hacia torre operador, pruebas de cobertura y documentación de instalación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Notificación a operador móvil y CNAF",
+          "descripcion": "Trámite administrativo de notificación a operador móvil y CNAF según normativa de repetidores pasivos. Incluye documentación técnica y certificado de homologación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de gestión administrativa pendiente. Rango típico: 100-300€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Confirmar banda de frecuencia objetivo (2G/3G/4G/5G) para seleccionar repetidor homologado correcto",
+        "Verificar si el local requiere divisores de señal para múltiples zonas o si una antena interior es suficiente",
+        "Considerar alternativa: femtocell del operador si disponible (requiere alimentación eléctrica pero mejor rendimiento)",
+        "Considerar alternativa: WiFi Calling si el operador lo soporta (solución más económica sin equipamiento especial)",
+        "Obtener plano de ubicación de torre operador más cercana para orientación óptima de antena exterior",
+        "Confirmar superficie del local para evaluar cobertura necesaria"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Repetidor de señal móvil pasivo homologado CNAF",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico de sistema pasivo de cobertura móvil"
+        },
+        {
+          "concepto": "Antena exterior donante orientada a torre operador",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componente obligatorio de sistema pasivo"
+        },
+        {
+          "concepto": "Antena interior de servicio",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componente obligatorio de sistema pasivo"
+        },
+        {
+          "concepto": "Cable coaxial de baja pérdida",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de conexionado específico para sistemas de RF"
+        },
+        {
+          "concepto": "Notificación a operador móvil y CNAF",
+          "oficio": "telecomunicaciones",
+          "motivo": "Trámite administrativo obligatorio para repetidores pasivos"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_mejora_de_cobertura_movil_en_interior",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_cerrojo_adicional"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3722,
+      "tokens_out": 2097
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "id": 340,
+  "oficio": "Fachadas",
+  "texto": "Auditoría energética de fachada para certificado de eficiencia, informe con recomendaciones",
+  "http_status": 200,
+  "latency_ms": 15312,
+  "raw_response": {
+    "transcript": "Auditoría energética de fachada para certificado de eficiencia, informe con recomendaciones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Auditoría energética de fachada para certificado de eficiencia, informe con recomendaciones",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Auditoría energética es un servicio técnico especializado. El precio depende de la superficie de fachada y complejidad del edificio.",
+          "El informe debe incluir certificado de eficiencia energética (CEE) según normativa vigente (EPBD/RD 390/2021).",
+          "Recomendaciones deben ser cuantificadas en ahorro energético y coste de implementación."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Auditoría energética de edificio/fachada requiere especialista en eficiencia energética. Oficio más próximo: energia_solar (incluye diagnóstico energético y certificaciones)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección técnica de fachada y toma de datos",
+          "descripcion": "Visita in situ, medición de superficies, fotografías, análisis de orientación, soleamiento, estado constructivo, puentes térmicos, infiltraciones de aire. Incluye termografía infrarroja si aplica.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de superficie total del edificio y complejidad. Rango orientativo: 300-800€ para vivienda/local; 1000-3000€ para edificio completo."
+        },
+        {
+          "concepto": "Análisis energético y modelado térmico",
+          "descripcion": "Cálculo de transmitancia térmica (U) de fachada, análisis de puentes térmicos, simulación energética anual, comparativa con normativa (CTE, EPBD). Uso de software especializado (LIDER, CALENER, PHPP o similar).",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad del modelo y software. Rango orientativo: 400-1200€."
+        },
+        {
+          "concepto": "Elaboración de Certificado de Eficiencia Energética (CEE)",
+          "descripcion": "Generación del certificado oficial según RD 390/2021, con calificación energética (A-G), consumo anual estimado (kWh), emisiones CO2, y registro en base de datos oficial.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de edificio (vivienda, terciario, industrial). Rango orientativo: 200-600€."
+        },
+        {
+          "concepto": "Informe técnico con recomendaciones de mejora",
+          "descripcion": "Documento detallado con diagnóstico de deficiencias energéticas de fachada, propuestas de mejora priorizadas (aislamiento, ventanas, ventilación, etc.), estimación de ahorro energético (%), coste de implementación, plazo de amortización, y referencias normativas.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de profundidad del análisis y número de recomendaciones. Rango orientativo: 300-800€."
+        },
+        {
+          "concepto": "Asesoramiento y presentación de resultados",
+          "descripcion": "Reunión con cliente para explicar resultados, aclarar dudas, discutir opciones de mejora, y entregar documentación completa (informe en PDF, certificado, recomendaciones priorizadas).",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 130,
+        "iva_porcentaje": 21,
+        "iva": 27.3,
+        "total": 157.3
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'auditoría energética', 'certificado eficiencia energética', 'diagnóstico energético fachada', 'termografía infrarroja'.",
+        "Si el cliente requiere también mejoras (aislamiento SATE, cambio ventanas, etc.), generar presupuesto adicional con partidas de fachadas, carpintería, etc."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inspección técnica de fachada y toma de datos",
+          "oficio": "energia_solar",
+          "motivo": "Servicio especializado de auditoría energética. No encontrado en catálogo estándar."
+        },
+        {
+          "concepto": "Análisis energético y modelado térmico",
+          "oficio": "energia_solar",
+          "motivo": "Cálculo técnico especializado con software de simulación energética."
+        },
+        {
+          "concepto": "Elaboración de Certificado de Eficiencia Energética (CEE)",
+          "oficio": "energia_solar",
+          "motivo": "Trámite administrativo y técnico regulado por normativa oficial."
+        },
+        {
+          "concepto": "Informe técnico con recomendaciones de mejora",
+          "oficio": "energia_solar",
+          "motivo": "Documento técnico especializado con análisis de deficiencias y soluciones."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_rejillas_de_ventilacion_de_camara_de_fachada",
+      "diagnostico_y_informe_estado_pinturas_fachada",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "aplicacion_pintura_termica_o_aislante"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3731,
+      "tokens_out": 1909
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

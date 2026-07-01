@@ -1,0 +1,213 @@
+{
+  "id": 314,
+  "oficio": "Contra Incendios",
+  "texto": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+  "http_status": 200,
+  "latency_ms": 24336,
+  "raw_response": {
+    "transcript": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Sustitución de central de incendios requiere empresa instaladora REGISTRADA según RITE e Industria",
+          "CRÍTICO: Cableado resistente al fuego E30 OBLIGATORIO en toda la instalación",
+          "CRÍTICO: Batería de respaldo mínimo 72h OBLIGATORIA (REBT + EN 54)",
+          "CRÍTICO: Revisión semestral OBLIGATORIA post-instalación para licencia de actividad",
+          "Verificar normativa CTE DB-SI según uso y superficie del edificio",
+          "Protocolo de comunicación: especificar si es analógico convencional, analógico direccionable o digital"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de detección y alarma de incendios. Oficio especializado contra_incendios por normativa CTE DB-SI y EN 54."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica, alimentación y batería de respaldo 72h de la central."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de central de incendios obsoleta",
+          "descripcion": "Desconexión segura, desmontaje de central analógica antigua, desconexión de detectores, pulsadores, sirenas y cableado. Gestión de residuos eléctricos según normativa.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Central de incendios analógica certificada EN 54-2 y EN 54-4 con protocolo de comunicación",
+          "descripcion": "Suministro de central de detección y alarma de incendios analógica (convencional o direccionable según especificación), certificada EN 54-2 (equipos) y EN 54-4 (fuente de alimentación), con protocolo de comunicación integrado. Incluye módulo de supervisión de líneas y batería de respaldo mínimo 72h.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de central analógica con protocolo comunicación pendiente de cotización. Rango estimado: 800-2500€ según capacidad (8-32 zonas) y protocolo (convencional/direccionable)."
+        },
+        {
+          "concepto": "Instalación de central de incendios y conexión a detectores, pulsadores y sirenas existentes",
+          "descripcion": "Montaje de central en armario/panel, conexión de líneas de detectores, pulsadores manuales de alarma, sirenas acústicas y ópticas. Verificación de continuidad de cableado E30 existente. Pruebas de funcionamiento de todos los elementos conectados.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 (si requiere sustitución/ampliación)",
+          "descripcion": "Suministro e instalación de cableado resistente al fuego categoría E30 (según EN 50200) para líneas de detectores, pulsadores y sirenas. Incluye bandejas, canalizaciones y pequeño material de fijación. Cantidad a determinar según longitud de líneas existentes.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de cableado E30 a sustituir/ampliar pendiente de inspección. Precio estimado: 8-15€/ml según sección y tipo de canalización."
+        },
+        {
+          "concepto": "Batería de respaldo 72h y fuente de alimentación certificada",
+          "descripcion": "Suministro e instalación de batería de respaldo mínimo 72h (REBT + EN 54-4) y fuente de alimentación certificada para central. Incluye cableado de conexión, fusibles y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de batería 72h y fuente certificada pendiente de cotización. Rango estimado: 300-800€ según capacidad."
+        },
+        {
+          "concepto": "Pruebas funcionales, calibración y puesta en marcha",
+          "descripcion": "Pruebas de funcionamiento de central, detectores, pulsadores y sirenas. Calibración de sensibilidad de detectores según zona. Verificación de protocolo de comunicación. Documentación de pruebas y entrega de manual de operación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documentación técnica, planos de sectores de incendio y libro de mantenimiento",
+          "descripcion": "Elaboración de plano de sectores de incendio, esquema de conexiones de la nueva central, manual de operación y mantenimiento. Actualización del libro de registro de revisiones según normativa. Entrega de certificado de instalación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documentación técnica y certificación. Precio estimado: 150-400€ según complejidad de la instalación."
+        }
+      ],
+      "calculos": {
+        "subtotal": 165,
+        "iva_porcentaje": 21,
+        "iva": 34.65,
+        "total": 199.65
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de protocolo de comunicación: analógico convencional (8-32 zonas) vs. analógico direccionable (mayor flexibilidad y diagnóstico).",
+        "Especificar número de detectores, pulsadores y sirenas existentes a conectar.",
+        "Verificar si cableado E30 existente está en buen estado o requiere sustitución parcial/total.",
+        "Solicitar certificado EN 54-2 y EN 54-4 de la central propuesta.",
+        "Confirmar si la instalación requiere integración con control de acceso, ascensores o BMS.",
+        "Establecer contrato de mantenimiento semestral OBLIGATORIO post-instalación (revisión, pruebas, documentación).",
+        "Verificar si es necesario transmisión a central receptora de alarmas (CRA) externa."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central de incendios analógica con protocolo comunicación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "motivo": "Material especializado de seguridad. Precio pendiente de cotización según capacidad y protocolo específico."
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "motivo": "Material obligatorio por normativa CTE DB-SI y EN 50200. Cantidad a determinar en inspección."
+        },
+        {
+          "concepto": "Batería de respaldo 72h y fuente de alimentación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Componente obligatorio REBT + EN 54-4. Precio pendiente de cotización según capacidad."
+        },
+        {
+          "concepto": "Documentación técnica y certificación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio de ingeniería y documentación obligatoria. Precio pendiente según complejidad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "recalificacion_instalacion_fontaneria_comunidad",
+      "sustitucion_tuberia_multicapa",
+      "mantenimiento_de_instalacion_contra_incendios_en_local",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_central_deteccion_y_alarma_incendios"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3746,
+      "tokens_out": 3232
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

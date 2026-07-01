@@ -1,0 +1,143 @@
+{
+  "id": 395,
+  "oficio": "Persianas",
+  "texto": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+  "http_status": 200,
+  "latency_ms": 11452,
+  "raw_response": {
+    "transcript": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+    "quote": {
+      "resumen": {
+        "texto_original": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Integración de dispositivos en red domótica, configuración y programación de sistemas de automatización"
+        },
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Conexión y ajuste de persianas motorizadas existentes"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulo de control domótico para persiana motorizada",
+          "descripcion": "Suministro de módulo/receptor de control compatible con sistema domótico existente (relay, radiofrecuencia o cableado), según tipo de instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del módulo/receptor domótico pendiente de especificación técnica y marca"
+        },
+        {
+          "concepto": "Instalación y conexión módulo domótico a persiana motorizada",
+          "descripcion": "Desmontaje de control existente de persiana, instalación de módulo domótico, conexionado eléctrico, pruebas de funcionamiento básico",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Integración en sistema domótico central y programación horaria",
+          "descripcion": "Emparejamiento/vinculación del módulo con central domótica, configuración de escenas de horario, asignación de sensores de temperatura/luz/ocupación si aplica, pruebas de automatización programada",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, arandelas, tornilería)",
+          "descripcion": "Conectores eléctricos, tornilería, arandelas, cinta aislante y material auxiliar para instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de pequeño material a justificar por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 240,
+        "iva_porcentaje": 21,
+        "iva": 50.4,
+        "total": 290.4
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de sistema domótico existente (KNX, Zigbee, Z-Wave, WiFi propietario, etc.) para seleccionar módulo compatible",
+        "Especificar número de persianas a conectar si son múltiples (actualizar cantidad de partida de instalación)",
+        "Indicar si hay sensores de ocupación/temperatura/luminosidad a integrar en la programación",
+        "Documentar horarios de programación requeridos (levantamiento/bajada por franjas horarias)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulo de control domótico para persiana motorizada",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "No existe partida específica en catálogo para módulos domóticos de persiana; varía según sistema (KNX, Zigbee, Z-Wave, etc.)"
+        },
+        {
+          "concepto": "Pequeño material (conectores, arandelas, tornilería)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Partida auxiliar genérica de materiales menores"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_sistema_free_cooling",
+      "instalacion_sistema_agua_helada_chiller",
+      "instalacion_sistema_de_videovigilancia_CCTV"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "id": 228,
+  "oficio": "Energía Solar",
+  "texto": "Instalación de placas solares en cubierta plana de edificio de apartamentos, 10 unidades en comunidad",
+  "http_status": 200,
+  "latency_ms": 26016,
+  "raw_response": {
+    "transcript": "Instalación de placas solares en cubierta plana de edificio de apartamentos, 10 unidades en comunidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de placas solares en cubierta plana de edificio de apartamentos, 10 unidades en comunidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "APROBACIÓN COMUNIDAD OBLIGATORIA antes de iniciar obra",
+          "Requiere PROYECTO TÉCNICO y tramitación con distribuidora",
+          "Necesario cálculo de carga sobre cubierta (peso estructura + módulos)",
+          "Sistema no perforante recomendado para evitar impermeabilización adicional",
+          "Revisar capacidad estructural cubierta plana (típico 30-50 kg/m²)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica en comunidad de propietarios con reparto de energía"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado de perforaciones si sistema anclado (contingente)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Aprobación comunidad de propietarios",
+          "descripcion": "Gestión y aprobación en junta de propietarios para instalación fotovoltaica comunitaria con reparto de energía",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Honorarios gestoría/asesor comunidad pendiente de definir"
+        },
+        {
+          "concepto": "Proyecto técnico instalación fotovoltaica",
+          "descripcion": "Proyecto técnico completo: cálculo carga cubierta, diseño estructura, cálculo producción, sistema reparto energía entre 10 viviendas, tramitación distribuidora",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Honorarios proyectista/ingeniero solar pendiente de definir según complejidad"
+        },
+        {
+          "concepto": "Estructura de aluminio inclinada lastrada (sistema no perforante)",
+          "descripcion": "Estructura de aluminio anodizado con inclinación óptima 30-35°, sistema de lastrado/ballast para evitar perforaciones en cubierta plana, fijaciones y accesorios",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estructura según kWp instalado (pendiente definir potencia total)"
+        },
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos",
+          "descripcion": "10 módulos fotovoltaicos monocristalinos de alta eficiencia (potencia unitaria a definir), incluye embalaje y transporte a obra",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario según potencia (típico 300-550W/módulo, 150-300€/módulo)"
+        },
+        {
+          "concepto": "Inversor y cuadros de protección",
+          "descripcion": "Inversor trifásico para reparto de energía en comunidad, cuadro de protecciones AC/DC, interruptores, magnetotérmicos, diferenciales, protecciones contra sobretensiones",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según potencia total instalada (típico 2000-8000€)"
+        },
+        {
+          "concepto": "Cableado y protecciones eléctricas",
+          "descripcion": "Cable solar DC 6mm², canaletas, tuberías, conectores MC4, fusibles DC, protecciones, puesta a tierra, cable AC trifásico hacia cuadro general",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según longitud recorridos y complejidad instalación"
+        },
+        {
+          "concepto": "Sistema de medición y reparto de energía",
+          "descripcion": "Medidores individuales de energía generada/consumida por vivienda (10 unidades), sistema de gestión de reparto por cuota de participación, software de monitorización y control",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio contadores inteligentes + software gestión (típico 300-600€/vivienda)"
+        },
+        {
+          "concepto": "Instalación estructura y módulos fotovoltaicos",
+          "descripcion": "Montaje estructura lastrada en cubierta, colocación 10 módulos, conexionado DC, pruebas de aislamiento y continuidad",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 24,
+          "precio_unitario": 65,
+          "total": 1560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación inversor, cuadros y cableado",
+          "descripcion": "Montaje inversor en sala técnica/cuarto de instalaciones, conexionado AC/DC, instalación cuadro de protecciones, cableado hacia cuadro general, puesta a tierra, pruebas funcionales",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 65,
+          "total": 1040,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación sistema medición y software",
+          "descripcion": "Instalación 10 medidores individuales en viviendas, configuración software de reparto energético, pruebas de comunicación, formación a comunidad",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 65,
+          "total": 780,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tramitación distribuidora y legalización",
+          "descripcion": "Solicitud de autorización a distribuidora, documentación técnica, inspección previa, obtención de autorización de vertido a red, certificado de instalación",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Honorarios gestoría/tramitación distribuidora (típico 500-1500€)"
+        },
+        {
+          "concepto": "Sellado de perforaciones (contingente)",
+          "descripcion": "Sellado impermeabilizante de perforaciones en cubierta si sistema requiere anclaje (contingente según decisión estructura)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto contingente si se requiere anclaje (típico 200-500€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3380,
+        "iva_porcentaje": 21,
+        "iva": 709.8,
+        "total": 4089.8
+      },
+      "sugerencias_catalogo": [
+        "Revisar en catálogo: 'instalacion_fotovoltaica_en_comunidad_de_propietarios' (rango 800-2600€/kWp)",
+        "Revisar en catálogo: 'instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada' (rango 800-2600€/kWp)",
+        "Solicitar presupuesto de módulos fotovoltaicos monocristalinos 300-550W (precio actual mercado 150-300€/unidad)",
+        "Solicitar presupuesto inversor trifásico para comunidad (rango 2000-8000€ según potencia)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aprobación comunidad de propietarios",
+          "oficio": "reforma_integral",
+          "motivo": "Requisito legal obligatorio para instalaciones comunitarias"
+        },
+        {
+          "concepto": "Proyecto técnico instalación fotovoltaica",
+          "oficio": "energia_solar",
+          "motivo": "Obligatorio para comunidades, incluye cálculo carga cubierta y sistema reparto"
+        },
+        {
+          "concepto": "Sistema de medición y reparto de energía",
+          "oficio": "energia_solar",
+          "motivo": "Específico para instalaciones comunitarias con 10 viviendas"
+        },
+        {
+          "concepto": "Tramitación distribuidora y legalización",
+          "oficio": "energia_solar",
+          "motivo": "Obligatorio para conexión a red y autorización de vertido"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_fotovoltaica_en_comunidad_de_propietarios",
+      "reforma_de_cubierta_de_edificio_comunitario",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4086,
+      "tokens_out": 3738
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 3,
+    "n_sugeridas": 9,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

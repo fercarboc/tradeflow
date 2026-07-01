@@ -1,0 +1,167 @@
+{
+  "id": 232,
+  "oficio": "Energía Solar",
+  "texto": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+  "http_status": 200,
+  "latency_ms": 15452,
+  "raw_response": {
+    "transcript": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Este presupuesto es ÚNICAMENTE de gestión administrativa y trámites. NO incluye paneles, inversor, cableado ni instalación física.",
+          "El cliente debe confirmar si necesita también la instalación técnica de los paneles y equipos (oficio: energia_solar).",
+          "La compensación (autoconsumo con excedentes) requiere legalización ante la distribuidora: incluida en estas partidas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Gestión administrativa, trámites de alta, legalización ante distribuidora y organismos públicos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Solicitud de acceso y conexión a red distribuidora",
+          "descripcion": "Tramitación de solicitud de acceso y conexión a la red de distribución para instalación fotovoltaica de 8kW con compensación de excedentes. Incluye documentación técnica, planos unifilares, cálculos de protecciones y coordinación con distribuidora.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según distribuidora y complejidad de la conexión. Rango típico: 300-800€."
+        },
+        {
+          "concepto": "Legalización de instalación fotovoltaica ante organismo competente",
+          "descripcion": "Tramitación de legalización y obtención de certificado de instalación conforme a normativa (RD 244/2019, ITC-BT-40). Incluye inspección técnica, certificado de conformidad y documentación de seguridad.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según comunidad autónoma y organismo. Rango típico: 200-600€."
+        },
+        {
+          "concepto": "Solicitud de autorización de autoconsumo con compensación de excedentes",
+          "descripcion": "Tramitación de solicitud de autorización de autoconsumo con compensación de excedentes ante distribuidora. Incluye documentación de acogida a mecanismo de compensación, contrato de compensación y coordinación con comercializadora.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según distribuidora y comercializadora. Rango típico: 150-400€."
+        },
+        {
+          "concepto": "Gestión de documentación técnica y coordinación con organismos",
+          "descripcion": "Elaboración y gestión de documentación técnica completa: proyecto técnico simplificado, memoria de cálculos, esquemas unifilares, certificados de equipos, coordinación con distribuidora, organismo competente y comercializadora. Seguimiento de trámites hasta obtención de permisos finales.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inscripción en registro de autoconsumo (si aplica)",
+          "descripcion": "Tramitación de inscripción en registro administrativo de autoconsumo ante organismo competente (si requerido por comunidad autónoma). Incluye documentación y seguimiento.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según comunidad autónoma. Rango típico: 100-300€. Algunos organismos no cobran."
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Las partidas de servicios administrativos (solicitud acceso, legalización, autorización compensación, registro) tienen precio_unitario=0 porque dependen de tarifas de organismos externos (distribuidora, administración pública, comunidad autónoma). El instalador debe introducir los precios reales según su zona geográfica y distribuidora.",
+        "La partida de 'Gestión de documentación técnica' (8 horas a 50€/h) es la única con precio definido, basada en tarifa de gestoria_tramites.",
+        "IMPORTANTE: Este presupuesto NO incluye la instalación física de paneles, inversor, cableado ni estructura. Si el cliente necesita también la instalación técnica, solicitar presupuesto adicional con oficio: energia_solar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Solicitud de acceso y conexión a red distribuidora",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio administrativo específico de tramitación ante distribuidora. Precio variable según distribuidora."
+        },
+        {
+          "concepto": "Legalización de instalación fotovoltaica ante organismo competente",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio administrativo de legalización. Precio variable según comunidad autónoma."
+        },
+        {
+          "concepto": "Solicitud de autorización de autoconsumo con compensación de excedentes",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio administrativo específico de compensación. Precio variable según distribuidora."
+        },
+        {
+          "concepto": "Inscripción en registro de autoconsumo (si aplica)",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio administrativo de registro. Precio variable según comunidad autónoma."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "instalacion_vidrio_antibalas_o_antiatraco",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_energia_solar_para_caravana_o_autocaravana"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4085,
+      "tokens_out": 2052
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "gestoria_tramites",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "id": 323,
+  "oficio": "Fachadas",
+  "texto": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+  "http_status": 200,
+  "latency_ms": 15763,
+  "raw_response": {
+    "transcript": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presión controlada obligatoria: máximo 80 bar para ladrillo visto (evitar erosión)",
+          "Producto químico específico según tipo de suciedad (orgánica, óxido, eflorescencias)",
+          "Neutralización y aclarado abundante tras tratamiento químico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Limpieza química de fachada de ladrillo visto con equipo de presión controlada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Producto limpiador químico específico para ladrillo visto",
+          "descripcion": "Producto desengrasante, antimanchas u óxido según tipo de suciedad. Aplicación según ficha técnica del fabricante. Incluye neutralizante si es ácido.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de producto dependen de m² de fachada y grado de suciedad. Instalador debe especificar."
+        },
+        {
+          "concepto": "Limpieza química con equipo de presión controlada (máx. 80 bar)",
+          "descripcion": "Aplicación de producto químico con pulverizador de baja presión, espera de tiempo de actuación, limpieza con equipo de presión controlada (80 bar máximo para no dañar ladrillo), enjuague abundante con agua limpia, neutralización si producto ácido.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 25,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² de fachada a limpiar debe ser especificada por el instalador"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Montaje y desmontaje de andamio o plataforma elevadora para acceso seguro a toda la fachada durante limpieza.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste depende de altura, superficie y tipo de andamio (alquiler o propio). Instalador debe presupuestar."
+        },
+        {
+          "concepto": "EPI y pequeño material de limpieza",
+          "descripcion": "Equipos de protección individual (guantes nitrilo, gafas protección, mascarilla FFP2, ropa protección), cepillos suaves, esponjas, trapos, mangueras, conexiones.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estimado según cantidad de operarios y duración del trabajo"
+        },
+        {
+          "concepto": "Tratamiento hidrofugo incoloro posterior (opcional)",
+          "descripcion": "Aplicación de hidrofugo incoloro transpirable para proteger ladrillo tras limpieza y evitar futuras manchas de humedad.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional. Cantidad depende de m² de fachada. Instalador decide si incluir."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Especificar m² totales de fachada a limpiar para calcular mano de obra",
+        "Identificar tipo de suciedad (orgánica, óxido, eflorescencias, hollín) para seleccionar producto químico correcto",
+        "Confirmar si incluye tratamiento hidrofugo posterior",
+        "Presupuestar andamio/plataforma por separado según altura y accesibilidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Producto limpiador químico específico para ladrillo visto",
+          "oficio": "fachadas",
+          "motivo": "Material específico según tipo de mancha; precio variable"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "fachadas",
+          "motivo": "Servicio auxiliar; coste depende de altura y duración"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_quimica_de_fachada_con_eflorescencias_o_manchas",
+      "reparacion_y_rejuntado_de_ladrillo_cara_vista",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "revestimiento_de_zocalo_exterior_con_piedra"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3859,
+      "tokens_out": 1919
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

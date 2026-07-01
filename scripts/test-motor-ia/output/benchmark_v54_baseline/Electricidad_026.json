@@ -1,0 +1,173 @@
+{
+  "id": 26,
+  "oficio": "Electricidad",
+  "texto": "Instalación de sistema de iluminación LED en toda la vivienda, 12 puntos de luz con reguladores de intensidad",
+  "http_status": 200,
+  "latency_ms": 14603,
+  "raw_response": {
+    "transcript": "Instalación de sistema de iluminación LED en toda la vivienda, 12 puntos de luz con reguladores de intensidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de sistema de iluminación LED en toda la vivienda, 12 puntos de luz con reguladores de intensidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye suministro de luminarias LED y reguladores. Precios de materiales pendiente de revisión del instalador según marcas y modelos seleccionados.",
+          "Se asume instalación en puntos existentes. Si requiere nuevas canalizaciones o cajas de derivación, contactar con instalador."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de luminarias LED y reguladores de intensidad (dimmers). Trabajo eléctrico de interior."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de luminarias LED (12 unidades)",
+          "descripcion": "Luminarias LED de interior, 12 unidades, según especificación técnica a definir (potencia, temperatura color, tipo de montaje). Incluye pequeño material de fijación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de luminarias LED a definir por instalador según marca, modelo, potencia y características técnicas seleccionadas."
+        },
+        {
+          "concepto": "Suministro de reguladores de intensidad (dimmers) - 12 unidades",
+          "descripcion": "Reguladores de intensidad (dimmers) compatibles con LED, 12 unidades, incluyendo mecanismo y marco. Tipo y características a definir según sistema de control (manual, remoto, inteligente).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de reguladores a definir por instalador según tipo (manual, WiFi, Zigbee, etc.) y marca seleccionada."
+        },
+        {
+          "concepto": "Desmontaje de luminarias existentes",
+          "descripcion": "Desmontaje de 12 puntos de luz existentes, desconexión eléctrica segura, retirada de luminarias antiguas y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de luminarias LED y reguladores",
+          "descripcion": "Instalación de 12 luminarias LED en puntos existentes, conexión eléctrica segura, instalación de reguladores de intensidad en cajas de mecanismo, pruebas de funcionamiento y regulación de intensidad.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material eléctrico (conectores, aislantes, tornillería)",
+          "descripcion": "Pequeño material eléctrico necesario para la instalación: conectores, aislantes, tornillería, cinta aislante, tuercas de conexión, etc.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material a definir por instalador según cantidad y tipo de conectores y accesorios necesarios. Estimación típica: 30-60€."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y ajuste de reguladores",
+          "descripcion": "Pruebas de funcionamiento de todas las luminarias LED, verificación de regulación de intensidad en todos los puntos, ajuste de parámetros si es necesario, y entrega de instrucciones de uso.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 350,
+        "iva_porcentaje": 21,
+        "iva": 73.5,
+        "total": 423.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el cliente el tipo de luminarias LED preferidas: empotradas, de superficie, colgantes, etc.",
+        "Especificar tipo de reguladores: manuales (potenciómetro), con mando a distancia, WiFi/Zigbee inteligentes, o con control por app.",
+        "Verificar compatibilidad de reguladores con las luminarias LED seleccionadas (algunos LED requieren reguladores específicos).",
+        "Considerar si se requiere instalación de nuevas canalizaciones o ampliación de cajas de derivación.",
+        "Presupuesto de materiales (luminarias + reguladores + pequeño material) estimado entre 600-1.500€ según especificaciones técnicas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de luminarias LED",
+          "oficio": "electricidad",
+          "motivo": "Material específico cuyo precio depende de marca, modelo y características técnicas a seleccionar."
+        },
+        {
+          "concepto": "Suministro de reguladores de intensidad (dimmers)",
+          "oficio": "electricidad",
+          "motivo": "Material específico cuyo precio depende del tipo de regulador (manual, remoto, inteligente) y marca seleccionada."
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "oficio": "electricidad",
+          "motivo": "Importe estimado de conectores, aislantes y tornillería a definir según cantidad y tipo específico."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_sistema_free_cooling",
+      "instalacion_sistema_agua_helada_chiller",
+      "instalacion_de_sistema_de_alarma_intrusion"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3873,
+      "tokens_out": 1973
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

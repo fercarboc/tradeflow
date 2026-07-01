@@ -1,0 +1,181 @@
+{
+  "id": 141,
+  "oficio": "Pladur",
+  "texto": "Hacer un tabique de pladur para dividir el salón en dos zonas, longitud 4 metros con puerta",
+  "http_status": 200,
+  "latency_ms": 18632,
+  "raw_response": {
+    "transcript": "Hacer un tabique de pladur para dividir el salón en dos zonas, longitud 4 metros con puerta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer un tabique de pladur para dividir el salón en dos zonas, longitud 4 metros con puerta",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume altura estándar de 2.5m (salón residencial). Si es mayor, revisar estructura.",
+          "Precio de puerta no incluido: el instalador debe especificar modelo y precio.",
+          "Refuerzo en zona de bisagras incluido en partida de marco."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 65
+          },
+          "motivo": "Tabique de pladur con estructura metálica y acabados."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación de marco de puerta en tabique de pladur."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura metálica tabique pladur 4m x 2.5m",
+          "descripcion": "Perfiles canal 48mm y montantes 48mm, arriostramientos, tornillería reforzada, taco fijación suelo-techo. Incluye pequeño material.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de estructura metálica. El instalador debe cotizar perfiles, tornillería y pequeño material según proveedor."
+        },
+        {
+          "concepto": "Placa de yeso laminado standard 15mm (ambas caras)",
+          "descripcion": "Placa YL standard 15mm, 2 capas (anverso y reverso). Superficie 10m2 (4m largo x 2.5m alto).",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Placas de yeso. El instalador debe cotizar según marca y proveedor (Knauf, Pladur, etc.)."
+        },
+        {
+          "concepto": "Cinta de papel, pasta de juntas y ángulo metálico",
+          "descripcion": "Cinta papel juntas, pasta de juntas para acabado, ángulo metálico esquinas. Incluye masilla acabado fino.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de acabado. El instalador debe cotizar según cantidad y marca."
+        },
+        {
+          "concepto": "Montaje estructura metálica y colocación placas",
+          "descripcion": "Mano de obra: montaje de perfiles, fijación suelo-techo, colocación de placas de yeso laminado en ambas caras, nivelación y aplomado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 35,
+          "total": 420,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado de juntas (cinta, pasta y lijado)",
+          "descripcion": "Mano de obra: aplicación de cinta de papel, pasta de juntas en 2-3 capas, lijado fino y masilla de acabado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 35,
+          "total": 210,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Marco de puerta en tabique pladur",
+          "descripcion": "Marco/cerco adaptado a grosor tabique (72mm), tapetas ambas caras, fijación a estructura metálica, refuerzo en zona de bisagras, espuma poliuretano sellado perimetral, pequeño material.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Marco de puerta. El instalador debe especificar modelo, material (madera/PVC) y precio. Puerta no incluida."
+        },
+        {
+          "concepto": "Instalación marco de puerta",
+          "descripcion": "Mano de obra: colocación de marco, fijación a estructura metálica del tabique, sellado perimetral con espuma poliuretano, colocación de tapetas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 765,
+        "iva_porcentaje": 21,
+        "iva": 160.65,
+        "total": 925.65
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el salón requiere aislamiento acústico: si es necesario, añadir lana mineral 40mm entre montantes (partida adicional).",
+        "Si la altura es superior a 3.5m, revisar necesidad de montantes reforzados o arriostramientos adicionales.",
+        "Presupuesto de puerta: solicitar al cliente modelo, material y precio. No incluido en este presupuesto."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_en_local_comercial_o_bar",
+      "tabique_pladur_separacion_zona_oficina",
+      "instalacion_de_marcos_de_puertas_en_pared_de_pladur",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_sencillo_72mm"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3795,
+      "tokens_out": 2271
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

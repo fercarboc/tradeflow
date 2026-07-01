@@ -1,0 +1,139 @@
+{
+  "id": 351,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+  "http_status": 200,
+  "latency_ms": 17191,
+  "raw_response": {
+    "transcript": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye dos actuaciones distintas: reparación de baches (hormigón) + sellado de juntas de dilatación (fachada/estructura). Se han generado partidas para ambas.",
+          "Se recomienda inspección previa del parking para cuantificar m² de baches y ml de juntas a sellar."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de baches en hormigón de parking (saneo, imprimación, mortero reparación, fratasado)"
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado de juntas de dilatación en estructura/pavimento (retirada material antiguo, fondo de junta, sellador poliuretano)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y reparación de baches en hormigón de parking",
+          "descripcion": "Saneo de zona afectada, retirada de hormigón deteriorado, imprimación adherente epoxídica, mortero de reparación de hormigón, fratasado y acabado igual al existente, pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² de baches a reparar debe ser cuantificada en inspección previa. Precio unitario es tarifa de mano de obra (40€/m2 según rango 22-110€/m2 de Base Maestra). Materiales (mortero, imprimación) incluidos en partida siguiente."
+        },
+        {
+          "concepto": "Materiales reparación baches: mortero epoxídico, imprimación, lechada",
+          "descripcion": "Mortero de reparación de hormigón o epoxídico, imprimación adherente epoxídica, lechada de junta, pequeño material (cepillos, trapos, etc.)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de revisión. Depende de cantidad de m² y tipo de mortero (estándar vs. epoxídico). Instalador debe introducir precio según presupuesto de proveedores."
+        },
+        {
+          "concepto": "Sellado de juntas de dilatación en pavimento de parking",
+          "descripcion": "Retirada de material antiguo de junta, limpieza profunda, colocación de fondo de junta (espuma de polietileno), aplicación de sellador poliuretano de buena calidad exterior, pequeño material",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de ml de juntas a sellar debe ser cuantificada en inspección previa. Precio unitario es tarifa de mano de obra (45€/ml según rango 20-95€/ml de Base Maestra). Materiales (sellador, fondo de junta) incluidos en partida siguiente."
+        },
+        {
+          "concepto": "Materiales sellado de juntas: sellador poliuretano, fondo de junta",
+          "descripcion": "Sellador poliuretano de buena calidad para exterior, fondo de junta espuma de polietileno, pequeño material (brochas, trapos, disolvente limpieza)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de revisión. Depende de cantidad de ml, anchura de juntas y tipo de sellador (poliuretano estándar vs. premium). Instalador debe introducir precio según presupuesto de proveedores."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Antes de presupuestar, realizar inspección visual del parking para cuantificar: (1) m² totales de baches a reparar, (2) ml totales de juntas de dilatación a sellar, (3) estado del soporte (si hay armado expuesto, aumentar complejidad).",
+        "Si los baches son muy profundos (>5cm) o hay armado expuesto, considerar partida adicional de armado con malla de fibra de vidrio.",
+        "Verificar si las juntas de dilatación están en zona de tráfico intenso (requiere sellador de mayor resistencia) o en zona de estacionamiento (menor exigencia).",
+        "Considerar si es necesario andamio o plataforma para acceso a juntas en altura (si parking tiene varios niveles o juntas en muros)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_reposicion_de_pavimento_exterior_deteriorado",
+      "reparacion_de_pavimento_de_hormigon_con_baches",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3851,
+      "tokens_out": 2162
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

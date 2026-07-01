@@ -1,0 +1,186 @@
+{
+  "id": 394,
+  "oficio": "Persianas",
+  "texto": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+  "http_status": 200,
+  "latency_ms": 17970,
+  "raw_response": {
+    "transcript": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si requiere licencia municipal (obra en comunidad de vecinos)",
+          "Confirmar tipo de anclaje: fachada, estructura propia o poste independiente",
+          "Aclarar si incluye motorización o es manual"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de toldo corredero con estructura modular"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Toldo corredero estructura aluminio 4x3m",
+          "descripcion": "Suministro e instalación toldo corredero profesional, estructura aluminio anodizado, sistema deslizante manual o motorizado, medida 4x3 metros",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador según marca, sistema (manual/motorizado) y especificaciones técnicas"
+        },
+        {
+          "concepto": "Tela acrílica tratada UV para toldo 4x3m",
+          "descripcion": "Tela acrílica de alta resistencia UV y agua, tratamiento repelente, color a definir, superficie total 12 m²",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tela a revisar según calidad, fabricante y posibles tratamientos especiales (resistencia, impresión logo)"
+        },
+        {
+          "concepto": "Sistema de guías y rodillos corredero",
+          "descripcion": "Suministro e instalación sistema de desplazamiento: guías laterales aluminio, rodillos de precisión, topes de fin de carrera, pequeño material",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Componentes técnicos a presupuestar según tipo de corredero (manual con cordón/manivela o motorizado)"
+        },
+        {
+          "concepto": "Anclaje y fijación al soporte",
+          "descripcion": "Fijaciones de cabezal superior (pared, fachada, estructura o postes independientes), anclajes laterales, escuadras reforzadas, tornillería y pequeño material",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y accesorios de fijación a definir según tipo de soporte confirmado (fachada de obra, estructura metálica, postes)"
+        },
+        {
+          "concepto": "Desmontaje y preparación del espacio",
+          "descripcion": "Desmontaje de elementos previos si existen, limpieza y preparación del espacio, protección de zonas adyacentes",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación estructura y sistema corredero",
+          "descripcion": "Montaje estructura aluminio, instalación guías y rodillos, ajuste de alineación, verificación funcionamiento suave del deslizamiento",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 45,
+          "total": 225,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación tela acrílica y tensado",
+          "descripcion": "Instalación tela en estructura, tensado uniforme, fijación perimetral, recorte de sobrantes, acabado de costuras o remate",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba funcional y ajustes finales",
+          "descripcion": "Prueba de correderas en ambas direcciones, ajuste de topes, verificación de alineación, cierre hermético perimetral, instrucciones de uso",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 630,
+        "iva_porcentaje": 21,
+        "iva": 132.3,
+        "total": 762.3
+      },
+      "sugerencias_catalogo": [
+        "Si se requiere motorización: considerar motor tubular con mando a distancia (origen: sugerida_ia, requiere_revision: true)",
+        "Si se solicita sensor de viento: incluir detector automático de cierre ante vientos fuertes",
+        "Si incluye iluminación: añadir LED integrado en estructura (origin: sugerida_ia)",
+        "Faldón lateral opcional: si se requiere protección adicional contra lateral"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Toldo corredero estructura aluminio",
+          "oficio": "persianas",
+          "tipo": "material",
+          "motivo": "No existe partida específica en catálogo para sistema corredero 4x3m; se estructura por componentes obligatorios"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_faldones_o_cenefas_para_toldo",
+      "instalacion_toldo_para_escenario_o_cubierta_de_eventos",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_estor_enrollable_interior",
+      "instalacion_toldo_terraza_bar_o_restaurante"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

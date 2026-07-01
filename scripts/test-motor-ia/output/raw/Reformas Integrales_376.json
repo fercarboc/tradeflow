@@ -1,0 +1,192 @@
+{
+  "id": 376,
+  "oficio": "Reformas Integrales",
+  "texto": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+  "http_status": 200,
+  "latency_ms": 26817,
+  "raw_response": {
+    "transcript": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "GRAN OBRA DETECTADA: Rehabilitación integral de edificio completo (5 pisos). Se aplica estructura de CAPÍTULOS agrupados (máximo 4 partidas).",
+          "APROBACIÓN COMUNIDAD OBLIGATORIA para reforma de zonas comunes y fachada.",
+          "LICENCIA MUNICIPAL OBLIGATORIA para reforma de fachada y posibles cambios estructurales.",
+          "PERMISO ANDAMIO OBLIGATORIO para trabajos en fachada de edificio de 5 pisos.",
+          "Se recomienda PROYECTO TÉCNICO previo y posible ITE (Inspección Técnica de Edificios).",
+          "Posible elegibilidad para AYUDAS REHABILITACIÓN (NextGenEU, IDAE) si incluye mejora energética.",
+          "GESTIÓN DE RESIDUOS obligatoria en obra de esta envergadura."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Rehabilitación integral de edificio completo (5 pisos) con múltiples oficios simultáneos (fachada, zonas comunes, instalaciones). Estructura en capítulos agrupados."
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Rehabilitación de fachada de edificio comunitario. Incluye revestimiento exterior, posible SATE, andamio perimetral."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Obra de gran envergadura genera volumen significativo de residuos de demolición y construcción."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Trámites administrativos obligatorios: aprobación comunidad, licencia municipal, permiso andamio, posible proyecto técnico."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición, obra civil y estructuras",
+          "descripcion": "Demolición selectiva de elementos obsoletos en zonas comunes (escaleras, rellanos, revestimientos antiguos), retirada de instalaciones antiguas, preparación de fachada para rehabilitación, cimentación de andamios, pequeño material y herramientas. Incluye: desmontaje de elementos no estructurales, limpieza de escombros, acopio temporal en obra.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado según alcance real de demolición. Instalador debe revisar: m² de fachada, número de plantas, estado de instalaciones antiguas, volumen de escombros. Rango orientativo: 15.000–35.000€ según complejidad."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización, telecomunicaciones)",
+          "descripcion": "Renovación integral de instalaciones comunes: cuadro eléctrico general, cableado de distribución, alumbrado LED en escaleras y rellanos, tomas de corriente, instalación de agua fría/caliente en zonas comunes, posible calefacción/refrigeración centralizada o individual, cableado estructurado para telecomunicaciones, pequeño material. Incluye: pruebas de funcionamiento, certificados de instalación.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado según tipo y alcance de instalaciones. Instalador debe revisar: número de plantas, número de viviendas, tipo de calefacción (centralizada vs. individual), necesidad de aerotermia/energía solar. Rango orientativo: 20.000–50.000€."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (fachada, pintura, suelos, carpintería, pladur en zonas comunes)",
+          "descripcion": "Rehabilitación de fachada: limpieza, reparación de grietas, posible aislamiento SATE, revestimiento con mortero monocapa o pintura de fachada de calidad, reparación de canalones y bajantes, remates en zinc/aluminio. Acabados interiores en zonas comunes: pintura de escaleras y rellanos, posible sustitución de suelos en portal, reparación/sustitución de puertas de acceso, tabiquería en pladur si aplica, pequeño material.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado según m² de fachada y alcance de acabados interiores. Instalador debe revisar: superficie de fachada (m²), tipo de revestimiento (pintura simple vs. SATE), estado de canalones, superficie de suelos a renovar, número de puertas. Rango orientativo: 25.000–60.000€."
+        },
+        {
+          "concepto": "CAP.4 – Gestión administrativa, residuos y permisos",
+          "descripcion": "Aprobación de Junta de Propietarios, proyecto técnico o memoria de reforma, solicitud de licencia municipal, permiso de andamio perimetral, inspección técnica de edificios (ITE) si procede, gestión y transporte de residuos de construcción y demolición (RCD), pequeño material, coordinación de seguridad y salud en obra.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado según complejidad administrativa y volumen de residuos. Incluye: honorarios gestoría, proyecto técnico, permisos municipales, gestión RCD. Rango orientativo: 3.000–8.000€. Consultar con gestoría local y gestor de residuos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo: [reforma_de_instalaciones_comunes_edificio] — precio alzado 8.000–90.000€ según tipo y alcance.",
+        "Consultar catálogo: [reforma_de_fachada_de_edificio_comunitario] — 250–950€/m² según estado y tipo de revestimiento.",
+        "Considerar ayudas de rehabilitación: NextGenEU (Programa de Recuperación), IDAE (Instituto para la Diversificación y Ahorro de la Energía), ayudas autonómicas/locales.",
+        "Solicitar ITE (Inspección Técnica de Edificios) si el edificio tiene más de 50 años y no dispone de certificado reciente.",
+        "Coordinar con comunidad de propietarios: reunión informativa, votación en junta, información sobre plazo y molestias durante la obra."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "CAP.1 – Demolición, obra civil y estructuras",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de gran obra. Requiere desglose detallado por el instalador según alcance real."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización, telecomunicaciones)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de gran obra. Requiere desglose detallado por el instalador según tipo de instalaciones."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (fachada, pintura, suelos, carpintería, pladur en zonas comunes)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de gran obra. Requiere desglose detallado por el instalador según m² de fachada y acabados."
+        },
+        {
+          "concepto": "CAP.4 – Gestión administrativa, residuos y permisos",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de gran obra. Requiere desglose detallado por el instalador según complejidad administrativa."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_instalaciones_comunes_edificio",
+      "reforma_de_fachada_de_edificio_comunitario",
+      "tabique_pladur_en_rehabilitacion_edificio_existente",
+      "instalacion_electrica_exterior_urbanizacion",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3838,
+      "tokens_out": 3583
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "id": 273,
+  "oficio": "Cristalería",
+  "texto": "Cambiar mampara de baño rota, sistema corredero de 2 hojas en bañera de 170 centímetros",
+  "http_status": 200,
+  "latency_ms": 12704,
+  "raw_response": {
+    "transcript": "Cambiar mampara de baño rota, sistema corredero de 2 hojas en bañera de 170 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar mampara de baño rota, sistema corredero de 2 hojas en bañera de 170 centímetros",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de mampara de baño con sistema corredero. Trabajo de cristalería especializada en baños."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje mampara corroída/rota",
+          "descripcion": "Desmontaje completo de mampara corredero de 2 hojas existente, incluyendo perfiles, guías y herrajes. Retirada de material.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mampara corredero 2 hojas 170 cm",
+          "descripcion": "Mampara de baño sistema corredero de 2 hojas, ancho 170 cm, cristal templado 6 mm, perfiles aluminio anodizado, guías y herrajes de calidad. Incluye pequeño material (silicona, tornillería).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mampara corredero 170 cm a definir por instalador según marca y especificaciones (rango típico 400-900€)"
+        },
+        {
+          "concepto": "Instalación mampara corredero",
+          "descripcion": "Instalación completa de mampara: nivelación, fijación de perfiles, colocación de guías superior e inferior, montaje de hojas, ajuste de herrajes, prueba de funcionamiento y sellado con silicona.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Verificar altura exacta de la bañera y profundidad para confirmar dimensiones finales de la mampara.",
+        "Confirmar si la mampara incluye accesorios como manillas, topes de cierre suave o protecciones de vidrio.",
+        "Considerar si es necesario sellado adicional en encuentro con azulejos o bañera."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mampara corredero 2 hojas 170 cm",
+          "oficio": "cristaleria",
+          "motivo": "Material de sustitución. Precio a definir por instalador según marca, espesor de cristal y acabados."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "revision_y_recambio_de_filtros_de_agua_o_osmosis",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "cambio_interruptor_averiado"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3638,
+      "tokens_out": 1089
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 2,
+    "n_sugeridas": 1,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

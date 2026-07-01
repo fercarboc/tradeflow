@@ -1,0 +1,135 @@
+{
+  "id": 275,
+  "oficio": "Cristalería",
+  "texto": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+  "http_status": 200,
+  "latency_ms": 11440,
+  "raw_response": {
+    "transcript": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Tratamiento antirreflejo requiere especificación de tipo (película adhesiva vs. revestimiento químico)",
+          "Superficie total de cristales no especificada - se asume presupuesto por m² para revisión"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamiento especializado en cristales de oficina - oficio cristalería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de cristales",
+          "descripcion": "Limpieza profunda de cristales, desengrasado y preparación de superficie para aplicación de tratamiento antirreflejo",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 8,
+          "total": 8,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² a definir por instalador según superficie real de cristales"
+        },
+        {
+          "concepto": "Película antirreflejo adhesiva de alta calidad",
+          "descripcion": "Suministro de película antirreflejo adhesiva para reducción de deslumbramiento, control solar y privacidad parcial. Espesor 50-75 micras, transmisión luz visible >85%",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de película antirreflejo a definir según marca y especificación técnica (rango típico 25-80€/m²)"
+        },
+        {
+          "concepto": "Aplicación de tratamiento antirreflejo",
+          "descripcion": "Aplicación profesional de película antirreflejo: corte a medida, eliminación de burbujas, sellado de bordes y acabado de calidad",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 15,
+          "total": 15,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra especializada en aplicación de películas - cantidad de m² a confirmar"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rasquetas, espátulas, soluciones de aplicación, trapos, cinta de enmascarar, selladores perimetrales",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 30-60€ según cantidad de cristales a tratar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 23,
+        "iva_porcentaje": 21,
+        "iva": 4.83,
+        "total": 27.83
+      },
+      "sugerencias_catalogo": [
+        "Especificar tipo de tratamiento antirreflejo: película adhesiva (más económica, reversible) vs. revestimiento químico (permanente, mejor óptica)",
+        "Definir superficie total de cristales a tratar (m²) para cálculo exacto",
+        "Considerar si se requiere también control solar o solo antirreflejo puro",
+        "Solicitar muestras de película para validar reducción de deslumbramiento en condiciones reales de oficina"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Película antirreflejo adhesiva de alta calidad",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Tratamiento especializado no presente en catálogo base - requiere especificación técnica y presupuesto de proveedor"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tabique_o_division_de_vidrio_en_oficina",
+      "impermeabilizacion_de_cubierta_de_fibrocemento_con_tratamiento",
+      "instalacion_de_extintores_portatiles",
+      "aplicacion_pintura_termica_o_aislante",
+      "tabique_pladur_separacion_zona_oficina"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3950,
+      "tokens_out": 1357
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

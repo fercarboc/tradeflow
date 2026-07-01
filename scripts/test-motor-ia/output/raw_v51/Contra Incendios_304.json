@@ -1,0 +1,164 @@
+{
+  "id": 304,
+  "oficio": "Contra Incendios",
+  "texto": "Revisar y recargar extintores de empresa, 10 extintores de polvo y 2 de CO2, con certificado",
+  "http_status": 200,
+  "latency_ms": 15198,
+  "raw_response": {
+    "transcript": "Revisar y recargar extintores de empresa, 10 extintores de polvo y 2 de CO2, con certificado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y recargar extintores de empresa, 10 extintores de polvo y 2 de CO2, con certificado",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se incluyen 12 extintores totales (10 polvo ABC + 2 CO2). Asegurar que la empresa sea mantenedora AUTORIZADA para emisión de certificados.",
+          "CO2: verificar que están en cuadros eléctricos o equipos informáticos (uso correcto).",
+          "Retimbrado: si algún extintor supera 5 años desde último retimbrado, añadir partida de prueba de presión."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 60,
+            "max": 300
+          },
+          "motivo": "Revisión y recarga de extintores según normativa CTE DB SI y REBT. Empresa mantenedora autorizada obligatoria."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión visual y funcional extintores polvo ABC",
+          "descripcion": "Revisión del estado físico, precintos, mangueras y funcionalidad de 10 extintores de polvo ABC. Comprobación de peso, presión y etiquetado.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 60,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recarga de extintores polvo ABC",
+          "descripcion": "Recarga completa de agente extintor (polvo ABC) en 10 extintores según norma UNE-EN 3-7. Incluye comprobación de válvulas y reguladores.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 60,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión visual y funcional extintores CO2",
+          "descripcion": "Revisión del estado físico, precintos y funcionalidad de 2 extintores de CO2. Comprobación de peso mediante pesaje (crítico en CO2) y presión.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recarga de extintores CO2",
+          "descripcion": "Recarga completa de agente extintor (CO2) en 2 extintores según norma UNE-EN 3-7. Comprobación de válvulas y sellado hermético.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Etiquetado y documentación de revisión",
+          "descripcion": "Colocación de etiqueta de revisión con fecha y nombre de empresa mantenedora en los 12 extintores. Actualización del libro de mantenimiento de la empresa.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 12,
+          "precio_unitario": 15,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Certificado de revisión y recarga de extintores",
+          "descripcion": "Emisión de certificado oficial de revisión y recarga según normativa (CTE DB SI y REBT). Documento acreditativo para Inspección Técnica de Seguridad (ITS) o auditorías.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Certificado incluido en servicio de mantenedora autorizada. Verificar si empresa factura certificación por separado o va incluida. Precio pendiente confirmación (típicamente 50-100€ por campaña)."
+        },
+        {
+          "concepto": "Pequeño material (piezas de repuesto, juntas, válvulas)",
+          "descripcion": "Material consumible necesario para revisión completa: juntas, sellos, pequeñas válvulas o componentes de sustitución en los 12 extintores según estado.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de pequeño material variable según estado de los extintores. Aproximadamente 30-80€ por revisión completa de 12 ud. Pendiente confirmación."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1620,
+        "iva_porcentaje": 21,
+        "iva": 340.2,
+        "total": 1960.2
+      },
+      "sugerencias_catalogo": [
+        "Si algún extintor de CO2 supera 5 años desde último retimbrado oficial, incluir partida de 'Prueba de presión/retimbrado' (coste típico 80-120€/ud).",
+        "Verificar estado de mangueras: si alguna caduca próximamente (>5 años), incluir 'Cambio de manguera' (15-30€/ud).",
+        "Si empresa requiere adicionales (señalización fotoluminiscente nueva, soportes deteriorados), presupuestar por separado."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "revision_y_recarga_de_extintores_portatiles",
+      "revision_y_recarga_de_extintores",
+      "instalacion_de_extintores_portatiles",
+      "revision_instalacion_electrica_vivienda",
+      "revision_y_recarga_de_botellas_de_gas_o_instalacion_de_gas"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

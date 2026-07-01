@@ -1,0 +1,219 @@
+{
+  "id": 8,
+  "oficio": "Fontanería",
+  "texto": "Reparación de caldera de gas averiada, revisión completa y puesta a punto, cambio de juntas",
+  "http_status": 200,
+  "latency_ms": 16606,
+  "raw_response": {
+    "transcript": "Reparación de caldera de gas averiada, revisión completa y puesta a punto, cambio de juntas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de caldera de gas averiada, revisión completa y puesta a punto, cambio de juntas",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Caldera averiada: requiere diagnóstico técnico previo para identificar causa exacta",
+          "Cambio de juntas: especificar tipo y cantidad de juntas (quemador, intercambiador, válvulas)",
+          "Revisión completa incluye análisis de combustión obligatorio por normativa"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación y mantenimiento de caldera de gas (instalación de agua caliente sanitaria y calefacción)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y desmontaje de caldera averiada",
+          "descripcion": "Inspección técnica completa, identificación de avería, desmontaje de componentes para acceso a zonas de reparación",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cambio de juntas y sellos de caldera",
+          "descripcion": "Suministro e instalación de juntas de quemador, intercambiador, válvulas de seguridad y otros sellos según diagnóstico",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de juntas y sellos pendiente de especificación técnica (tipo, cantidad, marca)"
+        },
+        {
+          "concepto": "Instalación de juntas y recomposición de caldera",
+          "descripcion": "Montaje de nuevas juntas, recomposición de componentes, ajuste de tornillería y verificación de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 50,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza de quemador y cámara de combustión",
+          "descripcion": "Limpieza profunda de quemador, cámara de combustión, inyectores y eliminación de depósitos de hollín",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza de intercambiador de calor",
+          "descripcion": "Limpieza del intercambiador primario y secundario, eliminación de incrustaciones y depósitos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Purgado de circuito de calefacción y ACS",
+          "descripcion": "Purga de aire en circuitos de calefacción y agua caliente sanitaria, verificación de presión y llenado",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de combustión y verificación de parámetros",
+          "descripcion": "Medición de CO, CO2, temperatura de humos, rendimiento de combustión y emisiones (obligatorio por normativa)",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de válvulas de seguridad y presostatos",
+          "descripcion": "Comprobación de funcionamiento de válvulas de seguridad, presostatos, termostatos y sistemas de protección",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta a punto",
+          "descripcion": "Encendido de caldera, verificación de encendido, modulación de llama, estabilidad de presión, funcionamiento de radiadores y ACS",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico de reparación y certificado de revisión",
+          "descripcion": "Elaboración de informe detallado con hallazgos, trabajos realizados, parámetros de combustión, recomendaciones y certificado de revisión",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en tarifa de mano de obra o a especificar según contrato"
+        }
+      ],
+      "calculos": {
+        "subtotal": 600,
+        "iva_porcentaje": 21,
+        "iva": 126,
+        "total": 726
+      },
+      "sugerencias_catalogo": [
+        "Especificar tipo y cantidad de juntas a cambiar (quemador, intercambiador, válvulas) para presupuestar material",
+        "Confirmar si la caldera requiere piezas de repuesto adicionales (inyector, electrodo, válvula gas) más allá de juntas",
+        "Considerar antiincrustante si el agua de la zona es dura (dureza > 20ºF)",
+        "Verificar si la caldera está en garantía o requiere legalizaciones posteriores"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cambio de juntas y sellos de caldera",
+          "oficio": "fontaneria",
+          "motivo": "Material específico cuyo precio depende de diagnóstico técnico y tipo de juntas requeridas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_caldera",
+      "instalacion_calefaccion_radiadores_completa",
+      "revision_anual_instalacion_general_vivienda",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_persianas_y_toldos"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3585,
+      "tokens_out": 2319
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 8,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

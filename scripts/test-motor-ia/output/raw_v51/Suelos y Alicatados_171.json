@@ -1,0 +1,185 @@
+{
+  "id": 171,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo de resina epoxi en garaje de 30 metros cuadrados, acabado gris con destellos",
+  "http_status": 200,
+  "latency_ms": 14521,
+  "raw_response": {
+    "transcript": "Poner suelo de resina epoxi en garaje de 30 metros cuadrados, acabado gris con destellos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo de resina epoxi en garaje de 30 metros cuadrados, acabado gris con destellos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume soporte de hormigón existente en buen estado. Si requiere reparación previa, avisar al cliente.",
+          "Aplicación en garaje: condiciones ambientales controladas. Temperatura mínima 10°C durante aplicación.",
+          "Esperar 72h antes de tráfico de vehículos; 7 días antes de tráfico pesado continuado."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Instalación de pavimento decorativo en epoxi. Rango de precio por m² según complejidad y acabado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lija mecánica y preparación de soporte",
+          "descripcion": "Lija mecánica del soporte existente para garantizar adherencia óptima del epoxi. Limpieza y despolve posterior.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 8,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación epoxi adherente",
+          "descripcion": "Aplicación de imprimación epoxi de consolidación para mejorar adherencia de capas posteriores.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material epoxi bicomponente a cargo del instalador. Aproximadamente 3-5 €/m² según marca."
+        },
+        {
+          "concepto": "Sistema epoxi bicomponente base gris",
+          "descripcion": "Aplicación de 2-3 capas de resina epoxi bicomponente con color gris base para crear efecto decorativo con destellos.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 28,
+          "total": 840,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pigmento metálico de destellos (aluminio/plata)",
+          "descripcion": "Espolvoreo de pigmento metálico aluminio o bronce en capas intermedias para crear efecto de destellos decorativos.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pigmento metálico a cargo del instalador. Aproximadamente 2-4 €/m² según cantidad de efecto deseado."
+        },
+        {
+          "concepto": "Sellador poliuretano acabado alto brillo",
+          "descripcion": "Aplicación de sellador poliuretano bicomponente para protección final, durabilidad y acabado brillante de la resina.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sellador poliuretano a cargo del instalador. Aproximadamente 2-3 €/m² según acabado deseado."
+        },
+        {
+          "concepto": "Pequeño material y herramientas auxiliares",
+          "descripcion": "Pinceles, rodillos, espátulas, trapos, masillas de relleno, cinta adhesiva de enmascarar, protecciones varias.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles y herramientas varias. Aproximadamente 1-1,5 €/m²."
+        },
+        {
+          "concepto": "Aplicación de capas y curado",
+          "descripcion": "Aplicación profesional de todas las capas de resina, control de tiempos de curado entre capas, y gestión de condiciones ambientales (temperatura, humedad).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 20,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1680,
+        "iva_porcentaje": 21,
+        "iva": 352.8,
+        "total": 2032.8
+      },
+      "sugerencias_catalogo": [
+        "Si el soporte presenta irregularidades mayores a 2 mm, considerar capa autonivelante previa (precio adicional 5-8 €/m²).",
+        "Confirmar disponibilidad de climatización en garaje durante y después de aplicación (temperatura óptima 15-25°C).",
+        "Solicitar certificado de humedad del soporte (máximo 4%) antes de iniciar trabajos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación epoxi adherente",
+          "razon": "Material fungible epoxi, precio a revisar por instalador",
+          "oficio": "suelos_alicatados"
+        },
+        {
+          "concepto": "Pigmento metálico de destellos",
+          "razon": "Componente decorativo especial, precio a revisar por instalador",
+          "oficio": "suelos_alicatados"
+        },
+        {
+          "concepto": "Sellador poliuretano acabado alto brillo",
+          "razon": "Material fungible poliuretano, precio a revisar por instalador",
+          "oficio": "suelos_alicatados"
+        },
+        {
+          "concepto": "Pequeño material y herramientas auxiliares",
+          "razon": "Consumibles variados, precio a revisar por instalador",
+          "oficio": "suelos_alicatados"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial",
+      "instalacion_de_pavimento_de_resina_continua_exterior",
+      "instalacion_suelo_epoxi_o_resina_decorativa",
+      "instalacion_de_pavimento_de_resina_epoxi_con_efecto_metalico",
+      "solera_de_hormigon_en_masa"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

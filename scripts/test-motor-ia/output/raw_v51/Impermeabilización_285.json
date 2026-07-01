@@ -1,0 +1,223 @@
+{
+  "id": 285,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar cubierta plana de chalet con lámina de EPDM adherida, 80 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 22785,
+  "raw_response": {
+    "transcript": "Impermeabilizar cubierta plana de chalet con lámina de EPDM adherida, 80 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar cubierta plana de chalet con lámina de EPDM adherida, 80 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material EPDM: precio unitario pendiente de revisión (lámina según espesor 1.2-1.5mm)",
+          "Adhesivo específico EPDM: precio unitario pendiente de revisión",
+          "Cinta sellado EPDM: precio unitario pendiente de revisión",
+          "Confirmación: sistema ADHERIDO (no lastrado con grava)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Impermeabilización de cubierta plana - oficio especializado en catálogo BASE MAESTRA"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lámina EPDM (espesor 1.2-1.5mm) - suministro",
+          "descripcion": "Lámina de EPDM de 1.2-1.5mm de espesor para cubierta plana adherida. Incluye material completo para 80 m²",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina EPDM según espesor y proveedor - instalador debe especificar"
+        },
+        {
+          "concepto": "Adhesivo específico EPDM - suministro",
+          "descripcion": "Adhesivo específico para EPDM en zonas de adherencia total o parcial. Incluye cantidad necesaria para 80 m²",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Adhesivo específico EPDM - precio según rendimiento del producto y marca"
+        },
+        {
+          "concepto": "Cinta sellado EPDM para juntas y solapes - suministro",
+          "descripcion": "Cinta adhesiva específica para EPDM para sellado de juntas y solapes (mínimo 10cm). Incluye refuerzo de encuentros",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 180,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación: ~180ml de cinta para solapes y encuentros en 80m² - precio según marca y espesor de cinta"
+        },
+        {
+          "concepto": "Refuerzo encuentros con lámina EPDM adicional - suministro",
+          "descripcion": "Lámina EPDM adicional para refuerzo en encuentros críticos (paramentos, desagües, puntos singulares)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación ~15% del área principal para refuerzos en encuentros - ajustar según plano"
+        },
+        {
+          "concepto": "Pequeño material y EPI (guantes, mascarillas, cintas, etc.)",
+          "descripcion": "Consumibles, herramientas menores, equipos de protección individual para trabajos en altura",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y EPI - presupuestar según estándares de obra"
+        },
+        {
+          "concepto": "Preparación y limpieza de superficie",
+          "descripcion": "Limpieza, barrido, comprobación de adherencia de base. Reparación de defectos superficiales menores si aplica",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación lámina EPDM adherida (80 m²)",
+          "descripcion": "Adhesión de lámina EPDM sobre cubierta plana. Trabajo manual de extensión, aplicación de adhesivo, fijación y presionado",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 50,
+          "total": 4000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa según BASE MAESTRA impermeabilizacion: 50€/m² mano de obra (media 35-70€/m²)"
+        },
+        {
+          "concepto": "Sellado de juntas y solapes con cinta EPDM",
+          "descripcion": "Aplicación de cinta adhesiva específica en juntas, solapes y encuentros. Presionado y sellado para garantizar estanqueidad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Estimación: ~6h para sellado completo de juntas y solapes (aprox. 180ml)"
+        },
+        {
+          "concepto": "Refuerzo de encuentros (petos, desagües, puntos singulares)",
+          "descripcion": "Colocación de lámina EPDM de refuerzo en encuentros críticos. Adhesión y sellado específico",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa mano de obra impermeabilización: 50€/m² (refuerzos requieren precisión y tiempo adicional)"
+        },
+        {
+          "concepto": "Inspección y pruebas de estanqueidad",
+          "descripcion": "Inspección visual completa de la impermeabilización, comprobación de juntas, pruebas de estanqueidad visual",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Control de calidad final - garantizar impermeabilidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 5200,
+        "iva_porcentaje": 21,
+        "iva": 1092,
+        "total": 6292
+      },
+      "sugerencias_catalogo": [
+        "Sistema EPDM adherido es más seguro frente a viento que el lastrado. Durabilidad esperada: 40-50 años",
+        "Confirmar con cliente si cubierta es accesible o no transitable para definir acabado final si aplica",
+        "EPDM permite reparaciones puntuales con parches adhesivos en futuro si se requiere mantenimiento"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Lámina EPDM (espesor 1.2-1.5mm) - suministro",
+          "razon": "Material específico - precio variable según espesor, marca y proveedor",
+          "sugerencia": "Consultar cotización a proveedores especializados en EPDM (típicamente 8-25€/m² según espesor)"
+        },
+        {
+          "partida": "Adhesivo específico EPDM - suministro",
+          "razon": "Producto especializado - rendimiento variable según marca",
+          "sugerencia": "Adhesivos de poliuretano o acrílicos específicos EPDM (típicamente 3-8€/m² según rendimiento)"
+        },
+        {
+          "partida": "Cinta sellado EPDM para juntas y solapes - suministro",
+          "razon": "Consumible especializado",
+          "sugerencia": "Cintas adhesivas EPDM de diferentes anchos disponibles (típicamente 0.5-2€/ml según anchura y tipo)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM",
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "impermeabilizacion_de_terraza_invertida_con_XPS",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

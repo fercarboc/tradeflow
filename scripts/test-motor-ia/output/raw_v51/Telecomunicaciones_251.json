@@ -1,0 +1,244 @@
+{
+  "id": 251,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+  "http_status": 200,
+  "latency_ms": 32914,
+  "raw_response": {
+    "transcript": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Distancia total de fibra no especificada — se asume distribución vertical (3 plantas) + horizontal (20 puntos). Estimación: 150-200ml.",
+          "Tipo de fibra (OM3/OM4/OS2) no definido — se sugiere OM3 para distancias <300m a 10Gbps",
+          "Necesario confirmar: número de fibras por punto, estándares de velocidad requeridos (1G/10G), existencia de canalización previa",
+          "Equipamiento activo (switches con SFP, transceptores) no incluido en partidas — revisar con cliente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de infraestructura de fibra óptica — oficio telecomunicaciones. Tarifa según tabla de tarifas mano de obra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cable de fibra óptica OM3 multimodo (distancia estimada 150m distribuida en 3 plantas)",
+          "descripcion": "Suministro e instalación de cable fibra óptica OM3 multimodo en canalización o bandeja. Apto para distancias hasta 300m a 10Gbps. Incluye protección mecánica durante instalación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de cable fibra óptica OM3 según proveedor. Típico: 8-15€/ml (sin instalación). Revisar distancia exacta con cliente mediante topografía."
+        },
+        {
+          "concepto": "Conectores LC duplex y paneles de terminación de fibra",
+          "descripcion": "Suministro de 20 conectores LC duplex (40 conectores individuales), paneles de distribución de fibra con capacidad para 20 puntos de trabajo. Incluye etiquetado y codificación de colores.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por punto LC duplex completo. Típico: 12-25€/conector + panel de distribución 150-300€ según capacidad. Revisar con distribuidor."
+        },
+        {
+          "concepto": "Mano de obra: Tendido, fusión y terminación de fibra óptica",
+          "descripcion": "Instalación de cable fibra óptica en canalización/bandeja con fusión o conectores mecánicos en cabecera y terminaciones. Incluye pruebas de continuidad con OTDR y documentación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 30,
+          "precio_unitario": 50,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Herramienta de fusión o conectores mecánicos para fibra óptica",
+          "descripcion": "Alquiler o uso de máquina de fusión de fibra óptica con equipamiento de alineación automática, o kit de conectores mecánicos (SC/UPC, LC/UPC). Incluye calibración y limpieza de fibras.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Alquiler máquina fusión: 150-300€/día. Conectores mecánicos: 5-10€/ud. Decidir fusión vs. conectores según especificación cliente (fusión más permanente, conectores más rápido)."
+        },
+        {
+          "concepto": "Medidor de potencia óptica y certificación OTDR",
+          "descripcion": "Medición de atenuación de cada tramo de fibra con medidor de potencia óptica y OTDR (Optical Time Domain Reflectometer) para certificación de continuidad, perdida de señal y localización de roturas.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Alquiler OTDR + medidor potencia óptica: 200-500€/día. Si se realiza fusión, OTDR es obligatorio para certificación. Incluido en mano de obra de 30h si es rápido, o separado si más exhaustivo."
+        },
+        {
+          "concepto": "Small Form Factor Transceiver (SFP/SFP+) para conexión en switches",
+          "descripcion": "Suministro de transceptores SFP multimodo (10Gbase-SR) o SFP+ según distancia, uno por switch para conexión de backbone de fibra. Incluye interfaz con switches activos existentes.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio SFP 10GBase-SR (multimodo): 80-200€/ud. Número de transceptores depende de topología de switches (punto a punto o malla). Revisar arquitectura de red."
+        },
+        {
+          "concepto": "Switch con puertos SFP o SFP+ para fibra óptica",
+          "descripcion": "Provisión de switch gestionado con al menos 2 puertos SFP/SFP+ y puertos Gigabit Ethernet para conectar puntos de trabajo. Alternativa: usar switches existentes con módulos SFP si ya existen.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Switch con puertos SFP: 300-800€ (depende de marca y número de puertos). Si cliente ya tiene switches, solo se necesitan transceptores SFP. CRÍTICO: confirmar equipamiento activo existente."
+        },
+        {
+          "concepto": "Canalización, bandeja y accesorios de soporte para fibra",
+          "descripcion": "Suministro e instalación de canalización de PVC rígida o bandeja metálica para protección de cable fibra óptica en trayectos verticales y horizontales. Incluye soportes, abrazaderas y pequeño material de fijación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Canalización PVC: 2-4€/ml. Bandeja metálica: 5-8€/ml. Costo depende de material elegido y si ya existe canalización previa. Revisar estado de conducción en obra."
+        },
+        {
+          "concepto": "Mano de obra: Instalación de canalización y soportes",
+          "descripcion": "Tendido de canalización, colocación de bandejas, fijación de soportes y abrazaderas en trayectos verticales (entre plantas) y horizontales (distribución en plantas). Incluye paso por cajeados y esquinas.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Etiquetado y documentación de red de fibra",
+          "descripcion": "Etiquetado de cada fibra en ambos extremos con código de color y numeración. Creación de plano 'as built' de recorridos, conectores, atenuación por segmento y certificado de continuidad OTDR.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Etiquetado + documentación técnica completa: 150-300€ (servicio). Incluido en mano de obra de 30h o separado si se requiere documentación muy detallada."
+        },
+        {
+          "concepto": "Pequeño material: Conectores de protección, adaptadores, fusibles",
+          "descripcion": "Provisión de accesorios de instalación: tapones de protección LC, adaptadores SC-LC, fusibles de red, tornillería, bridas, etc.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material estimado: 100-200€. Revisar según cantidad de puntos y accesorios reales."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2300,
+        "iva_porcentaje": 21,
+        "iva": 483,
+        "total": 2783
+      },
+      "sugerencias_catalogo": [
+        "CRÍTICO: Confirmar distancia TOTAL de fibra a instalar. Estimación actual: 150ml (3 plantas + distribución horizontal). Si es mayor, revisar tipo de fibra (OM4 hasta 400m, OS2 para distancias mayores).",
+        "Arquitectura de red: ¿backbone centralizado (estrella) o distribuido (anillo/malla)? Afecta número de switches, transceptores y topología.",
+        "Equipamiento activo EXISTENTE: ¿Cliente tiene switches con puertos SFP? Si sí, solo necesita transceptores SFP. Si no, incluir switch nuevo.",
+        "Velocidad de red requerida: ¿1 Gbps o 10 Gbps? OM3 es suficiente para 10 Gbps hasta 300m. Si más, revisar OM4 u OS2.",
+        "Canalización previa: ¿Existen tubos, bandejas o conductos vacíos? Si sí, reducir mano de obra de instalación de soporte.",
+        "Fusión vs. Conectores: Fusión es más caro pero permanente. Conectores mecánicos más rápidos. Decidir según especificación de calidad.",
+        "Central Receptora o Certificación externa: Algunos clientes requieren certificado firmado de técnico certificado (CFTI). Contactar instalador certificado si es necesario."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable de fibra óptica OM3 multimodo",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Está en BASE MAESTRA como partida_obligatoria [instalacion_de_red_de_datos_con_fibra_optica_backbone], pero precio unitario depende de proveedor. Creada con precio_unitario=0 para que instalador complemente."
+        },
+        {
+          "concepto": "Switch con puertos SFP o SFP+ para fibra óptica",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "No está en catálogo proporcionado. Partida auxiliar recomendada en BASE MAESTRA. Precio depende de marca y características. Revisar si cliente ya dispone de switches compatibles."
+        },
+        {
+          "concepto": "Small Form Factor Transceiver (SFP/SFP+)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Está en BASE MAESTRA como partida_obligatoria. Precio varía según velocidad (SFP 1G, SFP+ 10G) y rango (SR/LR/ER). Creada con precio_unitario=0."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_de_punto_de_acceso_wifi_o_AP_profesional",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_electrica_pergola_terraza",
+      "instalacion_de_central_telefonica_IP_o_PBX"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 2,
+    "n_sugeridas": 9,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

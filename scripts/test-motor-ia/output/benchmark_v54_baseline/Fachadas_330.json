@@ -1,0 +1,170 @@
+{
+  "id": 330,
+  "oficio": "Fachadas",
+  "texto": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+  "http_status": 200,
+  "latency_ms": 19271,
+  "raw_response": {
+    "transcript": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Material HPL (High Pressure Laminate) no está en catálogo base. Precios de materiales requieren revisión del instalador.",
+          "Estructura portante: especificar si es aluminio, acero galvanizado o madera tratada.",
+          "Superficie de fachada no especificada: se asume trabajo completo con partidas agrupadas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de fachada con material compuesto (HPL). Oficio fachadas cubre rehabilitación de envolvente y revestimientos exteriores."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro panel fenólico HPL color antracita",
+          "descripcion": "Panel fenólico HPL (High Pressure Laminate) en color antracita, espesor estándar 6-8mm, certificado para uso exterior, resistente a UV y humedad. Cantidad a determinar según superficie de fachada.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material HPL no en catálogo. Instalador debe confirmar: m2 totales, espesor, acabado (mate/brillo), y precio de suministro."
+        },
+        {
+          "concepto": "Estructura portante aluminio o acero galvanizado",
+          "descripcion": "Estructura portante para fijación de paneles HPL: perfiles de aluminio anodizado o acero galvanizado, montantes verticales, travesaños horizontales, anclajes a muro, cámara de ventilación 40-50mm, tratamiento anticorrosión.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estructura no especificada. Instalador debe confirmar: material (aluminio/acero), densidad de perfiles, sistema de fijación, y precio por m2."
+        },
+        {
+          "concepto": "Fijación y anclajes inoxidables",
+          "descripcion": "Tornillos, remaches y anclajes en acero inoxidable A4 para fijación de paneles HPL a estructura portante. Incluye pequeño material (arandelas, tuercas, selladores de junta).",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de fijaciones depende de densidad de anclaje. Instalador debe estimar por m2 de fachada."
+        },
+        {
+          "concepto": "Instalación estructura portante y paneles HPL",
+          "descripcion": "Mano de obra: montaje de estructura portante (nivelación, aplomado, fijación a muro), colocación de paneles HPL, ajuste de juntas, sellado de encuentros y remates. Incluye andamio o plataforma elevadora si altura > 3m.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa recomendada 45€/m2 para fachadas. Instalador debe confirmar superficie total de fachada a revestir."
+        },
+        {
+          "concepto": "Remates perimetrales y encuentros",
+          "descripcion": "Perfiles de remate en aluminio anodizado o acero galvanizado para: arranque inferior, coronación superior, encuentros con carpintería (ventanas/puertas), esquinas exteriores. Incluye sellado con silicona neutra o poliuretano.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de remates depende de perímetro de fachada y número de encuentros. Instalador debe estimar ml totales."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora (si altura > 3m)",
+          "descripcion": "Alquiler y montaje de andamio tubular o plataforma elevadora para acceso seguro durante instalación. Duración estimada según cronograma de obra.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario confirmar: altura de fachada, duración de obra, tipo de andamio (alquiler vs. compra). Presupuestar por jornadas o semanas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Considerar si el HPL es la mejor opción o si existen alternativas: mortero monocapa (más económico, menos mantenimiento), SATE (aislamiento térmico integrado), o composite (similar durabilidad).",
+        "Confirmar certificaciones del HPL: resistencia a UV, clasificación de reacción al fuego (Euroclase), resistencia a impacto.",
+        "Especificar si la estructura portante incluye cámara de ventilación (recomendado para evitar condensaciones).",
+        "Presupuestar limpieza y preparación del soporte previo si es necesario."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Panel fenólico HPL color antracita",
+          "oficio": "fachadas",
+          "tipo": "material",
+          "razon": "Material compuesto (HPL) no está en catálogo base. Es una solución moderna de revestimiento exterior que requiere especificación técnica completa."
+        },
+        {
+          "nombre": "Estructura portante para HPL (aluminio/acero)",
+          "oficio": "fachadas",
+          "tipo": "material",
+          "razon": "Sistema de fijación específico para paneles HPL. Requiere cálculo estructural y especificación de perfiles según carga y altura."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "colocacion_de_revestimiento_de_madera_o_tablon_en_zocalo_exterior",
+      "revestimiento_con_mortero_monocapa",
+      "alicatado_de_fachada_exterior_con_ceramica_o_piedra",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "instalacion_celosias_metalicas_decorativas_o_de_proteccion"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3813,
+      "tokens_out": 2386
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

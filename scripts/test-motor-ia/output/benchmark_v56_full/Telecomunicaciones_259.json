@@ -1,0 +1,181 @@
+{
+  "id": 259,
+  "oficio": "Telecomunicaciones",
+  "texto": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+  "http_status": 200,
+  "latency_ms": 17817,
+  "raw_response": {
+    "transcript": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+        "tipo_presupuesto": "mejora",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema pasivo detectado: requiere validación de viabilidad técnica y homologación CNAF",
+          "Presupuesto orientativo - instalador debe confirmar operador móvil, número de bandas y superficie exacta del local",
+          "Antena exterior donante es OBLIGATORIA para sistema pasivo - debe estar orientada a torre operador",
+          "Notificación a operador móvil y CNAF requerida según normativa española"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema de cobertura móvil interior - reparación/mejora de cobertura móvil"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Antena interior de servicio (sistema pasivo)",
+          "descripcion": "Antena interior receptora-emisora para sistema pasivo de repetición de señal móvil. Incluye soporte de fijación y pequeño material de instalación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de antena interior según marca, ganancia y compatibilidad de bandas (2G/3G/4G/5G) - instalador debe especificar"
+        },
+        {
+          "concepto": "Antena exterior donante (sistema pasivo)",
+          "descripcion": "Antena exterior orientada a torre operador para captar señal y transmitirla al sistema pasivo interior. Incluye soporte de fijación orientable y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según ganancia, tipo de antena (Yagi, panel, etc.) y compatibilidad de bandas - instalador debe especificar"
+        },
+        {
+          "concepto": "Cable coaxial de baja pérdida",
+          "descripcion": "Cable coaxial de calidad (tipo RG-213 o equivalente) para conexión entre antena exterior donante y antena interior de servicio. Incluye conectores N o SMA según especificación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros de cable según distancia entre antena exterior e interior - instalador debe medir y especificar. Precio aproximado 8-15€/ml"
+        },
+        {
+          "concepto": "Divisor/acoplador de señal (si múltiples operadores)",
+          "descripcion": "Divisor pasivo de señal para distribuir cobertura de múltiples operadores móviles (Movistar, Vodafone, Orange, etc.) si es necesario. Incluye pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de divisor según número de operadores a cubrir - instalador debe confirmar si es necesario (cantidad=0 si no aplica)"
+        },
+        {
+          "concepto": "Instalación y orientación de antenas",
+          "descripcion": "Montaje de antena exterior en fachada/tejado con orientación a torre operador. Montaje de antena interior en pared/techo. Conexionado de cable coaxial. Pruebas de señal y ajuste de ganancia.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Bridas, tacos, tornillería, conectores, cinta aislante, pasta térmica, y otros accesorios necesarios para la instalación completa del sistema pasivo.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 30-80€ según cantidad de accesorios - instalador debe especificar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Validar con operador móvil (Movistar, Vodafone, Orange, etc.) la viabilidad del sistema pasivo en la ubicación exacta del local",
+        "Confirmar bandas de frecuencia a cubrir (2G/3G/4G/5G) para seleccionar antenas compatibles",
+        "Obtener plano de ubicación de torre operador más cercana para orientación correcta de antena exterior",
+        "Solicitar homologación CNAF (Comisión Nacional de Mercados y Competencia) si es instalación profesional",
+        "Considerar alternativa de femtocell del operador si sistema pasivo no alcanza cobertura suficiente",
+        "Medir distancia exacta entre antena exterior e interior para calcular atenuación de cable"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Antena interior de servicio (sistema pasivo)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componente específico de sistema pasivo de repetición móvil"
+        },
+        {
+          "concepto": "Antena exterior donante (sistema pasivo)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componente obligatorio para captar señal en sistema pasivo"
+        },
+        {
+          "concepto": "Cable coaxial de baja pérdida",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de interconexión entre antenas"
+        },
+        {
+          "concepto": "Divisor/acoplador de señal (si múltiples operadores)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componente opcional según número de operadores a cubrir"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_mejora_de_cobertura_movil_en_interior",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_cerrojo_adicional"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3870,
+      "tokens_out": 2123
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

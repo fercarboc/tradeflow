@@ -1,0 +1,142 @@
+{
+  "id": 270,
+  "oficio": "Cristalería",
+  "texto": "Fabricar e instalar estantería de cristal en salón, 3 estantes de 120x30 centímetros con soportes cromados",
+  "http_status": 200,
+  "latency_ms": 12789,
+  "raw_response": {
+    "transcript": "Fabricar e instalar estantería de cristal en salón, 3 estantes de 120x30 centímetros con soportes cromados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricar e instalar estantería de cristal en salón, 3 estantes de 120x30 centímetros con soportes cromados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas exactas de los estantes confirmadas (120x30 cm)",
+          "Material de soportes especificado (cromados)",
+          "Vidrio templado recomendado para seguridad en zona habitada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de elementos de vidrio y cristalería con herrajes"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro vidrio templado 6mm para estantería",
+          "descripcion": "3 paneles de vidrio templado de 6mm de espesor, medida 120x30 cm, bordes pulidos, certificado de templado EN 12150",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales (vidrio templado 120x30cm) debe verificar proveedor. Incluye templado y bordes pulidos"
+        },
+        {
+          "concepto": "Suministro soportes cromados para estantería",
+          "descripcion": "6 soportes cromados (2 por estante) con escuadras de fijación a pared, sistema de clip o anclaje, carga máxima recomendada 20kg por estante",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herrajes cromados debe verificar catálogo de distribuidores"
+        },
+        {
+          "concepto": "Instalación estantería de cristal (3 estantes)",
+          "descripcion": "Montaje completo: localización de puntos de fijación, anclaje de soportes a pared (incluye taladros en obra), posicionamiento estantes, nivelación, prueba de estabilidad y carga, sellado de encuentros si procede",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornilería inoxidable, tacos de expansión para pared, masilla de relleno, alcohol isopropílico limpieza, trapos microfibradores",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación consumibles pequeño material, verificar según proveedor"
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la pared es de yeso, hormigón o ladrillo (determina tipo de taco y dificultad)",
+        "Confirmar carga máxima esperada por estante para validar tipo de soporte cromado (carga estática vs. dinámica)",
+        "Considerar fondo de estante si se requiere estabilidad adicional o protección trasera",
+        "Solicitar certificado de vidrio templado EN 12150 al proveedor"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro vidrio templado 6mm para estantería",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Especificación técnica de vidrio templado para estantes 120x30cm no existe en catálogo base, requiere precio personalizado según proveedor"
+        },
+        {
+          "concepto": "Suministro soportes cromados para estantería",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Herrajes cromados específicos para estantería (no marco de ventana ni mampara) requieren verificación de catálogo de proveedores especializados"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Consumibles de instalación (tornilería, tacos, masilla, limpieza) estimados, requieren ajuste según proyecto específico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_o_reparacion_de_vitrina_o_expositor_de_vidrio",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_de_pulsadores_manuales_de_alarma"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

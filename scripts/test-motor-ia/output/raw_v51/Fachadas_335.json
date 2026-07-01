@@ -1,0 +1,252 @@
+{
+  "id": 335,
+  "oficio": "Fachadas",
+  "texto": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+  "http_status": 200,
+  "latency_ms": 26167,
+  "raw_response": {
+    "transcript": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Marquesina estructura metálica: requiere cálculo de carga y viento (3m vuelo es considerable)",
+          "Vidrio de seguridad templado: OBLIGATORIO en marquesina",
+          "Anclaje estructural: debe estar diseñado por técnico, posible obra civil",
+          "Presupuesto alto: múltiples oficios implicados"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Estructura soporte marquesina aluminio"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación vidrio templado seguridad"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Anclaje y obra civil base estructural"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación iluminación LED si aplica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro estructura aluminio marquesina 3m vuelo",
+          "descripcion": "Perfil aluminio reforzado para marquesina con ménsulas, tornillería acero inoxidable, conectores y herraje especializado. Incluye perfiles para fijación a fachada y soporte inferior. Cálculo estructural para carga viento y peso vidrio incluido.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto material estructura aluminio: 2500-6000€ según dimensiones exactas y espesor perfiles. Instalador revisa medidas y carga calculada."
+        },
+        {
+          "concepto": "Montaje estructura aluminio marquesina",
+          "descripcion": "Montaje completo de estructura: colocación de ménsulas en fachada, ensamblaje de perfiles, nivelación, aplomado, fijación con tornillería inoxidable y sellado de uniones.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro vidrio templado seguridad marquesina",
+          "descripcion": "Vidrio templado 10mm (espesor recomendado para 3m vuelo), dimensiones según ancho entrada × profundidad 3m, con marcado CE según EN 12150, bordes pulidos, fabricación a medida con plazo 7-10 días.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto vidrio templado: 400-800€/m2. Necesarias medidas exactas ancho entrada. Rango total 2000-5000€ para marquesina 3m."
+        },
+        {
+          "concepto": "Instalación vidrio templado en marquesina",
+          "descripcion": "Colocación de vidrio templado en estructura aluminio con silicona neutra estructural, sellado perimetral de uniones, nivelación y comprobación de estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Obra civil: Anclaje base y cimentación",
+          "descripcion": "Preparación anclaje en fachada: perforación, fibra de vidrio o resina epoxy según material fachada, taco químico M12, fijación de ménsulas principales. Comprobación de resistencia anclaje.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 40,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro materiales anclaje (tacos, epoxi, tornillería inox)",
+          "descripcion": "Tacos químicos M12, resina epoxy, tornillos acero inoxidable A2 o A4, arandelas y tuercas según cálculo estructural.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto materiales anclaje: 150-400€. Instalador revisa número y tipo de anclajes según resultado cálculo."
+        },
+        {
+          "concepto": "Instalación iluminación LED marquesina (opcional)",
+          "descripcion": "Instalación luminarias LED empotradas en estructura o bajo vidrio, 4-6 puntos de luz, cableado empotrado, conexión a red eléctrica existente o nueva según disponibilidad.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto luminarias LED: 80-150€/ud. Instalador confirma cantidad y modelo. Total material: 400-750€."
+        },
+        {
+          "concepto": "Instalación cableado y conexión electricidad",
+          "descripcion": "Cableado doble aislamiento H07RN-F, canalizaciones, conexión a cuadro eléctrico existente o instalación de toma de corriente nueva con protección diferencial.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y seguridad",
+          "descripcion": "Verificación de estanqueidad marquesina (simulación lluvia si posible), comprobación de fijaciones, prueba de carga estructural, inspección de sellados y documentación final.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1960,
+        "iva_porcentaje": 21,
+        "iva": 411.6,
+        "total": 2371.6
+      },
+      "sugerencias_catalogo": [
+        "Creación entrada catálogo: [instalacion_marquesina_cristal_aluminio] oficio=carpinteria+cristaleria unidad=ud precio=8000-15000€/ud (3-5m vuelo, incluye estructura + vidrio + iluminación + anclaje)",
+        "Partida auxiliar: [suministro_estructura_aluminio_marquesina] unidad=ud precio=2500-6000€",
+        "Partida auxiliar: [suministro_vidrio_templado_marquesina] unidad=m2 precio=400-800€/m2",
+        "Partida auxiliar: [cálculo_estructural_marquesina_3m_vuelo] unidad=ud precio=300-600€ (OBLIGATORIO por ingeniero)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro estructura aluminio marquesina 3m vuelo",
+          "razon": "Material especializado no catalogado",
+          "sugerencia_origen": "sugerida_ia",
+          "precio_sugerido_rango": "2500-6000€"
+        },
+        {
+          "concepto": "Suministro vidrio templado seguridad marquesina",
+          "razon": "Vidrio a medida según dimensiones entrada",
+          "sugerencia_origen": "sugerida_ia",
+          "precio_sugerido_rango": "2000-5000€ (según m2)"
+        },
+        {
+          "concepto": "Suministro materiales anclaje",
+          "razon": "Tacos y herrajes específicos según cálculo",
+          "sugerencia_origen": "sugerida_ia",
+          "precio_sugerido_rango": "150-400€"
+        },
+        {
+          "concepto": "Instalación iluminación LED marquesina",
+          "razon": "Accesorios opcionales de acabado",
+          "sugerencia_origen": "sugerida_ia",
+          "precio_sugerido_rango": "400-750€ (material) + 4h mano obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_de_videoportero_o_intercomunicador"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

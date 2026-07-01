@@ -1,0 +1,144 @@
+{
+  "id": 340,
+  "oficio": "Fachadas",
+  "texto": "Auditoría energética de fachada para certificado de eficiencia, informe con recomendaciones",
+  "http_status": 200,
+  "latency_ms": 14742,
+  "raw_response": {
+    "transcript": "Auditoría energética de fachada para certificado de eficiencia, informe con recomendaciones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Auditoría energética de fachada para certificado de eficiencia, informe con recomendaciones",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio de diagnóstico/auditoría. Presupuesto es principalmente por mano de obra (visita técnica + informe). Materiales mínimos.",
+          "El precio final dependerá de la superficie de fachada a auditar y complejidad de acceso (andamios, plataformas elevadas).",
+          "Certificado de eficiencia energética puede requerir software especializado y emisión de documento oficial."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Auditoría energética y certificado de eficiencia = experto en sistemas energéticos, fotovoltaica, aislamiento térmico."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Inspección eléctrica de consumos, sistemas de iluminación, equipos térmicos en fachada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica de auditoría energética de fachada",
+          "descripcion": "Inspección in situ de fachada: análisis de pérdidas térmicas, puentes térmicos, hermeticidad, sistemas de sombreamiento, orientación, estado constructivo. Toma de medidas, fotografías termográficas (si procede), medición de transmitancia térmica estimada. Duración estimada: 3-4 horas según complejidad.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3.5,
+          "precio_unitario": 65,
+          "total": 227.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico de auditoría energética con recomendaciones de mejora",
+          "descripcion": "Redacción de informe técnico detallado: transmitancia térmica de fachada estimada (U-value), análisis de puentes térmicos, propuestas de mejora (aislamiento, cambio de carpintería, sistemas de sombreamiento), estimación de ahorro energético anual, priorización de intervenciones. Documento de 15-25 páginas con gráficos, tablas comparativas y recomendaciones. Duración estimada: 5-6 horas de gabinete.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5.5,
+          "precio_unitario": 65,
+          "total": 357.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Emisión de Certificado de Eficiencia Energética (CEE) / Calificación Energética",
+          "descripcion": "Elaboración, firma y registro del Certificado de Eficiencia Energética del edificio o parte de fachada según normativa (UNE-EN ISO 13790 o herramientas oficiales del país). Incluye cálculo de demanda energética, consumo anual estimado, clasificación energética (A-G), registro en base de datos oficial. Tiempo estimado: 2-3 horas.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de certificación varía según normativa local y complejidad. El instalador debe introducir coste de emisión (típicamente 150-400€ por certificado oficial)."
+        },
+        {
+          "concepto": "Materiales y consumibles auditoría (software, mediciones, informes impresos)",
+          "descripcion": "Software de cálculo energético, termocámara digital (si no es equipamiento fijo), papel, tinta, encuadernación informe, pequeño material técnico.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de materiales y consumibles depende del alcance. Presupuestar aproximadamente 50-150€ por auditoría."
+        }
+      ],
+      "calculos": {
+        "subtotal": 585,
+        "iva_porcentaje": 21,
+        "iva": 122.85,
+        "total": 707.85
+      },
+      "sugerencias_catalogo": [
+        "Si la auditoría requiere acceso en altura (andamios o plataforma elevadora), añadir partida de 'Alquiler plataforma elevadora' o 'Montaje andamio'.",
+        "Si se solicita termografía profesional con cámara térmica de calidad, añadir 'Estudio termográfico infrarrojo' como partida separada.",
+        "Considerar agregar 'Propuesta de rehabilitación energética' como servicio complementario con presupuesto de obras de mejora."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Emisión de Certificado de Eficiencia Energética (CEE)",
+          "origen": "sugerida_ia",
+          "motivo": "Trámite administrativo/técnico de validación energética. No consta en catálogo estándar. Requiere software especializado y registro oficial."
+        },
+        {
+          "concepto": "Materiales y consumibles auditoría",
+          "origen": "sugerida_ia",
+          "motivo": "Partida auxiliar para gastos de equipamiento y materiales menores. Presupuestar según complejidad real."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_rejillas_de_ventilacion_de_camara_de_fachada",
+      "diagnostico_y_informe_estado_pinturas_fachada",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "aplicacion_pintura_termica_o_aislante"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "id": 169,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Colocar rodapié de porcelana de 10 centímetros en toda la vivienda, longitud total 60 metros",
+  "http_status": 200,
+  "latency_ms": 12010,
+  "raw_response": {
+    "transcript": "Colocar rodapié de porcelana de 10 centímetros en toda la vivienda, longitud total 60 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar rodapié de porcelana de 10 centímetros en toda la vivienda, longitud total 60 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material (rodapié de porcelana) requiere confirmación de precio unitario por el instalador",
+          "Se asume superficie plana y sin obstáculos complejos; verificar in situ irregularidades"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Colocación de rodapié (acabado cerámico/porcelana) corresponde a albañilería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de rodapié de porcelana 10 cm",
+          "descripcion": "Rodapié de porcelana de 10 centímetros de altura para colocación en vivienda, 60 metros lineales",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del rodapié de porcelana pendiente de confirmación por instalador (varía según marca, grosor y acabado)"
+        },
+        {
+          "concepto": "Mortero cola C2 flexible para rodapié",
+          "descripcion": "Adhesivo flexible C2 para fijación de rodapié de porcelana a pared",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 0.2 kg/ml (60 ml × 0.2 = 12 kg). Precio a confirmar por instalador"
+        },
+        {
+          "concepto": "Lechada de junta para rodapié",
+          "descripcion": "Lechada sanitaria para juntas de rodapié de porcelana",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Precio a confirmar por instalador"
+        },
+        {
+          "concepto": "Pequeño material (esponjas, trapos, cinta, tacos)",
+          "descripcion": "Material auxiliar para la colocación de rodapié",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado a criterio del instalador"
+        },
+        {
+          "concepto": "Mano de obra: Colocación de rodapié",
+          "descripcion": "Limpieza de superficie, preparación, pegado con mortero flexible, rejuntado y limpieza final de 60 metros de rodapié de porcelana",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 3.5,
+          "total": 210,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 210,
+        "iva_porcentaje": 21,
+        "iva": 44.1,
+        "total": 254.1
+      },
+      "sugerencias_catalogo": [
+        "El rodapié de porcelana es un acabado de calidad media-alta. Considerar si cliente prefiere rodapié de cerámica estándar (precio inferior) o porcelana (mayor durabilidad)",
+        "Verificar in situ: presencia de zócalos previos a retirar, irregularidades en el encuentro pared-suelo, obstáculos (enchufes, tuberías) que requieran cortes especiales"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de rodapié de porcelana 10 cm",
+          "oficio": "albanileria",
+          "motivo": "Material cerámico/porcelana no contemplado en base maestra; requiere especificación de precio por ml según marca y acabado"
+        },
+        {
+          "concepto": "Mortero cola C2 flexible para rodapié",
+          "oficio": "albanileria",
+          "motivo": "Material complementario auxiliar; cantidad estimada"
+        },
+        {
+          "concepto": "Lechada de junta para rodapié",
+          "oficio": "albanileria",
+          "motivo": "Material complementario auxiliar; cantidad estimada"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "colocacion_de_murales_o_azulejos_decorativos",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "id": 365,
+  "oficio": "Reformas Integrales",
+  "texto": "Actualizar piso de los años 80, quitar gotelé, modernizar cocina y baño, pintura y suelo nuevo",
+  "http_status": 200,
+  "latency_ms": 24007,
+  "raw_response": {
+    "transcript": "Actualizar piso de los años 80, quitar gotelé, modernizar cocina y baño, pintura y suelo nuevo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Actualizar piso de los años 80, quitar gotelé, modernizar cocina y baño, pintura y suelo nuevo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: múltiples oficios simultáneos (albanilería, pintura, suelos, fontanería, electricidad en cocina/baño)",
+          "Presupuesto agrupado en 4 capítulos según complejidad",
+          "Materiales sin precio unitario: requieren revisión del instalador",
+          "Especificaciones de cocina y baño pendientes de detalle (equipamiento, acabados)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: ≥3 oficios simultáneos (albanilería, pintura, suelos, fontanería, electricidad)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Eliminación gotelé, preparación paredes, reparaciones menores"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Pintura interior completa tras eliminación gotelé"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado cocina y baño, suelo nuevo en zonas comunes"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Modernización baño y cocina: tuberías, grifería, sanitarios"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Modernización cocina y baño: circuitos, enchufes, iluminación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición, preparación y obra civil",
+          "descripcion": "Eliminación gotelé en techos y paredes, reparación de grietas, preparación de superficies, desmontaje de sanitarios y grifería antigua, retirada de pavimento y alicatado existente, gestión de residuos",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de jornadas según superficie total del piso (asumir 80-100 m²). Instalador debe ajustar según mediciones reales. Incluye: raspado gotelé, reparación paredes, desmontaje sanitarios, retirada pavimento antiguo."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (fontanería, electricidad, climatización)",
+          "descripcion": "Renovación red fontanería cocina y baño (tuberías PEX/multicapa), instalación grifería monomando, sanitarios (inodoro, lavabo, bañera/plato ducha), circuitos eléctricos independientes cocina y baño, enchufes y puntos de luz, campana extractora, ventilación baño",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de jornadas para fontanería (2 jornadas), electricidad (2 jornadas), ventilación (1 jornada), pruebas (1 jornada). Materiales (tuberías, grifería, sanitarios, cable, enchufes, campana) sin precio: requieren cotización específica."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (pintura, suelos, alicatados, carpintería)",
+          "descripcion": "Pintura interior 2 manos en todas las estancias, alicatado cocina y baño (paredes y suelo), suelo nuevo en zonas comunes (cerámica, gres o tarima según especificación), rodapié, perfiles de aluminio, juntas y sellados",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de jornadas: pintura (3 jornadas para ~100 m²), alicatado cocina/baño (4 jornadas), suelo nuevo (2 jornadas), acabados (1 jornada). Materiales (pintura, azulejos, baldosas, mortero, lechada, rodapié) sin precio: requieren cotización específica según m² reales."
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos, permisos y coordinación",
+          "descripcion": "Retirada y gestión de escombros y residuos de construcción, contenedor, coordinación de trabajos, inspecciones finales",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de coste de gestión de residuos y coordinación. Incluye: alquiler contenedor, transporte escombros, coordinación de oficios. Requiere cotización según volumen real de residuos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: superficie total del piso (m²), distribución de estancias, especificación de acabados (tipo de suelo: cerámica, gres, tarima, vinílico), tipo de alicatado (cerámica, porcelánico, gres), equipamiento cocina (muebles, electrodomésticos), equipamiento baño (bañera vs plato ducha, mueble lavabo), presupuesto orientativo",
+        "Realizar medición in situ: superficie de paredes a pintar, m² de suelo a renovar, m² de alicatado cocina/baño, longitud de tuberías, número de puntos eléctricos",
+        "Desglosar presupuesto final en 4 capítulos con partidas detalladas una vez confirmadas especificaciones",
+        "Considerar: eliminación amianto si piso anterior a 2005 (requiere gestor autorizado), tratamiento humedades si aplica, refuerzo estructura si cambio de distribución"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Eliminación gotelé y preparación paredes",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo específico de reforma años 80: raspado gotelé, reparación grietas, masillado, lijado"
+        },
+        {
+          "concepto": "Renovación red fontanería cocina y baño",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Modernización: tuberías PEX/multicapa, grifería monomando, sanitarios nuevos"
+        },
+        {
+          "concepto": "Modernización circuitos eléctricos cocina y baño",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Circuitos independientes, enchufes, iluminación, campana extractora"
+        },
+        {
+          "concepto": "Alicatado completo cocina y baño",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Paredes y suelo: cerámica, gres o porcelánico con mortero flexible y lechada epoxi"
+        },
+        {
+          "concepto": "Suelo nuevo zonas comunes",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Retirada pavimento antiguo, instalación nuevo (cerámica, gres, tarima o vinílico según especificación)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_completo_cocina",
+      "pintura_de_suelo_interior_con_epoxi",
+      "instalacion_circuito_exclusivo_cocina",
+      "acabado_con_microcemento_suelo_o_pared",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3709,
+      "tokens_out": 3230
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

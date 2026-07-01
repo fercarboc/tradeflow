@@ -1,0 +1,125 @@
+{
+  "id": 269,
+  "oficio": "Cristalería",
+  "texto": "Colocar lamina de privacidad en cristal de oficina para zona de reuniones, vinilo traslúcido",
+  "http_status": 200,
+  "latency_ms": 11051,
+  "raw_response": {
+    "transcript": "Colocar lamina de privacidad en cristal de oficina para zona de reuniones, vinilo traslúcido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar lamina de privacidad en cristal de oficina para zona de reuniones, vinilo traslúcido",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Aplicación de vinilo/película en vidrio - trabajo de cristalería especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vinilo traslúcido privacidad",
+          "descripcion": "Suministro de lámina/vinilo traslúcido para privacidad en cristal de oficina, zona de reuniones",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar metraje exacto (m2) y especificar tipo de vinilo traslúcido (grado de opacidad, marca, espesor)"
+        },
+        {
+          "concepto": "Limpieza previa del cristal",
+          "descripcion": "Limpieza y desengrasado completo del cristal antes de aplicación de vinilo",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 45,
+          "total": 22.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aplicación de vinilo traslúcido con líquido activador",
+          "descripcion": "Instalación profesional de lámina de privacidad traslúcida en cristal, con técnica de aplicación en húmedo, alisado y eliminación de burbujas",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar metraje exacto (m2) para calcular horas de aplicación"
+        },
+        {
+          "concepto": "Pequeño material y herramientas (rasqueta, espátula, líquido activador)",
+          "descripcion": "Consumibles y herramientas menores para aplicación: rasqueta profesional, espátula, líquido activador, trapos, cinta de protección",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe revisar y ajustar según consumibles reales utilizados"
+        }
+      ],
+      "calculos": {
+        "subtotal": 22.5,
+        "iva_porcentaje": 21,
+        "iva": 4.73,
+        "total": 27.23
+      },
+      "sugerencias_catalogo": [
+        "Confirmar metraje exacto de cristal a cubrir (m2) para calcular mano de obra total",
+        "Especificar tipo de vinilo traslúcido: grado de opacidad (30%, 50%, 70%), marca, espesor",
+        "Indicar si el cristal está en buen estado o requiere reparación previa",
+        "Considerar si se requiere señalización de vidrio no visible (normativa de seguridad)"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio",
+      "tabique_pladur_separacion_zona_oficina",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_tabique_o_division_de_vidrio_en_oficina",
+      "instalacion_de_proteccion_solar_lamina_en_vidrio"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3948,
+      "tokens_out": 1195
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

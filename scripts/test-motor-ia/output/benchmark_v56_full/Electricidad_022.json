@@ -1,0 +1,203 @@
+{
+  "id": 22,
+  "oficio": "Electricidad",
+  "texto": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+  "http_status": 200,
+  "latency_ms": 21356,
+  "raw_response": {
+    "transcript": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si existe toma de tierra en la vivienda. Si no la hay, será necesaria mejora de toma de tierra (partida adicional).",
+          "Confirmar distancia desde cuadro eléctrico para estimar longitud de cable necesario.",
+          "Especificar si el enchufe es simple (1 base) o múltiple (2-3 bases)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica exterior con protección IP44 y toma de tierra. Oficio validado en catálogo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Base enchufe Schuko IP44 exterior",
+          "descripcion": "Base de enchufe Schuko IP44 de superficie, protección contra agua y polvo, apta para exterior, con tapa de protección.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe confirmar precio según marca y modelo (rango típico 25-60€)."
+        },
+        {
+          "concepto": "Cable H07RN-F 2x2.5mm² para exterior",
+          "descripcion": "Cable de cobre flexible H07RN-F 2x2.5mm² (fase + neutro) para instalación exterior, resistente a intemperie y UV. Incluye longitud estimada según distancia a cuadro.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Precio variable según longitud real. Rango típico 0.80-1.20€/ml. Revisar distancia exacta desde cuadro."
+        },
+        {
+          "concepto": "Caja de superficie IP44 para enchufe exterior",
+          "descripcion": "Caja de derivación/superficie IP44 de PVC o aluminio, con tapa de protección, para alojar base de enchufe en exterior.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Rango típico 15-40€ según material y tamaño."
+        },
+        {
+          "concepto": "Tubo corrugado de protección (si enterrado)",
+          "descripcion": "Tubo corrugado de PVC de 20mm de diámetro para protección de cable si la instalación requiere paso enterrado o bajo pavimento.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional. Cantidad=0 por defecto. Activar solo si se requiere paso enterrado. Rango 0.50-1.00€/ml."
+        },
+        {
+          "concepto": "Diferencial 30mA 2 polos (si no existe)",
+          "descripcion": "Interruptor diferencial de 30mA, 2 polos, 16-25A, para protección de circuito de enchufe exterior. Obligatorio si no existe en cuadro.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional. Cantidad=0 por defecto. Activar si no existe diferencial en cuadro. Rango 30-80€."
+        },
+        {
+          "concepto": "Pequeño material (conectores, bridas, pasta térmica, etc.)",
+          "descripcion": "Conectores de cobre, bridas de sujeción, pasta térmica, tornillería, cinta aislante y otros consumibles necesarios para la instalación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Rango típico 10-25€."
+        },
+        {
+          "concepto": "Mano de obra: instalación enchufe IP44 exterior con toma de tierra",
+          "descripcion": "Trabajos de instalación: replanteo, fijación de caja, conexionado de cable a base de enchufe, conexión a tierra, pruebas de continuidad y funcionamiento, verificación de protección diferencial.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mejora de toma de tierra (si es necesario)",
+          "descripcion": "Instalación o mejora de pica de toma de tierra con cable de cobre desnudo 16mm² si la resistencia de tierra existente es superior a 37Ω (medición previa obligatoria).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional. Cantidad=0 por defecto. Activar solo si medición de tierra muestra resistencia > 37Ω. Rango 150-400€ (incluye pica + cable + mano de obra)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 100,
+        "iva_porcentaje": 21,
+        "iva": 21,
+        "total": 121
+      },
+      "sugerencias_catalogo": [
+        "Partida 'instalacion_enchufe_exterior_ip44' del catálogo Base Maestra aplicada como referencia. Todas las partidas obligatorias incluidas.",
+        "Verificar en catálogo disponibilidad de: base_enchufe_schuko_ip44_exterior, cable_h07rn_f, caja_superficie_ip44, diferencial_30ma.",
+        "Si existe en catálogo partida de 'mejora_toma_tierra' o 'pica_tierra', enlazar con cantidad=1 si es necesario tras medición."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Base enchufe Schuko IP44 exterior",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Cable H07RN-F 2x2.5mm² para exterior",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico. Longitud estimada en 15ml; revisar distancia real desde cuadro."
+        },
+        {
+          "concepto": "Caja de superficie IP44 para enchufe exterior",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico. Precio pendiente de revisión del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_enchufe_exterior_ip44",
+      "instalacion_electrica_pergola_terraza",
+      "solado_ceramico_exterior_terraza",
+      "instalacion_suelo_flotante_sobre_plots_regulables",
+      "inspeccion_y_test_de_toma_de_tierra_y_diferencial"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3746,
+      "tokens_out": 2761
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "id": 131,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reforma de cubierta plana transitable con baldosas filtrantes sobre plots, 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 18802,
+  "raw_response": {
+    "transcript": "Reforma de cubierta plana transitable con baldosas filtrantes sobre plots, 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de cubierta plana transitable con baldosas filtrantes sobre plots, 60 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cubierta transitable con baldosas filtrantes: requiere drenaje y sistema de plots ajustables",
+          "Verificar estado previo de impermeabilización antes de instalar plots",
+          "Baldosas filtrantes permiten paso de agua: confirmar pendientes y sumideros funcionales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reforma cubierta plana transitable con sistema de pavimentación sobre plots"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Verificación y reparación de impermeabilización previa bajo sistema de plots"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de pavimento existente en cubierta",
+          "descripcion": "Desmontaje de pavimento actual, retirada de escombros y limpieza de superficie. Incluye gestión de residuos.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección y reparación de impermeabilización existente",
+          "descripcion": "Inspección visual de lámina impermeabilizante, reparación de fisuras, grietas o zonas dañadas. Sellado de encuentros y sumideros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 12,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de plots ajustables para cubierta transitable",
+          "descripcion": "Plots de polipropileno ajustables en altura (rango 20-100mm) para nivelación y drenaje bajo baldosas. Cantidad según densidad 4-6 plots/m2.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 300,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de plots ajustables pendiente de cotización del instalador (aprox. 1,5-3€/unidad)"
+        },
+        {
+          "concepto": "Suministro de baldosas filtrantes drenantes",
+          "descripcion": "Baldosas filtrantes de hormigón o cerámica porosa (40x40cm o 50x50cm) con capacidad drenante. Incluye pequeño material de colocación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baldosas filtrantes pendiente de cotización (aprox. 25-60€/m2 según calidad)"
+        },
+        {
+          "concepto": "Instalación de plots y colocación de baldosas filtrantes",
+          "descripcion": "Nivelación con plots ajustables, colocación de baldosas filtrantes sobre plots con junta abierta para drenaje. Incluye alineación y comprobación de pendientes.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 18,
+          "total": 1080,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de sistema de drenaje y sumideros",
+          "descripcion": "Colocación de geotextil drenante bajo plots, conexión de sumideros existentes, instalación de canaletas perimetrales si es necesario para evacuación de agua.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 6,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de geotextil drenante y pequeño material",
+          "descripcion": "Geotextil de drenaje (300-500 g/m2), cinta de sellado, mortero de agarre, arena de nivelación, EPI y herramientas menores.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de geotextil y pequeño material pendiente de cotización (aprox. 3-8€/m2)"
+        },
+        {
+          "concepto": "Pruebas de drenaje y comprobación final",
+          "descripcion": "Prueba de drenaje con agua, verificación de pendientes, comprobación de ausencia de encharcamientos, limpieza final de la cubierta.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 3040,
+        "iva_porcentaje": 21,
+        "iva": 638.4,
+        "total": 3678.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Baldosas filtrantes drenantes para cubierta transitable' — especificar dimensiones y material (hormigón vs cerámica)",
+        "Verificar en catálogo: 'Plots ajustables para cubierta transitable' — rango de altura y densidad recomendada",
+        "Verificar en catálogo: 'Geotextil drenante para cubierta' — gramaje y compatibilidad con sistema de plots"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de plots ajustables para cubierta transitable",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Elemento específico de sistema de cubierta sobre plots — no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Suministro de baldosas filtrantes drenantes",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para cubierta transitable con drenaje — requiere cotización de proveedor"
+        },
+        {
+          "concepto": "Suministro de geotextil drenante y pequeño material",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes auxiliares del sistema de drenaje bajo plots — precio pendiente de revisión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_aislante_termico_en_cubierta_plana_invertida",
+      "pintado_de_cubierta_plana_transitable",
+      "impermeabilizacion_de_terraza_invertida_con_XPS",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4006,
+      "tokens_out": 2683
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "id": 64,
+  "oficio": "Pintura",
+  "texto": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+  "http_status": 200,
+  "latency_ms": 27059,
+  "raw_response": {
+    "transcript": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: No se especifica la superficie en m². Se requiere medición de fachada (perímetro × altura) para calcular cantidad exacta de pintura y mano de obra.",
+          "CRÍTICO: No se indica si la fachada requiere limpieza previa, reparación de fisuras o imprimación.",
+          "CRÍTICO: Acceso a 5 plantas requiere andamio o plataforma elevadora. Costo y tipo no especificados.",
+          "RECOMENDACIÓN: Visita técnica previa para medir superficie neta y evaluar estado de fachada."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 32,
+            "max": 50
+          },
+          "motivo": "Pintura exterior de fachada — oficio validado en catálogo base."
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 40,
+            "max": 75
+          },
+          "motivo": "Especialidad de trabajos en altura y acabados de fachada impermeabilizantes."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Medición y replanteo de fachada",
+          "descripcion": "Levantamiento de medidas, cálculo de superficie neta, replanteo de zonas y evaluación de estado previo.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe establecer tarifa. Estimar 2-4 horas de reconocimiento + medición."
+        },
+        {
+          "concepto": "Limpieza previa de fachada",
+          "descripcion": "Limpieza mediante agua a presión y cepillado para eliminar suciedad, algas y desprendimientos superficiales.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad: pendiente de medición de superficie. Tarifa aproximada 8-15€/m² según complejidad."
+        },
+        {
+          "concepto": "Reparación de fisuras y desperfectos previo",
+          "descripcion": "Sellado de grietas, fisuras y roturas de mortero con masilla o mortero flexible. Preparación de soporte para imprimación.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y coste condicionales al estado de la fachada. Puede no ser necesario. Requiere inspección."
+        },
+        {
+          "concepto": "Imprimación consolidante y fijadora",
+          "descripcion": "Aplicación de imprimación especial para fachadas exteriores (siloxano o acrílica con resinas de alta adherencia). Prepara soporte para pintura impermeabilizante.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad: pendiente medición. Material con precio 0 — instalador confirma marca, coste y rendimiento. Estimado 0.15-0.25 L/m²."
+        },
+        {
+          "concepto": "Pintura impermeabilizante siloxano (2 manos)",
+          "descripcion": "Aplicación de dos manos de pintura siloxano de alta permeabilidad al vapor, impermeabilizante. Protección contra agua, sales y contaminación exterior.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad: pendiente medición. Material con precio 0 — instalador confirma especificación, marca, rendimiento (6-8 m²/L) y coste total de pintura."
+        },
+        {
+          "concepto": "Mano de obra: Aplicación de imprimación y pintura",
+          "descripcion": "Mano de obra para aplicación de imprimación y dos manos de pintura impermeabilizante con rodillo, brocha y técnica profesional de fachada.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 15,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad: pendiente medición. Tarifa 15-25€/m² según complejidad (fachada irregular, altura, accesos). Se estima 15€/m² base."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora (5 plantas)",
+          "descripcion": "Suministro, montaje, seguridad y desmontaje de andamio tubular o plataforma elevadora para trabajos a altura en fachada de 5 plantas. Incluye protecciones y barandillas de seguridad.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida crítica. Coste muy variable según: perímetro del edificio, altura exacta, días de ocupación, normativa local. Estimado 1500-5000€ según complejidad. Requiere consulta con empresa de andamios o alquiler."
+        },
+        {
+          "concepto": "Cinta carrocero, plásticos de protección y pequeño material",
+          "descripcion": "Suministro de cinta carrocero, plásticos protectores, trapos, escobas, pequeño material consumible para protección de zonas adyacentes y limpieza.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material con precio 0 — instalador estima coste lump sum. Aproximadamente 150-300€ según extensión de fachada."
+        },
+        {
+          "concepto": "Permiso municipal para andamio en vía pública",
+          "descripcion": "Tramitación y obtención de permiso municipal para ocupación de vía pública con andamio. Honorarios de gestoría si procede.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Condicional a ubicación y normativa local. Estimado 200-600€. Requiere verificación ayuntamiento."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición completa: perímetro × altura para calcular m² de fachada. Fundamental para todas las partidas.",
+        "Clasificar tipo de fachada: ladrillo visto, revoco, aplacado, hormigón. Afecta a precio de limpieza e imprimación.",
+        "Evaluar estado previo: inspección visual para detectar fisuras, humedades, eflorescencias. Puede requerir tratamiento previo.",
+        "Especificar pintura siloxano exacta: marca, especificación técnica (DIN 55986, COV bajo), color, rendimiento garantizado.",
+        "Andamio: obtener presupuesto aparte de empresa especializada — incluir montaje, seguridad, 3 manos seguros, responsabilidad civil.",
+        "Cumplimiento normativo: verificar requisitos locales, permisos de ocupación vía pública, RCP obligatoria, trabajos en altura (Ley 9/2022)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Medición y replanteo de fachada",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "No existe en catálogo base. Creada como servicio previo obligatorio para proyectos sin medición previa."
+        },
+        {
+          "concepto": "Permiso municipal para andamio en vía pública",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de gestión administrativa frecuente en reforma de fachadas. No encontrada en catálogo base."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_chimenea_exterior",
+      "pintura_de_medianera_o_pared_ciega_exterior",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "pintura_fachada_exterior_plastica_o_siloxano",
+      "pintado_de_muros_de_piedra_o_mamposteria_exterior"
+    ],
+    "kb_score": 4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 1,
+    "n_sugeridas": 8,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

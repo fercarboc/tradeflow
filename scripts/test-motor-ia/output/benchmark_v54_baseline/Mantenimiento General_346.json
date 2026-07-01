@@ -1,0 +1,23 @@
+{
+  "id": 346,
+  "oficio": "Mantenimiento General",
+  "texto": "Contrato anual de mantenimiento de comunidad de vecinos, incluye piscina, jardines y zonas comunes",
+  "http_status": 403,
+  "latency_ms": 205,
+  "raw_response": {
+    "error": "Tu plan actual no permite generar contratos de mantenimiento. Actualiza al Plan Empresa+ para acceder a este módulo.",
+    "plan_restriction": true,
+    "required_plan": "empresa_plus",
+    "plan": "basico"
+  },
+  "classification": {
+    "category": "ERROR_TECNICO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO",
+    "error_detalle": "Tu plan actual no permite generar contratos de mantenimiento. Actualiza al Plan Empresa+ para acceder a este módulo."
+  },
+  "error_msg": "Tu plan actual no permite generar contratos de mantenimiento. Actualiza al Plan Empresa+ para acceder a este módulo."
+}

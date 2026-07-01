@@ -1,0 +1,154 @@
+{
+  "id": 165,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+  "http_status": 200,
+  "latency_ms": 17093,
+  "raw_response": {
+    "transcript": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+        "tipo_presupuesto": "instalacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material (vinilo LVT) requiere precio de mercado actualizado",
+          "Preparación de base no especificada; se asume existente en buenas condiciones"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Instalación de pavimento vinílico LVT; clasificado como trabajo de suelos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de pavimento vinílico LVT",
+          "descripcion": "Pavimento vinílico LVT (Luxury Vinyl Tile) para 120 m² en rollo o tabletas, incluye pequeño material de instalación (adhesivos, colas, selladores)",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material vinilo LVT variable según marca, grosor y calidad (típicamente 15-80€/m²); instalador debe confirmar especificación y coste"
+        },
+        {
+          "concepto": "Preparación y nivelación de base",
+          "descripcion": "Limpieza, reparación de irregularidades y nivelación de base existente para recibir pavimento vinílico (máximo 3mm de desviación bajo regla 2m)",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 8,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de pavimento vinílico LVT",
+          "descripcion": "Colocación de pavimento vinílico LVT mediante adhesivo específico o sistema de clic, incluyendo cortes, encajes, empalmes y acabados perimetrales",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 32,
+          "total": 3840,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta perimetral y transiciones",
+          "descripcion": "Colocación de juntas de dilatación (6-8mm) en todo el perímetro y perfiles de transición entre pavimentos si es necesario",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro de la oficina no especificado; instalador debe calcular ml de junta y perfiles (típicamente 4-12€/ml)"
+        },
+        {
+          "concepto": "Pequeño material y selladores",
+          "descripcion": "Adhesivos, colas, selladores, limpiadores y materiales auxiliares para instalación completa",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según volumen real de material; típicamente 150-400€ para 120m²"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4800,
+        "iva_porcentaje": 21,
+        "iva": 1008,
+        "total": 5808
+      },
+      "sugerencias_catalogo": [
+        "Confirmar especificación del vinilo LVT: grosor (2-5mm), clase de uso (comercial vs residencial), resistencia a agua si es zona húmeda",
+        "Validar estado de la base existente; si requiere reparación mayor o tratamiento antihumedad, agregar partidas de albanilería",
+        "Si la oficina tiene distribuidor de aire acondicionado o sistemas radiantes, confirmar compatibilidad del adhesivo con temperaturas de funcionamiento"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de pavimento vinílico LVT",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Material no precificado en catálogo; variable por marca y especificación"
+        },
+        {
+          "concepto": "Junta perimetral y transiciones",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Requiere medición de perímetro de la oficina para cuantificar"
+        },
+        {
+          "concepto": "Pequeño material y selladores",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Material auxiliar sin precio base; depende del volumen y tipos específicos"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_de_suelo_de_corcho_interior",
+      "instalacion_suelo_radiante_hidraulico",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_de_suelo_radiante_en_reforma"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "SI"
+  }
+}

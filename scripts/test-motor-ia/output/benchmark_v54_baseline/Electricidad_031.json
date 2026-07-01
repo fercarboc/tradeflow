@@ -1,0 +1,187 @@
+{
+  "id": 31,
+  "oficio": "Electricidad",
+  "texto": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+  "http_status": 200,
+  "latency_ms": 21216,
+  "raw_response": {
+    "transcript": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "RIESGO ELÉCTRICO CRÍTICO: Cable pelado con descarga eléctrica detectada. Requiere intervención URGENTE antes de presupuestar.",
+          "Diagnóstico previo obligatorio: inspección visual completa de la instalación, pruebas de continuidad y aislamiento con megóhmetro.",
+          "Posible daño en aislamiento por humedad, roce mecánico o envejecimiento. Determinar causa raíz antes de reparar.",
+          "Si la roza está deteriorada o el cable tiene más daños ocultos, puede requerir sustitución de tramo completo (no solo empalme)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación de cableado deteriorado con riesgo de descarga eléctrica. Incluye diagnóstico, desmontaje seguro, sustitución de cable y pruebas de seguridad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y pruebas de seguridad eléctrica",
+          "descripcion": "Inspección visual completa de la instalación en el pasillo, pruebas de continuidad y aislamiento con megóhmetro, identificación de causa del deterioro del cable (humedad, roce, envejecimiento), evaluación de riesgo de descarga.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje seguro de cable pelado y apertura de roza",
+          "descripcion": "Corte de suministro eléctrico en el circuito afectado, desmontaje cuidadoso del cable dañado, apertura de roza en pared para acceso completo al tramo deteriorado, limpieza y soplado de la roza.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 2,
+          "precio_unitario": 12,
+          "total": 24,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de cable H07V-K según sección original",
+          "descripcion": "Cable de cobre con aislamiento de PVC, sección a determinar según inspección (típicamente 1.5 o 2.5 mm²), longitud mínima 2 metros para garantizar sustitución completa del tramo dañado sin empalmes.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del cable depende de la sección exacta (1.5, 2.5, 4 mm²). El instalador debe confirmar sección y precio en su proveedor."
+        },
+        {
+          "concepto": "Conectores, empalmes y cajas de derivación",
+          "descripcion": "Conectores de presión o bornes de latón según sección, cajas de derivación estancas si es necesario, pequeño material (tornillos, arandelas, pasta térmica si aplica).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de conectores dependen de la configuración del circuito. Presupuestar según necesidad real tras inspección."
+        },
+        {
+          "concepto": "Instalación de cable nuevo y cierre de roza",
+          "descripcion": "Tendido del cable nuevo en la roza, fijación con grapas cada 40 cm, cierre de roza con mortero de cemento o yeso según soporte, alisado y preparación para pintura.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 2,
+          "precio_unitario": 10,
+          "total": 20,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de seguridad y puesta en servicio",
+          "descripcion": "Pruebas de continuidad, aislamiento y funcionamiento del circuito reparado, verificación de ausencia de fugas a tierra, prueba de carga, documentación de resultados.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero y pequeño material para cierre de roza",
+          "descripcion": "Mortero de cemento o yeso para cierre de roza, grapas de fijación de cable, cinta aislante profesional, masilla de acabado si es necesario.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de material depende de la longitud y profundidad de la roza. Presupuestar según necesidad real."
+        }
+      ],
+      "calculos": {
+        "subtotal": 169,
+        "iva_porcentaje": 21,
+        "iva": 35.49,
+        "total": 204.49
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de cables H07V-K en diferentes secciones (1.5, 2.5, 4 mm²) para confirmar precio unitario.",
+        "Verificar disponibilidad de conectores de presión y cajas de derivación estancas en catálogo.",
+        "Considerar si la roza requiere tubo corrugado adicional para protección futura del cable."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de cable H07V-K según sección original",
+          "oficio": "electricidad",
+          "motivo": "Material específico cuyo precio depende de la sección exacta a determinar en inspección."
+        },
+        {
+          "concepto": "Conectores, empalmes y cajas de derivación",
+          "oficio": "electricidad",
+          "motivo": "Componentes eléctricos cuya cantidad y tipo dependen de la configuración del circuito."
+        },
+        {
+          "concepto": "Mortero y pequeño material para cierre de roza",
+          "oficio": "albanileria",
+          "motivo": "Material de construcción cuya cantidad depende de las dimensiones de la roza."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cableado_deteriorado",
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "reconstruccion_de_muro_con_lesiones_estructurales"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3637,
+      "tokens_out": 2614
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "id": 311,
+  "oficio": "Contra Incendios",
+  "texto": "Revisión trimestral de sistema de rociadores en supermercado, inspección y test de funcionamiento",
+  "http_status": 200,
+  "latency_ms": 12446,
+  "raw_response": {
+    "transcript": "Revisión trimestral de sistema de rociadores en supermercado, inspección y test de funcionamiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión trimestral de sistema de rociadores en supermercado, inspección y test de funcionamiento",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Mantenimiento trimestral obligatorio según RD 513/2017 — empresa mantenedora debe estar autorizada",
+          "Certificado de mantenimiento debe emitirse y archivarse para cumplimiento normativo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de rociadores sprinklers — mantenimiento trimestral obligatorio RD 513/2017"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección visual rociadores y detectores",
+          "descripcion": "Revisión de accesibilidad, ausencia de obstáculos y estado general de cabezas rociadores y detectores de humo/temperatura",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión bocas de incendio equipadas (BIEs)",
+          "descripcion": "Comprobación de accesibilidad, señalización, estado de manguera, válvula y lanza. Prueba de apertura y estanqueidad",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 55,
+          "total": 82.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión central de alarma y válvula de control",
+          "descripcion": "Comprobación de funcionamiento de central de incendios, señales de fallo, válvula de control de presión y estado general del sistema",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión extintores y señalización",
+          "descripcion": "Inspección visual estado extintores, comprobación de presión, revisión de señalización de emergencia e iluminación de emergencia",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Test de funcionamiento rociadores (muestreo)",
+          "descripcion": "Prueba de disparo controlado de rociadores por muestreo, verificación de caudal y presión en puntos críticos",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Emisión certificado mantenimiento trimestral y actualización libro",
+          "descripcion": "Redacción y firma de certificado de mantenimiento trimestral, actualización del libro de mantenimiento, entrega de documentación al responsable",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo — instalador debe fijar tarifa según complejidad y tiempo de redacción"
+        }
+      ],
+      "calculos": {
+        "subtotal": 412.5,
+        "iva_porcentaje": 21,
+        "iva": 86.625,
+        "total": 499.125
+      },
+      "sugerencias_catalogo": [
+        "Si se detectan deficiencias durante la revisión (rociadores obstruidos, detectores con polvo, válvulas con fugas), incluir partida adicional de 'Pequeñas reparaciones y ajustes' con mano de obra según complejidad",
+        "Si el sistema incluye grupo de presión, añadir revisión específica de bomba, presostatos y válvulas de seguridad (1 hora adicional)",
+        "Considerar contrato anual de mantenimiento trimestral para optimizar costes y garantizar cumplimiento normativo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Emisión certificado mantenimiento trimestral y actualización libro",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio administrativo obligatorio RD 513/2017 — no tiene tarifa estándar en catálogo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "mantenimiento_anual_de_instalacion_contra_incendios",
+      "mantenimiento_trimestral_de_instalacion_contra_incendios",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_sistema_agua_helada_chiller"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3966,
+      "tokens_out": 1652
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 5,
+    "n_sugeridas": 1,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

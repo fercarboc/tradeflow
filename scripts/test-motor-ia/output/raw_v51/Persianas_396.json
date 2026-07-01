@@ -1,0 +1,114 @@
+{
+  "id": 396,
+  "oficio": "Persianas",
+  "texto": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+  "http_status": 200,
+  "latency_ms": 14548,
+  "raw_response": {
+    "transcript": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Marquesina plegable: verificar dimensiones exactas, anclajes a fachada y normativa local de ocupación de vía pública",
+          "Material PVC transparente: confirmar espesor, resistencia UV y garantía frente a decoloración",
+          "Acceso a cubierta/anclaje: evaluar si requiere andamio o trabajos en altura con EPI"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de marquesina de PVC; estructura, anclajes y herrajes. Oficio carpintería/cerrajería según material y fijaciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro marquesina plegable PVC transparente",
+          "descripcion": "Marquesina plegable de PVC transparente con estructura de soporte, herrajes de plegado, dimensiones según portal (a determinar)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico pendiente de dimensiones y modelo; instalador debe confirmar proveedor y precio de suministro"
+        },
+        {
+          "concepto": "Instalación marquesina plegable PVC",
+          "descripcion": "Montaje estructura, anclajes a fachada, fijación herrajes plegables, nivelación, pruebas de funcionamiento plegado/desplegado",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material auxiliar y sellado",
+          "descripcion": "Silicona neutra, tornillería inoxidable, anclajes químicos si fachada hormigón/piedra, masilla de estanqueidad encuentro con pared",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y consumibles; instalador valida según tipo de anclaje final (químico/mecánico)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo interno partidas de: 'instalacion_marquesinas_metalicas_o_pvc', 'fachadas_elementos_salientes', 'estructuras_pvc_transparente'",
+        "Si existe partida de 'persianas' o 'toldos' puede servir como referencia de mano de obra y materiales auxiliares"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Marquesina plegable PVC transparente",
+          "tipo_partida": "material",
+          "oficio": "carpinteria",
+          "motivo": "No encontrada en Base Maestra; es un elemento constructivo específico para protección de entrada. Requiere especificación de dimensiones (ancho×fondo), espesor PVC, tipo herraje plegable y proveedor"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cubremuros_o_sombrerete_de_chimenea",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 1,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

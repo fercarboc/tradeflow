@@ -1,0 +1,269 @@
+{
+  "id": 52,
+  "oficio": "Carpintería",
+  "texto": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+  "http_status": 200,
+  "latency_ms": 23392,
+  "raw_response": {
+    "transcript": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Desmontaje de puerta basculante antigua incluido",
+          "Nueva puerta seccional de aluminio con motor",
+          "Célula fotoeléctrica obligatoria por seguridad",
+          "Medidas del hueco deben validarse en obra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación puerta enrollable/seccional garaje"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Desmontaje puerta basculante antigua y trabajos de seguridad"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica motor y célula fotoeléctrica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje puerta basculante madera",
+          "descripcion": "Desinstalación y retirada de puerta basculante de madera existente, incluyendo marco, muelles de extensión y pequeño material",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puerta seccional aluminio motorizada",
+          "descripcion": "Suministro puerta seccional de aluminio con acabado lacado, paneles aislantes, guías laterales, muelle de torsión calibrado, motor eléctrico, receptor radiocontrol, mandos a distancia (2 ud)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas del hueco (ancho × alto) y acabado aluminio. Rango típico: 800-2.500€. Instalador debe validar medidas en obra."
+        },
+        {
+          "concepto": "Instalación puerta seccional aluminio",
+          "descripcion": "Instalación completa: montaje de guías laterales, superior, colocación paneles, instalación muelle de torsión, nivelación y aplomado, ajuste de finales de carrera, pruebas de funcionamiento",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación motor puerta seccional",
+          "descripcion": "Montaje motor eléctrico en posición superior, instalación de brazo de accionamiento, fijación a estructura, conexión mecánica a sistema de apertura, programación de finales de carrera",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad",
+          "descripcion": "Suministro e instalación célula fotoeléctrica de seguridad OBLIGATORIA (detector infrarojo + reflector), fijación en jambas laterales, calibración y pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico: 80-200€. Obligatoria por normativa de seguridad."
+        },
+        {
+          "concepto": "Instalación célula fotoeléctrica",
+          "descripcion": "Fijación de detector y reflector, cableado hasta motor, conexión a central de control, pruebas de funcionamiento y desconexión de emergencia",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación eléctrica motor y radiocontrol",
+          "descripcion": "Suministro cable eléctrico 3×2,5mm², canalización, conexión a cuadro de protección, instalación receptor radiocontrol, pruebas de funcionamiento, puesta a tierra",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml depende de distancia desde cuadro a puerta. Rango típico: 15-40€/ml. Instalador mide en obra."
+        },
+        {
+          "concepto": "Instalación conexión eléctrica",
+          "descripcion": "Tendido y conexión de cableado, instalación de receptor radiocontrol, conexión a alimentación, pruebas de seguridad eléctrica",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema desbloqueo emergencia",
+          "descripcion": "Suministro e instalación sistema desbloqueo manual de emergencia (poleas de desconexión) OBLIGATORIO, llave de emergencia, señalización",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico: 50-150€. Obligatorio por normativa."
+        },
+        {
+          "concepto": "Instalación desbloqueo emergencia",
+          "descripcion": "Montaje de palanca de desconexión, ajuste de poleas, instalación de llave, pruebas de funcionamiento",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas finales y puesta en marcha",
+          "descripcion": "Pruebas funcionales completas (apertura, cierre, seguridad célula, desbloqueo emergencia, radiocontrol), ajustes finales, entrega de mandos y documentación",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 675,
+        "iva_porcentaje": 21,
+        "iva": 141.75,
+        "total": 816.75
+      },
+      "sugerencias_catalogo": [
+        "Validar medidas exactas del hueco (ancho × alto) antes de presupuestar puerta seccional",
+        "Confirmar tipo de acabado aluminio: lacado estándar vs. lacado personalizado",
+        "Detectar presencia de toma de corriente cerca de la puerta (< 2m). Si no existe, presupuestar instalación nueva.",
+        "Solicitar presupuesto de proveedor para puerta seccional motorizada (depende de medidas)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Puerta seccional aluminio motorizada",
+          "descripcion": "Material principal: puerta seccional de aluminio con motor integrado",
+          "precio_estimado_rango": "800-2500€",
+          "motivo": "Depende de medidas del hueco y acabado. No tiene precio fijo en catálogo."
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad",
+          "descripcion": "Dispositivo obligatorio de seguridad",
+          "precio_estimado_rango": "80-200€",
+          "motivo": "Elemento de seguridad. Rango dependiendo de marca y funcionalidades."
+        },
+        {
+          "concepto": "Cable eléctrico y canalización",
+          "descripcion": "Suministro de cable 3×2,5mm² y canalización",
+          "precio_estimado_rango": "15-40€/ml",
+          "motivo": "Depende de distancia desde cuadro a puerta. Medir en obra."
+        },
+        {
+          "concepto": "Sistema desbloqueo emergencia",
+          "descripcion": "Mecanismo de desconexión manual obligatorio",
+          "precio_estimado_rango": "50-150€",
+          "motivo": "Obligatorio por normativa de seguridad. Rango según marca."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_motor_puerta_garaje_seccional_o_basculante",
+      "instalacion_puerta_enrollable_seccional_garaje",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_de_puerta_de_garaje_abatible_lateral",
+      "pintado_cancelas_y_portones_metalicos_exterior"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 7,
+    "n_sugeridas": 4,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "NO"
+  }
+}

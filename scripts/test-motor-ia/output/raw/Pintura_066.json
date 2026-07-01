@@ -1,0 +1,174 @@
+{
+  "id": 66,
+  "oficio": "Pintura",
+  "texto": "Reparar humedades en techo de baño, aplicar antihumedad y pintar, superficie de 6 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 12301,
+  "raw_response": {
+    "transcript": "Reparar humedades en techo de baño, aplicar antihumedad y pintar, superficie de 6 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar humedades en techo de baño, aplicar antihumedad y pintar, superficie de 6 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda diagnosticar la causa de la humedad (filtraciones desde piso superior, condensación, ventilación deficiente) antes de ejecutar la reparación",
+          "Si la humedad es activa o hay goteras, puede ser necesario reparar la causa raíz antes de aplicar antihumedad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Reparación de humedades, aplicación de antihumedad y pintura en techo de baño"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneado y preparación de superficie con filtraciones",
+          "descripcion": "Limpieza, raspado y eliminación de pintura desprendida, masilla de fisuras y lija de zona afectada con margen de seguridad",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 8,
+          "total": 48,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación fijadora antipolvo",
+          "descripcion": "Aplicación de imprimación fijadora para sellar superficie y mejorar adherencia de antihumedad",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: imprimación fijadora. Instalador debe indicar marca, cantidad (litros) y precio"
+        },
+        {
+          "concepto": "Pintura antihumedad membrana líquida",
+          "descripcion": "Aplicación de pintura antihumedad o membrana líquida impermeabilizante en 2 capas sobre techo de baño",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pintura antihumedad específica. Instalador debe indicar marca, rendimiento (m2/litro), cantidad total de litros y precio"
+        },
+        {
+          "concepto": "Aplicación de pintura antihumedad",
+          "descripcion": "Mano de obra para aplicación de 2 capas de pintura antihumedad o membrana líquida en techo de baño",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 12,
+          "total": 72,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura de acabado final",
+          "descripcion": "Aplicación de pintura de acabado (plástica o acrílica) en 2 capas sobre antihumedad",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pintura de acabado. Instalador debe indicar marca, tipo (plástica/acrílica), rendimiento y precio"
+        },
+        {
+          "concepto": "Mano de obra pintura de acabado",
+          "descripcion": "Aplicación de 2 capas de pintura de acabado en techo de baño",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 10,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar causa de humedad: si es por filtraciones desde piso superior, puede requerir reparación estructural o impermeabilización de cubierta (oficio: tejados_cubiertas o impermeabilizacion)",
+        "Si hay condensación excesiva, evaluar mejora de ventilación del baño (extractor de aire)",
+        "Considerar masilla antihumedad específica si hay fisuras activas en la zona"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación fijadora antipolvo",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material auxiliar en reparación de humedades"
+        },
+        {
+          "concepto": "Pintura antihumedad membrana líquida",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material específico para tratamiento de humedades"
+        },
+        {
+          "concepto": "Pintura de acabado final",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material de acabado tras antihumedad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "reparacion_balcon_o_voladizo_con_filtraciones",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "pintura_antihumedad_paredes_con_filtraciones",
+      "limpieza_y_preparacion_superficie_antes_pintar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3783,
+      "tokens_out": 1753
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "id": 272,
+  "oficio": "Cristalería",
+  "texto": "Instalar techo de cristal en patio interior de vivienda, superficie 8 metros cuadrados con perfilería",
+  "http_status": 200,
+  "latency_ms": 29191,
+  "raw_response": {
+    "transcript": "Instalar techo de cristal en patio interior de vivienda, superficie 8 metros cuadrados con perfilería",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar techo de cristal en patio interior de vivienda, superficie 8 metros cuadrados con perfilería",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "OBLIGATORIO: Proyecto técnico con cálculo de cargas propias del vidrio + accidentales (CTE DB SUA)",
+          "OBLIGATORIO: Vidrio laminado confirmado (fragmentos no deben caer en caso de rotura)",
+          "RECOMENDADO: Verificar si patio interior requiere iluminación superior complementaria",
+          "RECOMENDADO: Considerar protección solar si recibe radiación directa prolongada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de techo de cristal/vidrio laminado con estructura de soporte"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico techo de vidrio laminado",
+          "descripcion": "Cálculo estructural de cargas propias (vidrio laminado) + accidentales (CTE DB SUA 3.7.3). Dimensionamiento de estructura de soporte. Verificación de herrajes puntales y fijación a estructura existente.",
+          "oficio": "cristaleria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de proyecto técnico debe ser fijado por profesional colegiado; depende de complejidad y localización"
+        },
+        {
+          "concepto": "Vidrio laminado 8+8 mm (extraclaro)",
+          "descripcion": "Suministro de vidrio laminado extraclarocolor 8+8 mm (espesor total 16,76 mm) cortado a medida para techo interior 8 m². Película de polivinilo butiral (PVB) de seguridad. Borde pulido y biselado según planos.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio laminado muy variable según espesor, tipo PVB, cortado y biselado; revisar con proveedor"
+        },
+        {
+          "concepto": "Estructura soporte en aluminio anodizado o acero inoxidable",
+          "descripcion": "Perfilería estructural (aluminio anodizado plata o acero inox A-304) para formar malla/retícula de soporte del techo cristal 8 m². Incluye perfiles transversales, longitudinales, refuerzos y cartelas de unión. Cálculo según proyecto técnico.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Peso y tipo de perfilería depende de luces, cargas de nieve/viento y cálculo estructural; revisar con fabricante"
+        },
+        {
+          "concepto": "Herrajes de soporte puntual y fijación",
+          "descripcion": "Herrajes de acero inoxidable o aluminio anodizado para fijación puntual del vidrio laminado a estructura: abrazaderas, grapas de ajuste, tornillería acero inox A-304, tuercas y arandelas. Cantidad según planos.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo varían según sistema de fijación; incluir en presupuesto con detalle"
+        },
+        {
+          "concepto": "Silicona estructural o sellado perimetral",
+          "descripcion": "Sellado de juntas vidrio-estructura con silicona neutra de poliuretano o polisulfuro estructural (cartuchos). Juntas perimetrales completas (perímetro ~12 ml aprox.). Aplicación con pistola y herramienta de acabado.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cartuchos y tipo de silicona (neutra/acética, estructural) a definir según detalle constructivo"
+        },
+        {
+          "concepto": "Desmontaje y retirada de estructura existente en patio",
+          "descripcion": "Desmontaje de cobertura, cerramientos o estructuras anteriores en patio interior. Retirada de escombros y disposición en contenedor. Protección de elementos adyacentes durante trabajos.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de desmontaje dependen del estado y cobertura preexistente; estimar 6-10 h"
+        },
+        {
+          "concepto": "Montaje e instalación estructura y vidrio laminado",
+          "descripcion": "Montaje completo de estructura de perfilería (anclajes a muros/pilares del patio). Colocación y fijación del vidrio laminado 8 m² con herrajes puntales. Alineación, nivelación y ajustes. Control de estanqueidad provisional.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y acabado silicona + protección",
+          "descripcion": "Aplicación de silicona estructural en juntas perimetrales vidrio-estructura. Herramientas de acabado de juntas. Limpieza de sobrantes. Control de adherencia y estanqueidad final.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y funcionalidad",
+          "descripcion": "Prueba de infiltraciones mediante inyección de agua en juntas. Verificación de niveles, alineación visual. Comprobación de sistema completo. Generación de acta de conformidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, herramientas y protecciones",
+          "descripcion": "Pequeño material de consumo: papel protector, cinta adhesiva, trapos, limpiadores, alcohol industrial, brochas, esponjas. Desgaste herramientas (nivel, destornillador, llave inglesa, etc.). Equipos de protección personal (arnés si altura > 2m, casco, guantes nitrilo).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 5-15% del total de mano de obra; incluir partida de consumibles"
+        }
+      ],
+      "calculos": {
+        "subtotal": 990,
+        "iva_porcentaje": 21,
+        "iva": 207.9,
+        "total": 1197.9
+      },
+      "sugerencias_catalogo": [
+        "Considerar PROTECCIÓN SOLAR INTERIOR (toldo motorizado o vidrio de control solar) si el patio recibe radiación solar directa prolongada en verano",
+        "Si el techo debe ser TRANSLÚCIDO pero no transparente, evaluar vidrio laminado opalino o con intercalar esmerilado",
+        "Si se requiere ILUMINACIÓN INTEGRADA, presupuestar tiras LED empotradas en estructura (electricidad + fontanería de aire para conductos)",
+        "IMPERMEABILIZACIÓN en encuentros patio-muros: considerar canaleta perimetral o sistema de desagüe si hay agua de lluvia o condensación",
+        "Para PATIO INTERIOR HABITABLE: revisar si requiere calefacción/climatización complementaria para evitar estratificación térmica"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Proyecto técnico techo de vidrio laminado",
+          "oficio": "cristaleria",
+          "tipo_partida": "servicio",
+          "razon_creacion": "Obligatorio por CTE DB SUA para techos de vidrio; no existe en catálogo base"
+        },
+        {
+          "partida": "Vidrio laminado 8+8 mm (extraclaro)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "razon_creacion": "Material específico para techo interior; requiere especificación de espesor y tipo PVB"
+        },
+        {
+          "partida": "Estructura soporte en aluminio anodizado o acero inoxidable",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "razon_creacion": "Elemento estructural crítico; depende de cálculo y cargas específicas del proyecto"
+        },
+        {
+          "partida": "Desmontaje y retirada de estructura existente en patio",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "razon_creacion": "Fase preparatoria; duración variable según preexistencias"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cubierta_acristalada_o_invernadero",
+      "instalacion_techo_de_vidrio_o_cristal_interior",
+      "instalacion_de_toldos_retractiles_para_invernadero_o_jardin_de_invierno",
+      "instalacion_lucernario_o_claraboya_fija",
+      "instalacion_ventana_madera_con_vidrio"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 3,
+    "n_sugeridas": 7,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

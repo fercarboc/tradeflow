@@ -1,0 +1,226 @@
+{
+  "id": 18,
+  "oficio": "Fontanería",
+  "texto": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+  "http_status": 200,
+  "latency_ms": 17675,
+  "raw_response": {
+    "transcript": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume suministro de cocina (muebles/electrodomésticos) por terceros. Presupuesto enfocado en fontanería.",
+          "Se incluyen desagües pero no se especifica si hay lavavajillas. Presupuesto prevé conexión."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de tomas de agua fría/caliente, desagües y conexiones de fontanería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje instalación fontanería antigua",
+          "descripcion": "Corte de agua general, desmontaje de tuberías antiguas, desconexión desagües existentes",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro tubería multicapa agua fría y caliente",
+          "descripcion": "Tubería multicapa PEX Ø16-20mm para circuitos de agua fría y caliente desde contador/caldera a fregadero y lavavajillas",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisar cantidad exacta de metraje según plano de cocina. Precio aproximado 3-5€/ml"
+        },
+        {
+          "concepto": "Suministro accesorios multicapa (tes, codos, conexiones)",
+          "descripcion": "Tes, codos, racores, soportes y abrazaderas para conexión de agua fría/caliente a fregadero y lavavajillas",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pequeño material y accesorios. Presupuestar 60-100€ aproximados"
+        },
+        {
+          "concepto": "Instalación tomas agua fría y caliente fregadero",
+          "descripcion": "Conexión de tubería multicapa a grifo monomando de cocina con llaves independientes de corte en frio y caliente",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación toma agua lavavajillas",
+          "descripcion": "Conexión de agua fría a entrada de lavavajillas con llave de corte independiente y manguera de alimentación",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación desagüe fregadero",
+          "descripcion": "Conexión sifón bajo fregadero, tubería de desagüe PVC Ø50-75mm hasta bote sifónico o bajante existente",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación desagüe lavavajillas",
+          "descripcion": "Manguera desagüe lavavajillas con conexión a sifón bajo fregadero o bajante. Incluye abrazadera de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro grifo monomando cocina",
+          "descripcion": "Grifo monomando de cocina con salida flexible de agua fría y caliente (no incluye instalación, solo material)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisar presupuesto de grifo. Rango típico 80-300€ según modelo"
+        },
+        {
+          "concepto": "Suministro sifón fregadero y accesorios desagüe",
+          "descripcion": "Sifón bajo fregadero, tuberías PVC y accesorios de desagüe (codos, abrazaderas, silicona)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: sifón, tubería PVC y accesorios. Presupuestar 40-80€"
+        },
+        {
+          "concepto": "Rozas y reposición en obra (fontanería)",
+          "descripcion": "Apertura de rozas en paredes/suelo para paso de tuberías, cortes en losas, reposición con mortero y pintura",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de presión y revisión final",
+          "descripcion": "Prueba de estanqueidad de toda la instalación a presión mínima 3 bar, purga de aire y verificación de caudales",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 445,
+        "iva_porcentaje": 21,
+        "iva": 93.45,
+        "total": 538.45
+      },
+      "sugerencias_catalogo": [
+        "Verificar si hay que suministrar o solo instalar grifería. Si es suministro + instalación, revisar precios de grifos y sifones.",
+        "Confirmar tipo de desagüe existente (bajante, bote sifónico) para calcular metraje exacto de tubería PVC.",
+        "Si hay ACS centralizada o termo eléctrico, ajustar conexiones de agua caliente.",
+        "Considerar si se necesita válvula antirretorno en desagüe de lavavajillas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Instalación desagüe lavavajillas",
+          "oficio": "fontaneria",
+          "motivo": "Partida específica no encontrada en catálogo; creada por especialización"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cocina_completa_fontaneria",
+      "instalacion_toma_agua_nueva",
+      "instalacion_fontaneria_cocina_completa",
+      "desatasco_fregadero",
+      "instalacion_osmosis_inversa"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

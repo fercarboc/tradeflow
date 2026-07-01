@@ -1,0 +1,412 @@
+{
+  "id": 106,
+  "oficio": "Climatización",
+  "texto": "Instalación de suelo radiante con bomba de calor en planta baja de 90 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 42952,
+  "raw_response": {
+    "transcript": "Instalación de suelo radiante con bomba de calor en planta baja de 90 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de suelo radiante con bomba de calor en planta baja de 90 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema integrado: suelo radiante + bomba de calor. Requiere coordinación entre climatización y fontanería.",
+          "Esperar 28 días mínimo antes de activar suelo radiante tras hormigonado.",
+          "Presupuesto incluye bomba de calor aire-agua + suelo radiante completo. Revisar especificaciones técnicas de potencia según cálculo térmico."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación bomba de calor aire-agua"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Red hidráulica suelo radiante, colectores, tuberías PEX, conexiones"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Rozas, preparación base, mortero autonivelante, aislamiento"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cálculo térmico y diseño instalación suelo radiante + bomba calor",
+          "descripcion": "Estudio de demanda térmica de la vivienda, cálculo de potencia bomba de calor, diseño circuitos suelo radiante por zonas, planos de ejecución",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio técnico previo. Instalador debe revisar coste según complejidad de proyecto"
+        },
+        {
+          "concepto": "Unidad exterior bomba de calor aire-agua",
+          "descripcion": "Bomba de calor aire-agua reversible, potencia según cálculo térmico (estimado 12-16 kW para 90 m²), con compresor inverter, refrigerante R32 o superior, instalación en exterior",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Equipo bomba de calor. Precio según marca, potencia y especificaciones"
+        },
+        {
+          "concepto": "Desmontaje sistema calefacción existente (si aplica)",
+          "descripcion": "Desmontaje de radiadores, tuberías y accesorios de calefacción anterior; retirada de escombros",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de sistema existente. Revisar si hay obra anterior que desmontar"
+        },
+        {
+          "concepto": "Preparación base suelo radiante: limpieza, nivelar, aislamiento perimetral",
+          "descripcion": "Limpieza y preparación forjado, colocación bandas perimetrales de dilatación (poliestireno 10 mm), aislamiento base (poliestireno expandido 50-80 mm bajo circuitos radiantes) en 90 m²",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 90,
+          "precio_unitario": 8,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tubo PEX multicapa para suelo radiante",
+          "descripcion": "Tubo PEX Ø16 mm, bobinas de 200 m, para circuitos suelo radiante (separación 15-20 cm). Estimado 450-500 ml para 90 m² (densidad 5-6 ml/m²). Incluye pequeño material conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 480,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material tubería PEX. Precio según calidad y proveedor"
+        },
+        {
+          "concepto": "Colector distribuidor suelo radiante con actuadores termostáticos",
+          "descripcion": "Colector de distribución en latón/aluminio con circuitos independientes por zona, válvulas de corte, actuadores termostáticos, caudalímetros. Capacidad para 90 m² (aprox. 4-6 circuitos)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Colector multi-zona. Precio según número de circuitos y marca"
+        },
+        {
+          "concepto": "Instalación red hidráulica suelo radiante: tendido tuberías, colectores y conexiones",
+          "descripcion": "Tender tuberías PEX sobre aislamiento, fijar con bridas a malla soporte, interconectar colectores, prueba estanqueidad, purgado sistema. 90 m² de suelo radiante",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 90,
+          "precio_unitario": 12,
+          "total": 1080,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero autonivelante cubrición suelo radiante",
+          "descripcion": "Mortero autonivelante de bajo espesor (5-7 cm) para cubrir circuitos PEX antes de solado final. Cálculo: 90 m² × 6 cm = 5,4 m³. Incluye preparación, vertido y alisado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 5.4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mortero autonivelante. Precio según tipo (con fibra, reforzado) y proveedor"
+        },
+        {
+          "concepto": "Colocación mortero autonivelante suelo radiante",
+          "descripcion": "Vertido, extendido y alisado mortero autonivelante en 90 m². Incluye espera fragüe 28 días antes de activar calefacción",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 90,
+          "precio_unitario": 6,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bomba de circulación suelo radiante",
+          "descripcion": "Bomba circuladora de rotor mojado (tipo Grundfos o similar), 50-80 W, con separadores, presostato, válvula de retención. Para circuito suelo radiante 90 m²",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Bomba circuladora. Precio según marca y especificaciones"
+        },
+        {
+          "concepto": "Vaso de expansión circuito agua caliente suelo radiante",
+          "descripcion": "Vaso de expansión cerrado 12-24 litros con membrana, para circuito suelo radiante a baja temperatura (45-50 ºC)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Vaso expansión. Precio según capacidad y presión de tarado"
+        },
+        {
+          "concepto": "Válvulas de corte, regulación y seguridad en circuito suelo radiante",
+          "descripcion": "Válvula 3 vías, válvulas de corte, válvulas de retención, válvula de seguridad, manómetro, termómetro. Conjunto para integrar suelo radiante con bomba de calor",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Kit válvulas. Precio según especificaciones técnicas"
+        },
+        {
+          "concepto": "Instalación bomba de calor aire-agua: conexión circuito exterior, tuberías refrigerante, tomas corriente",
+          "descripcion": "Montaje unidad exterior, canalización líneas refrigerante (cobre aislado), tomas corriente de servicio, anclajes, instalación en exterior de la vivienda. Conexión a red hidráulica interior",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 500,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Integración bomba de calor con circuito suelo radiante: conexiones, vaciado y llenado",
+          "descripcion": "Conexión salida bomba de calor a colector suelo radiante, instalación válvula 3 vías (si es sistema mixto), vaciado y llenado circuito con agua + inhibidor corrosión, purgado, prueba estanqueidad y funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Termostato digital programable multizonal",
+          "descripcion": "Termostato digital con pantalla táctil, control independiente por zonas, programación semanal, conexión a válvulas actuadores colector. Incluye sonda de temperatura interior",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Termostato control. Precio según funcionalidades (WiFi, apps, zonas adicionales)"
+        },
+        {
+          "concepto": "Instalación termostato y sistema control suelo radiante",
+          "descripcion": "Montaje termostato en pared interior, cableado a válvulas actuadores colector, configuración y programación inicial del sistema",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aislamiento y protección tuberías de distribución agua caliente",
+          "descripcion": "Aislamiento tuberías agua caliente (espuma elastómera 25 mm) desde bomba de calor hasta colector suelo radiante. Estimado 30-40 ml. Incluye accesorios y cinta adhesiva",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Aislamiento térmico tuberías. Precio según grosor y material"
+        },
+        {
+          "concepto": "Colocación aislamiento tuberías distribución agua caliente",
+          "descripcion": "Instalar y fijar aislamiento espuma elastómera en tuberías agua caliente de distribución (35 ml estimado)",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 35,
+          "precio_unitario": 4,
+          "total": 140,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas estanqueidad, bloqueo aire y puesta en marcha",
+          "descripcion": "Prueba estanqueidad circuito suelo radiante a 3 bar (mín. 30 min), purgado aire manual y automático, puesta en marcha bomba de calor, control de caudales por circuito, ajuste válvulas balanceo, medición temperatura de impulsión/retorno, protocolo entrega",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material: racores, latiguillos, soportes, bridas, cinta teflón, pasta estanca",
+          "descripcion": "Racores latón, latiguillos, bridas nylon, cinta teflón, pasta estanca, tapones, soportes tuberías, accesorios miscelánea para suelo radiante + bomba de calor",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material fungible. Instalador estima coste según necesidades reales"
+        },
+        {
+          "concepto": "Pequeño material eléctrico: cableado, enchufe bipolar, protecciones",
+          "descripcion": "Cable 2×2.5 mm², enchufe bipolar 10 A, magnetotérmico 16 A (si requiere circuito dedicado), terminales, tubo corrugado protección",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material eléctrico. Revisar necesidades de circuito según bomba de calor"
+        },
+        {
+          "concepto": "Honorarios dirección ejecución y supervisión obra",
+          "descripcion": "Dirección técnica durante ejecución obra: visitas de supervisión, control de calidad de materiales, coordinación trabajos, resolución incidencias, entrega final documento obra realizada",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio dirección. Opcional según criterio instalador; revisar coste"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3960,
+        "iva_porcentaje": 21,
+        "iva": 831.6,
+        "total": 4791.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe actualizaciones en catálogo para 'bomba de calor aire-agua reversible' con rangos de potencia 12-16 kW",
+        "Consultar si hay partidas estándar agrupadas 'instalación suelo radiante completo 90 m²' que unifique tuberías + mortero + mano obra",
+        "Confirmar tarifa de climatización para instalación bomba de calor (actual: 60 €/h recomendado)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Unidad exterior bomba de calor aire-agua",
+          "oficio": "climatizacion",
+          "motivo": "Bomba de calor aire-agua es equipo específico integrado en BASE MAESTRA pero precio unitario debe revisarse según potencia y marca elegida"
+        },
+        {
+          "concepto": "Mortero autonivelante cubrición suelo radiante",
+          "oficio": "albanileria",
+          "motivo": "Material específico suelo radiante; nuevo en partida de material. Instalador debe confirmar tipo (con fibra / reforzado) y proveedor"
+        },
+        {
+          "concepto": "Termostato digital programable multizonal",
+          "oficio": "climatizacion",
+          "motivo": "Control integrado suelo radiante. Precio variable según funcionalidades (WiFi, aplicación móvil, número de zonas independientes)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_aerotermia_bomba_calor_aire_agua",
+      "instalacion_bomba_calor_geotermia",
+      "instalacion_suelo_radiante_agua",
+      "instalacion_de_suelo_radiante_en_reforma",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 22,
+    "n_catalogo": 0,
+    "n_sugeridas": 22,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

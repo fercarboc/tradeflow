@@ -1,0 +1,229 @@
+{
+  "id": 132,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 23101,
+  "raw_response": {
+    "transcript": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Paneles solares TÉRMICOS (ACS) — no fotovoltaicos. Oficio: energia_solar con enfoque térmico.",
+          "Tejado inclinado existente — requiere ganchos/soportes específicos según tipo de teja.",
+          "Total 5 m² de colectores — incluye impermeabilización de perforaciones OBLIGATORIA."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema solar térmico para ACS en tejado inclinado. Incluye montaje de colectores, tuberías, acumulador y puesta en marcha."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Colectores solares térmicos",
+          "descripcion": "Suministro de 2 colectores solares térmicos de 2.5 m² cada uno (total 5 m²) para ACS, con marco aluminio y cubierta de vidrio templado",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de colectores solares térmicos a definir por instalador según marca y especificaciones técnicas (típico 400-800€/unidad)"
+        },
+        {
+          "concepto": "Soportes y ganchos de fijación",
+          "descripcion": "Ganchos o soportes específicos para fijación de colectores en tejado inclinado (tipo de teja a confirmar), incluye tornillería inoxidable y arandelas de estanqueidad",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de soportes específicos según tipo de teja (plana, curva, pizarra, etc.) — típico 150-400€"
+        },
+        {
+          "concepto": "Impermeabilización de perforaciones",
+          "descripcion": "Impermeabilización de perforaciones en tejado con goma EPDM y sellado con silicona neutra para evitar filtraciones de agua",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de impermeabilización (EPDM, silicona, selladores) — típico 80-150€"
+        },
+        {
+          "concepto": "Tuberías y accesorios de conexión",
+          "descripcion": "Tuberías de cobre aisladas (ida y retorno), válvulas de seguridad, purgadores automáticos, válvulas antirretorno, manómetro y termómetro",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Accesorios y tuberías de conexión — típico 300-600€"
+        },
+        {
+          "concepto": "Acumulador solar (depósito ACS)",
+          "descripcion": "Suministro de acumulador solar de 200-300 litros con serpentín integrado para conexión de colectores, aislamiento térmico y válvulas de seguridad",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Acumulador solar — típico 800-1500€ según capacidad y marca"
+        },
+        {
+          "concepto": "Fluido caloportador solar",
+          "descripcion": "Suministro de fluido caloportador (mezcla agua-glicol) para circuito primario de colectores, cantidad según volumen de tuberías",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Fluido caloportador — típico 5-10€/litro"
+        },
+        {
+          "concepto": "Montaje de colectores en tejado",
+          "descripcion": "Instalación de 2 colectores solares en tejado inclinado: fijación de soportes, impermeabilización de perforaciones, conexión de tuberías de ida y retorno, prueba de estanqueidad",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de acumulador y conexiones",
+          "descripcion": "Colocación del acumulador solar, conexión de tuberías de colectores, instalación de válvulas de seguridad, purgadores, manómetro y termómetro, llenado y purgado del circuito",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Pruebas de estanqueidad del circuito, verificación de presión, purgado de aire, calibración de válvulas de seguridad, prueba de circulación y medición de temperatura, entrega de documentación técnica",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Arnés de seguridad, línea de vida, casco, guantes, herramientas especiales (llave dinamométrica, manómetro de prueba, purgador manual), cinta teflón, pasta de sellado",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "EPI y pequeño material — típico 150-250€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1105,
+        "iva_porcentaje": 21,
+        "iva": 232.05,
+        "total": 1337.05
+      },
+      "sugerencias_catalogo": [
+        "Verificar tipo de teja del tejado (plana, curva, pizarra, hormigón) para seleccionar ganchos específicos — es OBLIGATORIO que sean compatibles.",
+        "Confirmar capacidad del acumulador: típicamente 200-300 litros para 2 colectores de 2.5 m² cada uno.",
+        "Considerar si existe caldera de apoyo (gas, eléctrica) para integración del sistema solar — puede requerir válvula mezcladora termostática.",
+        "Legalización ante distribuidora si hay conexión a red de agua caliente sanitaria — verificar normativa local."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Colectores solares térmicos",
+          "oficio": "energia_solar",
+          "motivo": "Material específico de sistema solar térmico para ACS — no está en catálogo fotovoltaico, requiere precio del instalador"
+        },
+        {
+          "concepto": "Acumulador solar (depósito ACS)",
+          "oficio": "energia_solar",
+          "motivo": "Componente específico de sistema solar térmico — requiere precio según capacidad y marca"
+        },
+        {
+          "concepto": "Fluido caloportador solar",
+          "oficio": "energia_solar",
+          "motivo": "Material específico para circuito primario de colectores solares térmicos — requiere precio"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_placa_solar_fotovoltaica_integrada_en_cubierta",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda"
+    ],
+    "kb_score": 4.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4299,
+      "tokens_out": 3136
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 3,
+    "n_sugeridas": 7,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

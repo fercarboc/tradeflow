@@ -1,0 +1,230 @@
+{
+  "id": 286,
+  "oficio": "Impermeabilización",
+  "texto": "Aplicar pintura impermeabilizante en pared medianera con problemas de humedad por capilaridad",
+  "http_status": 200,
+  "latency_ms": 25294,
+  "raw_response": {
+    "transcript": "Aplicar pintura impermeabilizante en pared medianera con problemas de humedad por capilaridad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar pintura impermeabilizante en pared medianera con problemas de humedad por capilaridad",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "HUMEDAD POR CAPILARIDAD DETECTADA: Requiere diagnóstico previo y posible tratamiento de inyecciones antes de pintar",
+          "MEDIANERA: Verificar propiedad del muro y obtener permisos/acuerdos con propietario colindante",
+          "La pintura antihumedad es PALIATIVA. Sin resolver capilaridad (inyecciones, aireación, drenaje), la humedad reaparecerá"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura antihumedad exterior en medianera"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Diagnóstico y posible tratamiento de humedad por capilaridad (inyecciones, mortero hidrofugo)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico de humedad por capilaridad",
+          "descripcion": "Inspección técnica previa: identificación de origen, medición de humedad relativa, evaluación del sistema de inyecciones necesario",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a determinar por instalador según complejidad del diagnóstico (1-2 horas típicamente)"
+        },
+        {
+          "concepto": "Inyecciones de resina hidrófoba en hilada (tratamiento capilaridad)",
+          "descripcion": "Aplicación de inyecciones de resina hidrófoba cada 12-15 cm en hilada de ladrillo/piedra para bloquear capilaridad. Profundidad según espesor de muro",
+          "oficio": "albanileria",
+          "tipo_partida": "material_mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe medir perímetro/ml de muro afectado. Rango referencia: 25-130€/ml según alcance y complejidad"
+        },
+        {
+          "concepto": "Saneado de mortero deteriorado por humedad",
+          "descripcion": "Remoción de mortero degradado, eflorescencias y materiales no adherentes en zona afectada por capilaridad",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas a determinar según superficie: típicamente 2-4 horas por 10 m² de muro"
+        },
+        {
+          "concepto": "Reposición de mortero hidrofugo",
+          "descripcion": "Aplicación de mortero hidrofugo de composición especial para rejuntado y revestimiento de zona tratada",
+          "oficio": "albanileria",
+          "tipo_partida": "material_mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador mide m² afectados. Incluye suministro e instalación. Precio estimado 15-40€/m² (material+mano)"
+        },
+        {
+          "concepto": "Pintura antihumedad exterior (siloxano o epoxi)",
+          "descripcion": "Aplicación de 2 capas de pintura impermeabilizante específica para humedad en medianera. Incluye imprimación fijadora",
+          "oficio": "pintura",
+          "tipo_partida": "material_mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador mide m² netos de pared. Rango: 8-16€/m² (mano de obra + material pintado). Material a suministrar aparte si no incluye"
+        },
+        {
+          "concepto": "Imprimación fijadora (consolidante)",
+          "descripcion": "Aplicación de imprimación para consolidar superficies friables y mejorar adherencia de pintura antihumedad",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 4,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad m² = m² de pared. Precio incluye mano de obra; material a presupuestar aparte (origen sugerida_ia, precio=0)"
+        },
+        {
+          "concepto": "Limpieza y preparación previa de superficie",
+          "descripcion": "Cepillado, eliminación de algas/musgo, desengrasante y saneado de zona para recibir tratamiento hidrofugo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 2,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (cinta protección, mascarillas, brochas, rodillos, etc.)",
+          "descripcion": "Suministro de materiales menores para pintura: cinta de carrocero, protecciones, pinceles, rodillos, disolvente, trapos",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según m² totales: típicamente 30-80€ el lote completo"
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora (si necesario)",
+          "descripcion": "Instalación de andamio modular o alquiler de plataforma elevadora para acceso seguro a medianera. Precio por día/semana",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Determinar altura de pared y días de trabajo necesarios. Típicamente 100-300€/día alquiler + 200€ montaje/desmontaje"
+        },
+        {
+          "concepto": "Aireación o ventilación provisional (si espacio confinado)",
+          "descripcion": "Instalación de ventilación temporal con extractor durante trabajos si zona está muy cerrada o con poco flujo de aire",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Evaluar necesidad in situ. Si aplica: 50-150€ por jornada (alquiler + instalación)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "ANTES DE PINTAR: Ejecutar diagnóstico profesional de humedad por capilaridad. Si la raíz no se trata, la pintura es paliativa y fallará en 2-3 años",
+        "Considerar sistema de inyecciones de resina hidrófoba como tratamiento PRIMARIO (soluciona causa), luego la pintura como COMPLEMENTO protector",
+        "Medianera: Obtener permiso escrito del propietario colindante. Verificar propiedad del muro antes de iniciar",
+        "Tiempo de curación: Respetar 48-72h antes de repintar tras inyecciones y mortero hidrofugo",
+        "Presupuestar el CONJUNTO: diagnóstico+inyecciones+mortero+pintura. No solo pintura. Presupuesto recomendado: 1500-5000€ según m² (pequeña/media medianera)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico de humedad por capilaridad",
+          "oficio": "albanileria",
+          "motivo": "No está en catálogo estándar; imprescindible para este caso"
+        },
+        {
+          "concepto": "Inyecciones de resina hidrófoba en hilada",
+          "oficio": "albanileria",
+          "motivo": "Base Maestra incluye referencia [reparacion_de_humedades_por_capilaridad_en_muro]. Partida crítica para resolver causa raíz"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_antihumedad_paredes_con_filtraciones",
+      "reparacion_de_humedades_por_capilaridad_en_muro",
+      "pintado_de_medianeras_o_paredes_ciegas",
+      "pintado_de_foso_de_ascensor",
+      "pintura_de_medianera_o_pared_ciega_exterior"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 10,
+    "n_catalogo": 0,
+    "n_sugeridas": 10,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

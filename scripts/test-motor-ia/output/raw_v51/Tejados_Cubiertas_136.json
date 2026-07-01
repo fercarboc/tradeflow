@@ -1,0 +1,391 @@
+{
+  "id": 136,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+  "http_status": 200,
+  "latency_ms": 34658,
+  "raw_response": {
+    "transcript": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Proyecto de cubierta vegetal requiere ESTUDIO ESTRUCTURAL previo (carga viva estimada 150-500 kg/m² según sistema)",
+          "Membrana impermeabilizante especial para cubiertas ajardinadas (raíces resistente) OBLIGATORIA",
+          "Sistema de riego automático requiere suministro de agua y electricidad",
+          "Drenaje y sobreelevación necesarios para evitar humedades",
+          "Revisar normativa local y licencia de obra",
+          "Mantenimiento posterior (riego, poda, drenaje) recomendado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Preparación de estructura, drenaje, impermeabilización especial para cubierta vegetal"
+        },
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 22,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Plantación de vegetación, diseño paisajístico, selección de plantas para azotea"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de sistema de riego automático, tuberías, goteros, válvulas"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de programador de riego, bomba de presión si necesaria, cableado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "ESTUDIO Y PROYECTO",
+          "descripcion": "Proyecto técnico de cubierta vegetal: cálculo de cargas, impermeabilización, drenaje, riego y paisajismo",
+          "oficio": "cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 800-2000€ según complejidad. El instalador debe revisar alcance y complejidad."
+        },
+        {
+          "concepto": "Desmontaje e inspección de cubierta existente",
+          "descripcion": "Inspección de estructura, retirada de materiales sueltos, limpieza general, evaluación de drenaje actual",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar m² de azotea. Tarifa aproximada 20-30€/m²"
+        },
+        {
+          "concepto": "Impermeabilización especial para cubierta vegetal (raíces resistente)",
+          "descripcion": "Membrana impermeabilizante de 1.2-1.5mm resistente a raíces, imprimación y soldadura de juntas. Capa barrera de vapor si estructura lo requiere",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: 35-75€/m². Mano de obra instalación: 25-40€/m². Especificar m² neto + 10% encuentros"
+        },
+        {
+          "concepto": "Capa de drenaje y filtro para cubierta vegetal",
+          "descripcion": "Sistema de drenaje modular o grava expandida, geotextil filtrante, tuberías de drenaje perimetral, conexión a sumideros",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 12-25€/m² (material + instalación). Especificar m² y tipo de drenaje (modular vs. grava)"
+        },
+        {
+          "concepto": "Instalación de capa de drenaje, geotextil y tuberías",
+          "descripcion": "Tendido de drenaje, colocación de geotextil filtrante, tendido de tuberías de drenaje perimetral, conexión a desagüe existente",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 20,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa 20€/m² aproximada. Especificar m² total."
+        },
+        {
+          "concepto": "Sustrato de cultivo para cubierta vegetal",
+          "descripcion": "Sustrato especial ligero para cubiertas (turba, compost, perlita, vermiculita), espesor 15-25cm según tipo de vegetación",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 80-150€/m³ (material). Volumen = m² × espesor (m). Especificar profundidad de sustrato."
+        },
+        {
+          "concepto": "Distribución e instalación de sustrato",
+          "descripcion": "Extendido, nivelación y distribución uniforme de sustrato de cultivo sobre capa drenante",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 30,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa 30€/m³ aproximada para distribución. Especificar volumen total."
+        },
+        {
+          "concepto": "Plantas y vegetación para cubierta (cespitosa o múltiples especies)",
+          "descripcion": "Selección e instalación de vegetación: sedum, gramíneas resistentes a sequía, arbustos bajos según proyecto paisajístico",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Varía según tipos: sedum 2-8€/ud, arbustos 15-50€/ud. Especificar cantidad de plantas por especie."
+        },
+        {
+          "concepto": "Plantación y establecimiento inicial de vegetación",
+          "descripcion": "Plantación manual de todas las especies, apisonado ligero, riego inicial, ajustes de distribución",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa 8€/m² aproximada para plantación. Especificar m²."
+        },
+        {
+          "concepto": "Sistema de riego automático por goteo",
+          "descripcion": "Tuberías de distribución PEX/polietileno, goteros regulables, conectores, filtro de agua, válvulas de corte y retención",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 8-18€/m² (material kit riego). Especificar m² de cobertura y tipo de gotero."
+        },
+        {
+          "concepto": "Instalación de sistema de riego automático",
+          "descripcion": "Tendido de tuberías principales y secundarias, colocación de goteros, conexión a fuente de agua, pruebas de caudal y presión",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa 12€/m² aproximada para instalación de riego. Especificar m²."
+        },
+        {
+          "concepto": "Programador de riego automático con sensor de humedad",
+          "descripcion": "Programador digital con temporizador, sensor de humedad de suelo, conexión a válvula solenoide, instalación y puesta en marcha",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Dispositivo: 150-400€ según funcionalidades. Instalación incluida en mano de obra."
+        },
+        {
+          "concepto": "Instalación eléctrica de programador y solenoide",
+          "descripcion": "Tendido de cable de comando hasta programador, conexión de solenoide, puesta en marcha y ajuste de parámetros de riego",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de agua a sistema de riego",
+          "descripcion": "Conexión a red de agua existente, reducción de presión, filtro de sedimentos, válvula de cierre de emergencia",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 200-500€ (materiales + instalación) según complejidad conexión. Especificar distancia a acometida."
+        },
+        {
+          "concepto": "Conexión a agua y puesta en marcha del riego",
+          "descripcion": "Conexión de entrada de agua, instalación de reducción de presión, filtro y válvulas, pruebas de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protección perimetral de cubierta vegetal",
+          "descripcion": "Valla de seguridad o baranda perimetral si es obligatorio, acceso controlado, señalización de zona ajardinada",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Varía según tipo de protección. Especificar perímetro y requisito normativo."
+        },
+        {
+          "concepto": "Riego inicial y puesta en servicio",
+          "descripcion": "Primer riego abundante, verificación de drenaje, ajuste de goteros, monitoreo inicial de enraizamiento (2-3 semanas)",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Asesoramiento y plan de mantenimiento",
+          "descripcion": "Documentación de mantenimiento posterior: calendario de riego, poda, fertilización, drenaje, inspección estructural anual",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 300-600€ para plan detallado + capacitación de personal de mantenimiento."
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Crear partida estándar: 'Cubierta vegetal extensiva (sedum)' - rango 50-120€/m² todo incluido",
+        "Crear partida estándar: 'Cubierta vegetal intensiva (múltiples especies)' - rango 120-250€/m² todo incluido",
+        "Crear partida estándar: 'Sistema de riego automático para cubiertas verdes' - rango 15-30€/m²",
+        "Crear sub-oficio: 'paisajismo_especializado' o extender 'jardineria' para cubiertas ajardinadas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "impermeabilización_cubierta_vegetal_raíces_resistente",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "rango_precio": "35-75€/m²",
+          "motivo": "Membrana especial resistente a penetración de raíces, diferente de impermeabilización estándar"
+        },
+        {
+          "concepto": "drenaje_especial_cubierta_vegetal",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "rango_precio": "12-25€/m²",
+          "motivo": "Sistema de drenaje y filtración especializado para cubierta ajardinada"
+        },
+        {
+          "concepto": "sustrato_ligero_cubierta",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "rango_precio": "80-150€/m³",
+          "motivo": "Sustrato especial de bajo peso para cubiertas verdes (no es tierra estándar)"
+        },
+        {
+          "concepto": "riego_automático_cubierta_vegetal",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "rango_precio": "8-18€/m²",
+          "motivo": "Sistema de riego por goteo especializado para cubiertas ajardinadas"
+        },
+        {
+          "concepto": "programador_riego_sensor_humedad",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "rango_precio": "150-400€/ud",
+          "motivo": "Dispositivo electrónico de control automático con sensores"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_drenaje_cubierta_plana",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 18,
+    "n_catalogo": 7,
+    "n_sugeridas": 11,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

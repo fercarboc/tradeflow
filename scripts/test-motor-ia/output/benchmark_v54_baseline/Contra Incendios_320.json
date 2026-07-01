@@ -1,0 +1,286 @@
+{
+  "id": 320,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+  "http_status": 200,
+  "latency_ms": 29054,
+  "raw_response": {
+    "transcript": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema VESDA es tecnología especializada de detección muy temprana (aspiración de aire). Requiere proyecto técnico específico.",
+          "Archivo de documentación es zona de riesgo especial: requiere cumplimiento CTE DB-SI y norma UNE 23007.",
+          "Instalación incluye obra civil (tuberías de aspiración), electricidad (alimentación y batería respaldo) y control centralizado.",
+          "Presupuesto requiere revisión de precios de materiales y coordinación con empresa especializada certificada."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de detección temprana de incendios VESDA es instalación de protección contra incendios. Oficio principal: contra_incendios."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Alimentación eléctrica del sistema VESDA, batería respaldo 72h, cableado resistente al fuego E30, conexiones a central de control."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil menor: pasos de tuberías de aspiración, fijaciones en estructura, sellados y remates."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico sistema VESDA",
+          "descripcion": "Proyecto técnico especializado para sistema de detección temprana por aspiración VESDA en archivo de documentación. Incluye cálculo de red de tuberías, puntos de aspiración, caudales, presiones, cumplimiento CTE DB-SI y UNE 23007.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proyecto técnico especializado. Precio depende de complejidad del archivo y superficie. Rango estimado: 800-2000€."
+        },
+        {
+          "concepto": "Central de detección VESDA (unidad procesadora)",
+          "descripcion": "Central de control y procesadora del sistema VESDA. Incluye módulo de análisis de aire aspirado, pantalla de control, batería respaldo 72h mínimo, certificación EN 54-2 y EN 54-4, conexión a red de tuberías de aspiración.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Central VESDA especializada. Precio depende de modelo y capacidad. Rango estimado: 3000-8000€."
+        },
+        {
+          "concepto": "Red de tuberías de aspiración VESDA",
+          "descripcion": "Tuberías de aspiración de aire (típicamente PVC o aluminio) desde puntos de muestreo en archivo hasta central VESDA. Incluye puntos de aspiración estratégicos, válvulas de cierre, filtros preliminares, conexiones y pequeño material.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales depende de layout del archivo. Precio estimado: 40-80€/ml instalado (material + mano de obra)."
+        },
+        {
+          "concepto": "Puntos de aspiración/muestreo VESDA",
+          "descripcion": "Cabezales de aspiración/muestreo distribuidos en archivo de documentación. Incluye rejillas de aspiración, tubos de muestreo, válvulas de cierre individual, filtros preliminares por punto.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de puntos depende de superficie y distribución del archivo. Rango: 4-12 puntos típicos. Precio estimado: 150-300€/punto."
+        },
+        {
+          "concepto": "Instalación red tuberías aspiración y puntos de muestreo",
+          "descripcion": "Mano de obra para instalación de red de tuberías de aspiración, fijación a estructura, pasos por muros, conexión de puntos de muestreo, pruebas de estanqueidad y hermeticidad de la red.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas dependen de complejidad y longitud de red. Estimado: 20-40 horas."
+        },
+        {
+          "concepto": "Instalación central VESDA y conexiones",
+          "descripcion": "Mano de obra para instalación de central procesadora VESDA, conexión a red de tuberías, pruebas de funcionamiento, calibración de sensores, programación de umbrales de alarma.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 55,
+          "total": 440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alimentación eléctrica y batería respaldo 72h",
+          "descripcion": "Instalación de línea eléctrica dedicada a central VESDA (protegida con magnetotérmico y diferencial), batería respaldo 72h mínimo certificada, cableado resistente al fuego E30, conexiones y pequeño material eléctrico.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Batería respaldo especializada. Precio estimado: 800-1500€."
+        },
+        {
+          "concepto": "Instalación alimentación eléctrica y batería",
+          "descripcion": "Mano de obra para instalación de línea eléctrica dedicada, conexión de batería respaldo, cableado E30, pruebas de funcionamiento y autonomía de batería.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Obra civil: pasos de tuberías y fijaciones",
+          "descripcion": "Mano de obra para obra civil menor: pasos de tuberías por muros, fijación a estructura, sellados con mortero ignífugo, remates y acabados.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas dependen de número de pasos y complejidad. Estimado: 8-16 horas."
+        },
+        {
+          "concepto": "Señalización y documentación",
+          "descripcion": "Señalización normalizada del sistema VESDA (placas de identificación, esquemas de red, planos de puntos de muestreo), manual de operación y mantenimiento, documentación de pruebas y certificados de instalación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documentación y señalización. Precio estimado: 200-400€."
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Pruebas de estanqueidad de red, pruebas de aspiración en cada punto, calibración de sensores, pruebas de alarma, verificación de batería respaldo, documentación de pruebas y certificado de conformidad.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pruebas especializadas. Precio estimado: 400-800€."
+        },
+        {
+          "concepto": "Formación y entrega a usuario",
+          "descripcion": "Formación del personal del archivo en operación del sistema VESDA, procedimientos de mantenimiento básico, interpretación de alarmas, entrega de documentación técnica y manuales.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 55,
+          "total": 220,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 960,
+        "iva_porcentaje": 21,
+        "iva": 201.6,
+        "total": 1161.6
+      },
+      "sugerencias_catalogo": [
+        "Sistema VESDA es tecnología de detección muy temprana por aspiración de aire. Requiere empresa instaladora especializada y certificada según RITE e Industria.",
+        "Presupuesto actual incluye SOLO mano de obra cuantificable. MATERIALES (central, tuberías, puntos, batería, etc.) requieren revisión de precios por el instalador especializado.",
+        "Recomendación: solicitar presupuesto a distribuidor oficial VESDA o empresa especializada en sistemas de detección temprana.",
+        "Normativa aplicable: CTE DB-SI, UNE 23007, EN 54-2, EN 54-4, REBT.",
+        "Mantenimiento: revisión trimestral obligatoria y limpieza de filtros de aspiración según protocolo VESDA."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central de detección VESDA (unidad procesadora)",
+          "oficio": "contra_incendios",
+          "motivo": "Sistema especializado de detección temprana por aspiración. No existe en catálogo estándar. Requiere presupuesto de distribuidor oficial."
+        },
+        {
+          "concepto": "Red de tuberías de aspiración VESDA",
+          "oficio": "contra_incendios",
+          "motivo": "Red específica del sistema VESDA. Precio depende de layout del archivo y longitud total de red."
+        },
+        {
+          "concepto": "Puntos de aspiración/muestreo VESDA",
+          "oficio": "contra_incendios",
+          "motivo": "Cabezales especializados de muestreo. Cantidad depende de superficie y distribución del archivo."
+        },
+        {
+          "concepto": "Alimentación eléctrica y batería respaldo 72h",
+          "oficio": "electricidad",
+          "motivo": "Batería especializada para sistema VESDA. Requiere especificación técnica según central."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_central_deteccion_y_alarma_incendios",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_recuperacion_aguas_pluviales",
+      "instalacion_bocas_de_incendio_equipadas_BIE_25mm"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "max_tokens",
+      "tokens_in": 4042,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 5,
+    "n_sugeridas": 7,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

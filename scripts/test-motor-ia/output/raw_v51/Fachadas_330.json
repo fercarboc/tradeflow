@@ -1,0 +1,214 @@
+{
+  "id": 330,
+  "oficio": "Fachadas",
+  "texto": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+  "http_status": 200,
+  "latency_ms": 21340,
+  "raw_response": {
+    "transcript": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material HPL (High Pressure Laminate) requiere estructura portante especializada",
+          "Especificar superficie total a revestir (m²) para cálculo exacto",
+          "Considerar si hay desmontaje previo de revestimiento existente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Revestimiento especializado de fachada con paneles HPL"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Panel fenólico HPL color antracita",
+          "descripcion": "Suministro de panel HPL (High Pressure Laminate) color antracita, resistente a UV, impactos y climatología exterior, incluyendo cortes y acabados",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado HPL - instalador debe introducir precio unitario según proveedor y calidad"
+        },
+        {
+          "concepto": "Estructura portante aluminio o acero galvanizado",
+          "descripcion": "Suministro de estructura portante (perfiles aluminio anodizado o acero galvanizado) para fijación de paneles HPL, incluye perfiles horizontales, verticales, arriostramientos y elementos de dilatación",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estructura personalizada según superficie y diseño - instalador debe revisar y cotizar"
+        },
+        {
+          "concepto": "Anclajes, tornillería y herrajes especializados",
+          "descripcion": "Tornillos de acero inoxidable A4, remaches, arandelas de presión, perfiles de remate, juntas de dilatación y pequeño material de fijación",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad varía según superficie - incluir en cálculo global"
+        },
+        {
+          "concepto": "Desmontaje de revestimiento existente (si aplica)",
+          "descripcion": "Retirada selectiva y gestión de residuos de revestimiento anterior en fachada, incluyendo apuntalamiento temporal de seguridad",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar si existe revestimiento previo a desmontar"
+        },
+        {
+          "concepto": "Preparación de soporte",
+          "descripcion": "Limpieza, nivelación y preparación de muro base para recibir estructura portante; tratamiento de puntos singulares (grietas, irregularidades)",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada según especialidad fachadas; confirmar alcance según estado del soporte"
+        },
+        {
+          "concepto": "Instalación de estructura portante",
+          "descripcion": "Montaje, nivelación y fijación de perfiles de aluminio/acero galvanizado; colocación de arriostramientos; ajuste de planeidad y aplomado",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación y fijación de paneles HPL",
+          "descripcion": "Montaje de paneles fenólicos HPL color antracita sobre estructura; ajuste de encuentros; fijación mediante tornillería especializada; control de juntas de dilatación",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Remates, encuentros y puntos singulares",
+          "descripcion": "Instalación de perfiles de remate superior, lateral, en esquinas y encuentros con carpintería; sellado de juntas; tratamiento de puntos singulares (desagües, tuberías, ventilación)",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de puntos singulares determina mano de obra real - especificar en presupuesto final"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler y montaje de andamio tubular o plataforma elevadora para acceso seguro a fachada durante toda la obra",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar aparte según empresa de alquiler; altura y duración de obra determinan coste"
+        },
+        {
+          "concepto": "Control de calidad e inspección",
+          "descripcion": "Verificación de planeidad, aplomado, fijaciones, juntas de dilatación y acabado final; ajustes correctivos si aplica",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar 2-4 horas según superficie y complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada en catálogo para 'Revestimiento fachada con panel HPL' unidad=m2 precio=85-150€/m2 (incluida mano de obra estructura + instalación)",
+        "Considerar plantilla de actuación: [revestimiento_fachada_con_panel_hpl] con partidas_obligatorias: suministro_hpl, estructura_portante, anclajes_inox, desmontaje_previo_si_existe, preparacion_soporte, instalacion_estructura, colocacion_paneles, remates_encuentros"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "actuacion": "revestimiento_fachada_con_panel_fenolico_hpl",
+          "oficio": "fachadas",
+          "unidad": "m2",
+          "precio_estimado_min": 85,
+          "precio_estimado_max": 150,
+          "motivo": "Material HPL especializado + estructura portante + mano de obra calificada. Precio varía según altura, accesibilidad y complejidad de encuentros"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "colocacion_de_revestimiento_de_madera_o_tablon_en_zocalo_exterior",
+      "revestimiento_con_mortero_monocapa",
+      "alicatado_de_fachada_exterior_con_ceramica_o_piedra",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "instalacion_celosias_metalicas_decorativas_o_de_proteccion"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 10,
+    "n_catalogo": 0,
+    "n_sugeridas": 10,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

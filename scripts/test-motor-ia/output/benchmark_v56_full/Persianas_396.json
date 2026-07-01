@@ -1,0 +1,163 @@
+{
+  "id": 396,
+  "oficio": "Persianas",
+  "texto": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+  "http_status": 200,
+  "latency_ms": 17783,
+  "raw_response": {
+    "transcript": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Marquesina plegable: verificar medidas exactas de ancho y profundidad antes de presupuestar material",
+          "Acceso a fachada: confirmar si requiere andamio o plataforma elevadora",
+          "Anclaje estructural: revisar tipo de fachada (ladrillo, hormigón, piedra) para seleccionar tacos/anclajes adecuados"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de elemento de protección en fachada/entrada de portal. Incluye trabajos de acceso en altura, anclaje estructural y acabados en fachada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Marquesina plegable PVC transparente",
+          "descripcion": "Suministro de marquesina plegable de PVC transparente con estructura metálica (aluminio o acero galvanizado) para protección de entrada de portal. Incluye herrajes de plegado y mecanismo de apertura/cierre.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: precio depende de medidas (ancho/profundidad), tipo de estructura (aluminio/acero), espesor PVC y mecanismo de plegado. Instalador debe confirmar dimensiones y especificaciones técnicas."
+        },
+        {
+          "concepto": "Anclaje estructural a fachada",
+          "descripcion": "Suministro e instalación de tacos de anclaje, pernos y herrajes de fijación según tipo de fachada (ladrillo, hormigón, piedra). Incluye pequeño material (tuercas, arandelas, sellado con silicona).",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de anclajes dependen de medidas de marquesina y resistencia requerida. Revisar tipo de fachada para seleccionar tacos adecuados."
+        },
+        {
+          "concepto": "Mano de obra: instalación marquesina plegable",
+          "descripcion": "Trabajos de instalación: replanteo, perforación de fachada, colocación de anclajes, montaje de estructura y herrajes, ajuste de mecanismo de plegado, sellado de encuentros con silicona neutra, limpieza y retirada de residuos.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acceso en altura (andamio o plataforma elevadora)",
+          "descripcion": "Alquiler y montaje de andamio modular o plataforma elevadora para acceso seguro a zona de instalación en fachada. Incluye EPI (arnés, casco, cinturón de seguridad) según normativa de trabajos en altura.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario confirmar altura de instalación y accesibilidad. Si altura < 3m y hay andamio fijo en obra, puede no ser necesario. Si altura > 3m o sin andamio, presupuestar alquiler de plataforma elevadora (150-300€/día) o andamio (200-400€/montaje)."
+        },
+        {
+          "concepto": "Sellado e impermeabilización de encuentros",
+          "descripcion": "Aplicación de silicona neutra de calidad en encuentros entre marquesina y fachada, y en juntas de estructura. Garantiza estanqueidad y evita filtraciones de agua.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de silicona depende del perímetro de encuentros. Presupuestar 2-3 cartuchos de silicona neutra (8-12€/cartucho)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'instalacion_marquesina_proteccion_entrada' o 'revestimiento_fachada_protecciones'",
+        "Considerar si la marquesina requiere impermeabilización adicional (oficio: impermeabilizacion) si el PVC no es suficientemente estanco",
+        "Si la marquesina incluye estructura metálica compleja, considerar oficio: carpinteria (si es madera) o cerrajeria (si es metal/aluminio)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Marquesina plegable PVC transparente",
+          "oficio": "fachadas",
+          "razon": "Elemento específico de protección de entrada. No existe partida exacta en catálogo. Precio depende de medidas y especificaciones técnicas del cliente."
+        },
+        {
+          "concepto": "Anclaje estructural a fachada",
+          "oficio": "fachadas",
+          "razon": "Partida auxiliar necesaria para fijación segura. Precio variable según tipo de fachada y cantidad de anclajes."
+        },
+        {
+          "concepto": "Acceso en altura (andamio o plataforma elevadora)",
+          "oficio": "fachadas",
+          "razon": "Servicio auxiliar de seguridad. Necesario confirmar si es obligatorio según altura y accesibilidad de la zona."
+        },
+        {
+          "concepto": "Sellado e impermeabilización de encuentros",
+          "oficio": "fachadas",
+          "razon": "Material auxiliar para garantizar estanqueidad. Precio depende del perímetro de encuentros."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cubremuros_o_sombrerete_de_chimenea",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4073,
+      "tokens_out": 2058
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

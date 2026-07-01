@@ -1,0 +1,171 @@
+{
+  "id": 160,
+  "oficio": "Pladur",
+  "texto": "Tabique de doble placa de pladur con lana de roca para separar sala de reuniones en oficina",
+  "http_status": 200,
+  "latency_ms": 25106,
+  "raw_response": {
+    "transcript": "Tabique de doble placa de pladur con lana de roca para separar sala de reuniones en oficina",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique de doble placa de pladur con lana de roca para separar sala de reuniones en oficina",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume tabique que llega a techo. Confirmar altura y si requiere refuerzo superior.",
+          "Lana de roca incluida para aislamiento acústico. Confirmar espesor (50mm o 70mm).",
+          "Precio de mano de obra basado en tarifa pladur_escayola: 35€/h. Revisar según complejidad local."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Tabique doble placa pladur con lana de roca. Oficio especializado en sistemas de pladur."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm (doble placa por cara)",
+          "descripcion": "Suministro e instalación de placa de yeso laminado estándar 15mm. Cantidad: 2 placas por cada cara del tabique (4 placas totales por m² de tabique).",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe confirmar precio de placa según proveedor y cantidad exacta de m² del tabique."
+        },
+        {
+          "concepto": "Perfiles metálicos (canal 70 y montantes 70)",
+          "descripcion": "Suministro de perfiles de acero galvanizado: canal 70mm (base y coronación) y montantes 70mm (separación 400mm). Incluye tornillería de fijación a estructura.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Revisar cantidad de perfiles según dimensiones exactas del tabique."
+        },
+        {
+          "concepto": "Lana de roca para aislamiento acústico",
+          "descripcion": "Suministro de lana de roca de densidad media (50-70mm) para relleno entre montantes. Proporciona aislamiento acústico y térmico.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Confirmar espesor (50mm o 70mm) y densidad según especificación acústica requerida."
+        },
+        {
+          "concepto": "Cinta de papel y pasta de juntas",
+          "descripcion": "Suministro de cinta de papel para juntas, pasta de juntas y pequeño material (tornillería pladur, tacos de fijación, ángulos metálicos para esquinas).",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Incluye consumibles. Revisar según m² total del tabique."
+        },
+        {
+          "concepto": "Montaje y fijación de estructura metálica",
+          "descripcion": "Mano de obra: replanteo, fijación de canales a suelo y techo, colocación de montantes cada 400mm, fijación a estructura existente.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de lana de roca y placas de pladur",
+          "descripcion": "Mano de obra: inserción de lana de roca entre montantes, colocación de doble placa (2 placas por cara) con tornillería, nivelación y aplomado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento de juntas y acabado",
+          "descripcion": "Mano de obra: aplicación de cinta de papel en juntas, pasadas de pasta de juntas (mínimo 2-3 pasadas), lijado y preparación para pintura. Incluye ángulos metálicos en esquinas.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 105,
+        "iva_porcentaje": 21,
+        "iva": 22.05,
+        "total": 127.05
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el tabique requiere refuerzo de fijación para elementos colgados (cuadros, estanterías, TV) en la sala de reuniones.",
+        "Considerar si se necesita tratamiento acústico adicional (doble placa en ambas caras o lana de mayor densidad) según requisitos de aislamiento.",
+        "Definir si la pintura final está incluida o es presupuesto aparte (habitualmente es presupuesto de pintura separado).",
+        "Revisar si hay instalaciones (electricidad, climatización) que deban pasar por el tabique antes de cerrar."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_separacion_zona_oficina",
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_cortafuego_RF60_o_RF120",
+      "tabique_pladur_doble_placa_alta_resistencia"
+    ],
+    "kb_score": 4.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3771,
+      "tokens_out": 2348
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

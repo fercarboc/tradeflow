@@ -1,0 +1,178 @@
+{
+  "id": 247,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+  "http_status": 200,
+  "latency_ms": 18396,
+  "raw_response": {
+    "transcript": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye mano de obra. Materiales (antena parabólica, LNB, cables, conectores) requieren revisión de precios por parte del instalador según marca y modelo seleccionado."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Instalación de sistemas de recepción por satélite"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de antena parabólica offset",
+          "descripcion": "Antena parabólica offset para recepción satélite, diámetro según necesidad de cobertura",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de diámetro (60cm, 80cm, 90cm...) y marca. Instalador debe especificar."
+        },
+        {
+          "concepto": "Suministro de LNB (Low Noise Block) dual",
+          "descripcion": "Convertidor de bajo ruido dual para dos salidas de señal satélite, frecuencia banda Ku o C según satélite",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo LNB (universal, quattro, HDTV). Incluye dos salidas independientes."
+        },
+        {
+          "concepto": "Suministro de cables coaxiales y conectores",
+          "descripcion": "Cable coaxial 75 ohmios de calidad superior, conectores F y diswasher para dos salidas independientes, pequeño material (aislamiento, cinta, etc.)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Se estima 30ml de cable coaxial. Precio variable según calidad y marca. Revisar metros reales según instalación."
+        },
+        {
+          "concepto": "Suministro de soporte y herrajes de fijación",
+          "descripcion": "Soporte de acero galvanizado para antena parabólica, pernos de anclaje, tuercas y arandelas inoxidables, abrazaderas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de fijación (mástil, pared, tejado) y accesorios."
+        },
+        {
+          "concepto": "Mano de obra: Montaje de antena parabólica",
+          "descripcion": "Instalación completa de antena parabólica, colocación de LNB, orientación correcta hacia satélite, alineación de señal, conexión de cables, pruebas de recepción y nivel de señal",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Trazado y conexión de dos salidas",
+          "descripcion": "Canalización, tendido de cables coaxiales para dos salidas independientes, conexión a receptores o decodificadores, ajuste de niveles de señal, pruebas de funcionamiento en ambas salidas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Medición de nivel de señal y optimización",
+          "descripcion": "Verificación de calidad de señal con medidor, optimización de orientación azimut/elevación, prueba en ambos receptores, documentación de parámetros finales",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Considere incluir medidor de nivel de señal satélite en presupuesto si no dispone el cliente",
+        "Si la instalación requiere rotura de fachada o tabiques, agregue partida de albanilería con posterior sellado",
+        "Si hay más de 50ml de cable, revise canalización exterior con protección UV"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Antena parabólica offset",
+          "oficio": "telecomunicaciones",
+          "motivo": "Trabajo específico de satélite, no existe partida exacta en catálogo. Creada como sugerida_ia."
+        },
+        {
+          "concepto": "LNB dual para satélite",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componente especializado no en catálogo base. Requiere especificación técnica del instalador."
+        },
+        {
+          "concepto": "Cables y conectores para satélite",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico de satélite con particularidades (75 ohmios, conectores F). Precio pendiente de revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "id": 179,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner pavimento de caucho negro en gimnasio de 40 metros cuadrados, espesor 15mm",
+  "http_status": 200,
+  "latency_ms": 16233,
+  "raw_response": {
+    "transcript": "Poner pavimento de caucho negro en gimnasio de 40 metros cuadrados, espesor 15mm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner pavimento de caucho negro en gimnasio de 40 metros cuadrados, espesor 15mm",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto de material + mano de obra. Instalador debe revisar precios unitarios de pavimento y adhesivo según proveedor."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Instalación de pavimento de caucho, regularización y colocación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Pavimento de caucho negro espesor 15mm",
+          "descripcion": "Loseta o rollo de caucho negro, espesor 15mm, para gimnasio. Incluye suministro",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de caucho: precio varía mucho según calidad, espesor y proveedor. Instalador introduce precio unitario/m2"
+        },
+        {
+          "concepto": "Adhesivo específico para caucho",
+          "descripcion": "Adhesivo poliuretano o específico para caucho, aplicación en toda la superficie (40 m2)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Adhesivo específico OBLIGATORIO para caucho. Precio según litros necesarios y marca"
+        },
+        {
+          "concepto": "Pequeño material y complementos",
+          "descripcion": "Espátulas, rodillos, paños de limpieza, disolventes, cinta de protección y otros complementos menores",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado en función del consumo real. Incluir en presupuesto detallado"
+        },
+        {
+          "concepto": "Preparación y limpieza de base",
+          "descripcion": "Limpieza, barrido, aspirado y desempolvado de la superficie antes de instalar pavimento",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aplicación de adhesivo e instalación de pavimento de caucho",
+          "descripcion": "Extendido de adhesivo, colocación de losetas/rollo de caucho negro, presionado y alineación. 40 m2 a tarifa de 40€/m2 estimado (incluye mano de obra directa)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 40,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa según catálogo base maestra: 22-110€/m2 según tipo y espesor. 40€/m2 es estimado medio para espesor 15mm en gimnasio"
+        },
+        {
+          "concepto": "Rodillos de compactación y presionado final",
+          "descripcion": "Paso de rodillo pesado para asegurar agarre total del adhesivo y eliminar burbujas",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1740,
+        "iva_porcentaje": 21,
+        "iva": 365.4,
+        "total": 2105.4
+      },
+      "sugerencias_catalogo": [
+        "Activar en catálogo partida específica: 'Pavimento de caucho gimnasio espesor 10-20mm' con rangos de precio por proveedor",
+        "Considerar adhesivos de marca (Sika, Mapei, Ardex, etc.) con precios certificados"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pavimento de caucho negro espesor 15mm",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para gimnasio. Requiere cotización de proveedor"
+        },
+        {
+          "concepto": "Adhesivo específico para caucho",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Adhesivo de poliuretano o específico. Requiere especificación técnica y cantidad exacta"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_pavimento_de_caucho_o_goma",
+      "instalacion_suelo_de_caucho_o_goma_en_rollo_o_loseta",
+      "instalacion_suelo_de_adoquin_o_loseta_hormigon_exterior",
+      "instalacion_de_perfil_o_junta_de_dilatacion_en_suelo",
+      "regularizacion_y_nivelacion_de_soporte"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

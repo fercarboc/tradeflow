@@ -1,0 +1,241 @@
+{
+  "id": 32,
+  "oficio": "Electricidad",
+  "texto": "Instalación de sistema de alarma perimetral con detectores de movimiento y sirena exterior",
+  "http_status": 200,
+  "latency_ms": 16601,
+  "raw_response": {
+    "transcript": "Instalación de sistema de alarma perimetral con detectores de movimiento y sirena exterior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de sistema de alarma perimetral con detectores de movimiento y sirena exterior",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de alarma perimetral: requiere especificar número de detectores, tipo de sirena y si incluye central receptora",
+          "Se recomienda aclarar si el sistema será alámbrico o inalámbrico",
+          "Confirmar si se requiere conexión a central receptora homologada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación de sistemas de alarma y seguridad perimetral"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cableado, configuración y puesta en marcha del sistema"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Central de alarma perimetral",
+          "descripcion": "Central de control para sistema de alarma perimetral con capacidad para múltiples detectores",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de cotización. Varía según marca y capacidad del sistema (típicamente 300-800€)"
+        },
+        {
+          "concepto": "Detectores de movimiento PIR perimetral",
+          "descripcion": "Detectores de movimiento PIR para protección perimetral, resistentes a la intemperie",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por unidad pendiente. Especificar cantidad exacta de detectores necesarios (típicamente 60-150€/ud)"
+        },
+        {
+          "concepto": "Sirena exterior certificada",
+          "descripcion": "Sirena exterior certificada EN 54-3 con nivel acústico mínimo 85dB, resistente a la intemperie",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente (típicamente 120-350€)"
+        },
+        {
+          "concepto": "Sirena interior",
+          "descripcion": "Sirena interior para confirmación de alarma",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente (típicamente 60-150€)"
+        },
+        {
+          "concepto": "Teclado de control de alarma",
+          "descripcion": "Teclado de control para programación y activación/desactivación del sistema",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente (típicamente 80-250€)"
+        },
+        {
+          "concepto": "Cableado y pequeño material de instalación",
+          "descripcion": "Cable de control, conectores, bridas, cajas de derivación y pequeño material necesario para la instalación completa",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente según longitud de cableado y número de puntos de conexión (típicamente 150-400€)"
+        },
+        {
+          "concepto": "Instalación de central de alarma y detectores",
+          "descripcion": "Montaje de central, detectores de movimiento PIR perimetrales y teclado de control, incluyendo conexionado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de sirenas interior y exterior",
+          "descripcion": "Montaje, orientación y conexionado de sirena exterior certificada EN 54-3 y sirena interior",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y conexionado del sistema",
+          "descripcion": "Tendido de cable de control, conexiones en central y detectores, pruebas de continuidad",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programación y pruebas del sistema de alarma",
+          "descripcion": "Configuración de detectores, zonas de protección, teclado, pruebas funcionales y explicación de uso al cliente",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 610,
+        "iva_porcentaje": 21,
+        "iva": 128.1,
+        "total": 738.1
+      },
+      "sugerencias_catalogo": [
+        "Confirmar número exacto de detectores de movimiento necesarios (instalación contabiliza 4 ud como referencia)",
+        "Especificar tipo de sistema: alámbrico o inalámbrico (afecta a material y mano de obra)",
+        "Indicar si se requiere conexión a central receptora homologada (servicio adicional)",
+        "Considerar incluir app móvil de control si el cliente lo solicita",
+        "Revisar si se necesita UPS/batería de respaldo para mayor continuidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central de alarma perimetral",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Sistema específico para protección perimetral con detectores de movimiento",
+          "rango_precio_estimado": "300-800€"
+        },
+        {
+          "concepto": "Detectores de movimiento PIR perimetral",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Detectores especializados para perímetro exterior",
+          "rango_precio_estimado": "60-150€/ud"
+        },
+        {
+          "concepto": "Sirena exterior certificada EN 54-3",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Avisador acústico exterior para alarma perimetral",
+          "rango_precio_estimado": "120-350€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_alarma_perimetral_o_antirrobo_basica",
+      "instalacion_de_sirenas_y_avisadores_acusticos_opticos",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_sistema_de_videovigilancia_CCTV"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

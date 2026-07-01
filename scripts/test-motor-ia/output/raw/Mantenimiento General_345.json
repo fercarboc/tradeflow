@@ -1,0 +1,162 @@
+{
+  "id": 345,
+  "oficio": "Mantenimiento General",
+  "texto": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+  "http_status": 200,
+  "latency_ms": 17931,
+  "raw_response": {
+    "transcript": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Mantenimiento de ascensor requiere certificación y cumplimiento normativo (ITC-AEM). Verificar que el instalador está autorizado.",
+          "Revisión de cables y mecanismos de seguridad debe incluir informe técnico.",
+          "Precio unitario de mano de obra estimado; requiere ajuste según tarifa profesional del sector ascensorista."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Mantenimiento preventivo de ascensor: limpieza, revisión mecánica y de seguridad. Trabajo multidisciplinar de mantenimiento."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza interior y exterior cabina ascensor",
+          "descripcion": "Limpieza completa de cabina (paredes, suelo, techo, espejos), puertas interiores y exteriores, botones y mandos.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mano de obra a definir por profesional ascensorista. Incluye limpieza profunda y desinfección."
+        },
+        {
+          "concepto": "Revisión y lubricación de mecanismos de puertas",
+          "descripcion": "Inspección de sistemas de apertura/cierre de puertas (interiores y exteriores), lubricación de guías, ajuste de finales de carrera, verificación de seguridades y células fotoelétricas.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mano de obra a definir. Incluye ajuste de mecanismos y verificación de seguridades."
+        },
+        {
+          "concepto": "Inspección y revisión de cables de tracción",
+          "descripcion": "Revisión visual y táctil de cables de acero, verificación de desgaste, corrosión, roturas o hilos sueltos. Medición de diámetros si procede. Informe técnico de estado.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mano de obra a definir. Incluye informe técnico de estado de cables."
+        },
+        {
+          "concepto": "Verificación de sistemas de seguridad y frenos",
+          "descripcion": "Comprobación de funcionamiento de limitador de velocidad, paracaídas, freno de emergencia, válvulas de seguridad y sistemas de amortiguación.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mano de obra a definir. Verificación crítica de seguridad según normativa ITC-AEM."
+        },
+        {
+          "concepto": "Pequeño material y consumibles mantenimiento",
+          "descripcion": "Lubricantes, grasas, trapos, desinfectantes y pequeño material necesario para el mantenimiento.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir según consumibles utilizados."
+        },
+        {
+          "concepto": "Informe técnico de mantenimiento y certificación",
+          "descripcion": "Elaboración de informe técnico de estado del ascensor, certificación de revisión según normativa ITC-AEM, recomendaciones de reparaciones si procede.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de servicio a definir. Documento obligatorio para cumplimiento normativo."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de 'mantenimiento_preventivo_automatismos_y_cierres' para estructura de partidas obligatorias en revisión de mecanismos.",
+        "Verificar si existe servicio específico de 'mantenimiento_ascensores' en catálogo ampliado.",
+        "Considerar contrato anual de mantenimiento preventivo para reducir averías y garantizar cumplimiento normativo."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mantenimiento integral ascensor",
+          "oficio": "mantenimiento_general",
+          "motivo": "No existe partida específica de 'mantenimiento ascensor' en catálogo. Se ha desglosado en 6 partidas técnicas según estándares del sector. El profesional debe introducir precios de mano de obra según su tarifa profesional y experiencia en ascensores."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_split_o_aire_acondicionado"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3897,
+      "tokens_out": 2348
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

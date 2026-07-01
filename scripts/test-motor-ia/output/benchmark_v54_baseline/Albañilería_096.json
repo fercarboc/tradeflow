@@ -1,0 +1,199 @@
+{
+  "id": 96,
+  "oficio": "Albañilería",
+  "texto": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+  "http_status": 200,
+  "latency_ms": 20427,
+  "raw_response": {
+    "transcript": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Término 'terral' no es estándar en construcción. Se interpreta como 'cerramiento de terraza'. Confirmar si es: sistema plegable, cortinas de cristal deslizantes, o estructura fija con ventanas.",
+          "Se asume cerramiento con ventanas de aluminio (cortinas de cristal deslizantes). Si es otro sistema, revisar.",
+          "Precio de materiales (perfilería, vidrio, herrajes) requiere revisión según especificaciones técnicas exactas.",
+          "Verificar si requiere licencia municipal para cerramiento de terraza."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Cerramiento de terraza con sistema de cortinas/ventanas de aluminio. Oficio 'persianas' cubre cerramientos de terraza con sistemas deslizantes y plegables."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de estructura y fijación a forjado/estructura existente de la terraza."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de perfilería de aluminio (guías superior e inferior, montantes laterales)",
+          "descripcion": "Perfiles de aluminio anodizado para cerramiento de terraza, incluye guías de deslizamiento, montantes laterales y accesorios de fijación. Cantidad: 15 m²",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfilería de aluminio según especificaciones técnicas (espesor, acabado, sistema de guías). Rango estimado: 40-80€/m²"
+        },
+        {
+          "concepto": "Suministro de vidrio templado 8mm para cerramiento",
+          "descripcion": "Paneles de vidrio templado 8mm de espesor, cortado a medida para cerramiento de terraza. Cantidad: 15 m²",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado según espesor y certificación. Rango estimado: 50-100€/m²"
+        },
+        {
+          "concepto": "Suministro de herrajes, topes y cierres (acero inoxidable)",
+          "descripcion": "Herrajes de acero inoxidable, topes de cierre, cierres centrales, rodillos de deslizamiento y pequeño material. Cantidad: 15 m²",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herrajes según calidad y sistema. Rango estimado: 20-40€/m²"
+        },
+        {
+          "concepto": "Instalación de cerramiento de terraza con cortinas de cristal",
+          "descripcion": "Mano de obra para instalación completa: fijación de guías a forjado/estructura, montaje de perfilería, colocación de paneles de vidrio, instalación de herrajes, topes y cierres, ajuste y prueba de funcionamiento. Incluye sellado perimetral básico.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 45,
+          "total": 675,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fijación a estructura existente (anclajes, platinas, tacos)",
+          "descripcion": "Fijación de pilares/montantes a forjado de terraza mediante platinas, tacos químicos o mecánicos según estructura. Incluye pequeño material de fijación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo de anclaje y material de estructura. Rango estimado: 10-25€/m²"
+        },
+        {
+          "concepto": "Sellado perimetral y juntas de estanqueidad",
+          "descripcion": "Sellado de juntas perimetrales con silicona o poliuretano de calidad, para garantizar estanqueidad del cerramiento.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sellado según material y longitud de juntas. Rango estimado: 5-15€/m²"
+        }
+      ],
+      "calculos": {
+        "subtotal": 675,
+        "iva_porcentaje": 21,
+        "iva": 141.75,
+        "total": 816.75
+      },
+      "sugerencias_catalogo": [
+        "Partida 'instalacion_cerramiento_de_terraza_con_cortinas_de_cristal' del catálogo aplicada como referencia. Rango de precio: 60-210€/m² (incluye mano de obra + materiales). En este presupuesto se ha desglosado para mayor claridad.",
+        "Confirmar con el cliente: ¿Sistema de cortinas deslizantes (recomendado) o plegable? Esto afecta a herrajes y precio final.",
+        "Verificar necesidad de proyecto técnico y licencia municipal para cerramiento de terraza (varía según municipio)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de perfilería de aluminio",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para cerramiento de terraza. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Suministro de vidrio templado 8mm",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico. Precio según espesor y certificación."
+        },
+        {
+          "concepto": "Suministro de herrajes y accesorios",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Herrajes de acero inoxidable, topes, cierres. Precio según sistema."
+        },
+        {
+          "concepto": "Fijación a estructura existente",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Anclajes y platinas. Precio según tipo de estructura."
+        },
+        {
+          "concepto": "Sellado perimetral y juntas",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Silicona/poliuretano de estanqueidad. Precio según longitud de juntas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cerramiento_de_terraza_con_sistema_plegable",
+      "instalacion_cerramiento_de_terraza_con_cortinas_de_cristal",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "construccion_de_piscina_de_obra"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4182,
+      "tokens_out": 2735
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "NO"
+  }
+}

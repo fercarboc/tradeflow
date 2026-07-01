@@ -1,0 +1,186 @@
+{
+  "id": 48,
+  "oficio": "Carpintería",
+  "texto": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+  "http_status": 200,
+  "latency_ms": 15740,
+  "raw_response": {
+    "transcript": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar grosor de capa útil mínimo 3-4mm antes de lijar",
+          "Proteger y avisar a vecinos: polvo considerable durante lijado",
+          "Aclimatación de material en obra 48-72h OBLIGATORIA si es nueva tarima",
+          "Barniz al agua: menor tiempo de secado que poliuretano pero menos resistencia en tráfico intenso"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Lijado y barnizado de parquet existente — trabajo especializado de carpintería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lijado progresivo de parquet — pino 30m²",
+          "descripcion": "Tres pasadas de lijado con granulometría progresiva (grano 40, 80, 120, 220) con lijadora de banda y lijadora de rincón. Eliminación de polvo y preparación de superficie.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 15,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Masilla de madera para juntas y golpes",
+          "descripcion": "Aplicación de masilla de madera entre lamas tras primera pasada de lijado. Relleno de imperfecciones y grietas menores.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — requiere especificación de tipo y cantidad en litros/kg"
+        },
+        {
+          "concepto": "Lija de grano progresivo (40, 60, 80, 100, 120, 220)",
+          "descripcion": "Suministro de papel de lija en diferentes granulometrías para proceso de lijado progresivo.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible — requiere presupuesto de cantidad y tipo específico"
+        },
+        {
+          "concepto": "Barniz al agua — aplicación 2-3 manos 30m²",
+          "descripcion": "Aplicación de barniz al agua con lijado entre manos. Dos a tres manos según acabado deseado. Rendimiento aproximado 12-15 m²/litro.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — requiere especificación de marca, calidad y precio de barniz al agua"
+        },
+        {
+          "concepto": "Aplicación de barniz al agua — mano de obra 30m²",
+          "descripcion": "Aplicación de barniz al agua en 2-3 manos con lijado intermedio entre capas. Tiempo de secado entre manos.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 12,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protección de zonas adyacentes y limpieza de polvo",
+          "descripcion": "Colocación de protecciones en puertas, ventanas y muebles. Limpieza exhaustiva de polvo y restos de lijado tras finalización.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (trapos, mascarillas, cinta carrocero, etc.)",
+          "descripcion": "Consumibles necesarios: trapos, mascarillas antipolvo, cinta carrocero, papel de protección, bolsas residuos, equipos de seguridad.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles — requiere estimación de presupuesto"
+        }
+      ],
+      "calculos": {
+        "subtotal": 855,
+        "iva_porcentaje": 21,
+        "iva": 179.55,
+        "total": 1034.55
+      },
+      "sugerencias_catalogo": [
+        "Considerar si el parquet tiene zona de tráfico intenso: barniz poliuretano ofrece mayor resistencia que barniz al agua",
+        "Verificar si hay cambio de color deseado: si sí, incluir tinte + masilla de color compatible",
+        "Considerar acabado con cera final si se desea acabado más natural (requiere mantenimiento periódico)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Masilla de madera para juntas y golpes",
+          "motivo": "Material de apoyo obligatorio en proceso de lijado-barnizado",
+          "tarifa_sugerida": "Requiere presupuesto instalador (típicamente 15-40€/litro)"
+        },
+        {
+          "partida": "Lija de grano progresivo",
+          "motivo": "Consumible obligatorio para lijado de parquet",
+          "tarifa_sugerida": "Requiere presupuesto instalador (típicamente 20-50€ juego completo)"
+        },
+        {
+          "partida": "Barniz al agua",
+          "motivo": "Material principal especificado por cliente",
+          "tarifa_sugerida": "Requiere presupuesto instalador (barniz al agua calidad media: 25-60€/litro)"
+        },
+        {
+          "partida": "Pequeño material",
+          "motivo": "Consumibles de protección y limpieza",
+          "tarifa_sugerida": "Requiere presupuesto instalador (típicamente 30-80€ para trabajo de 30m²)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "lijado_y_barnizado_de_parquet_existente",
+      "barnizado_madera_interior_muebles_o_pavimento",
+      "lijado_y_barnizado_parquet_existente",
+      "pintado_de_puerta_de_entrada_o_exterior_madera",
+      "instalacion_tarima_flotante_o_parquet_click"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

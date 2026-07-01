@@ -1,0 +1,184 @@
+{
+  "id": 332,
+  "oficio": "Fachadas",
+  "texto": "Limpiar grafitis de fachada con producto anti-graffiti y aplicar tratamiento protector",
+  "http_status": 200,
+  "latency_ms": 19701,
+  "raw_response": {
+    "transcript": "Limpiar grafitis de fachada con producto anti-graffiti y aplicar tratamiento protector",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpiar grafitis de fachada con producto anti-graffiti y aplicar tratamiento protector",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere especificar la superficie total en m² para calcular el presupuesto final",
+          "El tipo de tratamiento protector (sacrificial o permanente) afecta al precio y mantenimiento futuro"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Tratamiento de fachada exterior con productos especializados anti-graffiti"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Aplicación de productos de protección y acabado en superficie"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza de grafitis en fachada",
+          "descripcion": "Eliminación de grafitis existentes mediante producto anti-graffiti profesional, hidrolimpiadora, cepillo y EPI. Incluye análisis previo del tipo de pintura y superficie para seleccionar método óptimo.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 10,
+          "total": 10,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe ser especificada por el instalador. Precio unitario es referencia (4-16€/m2 según complejidad)"
+        },
+        {
+          "concepto": "Producto anti-graffiti quitapintadas",
+          "descripcion": "Disolvente profesional específico para eliminación de grafitis, aplicable según tipo de pintura (acrílica, óleo, spray). Incluye pequeño material (esponjas, cepillos, trapos).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros y precio unitario a definir por instalador según marca y volumen de trabajo"
+        },
+        {
+          "concepto": "Aplicación de tratamiento protector anti-graffiti en fachada",
+          "descripcion": "Aplicación de recubrimiento anti-graffiti (sacrificial o permanente) mediante rodillo o pistola baja presión. Incluye preparación de superficie, una o dos manos según porosidad del soporte, y pequeño material.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 25,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe ser especificada. Precio unitario es referencia (15-75€/m2 según tipo de recubrimiento: sacrificial más económico, permanente más caro)"
+        },
+        {
+          "concepto": "Recubrimiento anti-graffiti protector",
+          "descripcion": "Producto anti-graffiti sacrificial (se retira con el graffiti y requiere reaplicación) o permanente (permite limpieza sin retirar el recubrimiento). Rendimiento aproximado 5-8 m2/litro según porosidad.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros, tipo de recubrimiento (sacrificial/permanente) y precio unitario a definir por instalador"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Instalación de andamio, plataforma elevadora o sistema de acceso seguro para trabajar en fachada. Incluye montaje, desmontaje y medidas de seguridad.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de alquiler/instalación de andamio depende de altura, superficie y duración del trabajo"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual (guantes, mascarilla, gafas), trapos, esponjas, cepillos, cintas de protección y otros consumibles necesarios para la ejecución del trabajo.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estimado entre 30-80€ según cantidad y tipo de EPI requerido"
+        }
+      ],
+      "calculos": {
+        "subtotal": 35,
+        "iva_porcentaje": 21,
+        "iva": 7.35,
+        "total": 42.35
+      },
+      "sugerencias_catalogo": [
+        "Especificar superficie total en m² de fachada a tratar (es el parámetro crítico para el presupuesto)",
+        "Definir tipo de tratamiento protector: sacrificial (más económico, requiere reaplicación tras cada limpieza) o permanente (más caro, permite limpiezas repetidas sin retirar el recubrimiento)",
+        "Indicar altura de fachada y accesibilidad para evaluar necesidad y coste de andamio",
+        "Especificar si hay superficies muy porosas (piedra, ladrillo visto) que requieran dos manos de protector",
+        "Considerar si se requiere limpieza previa con hidrolimpiadora de agua caliente para grafitis muy adheridos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Producto anti-graffiti quitapintadas",
+          "oficio": "pintura",
+          "motivo": "Material específico cuyo precio depende de marca, volumen y tipo de pintura a eliminar"
+        },
+        {
+          "concepto": "Recubrimiento anti-graffiti protector",
+          "oficio": "fachadas",
+          "motivo": "Material específico cuyo precio y rendimiento dependen del tipo (sacrificial/permanente) y porosidad del soporte"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "fachadas",
+          "motivo": "Servicio auxiliar cuyo coste depende de altura, superficie y duración del trabajo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_pintura_antigraffiti_en_fachada",
+      "tratamiento_pintura_grafitis_eliminacion",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "aplicacion_hidrofugo_incoloro_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3643,
+      "tokens_out": 2573
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "id": 269,
+  "oficio": "Cristalería",
+  "texto": "Colocar lamina de privacidad en cristal de oficina para zona de reuniones, vinilo traslúcido",
+  "http_status": 200,
+  "latency_ms": 15218,
+  "raw_response": {
+    "transcript": "Colocar lamina de privacidad en cristal de oficina para zona de reuniones, vinilo traslúcido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar lamina de privacidad en cristal de oficina para zona de reuniones, vinilo traslúcido",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere especificar superficie total en m² del cristal",
+          "Material (vinilo traslúcido) debe ser cotizado por el instalador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Aplicación de vinilo/película en vidrio. Oficio de cristalería especializada en acabados decorativos y de privacidad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vinilo traslúcido de privacidad",
+          "descripcion": "Suministro de vinilo traslúcido de privacidad para zona de reuniones. Incluye selección según grado de opacidad y calidad decorativa",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a cotizar. Rango estimado 60-200€/m² según marca y espesor del vinilo traslúcido"
+        },
+        {
+          "concepto": "Limpieza previa del cristal",
+          "descripcion": "Limpieza y desengrasado completo de la superficie del cristal antes de aplicación del vinilo para garantizar adhesión óptima",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aplicación de vinilo traslúcido con líquido activador",
+          "descripcion": "Aplicación profesional del vinilo de privacidad en la cara interior del cristal, con técnica de pulverización de líquido activador y eliminación de burbujas. Incluye ajuste y acabado final",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (rasqueta, cúter, paño limpieza, sellador perimetral)",
+          "descripcion": "Consumibles y herramientas menores necesarias para la correcta instalación: rasqueta de teflón, cúter de seguridad, paño sin pelusa, sellador perimetral si aplica",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material a valorar. Estimado 15-30€ por instalación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "Confirmar metraje exacto de cristal (m²) para ajustar partidas de material y mano de obra",
+        "Especificar grado de privacidad requerido: traslúcido ligero (40% opacidad) vs. traslúcido denso (70% opacidad)",
+        "Considerar si el cristal requiere banda adhesiva de visibilidad para seguridad (normativa vidrio no visible)",
+        "Evaluar si se requiere vinilo antigraffiti adicional por ubicación en zona de reuniones"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vinilo traslúcido de privacidad",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "rango_precio_estimado": "60-200€/m² según marca y espesor",
+          "motivo_creacion": "Material específico de privacidad, requiere selección y cotización por instalador"
+        },
+        {
+          "concepto": "Pequeño material (rasqueta, cúter, paño limpieza, sellador perimetral)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "rango_precio_estimado": "15-30€ por instalación",
+          "motivo_creacion": "Consumibles estándar de aplicación de vinilo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio",
+      "tabique_pladur_separacion_zona_oficina",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_tabique_o_division_de_vidrio_en_oficina",
+      "instalacion_de_proteccion_solar_lamina_en_vidrio"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "id": 11,
+  "oficio": "Fontanería",
+  "texto": "Grifo de cocina averiado no cierra bien y gotea constantemente, necesito cambio urgente",
+  "http_status": 200,
+  "latency_ms": 12801,
+  "raw_response": {
+    "transcript": "Grifo de cocina averiado no cierra bien y gotea constantemente, necesito cambio urgente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Grifo de cocina averiado no cierra bien y gotea constantemente, necesito cambio urgente",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo urgente: se recomienda atención inmediata para evitar daños por agua",
+          "Presupuesto incluye sustitución completa del grifo (no solo reparación de juntas)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cambio de grifo de cocina con desmontaje, suministro e instalación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje grifo cocina averiado",
+          "descripcion": "Desmontaje y retirada de grifo monomando de cocina defectuoso, desconexión de latiguillos de agua fría y caliente",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo monomando cocina nuevo",
+          "descripcion": "Suministro de grifo monomando de cocina de calidad estándar, con caño giratorio y aireador",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del grifo a definir por instalador según marca y modelo elegido (rango típico: 85-250€)"
+        },
+        {
+          "concepto": "Latiguillos flexibles 40cm (agua fría y caliente)",
+          "descripcion": "Suministro de 2 latiguillos flexibles de 40cm con conexión 1/2\" para agua fría y caliente",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de latiguillos a definir (rango típico: 8-15€/ud)"
+        },
+        {
+          "concepto": "Silicona sanitaria y pequeño material",
+          "descripcion": "Suministro de silicona sanitaria, teflón, arandelas y pequeño material de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material a definir (rango típico: 5-15€)"
+        },
+        {
+          "concepto": "Instalación grifo cocina nuevo",
+          "descripcion": "Instalación del nuevo grifo monomando, conexión de latiguillos, sellado con silicona, pruebas de funcionamiento y cierre correcto",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación llaves escuadra (si es necesario)",
+          "descripcion": "Inspección y ajuste de llaves de escuadra bajo encimera. Sustitución si están deterioradas o con fugas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar: solo se cobra si las llaves de escuadra requieren sustitución (rango: 40-80€ si aplica)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 100,
+        "iva_porcentaje": 21,
+        "iva": 21,
+        "total": 121
+      },
+      "sugerencias_catalogo": [
+        "Grifo monomando cocina: especificar marca, modelo y acabado (cromado, acero inoxidable, etc.)",
+        "Verificar diámetro de conexión bajo encimera (típicamente 1/2\") antes de comprar latiguillos",
+        "Revisar estado de llaves de escuadra durante la instalación para evitar fugas futuras",
+        "Considerar grifo con cartucho cerámico de larga duración para evitar reparaciones recurrentes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Grifo monomando cocina nuevo",
+          "oficio": "fontaneria",
+          "motivo": "Material específico cuyo precio depende de marca y modelo elegido por el cliente"
+        },
+        {
+          "concepto": "Latiguillos flexibles 40cm",
+          "oficio": "fontaneria",
+          "motivo": "Material fungible con precio variable según calidad"
+        },
+        {
+          "concepto": "Silicona sanitaria y pequeño material",
+          "oficio": "fontaneria",
+          "motivo": "Consumibles de instalación con precio a definir"
+        },
+        {
+          "concepto": "Verificación llaves escuadra (si es necesario)",
+          "oficio": "fontaneria",
+          "motivo": "Partida auxiliar condicional: solo aplica si hay deterioro"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_grifo_lavabo",
+      "cambio_grifo_cocina",
+      "cambio_grifo_bano_general",
+      "reparacion_grifo_o_griferia_averiada",
+      "sustitucion_termo_electrico"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3467,
+      "tokens_out": 1830
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "id": 3,
+  "oficio": "Fontanería",
+  "texto": "Reparación de fuga en tubería de agua caliente bajo el lavabo del baño",
+  "http_status": 200,
+  "latency_ms": 12622,
+  "raw_response": {
+    "transcript": "Reparación de fuga en tubería de agua caliente bajo el lavabo del baño",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de fuga en tubería de agua caliente bajo el lavabo del baño",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar ubicación exacta de la fuga y accesibilidad bajo el lavabo",
+          "Confirmar si la tubería es de cobre, multicapa (PEX) o plástico",
+          "Revisar estado general de conexiones de agua caliente y fría en el lavabo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación de fuga en instalación de agua caliente - oficio estándar fontanería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y vaciado de tubería",
+          "descripcion": "Desmontaje de sección afectada, vaciado controlado de agua caliente y secado de zona de trabajo",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de junta/abrazadera de reparación",
+          "descripcion": "Junta de teflón, abrazadera de presión, tuerca y pequeño material para reparación de fuga puntual",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión del instalador según tipo de reparación (empalme vs sustitución de tramo)"
+        },
+        {
+          "concepto": "Reparación/soldadura y ajuste de conexión",
+          "descripcion": "Soldadura blanda o ajuste mecánico de la zona dañada, reapretar conexiones y verificar hermeticidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Llenado y prueba de estanqueidad",
+          "descripcion": "Llenado gradual del circuito de agua caliente, purga de aire en radiadores si aplica, prueba de presión y verificación de ausencia de goteos durante 10 minutos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 50,
+          "total": 37.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Trapos, cinta teflón, pasta de soldadura, desoxidante, otros consumibles",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de pequeño material a cargo del instalador, típicamente 5-15€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 112.5,
+        "iva_porcentaje": 21,
+        "iva": 23.625,
+        "total": 136.125
+      },
+      "sugerencias_catalogo": [
+        "Si la fuga es en una junta de latiguillo, considerar sustitución completa del latiguillo por uno de acero inoxidable (mayor durabilidad)",
+        "Si la fuga es en tubería multicapa (PEX), valorar el tramo afectado para posible sustitución en lugar de reparación temporal",
+        "Revisar aislamiento térmico de la tubería de agua caliente tras reparación para evitar pérdidas energéticas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de junta/abrazadera de reparación",
+          "oficio": "fontaneria",
+          "tipo": "material",
+          "motivo": "Material específico dependiente de diagnosis in situ",
+          "recomendacion": "El instalador debe revisar en obra y especificar: tipo de tubería, tipo de rotura/fuga, diámetro, y material necesario (junta, abrazadera, empalme, tubo sustitución, etc.)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_fuga_calentador_gas",
+      "reparacion_fuga_cisterna",
+      "reparacion_fuga_radiador",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "instalacion_suelo_radiante_hidraulico"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "id": 275,
+  "oficio": "Cristalería",
+  "texto": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+  "http_status": 200,
+  "latency_ms": 14647,
+  "raw_response": {
+    "transcript": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar tratamiento antirreflejo en cristales de oficina para reducir deslumbramiento",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Tratamiento antirreflejo requiere especificación del tipo de cristal (templado, laminado, simple) y superficie total exacta",
+          "Se recomienda inspección previa para evaluar estado del cristal y viabilidad del tratamiento"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamiento especializado en cristales de oficina. Oficio cristaleria cubre trabajos de vidrio, revestimientos y tratamientos especiales."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de cristales",
+          "descripcion": "Limpieza profunda de cristales, desengrasado y preparación de superficie para aplicación de tratamiento antirreflejo",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de superficie total de cristales a tratar. Tarifa: 8-12€/m2 aproximado"
+        },
+        {
+          "concepto": "Aplicación de tratamiento antirreflejo",
+          "descripcion": "Aplicación de recubrimiento antirreflejo (película o coating) en cristales de oficina para reducir deslumbramiento y reflejos",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del tipo de tratamiento: película adhesiva antirreflejo (15-35€/m2) o coating profesional (25-60€/m2). Requiere especificación del cliente."
+        },
+        {
+          "concepto": "Mano de obra aplicación tratamiento antirreflejo",
+          "descripcion": "Aplicación profesional del tratamiento antirreflejo, incluyendo técnica de aplicación, secado y curado según especificaciones del producto",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa cristaleria aplicada. Requiere medición de m2 totales. Rendimiento estimado: 8-12 m2/hora según complejidad."
+        },
+        {
+          "concepto": "Control de calidad y acabado",
+          "descripcion": "Inspección final del tratamiento, verificación de uniformidad, ausencia de burbujas o defectos, y limpieza final de cristales",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 45,
+        "iva_porcentaje": 21,
+        "iva": 9.45,
+        "total": 54.45
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: superficie total en m2 de cristales a tratar",
+        "Especificar tipo de cristal actual (templado, laminado, simple)",
+        "Definir tipo de tratamiento preferido: película adhesiva antirreflejo o coating profesional",
+        "Considerar si es necesario desmontaje/remontaje de cristales o aplicación in situ",
+        "Informar sobre tiempo de curado y restricciones de uso post-aplicación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tratamiento antirreflejo en cristales",
+          "oficio": "cristaleria",
+          "tipo": "material",
+          "razon": "Tratamiento especializado no explícitamente en Base Maestra. Incluido en oficio cristaleria como servicio complementario a instalación de tabiques/divisiones de vidrio."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tabique_o_division_de_vidrio_en_oficina",
+      "impermeabilizacion_de_cubierta_de_fibrocemento_con_tratamiento",
+      "instalacion_de_extintores_portatiles",
+      "aplicacion_pintura_termica_o_aislante",
+      "tabique_pladur_separacion_zona_oficina"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3802,
+      "tokens_out": 1807
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "id": 352,
+  "oficio": "Mantenimiento General",
+  "texto": "Instalar dispensadores de jabón y papel en aseos de empresa, mantenimiento de consumibles",
+  "http_status": 200,
+  "latency_ms": 15923,
+  "raw_response": {
+    "transcript": "Instalar dispensadores de jabón y papel en aseos de empresa, mantenimiento de consumibles",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar dispensadores de jabón y papel en aseos de empresa, mantenimiento de consumibles",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación en aseos existentes sin obras adicionales",
+          "Mantenimiento de consumibles requiere contratación recurrente mensual/trimestral"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "multiservicio",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 38,
+            "max": 45
+          },
+          "motivo": "Instalación de accesorios sanitarios y mantenimiento de consumibles en aseos empresariales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Instalación dispensador jabón automático",
+          "descripcion": "Suministro e instalación de dispensador de jabón de espuma o gel automático (sensor de movimiento) en pared, incluyendo conexión eléctrica y fijación",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 38,
+          "total": 38,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Dispensador jabón automático (material)",
+          "descripcion": "Dispensador de jabón automático (sensor infrarrojo), capacidad 400-700ml, acero inoxidable o plástico ABS resistente",
+          "oficio": "multiservicio",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del dispensador debe ser indicado por el instalador según marca y modelo seleccionado (rango orientativo: 60-250€)"
+        },
+        {
+          "concepto": "Instalación dispensador papel higiénico automático",
+          "descripcion": "Instalación de dispensador de papel higiénico automático (rollo o secamanos) en pared, con anclajes y fijación",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 38,
+          "total": 38,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Dispensador papel higiénico automático (material)",
+          "descripcion": "Dispensador de papel higiénico automático o secamanos por sensor, acero inoxidable, compatible con rollos estándar",
+          "oficio": "multiservicio",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del dispensador debe ser indicado por el instalador según modelo (rango orientativo: 80-300€)"
+        },
+        {
+          "concepto": "Instalación dispensador desinfectante/antiséptico",
+          "descripcion": "Instalación de dispensador de desinfectante o antiséptico automático en pared, con anclajes y conexión eléctrica si aplica",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 38,
+          "total": 38,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Dispensador desinfectante automático (material)",
+          "descripcion": "Dispensador de desinfectante/antiséptico automático por sensor, capacidad 500ml-1L, acero inoxidable",
+          "oficio": "multiservicio",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del dispensador debe ser indicado por el instalador (rango orientativo: 40-150€)"
+        },
+        {
+          "concepto": "Mantenimiento mensual de consumibles (jabón, papel, desinfectante)",
+          "descripcion": "Visita mensual de mantenimiento para reposición de jabón, rollos de papel higiénico, papel de secamanos y desinfectante en dispensadores. Servicio recurrente.",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa mensual de mantenimiento debe ser establecida según cantidad de dispensadores, volumen de consumo y distancia. Incluye mano de obra y suministro de consumibles."
+        }
+      ],
+      "calculos": {
+        "subtotal": 152,
+        "iva_porcentaje": 21,
+        "iva": 31.92,
+        "total": 183.92
+      },
+      "sugerencias_catalogo": [
+        "Considerar contrato de mantenimiento recurrente (trimestral o mensual) con reposición automática de consumibles",
+        "Especificar cantidad de aseos/sanitarios para ajustar número de dispensadores",
+        "Validar si dispensadores requieren conexión eléctrica (baterías vs. corriente) según ubicación disponible",
+        "Presupuesto mostrado es SOLO instalación. Consumibles (jabón, papel, desinfectante) requieren valor unitario en partida de mantenimiento"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Dispensador jabón automático (material)",
+          "origen": "sugerida_ia",
+          "motivo": "Material no dimensionado en catálogo; precio pendiente de revisión según marca/modelo"
+        },
+        {
+          "concepto": "Dispensador papel higiénico automático (material)",
+          "origen": "sugerida_ia",
+          "motivo": "Material no dimensionado en catálogo; precio pendiente de revisión según marca/modelo"
+        },
+        {
+          "concepto": "Dispensador desinfectante automático (material)",
+          "origen": "sugerida_ia",
+          "motivo": "Material no dimensionado en catálogo; precio pendiente de revisión según marca/modelo"
+        },
+        {
+          "concepto": "Mantenimiento mensual de consumibles",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio recurrente; tarifa mensual pendiente de establecer según volumen y condiciones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_interruptor_averiado",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_llave_escuadra",
+      "construccion_de_camino_o_sendero_en_jardin"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "multiservicio",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "id": 251,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+  "http_status": 200,
+  "latency_ms": 25237,
+  "raw_response": {
+    "transcript": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto de telecomunicaciones especializado: requiere validación de distancias reales, tipo de fibra (OM3/OM4/OS2) y topología de red",
+          "20 puntos de trabajo implica obra civil significativa (canaletas, pasos entre plantas, etc.)",
+          "Falta información crítica: distancia total de fibra, número de plantas a conectar, existencia de canaletas previas, tipo de conectores requeridos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de red de fibra óptica, cableado estructurado, conectores y paneles de distribución"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Apertura de canaletas, pasos entre plantas, fijación de tubería de protección"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cable fibra óptica multimodo OM4 (para distancias hasta 400m a 10Gbps)",
+          "descripcion": "Suministro de cable fibra óptica multimodo OM4 de 12 o 24 hilos según necesidad, con vaina exterior reforzada para instalación en canaletas internas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de fibra óptica OM4 a definir por instalador según proveedor y cantidad exacta de hilos necesarios (estimado 500ml para 3 plantas + distribución interna)"
+        },
+        {
+          "concepto": "Conectores LC duplex y paneles de distribución óptica (ODF)",
+          "descripcion": "Suministro de 20 conectores LC duplex (40 conectores simples), paneles de distribución óptica (ODF) con capacidad para 24 puertos, pequeño material de fusión y etiquetado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de conectores LC, paneles ODF y accesorios a definir por instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Switch gestionable con puertos SFP+ para fibra óptica",
+          "descripcion": "Suministro de switch de red gestionable con mínimo 4 puertos SFP+ (10Gbps) para backbone de fibra, compatible con transceptores SFP+ multimodo OM4",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de switch profesional con SFP+ a definir por instalador según marca, número de puertos y características de gestión"
+        },
+        {
+          "concepto": "Transceptores SFP+ multimodo para switch",
+          "descripcion": "Suministro de 4 transceptores SFP+ multimodo OM4 para puertos del switch, con alcance mínimo 300m",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de transceptores SFP+ a definir por instalador según marca y especificaciones"
+        },
+        {
+          "concepto": "Apertura de canaletas y pasos entre plantas",
+          "descripcion": "Apertura de canaletas en paredes internas, realización de pasos de fibra entre las 3 plantas (escalera, hueco técnico o conductos existentes), fijación de tubería de protección de fibra",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 40,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de fibra óptica: tendido, fusión y conexión de 20 puntos",
+          "descripcion": "Tendido de cable fibra óptica en canaletas, fusión de empalmes entre tramos, conexión de 20 puntos de trabajo con conectores LC duplex, pruebas de continuidad óptica en cada punto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 32,
+          "precio_unitario": 50,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de paneles ODF y switch en rack",
+          "descripcion": "Montaje de paneles de distribución óptica (ODF) en rack técnico, instalación de switch con puertos SFP+, conexión de fibra backbone a puertos SFP+, configuración básica de switch",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Medición y certificación con OTDR",
+          "descripcion": "Medición de atenuación óptica en todos los tramos de fibra con equipo OTDR (Optical Time Domain Reflectometer), generación de informe de certificación técnica, validación de cumplimiento de normas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Etiquetado, documentación y pequeño material",
+          "descripcion": "Etiquetado de todos los puntos de fibra, cables y paneles, documentación técnica de la instalación (planos, esquemas de distribución, listado de puntos), pequeño material (bridas, cinta aislante, conectores de prueba)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material y documentación a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2940,
+        "iva_porcentaje": 21,
+        "iva": 617.4,
+        "total": 3557.4
+      },
+      "sugerencias_catalogo": [
+        "Validar distancia total de fibra óptica a instalar (estimado 500ml, pero requiere medición en plano)",
+        "Confirmar tipo de fibra: OM4 (multimodo, hasta 400m a 10Gbps) vs OS2 (monomodo, distancias mayores) según topología real",
+        "Verificar si existen canaletas previas o es necesario obra civil adicional (rozas, conductos)",
+        "Definir número exacto de hilos de fibra necesarios (12, 24, 48 hilos) según número de puntos de trabajo y crecimiento futuro",
+        "Considerar si se requiere redundancia de fibra (dos rutas independientes) para alta disponibilidad",
+        "Incluir contrato de mantenimiento y soporte técnico post-instalación si es requerido por cliente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable fibra óptica multimodo OM4",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Material especializado de telecomunicaciones, precio variable según proveedor y cantidad"
+        },
+        {
+          "concepto": "Conectores LC duplex y paneles ODF",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Componentes de distribución óptica, precio variable según marca y especificaciones"
+        },
+        {
+          "concepto": "Switch gestionable con puertos SFP+",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Equipo activo de red, precio variable según marca y características"
+        },
+        {
+          "concepto": "Transceptores SFP+ multimodo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Módulos transceptores especializados, precio variable según marca"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_de_punto_de_acceso_wifi_o_AP_profesional",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_electrica_pergola_terraza",
+      "instalacion_de_central_telefonica_IP_o_PBX"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4115,
+      "tokens_out": 3324
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

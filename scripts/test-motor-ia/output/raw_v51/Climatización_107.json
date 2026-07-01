@@ -1,0 +1,255 @@
+{
+  "id": 107,
+  "oficio": "Climatización",
+  "texto": "Cambio de caldera de gas por otra de condensación de alta eficiencia, 24kW",
+  "http_status": 200,
+  "latency_ms": 21768,
+  "raw_response": {
+    "transcript": "Cambio de caldera de gas por otra de condensación de alta eficiencia, 24kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de caldera de gas por otra de condensación de alta eficiencia, 24kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si existe vaso de expansión válido en la instalación actual",
+          "Confirmar si la instalación de gas requiere legalización (nueva caldera)",
+          "Validar que el retorno de agua caliente sea ≤55°C para máxima eficiencia de condensación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de caldera de gas de alta potencia (24kW) con todos los sistemas asociados"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexiones hidráulicas, válvulas de corte, purgador automático y kit ACS"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje caldera antigua",
+          "descripcion": "Desmontaje completo de caldera existente, tuberías de conexión, válvulas y accesorios. Gestión de residuos.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Caldera de condensación gas 24kW",
+          "descripcion": "Suministro e instalación de caldera de condensación de gas natural 24kW de alta eficiencia energética, con accesorios de montaje.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de caldera condensación 24kW pendiente de proveedor. Rango orientativo 2500-3500€"
+        },
+        {
+          "concepto": "Kit evacuación humos coaxial",
+          "descripcion": "Suministro e instalación de kit tubo coaxial o doble tubo para evacuación segura de humos de caldera de condensación.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio kit evacuación pendiente. Rango: 250-450€"
+        },
+        {
+          "concepto": "Válvulas de corte gas y agua",
+          "descripcion": "Suministro e instalación de válvulas de corte de gas (con llave) y agua (entrada y retorno).",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio válvulas corte pendiente. Rango aproximado: 30-60€/ud"
+        },
+        {
+          "concepto": "Purgador automático",
+          "descripcion": "Suministro e instalación de purgador automático de aire para eliminación de bolsas de aire en el circuito.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio purgador automático pendiente. Rango: 80-150€"
+        },
+        {
+          "concepto": "Vaso de expansión (si requiere sustitución)",
+          "descripcion": "Suministro e instalación de vaso de expansión cerrado de membrana para circuito de calefacción. A verificar si existe válido.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Verificar si existe vaso válido. Si se requiere: rango 150-400€. Tarado a presión de instalación."
+        },
+        {
+          "concepto": "Termostato o cronotermostato",
+          "descripcion": "Suministro e instalación de termostato digital o cronotermostato para control automático de temperatura.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio termostato pendiente. Rango: 100-350€"
+        },
+        {
+          "concepto": "Kit conexión agua caliente y retorno",
+          "descripcion": "Suministro e instalación de tuberías flexible de acero, acoples, codos y racores para conexión entrada y retorno agua caliente a caldera.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio kit conexiones pendiente. Rango: 80-200€"
+        },
+        {
+          "concepto": "Mano de obra instalación caldera",
+          "descripcion": "Instalación y conexión de caldera de condensación, tuberías, válvulas, purgador, vaso expansión, termostato y pruebas funcionales.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Abrazaderas, tuerca-racor, cinta teflón, pasta fontanería, silicona sanitaria, tornillería y otros consumibles.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: rango aproximado 40-80€"
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Pruebas de estanqueidad, hermeticidad, seguridad de combustión, calibración de termostato y verificación de rendimiento.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Legalización instalación gas (si aplica)",
+          "descripcion": "Gestión de trámite de legalización ante empresa suministradora y organismo correspondiente para nueva caldera de gas.",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Legalización gas: rango 150-300€. Verificar si es obligatoria según normativa local."
+        }
+      ],
+      "calculos": {
+        "subtotal": 660,
+        "iva_porcentaje": 21,
+        "iva": 138.6,
+        "total": 798.6
+      },
+      "sugerencias_catalogo": [
+        "Incluir modelo específico de caldera en la solicitud al proveedor (ej: Vaillant, Bosch, Ariston, etc.)",
+        "Confirmar si retorno de agua está a ≤55°C para máxima condensación",
+        "Verificar presión de red y tarado de vaso de expansión",
+        "Solicitar revisión de seguridad post-instalación según RITE"
+      ],
+      "partidas_nuevas_detectadas": [
+        "Caldera de condensación gas 24kW",
+        "Kit evacuación humos coaxial",
+        "Válvulas de corte gas y agua (x3)",
+        "Purgador automático",
+        "Vaso de expansión (condicional)",
+        "Termostato digital/cronotermostato",
+        "Kit conexión agua caliente y retorno",
+        "Legalización instalación gas (condicional)"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_caldera_condensacion_gas",
+      "cambio_valvula_seguridad_caldera",
+      "instalacion_sistema_hilo_musical_multizona",
+      "cambio_inodoro",
+      "tabique_pladur_armario_empotrado_nuevo"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 3,
+    "n_sugeridas": 9,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

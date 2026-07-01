@@ -1,0 +1,162 @@
+{
+  "id": 244,
+  "oficio": "Telecomunicaciones",
+  "texto": "Pasar cable de red ethernet categoría 6 por 5 despachos de oficina, instalación en canaleta",
+  "http_status": 200,
+  "latency_ms": 19528,
+  "raw_response": {
+    "transcript": "Pasar cable de red ethernet categoría 6 por 5 despachos de oficina, instalación en canaleta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pasar cable de red ethernet categoría 6 por 5 despachos de oficina, instalación en canaleta",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume 1 punto de red RJ45 por despacho (5 puntos totales). Si requiere más puntos, ajustar cantidad.",
+          "Precio de canaleta estimado; confirmar longitud total de recorrido.",
+          "Certificación de red incluida en mano de obra de instalación."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de red de datos ethernet cat6 en oficina, incluye cableado estructurado, rosetas RJ45 y canaleta."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cable UTP Categoría 6 para red de datos",
+          "descripcion": "Suministro de cable UTP cat6 para 5 puntos de red en despachos. Incluye cable de distribución desde punto de entrada hasta cada roseta RJ45. Longitud estimada 150-200 ml según layout de oficina.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 175,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe confirmar longitud exacta de recorrido y precio de cable UTP cat6 (típicamente 0.30-0.50€/ml)"
+        },
+        {
+          "concepto": "Rosetas RJ45 Categoría 6 con cajas de empotrar",
+          "descripcion": "Suministro e instalación de 5 rosetas RJ45 cat6 con cajas de empotrar en pared de cada despacho. Incluye pequeño material (tornillos, tacos, etc.).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: rosetas RJ45 cat6 + cajas empotrar. Precio típico 8-15€/ud. Confirmar marca y especificación."
+        },
+        {
+          "concepto": "Canaleta de PVC para paso de cables",
+          "descripcion": "Suministro de canaleta de PVC de 40x25 mm (o según necesidad) para recorrido de cable ethernet por pasillos y despachos. Incluye accesorios (esquinas, derivaciones, tapas).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: canaleta PVC. Precio típico 2-5€/ml según dimensión. Confirmar longitud exacta y sección requerida."
+        },
+        {
+          "concepto": "Patch panel y switch de red (si centralización requerida)",
+          "descripcion": "Suministro de patch panel cat6 (12-24 puertos) y switch gestionable (mínimo 8 puertos) para centralizar los 5 puntos de red. Instalación en armario o rack mural.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: patch panel + switch. Precio típico patch panel 50-150€, switch 100-300€. Confirmar si ya existe infraestructura o es nueva instalación."
+        },
+        {
+          "concepto": "Instalación de red ethernet cat6: cableado, rosetas, canaleta y certificación",
+          "descripcion": "Mano de obra para: pasar cable UTP cat6 por canaleta, empalmar y crimpear conectores RJ45, instalar rosetas en cajas empotradas, montar canaleta en pared/techo, instalar patch panel y switch, certificar cada punto de red con probador cat6, etiquetar cables según norma EIA/TIA 606.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 600,
+        "iva_porcentaje": 21,
+        "iva": 126,
+        "total": 726
+      },
+      "sugerencias_catalogo": [
+        "Referencia: [instalacion_red_datos_ethernet_en_oficina_o_empresa] — partidas_obligatorias incluyen cable UTP cat6, rosetas RJ45, patch panel, switch, canaleta, certificación y etiquetado.",
+        "Si la oficina requiere más de 5 puntos de red o backbone de fibra óptica entre plantas, escalar a infraestructura mayor."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable UTP Categoría 6",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de suministro; precio pendiente de confirmación del instalador."
+        },
+        {
+          "concepto": "Rosetas RJ45 Categoría 6 con cajas de empotrar",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de suministro; precio pendiente de confirmación del instalador."
+        },
+        {
+          "concepto": "Canaleta de PVC para paso de cables",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de suministro; precio pendiente de confirmación del instalador."
+        },
+        {
+          "concepto": "Patch panel y switch de red",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de suministro; precio pendiente de confirmación del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toma_red_ethernet_cat6",
+      "colocacion_rodapie_de_madera_con_instalacion_cables",
+      "instalacion_red_datos_ethernet_cat6_en_vivienda",
+      "instalacion_red_datos_ethernet_en_oficina_o_empresa",
+      "instalacion_circuito_exclusivo_cocina"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3774,
+      "tokens_out": 2299
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

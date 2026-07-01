@@ -1,0 +1,186 @@
+{
+  "id": 110,
+  "oficio": "Climatización",
+  "texto": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+  "http_status": 200,
+  "latency_ms": 16585,
+  "raw_response": {
+    "transcript": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye obra civil (conducto al exterior). Revisar accesibilidad a cubierta/fachada.",
+          "Extractor industrial requiere dimensionamiento según caudal de cocina (m³/h). Instalador debe confirmar potencia.",
+          "Sistema de ventilación en hostelería debe cumplir normativa de seguridad alimentaria y evacuación de humos."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de extractor industrial y sistema de ventilación forzada en cocina."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil para paso de conducto a través de fachada/cubierta y fijaciones estructurales."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro extractor industrial para cocina",
+          "descripcion": "Extractor centrífugo industrial de alta presión, motor trifásico, caudal según dimensionamiento cocina (típico 2000-5000 m³/h), con aislamiento acústico.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de caudal (m³/h), presión estática y marca. Instalador debe confirmar especificaciones técnicas."
+        },
+        {
+          "concepto": "Suministro conducto de ventilación al exterior",
+          "descripcion": "Conducto de chapa galvanizada o aluminio, aislado acústicamente, con diámetro según caudal (típico 200-400 mm), incluyendo codos, reducciones y bridas de conexión.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a confirmar según trazado real. Precio unitario depende de diámetro y material."
+        },
+        {
+          "concepto": "Instalación extractor industrial",
+          "descripcion": "Montaje de extractor en cubierta o pared, fijación estructural, conexión eléctrica trifásica, pruebas de funcionamiento y equilibrado.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación conducto de ventilación",
+          "descripcion": "Montaje de conducto desde extractor hasta salida exterior, incluyendo soportes, bridas, aislamiento acústico y sellado de juntas.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Obra civil: paso de conducto a través de fachada/cubierta",
+          "descripcion": "Apertura de paso en fachada o cubierta, instalación de marco de refuerzo, sellado perimetral con espuma y silicona, remate con tapajuntas metálico.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 40,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro pequeño material y accesorios",
+          "descripcion": "Bridas, tornillería, espuma de poliuretano, silicona, cinta aislante, tapajuntas, soportes metálicos y otros accesorios de instalación.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 80-150€. Instalador ajusta según necesidades reales."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1000,
+        "iva_porcentaje": 21,
+        "iva": 210,
+        "total": 1210
+      },
+      "sugerencias_catalogo": [
+        "Confirmar caudal de ventilación requerido (m³/h) según número de fogones y tipo de cocina (parrilla, freidora, horno, etc.).",
+        "Verificar si la cocina dispone de campana extractora integrada o si el extractor es el único sistema de evacuación.",
+        "Considerar instalación de filtros de grasa en la campana (si existe) para proteger el conducto y el extractor.",
+        "Revisar normativa local sobre evacuación de humos en hostelería (distancia mínima a colindantes, altura de salida, etc.).",
+        "Evaluar necesidad de damper (compuerta) anti-retorno para evitar entrada de aire exterior cuando el extractor está parado.",
+        "Presupuestar mantenimiento periódico: limpieza de conductos cada 3-6 meses según intensidad de uso."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro extractor industrial para cocina",
+          "oficio": "climatizacion",
+          "motivo": "Material específico de hostelería. Precio variable según caudal y marca."
+        },
+        {
+          "concepto": "Suministro conducto de ventilación al exterior",
+          "oficio": "climatizacion",
+          "motivo": "Material específico. Cantidad y precio dependen del trazado real."
+        },
+        {
+          "concepto": "Suministro pequeño material y accesorios",
+          "oficio": "climatizacion",
+          "motivo": "Accesorios de instalación. Presupuesto estimado a revisar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_extincion_en_cocina_industrial",
+      "instalacion_trampa_grasa_cocina",
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_de_sistema_de_extincion_por_espuma",
+      "instalacion_electrica_local_hosteleria"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3695,
+      "tokens_out": 2072
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

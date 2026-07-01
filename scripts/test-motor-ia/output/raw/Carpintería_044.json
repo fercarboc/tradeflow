@@ -1,0 +1,160 @@
+{
+  "id": 44,
+  "oficio": "Carpintería",
+  "texto": "Reparación de puerta de entrada que no cierra bien, se ha combado con la humedad",
+  "http_status": 200,
+  "latency_ms": 12672,
+  "raw_response": {
+    "transcript": "Reparación de puerta de entrada que no cierra bien, se ha combado con la humedad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de puerta de entrada que no cierra bien, se ha combado con la humedad",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Puerta combada por humedad: evaluar si es reparable o requiere sustitución",
+          "Revisar causa raíz de humedad en marco/zona de entrada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de puerta de madera combada, ajuste de bisagras, posible cepillado/lijado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y evaluación de puerta combada",
+          "descripcion": "Inspección completa de la puerta, marco y bisagras. Evaluación del grado de combadura y viabilidad de reparación vs. sustitución. Identificación de causas de humedad.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste y reapriete de bisagras",
+          "descripcion": "Reapriete de tornillos de bisagras, alineación de bisagras para corregir desviación causada por combadura. Lubricación de bisagras.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cepillado y lijado de aristas de puerta",
+          "descripcion": "Cepillado selectivo de aristas y cantos de la puerta para eliminar rozaduras causadas por combadura. Lijado fino (grano 150-220) de zonas trabajadas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado: barniz o esmalte exterior en zonas reparadas",
+          "descripcion": "Aplicación de imprimación en zonas cepilladas y lijadas. Dos manos de barniz o esmalte exterior de alta durabilidad con filtro UV para proteger la madera reparada.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 32,
+          "total": 48,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales: lija, masilla, cinta carrocero, pequeño material",
+          "descripcion": "Lija grano 150 y 220, masilla exterior si hay grietas, cinta carrocero, lubricante bisagras, trapos, disolvente.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir por instalador según cantidad y marcas"
+        },
+        {
+          "concepto": "Materiales: barniz/esmalte exterior y disolvente",
+          "descripcion": "Barniz marino o esmalte exterior de alta durabilidad con filtro UV, imprimación para madera exterior, disolvente compatible.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de barniz/esmalte a definir por instalador según superficie y tipo de acabado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 250.5,
+        "iva_porcentaje": 21,
+        "iva": 52.61,
+        "total": 303.11
+      },
+      "sugerencias_catalogo": [
+        "Si la combadura es severa (>5mm) y no se corrige con ajuste de bisagras, valorar sustitución de puerta completa (partida: fabricacion_e_instalacion_puerta_exterior_madera)",
+        "Investigar causa de humedad: revisar drenaje en zona de entrada, estado de umbral y junta de estanqueidad. Puede requerir impermeabilización del encuentro puerta-fachada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico y evaluación de puerta combada",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de diagnóstico específica para evaluar viabilidad de reparación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_control_acceso_rfid",
+      "reparacion_o_ajuste_de_puerta_que_no_cierra_bien",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "pintado_de_puerta_de_entrada_o_exterior_madera",
+      "instalacion_toldo_de_pared_o_marquesina_fija"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3871,
+      "tokens_out": 1681
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

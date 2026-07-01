@@ -1,0 +1,226 @@
+{
+  "id": 376,
+  "oficio": "Reformas Integrales",
+  "texto": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+  "http_status": 200,
+  "latency_ms": 24535,
+  "raw_response": {
+    "transcript": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "REFORMA INTEGRAL DETECTADA: múltiples oficios simultáneos (≥3). Estructura en capítulos agrupados.",
+          "APROBACIÓN COMUNIDAD OBLIGATORIA para obras comunes y fachada.",
+          "PERMISOS MUNICIPALES REQUERIDOS: licencia de obra, permiso andamio perimetral.",
+          "PRESUPUESTO ESTIMADO EN CAPÍTULOS: requiere desglose detallado por el instalador.",
+          "Falta información crítica: superficie fachada (m²), tipo de instalaciones comunes a renovar, estado actual (pintura/enfoscado/SATE), presencia de amianto, accesibilidad andamio."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Coordinación de múltiples oficios en reforma simultánea de edificio comunitario."
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Rehabilitación de envolvente exterior, revestimiento y posible aislamiento SATE."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil, demoliciones interiores, reparación estructural si aplica."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Renovación instalación eléctrica comunes, alumbrado LED, cuadros de maniobra."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Renovación red agua comunes, bajantes, derivaciones."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de demolición obligatoria en reforma integral."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Tramitación de licencias, permisos municipales, aprobación comunidad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – DEMOLICIÓN, OBRA CIVIL Y ESTRUCTURAS",
+          "descripcion": "Demolición de tabiques interiores, reparación de grietas estructurales, retirada de material antiguo en zonas comunes (escaleras, rellanos, portal), preparación de fachada para rehabilitación. Incluye apuntalamientos temporales si necesario.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Instalador debe estimar según: superficie interior a demoler, número de tabiques, estado estructural, acceso a fachada. Rango orientativo: 8.000–25.000€ según complejidad."
+        },
+        {
+          "concepto": "CAP.2 – INSTALACIONES (ELECTRICIDAD, FONTANERÍA, CLIMATIZACIÓN COMUNES)",
+          "descripcion": "Renovación completa de instalación eléctrica comunes (cuadro general, derivaciones, alumbrado LED en escaleras/portal/pasillos), renovación red agua fría/caliente (tuberías PEX o multicapa), instalación de válvulas de corte, posible aerotermia o bomba calor para ACS comunitaria.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Incluye: electricidad (50€/h), fontanería (50€/h), posible energía solar/aerotermia (65€/h). Rango orientativo: 12.000–40.000€ según número de plantas, longitud de redes, equipos a instalar."
+        },
+        {
+          "concepto": "CAP.3 – REHABILITACIÓN DE FACHADA",
+          "descripcion": "Limpieza y reparación de fachada, retirada de material deteriorado, aplicación de mortero monocapa o sistema SATE (aislamiento térmico exterior), pintura de acabado, reparación de juntas de dilatación, remates de aluminio/zinc, canalones y bajantes. Incluye andamio perimetral con permiso municipal.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CRÍTICO: Falta superficie de fachada (m²). Rango de mercado: 250–950€/m² según tipo de actuación (pintura simple vs. SATE completo). Instalador debe medir fachada total y especificar tipo de revestimiento."
+        },
+        {
+          "concepto": "CAP.4 – GESTIÓN DE RESIDUOS, PERMISOS Y COORDINACIÓN",
+          "descripcion": "Retirada y gestión de escombros y residuos de demolición (contenedor, transporte a gestor autorizado), tramitación de licencia de obra, permiso de andamio municipal, aprobación de junta de propietarios, coordinación de seguridad en obra, pequeño material y herramientas.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Incluye: gestión residuos (3.000–8.000€), tramitación permisos (500–2.000€), coordinación seguridad (1.000–3.000€). Total estimado: 4.500–13.000€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "INFORMACIÓN FALTANTE CRÍTICA — Solicitar al cliente:",
+        "1. Superficie total de fachada (m²) — determina coste Cap.3.",
+        "2. Tipo de actuación fachada: ¿pintura simple, mortero monocapa, o SATE completo?",
+        "3. Instalaciones comunes a renovar: ¿solo electricidad y agua, o incluye calefacción/ACS/climatización?",
+        "4. Estado actual: ¿presencia de amianto, grietas estructurales, humedades?",
+        "5. Número de viviendas y plantas exacto (confirmación de 5 pisos).",
+        "6. ¿Incluye reforma de portal, escaleras, ascensor?",
+        "7. Presupuesto máximo disponible o rango de inversión."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Renovación instalación eléctrica comunes",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Reforma integral de edificio comunitario — partida agrupada."
+        },
+        {
+          "concepto": "Renovación red agua fría/caliente comunes",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Reforma integral de edificio comunitario — partida agrupada."
+        },
+        {
+          "concepto": "Rehabilitación de fachada (andamio + revestimiento + acabado)",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "Reforma integral de envolvente exterior — partida agrupada por m²."
+        },
+        {
+          "concepto": "Gestión integral de residuos y permisos",
+          "oficio": "gestion_residuos",
+          "origen": "sugerida_ia",
+          "motivo": "Obligatoria en reforma integral comunitaria."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_instalaciones_comunes_edificio",
+      "reforma_de_fachada_de_edificio_comunitario",
+      "tabique_pladur_en_rehabilitacion_edificio_existente",
+      "instalacion_electrica_exterior_urbanizacion",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3690,
+      "tokens_out": 3159
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

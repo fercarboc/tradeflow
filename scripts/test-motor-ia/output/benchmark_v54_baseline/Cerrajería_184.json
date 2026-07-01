@@ -1,0 +1,170 @@
+{
+  "id": 184,
+  "oficio": "Cerrajería",
+  "texto": "Hacer llave maestra para 6 puertas de apartamentos turísticos, sistema de cerrojo unificado",
+  "http_status": 200,
+  "latency_ms": 13572,
+  "raw_response": {
+    "transcript": "Hacer llave maestra para 6 puertas de apartamentos turísticos, sistema de cerrojo unificado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer llave maestra para 6 puertas de apartamentos turísticos, sistema de cerrojo unificado",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de cerrojo unificado requiere coordinación con cerrajero especializado en sistemas maestros",
+          "Verificar compatibilidad de cerraduras existentes o presupuestar sustitución de cilindros",
+          "Recomendable contrato de mantenimiento para sistema maestro en apartamentos turísticos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de cerrojo maestro, adaptación de cilindros y fabricación de llaves maestras"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica y diagnóstico de cerraduras existentes",
+          "descripcion": "Inspección de las 6 puertas de apartamentos, evaluación de compatibilidad de cerraduras actuales con sistema maestro, toma de medidas y propuesta de solución unificada",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de cilindros de cerradura maestros",
+          "descripcion": "Cilindros de seguridad con sistema maestro (6 unidades) para puertas de apartamentos turísticos, incluye desmontaje de cilindros antiguos, instalación de nuevos cilindros y ajuste de cerraduras",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cilindros maestros varía según marca, nivel de seguridad y compatibilidad. Instalador debe especificar modelo y presupuestar"
+        },
+        {
+          "concepto": "Mano de obra: instalación de cilindros maestros en 6 puertas",
+          "descripcion": "Desmontaje de cilindros antiguos, instalación de nuevos cilindros maestros, ajuste de cerraduras, pruebas de funcionamiento y sincronización del sistema en las 6 puertas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fabricación de juego de llaves maestras",
+          "descripcion": "Fabricación de 2 juegos completos de llaves maestras (2 llaves por juego = 4 llaves totales) para acceso a las 6 puertas de apartamentos turísticos, con codificación de seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de llaves maestras depende de tipo de cilindro, nivel de seguridad y número de copias. Instalador debe presupuestar según sistema elegido"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, lubricantes, materiales de fijación y accesorios varios para instalación de sistema maestro",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según cantidad y tipo de accesorios necesarios"
+        },
+        {
+          "concepto": "Pruebas finales y documentación del sistema maestro",
+          "descripcion": "Pruebas de funcionamiento de todas las llaves maestras en las 6 puertas, verificación de sincronización del sistema, entrega de documentación técnica y recomendaciones de mantenimiento",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 90,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 450,
+        "iva_porcentaje": 21,
+        "iva": 94.5,
+        "total": 544.5
+      },
+      "sugerencias_catalogo": [
+        "Considerar sistema de cerradura inteligente con acceso por código/tarjeta si los apartamentos requieren cambios frecuentes de huéspedes",
+        "Ofrecer contrato de mantenimiento anual para revisión y lubricación del sistema maestro",
+        "Documentar el sistema maestro con planos de distribución de llaves para gestión de apartamentos turísticos",
+        "Verificar si la aseguradora de los apartamentos turísticos requiere nivel de seguridad específico (EN 1303, EN 1906, etc.)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cilindros de cerradura maestros",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Material específico para sistema maestro, precio variable según marca y especificaciones de seguridad"
+        },
+        {
+          "concepto": "Llaves maestras fabricadas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Fabricación de llaves con codificación de seguridad, precio variable según sistema de cilindro"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_y_presupuesto_cerrajeria",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_arqueta_de_registro"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3679,
+      "tokens_out": 1880
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

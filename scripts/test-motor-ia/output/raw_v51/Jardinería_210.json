@@ -1,0 +1,189 @@
+{
+  "id": 210,
+  "oficio": "Jardinería",
+  "texto": "Tratamiento fitosanitario para árbol de palmera afectado por picudo rojo, inyección y seguimiento",
+  "http_status": 200,
+  "latency_ms": 21771,
+  "raw_response": {
+    "transcript": "Tratamiento fitosanitario para árbol de palmera afectado por picudo rojo, inyección y seguimiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tratamiento fitosanitario para árbol de palmera afectado por picudo rojo, inyección y seguimiento",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "OBLIGATORIO: Carnet de aplicador fitosanitario (nivel profesional) para el ejecutor",
+          "OBLIGATORIO: Notificación a autoridad fitosanitaria si infestación activa",
+          "OBLIGATORIO: Registro de tratamiento y productos utilizados",
+          "Aclarar: número de palmeras, altura aproximada, gravedad de infestación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Tratamiento fitosanitario especializado en plagas arbóreas (picudo rojo en palmeras)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico e identificación de infestación por picudo rojo",
+          "descripcion": "Inspección visual de la palmera, identificación del nivel de infestación, daños visibles, detección de galerías y larvas. Base para plan de tratamiento.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Se recomienda 1-2 horas de diagnóstico = 25-50€ según complejidad"
+        },
+        {
+          "concepto": "Producto insecticida específico para picudo rojo (endoterapia)",
+          "descripcion": "Insecticida sistémico autorizado MAGRAMA/MAPA para control de Rhynchophorus ferrugineus. Aplicación por inyección endoterápica. Dosis según altura y diámetro de palmera.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "l",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de producto específico (ej: imidacloprid 20%, abamectina). Típicamente 80-200€/l o 150-400€/tratamiento"
+        },
+        {
+          "concepto": "Aplicación de tratamiento endoterapia (inyección en el tronco)",
+          "descripcion": "Perforación controlada en el tronco, inyección del principio activo, sellado de inyecciones con masilla. Incluye colocación de sistema de goteo si procede. Aplicación según fichas técnicas.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Se estima 2-4 horas = 50-100€. Incluye preparación, inyección, sellado y limpieza"
+        },
+        {
+          "concepto": "EPI completo y medidas de seguridad",
+          "descripcion": "Equipo de protección individual: mascarilla FFP2/P3, guantes nitrilo dobles, gafas de seguridad, ropa de trabajo, botines de seguridad. Cumplimiento de normativa fitosanitaria.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Típicamente 15-30€ por aplicador"
+        },
+        {
+          "concepto": "Registro y documentación del tratamiento",
+          "descripcion": "Generación de registro oficial del tratamiento fitosanitario (fecha, producto, dosis, cantidad, aplicador, carnet), etiquetado de la palmera, copia para el cliente.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Aproximadamente 30 min = 12-15€"
+        },
+        {
+          "concepto": "Seguimiento y monitoreo post-tratamiento (1 seguimiento)",
+          "descripcion": "Revisión de la palmera a los 15-30 días post-tratamiento para evaluar eficacia, detectar nuevas infestaciones, presencia de adultos emergentes. Inspección visual y registro.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Típicamente 1-1.5 horas = 25-40€. Aclarar si contrata seguimiento adicional trimestral"
+        },
+        {
+          "concepto": "Trampa de feromonas para monitoreo continuo (opcional)",
+          "descripcion": "Trampa de feromona específica para Rhynchophorus ferrugineus, instalada en la base o próxima a la palmera tratada. Permite detectar presencia de adultos en fase de recolonización.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo típico 20-40€ + revisión mensual (5-10€/mes). RECOMENDADO para palmeras de alto valor"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Materiales auxiliares: masilla selladora para inyecciones, jeringuillas/agujas, agujas de drenaje, desinfectante, bolsas para residuos, etiquetas, etc.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Aproximadamente 10-20€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Aclarar altura de la palmera (< 4m, 4-8m, > 8m): afecta precio final (300-4000€/palmera según catálogo BASE MAESTRA)",
+        "Confirmar número de palmeras a tratar (presupuesto es por 1 ud. Multiplicar si son varias)",
+        "Precisar gravedad de infestación: preventiva vs. activa (si activa, OBLIGATORIO notificar autoridad fitosanitaria)",
+        "Plantear tratamiento preventivo trimestral si la palmera está en zona de riesgo (picudo rojo presente en región)"
+      ],
+      "partidas_nuevas_detectadas": [
+        "Diagnóstico e identificación de infestación por picudo rojo",
+        "Producto insecticida específico para picudo rojo (endoterapia)",
+        "Aplicación de tratamiento endoterapia (inyección en el tronco)",
+        "EPI completo y medidas de seguridad",
+        "Registro y documentación del tratamiento",
+        "Seguimiento y monitoreo post-tratamiento (1 seguimiento)",
+        "Trampa de feromonas para monitoreo continuo (opcional)",
+        "Pequeño material y consumibles"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tratamiento_preventivo_picudo_rojo_en_palmeras",
+      "impermeabilizacion_de_cubierta_de_fibrocemento_con_tratamiento",
+      "instalacion_de_sistema_de_time_lapse_o_monitorizacion_obra",
+      "tratamiento_fitosanitario_plagas_y_enfermedades",
+      "instalacion_de_sistema_de_monitoreo_solar_online"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 8,
+    "n_catalogo": 0,
+    "n_sugeridas": 8,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "id": 179,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner pavimento de caucho negro en gimnasio de 40 metros cuadrados, espesor 15mm",
+  "http_status": 200,
+  "latency_ms": 20268,
+  "raw_response": {
+    "transcript": "Poner pavimento de caucho negro en gimnasio de 40 metros cuadrados, espesor 15mm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner pavimento de caucho negro en gimnasio de 40 metros cuadrados, espesor 15mm",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar estado actual del soporte (debe estar limpio, plano y nivelado)",
+          "Confirmar si se requiere regularización previa del pavimento existente",
+          "Espesor 15mm es estándar para gimnasios; validar con cliente si es suficiente para el uso previsto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de pavimento de caucho en rollo o loseta, clasificado como suelos_alicatados según catálogo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Pavimento de caucho negro 15mm",
+          "descripcion": "Suministro de pavimento de caucho negro, espesor 15mm, para gimnasio. Incluye material en rollo o loseta según disponibilidad",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del material de caucho 15mm debe ser confirmado por el instalador según proveedor y calidad (rango típico 35-65€/m2)"
+        },
+        {
+          "concepto": "Adhesivo específico para caucho",
+          "descripcion": "Adhesivo poliuretano o específico para pavimento de caucho, cantidad según cobertura de 40 m2",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del adhesivo debe confirmarse (típicamente 3-8€/m2 según marca y rendimiento)"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Llanas, espátulas, rodillos, trapos, limpiadores y material auxiliar para instalación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material estimado en 1-2€/m2"
+        },
+        {
+          "concepto": "Preparación y limpieza del soporte",
+          "descripcion": "Limpieza exhaustiva del soporte, eliminación de polvo, grasa y residuos. Inspección de planitud y nivelación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de pavimento de caucho 40 m2",
+          "descripcion": "Colocación de pavimento de caucho negro 15mm mediante adhesivo. Extendido uniforme, presionado y compactado en toda la superficie. Incluye cortes perimetrales y ajustes",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 32,
+          "total": 1280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rodapié o perfil perimetral de caucho",
+          "descripcion": "Colocación de rodapié o perfil perimetral de caucho en todo el perímetro del gimnasio para remate y acabado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición del perímetro del gimnasio. Precio típico 15-35€/ml (material + instalación)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1344,
+        "iva_porcentaje": 21,
+        "iva": 282.24,
+        "total": 1626.24
+      },
+      "sugerencias_catalogo": [
+        "Si el soporte actual está irregular o dañado, considerar partida de regularización previa con mortero autonivelante (22-110€/m2)",
+        "Para gimnasios de alto impacto, validar que espesor 15mm es suficiente; algunos fabricantes recomiendan 18-20mm",
+        "Solicitar certificado de absorción de impacto si el gimnasio tiene zona de pesas o CrossFit"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pavimento de caucho negro 15mm",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material específico; precio pendiente de confirmación del instalador"
+        },
+        {
+          "concepto": "Adhesivo específico para caucho",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material auxiliar obligatorio; precio pendiente"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "suelos_alicatados",
+          "motivo": "Partida auxiliar; precio pendiente"
+        },
+        {
+          "concepto": "Rodapié o perfil perimetral de caucho",
+          "oficio": "suelos_alicatados",
+          "motivo": "Requiere medición del perímetro; precio pendiente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_pavimento_de_caucho_o_goma",
+      "instalacion_suelo_de_caucho_o_goma_en_rollo_o_loseta",
+      "instalacion_suelo_de_adoquin_o_loseta_hormigon_exterior",
+      "instalacion_de_perfil_o_junta_de_dilatacion_en_suelo",
+      "regularizacion_y_nivelacion_de_soporte"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3722,
+      "tokens_out": 2211
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

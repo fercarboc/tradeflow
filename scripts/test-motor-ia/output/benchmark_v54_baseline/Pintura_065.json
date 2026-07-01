@@ -1,0 +1,138 @@
+{
+  "id": 65,
+  "oficio": "Pintura",
+  "texto": "Barnizado de puertas y ventanas de madera, son 6 puertas interiores y 4 ventanas exteriores",
+  "http_status": 200,
+  "latency_ms": 12879,
+  "raw_response": {
+    "transcript": "Barnizado de puertas y ventanas de madera, son 6 puertas interiores y 4 ventanas exteriores",
+    "quote": {
+      "resumen": {
+        "texto_original": "Barnizado de puertas y ventanas de madera, son 6 puertas interiores y 4 ventanas exteriores",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye trabajos en interior (puertas) y exterior (ventanas) con diferentes especificaciones de acabado",
+          "Se recomienda confirmar estado actual de las puertas/ventanas (si tienen barniz/pintura anterior que requiera decapante)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Barnizado y acabado de madera (puertas interiores y ventanas exteriores)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Barnizado puertas interiores madera",
+          "descripcion": "Preparación, imprimación y barnizado de 6 hojas de puerta interior. Incluye lijado grano 150-220, masilla si necesario, imprimación madera, barniz sintético satinado 2 manos, cinta carrocero, plástico protección y pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 32,
+          "total": 192,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales barnizado puertas interiores",
+          "descripcion": "Barniz sintético satinado, imprimación madera, lija grano 150 y 220, masilla madera, cinta carrocero, plástico protección, pincel y pequeño material para 6 puertas",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar cantidad de barniz, imprimación y materiales auxiliares según estado actual de las puertas"
+        },
+        {
+          "concepto": "Pintado de ventanas madera exterior",
+          "descripcion": "Preparación, imprimación y esmalte de 4 ventanas exteriores. Incluye lijado grano 150-220, masilla exterior, esmalte poliuretano o alquidal alta durabilidad 2 manos, cinta carrocero, plástico protección y pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales pintado ventanas exteriores",
+          "descripcion": "Esmalte exterior poliuretano o alquidal alta durabilidad, imprimación madera exterior, lija grano 150 y 220, masilla exterior, cinta carrocero, plástico protección, pincel y pequeño material para 4 ventanas",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar cantidad de esmalte, imprimación y materiales auxiliares según estado actual de las ventanas y tamaño de las mismas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 372,
+        "iva_porcentaje": 21,
+        "iva": 78.12,
+        "total": 450.12
+      },
+      "sugerencias_catalogo": [
+        "Si las puertas/ventanas tienen capas antiguas degradadas, considerar partida adicional de decapante químico",
+        "Para acabado de mayor durabilidad en exteriores, considerar esmalte poliuretano de 2 componentes",
+        "Confirmar si se requiere protección de herrajes y cristales durante el proceso"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Materiales barnizado puertas interiores",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales consumibles - precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Materiales pintado ventanas exteriores",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales consumibles - precio pendiente de revisión del instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_de_lasur_madera_exterior",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "pintado_de_ventanas_de_madera_exterior",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3704,
+      "tokens_out": 1447
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

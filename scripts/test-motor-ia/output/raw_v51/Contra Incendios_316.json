@@ -1,0 +1,148 @@
+{
+  "id": 316,
+  "oficio": "Contra Incendios",
+  "texto": "Revisión de instalación de gas en local de hostelería con informe técnico para licencia",
+  "http_status": 200,
+  "latency_ms": 12726,
+  "raw_response": {
+    "transcript": "Revisión de instalación de gas en local de hostelería con informe técnico para licencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión de instalación de gas en local de hostelería con informe técnico para licencia",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Revisión de gas en hostelería requiere empresa AUTORIZADA y certificada por normativa de gas",
+          "Informe técnico para licencia municipal debe cumplir normativa de seguridad en instalaciones de gas",
+          "Puede requerir ITV o certificado de conformidad según antigüedad y normativa local"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión de instalaciones de gas (fontanería especializada en gas y ACS)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica y evaluación de instalación de gas",
+          "descripcion": "Inspección completa de la instalación de gas, tubería, reguladores, conexiones y estado general de seguridad",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 80,
+          "total": 80,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de visita técnica especializada en gas - instalador debe validar según tarifa local"
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y presión en instalación de gas",
+          "descripcion": "Realización de pruebas de estanqueidad con manómetro, detección de fugas mediante solución jabonosa y verificación de presiones en reguladores y puntos de conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de elementos de seguridad y cumplimiento normativo",
+          "descripcion": "Inspección de válvulas de corte, reguladores de presión, llaves de paso, tomas de tierra, ventilación de chimeneas y cumplimiento con RD 919/2006 y normativa de seguridad en gas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Elaboración de informe técnico para licencia municipal",
+          "descripcion": "Redacción de informe técnico detallado con fotografías, planos, mediciones, resultados de pruebas, lista de conformidades/no conformidades y recomendaciones. Formato apto para presentación en ayuntamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "informe",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de elaboración de informe técnico - instalador debe validar según complejidad y formato requerido"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (solución jabonosa, registros, clips, cintas, etc.)",
+          "descripcion": "Material fungible utilizado durante la revisión: soluciones de detección, registros de prueba, materiales de consumo menor",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador según consumibles reales utilizados"
+        }
+      ],
+      "calculos": {
+        "subtotal": 375,
+        "iva_porcentaje": 21,
+        "iva": 78.75,
+        "total": 453.75
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la empresa dispone de AUTORIZACIÓN para inspección de gas (Comunidad Autónoma o Colegio Profesional)",
+        "Confirmar si se requiere ITV de la instalación (según antigüedad y normativa local)",
+        "Considerar oferta de certificado de conformidad si la instalación cumple normativas",
+        "Incluir en informe recomendaciones de mantenimiento anual obligatorio para establecimientos públicos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Visita técnica y evaluación de instalación de gas",
+          "oficio": "fontaneria",
+          "motivo": "Revisión de gas con informe para licencia - no existe partida específica en catálogo"
+        },
+        {
+          "concepto": "Elaboración de informe técnico para licencia municipal",
+          "oficio": "fontaneria",
+          "motivo": "Documento técnico especializado requerido para trámite administrativo - no existe en catálogo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "presupuesto_e_informe_inicial_instalacion_contra_incendios",
+      "instalacion_ventana_de_PVC_o_aluminio_en_local_o_nave",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_toldo_terraza_bar_o_restaurante",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "NO"
+  }
+}

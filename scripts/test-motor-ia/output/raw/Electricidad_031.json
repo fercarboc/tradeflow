@@ -1,0 +1,225 @@
+{
+  "id": 31,
+  "oficio": "Electricidad",
+  "texto": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+  "http_status": 200,
+  "latency_ms": 22707,
+  "raw_response": {
+    "transcript": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "RIESGO ELÉCTRICO CRÍTICO: Cable pelado con descarga eléctrica detectada. Requiere intervención URGENTE y diagnóstico completo de la instalación.",
+          "Se recomienda corte de suministro en la zona antes de cualquier trabajo.",
+          "Inspección visual completa del tramo afectado y adyacentes para detectar otros daños."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación de cableado deteriorado con riesgo de descarga eléctrica. Trabajo de electricidad especializada."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Apertura y cierre de rozas para acceso y reparación del cableado en pared."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y localización de avería eléctrica",
+          "descripcion": "Inspección completa del circuito afectado, localización del cable pelado, verificación de continuidad y aislamiento, detección de otros daños en la instalación del pasillo.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Apertura de roza en pared para acceso al cable",
+          "descripcion": "Apertura controlada de roza en pared del pasillo para acceso al tramo de cable pelado, limpieza y soplado de polvo.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de cable H07V-K según sección existente",
+          "descripcion": "Cable de cobre H07V-K con aislamiento de PVC, misma sección que el existente, para sustitución del tramo deteriorado.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del cable según sección (1.5, 2.5, 4, 6 mm²) a confirmar por instalador. Incluir coste de material."
+        },
+        {
+          "concepto": "Desmontaje de cable deteriorado",
+          "descripcion": "Extracción cuidadosa del cable pelado del pasillo, retirada de tubo corrugado si existe.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de cable nuevo y tubo corrugado",
+          "descripcion": "Tendido de cable H07V-K nuevo en tubo corrugado de protección, conexión en cajas de derivación existentes con conectores seguros, prueba de continuidad e aislamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 2,
+          "precio_unitario": 15,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de tubo corrugado y pequeño material eléctrico",
+          "descripcion": "Tubo corrugado de protección, conectores, cajas de derivación si necesario, cinta aislante profesional, tornillos y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales auxiliares a confirmar: tubo corrugado, conectores, cajas, cinta aislante."
+        },
+        {
+          "concepto": "Cierre de roza con mortero y acabado",
+          "descripcion": "Relleno de roza con mortero de cemento o yeso según soporte, alisado y preparación para pintura.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de mortero y malla de fibra",
+          "descripcion": "Mortero de cemento o yeso para cierre de roza, malla de fibra de vidrio si roza > 3mm.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mortero y malla a confirmar según cantidad y tipo de soporte."
+        },
+        {
+          "concepto": "Pruebas finales de seguridad eléctrica",
+          "descripcion": "Verificación de continuidad, aislamiento y ausencia de fugas a tierra. Prueba de funcionamiento del circuito. Certificación de seguridad.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 465,
+        "iva_porcentaje": 21,
+        "iva": 97.65,
+        "total": 562.65
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: [reparacion_cableado_deteriorado] — partidas obligatorias incluidas.",
+        "Verificar en catálogo: [apertura_y_cierre_de_rozas_para_instalaciones] — partidas obligatorias incluidas.",
+        "Considerar inspección termográfica si se sospecha sobrecalentamiento en otras zonas (coste adicional)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de cable H07V-K según sección existente",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de la sección del cable (1.5, 2.5, 4, 6 mm²). Instalador debe confirmar sección y precio."
+        },
+        {
+          "concepto": "Suministro de tubo corrugado y pequeño material eléctrico",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales auxiliares cuyo coste total depende de cantidad y especificaciones. Instalador debe detallar y presupuestar."
+        },
+        {
+          "concepto": "Suministro de mortero y malla de fibra",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales de cierre de roza cuyo coste depende del tipo de soporte y cantidad. Instalador debe confirmar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cableado_deteriorado",
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "reconstruccion_de_muro_con_lesiones_estructurales"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3785,
+      "tokens_out": 2839
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 6,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

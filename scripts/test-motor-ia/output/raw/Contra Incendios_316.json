@@ -1,0 +1,170 @@
+{
+  "id": 316,
+  "oficio": "Contra Incendios",
+  "texto": "Revisión de instalación de gas en local de hostelería con informe técnico para licencia",
+  "http_status": 200,
+  "latency_ms": 17768,
+  "raw_response": {
+    "transcript": "Revisión de instalación de gas en local de hostelería con informe técnico para licencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión de instalación de gas en local de hostelería con informe técnico para licencia",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo regulado por normativa específica (REGLAMENTO DE INSTALACIONES DE GAS EN ESPAÑA - RD 919/2006 y CTE DB SI)",
+          "Requiere empresa autorizada y técnico competente certificado",
+          "Informe técnico vinculante para licencia municipal/autonómica",
+          "Incluye inspección visual, pruebas de estanqueidad y documentación oficial"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Revisión técnica de instalación de gas requiere especialización en sistemas de gas, normativa y certificación. Mecanica_especializada cubre inspecciones técnicas complejas con documentación oficial."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica y evaluación de instalación de gas",
+          "descripcion": "Desplazamiento, inspección visual completa de tuberías, conexiones, reguladores, válvulas de seguridad, tomas de gas, estado general de la instalación y puntos de riesgo en local de hostelería",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de estanqueidad de la instalación de gas",
+          "descripcion": "Prueba de presión y estanqueidad con manómetro diferencial en toda la red de gas (tuberías, conexiones, reguladores). Detección de fugas con detector ultrasónico o solución jabonosa. Documentación de resultados.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección de aparatos de gas y sistemas de seguridad",
+          "descripcion": "Revisión de quemadores, hornos, freidoras, calentadores de agua, reguladores de presión, válvulas de corte, sistemas de ventilación y extracción de gases de combustión. Verificación de funcionamiento y seguridad.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de normativa y cumplimiento CTE DB SI y RD 919/2006",
+          "descripcion": "Evaluación del cumplimiento de la normativa de instalaciones de gas (RD 919/2006), CTE DB SI (seguridad en caso de incendio), distancias de seguridad, ventilación, señalización y requisitos específicos para hostelería. Identificación de deficiencias.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Redacción de informe técnico oficial para licencia",
+          "descripcion": "Elaboración de informe técnico detallado con fotografías, planos, resultados de pruebas, análisis de cumplimiento normativo, recomendaciones de mejora y certificación del técnico competente. Documento válido para tramitación de licencia municipal/autonómica.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "unidad": "informe",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de redacción de informe técnico oficial debe validarse según complejidad del local y extensión del documento. Rango típico: 100-250€"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (manómetro, solución jabonosa, tinta, etc.)",
+          "descripcion": "Material fungible necesario para la inspección: solución jabonosa para detección de fugas, papel de prueba, tinta para marcaje, pequeños accesorios de medición y documentación.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material debe ser estimado por el técnico. Rango típico: 20-50€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 562.5,
+        "iva_porcentaje": 21,
+        "iva": 118.125,
+        "total": 680.625
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la empresa está autorizada por la administración competente para realizar inspecciones de gas (Comunidad Autónoma)",
+        "El técnico debe estar certificado como 'Técnico Competente en Instalaciones de Gas' según RD 919/2006",
+        "Considerar si es necesaria inspección de ventilación/extracción (puede requerir especialista en climatización)",
+        "Si se detectan deficiencias graves, presupuestar reparaciones por separado (cambio de tuberías, reguladores, válvulas, etc.)",
+        "El informe debe incluir certificado de conformidad o no conformidad para que sea válido ante administración"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Redacción de informe técnico oficial para licencia",
+          "oficio": "mecanica_especializada",
+          "motivo": "Servicio de documentación técnica oficial no cubierto directamente en catálogo base. Precio pendiente de validación del profesional."
+        },
+        {
+          "concepto": "Pequeño material y consumibles (manómetro, solución jabonosa, tinta, etc.)",
+          "oficio": "mecanica_especializada",
+          "motivo": "Material fungible específico para inspección de gas. Precio debe ser estimado por el técnico según cantidad y tipo de consumibles."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "presupuesto_e_informe_inicial_instalacion_contra_incendios",
+      "instalacion_ventana_de_PVC_o_aluminio_en_local_o_nave",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_toldo_terraza_bar_o_restaurante",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4058,
+      "tokens_out": 2053
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "mecanica_especializada",
+    "coincide_oficio": "NO"
+  }
+}

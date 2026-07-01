@@ -1,0 +1,288 @@
+{
+  "id": 189,
+  "oficio": "Cerrajería",
+  "texto": "Instalación de sistema de control de acceso con tarjeta RFID para empresa, 2 puertas y 15 tarjetas",
+  "http_status": 200,
+  "latency_ms": 26933,
+  "raw_response": {
+    "transcript": "Instalación de sistema de control de acceso con tarjeta RFID para empresa, 2 puertas y 15 tarjetas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de sistema de control de acceso con tarjeta RFID para empresa, 2 puertas y 15 tarjetas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de control de acceso RFID: requiere revisión de precios de materiales (controladora, lectores, cerraduras, fuente alimentación)",
+          "Se asume 1 controladora centralizada para 2 puertas; revisar si se requieren controladoras independientes",
+          "Tarjetas RFID: precio unitario pendiente de revisión del instalador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de controladora, fuente alimentación, cableado eléctrico y conexiones de cerraduras eléctricas"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de lectores RFID en puertas, cerraduras electromagnéticas y ajuste de mecanismos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Controladora de acceso RFID centralizada",
+          "descripcion": "Controladora de acceso para gestión de 2 puertas, con capacidad para múltiples lectores y tarjetas, incluye software de gestión básico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de controladora RFID pendiente de revisión. Rango estimado: 150-400€"
+        },
+        {
+          "concepto": "Lector RFID con teclado",
+          "descripcion": "Lector RFID de proximidad con teclado integrado para entrada de PIN, instalación en marco de puerta, 2 unidades (una por puerta)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario lector RFID pendiente. Rango estimado: 80-200€/ud"
+        },
+        {
+          "concepto": "Cerraduras electromagnéticas",
+          "descripcion": "Cerraduras electromagnéticas de 12V DC para control de acceso, instalación en 2 puertas, incluye herrajes de fijación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio cerradura electromagnética pendiente. Rango estimado: 60-150€/ud"
+        },
+        {
+          "concepto": "Fuente de alimentación con batería de respaldo",
+          "descripcion": "Fuente de alimentación 12V DC con batería de respaldo (UPS) para garantizar funcionamiento en caso de corte eléctrico, capacidad para 2 puertas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio fuente con batería backup pendiente. Rango estimado: 120-300€"
+        },
+        {
+          "concepto": "Tarjetas RFID",
+          "descripcion": "Tarjetas RFID de proximidad para control de acceso, 15 unidades, incluye codificación inicial",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario tarjeta RFID pendiente. Rango estimado: 2-8€/ud"
+        },
+        {
+          "concepto": "Cableado UTP Cat5e y pequeño material",
+          "descripcion": "Cableado UTP Cat5e para comunicación entre controladora y lectores, canaletas, conectores RJ45, tornillería y pequeño material de instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio cableado y material pendiente. Estimado: 2-5€/ml + pequeño material 30-50€"
+        },
+        {
+          "concepto": "Instalación de controladora y fuente de alimentación",
+          "descripcion": "Montaje de controladora en armario o panel, conexión de fuente de alimentación, pruebas de funcionamiento básicas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de lectores RFID en puertas",
+          "descripcion": "Montaje de 2 lectores RFID en marcos de puerta, conexión a controladora, ajuste de sensibilidad y pruebas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de cerraduras electromagnéticas",
+          "descripcion": "Montaje de 2 cerraduras electromagnéticas en puertas, conexión a controladora, ajuste de fuerza de cierre y pruebas de seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 60,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y conexiones eléctricas",
+          "descripcion": "Tendido de cableado UTP entre controladora y lectores, instalación de canaletas, conexiones RJ45 y pruebas de continuidad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Codificación de tarjetas y configuración del sistema",
+          "descripcion": "Codificación de 15 tarjetas RFID en el sistema, programación de permisos de acceso por usuario, pruebas de lectura y acceso",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas finales y documentación",
+          "descripcion": "Pruebas de funcionamiento completo del sistema (acceso/denegación), documentación de usuarios y tarjetas, entrega de manual de usuario",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 655,
+        "iva_porcentaje": 21,
+        "iva": 137.55,
+        "total": 792.55
+      },
+      "sugerencias_catalogo": [
+        "Considerar software de gestión de acceso avanzado si se requiere control remoto o reportes detallados (costo adicional estimado: 200-500€)",
+        "Evaluar si se necesita interfono o videoportero integrado en el sistema (costo adicional: 150-400€)",
+        "Revisar si es necesario UPS adicional para mayor autonomía en caso de corte eléctrico (costo: 100-250€)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Controladora de acceso RFID centralizada",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Componente obligatorio del sistema de control de acceso RFID"
+        },
+        {
+          "concepto": "Lector RFID con teclado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Componente obligatorio para lectura de tarjetas en cada puerta"
+        },
+        {
+          "concepto": "Cerraduras electromagnéticas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Componente obligatorio para control de acceso físico"
+        },
+        {
+          "concepto": "Fuente de alimentación con batería de respaldo",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Componente obligatorio para garantizar funcionamiento en cortes eléctricos"
+        },
+        {
+          "concepto": "Tarjetas RFID",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Consumible obligatorio para acceso de usuarios"
+        },
+        {
+          "concepto": "Cableado UTP Cat5e y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Material de instalación obligatorio para interconexión del sistema"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_control_acceso_rfid",
+      "instalacion_de_sistema_de_control_de_acceso_con_CCTV",
+      "instalacion_de_cuadro_y_sistemas_de_control_para_automatismos",
+      "instalacion_malla_anti_palomas_o_aves_en_fachada",
+      "instalacion_de_sistema_de_localizacion_RFID_o_GPS_activos"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3762,
+      "tokens_out": 3471
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

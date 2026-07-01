@@ -1,0 +1,128 @@
+{
+  "id": 271,
+  "oficio": "Cristalería",
+  "texto": "Poner vidrio antirrobo en puerta de entrada, vidrio laminado de seguridad con butiral",
+  "http_status": 200,
+  "latency_ms": 12950,
+  "raw_response": {
+    "transcript": "Poner vidrio antirrobo en puerta de entrada, vidrio laminado de seguridad con butiral",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner vidrio antirrobo en puerta de entrada, vidrio laminado de seguridad con butiral",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medir exactamente las dimensiones de la puerta y espesor antes de encargar el vidrio laminado",
+          "Vidrio laminado con butiral (PVB) NO se puede cortar en obra; debe fabricarse a medida",
+          "Plazo de fabricación: 5-10 días laborales",
+          "Verificar si la puerta actual soporta el peso del vidrio laminado (más pesado que templado)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio laminado de seguridad en puerta de entrada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio laminado de seguridad con butiral (PVB) a medida",
+          "descripcion": "Suministro de vidrio laminado de seguridad antirrobo con lámina de butiral (PVB), clasificación mínima 3+3 o superior según espesor requerido. Fabricación a medida según dimensiones exactas de la puerta. Incluye marcado CE y certificación EN 11012. NO incluye instalación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas (ancho×alto), espesor (6+6, 8+8, 10+10 mm) y tipo de butiral. Instalador debe medir y cotizar con proveedor de vidrio."
+        },
+        {
+          "concepto": "Silicona estructural o herraje de fijación",
+          "descripcion": "Silicona estructural neutra de alta resistencia o herraje de aluminio/acero inoxidable para fijación del vidrio laminado en marco de puerta. Incluye pequeño material (tacos, tornillos, arandelas).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo de fijación (silicona vs herraje) y cantidad de material. Revisar con instalador."
+        },
+        {
+          "concepto": "Instalación vidrio laminado de seguridad en puerta",
+          "descripcion": "Mano de obra de instalación: desmontaje de vidrio anterior (si aplica), preparación de marco, colocación de vidrio laminado con silicona o herraje, sellado, ajuste y pruebas de cierre y seguridad. Incluye limpieza final.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Consultar con proveedor de vidrio especializado: espesor recomendado para antirrobo es 8+8 mm o 10+10 mm con butiral PVB de calidad premium",
+        "Considerar vidrio laminado clasificación 2B2 (mayor resistencia) si la puerta está en planta baja o zona de alto riesgo",
+        "Verificar si el marco actual de la puerta soporta el peso adicional del vidrio laminado (aprox. 25-35 kg según espesor)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio laminado de seguridad con butiral (PVB) a medida",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de seguridad; precio variable según medidas y espesor"
+        },
+        {
+          "concepto": "Silicona estructural o herraje de fijación",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Complemento de instalación; precio según tipo de fijación elegida"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_vidrio_en_puerta_interior",
+      "instalacion_cerrojo_adicional",
+      "instalacion_reja_fija_en_ventana_o_puerta",
+      "instalacion_vidrio_laminado_de_seguridad"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3674,
+      "tokens_out": 1425
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 1,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

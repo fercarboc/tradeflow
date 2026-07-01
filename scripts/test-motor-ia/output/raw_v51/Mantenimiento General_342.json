@@ -1,0 +1,234 @@
+{
+  "id": 342,
+  "oficio": "Mantenimiento General",
+  "texto": "Revisión general de vivienda antes de poner en alquiler, reparaciones menores y informe",
+  "http_status": 200,
+  "latency_ms": 16956,
+  "raw_response": {
+    "transcript": "Revisión general de vivienda antes de poner en alquiler, reparaciones menores y informe",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión general de vivienda antes de poner en alquiler, reparaciones menores e informe",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "El alcance de 'reparaciones menores' es genérico. Se requiere especificación en sitio: grietas, pinturas, fontanería, electricidad, etc.",
+          "El presupuesto incluye revisión exhaustiva + informe. Las reparaciones detectadas pueden requerir presupuesto adicional.",
+          "Se recomienda visita previa para cuantificar alcance exacto de reparaciones."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 120,
+            "max": 300
+          },
+          "motivo": "Revisión visual exhaustiva de instalaciones + informe escrito"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 32,
+            "max": 45
+          },
+          "motivo": "Reparaciones menores y repasos de pintura detectados en revisión"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión y posibles reparaciones menores en fontanería"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Revisión de instalación eléctrica y pequeñas reparaciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión visual instalación eléctrica",
+          "descripcion": "Inspección de cuadro eléctrico, enchufes, interruptores, toma tierra, identificación de cargas y estado general de la red",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión fontanería: fugas, presión y estado general",
+          "descripcion": "Inspección de tuberías visibles, grifería, sifones, presión de agua, detectar filtraciones y corrosión",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión carpintería, cerrajería y cerraduras",
+          "descripcion": "Estado de puertas, ventanas, marcos, cerraduras, cierre y funcionamiento correcto",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión estado paredes, techos y suelos",
+          "descripcion": "Inspección de grietas, humedad, desprendimientos, pintura deteriorada, estado general de superficies",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión sanitarios, grifería y accesorios",
+          "descripcion": "Estado de inodoros, lavabos, duchas, bañeras, fugas, filtraciones, sellados",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparaciones menores pintura: repasos y parches",
+          "descripcion": "Pequeños repasos de pintura en zonas deterioradas, masilla para imperfecciones, pequeños daños en paredes",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada; se ajustará según hallazgos en revisión previa"
+        },
+        {
+          "concepto": "Reparaciones menores fontanería: ajuste de grifería y pequeños sellados",
+          "descripcion": "Apretado de conexiones, reemplazo de arandelas, resellado de juntas y pequeños trabajos preventivos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada; se ajustará según necesidades detectadas"
+        },
+        {
+          "concepto": "Pequeño material (fontanería, electricidad, pintura)",
+          "descripcion": "Arandelas, teflon, masilla, pincel, rodillo, lija, trapos, EPI",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de pequeño material a definir por instalador según alcance real"
+        },
+        {
+          "concepto": "Informe escrito con hallazgos, prioridades y recomendaciones",
+          "descripcion": "Documento detallado con estado de todas las instalaciones, deficiencias encontradas, clasificación por prioridad (urgente/medio/bajo) y propuestas de solución",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 100,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de informe según complejidad y extensión; estimado en rango estándar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 564,
+        "iva_porcentaje": 21,
+        "iva": 118.44,
+        "total": 682.44
+      },
+      "sugerencias_catalogo": [
+        "Si se detecta caldera o aerotermia: incluir revisión especializada de climatización (oficio: climatizacion, +1.5h @ 60€/h = 90€)",
+        "Si hay terraza/cubierta accesible: incluir revisión de impermeabilización y estado (oficio: impermeabilizacion, +1h @ 50€/h = 50€)",
+        "Considerar contratación de mantenimiento anual (más económico que visitas puntuales) si cliente lo desea"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material (fontanería, electricidad, pintura)",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo": "Material fungible; el instalador define importe según gasto real"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_zona_ducha_con_membrana_liquida",
+      "instalacion_llave_general_vivienda",
+      "sustitucion_llave_paso",
+      "revision_anual_instalacion_general_vivienda",
+      "revision_y_repaso_pintura_vivienda_completa"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 8,
+    "n_sugeridas": 1,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

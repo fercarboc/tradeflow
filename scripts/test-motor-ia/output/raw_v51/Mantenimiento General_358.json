@@ -1,0 +1,186 @@
+{
+  "id": 358,
+  "oficio": "Mantenimiento General",
+  "texto": "Revisar y reparar sistema de ventilación de parking subterráneo, 3 extractores con sensores CO",
+  "http_status": 200,
+  "latency_ms": 14365,
+  "raw_response": {
+    "transcript": "Revisar y reparar sistema de ventilación de parking subterráneo, 3 extractores con sensores CO",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y reparar sistema de ventilación de parking subterráneo, 3 extractores con sensores CO",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema con sensores CO requiere cumplimiento normativo de seguridad (RD 486/1997)",
+          "Verificar que empresa tenga competencia en instalaciones con riesgos químicos",
+          "Revisar calibración de sensores CO según protocolo fabricante"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Sistemas de ventilación mecánica controlada entran en competencia de climatización"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión de conexiones eléctricas y sensores electrónicos CO"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico inicial sistema ventilación 3 extractores",
+          "descripcion": "Inspección visual y funcional de los 3 extractores, conductos, rejillas y comprobación de flujos de aire",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y calibración sensores CO (3 unidades)",
+          "descripcion": "Prueba funcional de los 3 sensores de monóxido de carbono, verificación de rangos de detección, calibración según especificaciones fabricante y limpieza de células sensoras",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y mantenimiento de filtros 3 extractores",
+          "descripcion": "Extracción, limpieza o sustitución de filtros en los 3 equipos extractores según estado de obstrucción",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión conexiones eléctricas y puesta a tierra",
+          "descripcion": "Inspección de bornes de conexión, continuidad de tierra, estado de cables y contactores en los 3 extractores",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación/sustitución de piezas defectuosas (cojinetes, rodetes, etc.)",
+          "descripcion": "Cambio de piezas gastadas detectadas en revisión (cojinetes, rodetes de polea, correas, etc.) - cantidad y especificación según diagnóstico",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de piezas de reemplazo pendiente de identificación en diagnóstico previo"
+        },
+        {
+          "concepto": "Pruebas funcionales finales y registro de intervención",
+          "descripcion": "Verificación de funcionamiento correcto de los 3 extractores, sensores CO y sistema de control; registro de mediciones y generación de certificado de mantenimiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (cintas aislantes, conectores, selladores, EPI)",
+          "descripcion": "Consumibles necesarios para la intervención: cinta aislante, grasa lubricante, conectores, mascarillas, guantes, gafas protección",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importes de consumibles a definir según cantidades exactas utilizadas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 365,
+        "iva_porcentaje": 21,
+        "iva": 76.65,
+        "total": 441.65
+      },
+      "sugerencias_catalogo": [
+        "Considerar plan de mantenimiento trimestral o semestral para sistemas de ventilación en parkings (ambiente crítico por CO)",
+        "Documentar todas las mediciones de CO y calibración de sensores para cumplimiento normativo RD 486/1997",
+        "En caso de detectar fugas o rotura en conductos, ampliar presupuesto con reparación/sellado de conductos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Reparación/sustitución de piezas defectuosas (cojinetes, rodetes, etc.)",
+          "razon": "Partida flexible según diagnóstico, sin especificación de cantidad o modelo en solicitud inicial",
+          "requiere_revision": true
+        },
+        {
+          "partida": "Pequeño material (cintas aislantes, conectores, selladores, EPI)",
+          "razon": "Material consumible cuya cantidad depende de los trabajos detectados en revisión",
+          "requiere_revision": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "revision_y_prueba_de_sistema_de_alarma",
+      "revision_y_recarga_sistema_refrigerante_instalacion_grande",
+      "mantenimiento_y_reparacion_de_sistema_de_riego",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "instalacion_sistema_de_videovigilancia_CCTV"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

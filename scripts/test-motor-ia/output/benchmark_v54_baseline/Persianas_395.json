@@ -1,0 +1,131 @@
+{
+  "id": 395,
+  "oficio": "Persianas",
+  "texto": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+  "http_status": 200,
+  "latency_ms": 10533,
+  "raw_response": {
+    "transcript": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+    "quote": {
+      "resumen": {
+        "texto_original": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Integración de persianas motorizadas en sistema domótico, cableado de control, programación y configuración de automatización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulo de control domótico para persianas motorizadas",
+          "descripcion": "Adquisición e instalación de módulo/relé domótico compatible con sistema existente para control de persianas motorizadas (actuador domótico, receptor inalámbrico o cableado según sistema)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del módulo domótico depende de marca, protocolo (Z-Wave, Zigbee, WiFi, KNX) y compatibilidad con sistema existente. Instalador debe especificar."
+        },
+        {
+          "concepto": "Cableado de control y conexiones",
+          "descripcion": "Tendido de cableado de control desde módulo domótico a motores de persianas, conexiones, regletas de bornes, pequeño material (bridas, canaletas si necesario)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programación horaria y configuración domótica",
+          "descripcion": "Configuración del sistema domótico: creación de escenas horarias, programación de horarios de apertura/cierre de persianas, integración en app móvil, pruebas de funcionamiento y ajustes",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Verificación de funcionamiento de todas las persianas, sincronización horaria, validación de escenas programadas, formación básica al usuario",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar protocolo domótico existente en vivienda (Z-Wave, Zigbee, WiFi, KNX, otro) para seleccionar módulo compatible",
+        "Especificar número de persianas a conectar (afecta a cantidad de módulos/relés necesarios)",
+        "Indicar si las persianas tienen receptor inalámbrico o requieren cableado de control",
+        "Definir tipo de programación: horarios fijos, sensores de luz/temperatura, integración con otros sistemas (iluminación, climatización)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulo de control domótico para persianas motorizadas",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico de integración domótica; precio variable según marca y protocolo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_sistema_free_cooling",
+      "instalacion_sistema_agua_helada_chiller",
+      "instalacion_sistema_de_videovigilancia_CCTV"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3921,
+      "tokens_out": 1284
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "id": 23,
+  "oficio": "Electricidad",
+  "texto": "Cambio de toda la instalación eléctrica del piso de 80 metros cuadrados, cableado nuevo y cajas de registro",
+  "http_status": 200,
+  "latency_ms": 24495,
+  "raw_response": {
+    "transcript": "Cambio de toda la instalación eléctrica del piso de 80 metros cuadrados, cableado nuevo y cajas de registro",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de toda la instalación eléctrica del piso de 80 metros cuadrados, cableado nuevo y cajas de registro",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "OBLIGATORIO: Boletin electrico REBT al finalizar",
+          "OBLIGATORIO: Instalador autorizado REBT",
+          "Verificar circuitos minimos segun REBT antes de cerrar rozas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalacion electrica completa, cableado, cajas registro"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 38,
+            "recomendado": 40,
+            "max": 42
+          },
+          "motivo": "Rozas en paredes para paso de cableado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje instalacion electrica antigua",
+          "descripcion": "Desmontaje completo de cuadro electrico antiguo, cableado, cajas, interruptores y enchufes existentes. Gestion de residuos incluida.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa variable segun complejidad desmontaje y volumen residuo"
+        },
+        {
+          "concepto": "Cuadro electrico nuevo segun REBT",
+          "descripcion": "Suministro e instalacion de cuadro electrico moderno segun normativa REBT, incluyendo interruptores magnetotermicos, diferenciales y elementos de proteccion.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente confirmacion del instalador segun modelo y marcas disponibles"
+        },
+        {
+          "concepto": "Rozas en paredes para cableado",
+          "descripcion": "Ejecucion de rozas en muros para paso de canalizaciones electricas. Incluye corte, picado y retirada de escombros.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 200ml para piso 80m²; ajustar segun planos reales"
+        },
+        {
+          "concepto": "Cableado electrico nuevo completo",
+          "descripcion": "Suministro e instalacion de cableado de cobre de seccion adecuada para circuitos de iluminacion, enchufes, cocina y climatizacion segun REBT.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y seccion dependiente de circuitos definitivos; precio material incluir en revision"
+        },
+        {
+          "concepto": "Cajas de registro y derivacion",
+          "descripcion": "Suministro e instalacion de cajas de registro, cajas de derivacion y tubos protectores para cableado.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada para 80m²; ajustar segun diseño de la instalacion"
+        },
+        {
+          "concepto": "Circuitos segun REBT (iluminacion, enchufes, cocina, climatizacion)",
+          "descripcion": "Instalacion de circuitos independientes obligatorios: circuito iluminacion general, enchufes uso general, cocina/horno, aire acondicionado. Incluye protecciones diferenciadas.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tomas e interruptores nuevos",
+          "descripcion": "Suministro e instalacion de enchufes Schuko, interruptores de cruce/conmutadores y teclas con marcos nuevos segun diseño.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada (35 ptos aprox para 80m²); precio material segun gama seleccionada"
+        },
+        {
+          "concepto": "Instalacion tomas e interruptores",
+          "descripcion": "Mano de obra de instalacion de enchufes, interruptores y teclas.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 35,
+          "precio_unitario": 3,
+          "total": 105,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 3€/pto; rango 2,5-4€/pto segun complejidad"
+        },
+        {
+          "concepto": "Reposicion de rozas y acabado",
+          "descripcion": "Reposicion de yeso/escayola en rozas, alisado y preparacion para pintura.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa incluida en albañileria; presupuestar con pequeño material (yeso escayola)"
+        },
+        {
+          "concepto": "Pequeño material electrico (tubos, bridas, cintas, conectores)",
+          "descripcion": "Tubos corrugados, bridas, cinta aislante, conectores, regletas y accesorios varios.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote estimado 5-15% del presupuesto material; presupuestar cantidad"
+        },
+        {
+          "concepto": "Boletín Electrico REBT (OBLIGATORIO)",
+          "descripcion": "Documento oficial de conformidad con REBT, firmado por instalador autorizado. Incluye esquemas unifilares, calculos de protecciones y certificacion.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio obligatorio; tarifa 150-300€ segun gestorias/instaladores"
+        },
+        {
+          "concepto": "Pruebas y comprobacion de instalacion",
+          "descripcion": "Comprobacion de continuidad de cableado, aislamiento, conexion a tierra, funcionamiento de protecciones y puesta en servicio.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 355,
+        "iva_porcentaje": 21,
+        "iva": 74.55,
+        "total": 429.55
+      },
+      "sugerencias_catalogo": [
+        "Verificar si cliente requiere DOMÓTICA (control de iluminacion, persianas, etc.) — partida adicional",
+        "Verificar si existe PUNTO DE RECARGA para vehiculo electrico (WALLBOX) — partida adicional electricidad",
+        "Renovacion de instalacion electrica COMPLETA suele incluir reposicion de pintura en paredes (ADICIONAL pitura + albañileria)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desmontaje instalacion electrica antigua",
+          "oficio": "electricidad",
+          "motivo": "No existe partida especifica en catalogo para desmontaje selectivo de instalacion"
+        },
+        {
+          "concepto": "Rozas en paredes para cableado",
+          "oficio": "albanileria",
+          "motivo": "Partida auxiliar de instalacion electrica, cantidad variable segun diseño"
+        },
+        {
+          "concepto": "Reposicion de rozas y acabado",
+          "oficio": "albanileria",
+          "motivo": "Trabajo complementario tras paso de cableado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "renovacion_de_instalacion_electrica_completa_en_vivienda",
+      "cambio_radiador",
+      "cambio_inodoro",
+      "sustitucion_termo_electrico",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 2,
+    "n_sugeridas": 10,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

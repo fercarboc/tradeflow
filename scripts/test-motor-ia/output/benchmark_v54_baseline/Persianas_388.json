@@ -1,0 +1,198 @@
+{
+  "id": 388,
+  "oficio": "Persianas",
+  "texto": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+  "http_status": 200,
+  "latency_ms": 20025,
+  "raw_response": {
+    "transcript": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+    "quote": {
+      "resumen": {
+        "texto_original": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Porticón de madera: verificar estado actual, dimensiones y peso para seleccionar motor adecuado",
+          "Motor solar: confirmar orientación y sombreado en terraza para carga suficiente",
+          "App smartphone: requiere receptor radiocontrol compatible y conectividad WiFi/Bluetooth",
+          "Estructura madera: puede requerir refuerzo si no está preparada para motor"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación mecánica del motor en estructura de madera, refuerzos si necesario"
+        },
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación panel solar, conexiones eléctricas, optimización orientación"
+        },
+        {
+          "oficio": "informatica",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Configuración app smartphone, emparejamiento receptor radiocontrol, pruebas conectividad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Motor tubular para porticón con batería recargable integrada",
+          "descripcion": "Motor eléctrico tubular 24V con batería recargable LiFePO4 integrada, capacidad para porticones hasta 150kg, incluye receptor radiocontrol y mando a distancia",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia motor (80-150W), capacidad batería y marca. Rango estimado 250-600€"
+        },
+        {
+          "concepto": "Panel solar flexible o rígido para recarga motor",
+          "descripcion": "Panel solar monocristalino 50-100W con regulador MPPT integrado, cables de conexión y conectores estancos IP67, orientación óptima en terraza",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según potencia y tipo (flexible 150-250€, rígido 120-200€). Incluye regulador y cableado"
+        },
+        {
+          "concepto": "Instalación motor tubular en porticón de madera",
+          "descripcion": "Desmontaje de lamas/tableros si necesario, refuerzo de estructura con perfiles metálicos galvanizados, instalación motor tubular con acoplamientos, fijación segura, pruebas de funcionamiento mecánico",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación panel solar y conexiones eléctricas",
+          "descripcion": "Montaje panel solar en estructura terraza con soportes ajustables, orientación óptima, cableado 4mm² con conectores estancos, conexión a motor, pruebas de carga y voltaje",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración app smartphone y receptor radiocontrol",
+          "descripcion": "Emparejamiento receptor radiocontrol con motor, descarga e instalación app en smartphone (iOS/Android), configuración WiFi/Bluetooth, pruebas de apertura/cierre remoto, manual de usuario",
+          "oficio": "informatica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios (tornillos inox, bridas, cinta aislante, conectores)",
+          "descripcion": "Tornillos acero inoxidable M6-M8, bridas de nylon, cinta aislante, conectores estancos, tuercas galvanizadas, arandelas, silicona neutra",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 30-50€ según cantidad y tipo de accesorios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 495,
+        "iva_porcentaje": 21,
+        "iva": 103.95,
+        "total": 598.95
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Motor tubular 24V con batería recargable para porticones' (rango 250-600€)",
+        "Verificar en catálogo: 'Panel solar monocristalino 50-100W con regulador MPPT' (rango 120-250€)",
+        "Considerar: 'Kit motor solar completo para porticones' si existe como paquete integrado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Motor tubular para porticón con batería recargable integrada",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "motivo": "No encontrado en catálogo base. Producto especializado en motorización solar de elementos de madera"
+        },
+        {
+          "concepto": "Panel solar flexible o rígido para recarga motor",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "motivo": "Complemento específico para sistema solar integrado en porticón"
+        },
+        {
+          "concepto": "Pequeño material y accesorios (tornillos inox, bridas, cinta aislante, conectores)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Material fungible específico para instalación motor en madera"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "instalacion_sistema_de_persianas_con_recarga_solar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3855,
+      "tokens_out": 2514
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

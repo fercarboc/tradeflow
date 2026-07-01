@@ -1,0 +1,130 @@
+{
+  "id": 186,
+  "oficio": "Cerrajería",
+  "texto": "Reparar cerradura de puerta de garaje que no cierra bien, llave forzada",
+  "http_status": 200,
+  "latency_ms": 15749,
+  "raw_response": {
+    "transcript": "Reparar cerradura de puerta de garaje que no cierra bien, llave forzada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar cerradura de puerta de garaje que no cierra bien, llave forzada",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cerradura con posible daño por llave forzada - requiere inspección en sitio",
+          "Puede requerir cambio total de cerradura si está dañada internamente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Reparación/diagnóstico de cerradura - trabajo de cerrajería especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y reparación cerradura puerta garaje",
+          "descripcion": "Inspección técnica de cerradura que no cierra bien por llave forzada, limpieza interna, ajuste de componentes, lubricación, prueba de funcionamiento",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (lubricantes, pastillas de ajuste, muelles secundarios)",
+          "descripcion": "Materiales consumibles para reparación interna de cerradura (lubricante cerrajería, pastillas de fricción, muelles de tensión menores)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible - precio a confirmar por instalador según componentes necesarios (estimado 15-35€)"
+        },
+        {
+          "concepto": "Cambio de cilindro de cerradura (si necesario)",
+          "descripcion": "Sustitución del cilindro completo si está dañado internamente por forzamiento y no permite cierre seguro tras reparación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Componente condicional - precio variable según calidad (estimado 25-80€). SOLO si diagnóstico confirma daño irreparable"
+        },
+        {
+          "concepto": "Juego de llaves de trabajo (si se sustituye cilindro)",
+          "descripcion": "3-5 llaves nuevas cortadas a medida del nuevo cilindro",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Condicional a cambio de cilindro - estimado 10-20€ por juego"
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "Confirmar en sitio si el cierre deficiente es solo por suciedad/desajuste (reparable) o daño estructural (requiere cilindro nuevo)",
+        "Si se sustituye cilindro, aplicar la estructura de [cambio_de_cerradura_completa] de Base Maestra",
+        "Llave forzada sugiere posible corte o deformación interna - requiere herramientas de diagnóstico específicas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "reparacion_cerradura_cierre_deficiente",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "rango_precio_recomendado": "60-75€/h",
+          "motivo_creacion": "Diagnóstico + reparación específica de cerradura con llave forzada - no existe partida exacta en catálogo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_puerta_garaje_averiada",
+      "cambio_de_cerradura_completa",
+      "apertura_puerta_cerradura_sin_llave",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "instalacion_llave_escuadra"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

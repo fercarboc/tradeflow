@@ -1,0 +1,371 @@
+{
+  "id": 136,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+  "http_status": 200,
+  "latency_ms": 37089,
+  "raw_response": {
+    "transcript": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Proyecto de cubierta vegetal requiere estudio de carga estructural previo",
+          "Sistema de riego automático requiere diseño hidráulico y eléctrico",
+          "Impermeabilización reforzada obligatoria bajo sistema de jardinería",
+          "Drenaje y protección de raíces críticos para durabilidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Construcción de cubierta vegetal, estructura soporte, drenaje y sumideros"
+        },
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Plantación de vegetación, preparación sustrato, mantenimiento inicial"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación red de riego automático, tuberías, goteros, válvulas"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación cuadro de control riego automático, cableado, programador"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización reforzada bajo sistema de jardinería con protección de raíces"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estudio de carga estructural y proyecto técnico cubierta vegetal",
+          "descripcion": "Análisis estructural de azotea, cálculo de cargas (sustrato húmedo, vegetación, riego), proyecto técnico con planos de drenaje, impermeabilización y plantación",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de proyecto técnico a definir por profesional. Crítico para viabilidad estructural"
+        },
+        {
+          "concepto": "Impermeabilización reforzada con protección de raíces",
+          "descripcion": "Membrana impermeabilizante de alta resistencia (EPDM o PVC 1.5mm mínimo) con capa de protección geotextil anti-raíces, incluyendo refuerzo en encuentros, juntas de dilatación y perimetral. Incluye preparación superficie, imprimación y sellado de juntas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de azotea no especificada. Instalador debe indicar m2 reales. Precio material + mano obra: 35-65€/m2"
+        },
+        {
+          "concepto": "Sistema de drenaje y capa drenante modular",
+          "descripcion": "Capa drenante modular (placas drenantes de polietileno o grava con geotextil) para evacuación rápida de agua, incluyendo sumideros de emergencia, desbordadero y conexión a bajantes existentes. Protección de membrana impermeabilizante",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie no especificada. Precio estimado: 20-50€/m2 según sistema (modular vs grava)"
+        },
+        {
+          "concepto": "Mano de obra impermeabilización y drenaje",
+          "descripcion": "Instalación de membrana impermeabilizante, capa drenante, sumideros, desbordadero y refuerzos perimetrales",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según superficie. Rendimiento típico: 2-4 horas/10m2"
+        },
+        {
+          "concepto": "Estructura soporte y contenedores de jardinería",
+          "descripcion": "Jardineras modulares o contenedores de profundidad mínima 40cm (según vegetación), con drenaje integrado, incluyendo marcos de contención, separadores y anclajes anti-vuelco. Material: hormigón, madera tratada o composite",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de jardineras no especificados. Precio estimado: 80-200€/m2 según sistema"
+        },
+        {
+          "concepto": "Sustrato y enmienda para cubierta vegetal",
+          "descripcion": "Sustrato ligero especializado para cubiertas verdes (mezcla de turba, perlita, compost, arcilla expandida), con enmienda orgánica y fertilizante de liberación lenta. Espesor mínimo 20-30cm según vegetación",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen a calcular: superficie × espesor. Precio estimado: 40-80€/m3"
+        },
+        {
+          "concepto": "Plantación de vegetación (plantas, arbustos, flores)",
+          "descripcion": "Suministro e instalación de plantas, arbustos y flores según proyecto (sedum, gramíneas, arbustos bajos, flores perennes). Incluye preparación de hoyos, plantación, riego inicial y mulch protector",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de plantas no especificados. Precio estimado: 5-30€/planta según especie"
+        },
+        {
+          "concepto": "Mano de obra plantación y preparación sustrato",
+          "descripcion": "Preparación de sustrato, plantación de vegetación, distribución de mulch, riego inicial y nivelación",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 25,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según superficie. Rendimiento típico: 3-6 horas/10m2"
+        },
+        {
+          "concepto": "Red de riego automático por goteo",
+          "descripcion": "Tuberías de polietileno (16-20mm), goteros autocompensantes, válvulas de corte, filtro de agua, conexión a toma existente. Sistema completo de distribución con ramales a cada jardinera/zona de plantación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de red no especificada. Precio estimado: 3-8€/ml (tubería + goteros)"
+        },
+        {
+          "concepto": "Mano de obra instalación riego automático",
+          "descripcion": "Tendido de tuberías, instalación de goteros, válvulas, filtro y conexión a toma de agua. Pruebas de funcionamiento y ajuste de caudales",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según complejidad. Rendimiento típico: 2-4 horas/10m de red"
+        },
+        {
+          "concepto": "Programador y cuadro de control riego automático",
+          "descripcion": "Programador electrónico con sensor de humedad (opcional), cuadro de control con válvula solenoide, temporizador, protección diferencial. Instalación en caseta o armario estanco en azotea",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 300-800€ según automatización (básico vs inteligente con sensores)"
+        },
+        {
+          "concepto": "Mano de obra instalación cuadro de control y cableado",
+          "descripcion": "Instalación de cuadro de control, cableado desde toma de agua a válvula solenoide, conexión eléctrica a cuadro general, programación inicial del riego",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barandilla de seguridad perimetral",
+          "descripcion": "Barandilla metálica (acero galvanizado o aluminio) de altura mínima 1.1m en perímetro de azotea, con anclajes a estructura. Cumple normativa de seguridad en trabajos en altura",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro no especificado. Precio estimado: 80-150€/ml (material + instalación)"
+        },
+        {
+          "concepto": "Mano de obra instalación barandilla",
+          "descripcion": "Montaje de barandilla perimetral, anclajes a estructura, nivelación y acabados",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 60,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según perímetro. Rendimiento típico: 1-2 horas/10ml"
+        },
+        {
+          "concepto": "Mantenimiento y garantía primer año",
+          "descripcion": "Plan de mantenimiento incluido: riego manual de apoyo en períodos secos, poda y limpieza de vegetación, revisión de drenaje y riego automático (4 visitas anuales)",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 150-300€/mes según superficie y complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: superficie exacta de azotea (m2), perímetro, acceso a toma de agua y electricidad",
+        "Solicitar al cliente: tipo de vegetación deseada (sedum extensivo, arbustos, flores, mezcla)",
+        "Solicitar al cliente: presupuesto disponible para automatización (básica vs inteligente con sensores)",
+        "Recomendación: realizar estudio de carga estructural ANTES de presupuestar (obligatorio para viabilidad)",
+        "Recomendación: incluir seguro de responsabilidad civil para trabajos en altura",
+        "Recomendación: contrato de mantenimiento anual para garantizar durabilidad del sistema"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estudio de carga estructural y proyecto técnico cubierta vegetal",
+          "oficio": "reforma_integral",
+          "motivo": "Proyecto técnico especializado no en catálogo estándar"
+        },
+        {
+          "concepto": "Estructura soporte y contenedores de jardinería",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Jardineras modulares para cubierta vegetal, variante de tejados_cubiertas"
+        },
+        {
+          "concepto": "Sustrato y enmienda para cubierta vegetal",
+          "oficio": "jardineria",
+          "motivo": "Material especializado para cubiertas verdes"
+        },
+        {
+          "concepto": "Plantación de vegetación (plantas, arbustos, flores)",
+          "oficio": "jardineria",
+          "motivo": "Suministro de plantas para cubierta vegetal"
+        },
+        {
+          "concepto": "Red de riego automático por goteo",
+          "oficio": "fontaneria",
+          "motivo": "Sistema de riego especializado para cubierta vegetal"
+        },
+        {
+          "concepto": "Programador y cuadro de control riego automático",
+          "oficio": "electricidad",
+          "motivo": "Automatización de riego con control electrónico"
+        },
+        {
+          "concepto": "Barandilla de seguridad perimetral",
+          "oficio": "cerrajeria",
+          "motivo": "Protección de seguridad en azotea"
+        },
+        {
+          "concepto": "Mantenimiento y garantía primer año",
+          "oficio": "jardineria",
+          "motivo": "Servicio de mantenimiento post-instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_drenaje_cubierta_plana",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3801,
+      "tokens_out": 5056
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 15,
+    "n_catalogo": 5,
+    "n_sugeridas": 10,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,265 @@
+{
+  "id": 329,
+  "oficio": "Fachadas",
+  "texto": "Reforma de fachada de chalet con piedra natural laminada, zona de 50 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 19763,
+  "raw_response": {
+    "transcript": "Reforma de fachada de chalet con piedra natural laminada, zona de 50 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de fachada de chalet con piedra natural laminada, zona de 50 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma de fachada con piedra natural: requiere cálculo de anclajes mecánicos obligatorios por altura y peso",
+          "Sistema de fachada ventilada recomendado para piedra natural laminada",
+          "Proyecto técnico recomendado si altura > 1 planta",
+          "Presupuesto de materiales (piedra natural) pendiente de revisión del instalador según tipo y acabado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de fachada con piedra natural laminada en chalet"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de superficie de fachada",
+          "descripcion": "Limpieza, raspado y preparación de la zona de fachada a revestir (50 m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 5,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Piedra natural laminada para revestimiento de fachada",
+          "descripcion": "Suministro de piedra natural laminada según tipo y acabado especificado (50 m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de piedra natural laminada variable según tipo (pizarra, granito, caliza, etc.), acabado y proveedor. Instalador debe especificar tipo y precio unitario"
+        },
+        {
+          "concepto": "Estructura soporte aluminio o acero inoxidable para fachada ventilada",
+          "descripcion": "Suministro e instalación de estructura de soporte (perfiles, anclajes) para sistema de fachada ventilada (50 m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura soporte variable según material (aluminio/inox) y sistema. Instalador debe especificar y cotizar"
+        },
+        {
+          "concepto": "Anclajes mecánicos inoxidables calculados para piedra natural",
+          "descripcion": "Suministro e instalación de anclajes mecánicos inoxidables calculados para peso y viento en altura (obligatorio en fachada con piedra natural laminada, 50 m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Anclajes OBLIGATORIOS en fachada con piedra natural. Cantidad y tipo dependen de altura del chalet, peso de piedra y cálculos de tracción/corte. Instalador debe calcular y cotizar"
+        },
+        {
+          "concepto": "Instalación de piedra natural laminada con anclaje mecánico",
+          "descripcion": "Colocación de piedra natural laminada con anclaje mecánico, junta abierta y cámara de ventilación (50 m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 45,
+          "total": 2250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta de dilatación cada 3 metros en fachada",
+          "descripcion": "Instalación de juntas de dilatación cada 3 metros lineales en fachada (aproximadamente 15-20 juntas en 50 m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Juntas de dilatación OBLIGATORIAS en exterior. Precio variable según tipo de junta y material. Instalador debe cotizar"
+        },
+        {
+          "concepto": "Sellado de juntas con silicona flexible",
+          "descripcion": "Sellado de juntas entre piezas de piedra natural con silicona flexible de alta durabilidad (50 m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Silicona flexible para juntas exteriores. Precio variable según marca y especificación. Instalador debe cotizar"
+        },
+        {
+          "concepto": "Mano de obra sellado de juntas",
+          "descripcion": "Aplicación de silicona flexible en juntas entre piezas de piedra natural (50 m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 8,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler e instalación de andamio o plataforma de trabajo para acceso seguro a fachada (50 m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo de andamio variable según altura, duración y proveedor. Instalador debe cotizar según altura del chalet"
+        },
+        {
+          "concepto": "Proyecto técnico de fachada ventilada",
+          "descripcion": "Elaboración de proyecto técnico con cálculo de anclajes, cargas y sistema de fachada ventilada (recomendado si altura > 1 planta)",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proyecto técnico recomendado para fachada con piedra natural en altura. Precio variable según complejidad y profesional. Instalador debe evaluar necesidad y cotizar"
+        },
+        {
+          "concepto": "Pequeño material y complementos",
+          "descripcion": "Pequeño material, herrajes, tornillería, adhesivos complementarios y otros consumibles (50 m²)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material variable. Instalador debe estimar según especificaciones finales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2900,
+        "iva_porcentaje": 21,
+        "iva": 609,
+        "total": 3509
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de piedra natural laminada (pizarra, granito, caliza, arenisca, etc.) para cotizar material",
+        "Especificar altura del chalet para cálculo de anclajes mecánicos y necesidad de proyecto técnico",
+        "Definir si se requiere aislamiento térmico en trasdos de fachada ventilada",
+        "Cotizar andamio según altura y duración estimada de obra",
+        "Considerar tratamiento hidrofugo adicional si piedra es muy porosa"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Piedra natural laminada para revestimiento de fachada",
+          "oficio": "fachadas",
+          "motivo": "Material específico de piedra natural laminada, precio variable según tipo y acabado"
+        },
+        {
+          "concepto": "Estructura soporte aluminio o acero inoxidable para fachada ventilada",
+          "oficio": "fachadas",
+          "motivo": "Sistema de soporte para fachada ventilada, precio variable según material y especificación"
+        },
+        {
+          "concepto": "Anclajes mecánicos inoxidables calculados para piedra natural",
+          "oficio": "fachadas",
+          "motivo": "Anclajes OBLIGATORIOS en fachada con piedra natural, cálculo específico según altura y peso"
+        },
+        {
+          "concepto": "Junta de dilatación cada 3 metros en fachada",
+          "oficio": "fachadas",
+          "motivo": "Juntas de dilatación OBLIGATORIAS en exterior, precio variable según tipo"
+        },
+        {
+          "concepto": "Sellado de juntas con silicona flexible",
+          "oficio": "fachadas",
+          "motivo": "Silicona flexible para juntas exteriores, precio variable según marca"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "fachadas",
+          "motivo": "Servicio de andamio, precio variable según altura y duración"
+        },
+        {
+          "concepto": "Proyecto técnico de fachada ventilada",
+          "oficio": "fachadas",
+          "motivo": "Proyecto técnico recomendado para fachada con piedra natural en altura"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_revestimiento_de_piedra_natural_en_fachada_con_anclaje",
+      "instalacion_fachada_ventilada_con_piedra_natural",
+      "instalacion_de_pavimento_de_grava_o_gravilla_decorativa",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "forrado_exterior_fachada_ventilada"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3949,
+      "tokens_out": 3166
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 3,
+    "n_sugeridas": 8,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

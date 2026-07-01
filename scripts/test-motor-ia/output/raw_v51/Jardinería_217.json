@@ -1,0 +1,210 @@
+{
+  "id": 217,
+  "oficio": "Jardinería",
+  "texto": "Instalar iluminación de jardín con farolas solares y focos de bajo consumo empotrados en suelo",
+  "http_status": 200,
+  "latency_ms": 16605,
+  "raw_response": {
+    "transcript": "Instalar iluminación de jardín con farolas solares y focos de bajo consumo empotrados en suelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar iluminación de jardín con farolas solares y focos de bajo consumo empotrados en suelo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye material (farolas solares, focos LED) con precio_unitario=0 para revisión del instalador",
+          "Se asumen trabajos de jardinería y electricidad para excavación, cableado e instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Excavación y preparación del terreno para farolas y focos empotrados"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión de cableado, instalación de focos LED de bajo consumo empotrados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Excavación y preparación terreno para instalación",
+          "descripcion": "Excavación, nivelación y preparación del terreno para bases de farolas solares y canalización de focos empotrados en suelo",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 25,
+          "total": 100,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro farolas solares",
+          "descripcion": "Farolas solares para jardín (cantidad a determinar por instalador). Incluye panel solar integrado, batería, LED y sensor de oscuridad",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar cantidad de farolas y precio unitario (típico 40-150€/ud según potencia)"
+        },
+        {
+          "concepto": "Instalación farolas solares",
+          "descripcion": "Montaje de farolas solares sobre bases preparadas, ajuste de altura y orientación óptima",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro focos LED bajo consumo empotrados en suelo",
+          "descripcion": "Focos LED empotrados de bajo consumo (3-12W) con grado de protección IP67 mínimo para enterramiento. Incluye lente, estructura de empotración y transformador si precisa",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar cantidad de focos y precio unitario (típico 25-80€/ud según especificaciones)"
+        },
+        {
+          "concepto": "Cableado y canalizaciones para focos empotrados",
+          "descripcion": "Suministro de cable de alimentación UV resistente, tuberías de protección y pequeño material (conectores, regletas, clips) para focos empotrados en suelo",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar metraje de cableado y precio unitario (típico 1-3€/m según sección)"
+        },
+        {
+          "concepto": "Instalación focos LED empotrados en suelo",
+          "descripcion": "Empotramiento de focos LED en suelo, conexión de cableado, pruebas de funcionamiento y sellado contra agua e insectos",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 50,
+          "total": 250,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro transformador LED (si precisa)",
+          "descripcion": "Transformador de bajo voltaje (12V o 24V) para alimentación de focos LED de bajo consumo, protegido contra intemperie, ubicado en punto de acceso",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende del voltaje de focos. Típico 30-100€/ud. Si focos son solares independientes, NO precisa"
+        },
+        {
+          "concepto": "Pruebas de funcionamiento e iluminación",
+          "descripcion": "Verificación de conexiones, pruebas nocturnas de farolas solares, comprobación de intensidad luminosa y uniformidad en suelo",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 475,
+        "iva_porcentaje": 21,
+        "iva": 99.75,
+        "total": 574.75
+      },
+      "sugerencias_catalogo": [
+        "Considerar si focos empotrados son alimentados por red eléctrica (transformador) o por paneles solares independientes (sin transformador centralizado)",
+        "Farolas solares integradas simplifican la instalación evitando cableado enterrado",
+        "Focos empotrados LED de bajo consumo (3-5W) minimizan mantenimiento y gasto energético",
+        "Grado IP67 mínimo obligatorio para focos enterrados en suelo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro farolas solares",
+          "oficio": "jardineria",
+          "motivo": "No existe partida específica en catálogo; creada como sugerida_ia con precio_unitario=0 para que instalador revise"
+        },
+        {
+          "concepto": "Suministro focos LED bajo consumo empotrados en suelo",
+          "oficio": "electricidad",
+          "motivo": "No existe partida específica en catálogo; creada como sugerida_ia con precio_unitario=0"
+        },
+        {
+          "concepto": "Cableado y canalizaciones para focos empotrados",
+          "oficio": "electricidad",
+          "motivo": "No existe partida específica en catálogo; creada como sugerida_ia"
+        },
+        {
+          "concepto": "Suministro transformador LED (si precisa)",
+          "oficio": "electricidad",
+          "motivo": "Partida condicional según tipo de instalación; creada como sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_baterias_de_almacenamiento_solar",
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda",
+      "instalacion_fotovoltaica_autoconsumo",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

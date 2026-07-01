@@ -1,0 +1,182 @@
+{
+  "id": 239,
+  "oficio": "Energía Solar",
+  "texto": "Proyecto de comunidad energética solar en barrio, 20 viviendas participantes, gestoría incluida",
+  "http_status": 200,
+  "latency_ms": 28554,
+  "raw_response": {
+    "transcript": "Proyecto de comunidad energética solar en barrio, 20 viviendas participantes, gestoría incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Proyecto de comunidad energética solar en barrio, 20 viviendas participantes, gestoría incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "REFORMA INTEGRAL DETECTADA: múltiples oficios (energia_solar + gestoria_tramites + telecomunicaciones para monitorización)",
+          "APROBACIÓN COMUNIDAD OBLIGATORIA: requiere acta de junta de propietarios",
+          "TRAMITACIÓN DISTRIBUIDORA OBLIGATORIA: legalización ante distribuidora eléctrica",
+          "PRESUPUESTO ESTIMADO: estructura en capítulos por complejidad. Instalador debe revisar precios unitarios y ajustar según ofertas de proveedores",
+          "SISTEMA DE REPARTO DE ENERGÍA: requiere definición de cuota de participación por vivienda",
+          "MONITORIZACIÓN Y CONTROL: incluye app/plataforma de gestión de reparto energético"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica comunitaria en edificios/cubiertas de 20 viviendas. Incluye módulos, inversores, cableado, protecciones, sistema de reparto energético y legalización."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Tramitación ante distribuidora, aprobación comunidad, legalización instalación, gestión administrativa de comunidad energética."
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sistema de monitorización, app de gestión de reparto energético, conectividad de medidores inteligentes, cableado de datos para centralita de control."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Ingeniería, aprobaciones y tramitación administrativa",
+          "descripcion": "Proyecto técnico completo según CTE DB-HE4, aprobación de junta de propietarios, solicitud de legalización ante distribuidora eléctrica, gestión de permisos municipales, acta constitutiva de comunidad energética, asesoramiento legal en reparto de energía y cuotas de participación.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 3.000-6.000€ según complejidad legal y número de viviendas. Instalador ajusta según gestoría contratada."
+        },
+        {
+          "concepto": "CAP.2 – Instalación fotovoltaica comunitaria (módulos, inversores, cableado, protecciones)",
+          "descripcion": "Suministro e instalación de módulos fotovoltaicos de alta eficiencia (potencia total estimada 50-80 kWp para 20 viviendas), inversores trifásicos con capacidad de reparto energético, cableado de cobre tinned/aluminio con protecciones (magnetotérmicos, diferenciales, fusibles), cuadros de distribución, estructuras de montaje en cubiertas, puesta a tierra, pruebas de funcionamiento y puesta en marcha. Incluye EPI y pequeño material.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 65,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango catálogo: 800-2.600€/kWp. Presupuesto estimado 52.000-169.000€ (65 kWp × 800-2.600€). Instalador obtiene ofertas de proveedores y ajusta. Incluye mano de obra de instalación (estimado 200-300 horas)."
+        },
+        {
+          "concepto": "CAP.3 – Sistema de medición, reparto energético y monitorización",
+          "descripcion": "Suministro e instalación de 20 medidores inteligentes (uno por vivienda) con comunicación bidireccional, centralita de control y gestión de reparto energético, cableado de datos (fibra óptica o cobre apantallado), router/switch de comunicaciones, plataforma software/app para visualización de producción y consumo por vivienda, sistema de facturación automática según cuota de participación, servidor local o en nube, pruebas de conectividad y capacitación de usuarios.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 8.000-15.000€ (medidores inteligentes 20×300-500€ + centralita + software + instalación). Instalador solicita ofertas de proveedores de sistemas SCADA/IoT para comunidades energéticas."
+        },
+        {
+          "concepto": "CAP.4 – Legalización, conexión a red y puesta en servicio",
+          "descripcion": "Solicitud de punto de conexión a distribuidora, tramitación de acta de puesta en servicio, inspección técnica de instalación, certificado de instalación eléctrica, inscripción en registro de instalaciones de energías renovables, coordinación con distribuidora para sincronización de inversores, pruebas de inyección a red, documentación final y entrega de llaves.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 2.000-4.000€. Incluye tasas de distribuidora, inspección técnica y trámites administrativos. Instalador coordina con gestoría y distribuidora."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "ESTRUCTURA RECOMENDADA: Este proyecto es una REFORMA INTEGRAL de gran envergadura. Se ha agrupado en 4 capítulos según la metodología obligatoria para reformas complejas (máximo 4 partidas). Cada capítulo requiere revisión de precios por el instalador.",
+        "ESTIMACIÓN GLOBAL: Presupuesto total estimado 65.000-194.000€ (sin IVA), dependiendo de potencia final, tecnología de medidores y complejidad de software.",
+        "DESGLOSE ORIENTATIVO:",
+        "  • Cap.1 (Ingeniería/Aprobaciones): 3.000-6.000€",
+        "  • Cap.2 (Fotovoltaica 65 kWp): 52.000-169.000€",
+        "  • Cap.3 (Medición/Monitorización): 8.000-15.000€",
+        "  • Cap.4 (Legalización/Conexión): 2.000-4.000€",
+        "TOTAL ESTIMADO: 65.000-194.000€ + IVA 21%",
+        "PRÓXIMOS PASOS:",
+        "1. Obtener ofertas de proveedores de módulos fotovoltaicos y inversores (mínimo 3 proveedores).",
+        "2. Solicitar presupuesto a gestoría especializada en comunidades energéticas.",
+        "3. Contactar con distribuidora eléctrica para conocer punto de conexión y requisitos técnicos.",
+        "4. Definir cuota de participación por vivienda (potencia instalada proporcional o equitativa).",
+        "5. Realizar estudio de viabilidad económica y ROI compartido entre vecinos.",
+        "6. Convocar junta de propietarios para aprobación del proyecto.",
+        "NORMATIVA APLICABLE: CTE DB-HE4, RITE, RD 244/2019 (autoconsumo), Ley 24/2013 (sector eléctrico), normativa local de comunidades energéticas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sistema de medición inteligente comunitario",
+          "oficio": "telecomunicaciones",
+          "motivo": "No existe partida específica en catálogo para medidores inteligentes con reparto energético en comunidad. Creada como sugerida_ia."
+        },
+        {
+          "concepto": "Plataforma software de gestión de comunidad energética",
+          "oficio": "telecomunicaciones",
+          "motivo": "Software/app de reparto energético y facturación automática. Creada como sugerida_ia."
+        },
+        {
+          "concepto": "Tramitación distribuidora y legalización de instalación fotovoltaica comunitaria",
+          "oficio": "gestoria_tramites",
+          "motivo": "Proceso administrativo específico para comunidades energéticas. Creada como sugerida_ia."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_foco_solar_exterior",
+      "instalacion_fotovoltaica_en_comunidad_de_propietarios",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3825,
+      "tokens_out": 3126
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

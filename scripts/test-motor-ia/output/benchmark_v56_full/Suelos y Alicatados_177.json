@@ -1,0 +1,251 @@
+{
+  "id": 177,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Alicatar fachada de local comercial con gres porcelánico exterior, 15 metros cuadrados de altura",
+  "http_status": 200,
+  "latency_ms": 25188,
+  "raw_response": {
+    "transcript": "Alicatar fachada de local comercial con gres porcelánico exterior, 15 metros cuadrados de altura",
+    "quote": {
+      "resumen": {
+        "texto_original": "Alicatar fachada de local comercial con gres porcelánico exterior, 15 metros cuadrados de altura",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "ALTURA CRÍTICA: 15 m² sugiere altura considerable (posible 3-5m de altura). Se ha aplicado anclaje mecánico obligatorio y andamio.",
+          "Clarificar: ¿15 m² es superficie total o altura en metros? Se interpreta como 15 m² de superficie a alicatar.",
+          "Gres porcelánico exterior requiere mortero C2S2 y junta flexible. Precios de materiales pendiente de revisión del instalador."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 95
+          },
+          "motivo": "Alicatado de fachada exterior con cerámica/porcelánico. Regla estricta: suelos_alicatados cubre alicatado de fachada exterior con cerámica o piedra (rango 25-95€/m²)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Gres porcelánico exterior certificado",
+          "descripcion": "Pieza de gres porcelánico para fachada exterior, resistencia a heladas y absorción <0.5%, formato y color según proyecto",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del gres porcelánico exterior pendiente de cotización. Varía según formato, espesor y marca."
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior",
+          "descripcion": "Mortero adhesivo C2S2 (deformabilidad S2) para fijación de gres porcelánico en fachada exterior, doble encolado en piezas >900cm² o >3kg",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de mortero depende del formato de pieza y espesor de junta. Estimado ~4-5 kg/m². Precio pendiente."
+        },
+        {
+          "concepto": "Junta de dilatación perimetral y en campo",
+          "descripcion": "Junta de dilatación flexible cada 3 metros en campo y perimetral. Material: poliuretano o silicona flexible para exterior",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud estimada de juntas de dilatación. Precio de material flexible pendiente."
+        },
+        {
+          "concepto": "Lechada junta exterior flexible",
+          "descripcion": "Lechada de junta flexible (poliuretano o epoxi) para gres porcelánico exterior, resistente a heladas y movimientos",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Precio de lechada flexible pendiente de cotización."
+        },
+        {
+          "concepto": "Anclaje mecánico para alicatado en altura",
+          "descripcion": "Sistema de anclaje mecánico (perfiles de aluminio, grapas o tornillería) para fijación adicional de gres porcelánico en fachada. OBLIGATORIO por altura >3m",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Anclaje mecánico obligatorio por seguridad en altura. Precio y sistema a definir según proyecto técnico."
+        },
+        {
+          "concepto": "Preparación y limpieza de soporte",
+          "descripcion": "Limpieza, reparación de grietas, regularización y preparación del soporte de fachada para alicatado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 8,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alicatado de gres porcelánico exterior (mano de obra)",
+          "descripcion": "Colocación de gres porcelánico en fachada exterior con mortero C2S2, doble encolado, alineación y nivelación, incluye juntas de dilatación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 35,
+          "total": 525,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado con lechada flexible",
+          "descripcion": "Rejuntado de juntas con lechada flexible exterior, limpieza y acabado de juntas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 6,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora",
+          "descripcion": "Alquiler y montaje de andamio tubular o plataforma elevadora para acceso seguro a fachada durante alicatado. Altura estimada 3-5m",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio/plataforma elevadora pendiente. Depende de altura real, duración y proveedor local."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Cinta carrocero, plástico de protección, esponjas, llanas, crucetas, nivel, herramientas menores",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 2,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 765,
+        "iva_porcentaje": 21,
+        "iva": 160.65,
+        "total": 925.65
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿15 m² es la superficie total a alicatar o la altura en metros? Si es altura >5m, se requiere cálculo técnico adicional.",
+        "Solicitar especificación de gres porcelánico: formato (30x60, 60x60, etc.), espesor, marca, color.",
+        "Definir sistema de anclaje mecánico: perfiles de aluminio, grapas de acero inoxidable u otro sistema.",
+        "Presupuestar andamio/plataforma elevadora con proveedor local según altura real y duración estimada.",
+        "Considerar impermeabilización previa del soporte si hay antecedentes de humedad en fachada."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Gres porcelánico exterior certificado",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para fachada exterior. Precio pendiente de cotización según formato y marca."
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Mortero especializado para exterior. Cantidad y precio a definir."
+        },
+        {
+          "concepto": "Junta de dilatación perimetral y en campo",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Junta flexible obligatoria en fachada. Longitud y precio pendiente."
+        },
+        {
+          "concepto": "Lechada junta exterior flexible",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Lechada especializada para exterior. Precio pendiente."
+        },
+        {
+          "concepto": "Anclaje mecánico para alicatado en altura",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de seguridad obligatorio en altura >3m. Precio y especificación técnica pendiente."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Medio auxiliar para acceso seguro. Coste pendiente de cotización local."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_sistema_de_climatizacion_en_local_comercial",
+      "alicatado_de_fachada_exterior_con_ceramica_o_piedra",
+      "instalacion_ventana_de_PVC_o_aluminio_en_local_o_nave"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3949,
+      "tokens_out": 3465
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,363 @@
+{
+  "id": 378,
+  "oficio": "Reformas Integrales",
+  "texto": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 33198,
+  "raw_response": {
+    "transcript": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA NUEVA COMPLEJA: Requiere proyecto técnico obligatorio (CTE DB-HE, DB-SI, DB-SUA, DB-HR)",
+          "CUBIERTA INCLINADA: Incluye estructura, impermeabilización, tejas/placas, canalones",
+          "TERRAZA 30m²: Incluye pavimento, impermeabilización, drenaje, barandilla de seguridad",
+          "MÚLTIPLES OFICIOS: Obra civil, carpintería, fontanería, electricidad, acabados",
+          "PRESUPUESTO ESTIMADO: Requiere revisión de proyecto y especificaciones técnicas",
+          "PERMISOS Y LICENCIAS: Obra nueva requiere licencia municipal y proyecto técnico firmado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Obra nueva con múltiples oficios simultáneos: obra civil, carpintería, fontanería, electricidad, acabados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Estructura, muros, forjados, escalera acceso"
+        },
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cubierta inclinada con tejas, canalones, cumbreras, impermeabilización"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Terraza 30m² requiere impermeabilización, drenaje, pendientes"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Pavimento interior y exterior del ático"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación agua fría, caliente, desagües, bajantes"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa, cuadro, circuitos, iluminación"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, ventanas, armarios, cerramientos"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura interior y exterior"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Licencia municipal, proyecto técnico, inspecciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico y licencia municipal",
+          "descripcion": "Redacción de proyecto técnico completo (CTE DB-HE, DB-SI, DB-SUA, DB-HR), cálculos estructurales, planos constructivos, memoria técnica, gestión de licencia municipal y permisos",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de proyecto técnico y gestión de licencias debe ser estimado por profesional"
+        },
+        {
+          "concepto": "Obra civil: estructura, muros y forjados",
+          "descripcion": "Ejecución de estructura de hormigón armado, muros de carga, forjado de cubierta, escalera de acceso, cimentación, encofrados, hormigonado, desencofrado, andamios, EPI, pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obra civil requiere medición en proyecto y presupuesto de estructura"
+        },
+        {
+          "concepto": "Cubierta inclinada con tejas cerámicas",
+          "descripcion": "Estructura de madera/acero para cubierta inclinada, lámina impermeabilizante bajo teja, tejas cerámicas o de hormigón, mortero de asiento, cumbreras, limahoyas, canalones de aluminio, bajantes, remates, EPI con línea de vida, andamio perimetral, pequeño material",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 50,
+          "total": 1750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de cubierta inclinada debe medirse en plano inclinado; incluye materiales a presupuestar"
+        },
+        {
+          "concepto": "Impermeabilización terraza 30m²",
+          "descripcion": "Saneo y preparación de superficie, imprimación adherente, membrana impermeabilizante (EPDM o PVC), formación de pendientes mínimas 1.5%, sumideros y drenaje, remate perimetral, sellado de encuentros, EPI, pequeño material",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 45,
+          "total": 1350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye materiales impermeabilizantes a presupuestar por instalador"
+        },
+        {
+          "concepto": "Pavimento interior y terraza",
+          "descripcion": "Alicatado interior con gres porcelánico, pavimento exterior terraza con baldosa antideslizante, mortero de agarre, lechada, juntas de dilatación, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 35,
+          "total": 1750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de pavimento a presupuestar; incluye interior + terraza"
+        },
+        {
+          "concepto": "Instalación fontanería completa",
+          "descripcion": "Red de agua fría PEX, red de agua caliente, desagües PVC, sifones, grifería, sanitarios (inodoro, lavabo, ducha/bañera), tuberías bajantes, conexión a red municipal, pruebas de estanqueidad, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Fontanería completa requiere especificación de sanitarios y materiales"
+        },
+        {
+          "concepto": "Instalación eléctrica completa",
+          "descripcion": "Cuadro eléctrico general con protecciones, circuitos de iluminación, enchufes, puntos de luz, cableado en tubo, cajas de derivación, toma de tierra, puesta a tierra, pruebas de continuidad, pequeño material, EPI",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalación eléctrica requiere proyecto de instalación y especificación de potencia"
+        },
+        {
+          "concepto": "Carpintería: puertas, ventanas y cerramientos",
+          "descripcion": "Puertas de acceso y interiores, ventanas de aluminio o PVC con vidrio aislante, cerramientos de terraza, marcos, herrajes, instalación, ajuste y sellado, pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Carpintería requiere especificación de número y tipo de puertas/ventanas"
+        },
+        {
+          "concepto": "Pintura interior y exterior",
+          "descripcion": "Preparación de superficies, imprimación, pintura plástica interior en paredes y techos, pintura exterior en fachada y cubierta, acabados, pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 32,
+          "total": 4800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de pintura estimada; requiere medición exacta en proyecto"
+        },
+        {
+          "concepto": "Barandilla de seguridad terraza",
+          "descripcion": "Barandilla de aluminio o acero inoxidable en terraza, altura mínima 1.10m, resistencia a carga horizontal 1.2kN/m, anclaje a estructura, pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 22,
+          "precio_unitario": 45,
+          "total": 990,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro de terraza estimado en 22ml; requiere medición exacta"
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza final",
+          "descripcion": "Retirada de escombros, gestión de residuos de construcción, limpieza final de obra, pequeño material",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión de residuos debe presupuestarse según volumen estimado de escombros"
+        }
+      ],
+      "calculos": {
+        "subtotal": 10640,
+        "iva_porcentaje": 21,
+        "iva": 2234.4,
+        "total": 12874.4
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de tejas cerámicas y de hormigón para cubierta inclinada (rango 30-140€/m²)",
+        "Consultar catálogo de membranas impermeabilizantes EPDM/PVC para terraza",
+        "Consultar catálogo de gres porcelánico y baldosas antideslizantes para pavimento",
+        "Consultar catálogo de tuberías PEX multicapa para fontanería",
+        "Consultar catálogo de cuadros eléctricos y protecciones diferenciales",
+        "Consultar catálogo de ventanas de aluminio/PVC con vidrio aislante",
+        "Consultar catálogo de barandillas de aluminio/acero inoxidable"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico y licencia municipal",
+          "oficio": "gestoria_tramites",
+          "motivo": "Obra nueva requiere proyecto técnico completo y licencia municipal"
+        },
+        {
+          "concepto": "Obra civil: estructura, muros y forjados",
+          "oficio": "albanileria",
+          "motivo": "Construcción de estructura de hormigón armado para ático nuevo"
+        },
+        {
+          "concepto": "Instalación fontanería completa",
+          "oficio": "fontaneria",
+          "motivo": "Red completa de agua fría, caliente y desagües"
+        },
+        {
+          "concepto": "Instalación eléctrica completa",
+          "oficio": "electricidad",
+          "motivo": "Cuadro eléctrico, circuitos, iluminación y enchufes"
+        },
+        {
+          "concepto": "Carpintería: puertas, ventanas y cerramientos",
+          "oficio": "carpinteria",
+          "motivo": "Puertas, ventanas y cerramientos de terraza"
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza final",
+          "oficio": "gestion_residuos",
+          "motivo": "Obra nueva genera volumen importante de escombros"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "renovacion_tejado_de_teja_ceramica_o_de_hormigon",
+      "impermeabilizacion_peto_o_murete_de_cubierta"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4074,
+      "tokens_out": 5043
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

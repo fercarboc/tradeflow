@@ -1,0 +1,171 @@
+{
+  "id": 399,
+  "oficio": "Persianas",
+  "texto": "Automatizar apertura y cierre de portón de garaje con sensor de presencia y mando inalámbrico",
+  "http_status": 200,
+  "latency_ms": 14403,
+  "raw_response": {
+    "transcript": "Automatizar apertura y cierre de portón de garaje con sensor de presencia y mando inalámbrico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Automatizar apertura y cierre de portón de garaje con sensor de presencia y mando inalámbrico",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume portón basculante estándar. Confirmar tipo (basculante/seccional/corredera) y peso para ajustar motor.",
+          "Sensor de presencia: se incluye instalación. Confirmar rango de detección requerido.",
+          "Mando inalámbrico: incluye receptor radiocontrol integrado en motor."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Automatización de portón/puerta garaje con motor, brazos, receptor radiocontrol, célula fotoelectrica, sensor presencia y mando inalámbrico."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Motor para portón basculante",
+          "descripcion": "Motor eléctrico para automatización portón garaje basculante, incluye brazo mecánico, receptor radiocontrol integrado, finales de carrera programables.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del motor depende del tipo de portón (basculante/seccional/corredera) y peso. Rango típico 200-600€."
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad",
+          "descripcion": "Célula fotoelectrica de seguridad para detención automática del portón ante obstáculo. Incluye emisor y receptor, cableado de conexión.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 80-150€. Obligatoria por seguridad."
+        },
+        {
+          "concepto": "Sensor de presencia (movimiento)",
+          "descripcion": "Sensor de presencia/movimiento infrarrojo para activación automática de apertura del portón. Rango de detección ajustable, montaje en pared.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 60-120€. Requiere configuración de tiempo de cierre automático."
+        },
+        {
+          "concepto": "Mando inalámbrico (radiocontrol)",
+          "descripcion": "Mando a distancia inalámbrico de 2 canales para apertura/cierre portón. Incluye batería, alcance 50-100m.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 40-80€. Se recomienda 2 mandos (uno para cada usuario)."
+        },
+        {
+          "concepto": "Cableado eléctrico y pequeño material",
+          "descripcion": "Cable eléctrico H07V-U 2x1.5mm² para conexión motor-célula-sensor, tubo corrugado, conectores, tornillería, bridas.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 30-60€. Depende de distancia entre motor y célula/sensor."
+        },
+        {
+          "concepto": "Instalación y puesta en marcha",
+          "descripcion": "Instalación del motor en portón, fijación de brazo mecánico, montaje de célula fotoelectrica y sensor de presencia, conexión eléctrica, programación de finales de carrera, pruebas de funcionamiento y seguridad.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 240,
+        "iva_porcentaje": 21,
+        "iva": 50.4,
+        "total": 290.4
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de portón (basculante/seccional/corredera) para seleccionar motor correcto.",
+        "Considerar instalar 2 mandos inalámbricos (uno para cada usuario).",
+        "Sensor de viento (anemómetro) recomendado si el portón está expuesto a vendavales.",
+        "Sistema de desbloqueo de emergencia manual obligatorio por normativa de seguridad.",
+        "Botonera de pared opcional para control adicional desde interior garaje."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Motor para portón basculante",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "razon": "Especificación técnica del motor depende de tipo y peso del portón. Instalador debe confirmar modelo y precio."
+        },
+        {
+          "concepto": "Sensor de presencia (movimiento)",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "razon": "Sensor de presencia para automatización. Precio y modelo a confirmar por instalador según rango de detección requerido."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_motor_puerta_garaje_seccional_o_basculante",
+      "instalacion_sistema_de_deteccion_gas_en_aparcamiento",
+      "automatizacion_cancela_o_puerta_con_motor",
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "instalacion_toldo_de_brazos_extensibles_motorizado"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3834,
+      "tokens_out": 1893
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

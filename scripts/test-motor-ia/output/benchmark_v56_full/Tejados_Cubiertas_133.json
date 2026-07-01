@@ -1,0 +1,182 @@
+{
+  "id": 133,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Impermeabilizar junta de dilatación en cubierta plana de edificio comunitario, 15 metros lineales",
+  "http_status": 200,
+  "latency_ms": 19750,
+  "raw_response": {
+    "transcript": "Impermeabilizar junta de dilatación en cubierta plana de edificio comunitario, 15 metros lineales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar junta de dilatación en cubierta plana de edificio comunitario, 15 metros lineales",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de junta de dilatación en cubierta plana — oficio especializado en sistemas estancos y láminas de protección"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de material existente en junta de dilatación",
+          "descripcion": "Extracción y retirada completa del material antiguo, selladores deteriorados y residuos en junta de dilatación de cubierta plana. Limpieza y preparación de superficies.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 8,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fondo de junta elastómero celular",
+          "descripcion": "Colocación de fondo de junta elastómero celular para limitar profundidad de sellador y garantizar correcta aplicación del sistema de impermeabilización.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico — instalador debe confirmar tipo, espesor y proveedor"
+        },
+        {
+          "concepto": "Sistema específico de impermeabilización para cubierta — lámina de puente o perfilería",
+          "descripcion": "Aplicación de sistema específico para cubierta plana: lámina de puente elastómera o perfilería metálica de cubrición según ancho de junta. Debe admitir movimientos significativos de dilatación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema específico cubierta — requiere especificación técnica: lámina elastómera, perfilería aluminio/zinc, o sistema modular según ancho junta"
+        },
+        {
+          "concepto": "Sellado superior con material elastomérico",
+          "descripcion": "Aplicación de sellador elastomérico de calidad superior (poliuretano o silicona de grado construcción) en parte superior de junta. Garantiza flexibilidad y durabilidad frente a movimientos térmicos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sellador elastomérico — instalador debe especificar marca, tipo (poliuretano/silicona) y cantidad en litros/cartuchos"
+        },
+        {
+          "concepto": "Instalación y sellado de junta de dilatación en cubierta",
+          "descripcion": "Mano de obra de instalación: colocación de fondo de junta, aplicación de sistema de impermeabilización, sellado superior elastomérico, y acabado. Incluye control de calidad y pruebas de estanqueidad.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 35,
+          "total": 525,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual (arnés, línea de vida, guantes, gafas, mascarilla), herramientas menores, trapos, disolventes de limpieza y material fungible para impermeabilización de junta.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar — instalador debe presupuestar según consumibles reales y EPI necesario para trabajo en altura en cubierta"
+        }
+      ],
+      "calculos": {
+        "subtotal": 645,
+        "iva_porcentaje": 21,
+        "iva": 135.45,
+        "total": 780.45
+      },
+      "sugerencias_catalogo": [
+        "Confirmar ancho de junta de dilatación (mm) — determina tipo de sistema (lámina elastómera vs. perfilería metálica)",
+        "Especificar si junta es transitable o no — afecta a espesor y resistencia del sistema",
+        "Verificar estado de superficies adyacentes — si hay grietas o deterioro en hormigón, puede requerir reparación previa (albañilería)",
+        "Considerar prueba de estanqueidad post-instalación con agua — recomendado en cubiertas comunitarias"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Fondo de junta elastómero celular",
+          "oficio": "impermeabilizacion",
+          "unidad": "ml",
+          "precio_estimado": "3-8€/ml",
+          "motivo": "Material específico de sistema de impermeabilización de juntas en cubierta"
+        },
+        {
+          "concepto": "Sistema específico de impermeabilización para cubierta — lámina de puente o perfilería",
+          "oficio": "impermeabilizacion",
+          "unidad": "ml",
+          "precio_estimado": "12-40€/ml",
+          "motivo": "Lámina elastómera o perfilería metálica especializada para juntas de dilatación en cubiertas planas"
+        },
+        {
+          "concepto": "Sellado superior con material elastomérico",
+          "oficio": "impermeabilizacion",
+          "unidad": "ml",
+          "precio_estimado": "5-15€/ml",
+          "motivo": "Sellador poliuretano o silicona de grado construcción para acabado superior de junta"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "oficio": "impermeabilizacion",
+          "unidad": "ud",
+          "precio_estimado": "80-150€",
+          "motivo": "Consumibles, EPI para trabajo en altura, herramientas menores y material fungible"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta",
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3995,
+      "tokens_out": 2599
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

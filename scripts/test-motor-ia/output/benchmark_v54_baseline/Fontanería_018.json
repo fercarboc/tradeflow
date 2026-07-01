@@ -1,0 +1,259 @@
+{
+  "id": 18,
+  "oficio": "Fontanería",
+  "texto": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+  "http_status": 200,
+  "latency_ms": 19873,
+  "raw_response": {
+    "transcript": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación de cocina amueblada (muebles). Si solo es fontanería, revisar alcance.",
+          "Desagüe lavavajillas requiere toma de agua fría adicional y desagüe independiente.",
+          "Presión mínima recomendada: 2.5-3 bar para lavavajillas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación completa de agua fría, caliente y desagües en cocina."
+        },
+        {
+          "oficio": "cocina_amueblada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Montaje de muebles de cocina (se asume incluido en 'cocina nueva')."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje instalación fontanería antigua",
+          "descripcion": "Desmontaje de tuberías, desagües y accesorios de cocina anterior. Incluye corte de agua, desconexión de aparatos y retirada de material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación tubería multicapa agua fría y caliente",
+          "descripcion": "Tubería multicapa PEX 16mm para agua fría y caliente. Incluye tes, codos, racores, abrazaderas y pequeño material. Longitud estimada 15ml (fregadero + lavavajillas + tomas auxiliares).",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar longitud real y precio de tubería multicapa + accesorios."
+        },
+        {
+          "concepto": "Instalación tubería agua fría y caliente",
+          "descripcion": "Colocación de tuberías multicapa, fijación con abrazaderas, conexión a llaves de paso independientes (agua fría y caliente), prueba de presión a 6 bar.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación desagüe fregadero",
+          "descripcion": "Sifón cromado, tubo desagüe PVC 40mm, racores y pequeño material. Conexión a bajante existente o nueva según necesidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar tipo de sifón y conexión a bajante."
+        },
+        {
+          "concepto": "Instalación desagüe fregadero",
+          "descripcion": "Colocación de sifón, tubo desagüe, fijación y conexión a bajante. Prueba de estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación desagüe lavavajillas",
+          "descripcion": "Tubo desagüe PVC 20mm, codo de conexión, abrazadera y pequeño material. Conexión a sifón fregadero o bajante independiente.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar tipo de conexión (sifón compartido o independiente)."
+        },
+        {
+          "concepto": "Instalación desagüe lavavajillas",
+          "descripcion": "Colocación de tubo desagüe, fijación con abrazaderas, conexión a sifón fregadero o bajante. Prueba de estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro llaves de paso independientes",
+          "descripcion": "2 llaves de paso cromadas 1/2\" (agua fría y caliente) con filtro integrado. Pequeño material de conexión.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar tipo y precio de llaves de paso."
+        },
+        {
+          "concepto": "Instalación llaves de paso",
+          "descripcion": "Colocación de llaves de paso independientes para agua fría y caliente, conexión a tuberías multicapa, prueba de funcionamiento.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje muebles cocina",
+          "descripcion": "Montaje de muebles base y colgantes, nivelación, fijación a pared, ajuste de puertas y cajones. Incluye pequeño material (tornillos, tacos, etc.).",
+          "oficio": "cocina_amueblada",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de presión y funcionamiento final",
+          "descripcion": "Prueba de presión a 6 bar en toda la instalación de agua. Verificación de estanqueidad en desagües. Prueba de funcionamiento de llave de paso y aparatos conectados.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1110,
+        "iva_porcentaje": 21,
+        "iva": 233.1,
+        "total": 1343.1
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la cocina incluye fregadero y lavavajillas o solo muebles. Si incluye aparatos, añadir partida de suministro.",
+        "Confirmar si hay que hacer rozas en pared para pasar tuberías o si van por debajo de muebles.",
+        "Revisar presión de agua disponible en la vivienda (mínimo 2.5 bar para lavavajillas).",
+        "Si hay que cambiar tuberías de agua caliente (caldera/termo), añadir partida de fontanería adicional."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro tubería multicapa agua fría y caliente",
+          "oficio": "fontaneria",
+          "motivo": "Material de fontanería, precio pendiente de revisión del instalador según longitud y tipo de tubería."
+        },
+        {
+          "concepto": "Suministro desagüe fregadero",
+          "oficio": "fontaneria",
+          "motivo": "Material de fontanería, precio pendiente de revisión del instalador según tipo de sifón."
+        },
+        {
+          "concepto": "Suministro desagüe lavavajillas",
+          "oficio": "fontaneria",
+          "motivo": "Material de fontanería, precio pendiente de revisión del instalador según tipo de conexión."
+        },
+        {
+          "concepto": "Suministro llaves de paso independientes",
+          "oficio": "fontaneria",
+          "motivo": "Material de fontanería, precio pendiente de revisión del instalador según tipo y marca."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cocina_completa_fontaneria",
+      "instalacion_toma_agua_nueva",
+      "instalacion_fontaneria_cocina_completa",
+      "desatasco_fregadero",
+      "instalacion_osmosis_inversa"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3233,
+      "tokens_out": 2958
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 7,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

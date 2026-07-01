@@ -1,0 +1,251 @@
+{
+  "id": 283,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar sótano con humedades del terreno, sistema de drenaje interior y bomba de achique",
+  "http_status": 200,
+  "latency_ms": 21601,
+  "raw_response": {
+    "transcript": "Impermeabilizar sótano con humedades del terreno, sistema de drenaje interior y bomba de achique",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar sótano con humedades del terreno, sistema de drenaje interior y bomba de achique",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo de impermeabilización en sótano con drenaje interior: requiere diagnóstico previo de origen y caudal de filtración",
+          "Bomba de achique implica mantenimiento recurrente: considerar contrato de mantenimiento",
+          "Sistema de drenaje interior es solución paliativa: idealmente se complementaría con drenaje exterior si es posible excavar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de sótano con humedades: oficio especializado en tratamiento de filtraciones y sistemas de drenaje"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de bomba de achique y tuberías de drenaje interior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y saneo de sótano",
+          "descripcion": "Inspección de origen de humedades, localización de filtraciones activas, limpieza y saneo de zonas afectadas, reparación de fisuras activas con inyecciones de resina o mortero hidrofugo",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 360,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización de muros interiores sótano",
+          "descripcion": "Aplicación de membrana impermeabilizante líquida (poliurea o acrílica) o revestimiento cementoso impermeabilizante en muros interiores del sótano. Incluye imprimación, aplicación de membrana y capa de protección. Estimado 40 m² de superficie",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material impermeabilizante: instalador debe especificar tipo (membrana líquida, revestimiento cementoso) y proveedor. Rango estimado: 15-50€/m2 según producto"
+        },
+        {
+          "concepto": "Mano de obra aplicación impermeabilizante muros",
+          "descripcion": "Preparación de superficie, imprimación, aplicación de membrana impermeabilizante y acabado protector en 40 m² de muros interiores",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 45,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de drenaje interior con canaleta perimetral",
+          "descripcion": "Instalación de canaleta de drenaje perimetral en base de muros (zócalo), tuberías de drenaje PVC perforadas, geotextil de filtración y grava de drenaje. Longitud estimada: 50 ml",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales drenaje interior (canaleta, tuberías PVC, geotextil, grava): instalador debe cotizar. Rango estimado: 20-40€/ml según componentes"
+        },
+        {
+          "concepto": "Mano de obra instalación sistema drenaje interior",
+          "descripcion": "Excavación de zanja perimetral, colocación de canaleta y tuberías de drenaje, geotextil y grava de drenaje. 50 ml de longitud",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 25,
+          "total": 1250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bomba de achique sumergible con accesorios",
+          "descripcion": "Suministro e instalación de bomba de achique sumergible (potencia estimada 0.5-1 kW según caudal), tubería de impulsión, válvula de retención, accesorios de conexión y pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Bomba de achique: instalador debe especificar potencia (kW), caudal (m³/h) y marca. Rango estimado: 300-800€ según especificaciones"
+        },
+        {
+          "concepto": "Mano de obra instalación bomba de achique",
+          "descripcion": "Instalación de bomba sumergible en pozo de recogida, conexión de tuberías de impulsión, válvula de retención, pruebas de funcionamiento y puesta en marcha",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pozo de recogida y accesorios",
+          "descripcion": "Construcción de pozo de recogida de agua (sumidero) con tapa de registro, rejilla de filtración y accesorios de conexión de tuberías de drenaje",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pozo de recogida: instalador debe especificar capacidad (litros), material (hormigón, plástico) y accesorios. Rango estimado: 200-600€"
+        },
+        {
+          "concepto": "Mano de obra construcción pozo de recogida",
+          "descripcion": "Excavación, colocación de pozo de recogida, conexión de tuberías de drenaje, instalación de rejilla y tapa de registro",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revestimiento de protección y acabado sótano",
+          "descripcion": "Aplicación de pintura o revestimiento de protección sobre impermeabilizante en muros (40 m²), acabado estético y resistencia a humedad residual",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pintura/revestimiento protector: instalador debe especificar tipo (pintura acrílica, epoxi, revestimiento mineral). Rango estimado: 5-15€/m2"
+        },
+        {
+          "concepto": "Mano de obra revestimiento de protección",
+          "descripcion": "Preparación de superficie, aplicación de pintura o revestimiento protector en 40 m² de muros impermeabilizados",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 32,
+          "total": 1280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 5610,
+        "iva_porcentaje": 21,
+        "iva": 1178.1,
+        "total": 6788.1
+      },
+      "sugerencias_catalogo": [
+        "Considerar contrato de mantenimiento recurrente para bomba de achique (revisión trimestral, limpieza de filtros, pruebas de funcionamiento)",
+        "Si es posible excavar en exterior: evaluar drenaje perimetral exterior como complemento (más efectivo que solo interior)",
+        "Solicitar estudio previo de caudal de filtración para dimensionar correctamente la bomba",
+        "Instalar sistema de alarma de nivel de agua en pozo para alertar de funcionamiento anómalo de bomba"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Bomba de achique sumergible con accesorios",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Material específico de drenaje interior: requiere especificación de potencia y caudal por instalador"
+        },
+        {
+          "concepto": "Pozo de recogida y accesorios",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Elemento constructivo de drenaje interior: requiere especificación de capacidad y material por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_muro_de_contencion",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "impermeabilizacion_de_balcon_o_voladizo",
+      "impermeabilizacion_de_parking_o_aparcamiento_subterraneo",
+      "pintura_de_depositos_agua_potable_interior"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3809,
+      "tokens_out": 3109
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

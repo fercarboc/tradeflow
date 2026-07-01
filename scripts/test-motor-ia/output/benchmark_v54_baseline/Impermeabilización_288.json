@@ -1,0 +1,161 @@
+{
+  "id": 288,
+  "oficio": "Impermeabilización",
+  "texto": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+  "http_status": 200,
+  "latency_ms": 17583,
+  "raw_response": {
+    "transcript": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Drenaje perimetral: verificar profundidad de zanja, tipo de terreno y pendiente para evacuación correcta",
+          "Confirmar destino final del agua (sumidero, red pluvial municipal, pozo drenante)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sistema de drenaje perimetral es función de impermeabilización y gestión de humedad en terreno. Incluye excavación, tubería drenante, grava y relleno."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Excavación zanja drenaje perimetral",
+          "descripcion": "Excavación de zanja para sistema de drenaje perimetral, profundidad 0,6-0,8 m, longitud 20 m, ancho 0,4 m. Retirada de tierra vegetal y compactación de base.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 12,
+          "total": 240,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario estimado por metro lineal. Revisar según dificultad del terreno y profundidad real requerida."
+        },
+        {
+          "concepto": "Tubería drenante perforada y accesorios",
+          "descripcion": "Suministro de tubería drenante perforada (PVC o HDPE) Ø 100 mm, 20 metros lineales, incluyendo codos, tes y tapones finales.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado. Instalador debe introducir coste de tubería drenante + accesorios (aprox. 8-15€/ml según calidad)."
+        },
+        {
+          "concepto": "Grava drenante y geotextil",
+          "descripcion": "Suministro de grava drenante (árido 20-40 mm) y lámina geotextil para envolvimiento de tubería. Volumen aproximado 4 m³ (zanja 20 m × 0,4 m × 0,5 m).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado. Instalador debe introducir coste de grava drenante + geotextil (aprox. 25-40€/m³)."
+        },
+        {
+          "concepto": "Instalación tubería drenante y relleno",
+          "descripcion": "Colocación de geotextil, tubería drenante perforada, envolvimiento con grava, relleno de zanja y compactación. Longitud 20 m.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 15,
+          "total": 300,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario estimado por metro lineal de instalación. Revisar según complejidad y accesibilidad de la zanja."
+        },
+        {
+          "concepto": "Pozo drenante o conexión a red pluvial",
+          "descripcion": "Construcción de pozo drenante (sumidero) o conexión a red pluvial municipal. Incluye arqueta de registro, tubería de conexión y rejilla de protección.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida sugerida. Precio depende de tipo de destino (pozo drenante: 150-300€ mano de obra + materiales; conexión red municipal: 200-400€). Confirmar con cliente."
+        },
+        {
+          "concepto": "Restitución terreno y acabado",
+          "descripcion": "Relleno de tierra vegetal, nivelación y compactación del terreno. Siembra de césped o plantación según estado previo. Longitud 20 m.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario estimado. Revisar según volumen de tierra a aportar y tipo de acabado (césped, plantación, etc.)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 700,
+        "iva_porcentaje": 21,
+        "iva": 147,
+        "total": 847
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica de 'drenaje perimetral' o 'sistema de drenaje de jardín' en catálogo de impermeabilización.",
+        "Considerar si el destino final del agua (pozo drenante vs. red pluvial) requiere permisos municipales o inspección.",
+        "Evaluar si es necesario incluir bomba de achique si el nivel freático es alto."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sistema de drenaje perimetral completo",
+          "oficio": "impermeabilizacion",
+          "motivo": "Trabajo especializado de drenaje en jardín. Combina excavación, tubería drenante, grava y restitución. Propuesta: crear partida de catálogo 'instalacion_drenaje_perimetral_jardin' con precio alzado según metros lineales (rango: 40-60€/ml mano de obra + materiales)."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_sistema_de_riego_por_aspersion",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_alarma_perimetral_o_antirrobo_basica"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3903,
+      "tokens_out": 2320
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

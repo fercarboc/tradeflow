@@ -1,0 +1,173 @@
+{
+  "id": 355,
+  "oficio": "Mantenimiento General",
+  "texto": "Pintar marquesina y elementos metálicos exteriores de local comercial con imprimación y esmalte",
+  "http_status": 200,
+  "latency_ms": 11612,
+  "raw_response": {
+    "transcript": "Pintar marquesina y elementos metálicos exteriores de local comercial con imprimación y esmalte",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar marquesina y elementos metálicos exteriores de local comercial con imprimación y esmalte",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere especificar superficie total (m2) o número de elementos para ajustar cantidad",
+          "Revisar estado de oxidación para determinar si requiere convertidor de óxido adicional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura de elementos metálicos exteriores con esmalte anticorrosión e imprimación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y limpieza de elementos metálicos",
+          "descripcion": "Lija metálica, desengrasante y preparación de superficie para marquesina y elementos metálicos exteriores",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 32,
+          "total": 128,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación anticorrosión",
+          "descripcion": "Imprimación antioxido para elementos metálicos exteriores (marquesina y accesorios)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación anticorrosión a definir por instalador según marca y cantidad exacta"
+        },
+        {
+          "concepto": "Aplicación de imprimación",
+          "descripcion": "Mano de obra para aplicación de imprimación anticorrosión con pincel y rodillo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Esmalte exterior anticorrosión (2 manos)",
+          "descripcion": "Esmalte exterior sin plomo, apto para elementos metálicos, aplicación en dos manos sobre marquesina y accesorios",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de esmalte exterior anticorrosión a definir por instalador según marca, calidad y cantidad exacta"
+        },
+        {
+          "concepto": "Aplicación de esmalte (2 manos)",
+          "descripcion": "Mano de obra para aplicación de esmalte exterior en dos manos con pincel y rodillo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 32,
+          "total": 192,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Pinceles, rodillos, cinta carrocero, trapos, disolvente, mascarilla y otros consumibles",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 416,
+        "iva_porcentaje": 21,
+        "iva": 87.36,
+        "total": 503.36
+      },
+      "sugerencias_catalogo": [
+        "Consultar BASE MAESTRA: [pintado_cancelas_y_portones_metalicos_exterior] para referencia de precios unitarios si se trata de elementos discretos",
+        "Si la marquesina tiene oxidación importante, considerar partida adicional de convertidor de óxido"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación anticorrosión",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material específico para protección de metales exteriores"
+        },
+        {
+          "concepto": "Esmalte exterior anticorrosión (2 manos)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material específico para acabado exterior de elementos metálicos"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Consumibles de aplicación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_mobiliario_urbano_y_elementos_parque",
+      "pintado_locales_comerciales_y_tiendas",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "instalacion_sistema_de_climatizacion_en_local_comercial"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3513,
+      "tokens_out": 1637
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

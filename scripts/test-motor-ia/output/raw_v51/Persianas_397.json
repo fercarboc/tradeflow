@@ -1,0 +1,143 @@
+{
+  "id": 397,
+  "oficio": "Persianas",
+  "texto": "Reparar toldo de terraza que ha roto la tela con el viento, cambio de tejido y tensado de estructura",
+  "http_status": 200,
+  "latency_ms": 12760,
+  "raw_response": {
+    "transcript": "Reparar toldo de terraza que ha roto la tela con el viento, cambio de tejido y tensado de estructura",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar toldo de terraza que ha roto la tela con el viento, cambio de tejido y tensado de estructura",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Revisar estado de brazos articulados y mecanismo de extensión antes de tensado",
+          "Confirmar medidas exactas del toldo para suministro de tela nueva"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de toldo, sustitución de tejido y reajuste de estructura"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de tela rota del toldo",
+          "descripcion": "Desmontaje cuidadoso de la tela dañada, retirada de herrajes de fijación, limpieza de estructura metálica",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de tela acrílica nueva tratada UV",
+          "descripcion": "Tela acrílica o poliéster de alta resistencia, tratada contra rayos UV, color a coordinar con existente, incluye corte y confección a medida",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas del toldo y calidad de tela seleccionada. Rango típico: 15-35€/m2"
+        },
+        {
+          "concepto": "Instalación de tela nueva en toldo",
+          "descripcion": "Colocación y fijación de la nueva tela en estructura, alineación correcta, ajuste de herrajes de tensión",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 45,
+          "total": 112.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tensado y reajuste de estructura metálica",
+          "descripcion": "Revisión de brazos articulados, ajuste de tornillería, tensado uniforme de la tela, prueba de mecanismo de extensión-recogida",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillería, arandelas, adhesivos, selladores elásticos, trapos, desengrasante",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 20-40€ según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "El trabajo encaja en 'instalacion_toldo_de_brazos_extensibles_manual' de la Base Maestra por las actuaciones de tensado y ajuste de estructura",
+        "Incorporar obligatoriamente en la revisión: estado de articulaciones, mecanismo de extensión, oxidación de herrajes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de tela acrílica nueva tratada UV",
+          "motivo": "Precio de material varía significativamente según medidas reales y calidad. Instalador debe confirmar m2 exactos y seleccionar proveedor"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "motivo": "Lote de repuestos menores. Precio aproximado sujeto a revisión según estado real de herrajes"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "instalacion_de_faldones_o_cenefas_para_toldo",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "id": 230,
+  "oficio": "Energía Solar",
+  "texto": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial de 1000 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 20915,
+  "raw_response": {
+    "transcript": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial de 1000 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial de 1000 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto es para ESTUDIO Y VIABILIDAD, no para instalación completa. El instalador debe confirmar si desea presupuestar solo el informe o también la instalación fotovoltaica posterior.",
+          "Nave industrial de 1000 m² es superficie importante. Se requiere análisis de cubierta, orientación, sombras y consumo real de la empresa.",
+          "Precio del informe es orientativo. El instalador debe revisar y ajustar según complejidad real (acceso a cubierta, documentación disponible, etc.)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Estudio de viabilidad y presupuesto para instalación fotovoltaica. Oficio especializado en energía solar."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica, medición y evaluación de viabilidad",
+          "descripcion": "Desplazamiento a nave industrial de 1000 m². Inspección de cubierta, evaluación de orientación, análisis de sombras, medición de superficie disponible, toma de datos de consumo eléctrico actual, fotografía del estado previo y evaluación de estructura de soporte.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo según BASE MAESTRA [informe_y_presupuesto_sistema_solar]. Ajustar según distancia, accesibilidad a cubierta y complejidad real."
+        },
+        {
+          "concepto": "Análisis de viabilidad técnica y económica",
+          "descripcion": "Cálculo de producción estimada basado en radiación solar, orientación y sombras. Análisis de consumo real de la empresa (curva de carga 12 meses si disponible). Evaluación de opciones: sistema sin baterías (vertido a red), con baterías, o híbrido. Cálculo de ROI incluyendo ayudas disponibles (subvenciones, bonificaciones fiscales). Comparativa de inversores y módulos según potencia estimada.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 600,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo según BASE MAESTRA. Incluye análisis técnico completo. Revisar si se requiere estudio de ayudas más profundo o análisis SCADA."
+        },
+        {
+          "concepto": "Propuesta de sistema fotovoltaico con opciones y presupuesto desglosado",
+          "descripcion": "Elaboración de informe técnico con propuesta de potencia instalada (kWp estimado según consumo y superficie disponible). Presupuesto desglosado por partidas: módulos fotovoltaicos, inversor trifásico, estructura de soporte, cableado, protecciones, cuadro AC, legalización ante distribuidora. Presentación de 2-3 opciones (sin baterías, con baterías, sistema híbrido) con costes y ROI comparativo. Documentación técnica y recomendaciones.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 500,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo. Incluye redacción de informe profesional, croquis/planos básicos y propuestas múltiples. Ajustar si se requiere plano CAD detallado o análisis de sombras avanzado."
+        },
+        {
+          "concepto": "Análisis de ayudas, subvenciones y tramitación administrativa",
+          "descripcion": "Investigación de ayudas disponibles a nivel estatal, autonómico y local (fondos Next Generation, bonificaciones fiscales, subvenciones energéticas). Asesoramiento sobre requisitos de legalización ante distribuidora e industria. Información sobre trámites de conexión a red y medidor bidireccional. Recomendaciones sobre documentación necesaria.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida sugerida por IA. Precio orientativo. El instalador debe revisar según complejidad de tramitación y si incluye gestión completa o solo asesoramiento."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1800,
+        "iva_porcentaje": 21,
+        "iva": 378,
+        "total": 2178
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA [informe_y_presupuesto_sistema_solar]: Presupuesto es para ESTUDIO Y VIABILIDAD. Si el cliente desea también presupuestar la INSTALACIÓN COMPLETA, se debe generar presupuesto adicional según [instalacion_fotovoltaica_en_empresa_o_polígono_industrial] con partidas obligatorias: proyecto técnico, módulos, inversor trifásico, estructura soporte cubierta industrial, cableado, protecciones, cuadro AC, legalización, medidor bidireccional, EPI, pequeño material.",
+        "Para nave industrial de 1000 m²: superficie disponible es importante. Estimar potencia instalada entre 50-150 kWp según orientación, sombras y consumo real. Precio típico instalación: 800-2600 €/kWp.",
+        "ROI típico en industrial: 3-6 años por alto consumo en horas solares. Incluir en informe.",
+        "Consumo empresa es BASE del dimensionado. Solicitar factura eléctrica 12 meses o datos de consumo horario si disponible.",
+        "Legalización OBLIGATORIA ante distribuidora e industria. Incluir en presupuesto de instalación posterior."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Análisis de ayudas, subvenciones y tramitación administrativa",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Partida sugerida por IA para completar el estudio de viabilidad. No está explícitamente en BASE MAESTRA pero es práctica común en informes de viabilidad solar en industrial."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_fotovoltaica_en_empresa_o_polígono_industrial",
+      "informe_y_presupuesto_sistema_solar",
+      "instalacion_fotovoltaica_para_sector_agricola_o_ganadero",
+      "planificacion_y_presupuesto_reforma_integral",
+      "diagnostico_y_presupuesto_proteccion_solar_edificio"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3933,
+      "tokens_out": 2408
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

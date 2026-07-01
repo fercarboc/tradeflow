@@ -1,0 +1,221 @@
+{
+  "id": 114,
+  "oficio": "Climatización",
+  "texto": "Reparación urgente de caldera sin calefacción en invierno, diagnóstico y sustitución de piezas",
+  "http_status": 200,
+  "latency_ms": 13967,
+  "raw_response": {
+    "transcript": "Reparación urgente de caldera sin calefacción en invierno, diagnóstico y sustitución de piezas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación urgente de caldera sin calefacción en invierno, diagnóstico y sustitución de piezas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo urgente en invierno: prioridad máxima",
+          "Diagnóstico obligatorio antes de sustitución de piezas",
+          "Presupuesto previo recomendado antes de ejecutar reparación",
+          "Verificar antigüedad de caldera: si >15 años, valorar sustitución completa",
+          "Garantía de reparación debe incluirse en presupuesto final"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Reparación de caldera de calefacción, diagnóstico y sustitución de piezas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico de avería en caldera",
+          "descripcion": "Inspección completa, pruebas de funcionamiento, identificación de causa de fallo de calefacción",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustitución de electrodo de encendido",
+          "descripcion": "Desmontaje de electrodo defectuoso e instalación de electrodo nuevo",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Electrodo de encendido (material)",
+          "descripcion": "Electrodo de encendido de repuesto según modelo de caldera",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del modelo específico de caldera. Rango típico: 40-120€"
+        },
+        {
+          "concepto": "Sustitución de presostato",
+          "descripcion": "Desmontaje de presostato defectuoso e instalación de presostato nuevo",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Presostato de caldera (material)",
+          "descripcion": "Presostato de reemplazo según especificaciones técnicas de caldera",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del modelo. Rango típico: 60-180€"
+        },
+        {
+          "concepto": "Sustitución de sensor NTC de temperatura",
+          "descripcion": "Desmontaje de sensor defectuoso e instalación de sensor NTC nuevo",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 60,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sensor NTC de temperatura (material)",
+          "descripcion": "Sensor NTC de reemplazo para control de temperatura de caldera",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del modelo. Rango típico: 30-90€"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Juntas, tuercas, tornillos, pasta térmica, cinta teflón y otros accesorios necesarios para la reparación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 20-50€ según alcance de reparación"
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Verificación de encendido, presión de circuito, temperatura de salida, evacuación de humos y funcionamiento general de calefacción",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 345,
+        "iva_porcentaje": 21,
+        "iva": 72.45,
+        "total": 417.45
+      },
+      "sugerencias_catalogo": [
+        "Verificar antigüedad de caldera: si tiene más de 15 años, considerar presupuesto de sustitución completa por caldera de condensación (más eficiente)",
+        "Si la avería es recurrente, valorar cambio de caldera por modelo más moderno con garantía extendida",
+        "Incluir en presupuesto final: garantía de reparación (mínimo 6 meses) y certificado de revisión"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Electrodo de encendido (material)",
+          "oficio": "climatizacion",
+          "motivo": "Pieza de reemplazo específica según modelo de caldera"
+        },
+        {
+          "concepto": "Presostato de caldera (material)",
+          "oficio": "climatizacion",
+          "motivo": "Pieza de reemplazo específica según modelo de caldera"
+        },
+        {
+          "concepto": "Sensor NTC de temperatura (material)",
+          "oficio": "climatizacion",
+          "motivo": "Pieza de reemplazo específica según modelo de caldera"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "climatizacion",
+          "motivo": "Consumibles necesarios para la reparación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_averia_caldera_gas",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_caldera_gasoil",
+      "mantenimiento_anual_caldera_gas"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3805,
+      "tokens_out": 2243
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "id": 74,
+  "oficio": "Pintura",
+  "texto": "Microcement en pared del baño, sustituir azulejos antiguos por acabado continuo gris",
+  "http_status": 200,
+  "latency_ms": 18478,
+  "raw_response": {
+    "transcript": "Microcement en pared del baño, sustituir azulejos antiguos por acabado continuo gris",
+    "quote": {
+      "resumen": {
+        "texto_original": "Microcement en pared del baño, sustituir azulejos antiguos por acabado continuo gris",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume pared de baño sin especificar zona de ducha. Si incluye zona de ducha/salpicaduras, se DEBE añadir impermeabilización previa.",
+          "Precio unitario de microcemento pendiente de revisión del instalador (material sugerido por IA).",
+          "Superficie en m² no especificada. Cantidad=1 como referencia; el instalador debe actualizar con medición real."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Acabado decorativo con microcemento en pared (clasificado como pintura/acabado decorativo según BASE MAESTRA)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de azulejos antiguos",
+          "descripcion": "Demolición de alicatado existente, retirada de mortero y preparación de soporte. Incluye gestión de escombros.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 15,
+          "total": 15,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada para demolición de alicatado. Revisar según superficie real y dificultad de desprendimiento."
+        },
+        {
+          "concepto": "Imprimación adherente bicomponente",
+          "descripcion": "Imprimación bicomponente para preparación de soporte antes de microcemento. Mejora adherencia y uniformidad.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material obligatorio. Precio pendiente de revisión (aprox. 8-12€/m2 según marca y rendimiento)."
+        },
+        {
+          "concepto": "Microcemento bicomponente gris",
+          "descripcion": "Aplicación de microcemento bicomponente en color gris. Mínimo 3-5 capas según sistema. Incluye mano de obra de aplicación con llana metálica.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de mano de obra para aplicación de microcemento (45€/m2 estimado). Material (microcemento) requiere precio específico del instalador."
+        },
+        {
+          "concepto": "Material microcemento bicomponente gris",
+          "descripcion": "Suministro de microcemento bicomponente en color gris. Rendimiento aprox. 2-3 kg/m2 según número de capas.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material principal. Precio pendiente (aprox. 25-60€/m2 según marca: Topciment, Luxury, Cemcrete, etc.)."
+        },
+        {
+          "concepto": "Sellador poliuretano acabado",
+          "descripcion": "Sellador poliuretano bicomponente para protección final y acabado. Proporciona resistencia a manchas y humedad.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material obligatorio para protección. Precio pendiente (aprox. 12-25€/m2)."
+        },
+        {
+          "concepto": "Lijado y acabado final",
+          "descripcion": "Lijado progresivo (grano 150-220) entre capas y acabado final. Incluye pequeño material (lijas, esponjas, etc.).",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 12,
+          "total": 12,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada para lijado y acabado (12€/m2). Revisar según superficie y número de capas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 72,
+        "iva_porcentaje": 21,
+        "iva": 15.12,
+        "total": 87.12
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA [acabado_decorativo_mortero_impreso_o_microcemento_pared]: Rango 4-16€/m2 (mano de obra). Este presupuesto usa 45€/m2 por ser acabado de mayor complejidad (desmontaje previo + múltiples capas + sellado).",
+        "Si la pared incluye ZONA DE DUCHA o salpicaduras directas de agua, se DEBE añadir partida de impermeabilización previa (membrana EPDM o pintura impermeabilizante) antes de aplicar microcemento.",
+        "Microcemento NO es impermeable por sí solo. En baños con humedad alta, el sellador poliuretano es OBLIGATORIO."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desmontaje y retirada de azulejos antiguos",
+          "oficio": "pintura",
+          "motivo": "Trabajo previo necesario para sustitución de alicatado por microcemento. No está explícitamente en BASE MAESTRA pero es parte integral del proceso."
+        },
+        {
+          "concepto": "Microcemento bicomponente gris (material)",
+          "oficio": "pintura",
+          "motivo": "Material específico. Precio variable según marca (Topciment, Luxury, Cemcrete, etc.). Instalador debe proporcionar precio real."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "acabado_decorativo_mortero_impreso_o_microcemento_pared",
+      "acabado_con_microcemento_suelo_o_pared",
+      "alicatado_y_solado_de_bano_completo",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "pintura_y_acabado_paredes_de_pladur_nuevo"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3786,
+      "tokens_out": 2344
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

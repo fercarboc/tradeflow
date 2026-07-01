@@ -1,0 +1,374 @@
+{
+  "id": 131,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reforma de cubierta plana transitable con baldosas filtrantes sobre plots, 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 34964,
+  "raw_response": {
+    "transcript": "Reforma de cubierta plana transitable con baldosas filtrantes sobre plots, 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de cubierta plana transitable con baldosas filtrantes sobre plots, 60 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Reforma de cubierta con sistema de plots: verificar carga estructural del forjado",
+          "Baldosas filtrantes requieren drenaje perimetral adecuado",
+          "Sistema de plots permite circulación de aire bajo baldosas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral de cubierta plana transitable"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Impermeabilización base previa a sistema de baldosas"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación de base y nivelación para colocación de plots"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de elementos existentes en cubierta",
+          "descripcion": "Retirada de revestimiento, grava o elementos existentes en cubierta plana de 60 m2, acopio y retirada de escombros",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y preparación de base",
+          "descripcion": "Limpieza profunda, barrido y eliminación de polvo en cubierta plana. Inspección de impermeabilización existente",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 5,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación y sellado de impermeabilización base",
+          "descripcion": "Reparación de fisuras, grietas y sellos en lámina impermeabilizante existente. Aplicación de sellador elástico en encuentros y juntas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 12,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador elástico poliuretano para juntas",
+          "descripcion": "Sellador elástico de poliuretano de dos componentes para impermeabilización de fisuras y encuentros. Consumo estimado 5 kg",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe ingresar precio de sellador poliuretano"
+        },
+        {
+          "concepto": "Capa de regularización y nivelación",
+          "descripcion": "Aplicación de capa de regularización autonivelante (mortero autonivelante o capa de aislante con pendiente) para preparar base homogénea para plots. Espesor 2-3 cm promedio",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 18,
+          "total": 1080,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero autonivelante o masilla de regularización",
+          "descripcion": "Mortero autonivelante de cemento o epoxy para regularización de base. Consumo estimado 40-50 kg/m2 × 60 m2 = 2400 kg",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 2400,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe ingresar precio de mortero autonivelante"
+        },
+        {
+          "concepto": "Instalación de plots de apoyo (soportes de altura ajustable)",
+          "descripcion": "Colocación de plots/pedestales ajustables de altura (sistema modular tipo 'pata de elefante' o similar) para crear cámara de aire bajo baldosas. Separación típica 60×60 cm. Estimado 170-180 plots para 60 m2",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 175,
+          "precio_unitario": 6,
+          "total": 1050,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plots/pedestales ajustables de altura",
+          "descripcion": "Plots de apoyo modulares de altura ajustable (15-50 mm típico) para cubierta sobre impermeabilización. Cantidad 175 unidades. Material: PP reciclado o composite",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 175,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe ingresar precio unitario del plot/pedestal"
+        },
+        {
+          "concepto": "Tela geotextil de separación y filtro bajo baldosas",
+          "descripcion": "Colocación de tela geotextil de 200-300 gr/m2 sobre plots para filtración y drenaje. Área 60 m2 + solapas perimetrales. Consumo 65 m2",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 65,
+          "precio_unitario": 4,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Geotextil de filtración (200-300 gr/m2)",
+          "descripcion": "Tela geotextil no tejida de 200-300 gr/m2 para filtración y drenaje bajo baldosas filtrantes. Consumo 65 m2",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 65,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe ingresar precio m2 de geotextil de filtración"
+        },
+        {
+          "concepto": "Colocación de baldosas filtrantes sobre plots",
+          "descripcion": "Instalación de baldosas filtrantes (hormigón, composite o cerámica) 60×60 cm sobre sistema de plots. Junteo con arena de cuarzo o conglomerante flexible. Incluye nivelación y alineación. 60 m2 = aprox. 167 baldosas",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 22,
+          "total": 1320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Baldosas filtrantes 60×60 cm (hormigón o composite)",
+          "descripcion": "Baldosas drenantes filtrantes de 60×60 cm. Material: hormigón poroso, composite o material cerámico drenante. Cantidad 167 baldosas para 60 m2",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 167,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe ingresar precio unitario de baldosa filtrante"
+        },
+        {
+          "concepto": "Arena de cuarzo para junteo (arena gavión)",
+          "descripcion": "Arena de cuarzo redondeada 0,5-1 mm para junteo de baldosas filtrantes. Consumo estimado 2-3 kg/m2 × 60 m2 = 150 kg",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe ingresar precio de arena de cuarzo"
+        },
+        {
+          "concepto": "Sistema de drenaje perimetral",
+          "descripcion": "Colocación de canal perimetral drenante o tubo drenante en borde de cubierta para evacuar agua de la cámara bajo baldosas. Perímetro estimado 30 ml",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 15,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Canal o tubo drenante perimetral (diam. 50-63 mm)",
+          "descripcion": "Canal drenante o tubo PVC perforado Ø 50-63 mm con accesorios (codos, T, bajante) para drenaje de cámara bajo baldosas. Consumo 30 ml",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe ingresar precio ml de tubo drenante + accesorios"
+        },
+        {
+          "concepto": "Protección y refuerzo de encuentros y remates",
+          "descripcion": "Colocación de refuerzos perimetrales, remates de acero o aluminio en encuentros con paramentos verticales. Acabado de bordes y protección contra agentes atmosféricos",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 20,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Perfiles de remate perimetral (acero galvanizado o aluminio)",
+          "descripcion": "Perfiles de remate y protección perimetral de acero galvanizado o aluminio anodizado. Incluyendo accesorios de fijación. Consumo 30 ml",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe ingresar precio ml de perfil de remate"
+        },
+        {
+          "concepto": "Prueba de estanqueidad y drenaje",
+          "descripcion": "Prueba de agua de cubierta con sistema de plots instalado. Verificación de drenaje de cámara bajo baldosas. Inclusión de pequeños ajustes si es necesario",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles (EPI, herramientas, adhesivos, selladores)",
+          "descripcion": "Pequeño material: nivel láser, cuñas, espaciadores, bridas, cinta de sellado, guantes de látex, mascarillas, gafas protectoras. Consumibles varios para una cubierta de 60 m2",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe estimar coste de pequeño material y consumibles (aprox. 150-300€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 6395,
+        "iva_porcentaje": 21,
+        "iva": 1342.95,
+        "total": 7737.95
+      },
+      "sugerencias_catalogo": [
+        "Sistema de plots sobre cubierta plana es solución moderna que permite fácil mantenimiento y acceso bajo baldosas",
+        "Baldosas filtrantes garantizan drenaje y evitan encharcamientos",
+        "Verificar normativa local sobre sobrecarga en estructura (plots + baldosas + personas ≈ 200-250 kg/m2 típico)",
+        "Recomendación: hacer prueba de agua antes de colocar baldosas finales"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Plots/pedestales ajustables de altura",
+          "oficio": "cubiertas",
+          "razon": "Sistema modular específico para cubierta sobre impermeabilización con cámara ventilada",
+          "tipo": "material"
+        },
+        {
+          "partida": "Baldosas filtrantes 60×60 cm (hormigón o composite)",
+          "oficio": "cubiertas",
+          "razon": "Revestimiento drenante específico para cubierta transitable sobre plots",
+          "tipo": "material"
+        },
+        {
+          "partida": "Sistema de drenaje perimetral para cubierta sobre plots",
+          "oficio": "cubiertas",
+          "razon": "Componente crítico de evacuación de agua de cámara bajo baldosas",
+          "tipo": "material"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_aislante_termico_en_cubierta_plana_invertida",
+      "pintado_de_cubierta_plana_transitable",
+      "impermeabilizacion_de_terraza_invertida_con_XPS",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 19,
+    "n_catalogo": 10,
+    "n_sugeridas": 9,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

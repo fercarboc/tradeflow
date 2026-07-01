@@ -1,0 +1,207 @@
+{
+  "id": 367,
+  "oficio": "Reformas Integrales",
+  "texto": "Adaptar vivienda para persona con movilidad reducida, baño accesible, rampa y pasamanos",
+  "http_status": 200,
+  "latency_ms": 22399,
+  "raw_response": {
+    "transcript": "Adaptar vivienda para persona con movilidad reducida, baño accesible, rampa y pasamanos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Adaptar vivienda para persona con movilidad reducida, baño accesible, rampa y pasamanos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de accesibilidad: requiere cumplimiento normativa UNE EN 17210 y CTE DB-SUA",
+          "Se recomienda proyecto técnico si la obra es significativa",
+          "Posibles subvenciones IMSERSO/CCAA: el instalador debe informar al cliente",
+          "Medidas exactas de baño y accesos no especificadas: se asumen estándares mínimos CTE"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral de accesibilidad: múltiples oficios (albanilería, carpintería, cerrajería, fontanería, electricidad) coordinados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Eliminación de barreras arquitectónicas, rampa, suelo antideslizante"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación pasamanos y barras de apoyo en baño"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Adaptación baño: grifería monomando, ducha accesible, eliminación bañera"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Interruptores y enchufes a altura accesible, iluminación reforzada"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Ensanchamiento de puertas, paso libre mínimo 80 cm"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil (eliminación barreras, rampa, suelo)",
+          "descripcion": "Demolición de escalones/umbrales, construcción rampa con pendiente máx. 8% (acceso privado), suelo antideslizante en accesos y baño, eliminación bañera si existe, preparación estructural para barras de apoyo",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 8,
+          "precio_unitario": 320,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de jornadas estimada; ajustar según medidas reales de vivienda y complejidad de rampa"
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (fontanería, electricidad, accesibilidad)",
+          "descripcion": "Adaptación baño: grifería monomando ergonómica, ducha accesible sin escalón, instalación barras de apoyo ancladas a estructura (baño y accesos), interruptores y enchufes a altura accesible (80-120 cm), iluminación reforzada sin sombras, paso libre puertas mínimo 80 cm, pequeño material",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 10,
+          "precio_unitario": 360,
+          "total": 3600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Jornadas estimadas para fontanería, electricidad y cerrajería coordinadas; revisar según plano de baño y número de accesos"
+        },
+        {
+          "concepto": "CAP.3 – Materiales y suministros (barandillas, grifería, accesorios accesibilidad)",
+          "descripcion": "Pasamanos acero inoxidable o galvanizado (baño, rampa, escaleras si existen), barras de apoyo inox Ø32-40 mm, grifería monomando baño, plato ducha accesible, cerraduras ergonómicas, pintura antideslizante suelo, pequeño material (tacos, tornillos inox, selladores)",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales pendiente: instalador debe cotizar pasamanos (ml), barras (ud), grifería, plato ducha, accesorios según especificaciones técnicas y medidas reales"
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos y documentación",
+          "descripcion": "Retirada y gestión de escombros (demolición escalones, bañera), transporte a gestor autorizado, documentación técnica (planos as-built si reforma significativa), pequeño material",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estimado según volumen de escombros y distancia a gestor; revisar con transportista"
+        }
+      ],
+      "calculos": {
+        "subtotal": 6160,
+        "iva_porcentaje": 21,
+        "iva": 1293.6,
+        "total": 7453.6
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [adecuacion_de_vivienda_para_accesibilidad_PMR] — precio alzado 8000-90000€ según complejidad",
+        "Norma de referencia: UNE EN 17210 (Accesibilidad y usabilidad del entorno construido) + CTE DB-SUA (Seguridad de utilización y accesibilidad)",
+        "Pasamanos exterior: referencia [instalacion_barandilla_metalica_de_escalera_exterior] — 30-160€/ml",
+        "Enchufe exterior IP44 si acceso exterior: [instalacion_enchufe_exterior_ip44] — 55-220€/ud",
+        "Informar cliente sobre posibles subvenciones IMSERSO, CCAA o fondos de accesibilidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Adaptación baño accesible (grifería, ducha, barras)",
+          "oficio": "fontaneria",
+          "motivo": "Incluida en CAP.2; especificar modelo grifería y plato ducha en revisión"
+        },
+        {
+          "concepto": "Pasamanos y barras de apoyo inoxidable",
+          "oficio": "cerrajeria",
+          "motivo": "Incluida en CAP.2 y CAP.3; cotizar según ml y ud reales"
+        },
+        {
+          "concepto": "Rampa de acceso con pendiente máx. 8%",
+          "oficio": "albanileria",
+          "motivo": "Incluida en CAP.1; calcular según desnivel y longitud real"
+        },
+        {
+          "concepto": "Ensanchamiento puertas paso libre 80 cm",
+          "oficio": "carpinteria",
+          "motivo": "Incluida en CAP.2; revisar número de puertas a adaptar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "instalacion_enchufe_exterior_ip44",
+      "reforma_de_vivienda_para_eficiencia_energetica"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3896,
+      "tokens_out": 2861
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

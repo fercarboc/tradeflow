@@ -1,0 +1,189 @@
+{
+  "id": 338,
+  "oficio": "Fachadas",
+  "texto": "Instalar cártel luminoso en fachada de local comercial con iluminación LED interior",
+  "http_status": 200,
+  "latency_ms": 16541,
+  "raw_response": {
+    "transcript": "Instalar cártel luminoso en fachada de local comercial con iluminación LED interior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cártel luminoso en fachada de local comercial con iluminación LED interior",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere validación de dimensiones del cártel y potencia LED para cálculo eléctrico definitivo",
+          "Se recomienda coordinar con electricista para acometida y protecciones según potencia total"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de iluminación LED, cableado, conexión a cuadro eléctrico y puesta en marcha"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación de cártel con posible estructura de vidrio/metacrilato y fijación a fachada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro cártel luminoso LED",
+          "descripcion": "Cártel luminoso con iluminación LED interior, estructura y componentes ópticos. Incluye fuente de alimentación LED integrada o externa según diseño",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones, tipo de material (vidrio/metacrilato/PVC), potencia LED y acabados. Instalador debe especificar"
+        },
+        {
+          "concepto": "Instalación cártel luminoso en fachada",
+          "descripcion": "Fijación mecánica del cártel a fachada con anclajes, tacos y herrajes de acero inoxidable. Incluye nivelación, aplomado y sellado de juntas",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y conexión eléctrica cártel LED",
+          "descripcion": "Cable de alimentación desde cuadro eléctrico hasta cártel, tubería de protección, conectores estancos IP67, pequeño material (bridas, cinta aislante, etc.)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de distancia desde cuadro, sección de cable (según potencia LED), tipo de tubería y accesorios. Instalador debe especificar"
+        },
+        {
+          "concepto": "Instalación eléctrica cártel luminoso LED",
+          "descripcion": "Conexión de cableado a cuadro eléctrico, instalación de protecciones (magnetotérmico, diferencial), pruebas de funcionamiento y puesta en marcha del sistema LED",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protecciones eléctricas y pequeño material",
+          "descripcion": "Magnetotérmico, diferencial, conectores estancos, bridas, cinta aislante, tuercas, arandelas y tornillería de acero inoxidable",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de intensidad de protección requerida (según potencia LED) y cantidad de accesorios. Instalador debe especificar"
+        },
+        {
+          "concepto": "Boletín eléctrico y documentación",
+          "descripcion": "Redacción e instalación de boletín eléctrico según normativa REBT para legalización de la instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad de la instalación y si requiere tramitación administrativa. Instalador debe especificar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 235,
+        "iva_porcentaje": 21,
+        "iva": 49.35,
+        "total": 284.35
+      },
+      "sugerencias_catalogo": [
+        "Consultar con cliente dimensiones exactas del cártel (ancho x alto x fondo) para cálculo de potencia LED",
+        "Solicitar especificación de potencia total LED (W) para dimensionar protecciones eléctricas",
+        "Confirmar distancia desde cuadro eléctrico a punto de instalación para cálculo de sección de cable",
+        "Verificar si la fachada requiere refuerzo estructural o anclajes especiales según material (hormigón, ladrillo, metal)",
+        "Considerar si el cártel incluye sistema de regulación de intensidad (dimmer) o control remoto"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro cártel luminoso LED",
+          "oficio": "cristaleria",
+          "motivo": "Material específico de cártel luminoso con LED interior. Precio variable según dimensiones y especificaciones técnicas"
+        },
+        {
+          "concepto": "Cableado y conexión eléctrica cártel LED",
+          "oficio": "electricidad",
+          "motivo": "Material de cableado y accesorios eléctricos. Precio variable según distancia y potencia"
+        },
+        {
+          "concepto": "Protecciones eléctricas y pequeño material",
+          "oficio": "electricidad",
+          "motivo": "Componentes de protección y accesorios. Precio variable según intensidad requerida"
+        },
+        {
+          "concepto": "Boletín eléctrico y documentación",
+          "oficio": "electricidad",
+          "motivo": "Servicio de legalización eléctrica. Precio variable según complejidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio",
+      "instalacion_red_electrica_local_comercial",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_iluminacion_comercial_led",
+      "instalacion_sistema_de_climatizacion_en_local_comercial"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3725,
+      "tokens_out": 2111
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

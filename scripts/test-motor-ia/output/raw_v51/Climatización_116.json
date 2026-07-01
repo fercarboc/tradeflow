@@ -1,0 +1,167 @@
+{
+  "id": 116,
+  "oficio": "Climatización",
+  "texto": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+  "http_status": 200,
+  "latency_ms": 17530,
+  "raw_response": {
+    "transcript": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo de gas natural requiere profesional CUALIFICADO y autorizado por la Administración",
+          "OBLIGATORIO: Boletín técnico de instalación de gas (BTG)",
+          "OBLIGATORIO: Inscripción en registro de la Comunidad Autónoma / Delegación Provincial",
+          "Este tipo de legalización exige COLEGIACIÓN del instalador en el colegio profesional correspondiente",
+          "Revisar normativa UNE-60670-1 y reglamentación técnica de distribuidoras de gas autonómicas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "instalador_gas_natural",
+          "existe_en_catalogo": false,
+          "nuevo_oficio": true,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 85
+          },
+          "motivo": "Oficio especializado no presente en catálogo estándar. Requiere certificación y autorización administrativa. Tarifa estimada similar a otras instalaciones especializadas (energía solar, climatización)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y revisión completa instalación gas natural",
+          "descripcion": "Inspección visual y funcional de toda la instalación de gas natural: acometida, reguladores, tuberías, válvulas, tomas, electrodomésticos conectados. Verificación de cumplimiento normativa vigente.",
+          "oficio": "instalador_gas_natural",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo estimado sujeto a complejidad y extensión de la instalación"
+        },
+        {
+          "concepto": "Realización de pruebas de estanqueidad y rendimiento",
+          "descripcion": "Pruebas de presión, detector de fugas, medición de caudal y verificación de funcionamiento de reguladores y dispositivos de seguridad.",
+          "oficio": "instalador_gas_natural",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo variable según número de puntos de prueba y complejidad"
+        },
+        {
+          "concepto": "Emisión de Boletín Técnico de Instalación de Gas (BTG)",
+          "descripcion": "Redacción, cumplimentación y firma del BTG conforme a normativa UNE-60670-1. Documento técnico que certifica el cumplimiento de la instalación con la normativa de seguridad.",
+          "oficio": "instalador_gas_natural",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en el servicio de legalización. Revisar si incluye tasas administrativas."
+        },
+        {
+          "concepto": "Tramitación inscripción en registro administrativo",
+          "descripcion": "Gestión de la inscripción de la instalación en la Delegación Provincial de Industria / Consejería de Energía (según CCAA). Presentación de documentación ante la administración.",
+          "oficio": "instalador_gas_natural",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pueden existir tasas administrativas no incluidas. Varían según comunidad autónoma."
+        },
+        {
+          "concepto": "Certificado de legalización y seguridad de la instalación",
+          "descripcion": "Emisión del certificado final que acredita la legalización de la instalación de gas natural, con conformidad de requisitos de seguridad y normativa técnica.",
+          "oficio": "instalador_gas_natural",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documento de conclusión del proceso. Revisar si se incluye en el servicio o es parte de la tramitación"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (desplazamiento equipo de medición)",
+          "descripcion": "Pequeño material, consumibles (cinta teflón, conexiones puntuales si fuera necesario, documentación). Desplazamiento de equipos especializados de medición y detección de fugas.",
+          "oficio": "instalador_gas_natural",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Revisar necesidad de reparaciones menores o sustitución de componentes defectuosos"
+        }
+      ],
+      "calculos": {
+        "subtotal": 325,
+        "iva_porcentaje": 21,
+        "iva": 68.25,
+        "total": 393.25
+      },
+      "sugerencias_catalogo": [
+        "Crear oficio 'instalador_gas_natural' en catálogo con tarifa recomendada 65€/h",
+        "Crear entrada 'legalización_instalacion_gas_natural' como actuación validada con precio alzado entre 400-1200€/ud según complejidad",
+        "Incluir obligatoriedad de verificación de colegiación e inscripción del profesional en registro profesional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "actuacion": "legalización_instalacion_gas_natural",
+          "oficio": "instalador_gas_natural",
+          "precio_rango_sugerido": "400-1200€ según complejidad instalación",
+          "partidas_obligatorias": [
+            "Inspección completa instalación gas",
+            "Pruebas estanqueidad y rendimiento",
+            "Emisión BTG",
+            "Tramitación administrativa",
+            "Certificado legalización"
+          ],
+          "requiere_especializacion": true,
+          "normativa_aplicable": "UNE-60670-1, Reglamento Técnico de Distribución y Utilización de Combustibles Gaseosos, normativa autonómica"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_ventana_madera_con_vidrio",
+      "auditoria_energetica_instalacion_climatizacion",
+      "legalización_instalacion_electrica",
+      "revision_instalacion_electrica_local_comercial",
+      "instalacion_persiana_veneciana_de_madera_o_bambu"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "instalador_gas_natural",
+    "coincide_oficio": "NO"
+  }
+}

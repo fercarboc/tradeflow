@@ -1,0 +1,158 @@
+{
+  "id": 250,
+  "oficio": "Telecomunicaciones",
+  "texto": "Reparar intercomunicador del portal que no funciona, revisión de centralita y terminales",
+  "http_status": 200,
+  "latency_ms": 11447,
+  "raw_response": {
+    "transcript": "Reparar intercomunicador del portal que no funciona, revisión de centralita y terminales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar intercomunicador del portal que no funciona, revisión de centralita y terminales",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diagnóstico previo recomendado para identificar componente fallido (centralita, terminal, cableado)",
+          "Precio de materiales pendiente de revisión según pieza a sustituir"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación de sistemas de intercomunicación y cableado estructurado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión centralita intercomunicador",
+          "descripcion": "Revisión completa de centralita, terminales y cableado para identificar causa del fallo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación o sustitución componentes centralita intercomunicador",
+          "descripcion": "Reparación, ajuste o sustitución de placa base, fuente alimentación, relés u otro componente defectuoso de la centralita",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de revisión según pieza específica a sustituir (placa, fuente, relé, etc.)"
+        },
+        {
+          "concepto": "Revisión y reparación terminales intercomunicador",
+          "descripcion": "Revisión de terminales de usuario, comprobación de conectores, micrófono, altavoz y posible reemplazo de pieza defectuosa",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustitución terminal intercomunicador si procede",
+          "descripcion": "Suministro e instalación de terminal de usuario nuevo si la existente no es reparable",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Condicionado a diagnóstico. Precio pendiente según modelo compatible"
+        },
+        {
+          "concepto": "Revisión cableado y conexiones intercomunicador",
+          "descripcion": "Inspección de cableado entre centralita y terminales, verificación de conexiones y continuidad",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 50,
+          "total": 37.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales y verificación sistema",
+          "descripcion": "Pruebas de comunicación, audio en ambas direcciones, llamadas internas y registro de eventos en centralita",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 187.5,
+        "iva_porcentaje": 21,
+        "iva": 39.38,
+        "total": 226.88
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente información sobre marca/modelo centralita para presupuestar piezas de reemplazo específicas",
+        "Si la reparación excede 40-50% del coste de una nueva centralita, plantear sustitución completa",
+        "Documentar resultado diagnóstico para justificar materiales a cliente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación o sustitución componentes centralita intercomunicador",
+          "motivo": "Material específico condicionado a resultado diagnóstico"
+        },
+        {
+          "concepto": "Sustitución terminal intercomunicador si procede",
+          "motivo": "Material condicionado, requiere presupuesto tras diagnóstico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "reparacion_averia_caldera_gas",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

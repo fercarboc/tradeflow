@@ -1,0 +1,289 @@
+{
+  "id": 218,
+  "oficio": "Jardinería",
+  "texto": "Diseño y construcción de estanque ornamental con fuente y plantas acuáticas, 4 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 31048,
+  "raw_response": {
+    "transcript": "Diseño y construcción de estanque ornamental con fuente y plantas acuáticas, 4 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Diseño y construcción de estanque ornamental con fuente y plantas acuáticas, 4 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: No se especifica profundidad del estanque. Obligatorio determinar si supera 50cm (requiere vallado CTE DB-SUA si hay menores).",
+          "No se especifica si el estanque será enterrado o elevado. Impacta en excavación y costo final.",
+          "Consultar con cliente: ¿hay menores en la propiedad? Si profundidad > 50cm, vallado es OBLIGATORIO.",
+          "No se especifica tipo de bomba/recirculación. Presupuesto incluye bomba estándar; revisar si cliente requiere sistemas especiales (cascada, fuente tipo surtidor, etc.)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Instalación de fuente/estanque ornamental con plantas acuáticas"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica bomba de recirculación con diferencial de protección (OBLIGATORIO)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Excavación, preparación base y posible obra civil si estanque enterrado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Excavación y preparación de base para estanque",
+          "descripcion": "Excavación de terreno, nivelación y preparación de base para estanque de 4 m² (aprox. 1 m profundidad estimada). Incluye retirada de tierra vegetal y compactación.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 35,
+          "total": 140,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización: lámina EPDM o recipiente prefabricado",
+          "descripcion": "Suministro e instalación de lámina impermeabilizante EPDM de 1mm (o recipiente prefabricado de fibra de vidrio) para estanque de 4 m² con solapas de seguridad. Incluye sellado de juntas.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe cotizar lámina EPDM o recipiente prefabricado según diseño elegido"
+        },
+        {
+          "concepto": "Instalación impermeabilización y preparación fondo",
+          "descripcion": "Mano de obra para colocación de lámina impermeabilizante, sellado de juntas, colocación de geotextil de protección y preparación de fondo con arena de asentamiento.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 25,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bomba de recirculación y accesorios",
+          "descripcion": "Suministro de bomba sumergible de recirculación (500-1000W según profundidad), tuberías de conexión, válvulas y accesorios para fuente ornamental.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe seleccionar bomba según profundidad final y tipo de fuente (surtidor, cascada, recirculación simple)"
+        },
+        {
+          "concepto": "Instalación bomba de recirculación",
+          "descripcion": "Mano de obra para posicionamiento de bomba en fondo, conexión de tuberías, instalación de accesorios y pruebas de funcionamiento.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica bomba con diferencial y protección",
+          "descripcion": "Suministro e instalación de cableado sumergible (H07RN-F), cuadro de control con diferencial tipo A 30mA, enchufe estanco IP67 y toma de tierra. OBLIGATORIO para seguridad. Incluye puesta a tierra del estanque.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe cotizar cableado sumergible, diferencial 30mA, cuadro de control y componentes eléctricos"
+        },
+        {
+          "concepto": "Instalación conexión eléctrica bomba",
+          "descripcion": "Mano de obra para tendido de cableado sumergible desde fuente eléctrica, instalación de diferencial de protección, enchufe estanco y pruebas de seguridad eléctrica.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantas acuáticas (lirios, lentejas agua, papiros)",
+          "descripcion": "Suministro de plantas acuáticas diversas: lirios de agua, plantas sumergidas oxigenantes y plantas de borde según tipo de estanque. Cantidad y especies a definir con cliente.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y cantidad: instalador debe consultar cliente qué especies acuáticas desea (lirios, plantas flotantes, oxigenantes) y cantidad"
+        },
+        {
+          "concepto": "Plantación de plantas acuáticas",
+          "descripcion": "Mano de obra para colocación de plantas acuáticas en cestos/sustratos, distribución equilibrada en estanque y riego/inmersión inicial.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 25,
+          "total": 37.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Llenado y llenado inicial del estanque",
+          "descripcion": "Llenado con agua (4 m² × profundidad estimada 1m = aprox. 4.000 litros). Incluye tratamiento inicial de agua si es necesario (anticloro, regulador pH).",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: tratamiento de agua (anticloro, controlador pH) a cotizar según necesidad y disponibilidad de agua local"
+        },
+        {
+          "concepto": "Vallado de seguridad (si profundidad > 50cm)",
+          "descripcion": "Suministro e instalación de vallado perimetral de seguridad (malla o barandilla) según CTE DB-SUA. OBLIGATORIO si profundidad > 50cm y hay menores en propiedad.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "A DEFINIR: confirmación de profundidad final y presencia de menores. Si procede, instalador cotiza vallado perimetral (estimado 8-10 ml de perímetro para 4 m²)"
+        },
+        {
+          "concepto": "Pequeño material y varios (herramientas, tuberías, accesorios menores)",
+          "descripcion": "Herramientas, tuberías de conexión, válvulas, codos, abrazaderas, arena de asentamiento, pequeño material auxiliar para construcción y acabado.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar: instalador acumula gasto en pequeño material según avance de obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 427.5,
+        "iva_porcentaje": 21,
+        "iva": 89.775,
+        "total": 517.275
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA [instalacion_de_fuente_o_estanque_ornamental]: Rango de precio €300-4000/ud según diseño. Este presupuesto asume estanque de complejidad media (4 m² sin cascada elaborada). Si cliente solicita fuente tipo cascada, iluminación sumergible o filtro con peces, incrementar presupuesto.",
+        "Iluminación sumergible LED (opcional): Si cliente la solicita, añadir partida de material + instalación eléctrica (±200-500€).",
+        "Filtro de agua con peces: Si estanque albergará peces (koi, dorados), OBLIGATORIO instalar filtro biológico (±400-800€ material + instalación).",
+        "Acolchado borde: Considerar añadir acolchado de piedra o corteza alrededor del perímetro para acabado estético y retención de humedad (±50-100€)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Impermeabilización: lámina EPDM o recipiente prefabricado",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de estanques ornamentales. Instalador debe elegir entre lámina EPDM (más flexible, personalizable) o recipiente prefabricado (más rápido, tamaño limitado)."
+        },
+        {
+          "concepto": "Bomba de recirculación y accesorios",
+          "origen": "sugerida_ia",
+          "motivo": "Material: bomba sumergible según profundidad. Instalador cotiza según marca y potencia."
+        },
+        {
+          "concepto": "Conexión eléctrica bomba con diferencial y protección",
+          "origen": "sugerida_ia",
+          "motivo": "Material eléctrico especializado para entorno húmedo (cableado sumergible, diferencial 30mA tipo A, enchufe estanco IP67)."
+        },
+        {
+          "concepto": "Plantas acuáticas (lirios, lentejas agua, papiros)",
+          "origen": "sugerida_ia",
+          "motivo": "Material botánico: especies y cantidad a definir con cliente."
+        },
+        {
+          "concepto": "Llenado y tratamiento inicial del estanque",
+          "origen": "sugerida_ia",
+          "motivo": "Material: tratamiento de agua (anticloro, pH) según análisis previo de agua disponible."
+        },
+        {
+          "concepto": "Vallado de seguridad (si profundidad > 50cm)",
+          "origen": "sugerida_ia",
+          "motivo": "CRÍTICO: Obligatorio CTE DB-SUA si profundidad > 50cm y menores en propiedad. A confirmar antes de finalizar presupuesto."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_fuente_o_estanque_ornamental",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "abonado_y_enmienda_de_suelo_del_jardin",
+      "forjado_de_vigueta_y_bovedilla",
+      "tratamiento_fitosanitario_plagas_y_enfermedades"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 5,
+    "n_sugeridas": 7,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "id": 66,
+  "oficio": "Pintura",
+  "texto": "Reparar humedades en techo de baño, aplicar antihumedad y pintar, superficie de 6 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 10888,
+  "raw_response": {
+    "transcript": "Reparar humedades en techo de baño, aplicar antihumedad y pintar, superficie de 6 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar humedades en techo de baño, aplicar antihumedad y pintar, superficie de 6 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda diagnosticar la causa de la humedad (filtraciones desde piso superior, condensación, ventilación deficiente) antes de ejecutar la reparación",
+          "Si la humedad es activa o hay goteras, puede ser necesario reparar la cubierta/fontanería antes de pintar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Reparación de humedades, aplicación de antihumedad y pintura en techo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneado y preparación de superficie con filtraciones",
+          "descripcion": "Limpieza, raspado y eliminación de pintura desprendida, masilla de fisuras y lija de zona afectada (6 m²)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 8,
+          "total": 48,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación fijadora antihumedad",
+          "descripcion": "Aplicación de imprimación fijadora sobre zona preparada (6 m²)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 6,
+          "total": 36,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura antihumedad para techo",
+          "descripcion": "Aplicación de pintura antihumedad específica (2 manos) en techo de baño (6 m²)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 10,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales: masilla antihumedad, lija, imprimación y pintura antihumedad",
+          "descripcion": "Suministro de masilla pasta fina, lija grano 120-220, imprimación fijadora y pintura antihumedad (aprox. 2 litros)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a confirmar por instalador según marcas y proveedores"
+        }
+      ],
+      "calculos": {
+        "subtotal": 144,
+        "iva_porcentaje": 21,
+        "iva": 30.24,
+        "total": 174.24
+      },
+      "sugerencias_catalogo": [
+        "Partida de materiales: estimar coste de masilla antihumedad (5-15€), lija (2-5€), imprimación (8-20€/litro) y pintura antihumedad (12-25€/litro). Total estimado: 40-80€"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "reparacion_balcon_o_voladizo_con_filtraciones",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "pintura_antihumedad_paredes_con_filtraciones",
+      "limpieza_y_preparacion_superficie_antes_pintar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3635,
+      "tokens_out": 1143
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

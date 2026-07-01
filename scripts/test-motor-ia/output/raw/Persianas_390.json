@@ -1,0 +1,165 @@
+{
+  "id": 390,
+  "oficio": "Persianas",
+  "texto": "Reparar persiana de lama que no sube bien, motor atascado, revisión y engrase de guías",
+  "http_status": 200,
+  "latency_ms": 13200,
+  "raw_response": {
+    "transcript": "Reparar persiana de lama que no sube bien, motor atascado, revisión y engrase de guías",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar persiana de lama que no sube bien, motor atascado, revisión y engrase de guías",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diagnóstico de motor atascado requiere verificación in situ del par motor y estado mecánico",
+          "Engrase de guías: confirmar tipo de lubricante compatible con aluminio/PVC"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Reparación de persiana motorizada: diagnóstico, limpieza, engrase y ajuste mecánico"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y desmontaje de persiana motorizada",
+          "descripcion": "Inspección completa del motor, mecanismo de enrollado, guías y lamas. Identificación de causa del atasco. Desmontaje parcial si es necesario.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y engrase de guías de persiana",
+          "descripcion": "Limpieza profunda de guías laterales (aluminio/PVC), eliminación de suciedad y óxido. Aplicación de lubricante compatible (silicona o PTFE). Ambos lados.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lubricante para guías de persiana (silicona/PTFE)",
+          "descripcion": "Spray lubricante de silicona o PTFE para guías de aluminio. Cantidad estimada: 1 bote 400ml.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador (rango típico: 8-15€)"
+        },
+        {
+          "concepto": "Revisión y ajuste del motor tubular",
+          "descripcion": "Inspección del motor tubular: verificación de funcionamiento, prueba de par motor, ajuste de finales de carrera si es necesario. Prueba de subida/bajada completa.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tornillería, arandelas, clips)",
+          "descripcion": "Tornillos, arandelas, clips de fijación y otros elementos menores necesarios para el montaje y ajuste.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado: 5-12€ según necesidades"
+        },
+        {
+          "concepto": "Pruebas finales y ajuste de funcionamiento",
+          "descripcion": "Prueba completa de subida/bajada, verificación de velocidad, comprobación de finales de carrera, ajuste de topes si es necesario.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 45,
+          "total": 22.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Si tras la revisión el motor está muy deteriorado o el par es insuficiente, valorar sustitución completa del motor tubular (reparacion_o_cambio_de_motor_persiana_averiado)",
+        "Si las guías están dañadas o deformadas, considerar sustitución de guías (partida auxiliar en reparacion_puerta_garaje_averiada como referencia)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lubricante para guías de persiana (silicona/PTFE)",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de mantenimiento, precio a confirmar"
+        },
+        {
+          "concepto": "Pequeño material (tornillería, arandelas, clips)",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles menores, importe estimado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_cambio_de_motor_persiana_averiado",
+      "reparacion_de_persiana_motorizada_averiada",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reparacion_cinta_enrolladora_persiana",
+      "reparacion_puerta_garaje_averiada"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3657,
+      "tokens_out": 1713
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,287 @@
+{
+  "id": 256,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+  "http_status": 200,
+  "latency_ms": 20084,
+  "raw_response": {
+    "transcript": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema integrado: requiere coordinación entre telecomunicaciones e instalador_cctv",
+          "Software de gestión remota: precio pendiente de definir según plataforma",
+          "Cumplimiento RGPD obligatorio para cámara en espacio común (portal)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cableado estructurado, control remoto, integración sistema"
+        },
+        {
+          "oficio": "instalador_cctv",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación cámara IP, configuración grabación, integración app móvil"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Alimentación equipo, protecciones eléctricas, toma de corriente reforzada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cámara IP 2MP con infrarrojo para acceso remoto",
+          "descripcion": "Cámara IP de vigilancia para portal, resolución 2MP, visión nocturna infrarrojo, compatible con control de acceso remoto",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de equipo a definir por instalador según marca y especificaciones"
+        },
+        {
+          "concepto": "Lector de acceso (tarjeta, códogo o biométrico) con desbloqueo remoto",
+          "descripcion": "Lector de acceso para portal con función de desbloqueo remoto, compatible con apertura desde smartphone vía API",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de equipo a definir según tecnología (RFID, biométrica, códogo)"
+        },
+        {
+          "concepto": "Controlador de acceso remoto con conectividad IP",
+          "descripcion": "Central de control de acceso remoto con capacidad de gestión vía cloud/smartphone, relé de apertura integrado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según funcionalidades y plataforma de control remoto"
+        },
+        {
+          "concepto": "Software de gestión y aplicación móvil control remoto",
+          "descripcion": "Licencia o suscripción de plataforma de control de acceso remoto, app móvil para apertura desde smartphone, historial de accesos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de suscripción/licencia a definir (puede ser anual o mensual)"
+        },
+        {
+          "concepto": "Cableado cat6 y pequeño material para sistema control acceso",
+          "descripcion": "Cableado de telecomunicaciones cat6, canaletas, conectores RJ45, regletas, pequeño material auxiliar",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según longitud de cableado necesario en portal"
+        },
+        {
+          "concepto": "Cartel informativo RGPD - Vigilancia por cámara",
+          "descripcion": "Cartel normativo RGPD obligatorio indicando presencia de cámara de vigilancia en portal común",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cartel normativo"
+        },
+        {
+          "concepto": "Instalación cámara IP - Montaje, cableado y configuración",
+          "descripcion": "Montaje de cámara IP en punto de acceso (portal), instalación de cableado, configuración de red, pruebas de funcionamiento",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación lector y controlador de acceso remoto",
+          "descripcion": "Montaje de lector de acceso, instalación del controlador, conexionado del relé de apertura, pruebas de desbloqueo remoto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y conexionado sistema control acceso",
+          "descripcion": "Instalación de cableado cat6, canaletas, conexionado de componentes, toma de tierra y protecciones",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alimentación eléctrica del sistema - Toma reforzada y protecciones",
+          "descripcion": "Instalación de toma de corriente reforzada, protecciones eléctricas (magnetotérmico y diferencial), cableado de alimentación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de acceso remoto y app móvil",
+          "descripcion": "Configuración de plataforma cloud de control remoto, integración de cámara y lector, setup de aplicación móvil, creación de credenciales de usuario",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y entrega",
+          "descripcion": "Pruebas de control remoto desde smartphone, verificación de apertura, pruebas de cámara en directo, historial de eventos, entrega de documentación",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 625,
+        "iva_porcentaje": 21,
+        "iva": 131.25,
+        "total": 756.25
+      },
+      "sugerencias_catalogo": [
+        "Considerar integración con videoportero para llamada desde smartphone (mejora UX)",
+        "UPS/SAI recomendado si se requiere autonomía en corte de energía (apertura de emergencia)",
+        "Sensor de apertura de puerta recomendado para confirmación de evento"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cámara IP 2MP con infrarrojo para acceso remoto",
+          "oficio": "instalador_cctv",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Lector de acceso (tarjeta, códogo o biométrico) con desbloqueo remoto",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Controlador de acceso remoto con conectividad IP",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Software de gestión y aplicación móvil control remoto",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Cableado cat6 y pequeño material para sistema control acceso",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Cartel informativo RGPD - Vigilancia por cámara",
+          "oficio": "instalador_cctv",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_control_de_acceso_con_CCTV",
+      "instalacion_electrica_local_nuevo",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_sistema_de_riego_por_aspersion"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

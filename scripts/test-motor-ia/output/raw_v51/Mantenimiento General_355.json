@@ -1,0 +1,171 @@
+{
+  "id": 355,
+  "oficio": "Mantenimiento General",
+  "texto": "Pintar marquesina y elementos metálicos exteriores de local comercial con imprimación y esmalte",
+  "http_status": 200,
+  "latency_ms": 17208,
+  "raw_response": {
+    "transcript": "Pintar marquesina y elementos metálicos exteriores de local comercial con imprimación y esmalte",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar marquesina y elementos metálicos exteriores de local comercial con imprimación y esmalte",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere medición en obra (m² de marquesina y cantidad de elementos metálicos)",
+          "Revisar estado previo del metal (oxidación, corrosión) para determinar necesidad de tratamiento adicional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintado de elementos metálicos exteriores - tarifa estándar pintura"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y lijado de superficies metálicas",
+          "descripcion": "Limpieza, desengrasado y lijado de marquesina y elementos metálicos para recibir imprimación",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas a definir en función del estado y superficie total (m²)"
+        },
+        {
+          "concepto": "Imprimación antioxido para metal exterior",
+          "descripcion": "Imprimación antioxidante apta para exterior, primera mano protectora",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cantidad en litros a determinar según superficie total. Instalador define precio."
+        },
+        {
+          "concepto": "Esmalte sintético o poliuretano para metal exterior",
+          "descripcion": "Esmalte de acabado (2 manos) anticorrosión para metal en exterior, resistente a intemperie",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cantidad en litros a determinar (2 manos) según superficie. Instalador define precio."
+        },
+        {
+          "concepto": "Aplicación de imprimación antioxido",
+          "descripcion": "Mano de obra: aplicación de imprimación en marquesina y elementos metálicos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas a definir (rendimiento depende de superficie y accesibilidad)"
+        },
+        {
+          "concepto": "Aplicación de esmalte exterior (2 manos)",
+          "descripcion": "Mano de obra: aplicación de 2 manos de esmalte sintético/poliuretano en marquesina y elementos metálicos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas a definir (rendimiento aproximado 8-12 m²/hora según complejidad y acceso)"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Lijas, desengrasante, brochas, rodillos, cinta de carrocero, trapos, EPIs (guantes, mascarilla), etc.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles: instalador define precio global según necesidad"
+        },
+        {
+          "concepto": "Convertidor de óxido (si aplica)",
+          "descripcion": "Convertidor químico de óxido si la marquesina o elementos presentan oxidación significativa",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional: a confirmar en inspección. Si es necesario, instalador define cantidad y precio."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "MEDICIÓN OBLIGATORIA EN OBRA: Solicitar m² totales de marquesina y número/tipo de elementos metálicos para ajustar cantidades de material y horas de mano de obra",
+        "INSPECCIÓN PREVIA: Evaluar grado de oxidación/corrosión para determinar si requiere convertidor de óxido o tratamiento adicional",
+        "NORMATIVA: Verificar que la marquesina cumple con normativa de seguridad estructural si es de uso público (carga de nieve, viento, etc.)",
+        "RENDIMIENTO ESTIMADO: 8-12 m²/hora de pintura exterior según accesibilidad y estado superficial"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Convertidor de óxido para metal",
+          "motivo": "Trabajo con metal exterior sin especificar estado previo",
+          "origen": "sugerida_ia",
+          "recomendacion": "Confirmar en inspección; si hay oxidación significativa, es partida obligatoria"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_mobiliario_urbano_y_elementos_parque",
+      "pintado_locales_comerciales_y_tiendas",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "instalacion_sistema_de_climatizacion_en_local_comercial"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

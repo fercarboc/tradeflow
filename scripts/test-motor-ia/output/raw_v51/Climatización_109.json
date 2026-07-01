@@ -1,0 +1,177 @@
+{
+  "id": 109,
+  "oficio": "Climatización",
+  "texto": "Mantenimiento anual de caldera de gas, limpieza quemador, revisión electrodos y gases de combustión",
+  "http_status": 200,
+  "latency_ms": 12031,
+  "raw_response": {
+    "transcript": "Mantenimiento anual de caldera de gas, limpieza quemador, revisión electrodos y gases de combustión",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento anual de caldera de gas, limpieza quemador, revisión electrodos y gases de combustión",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Técnico debe estar certificado en gas (obligatorio por normativa)",
+          "Emitir certificado de mantenimiento al cliente",
+          "Si hay piezas de desgaste que reemplazar, presupuestar aparte"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Mantenimiento anual de caldera de gas - especialidad climatización/calefacción"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión quemador y cámara de combustión",
+          "descripcion": "Inspección completa del quemador, limpieza de depósitos y verificación de funcionamiento correcto",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza intercambiador de calor",
+          "descripcion": "Limpieza del intercambiador para optimizar transferencia térmica y eficiencia",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión electrodos y análisis de gases de combustión",
+          "descripcion": "Inspección de electrodos de ionización, ajuste si es necesario, y análisis completo de gases de combustión (CO, CO2, O2) para verificar seguridad y eficiencia",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación presión vaso de expansión",
+          "descripcion": "Control de presión del vaso de expansión y ajuste si es necesario",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Comprobación válvulas de seguridad",
+          "descripcion": "Inspección de válvulas de seguridad y alivio de presión, verificación de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación evacuación de humos y conducto",
+          "descripcion": "Revisión del conducto de evacuación de gases, tiro natural, detección de fugas o bloqueos",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Purgado del circuito si es necesario",
+          "descripcion": "Purga de aire en el circuito de agua si se detecta necesario",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y desplazamiento",
+          "descripcion": "Gastos de pequeño material fungible, desplazamiento del técnico certificado y emisión de certificado de mantenimiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir gastos de desplazamiento, materiales de limpieza y emitir certificado obligatorio"
+        }
+      ],
+      "calculos": {
+        "subtotal": 420,
+        "iva_porcentaje": 21,
+        "iva": 88.2,
+        "total": 508.2
+      },
+      "sugerencias_catalogo": [
+        "Si durante la revisión se detectan piezas de desgaste (electrodos, filtros de agua, piezas desgastadas), presupuestar APARTE con origen: sugerida_ia, requiere_revision: true",
+        "Si hay pérdida de carga de refrigerante (en calderas mixtas con ACS), añadir partida de recarga"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_y_limpieza_de_caldera_de_gas",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_caldera",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_anual_split_o_aire_acondicionado"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 7,
+    "n_sugeridas": 1,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

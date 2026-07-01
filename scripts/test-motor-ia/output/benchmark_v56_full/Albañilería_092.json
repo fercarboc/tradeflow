@@ -1,0 +1,173 @@
+{
+  "id": 92,
+  "oficio": "Albañilería",
+  "texto": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 13236,
+  "raw_response": {
+    "transcript": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en piso antiguo: verificar estado de humedad, grietas estructurales y necesidad de tratamiento previo",
+          "Superficie 120 m² es considerable: confirmar si incluye techo o solo paredes verticales",
+          "Presupuesto incluye preparación, guarnecido y enlucido completo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Enfocar (guarnecido) y enlucir (acabado yeso) son trabajos de albañilería según Base Maestra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de paredes antiguas",
+          "descripcion": "Raspado, limpieza de pintura suelta, polvo y suciedad. Reparación de grietas y pequeños desperfectos previos al guarnecido",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 6,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Yeso grueso de proyección (guarnecido)",
+          "descripcion": "Aplicación de yeso grueso para regularizar paredes, espesor 10-15 mm, incluye maestras y guías",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 18,
+          "total": 2160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Yeso fino de acabado (enlucido)",
+          "descripcion": "Aplicación de yeso fino para acabado liso y uniforme, espesor 3-5 mm, listo para pintar",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 14,
+          "total": 1680,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material: Yeso grueso para guarnecido",
+          "descripcion": "Yeso grueso de proyección o manual, sacos de 40 kg. Rendimiento aproximado 8-10 m2/saco",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "saco",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según proveedor local"
+        },
+        {
+          "concepto": "Material: Yeso fino para enlucido",
+          "descripcion": "Yeso fino de acabado, sacos de 40 kg. Rendimiento aproximado 12-15 m2/saco",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "saco",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según proveedor local"
+        },
+        {
+          "concepto": "Pequeño material y auxiliares",
+          "descripcion": "Maestras, guías de aluminio, malla fibra en encuentros, guardavivos esquinas, cinta carrocero, espátulas, reglas, andamios si necesario",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de pequeño material y auxiliares a confirmar según necesidades reales de obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4560,
+        "iva_porcentaje": 21,
+        "iva": 957.6,
+        "total": 5517.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar si las paredes presentan humedad: en caso afirmativo, considerar tratamiento impermeabilizante previo (oficio: impermeabilizacion)",
+        "Si hay grietas estructurales importantes, valorar reparación con mortero de reparación antes del guarnecido",
+        "Confirmar altura de paredes: si superan 3 m, incluir presupuesto de andamios en pequeño material",
+        "Tras enlucido, presupuestar pintura plástica interior (oficio: pintura) como siguiente fase"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Material: Yeso grueso para guarnecido",
+          "oficio": "albanileria",
+          "motivo": "Material fungible, precio variable según proveedor"
+        },
+        {
+          "concepto": "Material: Yeso fino para enlucido",
+          "oficio": "albanileria",
+          "motivo": "Material fungible, precio variable según proveedor"
+        },
+        {
+          "concepto": "Pequeño material y auxiliares",
+          "oficio": "albanileria",
+          "motivo": "Lote de consumibles y herramientas auxiliares, presupuesto estimado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "guarnecido_y_maestreado_yeso_paredes_y_techo",
+      "pintura_plastica_paredes_interiores",
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "reforma_integral_vivienda_completa",
+      "enlucido_de_yeso_paredes_interiores"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3841,
+      "tokens_out": 1784
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

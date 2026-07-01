@@ -1,0 +1,176 @@
+{
+  "id": 234,
+  "oficio": "Energía Solar",
+  "texto": "Revisar y reparar instalación solar que produce menos de lo esperado, revisión de paneles y cableado",
+  "http_status": 200,
+  "latency_ms": 18637,
+  "raw_response": {
+    "transcript": "Revisar y reparar instalación solar que produce menos de lo esperado, revisión de paneles y cableado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y reparar instalación solar que produce menos de lo esperado, revisión de paneles y cableado",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diagnóstico pendiente: causa de baja producción no identificada. Presupuesto de reparación se generará tras diagnóstico.",
+          "Posibles causas: módulos defectuosos, suciedad, nuevas sombras, fallo inversor, conexiones sueltas, degradación de cableado."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Diagnóstico y reparación de instalación fotovoltaica con baja producción. Incluye revisión visual, mediciones eléctricas y pruebas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión datos monitoreo vs estimación PVGIS",
+          "descripcion": "Análisis de datos históricos de producción, comparativa con estimación teórica según irradiancia y temperatura. Identificación de desviaciones.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección visual módulos fotovoltaicos y conexiones",
+          "descripcion": "Revisión completa de paneles solares (grietas, decoloración, puntos calientes visibles), inspección de cajas de conexión, bornes y conectores MC4. Detección de suciedad, musgo o sombras nuevas.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Comprobación inversor y lectura de códigos de error",
+          "descripcion": "Acceso a pantalla/app del inversor, lectura de histórico de fallos, códigos de error, tensiones de entrada/salida, frecuencia y factor de potencia. Verificación de funcionamiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Medición con multímetro: tensiones y corrientes en strings",
+          "descripcion": "Medición de voltaje en circuito abierto (Voc) y corriente de cortocircuito (Isc) en cada string. Detección de strings con rendimiento bajo o desbalanceados. Verificación de continuidad en cableado.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Termografía infrarroja para detección de puntos calientes",
+          "descripcion": "Captura térmica de paneles solares para identificar módulos defectuosos, células rotas o conexiones con resistencia elevada. Localización de puntos calientes anómalos.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio especializado de termografía. Precio pendiente: típicamente 200-400€ según complejidad y tamaño instalación."
+        },
+        {
+          "concepto": "Informe de diagnóstico, causa identificada y recomendaciones",
+          "descripcion": "Documento técnico con resultados de mediciones, causa probable de baja producción (módulo defectuoso, suciedad, sombra nueva, fallo inversor, conexión suelta, degradación cableado), y presupuesto de reparación específico.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en mano de obra de diagnóstico. Precio unitario = 0 (ya contabilizado en horas de revisión)."
+        },
+        {
+          "concepto": "Pequeño material y EPI (arnés, guantes, gafas, herramientas)",
+          "descripcion": "Consumibles y equipos de protección individual para trabajos en altura y con electricidad. Herramientas de medición portátiles.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Precio estimado: 50-100€. Pendiente de revisión del instalador."
+        }
+      ],
+      "calculos": {
+        "subtotal": 390,
+        "iva_porcentaje": 21,
+        "iva": 81.9,
+        "total": 471.9
+      },
+      "sugerencias_catalogo": [
+        "Tras diagnóstico, si se detecta módulo defectuoso: solicitar presupuesto de 'Sustitución módulo fotovoltaico' (energia_solar, típicamente 300-800€/módulo + instalación).",
+        "Si fallo es inversor: presupuesto de 'Reparación o sustitución inversor solar averiado' (energia_solar, 300-1800€).",
+        "Si causa es suciedad: presupuesto de 'Limpieza módulos fotovoltaicos' (energia_solar, 200-600€ según tamaño).",
+        "Si se detectan conexiones sueltas: presupuesto de 'Apretado y revisión conexiones' (energia_solar, 100-300€)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Termografía infrarroja",
+          "oficio": "energia_solar",
+          "motivo": "Servicio especializado no en catálogo base. Recomendado para diagnóstico preciso de módulos defectuosos."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_sustitucion_de_inversor_solar_averiado",
+      "mantenimiento_anual_instalacion_fotovoltaica",
+      "diagnostico_averia_instalacion_fotovoltaica_baja_produccion",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "ampliacion_de_instalacion_fotovoltaica_existente"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3971,
+      "tokens_out": 2373
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

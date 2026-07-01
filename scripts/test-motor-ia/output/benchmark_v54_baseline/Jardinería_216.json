@@ -1,0 +1,238 @@
+{
+  "id": 216,
+  "oficio": "Jardinería",
+  "texto": "Renovar jardín con macizos de plantas de temporada y arbustos perennes, zona de 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 24326,
+  "raw_response": {
+    "transcript": "Renovar jardín con macizos de plantas de temporada y arbustos perennes, zona de 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Renovar jardín con macizos de plantas de temporada y arbustos perennes, zona de 30 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye preparación de terreno, plantación y acolchado. Revisar especies concretas y disponibilidad de plantas en vivero.",
+          "Precio de plantas es estimado (0€) — el instalador debe cotizar con vivero según selección final."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Plantación de plantas de temporada y arbustos perennes, preparación de macizos, acolchado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y limpieza de zona de plantación",
+          "descripcion": "Retirada de malas hierbas, maleza y restos vegetales previos. Nivelación y acondicionamiento del terreno en 30 m².",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 3,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aporte de tierra vegetal y abono de fondo",
+          "descripcion": "Suministro e incorporación de tierra vegetal enriquecida con abono orgánico. Espesor aproximado 15-20 cm en 30 m².",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tierra vegetal y abono a cotizar con proveedor local. Estimado 25-40€/m³."
+        },
+        {
+          "concepto": "Plantación de arbustos perennes",
+          "descripcion": "Apertura de hoyos (doble tamaño del cepellón), plantación a nivel correcto, riego de asiento. Incluye tutores si es necesario. Cantidad estimada 8-12 unidades según espaciamiento.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 25,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de arbustos perennes",
+          "descripcion": "Plantas arbustivas perennes (ej: boj, durillo, fotinia, laurel, etc.). Tamaño 40-60 cm. Cantidad 10 unidades.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por unidad según especie y tamaño. Rango típico 15-60€/ud. A cotizar con vivero."
+        },
+        {
+          "concepto": "Plantación de plantas de temporada",
+          "descripcion": "Plantación de flores y plantas de temporada (primavera/verano o otoño/invierno). Apertura de hoyos, plantación a profundidad correcta, riego de asiento. Cantidad estimada 60-80 plantas.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 70,
+          "precio_unitario": 2,
+          "total": 140,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de plantas de temporada",
+          "descripcion": "Plantas de temporada variadas (pensamientos, petunias, begonias, caléndulas, etc.). Cantidad 70 unidades en maceta pequeña (10-12 cm).",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 70,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por unidad según variedad y época. Rango típico 0,80-2,50€/ud. A cotizar con vivero."
+        },
+        {
+          "concepto": "Acolchado (mulching) con corteza de pino",
+          "descripcion": "Colocación de geotextil anti-malas hierbas + corteza de pino decorativa. Espesor 5-8 cm en 30 m². Incluye retirada previa de malas hierbas.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 8,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de corteza de pino y geotextil",
+          "descripcion": "Geotextil anti-malas hierbas (80 g/m²) + corteza de pino decorativa. Volumen aproximado 4-5 m³ para espesor 5-8 cm en 30 m².",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 4.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de corteza de pino 15-30€/m³ + geotextil 0,50-1€/m². A cotizar con proveedor."
+        },
+        {
+          "concepto": "Riego de asiento y primeros riegos",
+          "descripcion": "Riego abundante tras plantación y mantenimiento de humedad durante 2-3 semanas. Incluye mano de obra de riego manual o con manguera.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 25,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Pala, azada, rastrillo, cinta de marcaje, tutores, ataderas, bolsas, etc.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 30-50€ en pequeño material consumible."
+        }
+      ],
+      "calculos": {
+        "subtotal": 820,
+        "iva_porcentaje": 21,
+        "iva": 172.2,
+        "total": 992.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente la selección de especies de arbustos perennes (boj, durillo, fotinia, laurel, etc.) y plantas de temporada (pensamientos, petunias, begonias, etc.).",
+        "Cotizar con vivero local el suministro de plantas — precios varían significativamente por especie, tamaño y disponibilidad estacional.",
+        "Considerar sistema de riego por goteo si el cliente desea automatizar el mantenimiento posterior (partida adicional de telecomunicaciones/instalación).",
+        "Época óptima: otoño (septiembre-noviembre) o primavera (marzo-mayo). Evitar plantación en verano o con heladas próximas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aporte de tierra vegetal y abono de fondo",
+          "oficio": "jardineria",
+          "motivo": "Material de aporte — precio a cotizar con proveedor."
+        },
+        {
+          "concepto": "Suministro de arbustos perennes",
+          "oficio": "jardineria",
+          "motivo": "Material vegetal — precio variable según especie y tamaño."
+        },
+        {
+          "concepto": "Suministro de plantas de temporada",
+          "oficio": "jardineria",
+          "motivo": "Material vegetal — precio variable según variedad y época."
+        },
+        {
+          "concepto": "Suministro de corteza de pino y geotextil",
+          "oficio": "jardineria",
+          "motivo": "Material de acolchado — precio a cotizar con proveedor."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "jardineria",
+          "motivo": "Consumibles — estimado 30-50€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "instalacion_cubierta_verde_o_ajardinada",
+      "acolchado_mulching_de_zonas_de_plantacion",
+      "pintura_de_escalera_comunitaria_completa",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3874,
+      "tokens_out": 3228
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

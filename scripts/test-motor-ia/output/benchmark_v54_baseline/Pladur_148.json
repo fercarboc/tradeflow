@@ -1,0 +1,188 @@
+{
+  "id": 148,
+  "oficio": "Pladur",
+  "texto": "Falso techo de pladur en toda la vivienda con aislamiento acústico de lana mineral, 80 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 18012,
+  "raw_response": {
+    "transcript": "Falso techo de pladur en toda la vivienda con aislamiento acústico de lana mineral, 80 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Falso techo de pladur en toda la vivienda con aislamiento acústico de lana mineral, 80 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de envergadura: 80 m² de falso techo acústico. Verificar accesibilidad y altura libre disponible.",
+          "Aislamiento acústico requiere desvinculación de estructura (muelles antivibratorios o perfiles acústicos obligatorios).",
+          "Presupuesto incluye materiales y mano de obra. Precios de materiales pendiente de revisión según proveedor."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Instalación de falso techo de pladur con aislamiento acústico. Oficio especializado en escayola y sistemas de cuelgue."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15 mm para falso techo acústico",
+          "descripcion": "Suministro e instalación de placa de yeso laminado de 15 mm de espesor para falso techo con propiedades acústicas mejoradas. Incluye tornillería y pequeño material.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según proveedor y marca de placa."
+        },
+        {
+          "concepto": "Lana mineral de alta densidad para aislamiento acústico",
+          "descripcion": "Suministro de lana mineral de alta densidad (40-50 kg/m³) para aislamiento acústico en falso techo. Espesor recomendado 50-100 mm según requisitos acústicos.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar. Varía según densidad y espesor elegido."
+        },
+        {
+          "concepto": "Estructura de cuelgue con muelles antivibratorios o perfil acústico",
+          "descripcion": "Suministro e instalación de estructura de cuelgue desvinculada con muelles antivibratorios o perfiles acústicos especiales para garantizar aislamiento acústico óptimo. Incluye varillas de cuelgue, perfiles omega y pequeño material.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura y muelles a confirmar. Elemento crítico para desempeño acústico."
+        },
+        {
+          "concepto": "Cinta perimetral de sellado y cinta de juntas",
+          "descripcion": "Suministro de cinta perimetral de sellado acústico en perímetro de falso techo y cinta de juntas para sellado de placas. Incluye pasta de juntas para acabado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales de sellado a confirmar."
+        },
+        {
+          "concepto": "Mano de obra: instalación de falso techo acústico con aislamiento",
+          "descripcion": "Mano de obra para instalación completa de falso techo de pladur con aislamiento acústico de lana mineral en 80 m². Incluye: montaje de estructura de cuelgue desvinculada, colocación de lana mineral, instalación de placas, sellado de juntas y acabado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 35,
+          "total": 2800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado perimetral con silicona hermetica",
+          "descripcion": "Sellado perimetral del falso techo con silicona hermetica de alta calidad para garantizar estanqueidad acústica en encuentros con paredes y elementos estructurales.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales a calcular según perímetro real de la vivienda. Precio a confirmar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2800,
+        "iva_porcentaje": 21,
+        "iva": 588,
+        "total": 3388
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: placa de yeso laminado 15 mm acústica (rango típico 8-15 €/m²)",
+        "Verificar en catálogo: lana mineral alta densidad 50-100 mm (rango típico 5-12 €/m²)",
+        "Verificar en catálogo: estructura cuelgue con muelles antivibratorios (rango típico 8-20 €/m²)",
+        "Verificar en catálogo: cinta perimetral acústica y cinta de juntas (rango típico 2-4 €/m²)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Placa de yeso laminado 15 mm para falso techo acústico",
+          "oficio": "pladur_escayola",
+          "unidad": "m2",
+          "motivo": "Material específico para aislamiento acústico en falso techo"
+        },
+        {
+          "concepto": "Lana mineral de alta densidad para aislamiento acústico",
+          "oficio": "pladur_escayola",
+          "unidad": "m2",
+          "motivo": "Material de aislamiento acústico obligatorio en este tipo de trabajo"
+        },
+        {
+          "concepto": "Estructura de cuelgue con muelles antivibratorios o perfil acústico",
+          "oficio": "pladur_escayola",
+          "unidad": "m2",
+          "motivo": "Sistema de desvinculación crítico para garantizar aislamiento acústico"
+        },
+        {
+          "concepto": "Cinta perimetral de sellado y cinta de juntas",
+          "oficio": "pladur_escayola",
+          "unidad": "m2",
+          "motivo": "Materiales de sellado y acabado obligatorios"
+        },
+        {
+          "concepto": "Sellado perimetral con silicona hermetica",
+          "oficio": "pladur_escayola",
+          "unidad": "ml",
+          "motivo": "Sellado acústico perimetral para optimizar aislamiento"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "trasdosado_pladur_para_proteccion_acustica_suelo_techo",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "falso_techo_pladur_con_lucernario_o_claraboya_artificial"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3691,
+      "tokens_out": 2712
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

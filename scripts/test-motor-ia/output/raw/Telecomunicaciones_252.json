@@ -1,0 +1,189 @@
+{
+  "id": 252,
+  "oficio": "Telecomunicaciones",
+  "texto": "Montar rack de telecomunicaciones con patch panel, switch y gestión de cables",
+  "http_status": 200,
+  "latency_ms": 16221,
+  "raw_response": {
+    "transcript": "Montar rack de telecomunicaciones con patch panel, switch y gestión de cables",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montar rack de telecomunicaciones con patch panel, switch y gestión de cables",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume rack estándar 19\" de pared o suelo. Confirmar dimensiones (U necesarias) y tipo de instalación.",
+          "Potencia del switch y necesidad de ventilación activa pendiente de especificar.",
+          "Cableado estructurado (Cat6/Cat6A) no incluido en esta partida; si es necesario, solicitar presupuesto adicional."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de infraestructura de red, rack, patch panel y switch de telecomunicaciones."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Rack 19\" de telecomunicaciones",
+          "descripcion": "Suministro e instalación de rack 19\" estándar (42U o según especificación), con fijación a pared o suelo, incluye herrajes y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del rack según modelo, profundidad y capacidad (U). Instalador debe especificar."
+        },
+        {
+          "concepto": "Patch panel 24 puertos Cat6",
+          "descripcion": "Suministro e instalación de patch panel 24 puertos Cat6, montaje en rack 19\", incluye pequeño material y conectores.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según número de puertos y categoría (Cat5e, Cat6, Cat6A). Confirmar especificación."
+        },
+        {
+          "concepto": "Switch gestionable de red",
+          "descripcion": "Suministro e instalación de switch gestionable (24 o 48 puertos según necesidad), montaje en rack 19\", incluye pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según número de puertos, velocidad (Gigabit, 10G) y funcionalidades (PoE, VLAN, etc.)."
+        },
+        {
+          "concepto": "Regleta PDU de alimentación",
+          "descripcion": "Suministro e instalación de regleta PDU (Power Distribution Unit) para rack, con protección de sobrecarga y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según número de tomas y características (monofásica, trifásica, con medición)."
+        },
+        {
+          "concepto": "Organizadores de cables horizontales y verticales",
+          "descripcion": "Suministro e instalación de organizadores de cables (bandejas, canaletas, velcro) para gestión ordenada de cableado en rack, incluye pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según cantidad y tipo de organizadores. Generalmente incluido en kits de gestión de cables."
+        },
+        {
+          "concepto": "Mano de obra: montaje e instalación del rack completo",
+          "descripcion": "Montaje del rack, instalación de patch panel, switch, PDU, organizadores de cables, conexionado inicial, pruebas de funcionamiento y documentación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Confirmar número de unidades U necesarias del rack (típicamente 42U para instalaciones medianas).",
+        "Especificar número de puertos del patch panel (24, 48 puertos) y categoría (Cat6, Cat6A).",
+        "Indicar número de puertos del switch (24, 48 puertos) y si requiere PoE (Power over Ethernet).",
+        "Considerar ventilación activa si los equipos generan calor significativo (> 500W).",
+        "Si se requiere cableado estructurado desde el rack a otros puntos, solicitar presupuesto adicional de telecomunicaciones."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Rack 19\" de telecomunicaciones",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Especificación de modelo y capacidad pendiente de confirmación por el instalador."
+        },
+        {
+          "concepto": "Patch panel 24 puertos Cat6",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Número de puertos y categoría a confirmar según proyecto."
+        },
+        {
+          "concepto": "Switch gestionable de red",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Especificaciones técnicas (puertos, velocidad, PoE) a definir."
+        },
+        {
+          "concepto": "Regleta PDU de alimentación",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Características técnicas a especificar según carga eléctrica."
+        },
+        {
+          "concepto": "Organizadores de cables horizontales y verticales",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad y tipo de organizadores a definir según volumen de cableado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_rack_o_armario_de_telecomunicaciones",
+      "desmontaje_tabique_pladur_existente",
+      "instalacion_sistema_climatizacion_para_server_room",
+      "instalacion_de_red_de_datos_en_hotel_u_hospitality",
+      "instalacion_circuito_exclusivo_cocina"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3923,
+      "tokens_out": 2089
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

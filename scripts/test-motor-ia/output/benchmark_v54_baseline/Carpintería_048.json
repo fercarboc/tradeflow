@@ -1,0 +1,153 @@
+{
+  "id": 48,
+  "oficio": "Carpintería",
+  "texto": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+  "http_status": 200,
+  "latency_ms": 12039,
+  "raw_response": {
+    "transcript": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar grosor de capa útil mínimo 3-4mm antes de lijar",
+          "Proteger y avisar a vecinos por polvo considerable durante lijado",
+          "Aclimatación de material no aplicable (restauración de existente)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Lijado y barnizado de parquet existente es trabajo de carpintería especializada en suelos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lijado progresivo de parquet existente",
+          "descripcion": "Lijado con lijadora de banda y lijadora de rincón con lija grano progresivo (40, 60, 80, 100, 120, 220). Tres pasadas de lijado. Masilla de madera para juntas y golpes tras primera pasada. Incluye pequeño material y protección de espacios adyacentes.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 18,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de lija grano progresivo y masilla de madera",
+          "descripcion": "Lija grano 40, 60, 80, 100, 120, 220 para tres pasadas de lijado. Masilla de madera para juntas y golpes. Pequeño material de consumo.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de consumo. Instalador debe revisar cantidad y precio según proveedor. Estimado: 3-5€/m2"
+        },
+        {
+          "concepto": "Barnizado con barniz al agua (2-3 manos)",
+          "descripcion": "Aplicación de barniz al agua poliuretano de dos a tres manos con lijado entre manos (grano 150-220). Incluye imprimación si es necesario. Rendimiento aproximado 12-15 m2/litro.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 16,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de barniz al agua y lija de acabado",
+          "descripcion": "Barniz al agua poliuretano de alta calidad (2-3 manos). Lija grano 150-220 para lijado entre manos. Cantidad estimada: 2-2,5 litros para 30 m2.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de barniz al agua variable según marca y calidad. Instalador debe revisar. Estimado: 15-25€/litro"
+        },
+        {
+          "concepto": "Limpieza y retirada de polvo de lijado",
+          "descripcion": "Limpieza exhaustiva de polvo de lijado con aspirador industrial y paños húmedos. Protección de muebles y espacios adyacentes durante todo el proceso.",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 20,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1080,
+        "iva_porcentaje": 21,
+        "iva": 226.8,
+        "total": 1306.8
+      },
+      "sugerencias_catalogo": [
+        "Si el parquet requiere cambio de color, añadir tinte de madera antes del barnizado (partida adicional)",
+        "Si se detecta barniz antiguo muy degradado, considerar decapante químico (partida adicional)",
+        "Para tráfico intenso, considerar tercera mano de barniz (partida adicional)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de lija grano progresivo y masilla de madera",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Suministro de barniz al agua y lija de acabado",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "lijado_y_barnizado_de_parquet_existente",
+      "barnizado_madera_interior_muebles_o_pavimento",
+      "lijado_y_barnizado_parquet_existente",
+      "pintado_de_puerta_de_entrada_o_exterior_madera",
+      "instalacion_tarima_flotante_o_parquet_click"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3795,
+      "tokens_out": 1620
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

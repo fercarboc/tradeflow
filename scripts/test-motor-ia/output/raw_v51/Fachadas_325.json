@@ -1,0 +1,296 @@
+{
+  "id": 325,
+  "oficio": "Fachadas",
+  "texto": "Instalar ventilación cruzada en fachada ventilada con paneles de composite de aluminio",
+  "http_status": 200,
+  "latency_ms": 31390,
+  "raw_response": {
+    "transcript": "Instalar ventilación cruzada en fachada ventilada con paneles de composite de aluminio",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar ventilación cruzada en fachada ventilada con paneles de composite de aluminio",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "ALERTA: 'Ventilación cruzada en fachada ventilada' requiere clarificación de alcance (¿solo cámara de aire? ¿entrada/salida de aire? ¿rejillas?).",
+          "Falta información crítica: altura total de fachada, superficie en m², número de plantas, orientación, zona climática, tipo de aislamiento existente.",
+          "Se asume instalación completa de fachada ventilada. Confirmar si es sustitución o reforma nueva."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Especialidad fachadas ventiladas. Combina elementos de albanilería, carpintería/cerrajería y pequeña instalación."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Trabajos de estructura soporte, anclajes y preparación de fachada."
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de ventilación y control de cámara de aire (ventilación cruzada)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Panel composite de aluminio para fachada ventilada",
+          "descripcion": "Suministro de paneles composite aluminio según medidas y diseño del proyecto. Incluye preparación de superficies y logística.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico. Instalador debe indicar m² totales y precio unitario según marca y especificación del composite (espesor, acabado, certificaciones)."
+        },
+        {
+          "concepto": "Estructura soporte de aluminio anodizado",
+          "descripcion": "Suministro e instalación de perfiles aluminio anodizado (UPN, pletinas) para estructura soporte de paneles. Incluye cortes, taladros y preparación.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Peso de estructura depende de m² de fachada y separación entre soportes. Instalador indica kg totales y precio según mercado aluminio."
+        },
+        {
+          "concepto": "Anclajes mecánicos calculados a tracción y corte",
+          "descripcion": "Suministro e instalación de anclajes, ménsulas y piezas de fijación. Incluye cálculo según normativa de viento y carga. Certificación ETA o equivalente.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de anclajes depende de geometría de fachada y cargas. Instalador indica cantidad y especificación (diámetro, tipo de anclaje químico o mecánico)."
+        },
+        {
+          "concepto": "Cámara de ventilación (espacio de aire mínimo 2 cm)",
+          "descripcion": "Preparación y ejecución de cámara de ventilación cruzada entre paneles y estructura existente. Incluye separadores, rodillos y pequeño material.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio en €/m2 para creación de cámara. Instalador indica m² totales. Tarifa estimada 40-50 €/m2 según complejidad."
+        },
+        {
+          "concepto": "Rejillas de ventilación entrada de aire (baja)",
+          "descripcion": "Suministro e instalación de rejillas de entrada de aire en zona baja de fachada para ventilación cruzada. Incluye fijación y sellado.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de rejillas y tipo dependen de caudal necesario y altura de fachada. Instalador indica cantidad y modelo (acero inoxidable, aluminio anodizado, malla de protección)."
+        },
+        {
+          "concepto": "Rejillas de ventilación salida de aire (alta)",
+          "descripcion": "Suministro e instalación de rejillas de salida de aire en zona alta de fachada para ventilación cruzada. Incluye fijación y sellado.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de rejillas y tipo dependen de caudal necesario y altura de fachada. Instalador indica cantidad y modelo (acero inoxidable, aluminio anodizado con protección de intemperie)."
+        },
+        {
+          "concepto": "Instalación de rejillas de ventilación",
+          "descripcion": "Mano de obra para fijación, sellado y prueba de funcionamiento de rejillas de entrada y salida de aire. Incluye pequeño material y cierres.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 60,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa climatización. Instalador indica horas estimadas (tipicamente 1-2 horas por rejilla)."
+        },
+        {
+          "concepto": "Sellado de juntas entre paneles",
+          "descripcion": "Suministro e instalación de sellado de juntas abiertas entre paneles composite. Incluye masilla elástica, cinta de fondo y herramientas.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total de juntas depende de disposición de paneles. Instalador indica ml y especifica producto (poliuretano, silicona, acrílico)."
+        },
+        {
+          "concepto": "Mano de obra instalación paneles composite",
+          "descripcion": "Instalación de paneles composite sobre estructura soporte. Incluye nivelación, fijación, alineación y control de calidad.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 35-50 €/m2 según complejidad de fachada. Instalador indica m² totales y revisa tarifa."
+        },
+        {
+          "concepto": "Mano de obra instalación estructura soporte",
+          "descripcion": "Instalación de estructura soporte de aluminio. Incluye anclaje a fachada existente, nivelación, soldaduras y cierres.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 38,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 35-45 €/m2. Instalador indica m² totales."
+        },
+        {
+          "concepto": "Aislante térmico en trasdos (si aplica)",
+          "descripcion": "Suministro e instalación de aislante térmico (lana de roca, poliestireno extruido) en zona de trasdos entre fachada existente y estructura soporte.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y espesor opcional. Si se incluye, instalador indica m² y especificación (densidad, conductividad térmica, resistencia al fuego)."
+        },
+        {
+          "concepto": "Andamios o plataformas de trabajo",
+          "descripcion": "Alquiler, montaje y desmontaje de andamios o plataformas de trabajo según altura y extensión de fachada. Incluye certificado de montaje.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste depende de altura de fachada, duración del proyecto y empresa de andamios. Instalador obtiene presupuesto y lo revisa."
+        },
+        {
+          "concepto": "Proyecto técnico de fachada (si altura > planta baja)",
+          "descripcion": "Redacción de proyecto técnico de fachada ventilada con cálculo de anclajes, cargas de viento, ventilación y detalles constructivos. Incluye memorias y planos.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio si altura > planta baja. Instalador indica si es necesario y obtiene presupuesto de ingeniero técnico (tipicamente 1500-5000 € según complejidad)."
+        },
+        {
+          "concepto": "Pequeño material (tornillos, taquetes, bridas, etc.)",
+          "descripcion": "Suministro de pequeño material necesario para instalación: tornillos inoxidables, taquetes químicos, bridas, cinta, sellador, etc.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad global de pequeño material. Instalador estima como % del presupuesto de materiales principales (tipicamente 5-10%)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Partida encontrada en catálogo: 'instalacion_fachada_ventilada_con_composite_o_panel_metalico' (fachadas, 15-75 €/m2). Valida las partidas obligatorias generadas.",
+        "Partida encontrada en catálogo: 'forrado_exterior_fachada_ventilada' (albanileria, 22-110 €/m2). Referencia para estructura soporte y aislante."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Ventilación cruzada en fachada ventilada",
+          "oficio": "climatizacion",
+          "descripcion": "Sistema de rejillas de entrada (baja) y salida (alta) para fomentar movimiento de aire natural en cámara de ventilación.",
+          "motivo": "Especificidad técnica del cliente: 'ventilación cruzada' es mejora de eficiencia en fachada ventilada. Generadas 4 partidas: cámara de aire, 2 rejillas (entrada/salida) e instalación."
+        },
+        {
+          "nombre": "Paneles composite de aluminio",
+          "oficio": "fachadas",
+          "descripcion": "Material de revestimiento de fachada ventilada. Composite aluminio ofrece durabilidad, aislamiento y estética.",
+          "motivo": "Cliente especifica 'paneles de composite de aluminio'. Material validado en base maestra para fachadas ventiladas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_fachada_ventilada_con_composite_o_panel_metalico",
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 14,
+    "n_catalogo": 1,
+    "n_sugeridas": 13,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

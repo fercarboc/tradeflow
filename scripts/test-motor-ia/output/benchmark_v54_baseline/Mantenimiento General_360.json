@@ -1,0 +1,215 @@
+{
+  "id": 360,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar sistema de riego automático de jardines comunitarios, válvulas y programador averiados",
+  "http_status": 200,
+  "latency_ms": 15567,
+  "raw_response": {
+    "transcript": "Reparar sistema de riego automático de jardines comunitarios, válvulas y programador averiados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar sistema de riego automático de jardines comunitarios, válvulas y programador averiados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto de reparación: requiere diagnóstico previo en sitio para confirmar alcance exacto de averías",
+          "Precio de materiales (válvulas/programador) pendiente de revisión según marcas y modelos específicos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Reparación y mantenimiento de sistema de riego automático en jardines"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y localización de averías en sistema de riego",
+          "descripcion": "Inspección completa del sistema: revisión programador, válvulas electroválvulas, tuberías, goteros y conexiones. Identificación de causas de avería.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje y retirada de programador averiado",
+          "descripcion": "Desconexión eléctrica segura, desmontaje de programador defectuoso del cuadro de control.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 25,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de programador de riego nuevo",
+          "descripcion": "Programador de riego automático de reemplazo (marca y modelo a confirmar por instalador). Instalación, conexión eléctrica y configuración inicial.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del programador pendiente de especificación de marca/modelo. Rango estimado: 80-250€"
+        },
+        {
+          "concepto": "Instalación programador de riego",
+          "descripcion": "Montaje en cuadro de control, conexiones eléctricas, pruebas de funcionamiento.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 25,
+          "total": 37.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje y retirada de válvulas electroválvulas averiadas",
+          "descripcion": "Desconexión hidráulica y eléctrica de válvulas defectuosas. Vaciado de tuberías si es necesario.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 25,
+          "total": 37.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de válvulas electroválvulas de reemplazo",
+          "descripcion": "Válvulas electroválvulas de riego automático de reemplazo (cantidad y especificaciones a confirmar). Incluye conexiones hidráulicas y eléctricas, pruebas de estanqueidad y funcionamiento.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de válvulas y precio unitario pendiente de confirmación en sitio. Rango estimado: 40-120€/válvula"
+        },
+        {
+          "concepto": "Instalación válvulas electroválvulas",
+          "descripcion": "Montaje de válvulas en arqueta o cuadro de control, conexiones hidráulicas con teflón y abrazaderas, conexiones eléctricas a programador, pruebas de funcionamiento.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y pruebas funcionales del sistema completo",
+          "descripcion": "Prueba de riego en todas las zonas, verificación de presiones, caudales y tiempos de funcionamiento. Ajuste de programación según necesidades del jardín comunitario.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 25,
+          "total": 37.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Teflón, abrazaderas, conectores, tuercas, arandelas, EPI, desplazamientos menores.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado: 15-30€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 237.5,
+        "iva_porcentaje": 21,
+        "iva": 49.88,
+        "total": 287.38
+      },
+      "sugerencias_catalogo": [
+        "Confirmar en sitio: número exacto de válvulas averiadas y marcas/modelos compatibles",
+        "Especificar marca y modelo del programador de reemplazo (rango: 80-250€)",
+        "Verificar si hay filtros obstruidos que requieran limpieza o sustitución",
+        "Considerar cambio de batería del programador si tiene más de 1 año (mantenimiento preventivo)",
+        "Revisar estado de aspersores y goteros durante las pruebas finales"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro programador de riego",
+          "oficio": "jardineria",
+          "motivo": "Material de reemplazo, precio pendiente de especificación"
+        },
+        {
+          "concepto": "Suministro válvulas electroválvulas",
+          "oficio": "jardineria",
+          "motivo": "Material de reemplazo, cantidad y precio pendiente de confirmación en sitio"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "jardineria",
+          "motivo": "Accesorios de conexión, precio estimado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_y_reparacion_de_sistema_de_riego",
+      "instalacion_riego_automatico",
+      "instalacion_de_sistema_de_riego_automatico_para_zona_interior",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "instalacion_sistema_de_riego_por_goteo"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3705,
+      "tokens_out": 2334
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 6,
+    "n_sugeridas": 3,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "NO"
+  }
+}

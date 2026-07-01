@@ -1,0 +1,159 @@
+{
+  "id": 138,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Cambio de canalón redondo de uralita por canalón cuadrado de PVC de 125mm",
+  "http_status": 200,
+  "latency_ms": 15389,
+  "raw_response": {
+    "transcript": "Cambio de canalón redondo de uralita por canalón cuadrado de PVC de 125mm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de canalón redondo de uralita por canalón cuadrado de PVC de 125mm",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material antiguo (uralita/amianto): requiere gestión de residuos especiales según normativa",
+          "Verificar estado de ganchos/soportes existentes: posible reutilización o sustitución"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de elementos de cubierta/canalones, trabajos en altura con herramientas manuales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje canalón redondo uralita",
+          "descripcion": "Desmontaje completo del canalón redondo de uralita existente, incluyendo ganchos y pequeña ferretería",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro canalón cuadrado PVC 125mm",
+          "descripcion": "Canalón cuadrado de PVC 125mm, longitud según metros lineales de cubierta",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "El instalador debe especificar metros lineales exactos y precio del proveedor"
+        },
+        {
+          "concepto": "Suministro ganchos/soportes canalón PVC 125mm",
+          "descripcion": "Ganchos de fijación para canalón cuadrado PVC 125mm (verificar reutilización de existentes o sustitución)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de soportes según ml de canalón (típicamente cada 60-80cm); precio unitario pendiente"
+        },
+        {
+          "concepto": "Suministro empalmes y accesorios canalón PVC",
+          "descripcion": "Empalmes, codos, derivaciones y pequeña ferretería para canalón cuadrado PVC 125mm",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de accesorios según geometría de la cubierta; precio pendiente"
+        },
+        {
+          "concepto": "Instalación canalón cuadrado PVC 125mm",
+          "descripcion": "Instalación completa del canalón cuadrado PVC 125mm, fijación de ganchos, conexión de accesorios y prueba de evacuación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos material amianto (uralita)",
+          "descripcion": "Recogida, embalaje seguro y transporte a gestor autorizado de material con amianto según normativa vigente",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIO por normativa de amianto; precio varía según cantidad y gestor autorizado de la zona"
+        }
+      ],
+      "calculos": {
+        "subtotal": 157.5,
+        "iva_porcentaje": 21,
+        "iva": 33.08,
+        "total": 190.58
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada en catálogo: 'Instalación canalón PVC cuadrado' (oficio: carpinteria, unidad: ml, rango: 8-25€/ml según accesorios)",
+        "Crear entrada: 'Gestión residuos amianto' (oficio: carpinteria, unidad: ud, rango: 80-250€ según volumen)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro canalón cuadrado PVC 125mm",
+          "oficio": "carpinteria",
+          "motivo": "Material específico no encontrado en catálogo; requiere medición previa (ml)"
+        },
+        {
+          "concepto": "Gestión de residuos material amianto",
+          "oficio": "carpinteria",
+          "motivo": "Servicio especial de tratamiento de residuos peligrosos; obligatorio por normativa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "sustitucion_termo_electrico",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_radiador",
+      "instalacion_iluminacion_led_completa",
+      "cambio_inodoro"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "id": 366,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+  "http_status": 200,
+  "latency_ms": 31941,
+  "raw_response": {
+    "transcript": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: 3+ oficios simultáneos (carpintería, pladur, cristalería, posible electricidad/fontanería)",
+          "Alcance: ático dúplex 100m² con escalera interior y terraza acristalada = REFORMA MEDIANA",
+          "Se generan 12 partidas técnicas individuales (máximo permitido para reforma mediana)",
+          "Escalera interior y terraza acristalada requieren revisión de diseño y normativa CTE",
+          "Presupuesto orientativo: requiere desglose detallado de acabados y materiales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma mediana de ático dúplex con múltiples oficios: carpintería (escalera), pladur (tabiquería), cristalería (terraza acristalada), posible electricidad y fontanería"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Escalera interior de madera, puertas, marcos, acabados de carpintería"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Tabiquería, trasdosados, falsos techos en ático dúplex"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Terraza acristalada: cerramientos, ventanas, puertas de cristal"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pavimentos y alicatados en baños, cocina, zonas húmedas"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura de paredes, techos y acabados interiores"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y preparación de espacios",
+          "descripcion": "Desmontaje de tabiquería existente, retirada de escombros y preparación de superficies para reforma en ático dúplex de 100m²",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 8,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Escalera interior de madera",
+          "descripcion": "Escalera de madera interior con peldaños, tabicas, zancas, barandilla según normativa CTE (huella mín. 28cm, contrahuella máx. 18cm), acabado barniz/aceite, herrajes de fijación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 2500,
+          "total": 2500,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado según rango 600-6000€. Requiere confirmación de número de peldaños, especie de madera, tipo de barandilla y acabado final"
+        },
+        {
+          "concepto": "Suministro e instalación de barandilla escalera interior",
+          "descripcion": "Barandilla de madera o metal para escalera interior, pasamanos, balaustres, anclajes y herrajes según CTE (altura mín. 90cm)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material barandilla: precio pendiente de especificación (madera, acero, aluminio) y longitud total"
+        },
+        {
+          "concepto": "Tabiquería y trasdosados con pladur",
+          "descripcion": "Instalación de tabiques de pladur, trasdosados en fachadas, falsos techos en ático dúplex. Perfiles metálicos, placas de yeso 15mm, cinta y pasta de juntas, ángulos metálicos",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 18,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de materiales pladur y accesorios",
+          "descripcion": "Placas de yeso laminado 15mm, perfiles metálicos (canales y montantes), cinta de juntas, pasta de juntas, ángulos metálicos, tornillería, pequeño material",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales pladur: precio estimado 8-15€/m² según especificación (espesor, tipo de placa, accesorios)"
+        },
+        {
+          "concepto": "Terraza acristalada: cerramientos y ventanas",
+          "descripcion": "Instalación de cerramientos acristalados en terraza: marcos de aluminio o PVC, vidrio templado o doble acristalamiento, puertas correderas o abatibles, sellado hermético, herrajes",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 35,
+          "total": 875,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de vidrio y marcos para terraza acristalada",
+          "descripcion": "Vidrio templado o doble acristalamiento, marcos de aluminio o PVC, puertas correderas/abatibles, herrajes de calidad, selladores y adhesivos",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales cristalería: precio estimado 150-400€/m² según tipo de vidrio (templado, doble acristalamiento) y marco (aluminio, PVC)"
+        },
+        {
+          "concepto": "Pavimentos y alicatados",
+          "descripcion": "Colocación de baldosas, porcelánico o gres en baños, cocina y zonas húmedas. Preparación de base, mortero, lechada, juntas, remates",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 32,
+          "total": 1120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de baldosas y materiales alicatado",
+          "descripcion": "Baldosas, porcelánico, gres, mortero, lechada, adhesivo, perfiles de remate, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales alicatado: precio estimado 15-50€/m² según calidad y tipo de baldosa"
+        },
+        {
+          "concepto": "Pintura de interiores",
+          "descripcion": "Pintura de paredes, techos y acabados interiores en ático dúplex. Preparación de superficies, imprimación, pintura plástica o acrílica, acabado mate o satinado",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 6,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de pintura y materiales",
+          "descripcion": "Pintura plástica o acrílica, imprimación, masilla, lija, cintas de protección, pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales pintura: precio estimado 2-5€/m² según calidad y tipo de pintura"
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza final",
+          "descripcion": "Retirada de escombros, gestión de residuos de construcción, limpieza final de obra en ático dúplex",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 800,
+          "total": 800,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de gestión de residuos: precio estimado 600-1200€ según volumen de escombros y distancia a vertedero"
+        }
+      ],
+      "calculos": {
+        "subtotal": 9035,
+        "iva_porcentaje": 21,
+        "iva": 1897.35,
+        "total": 10932.35
+      },
+      "sugerencias_catalogo": [
+        "Confirmar especificación de escalera interior: número de peldaños, especie de madera (roble, haya, pino), tipo de barandilla (madera, acero, aluminio), acabado (barniz, aceite, pintura)",
+        "Definir características de terraza acristalada: superficie exacta, tipo de vidrio (templado, doble acristalamiento, control solar), marco (aluminio, PVC), sistema de apertura (corredera, abatible, plegable)",
+        "Especificar pavimentos: tipo de baldosa (porcelánico, gres, cerámica), formato, acabado (mate, satinado, pulido), zonas de aplicación (baños, cocina, salón)",
+        "Detallar tabiquería: número de tabiques, altura, tipo de aislamiento acústico/térmico, acabado (pintura, papel pintado)",
+        "Revisar normativa CTE: escalera (dimensiones peldaño, barandilla), terraza acristalada (seguridad, estanqueidad), accesibilidad si aplica",
+        "Considerar instalaciones: electricidad (puntos de luz, enchufes, climatización), fontanería (baños, cocina) — no incluidas en este presupuesto"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Escalera interior de madera",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida específica de escalera interior con precio alzado según rango 600-6000€. Requiere desglose de materiales y especificación de diseño"
+        },
+        {
+          "concepto": "Terraza acristalada: cerramientos y ventanas",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de cristalería para terraza acristalada. Precio de materiales pendiente de especificación (tipo de vidrio, marco, sistema de apertura)"
+        },
+        {
+          "concepto": "Suministro de materiales pladur y accesorios",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales de pladur: precio estimado 8-15€/m² según especificación"
+        },
+        {
+          "concepto": "Suministro de baldosas y materiales alicatado",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales alicatado: precio estimado 15-50€/m² según calidad"
+        },
+        {
+          "concepto": "Suministro de pintura y materiales",
+          "oficio": "pintura",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales pintura: precio estimado 2-5€/m² según tipo"
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza final",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de gestión de residuos: precio estimado 600-1200€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "estructura_pladur_para_escalera_interior_nueva",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "correccion_de_puentes_termicos_en_cubierta",
+      "instalacion_escalera_de_madera_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3977,
+      "tokens_out": 4829
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 5,
+    "n_sugeridas": 7,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

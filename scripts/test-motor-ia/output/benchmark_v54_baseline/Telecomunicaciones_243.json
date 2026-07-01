@@ -1,0 +1,174 @@
+{
+  "id": 243,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar punto de acceso WiFi adicional en zona muerta de empresa, cobertura de 200 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 19183,
+  "raw_response": {
+    "transcript": "Instalar punto de acceso WiFi adicional en zona muerta de empresa, cobertura de 200 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar punto de acceso WiFi adicional en zona muerta de empresa, cobertura de 200 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Zona de 200 m² requiere análisis previo de radiofrecuencia para ubicación óptima del AP",
+          "Se recomienda verificar si existe controladora WiFi centralizada o si se configura en modo standalone"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de infraestructura de red inalámbrica profesional (WiFi AP)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Access Point profesional WiFi 6 o WiFi 6E",
+          "descripcion": "Suministro de access point profesional estándar WiFi 6/6E con PoE, cobertura 150-200 m² en interior, incluye antenas omnidireccionales",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del AP depende de marca y modelo (rango típico 150-350€). Instalador debe confirmar especificación técnica y presupuesto"
+        },
+        {
+          "concepto": "Alimentación PoE (inyector o switch PoE)",
+          "descripcion": "Suministro de inyector PoE de 30W o integración en switch PoE existente para alimentar el AP sin toma eléctrica separada",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de si existe infraestructura PoE (rango 40-120€ si se requiere inyector nuevo)"
+        },
+        {
+          "concepto": "Cable Cat6 desde switch/inyector PoE hasta ubicación AP",
+          "descripcion": "Suministro e instalación de cable de datos Cat6 UTP o FTP, longitud según distancia desde cuarto técnico/switch hasta zona muerta, incluye canalización y pequeño material",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros a definir según plano de empresa. Precio típico 0,8-1,5€/ml material + instalación"
+        },
+        {
+          "concepto": "Montaje del AP en techo o pared",
+          "descripcion": "Instalación física del access point en ubicación óptima (techo central o pared elevada), incluye anclajes, tacos y pequeño material",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración SSID, seguridad WPA3 e integración con red existente",
+          "descripcion": "Configuración del AP: SSID, contraseña WPA3, canal óptimo, potencia de transmisión, integración con controladora WiFi si existe, pruebas de cobertura y velocidad en zona muerta",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de radiofrecuencia previo para ubicación óptima",
+          "descripcion": "Estudio de cobertura WiFi actual, identificación de zona muerta, medición de señal con analizador RF, recomendación de ubicación óptima del AP para máxima cobertura y mínima interferencia",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 175,
+        "iva_porcentaje": 21,
+        "iva": 36.75,
+        "total": 211.75
+      },
+      "sugerencias_catalogo": [
+        "Si la empresa tiene múltiples APs, considerar controladora WiFi centralizada (Ubiquiti UniFi, Cisco Meraki, etc.) para gestión unificada de SSID, canales y roaming transparente",
+        "Verificar si existe backbone cableado (fibra o Cat6) entre APs para mejor rendimiento que backhaul inalámbrico",
+        "Configurar mismo SSID en todos los APs con canales distintos (1, 6, 11 en 2.4GHz) para roaming automático sin desconexiones"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Access Point profesional WiFi 6 o WiFi 6E",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de marca/modelo. Rango estimado 150-350€"
+        },
+        {
+          "concepto": "Alimentación PoE (inyector o switch PoE)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Accesorio cuyo precio depende de infraestructura existente. Rango estimado 40-120€"
+        },
+        {
+          "concepto": "Cable Cat6 desde switch/inyector PoE hasta ubicación AP",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material cuya cantidad y precio dependen de distancia. Rango estimado 0,8-1,5€/ml + instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_punto_de_acceso_wifi_o_AP_profesional",
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "instalacion_electrica_pergola_terraza",
+      "instalacion_domotica_basica_wifi",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3727,
+      "tokens_out": 2378
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "id": 83,
+  "oficio": "Albañilería",
+  "texto": "Reparar grieta grande en pared de fachada exterior, inyección de resina y rejuntado",
+  "http_status": 200,
+  "latency_ms": 16024,
+  "raw_response": {
+    "transcript": "Reparar grieta grande en pared de fachada exterior, inyección de resina y rejuntado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar grieta grande en pared de fachada exterior, inyección de resina y rejuntado",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Grieta en fachada exterior: requiere diagnóstico de tipo (activa/pasiva) antes de reparar",
+          "Inyección de resina epoxi: trabajo especializado, requiere revisión de precio",
+          "Material impermeabilizante: precio pendiente de confirmación del instalador",
+          "Andamio/plataforma: coste no incluido, evaluar accesibilidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de grieta en fachada exterior con inyección de resina y rejuntado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y saneo de grieta en fachada",
+          "descripcion": "Inspección de grieta (activa/pasiva), saneo en V, limpieza y preparación de superficie para inyección",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador según complejidad y accesibilidad"
+        },
+        {
+          "concepto": "Inyección de resina epoxi en grieta",
+          "descripcion": "Inyección de resina epoxi de alta resistencia en grieta de fachada, incluye sistema de inyectores y sellado",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado: precio y cantidad (litros) a confirmar por instalador"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio y mortero de rejuntado",
+          "descripcion": "Colocación de malla de fibra de vidrio en grieta >3mm y rejuntado con mortero flexible exterior compatible con fachada",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de malla (ml) y mortero (kg) a definir según longitud y profundidad de grieta"
+        },
+        {
+          "concepto": "Imprimación y acabado impermeabilizante",
+          "descripcion": "Imprimación de zona reparada e impermeabilizante final para protección de fachada exterior",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (litros) y tipo de impermeabilizante a confirmar"
+        },
+        {
+          "concepto": "Mano de obra: inyección, rejuntado y acabado",
+          "descripcion": "Ejecución de inyección de resina, rejuntado con mortero, aplicación de imprimación e impermeabilizante",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de trabajo a estimar según longitud y profundidad de grieta (típicamente 4-8 horas)"
+        },
+        {
+          "concepto": "Testigos de seguimiento (si grieta activa)",
+          "descripcion": "Colocación de testigos de yeso para monitorizar movimiento de grieta activa",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional: solo si diagnóstico confirma grieta activa. Cantidad a definir"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [reparacion_de_fisuras_y_grietas_en_fachada] - partidas_obligatorias incluyen saneo, mortero, malla, imprimación, andamio y testigos",
+        "Rango de referencia: 20-95€/ml según complejidad",
+        "Inyección de resina epoxi es partida auxiliar especializada: requiere presupuesto específico del proveedor"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inyección de resina epoxi en grieta",
+          "oficio": "fachadas",
+          "motivo": "Trabajo especializado de consolidación estructural, no está en catálogo estándar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reconstruccion_de_muro_con_lesiones_estructurales",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "reparacion_de_fisuras_y_grietas_en_fachada"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3731,
+      "tokens_out": 2153
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "id": 34,
+  "oficio": "Electricidad",
+  "texto": "Instalación de línea independiente para aire acondicionado de 5000 frigorías en el salón",
+  "http_status": 200,
+  "latency_ms": 22327,
+  "raw_response": {
+    "transcript": "Instalación de línea independiente para aire acondicionado de 5000 frigorías en el salón",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de línea independiente para aire acondicionado de 5000 frigorías en el salón",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Potencia 5000 frigorías ≈ 1.46 kW (equipo pequeño, sin proyecto técnico obligatorio RITE)",
+          "Se asume instalación de 1 unidad split interior + línea frigorífica + cableado eléctrico",
+          "Requiere revisión de: longitud real de tubería, diámetro conductos, punto de ubicación unidad exterior, acceso para instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de climatización (split aire acondicionado)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Circuito eléctrico independiente para aire acondicionado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Unidad interior split aire acondicionado 5000 frigorías",
+          "descripcion": "Suministro de unidad interior split de 5000 frigorías (1.46 kW) con filtros, mando a distancia y accesorios de montaje",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de equipo split 5000 frigorías a definir por instalador (rango típico 250-450€)"
+        },
+        {
+          "concepto": "Unidad exterior aire acondicionado 5000 frigorías",
+          "descripcion": "Suministro de unidad exterior (condensadora) 5000 frigorías con compresor, ventilador y accesorios",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de unidad exterior a definir por instalador (rango típico 300-500€)"
+        },
+        {
+          "concepto": "Tubería frigorífica cobre (ida y retorno) + aislamiento",
+          "descripcion": "Suministro de tubería de cobre para circuito frigorífico (diámetros según proyecto), aislamiento espuma elastómera, accesorios de conexión y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de tubería a definir (típico 5-15 ml). Precio estimado 15-25€/ml"
+        },
+        {
+          "concepto": "Instalación unidades interior y exterior + conexión frigorífica",
+          "descripcion": "Montaje de unidad interior en pared, unidad exterior en fachada/terraza, conexión de tubería frigorífica, carga de gas refrigerante R32 o similar, pruebas de estanqueidad y funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuito eléctrico independiente para aire acondicionado",
+          "descripcion": "Instalación de línea eléctrica independiente desde cuadro general: cable 2x2.5 mm² (monofásico) o 3x2.5 mm² (trifásico según potencia), protecciones (magnetotérmico 16A + diferencial 30mA), toma de corriente estanca IP54 para unidad exterior, conexionado y pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales eléctricos (cable, protecciones, toma): rango 80-150€. Longitud de tendido a confirmar"
+        },
+        {
+          "concepto": "Instalación circuito eléctrico independiente",
+          "descripcion": "Tendido de cable desde cuadro general, instalación de protecciones, toma de corriente estanca, conexionado de unidad exterior, pruebas de aislamiento y funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tubo de desagüe condensación + sifón",
+          "descripcion": "Suministro e instalación de tubo PVC Ø20 mm para evacuación de condensación desde unidad interior hasta desagüe, sifón y accesorios",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tubo desagüe + sifón: rango 20-40€"
+        },
+        {
+          "concepto": "Gas refrigerante R32 (carga inicial)",
+          "descripcion": "Suministro e inyección de gas refrigerante R32 según especificaciones del fabricante (típico 0.6-0.8 kg para 5000 frigorías)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de gas a confirmar (rango 30-50€/kg)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 510,
+        "iva_porcentaje": 21,
+        "iva": 107.1,
+        "total": 617.1
+      },
+      "sugerencias_catalogo": [
+        "Confirmar longitud exacta de tubería frigorífica (distancia entre unidad interior y exterior)",
+        "Verificar ubicación de unidad exterior (fachada, terraza, patio) para acceso y anclaje",
+        "Definir si existe desagüe próximo para tubo condensación o si requiere bomba de condensación",
+        "Revisar capacidad del cuadro eléctrico para circuito independiente (espacio para protecciones)",
+        "Considerar si se requiere desmontaje de equipo anterior (si hay sustitución)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Unidad interior split aire acondicionado 5000 frigorías",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de equipo climatización, precio a definir por instalador"
+        },
+        {
+          "concepto": "Unidad exterior aire acondicionado 5000 frigorías",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de equipo climatización, precio a definir por instalador"
+        },
+        {
+          "concepto": "Tubería frigorífica cobre + aislamiento",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material de instalación, longitud y precio a confirmar"
+        },
+        {
+          "concepto": "Circuito eléctrico independiente (materiales)",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Cable, protecciones y accesorios eléctricos, precio a definir"
+        },
+        {
+          "concepto": "Tubo desagüe condensación + sifón",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material auxiliar, precio a confirmar"
+        },
+        {
+          "concepto": "Gas refrigerante R32",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible, cantidad y precio a definir según especificaciones equipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "instalacion_de_rejillas_de_ventilacion_de_camara_de_fachada",
+      "instalacion_sistema_de_climatizacion_en_local_comercial",
+      "tabique_pladur_para_sepultar_conductos_climatizacion",
+      "instalacion_vrv_o_vrf_sistema_multiple"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3772,
+      "tokens_out": 3162
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

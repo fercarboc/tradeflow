@@ -1,0 +1,146 @@
+{
+  "id": 277,
+  "oficio": "Cristalería",
+  "texto": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+  "http_status": 200,
+  "latency_ms": 22246,
+  "raw_response": {
+    "transcript": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio lacado requiere especificación de medidas exactas (alto × ancho) para cálculo de cantidad",
+          "Confirmación de espesor recomendado: 6mm templado estándar o superior según normativa cocina",
+          "Verificar si incluye biselado o cantos pulidos (afecta precio final)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de vidrio templado lacado, requiere especialización en corte, templado y fijación con herrajes o silicona"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado lacado blanco para salpicadero cocina",
+          "descripcion": "Suministro e instalación de panel de vidrio templado lacado en blanco, 6mm espesor, con tratamiento de seguridad (EN 12150), acabado lacado en fábrica. Incluye marcado CE.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado lacado depende de dimensiones exactas y acabados. Rango referencia: 120-280€/m2 según espesor y lacado."
+        },
+        {
+          "concepto": "Mano de obra: medición, marcado y fijación del panel de vidrio",
+          "descripcion": "Medición exacta del área detrás de fuegos, marcado de puntos de anclaje, preparación de superficie, fijación mediante herrajes de acero inoxidable o silicona estructural neutra, sellado perimetral, pruebas de estabilidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Herrajes de fijación (escuadras acero inoxidable) para panel de vidrio",
+          "descripcion": "Suministro de herrajes de acero inoxidable AISI 304, escuadras o soportes para fijación a pared detrás de fuegos, incluyendo tornillos y tacos de anclaje.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio aproximado: 8-18€/unidad según modelo y material. Total material: 32-72€"
+        },
+        {
+          "concepto": "Silicona estructural neutra de alta temperatura para sellado",
+          "descripcion": "Silicona neutra de alta temperatura (resistencia 100°C+), especial para áreas de cocina con fuegos, cartucho 310ml, incluye aplicación perimetral del panel.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio aproximado: 12-20€/cartucho. Cantidad: 1-2 cartuchos según perímetro."
+        },
+        {
+          "concepto": "Pequeño material: masilla, limpieza y acabados",
+          "descripcion": "Masilla de retoques, desengrasante, trapos, papel de lija fina para acabado profesional de juntas y remates.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto auxiliar: 8-15€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medidas exactas (alto × ancho en cm) para cálculo de cantidad en m2",
+        "Confirmar espesor de vidrio templado: 6mm (estándar) o 8mm (si zona de paso o riesgo elevado)",
+        "Especificar tipo de fijación: herrajes aparentes vs. silicona oculta (afecta precio y estética)",
+        "Verificar si el vidrio requiere biselado en cantos (acabado premium +20-40€/m2)",
+        "Plazo de fabricación del vidrio templado lacado: 5-10 días (no es stock)",
+        "Sugerir protección anti-salpicaduras adicional: barniz de seguridad si es zona con mucho calor directo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Vidrio templado lacado blanco para salpicadero",
+          "oficio": "cristaleria",
+          "razon": "Variante específica de vidrio templado lacado para cocina. Base Maestra incluye 'instalacion_vidrio_seguridad_templado' pero no especifica lacado. Rango precio: 120-280€/m2",
+          "accion_sugerida": "Crear partida en catálogo de cristalería: 'vidrio_templado_lacado_salpicadero_cocina' con unidad=m2, precio_rango=120-280, obligatorios: espesor (6/8mm), color_lacado, dimensiones_exactas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio",
+      "instalacion_de_rodapie_de_madera_o_MDF",
+      "instalacion_rodapie_madera_mdf_o_pvc",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

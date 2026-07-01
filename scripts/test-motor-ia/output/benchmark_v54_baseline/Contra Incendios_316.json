@@ -1,0 +1,171 @@
+{
+  "id": 316,
+  "oficio": "Contra Incendios",
+  "texto": "Revisión de instalación de gas en local de hostelería con informe técnico para licencia",
+  "http_status": 200,
+  "latency_ms": 19029,
+  "raw_response": {
+    "transcript": "Revisión de instalación de gas en local de hostelería con informe técnico para licencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión de instalación de gas en local de hostelería con informe técnico para licencia",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo regulado por normativa específica (REGLAMENTO DE INSTALACIONES TÉRMICAS - RIT, CTE DB SI, Ordenanzas municipales)",
+          "Requiere empresa autorizada y técnico competente certificado",
+          "Informe técnico vinculante para tramitación de licencia municipal",
+          "Plazo de ejecución puede depender de disponibilidad de inspección municipal"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Revisión técnica de instalación de gas (especialidad regulada). Requiere certificación y competencia específica en gas natural/propano."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica y evaluación de instalación de gas",
+          "descripcion": "Desplazamiento a local, inspección visual de tuberías, conexiones, reguladores, quemadores, válvulas de seguridad, estado general de la instalación. Verificación de estanqueidad y funcionamiento.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de estanqueidad con detector de fugas",
+          "descripcion": "Realización de prueba de estanqueidad en toda la red de gas (tuberías, conexiones, reguladores). Uso de detector de fugas electrónico. Documentación de resultados.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de seguridad y normativa (CTE DB SI, RIT, Ordenanzas)",
+          "descripcion": "Comprobación de cumplimiento normativo: distancias de seguridad, ventilación, sistemas de seguridad (válvulas corte, detectores CO si aplica), señalización, accesibilidad a elementos. Análisis de riesgos específicos para hostelería.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Redacción de informe técnico para licencia municipal",
+          "descripcion": "Elaboración de informe técnico detallado con: descripción de instalación, planos esquemáticos, resultados de pruebas, cumplimiento normativo, recomendaciones de mejora si procede, certificación de técnico competente. Documento vinculante para tramitación de licencia.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "unidad": "informe",
+          "cantidad": 1,
+          "precio_unitario": 180,
+          "total": 180,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de redacción de informe técnico regulado. Instalador debe confirmar tarifa según complejidad y empresa autorizada."
+        },
+        {
+          "concepto": "Pequeño material y consumibles (detector fugas, documentación)",
+          "descripcion": "Consumibles: papel informe, tinta, etiquetas de inspección, pequeño material fungible para pruebas.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible. Instalador estima según consumo real."
+        },
+        {
+          "concepto": "Reparaciones menores detectadas (si aplica)",
+          "descripcion": "Ajustes, aprietes, cambio de juntas o pequeños componentes que se detecten durante la revisión y sean necesarios para cumplir normativa. Partida estimativa.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Reparaciones contingentes. Precio a determinar según hallazgos. Requiere presupuesto adicional si se detectan deficiencias mayores."
+        }
+      ],
+      "calculos": {
+        "subtotal": 462.5,
+        "iva_porcentaje": 21,
+        "iva": 97.125,
+        "total": 559.625
+      },
+      "sugerencias_catalogo": [
+        "Si se detectan deficiencias mayores (tuberías corrosionadas, reguladores defectuosos, falta de válvulas de seguridad), presupuestar reparación/sustitución como partida adicional.",
+        "Si la instalación requiere adaptación a normativa (instalación de detector CO, mejora de ventilación, reubicación de elementos), presupuestar como reforma parcial.",
+        "Considerar si es necesario desconexión temporal de gas durante pruebas (coordinar con cliente).",
+        "Verificar si el local tiene licencia de actividad vigente; si no, el informe es requisito previo para obtenerla."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Redacción de informe técnico para licencia municipal",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio especializado de documentación técnica regulada. No existe partida estándar en catálogo base."
+        },
+        {
+          "concepto": "Reparaciones menores detectadas (si aplica)",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "motivo": "Partida contingente para pequeños ajustes/cambios detectados durante inspección. Precio a determinar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "presupuesto_e_informe_inicial_instalacion_contra_incendios",
+      "instalacion_ventana_de_PVC_o_aluminio_en_local_o_nave",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_toldo_terraza_bar_o_restaurante",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3910,
+      "tokens_out": 2273
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mecanica_especializada",
+    "coincide_oficio": "NO"
+  }
+}

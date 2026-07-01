@@ -1,0 +1,191 @@
+{
+  "id": 334,
+  "oficio": "Fachadas",
+  "texto": "Restaurar molduras y elementos decorativos de fachada de edificio histórico, mortero de cal",
+  "http_status": 200,
+  "latency_ms": 17000,
+  "raw_response": {
+    "transcript": "Restaurar molduras y elementos decorativos de fachada de edificio histórico, mortero de cal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Restaurar molduras y elementos decorativos de fachada de edificio histórico, mortero de cal",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra en edificio histórico/catalogado: verificar si requiere licencia de patrimonio",
+          "Materiales compatibles con fábrica histórica: mortero de cal confirmado",
+          "Precio unitario de mano de obra estimado; instalador debe revisar según complejidad real y accesibilidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Restauración de elementos decorativos en fachada histórica. Oficio especializado en rehabilitación de envolvente y elementos singulares."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Documentación fotográfica previa y análisis de materiales originales",
+          "descripcion": "Registro fotográfico del estado actual de molduras y elementos decorativos. Análisis de composición y compatibilidad del mortero original para garantizar reversibilidad.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio especializado en patrimonio. Instalador define alcance y coste según complejidad de análisis."
+        },
+        {
+          "concepto": "Mortero de cal compatible con fábrica histórica",
+          "descripcion": "Suministro de mortero de cal (NHL 3.5 o similar) compatible con la fábrica existente. Excluye cemento Portland. Incluye aditivos si son necesarios para compatibilidad.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado. Cantidad y precio a definir por instalador según volumen de molduras y estado de deterioro."
+        },
+        {
+          "concepto": "Moldes y plantillas para reproducción de elementos decorativos",
+          "descripcion": "Elaboración de moldes en silicona o escayola para reproducción fiel de molduras y elementos decorativos dañados. Incluye pequeño material de moldería.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de moldes a definir según número y complejidad de elementos decorativos a restaurar."
+        },
+        {
+          "concepto": "Mano de obra: Restauración de molduras y elementos decorativos",
+          "descripcion": "Desmontaje cuidadoso de elementos dañados, limpieza de superficies, preparación de soportes, aplicación de mortero de cal, modelado y acabado de molduras. Incluye trabajos en altura con medios auxiliares.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada para trabajo especializado en restauración. Instalador debe cuantificar horas reales según extensión de molduras y accesibilidad."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para trabajos en altura",
+          "descripcion": "Alquiler y montaje de andamio tubular o plataforma elevadora para acceso seguro a molduras y elementos decorativos en fachada. Incluye desmontaje.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste variable según altura, extensión de fachada y duración de la obra. Instalador define jornadas necesarias."
+        },
+        {
+          "concepto": "Pequeño material y herramientas especializadas",
+          "descripcion": "Brochas, espátulas, cinceles, herramientas de moldería, trapos, esponjas, protecciones y otros consumibles para restauración de molduras.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado según extensión de trabajo. Instalador revisa y ajusta."
+        },
+        {
+          "concepto": "Gestión de licencia de patrimonio (si aplica)",
+          "descripcion": "Tramitación de licencia de patrimonio o autorización de la administración competente si el edificio está catalogado o protegido. Incluye documentación técnica requerida.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio opcional pero recomendado. Coste variable según administración y complejidad. Instalador confirma si es necesario."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar con técnico especializado en patrimonio antes de iniciar obra",
+        "Verificar normativa local sobre edificios históricos/catalogados",
+        "Realizar pruebas de compatibilidad del mortero de cal con la fábrica existente",
+        "Documentar proceso fotográfico antes, durante y después de la restauración",
+        "Considerar tratamiento biocida si hay presencia de biologismo (musgo, líquenes)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Documentación fotográfica previa y análisis de materiales originales",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio especializado en restauración de patrimonio no incluido en catálogo estándar"
+        },
+        {
+          "concepto": "Moldes y plantillas para reproducción de elementos decorativos",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "Material especializado para restauración de molduras históricas"
+        },
+        {
+          "concepto": "Gestión de licencia de patrimonio (si aplica)",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Trámite administrativo específico para obras en edificios catalogados"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_balaustradas_y_elementos_decorativos_exterior",
+      "restauracion_de_estucos_o_molduras_de_fachada_historica",
+      "rehabilitacion_fachada_de_edificio_historico_o_catalogado",
+      "instalacion_de_columna_seca_en_edificio",
+      "instalacion_iluminacion_exterior_fachada"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3853,
+      "tokens_out": 2207
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

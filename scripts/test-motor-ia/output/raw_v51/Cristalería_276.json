@@ -1,0 +1,196 @@
+{
+  "id": 276,
+  "oficio": "Cristalería",
+  "texto": "Poner espejo de cuerpo entero con luz LED integrada en zona de vestidor, 180x60 centímetros",
+  "http_status": 200,
+  "latency_ms": 17802,
+  "raw_response": {
+    "transcript": "Poner espejo de cuerpo entero con luz LED integrada en zona de vestidor, 180x60 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner espejo de cuerpo entero con luz LED integrada en zona de vestidor, 180x60 centímetros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Espejo de grandes dimensiones (1,8 m altura): verificar capacidad de carga de la pared y tipo de anclaje",
+          "LED integrada: requiere conexión eléctrica, coordinar con electricista si no existe punto de alimentación cerca",
+          "Medidas personalizadas: precios de espejo y LED deben ser revisados por el instalador según proveedor"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de espejo de medidas especiales con fijación de seguridad"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica de iluminación LED integrada (opcional si requiere nuevo circuito)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Espejo de cuerpo entero 180x60 cm con borde biselado",
+          "descripcion": "Espejo personalizado de medidas 1800 x 600 mm, 8 mm espesor, con biselado en cantos para acabado premium en zona de vestidor",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según proveedor de espejos personalizados; varía con tipo de cristal, espesor y biselado"
+        },
+        {
+          "concepto": "Iluminación LED integrada en espejo",
+          "descripcion": "Sistema de luz LED integrada (frontal o perimetral) con temperatura color ajustable 3000-6500K, potencia 15-25W, incluye transformador y control táctil",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según especificación LED (potencia, tipo de instalación, marca); rango orientativo 80-250€"
+        },
+        {
+          "concepto": "Fijación de seguridad para espejo grande",
+          "descripcion": "Sistema de anclaje reforzado para espejo de grandes dimensiones: tirafondos M8 con tacos de expansión en pared, escuadras de acero galvanizado o soportes de aluminio, herrajes de alta capacidad (mín. 100 kg)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema personalizado según tipo de pared (pladur, hormigón, ladrillo); incluye herrajes de seguridad"
+        },
+        {
+          "concepto": "Instalación y fijación de espejo con luz LED",
+          "descripcion": "Colocación, nivelación y fijación segura del espejo de cuerpo entero (180x60 cm) en pared, incluyendo instalación de LED integrada, pruebas funcionales y sellado perimetral con silicona sanitaria",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 45,
+          "total": 112.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica LED integrada",
+          "descripcion": "Conexión del sistema de iluminación LED a circuito existente o instalación de nuevo circuito con protección diferencial, test de funcionamiento y ajuste de temperatura color",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protector/respaldo posterior antihumedad",
+          "descripcion": "Lámina protectora posterior en espejo para evitar deterioro por humedad ambiental en vestidor (opcional pero recomendado para durabilidad)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Capa protectora según tipo de espejo; rango 30-80€"
+        },
+        {
+          "concepto": "Silicona sanitaria y pequeño material",
+          "descripcion": "Sellado perimetral con silicona neutra anti-moho, cartuchos, brochas, cinta de protección, materiales auxiliares",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 15,
+          "total": 15,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 177.5,
+        "iva_porcentaje": 21,
+        "iva": 37.28,
+        "total": 214.78
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de pared (pladur/escayola vs. hormigón/ladrillo) para seleccionar herrajes de fijación adecuados",
+        "Especificar si LED es frontal (luz reflejada) o perimetral (iluminación ambiente); afecta precio y efecto visual",
+        "Solicitar presupuesto separado del proveedor para espejo personalizado 180x60 cm con opciones de biselado/antivaho",
+        "Verificar si existe punto de alimentación eléctrica cerca del vestidor; si no, incluir cableado de electricista",
+        "Considerar sensor de movimiento o control remoto si se desea funcionalidad adicional en LED"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Espejo de cuerpo entero 180x60 cm con borde biselado",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Medidas personalizadas fuera de catálogo estándar; requiere presupuesto de cristalería especializada"
+        },
+        {
+          "concepto": "Iluminación LED integrada en espejo",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema LED integrado en espejo; múltiples opciones de potencia y control; requiere revisión de especificaciones técnicas"
+        },
+        {
+          "concepto": "Fijación de seguridad para espejo grande",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema reforzado para espejo de 1,8 m altura; varía según tipo de pared y carga"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_lavabo",
+      "instalacion_de_pavimento_de_grava_o_gravilla_decorativa",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "instalacion_espejo_en_bano_o_salon",
+      "impermeabilizacion_zona_ducha_con_membrana_liquida"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

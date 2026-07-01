@@ -1,0 +1,405 @@
+{
+  "id": 283,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar sótano con humedades del terreno, sistema de drenaje interior y bomba de achique",
+  "http_status": 200,
+  "latency_ms": 32459,
+  "raw_response": {
+    "transcript": "Impermeabilizar sótano con humedades del terreno, sistema de drenaje interior y bomba de achique",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar sótano con humedades del terreno, sistema de drenaje interior y bomba de achique",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda diagnóstico previo de origen y nivel freático",
+          "Requiere acceso a zanjas perimetrales interiores",
+          "Revisar disponibilidad de punto de descarga para bomba de achique"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Oficio especializado en impermeabilización de estructuras subterráneas"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Excavación, zanjeo y restitución de rellenos"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de sistema de drenaje y bomba de achique"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y sondeo de humedades",
+          "descripcion": "Inspección previa, localización de filtraciones, medición de humedad relativa y análisis de origen",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según complejidad del diagnóstico"
+        },
+        {
+          "concepto": "Excavación y acceso a paramentos sótano",
+          "descripcion": "Excavación perimetral interior, retiro de escombros y apertura de zanjas para acceso a paramentos",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de superficie a excavar y profundidad de paramentos"
+        },
+        {
+          "concepto": "Saneo y limpieza de paramentos",
+          "descripcion": "Eliminación de salitre, eflorescencias, pintura desprendida y material suelto. Chorro de agua a presión",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 25,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de superficie total de paramentos del sótano"
+        },
+        {
+          "concepto": "Imprimación impermeabilizante",
+          "descripcion": "Imprimación de adherencia sobre paramentos preparados",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de m2 y selección de tipo (bituminosa o acrílica)"
+        },
+        {
+          "concepto": "Aplicación de membrana impermeabilizante cementosa",
+          "descripcion": "Revestimiento cementoso impermeabilizante con cristales expansivos, aplicación manual en 2-3 capas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere m2 de paramentos. Material impermeabilizante cementoso homologado"
+        },
+        {
+          "concepto": "Mano de obra aplicación membrana cementosa",
+          "descripcion": "Aplicación de revestimiento impermeabilizante cementoso en paramentos sótano",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de m2"
+        },
+        {
+          "concepto": "Instalación de tubo drenaje perimetral interior",
+          "descripcion": "Tubo drenante ranura 100mm con geotextil, colocado en zanja perimetral interior a pie de paramentos",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición del perímetro interior del sótano"
+        },
+        {
+          "concepto": "Mano de obra instalación sistema de drenaje",
+          "descripcion": "Excavación de zanja, colocación de tubo drenante, geotextil, material drenante y restitución",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición del perímetro a drenar"
+        },
+        {
+          "concepto": "Grava y material filtrante drenaje",
+          "descripcion": "Grava de granulometría 20-30mm y geotextil de separación en zanja de drenaje",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere cálculo de volumen según profundidad y perímetro de zanja"
+        },
+        {
+          "concepto": "Sumidero de recogida y canalización",
+          "descripcion": "Construcción de sumidero colector en punto bajo, conexión de tubo drenaje principal hacia bomba",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere definición de tipo de sumidero y profundidad"
+        },
+        {
+          "concepto": "Bomba de achique sumergible",
+          "descripcion": "Bomba sumergible automática (nivel flotante) para evacuación de agua drenada, caudal según superficie sótano",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere especificación de potencia (0.5-1.5 kW típico) según caudal esperado"
+        },
+        {
+          "concepto": "Instalación bomba de achique",
+          "descripcion": "Montaje de bomba en sumidero, conexiones hidráulicas, instalación de tubo de descarga hacia exterior/acometida",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tubo de descarga bomba achique",
+          "descripcion": "Tubo PVC 40-50mm para evacuación de agua bombeada hacia exterior o sumidero de calle",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de distancia desde sumidero hasta punto de descarga"
+        },
+        {
+          "concepto": "Válvula antirretorno en descarga",
+          "descripcion": "Válvula antirretorno automática en línea de descarga para evitar sifón inverso",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Debe especificarse diámetro según tubo descarga"
+        },
+        {
+          "concepto": "Mano de obra conexión tubo descarga",
+          "descripcion": "Instalación y conexiones de tubo descarga y válvulas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Restitución y relleno de zanjas",
+          "descripcion": "Relleno de zanjas con grava drenante y hormigón deshollinador o capa de compresión según zonas",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere cálculo de volumen de relleno"
+        },
+        {
+          "concepto": "Solera o capa de compresión",
+          "descripcion": "Hormigón deshollinador o capa de compresión en solera de sótano tras drenaje",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere m2 de solera y espesor; presupuesto alzado típico 10-25€/m2"
+        },
+        {
+          "concepto": "Protección y acabado de paramento",
+          "descripcion": "Pintura o revestimiento protector final sobre membrana impermeabilizante",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de m2 y selección de tipo de acabado"
+        },
+        {
+          "concepto": "Mano de obra pintura/acabado paramentos",
+          "descripcion": "Aplicación de pintura o revestimiento protector final",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de m2"
+        },
+        {
+          "concepto": "EPI y equipos de protección",
+          "descripcion": "Mascarillas, guantes, gafas, botas de seguridad y equipos de ventilación forzada si aplica",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere estimación de jornadas de trabajo"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Cinta de carrocero, esponjas, aplicadores, conectores, abrazaderas, masilla, pequeños materiales diversos",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere estimación de jornadas de trabajo"
+        },
+        {
+          "concepto": "Pruebas y ajustes sistema de drenaje",
+          "descripcion": "Simulación de lluvia o inundación controlada para verificar funcionamiento de drenaje y bomba",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere definición de alcance de pruebas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de membranas impermeabilizantes cementosas homologadas (tipo Kryton, Xypex o similar)",
+        "Tubo drenante ranurado con geotextil integrado: verificar proveedores de sistemas de drenaje",
+        "Bomba sumergible: ofertas típicas de marcas Grundfos, Pedrollo, Ebara (0.5-1.5 kW)",
+        "Sistema de control de nivel: considerar flotador tradicional o sensor electrónico"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Impermeabilización de sótano con drenaje interior",
+          "descripcion": "Sistema completo de impermeabilización de paramentos subterráneos con drenaje interior y bomba de achique",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo": "Presupuesto integral que requiere mediciones específicas: m2 de paramentos, ml de perímetro interior, punto de descarga de bomba"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_muro_de_contencion",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "impermeabilizacion_de_balcon_o_voladizo",
+      "impermeabilizacion_de_parking_o_aparcamiento_subterraneo",
+      "pintura_de_depositos_agua_potable_interior"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 22,
+    "n_catalogo": 3,
+    "n_sugeridas": 19,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

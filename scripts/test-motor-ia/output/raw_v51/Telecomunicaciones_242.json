@@ -1,0 +1,188 @@
+{
+  "id": 242,
+  "oficio": "Telecomunicaciones",
+  "texto": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+  "http_status": 200,
+  "latency_ms": 16102,
+  "raw_response": {
+    "transcript": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diagnóstico previo recomendado: verificar atenuación en red de distribución, continuidad de cables y estado de amplificadores",
+          "Potencial necesidad de amplificador adicional o sustitución de cable coaxial según resultado del diagnóstico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación y ajuste de instalación TDT colectiva, diagnóstico de cobertura"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión antena colectiva TDT",
+          "descripcion": "Revisión completa de antena UHF, amplificador de mástil, red de distribución, continuidad de cables coaxiales y niveles de señal en tomas de usuario afectadas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste de antena UHF y reorientación si necesario",
+          "descripcion": "Ajuste de inclinación y orientación de antena colectiva hacia repetidores, verificación de conexiones de cable en cabeza de antena",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y tratamiento anticorrosión de mástil y conectores",
+          "descripcion": "Limpieza de óxido en conectores, mástil y puntos de contacto; aplicación de grasa anticorrosión en conexiones",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, empalmes, grasa anticorrosión)",
+          "descripcion": "Conectores F, empalmes coaxiales, grasa anticorrosión, cinta PTFE, tornillería",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible, el instalador debe especificar cantidades reales y precios"
+        },
+        {
+          "concepto": "Sustitución parcial cable coaxial 75Ω (si se detecta degradación)",
+          "descripcion": "Sustitución de tramos de cable coaxial de mala calidad o con pérdidas excesivas hacia pisos afectados (pendiente de diagnóstico)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y metraje a determinar tras diagnóstico. Material + instalación"
+        },
+        {
+          "concepto": "Amplificador de mástil (sustitución si avería)",
+          "descripcion": "Sustitución de amplificador TDT en mástil si diagnóstico detecta avería o ganancia insuficiente",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sustitución condicional. Incluir en presupuesto solo si diagnóstico lo requiere"
+        },
+        {
+          "concepto": "Instalación amplificador (si sustitución)",
+          "descripcion": "Desmontaje del amplificador antiguo, instalación del nuevo y pruebas de ganancia y nivel de señal",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Solo si diagnóstico determina necesidad de sustitución"
+        },
+        {
+          "concepto": "Pruebas de señal en tomas de usuario (pisos afectados)",
+          "descripcion": "Medición de nivel de señal en tomas de usuario de pisos con problemas de recepción; verificación de cumplimiento RD 346/2011",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 425,
+        "iva_porcentaje": 21,
+        "iva": 89.25,
+        "total": 514.25
+      },
+      "sugerencias_catalogo": [
+        "Si el diagnóstico detecta pérdida de señal por cable antiguo, considerar inspección de toda la red de distribución (splitters, derivadores, cableado horizontal)",
+        "Verificar cumplimiento normativa RD 346/2011 sobre niveles de señal TDT según banda de frecuencia",
+        "Si problemas persisten tras ajuste, valorar instalación de amplificador de banda ancha adicional o renovación completa de red de distribución"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable coaxial 75Ω sustitución parcial",
+          "tipo": "material",
+          "motivo": "Pendiente de diagnóstico, cantidad variable según resultado"
+        },
+        {
+          "concepto": "Amplificador TDT sustitución condicional",
+          "tipo": "material",
+          "motivo": "Solo si el diagnóstico detecta avería o ganancia insuficiente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "reparacion_o_mejora_de_cobertura_movil_en_interior",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

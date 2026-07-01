@@ -1,0 +1,213 @@
+{
+  "id": 85,
+  "oficio": "Albañilería",
+  "texto": "Alicatar el baño completo con azulejos nuevos, superficie 25 metros cuadrados de paredes y suelo",
+  "http_status": 200,
+  "latency_ms": 17310,
+  "raw_response": {
+    "transcript": "Alicatar el baño completo con azulejos nuevos, superficie 25 metros cuadrados de paredes y suelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Alicatar el baño completo con azulejos nuevos, superficie 25 metros cuadrados de paredes y suelo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume 25 m² total (paredes + suelo). Revisar distribución exacta: m² paredes vs m² suelo",
+          "Zona de ducha requiere impermeabilización previa obligatoria",
+          "Presupuesto de materiales (azulejos, mortero, lechada, etc.) pendiente de revisión del instalador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 22,
+            "recomendado": 40,
+            "max": 110
+          },
+          "motivo": "Alicatado completo baño - rango 22-110€/m² según complejidad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Impermeabilización zona ducha",
+          "descripcion": "Aplicación de membrana impermeabilizante en zona de ducha (obligatorio antes de alicatar)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material (membrana impermeabilizante). Instalador debe definir coste unitario"
+        },
+        {
+          "concepto": "Baldosa suelo antideslizante R11",
+          "descripcion": "Suministro e instalación de baldosa cerámica antideslizante R11 para suelo baño",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material (baldosa cerámica R11). Instalador debe definir coste unitario según marca/calidad"
+        },
+        {
+          "concepto": "Azulejo pared cerámica",
+          "descripcion": "Suministro e instalación de azulejo cerámica para paredes baño",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 13,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material (azulejo cerámica pared). Instalador debe definir coste unitario según marca/calidad"
+        },
+        {
+          "concepto": "Mortero cola C2S2 flexible",
+          "descripcion": "Mortero adhesivo flexible C2S2 para fijación de azulejos y baldosas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material (mortero adhesivo). Instalador debe definir coste unitario"
+        },
+        {
+          "concepto": "Lechada junta flexible",
+          "descripcion": "Lechada flexible para rejuntado de azulejos y baldosas baño",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material (lechada flexible). Instalador debe definir coste unitario"
+        },
+        {
+          "concepto": "Perfiles aluminio esquinas",
+          "descripcion": "Perfiles de aluminio para protección y acabado de esquinas exteriores",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material (perfil aluminio). Instalador debe definir coste unitario"
+        },
+        {
+          "concepto": "Junta perimetral silicona",
+          "descripcion": "Sellado con silicona en junta perimetral (encuentro suelo-pared)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material (silicona sellado). Instalador debe definir coste unitario"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Crucetas, esponjas, trapos, cintas, pequeños accesorios y desgaste herramientas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida general de consumibles. Instalador debe estimar coste"
+        },
+        {
+          "concepto": "Mano de obra alicatado baño completo",
+          "descripcion": "Mano de obra: replanteo, cortes, colocación azulejos/baldosas, rejuntado y sellado. 25 m² total (paredes + suelo)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 40,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1000,
+        "iva_porcentaje": 21,
+        "iva": 210,
+        "total": 1210
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: impermeabilizacion_zona_ducha_precios_unitarios",
+        "Verificar en catálogo: baldosa_antideslizante_R11_precios_unitarios",
+        "Verificar en catálogo: azulejo_ceramica_pared_precios_unitarios",
+        "Verificar en catálogo: mortero_cola_c2s2_flexible_precios_unitarios",
+        "Verificar en catálogo: lechada_junta_flexible_precios_unitarios"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Impermeabilización zona ducha",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida obligatoria según normas baño - no encontrada con precio en catálogo"
+        },
+        {
+          "concepto": "Baldosa suelo antideslizante R11",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida obligatoria norma R11 baños - precio pendiente de revisión"
+        },
+        {
+          "concepto": "Azulejo pared cerámica",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Material de revestimiento - precio pendiente de revisión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "alicatado_y_solado_completo_cocina",
+      "instalacion_azulejos_o_ceramica_en_zona_de_cocina_profesional",
+      "alicatado_ceramico_pared_interior"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 1,
+    "n_sugeridas": 8,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

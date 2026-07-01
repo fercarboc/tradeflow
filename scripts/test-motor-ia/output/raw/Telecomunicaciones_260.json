@@ -1,0 +1,234 @@
+{
+  "id": 260,
+  "oficio": "Telecomunicaciones",
+  "texto": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+  "http_status": 200,
+  "latency_ms": 17729,
+  "raw_response": {
+    "transcript": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Edificio de 20 años: probable obsolescencia de cableado y equipos",
+          "ICT2 implica infraestructura de telecomunicaciones compleja: requiere diagnóstico previo detallado",
+          "Falta especificación: número de plantas, número de viviendas/locales, estado actual de cableado, tipo de servicios (telefonía, datos, TV)",
+          "Revisar si requiere proyecto técnico según normativa ICT vigente",
+          "Presupuesto estimado: requiere visita técnica para cuantificar trabajos reales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión, diagnóstico y actualización de instalación ICT (infraestructura común de telecomunicaciones)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y auditoría de instalación ICT2",
+          "descripcion": "Revisión completa del estado de la infraestructura de telecomunicaciones: cableado, canalizaciones, armarios de distribución, tomas de usuario, equipos activos. Informe técnico detallado con recomendaciones de actualización.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Retirada y reciclaje de cableado obsoleto",
+          "descripcion": "Desmontaje y retirada de cableado de telecomunicaciones antiguo (pares de cobre, coaxial antiguo) en canalizaciones. Gestión de residuos y reciclaje.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de cableado Cat6A en canalizaciones existentes",
+          "descripcion": "Tendido de cableado de datos Cat6A en canalizaciones y conductos existentes. Incluye pasacables, etiquetado y documentación de rutas.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado Cat6A a definir por instalador según marca y calidad. Estimado 0,80-1,50€/ml"
+        },
+        {
+          "concepto": "Mano de obra instalación cableado Cat6A",
+          "descripcion": "Tendido, pasacables, fijación y etiquetado de cableado Cat6A en canalizaciones.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Actualización de armario de distribución principal (RITI)",
+          "descripcion": "Sustitución/actualización de equipos en armario de distribución principal: patch panel Cat6A, regletas de conexión, organizadores de cables, etiquetado. Incluye desmontaje de equipos antiguos.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de equipos (patch panel, regletas, organizadores) a definir. Estimado 400-800€"
+        },
+        {
+          "concepto": "Mano de obra actualización armario RITI",
+          "descripcion": "Desmontaje de equipos antiguos, instalación de nuevo patch panel, regletas, organizadores, etiquetado y pruebas de continuidad.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de tomas de usuario Cat6A",
+          "descripcion": "Sustitución de tomas de usuario antiguas por tomas Cat6A en viviendas/locales. Incluye desmontaje de tomas viejas, instalación de nuevas cajas y conectores.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tomas Cat6A a definir. Estimado 8-15€/unidad"
+        },
+        {
+          "concepto": "Mano de obra instalación tomas de usuario",
+          "descripcion": "Desmontaje de tomas antiguas, instalación de nuevas tomas Cat6A, conexionado y pruebas.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 50,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de continuidad y certificación de cableado",
+          "descripcion": "Pruebas de continuidad, atenuación y certificación de todo el cableado instalado. Generación de informe técnico de cumplimiento ICT.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documentación técnica y planos as-built",
+          "descripcion": "Elaboración de planos as-built, esquemas de cableado, listado de tomas, documentación de cumplimiento normativa ICT2.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2000,
+        "iva_porcentaje": 21,
+        "iva": 420,
+        "total": 2420
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: número de plantas, número de viviendas/locales, estado actual de canalizaciones, servicios a incluir (datos, telefonía, TV)",
+        "Considerar si es necesario proyecto técnico de actualización ICT según normativa vigente",
+        "Verificar si canalizaciones existentes permiten paso de nuevo cableado sin ampliación",
+        "Presupuesto de materiales (cableado, tomas, equipos) requiere revisión tras diagnóstico detallado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cableado Cat6A",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Material de actualización ICT, precio variable según marca y calidad"
+        },
+        {
+          "concepto": "Equipos armario RITI (patch panel, regletas, organizadores)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Equipos de distribución, precio variable según especificaciones técnicas"
+        },
+        {
+          "concepto": "Tomas de usuario Cat6A",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Tomas de usuario, precio variable según marca y tipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_sistema_agua_helada_chiller",
+      "falso_techo_pladur_ignifugo_o_cortafuego",
+      "instalacion_de_red_de_datos_en_hotel_u_hospitality",
+      "instalacion_de_columna_seca_en_edificio"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4058,
+      "tokens_out": 2670
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 7,
+    "n_sugeridas": 3,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

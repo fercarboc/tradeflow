@@ -1,0 +1,194 @@
+{
+  "id": 370,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de oficina de 200 metros cuadrados con nueva distribución, iluminación y mobiliario",
+  "http_status": 200,
+  "latency_ms": 21649,
+  "raw_response": {
+    "transcript": "Reforma de oficina de 200 metros cuadrados con nueva distribución, iluminación y mobiliario",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de oficina de 200 metros cuadrados con nueva distribución, iluminación y mobiliario",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: múltiples oficios (albanilería, electricidad, carpintería, pintura). Presupuesto estructurado en capítulos.",
+          "Mobiliario: precio unitario pendiente de revisión (sugerida_ia). El instalador debe confirmar especificaciones y proveedores.",
+          "Iluminación: se asume 500 lux en puestos de trabajo según normativa UNE EN 12464. Requiere validación de proyecto de iluminación.",
+          "Nueva distribución: implica posibles rozas, reposición y coordinación entre oficios.",
+          "Presupuesto orientativo. Requiere levantamiento de planos y especificaciones técnicas detalladas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 8000,
+            "recomendado": 45000,
+            "max": 90000
+          },
+          "motivo": "Reforma integral de oficina: múltiples oficios simultáneos (demolición, electricidad, carpintería, pintura, acabados). Estructura en capítulos obligatoria."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición selectiva, rozas, reposición, nueva distribución de espacios."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa: cuadro, circuitos, iluminación LED 500 lux, enchufes, red datos CAT6, alumbrado emergencia, boletín."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Divisiones, puertas, marcos, revestimientos interiores según nueva distribución."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 32,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura de paredes y techos tras acabados."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 32,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Colocación de suelo (baldosa, porcelánico o similar) en 200 m²."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "descripcion": "Demolición selectiva de tabiquería existente, rozas para instalaciones, reposición de paramentos, nueva distribución de espacios, limpieza y retirada de escombros.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 12,
+          "total": 2400,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo por m². Requiere levantamiento de planos, especificación de tabiquería a demoler y nuevas divisiones. Puede variar según complejidad estructural."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (Electricidad, Datos, Emergencia)",
+          "descripcion": "Cuadro eléctrico nuevo, cableado completo, circuitos iluminación LED (500 lux UGR<16), circuitos enchufes puestos trabajo, red datos CAT6 independiente, alumbrado emergencia, boletín eléctrico, pequeño material, rozas y reposición coordinada.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 18,
+          "total": 3600,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo por m². Incluye mano de obra de instalación eléctrica completa. Materiales (cuadro, cableado, mecanismos, luminarias) requieren presupuesto separado con especificaciones técnicas."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (Carpintería, Suelos, Pintura)",
+          "descripcion": "Divisiones y puertas interiores, marcos, revestimientos. Colocación de suelo (baldosa/porcelánico/similar) en 200 m². Pintura de paredes y techos. Pequeño material.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 22,
+          "total": 4400,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo por m² (carpintería + suelos + pintura agrupados). Desglose: carpintería ~8€/m², suelos ~10€/m², pintura ~4€/m². Requiere especificación de materiales (tipo suelo, pintura, puertas, divisiones)."
+        },
+        {
+          "concepto": "CAP.4 – Mobiliario y Equipamiento",
+          "descripcion": "Suministro e instalación de mobiliario de oficina (mesas, sillas, armarios, estanterías, etc.) según nueva distribución. Cantidad y especificaciones a confirmar por cliente.",
+          "oficio": "multiservicio",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mobiliario: precio pendiente de especificación. Requiere desglose de piezas (nº mesas, sillas, armarios, etc.), materiales y proveedores. Presupuesto estimado: 3000-8000€ según calidad y cantidad."
+        }
+      ],
+      "calculos": {
+        "subtotal": 10400,
+        "iva_porcentaje": 21,
+        "iva": 2184,
+        "total": 12584
+      },
+      "sugerencias_catalogo": [
+        "Validar con cliente: número de puestos de trabajo, distribución de espacios, tipo de mobiliario (estándar/premium).",
+        "Solicitar plano actual y plano de nueva distribución.",
+        "Especificar: tipo de suelo (baldosa cerámica, porcelánico, vinílico, etc.), marca y modelo de luminarias LED, especificaciones de puertas y divisiones.",
+        "Coordinar con electricista: ubicación de cuadro, puntos de luz, enchufes, red datos. Validar cumplimiento UNE EN 12464 (500 lux, UGR<16).",
+        "Presupuesto de materiales (cuadro, cableado, luminarias, suelo, pintura, puertas, mobiliario) debe presentarse por separado.",
+        "Incluir en presupuesto final: gestión de residuos, pequeño material, boletín eléctrico, coordinación de oficios."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mobiliario de oficina",
+          "oficio": "multiservicio",
+          "motivo": "Suministro e instalación de mobiliario no especificado en detalle. Requiere desglose y presupuesto separado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_electrica_oficina_completa",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "instalacion_fontaneria_cocina_completa"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3620,
+      "tokens_out": 2737
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

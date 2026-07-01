@@ -1,0 +1,378 @@
+{
+  "id": 366,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+  "http_status": 200,
+  "latency_ms": 39017,
+  "raw_response": {
+    "transcript": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de ático: requiere coordinación de múltiples oficios",
+          "Escalera interior: especificar tipo (madera, pladur, metálica) y número de peldaños",
+          "Terraza acristalada: especificar si es carpintería (madera/PVC) o cerrajería (aluminio/acero)",
+          "Se recomienda ampliación de detalles para generar presupuesto completo y preciso"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Escalera interior (madera) + cerramientos terraza (si es madera/PVC)"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Cerramientos aluminio/acero terraza acristalada + barandillas"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Cristalería y acristalamiento terraza"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Acabados interiores pintura paredes y techos"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa ático y terraza"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación fontanería si incluye cocina/baños"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Sistemas de climatización/ventilación ático"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Trabajos estructurales y división espacios"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Escalera interior de madera - ESTRUCTURA COMPLETA",
+          "descripcion": "Estructura escalera interior ático dúplex (precio alzado según diseño y número peldaños). Incluye: peldaños madera, tabicas, zancas/soporte, barandilla madera, herraje fijación, acabado barniz/aceite, pequeño material. CTE DB-SUA: huella mín 28cm, contrahuella máx 18cm. Barandilla obligatoria.",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: número peldaños, tipo madera (roble/haya/pino), acabado, dimensiones huella/contrahuella, diseño barandilla. Rango: 600-6000€ según complejidad"
+        },
+        {
+          "concepto": "Escalera interior - Barandilla seguridad CTE",
+          "descripcion": "Barandilla escalera interior: altura mínima 90cm, barras máximo 12cm separación (seguridad infantes). Material madera o metal. Incluye pasamanos, herraje, anclajes.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar material (madera/acero), altura barandilla, tipo pasamanos"
+        },
+        {
+          "concepto": "Terraza acristalada - Carpintería aluminio/PVC",
+          "descripcion": "Cerramientos terraza acristalada (precio por m² o alzado). Incluye: perfiles aluminio/PVC, vidrio templado/doble acristalamiento, junquillos, silicona estructural, herraje (bisagras, cierres, manivelas), anclaje a estructura. Superficie aproximada: 100m² ático → estimar 20-40m² terraza.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar m² exactos terraza, tipo acristalamiento (simple/doble), perfil aluminio (serie/calidad), tipo apertura (corredera/abatible/mixta). Precio típico: 150-400€/m² material+instalación"
+        },
+        {
+          "concepto": "Cristalería - Suministro e instalación acristalamiento terraza",
+          "descripcion": "Vidrio templado doble acristalamiento (si aplica). Incluye: corte, templado, sellado estructural, instalación. Especificar espesor y prestaciones (aislamiento térmico/acústico).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: espesor vidrio, tipo acristalamiento (4+4 templado, 4+4+4, doble 4-12-4), prestaciones térmicas (U<2), tratamientos (bajo emisivo, antirreflectante)"
+        },
+        {
+          "concepto": "Barandilla terraza exterior - Cerrajería metálica",
+          "descripcion": "Barandilla acero inox/galvanizado terraza (CTE altura mínima 1,1m en azoteas). Incluye: perfiles metálicos, pasamanos, anclajes inox, soldadura TIG (inox), sellado impermeable juntas, tratamiento antioxido.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: perímetro terraza (ml), tipo barandilla (tubo macizo/hueco), inox 304 o 316 (zona marítima), altura, sistema anclaje. Precio: 50-160€/ml material+instalación"
+        },
+        {
+          "concepto": "Instalación eléctrica completa ático dúplex",
+          "descripcion": "Instalación eléctrica reforma integral (100m²): nuevas líneas, cuadro distribución, iluminación LED, enchufes, interruptores, tomas especiales (cocina, baño, terraza). Incluye: cableado, tubería, mecanismos, pruebas. Según REBT.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: potencia total, número circuitos, número enchufes, tipo iluminación (puntos LED), necesidad de aire acondicionado (toma 16A), certificado REBT final"
+        },
+        {
+          "concepto": "Iluminación escalera interior - Puntos LED integrados",
+          "descripcion": "Iluminación escalera interior: focos LED empotrados en peldaños o pasamanos. Incluye: luminarias LED, cableado, transformador, instalación. Para seguridad y acabado.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: número peldaños (para calcular número focos), tipo LED (RGB/blanco cálido), potencia total"
+        },
+        {
+          "concepto": "Fontanería - Instalación completa ático",
+          "descripcion": "Instalación fontanería integral (si aplica cocina/baños): tuberías PEX/multicapa, grifería, válvulas, bajantes. Incluye: suministro agua fría/caliente, drenaje aguas grises, pruebas estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: número baños, número cocinas, tipo tuberías (PEX/cobre), necesidad ACS, acometida general ático"
+        },
+        {
+          "concepto": "Climatización - Sistema aire acondicionado ático dúplex",
+          "descripcion": "Instalación sistema climatización: bomba calor o splits multi-inverter según potencia (100m² ático ≈ 4-6kW). Incluye: unidades interiores, unidad exterior, refrigerante, tubería, electricidad, pruebas y puesta en marcha.",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: número splits/zonas, potencia total kW, tipo sistema (aire-aire/aire-agua), marcas, certificación energética, carné frigorista"
+        },
+        {
+          "concepto": "Revestimiento paredes interiores - Yeso/escayola",
+          "descripcion": "Revestimiento interior paredes ático (100m² aprox). Incluye: aplicación pasta de yeso, lijado, acabado liso. Preparación para pintura posterior.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 15,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura interior - Acabado paredes y techos",
+          "descripcion": "Pintura interior integral ático (100m²): paredes + techos. Incluye: imprimación, 2 manos pintura acrílica interior, masillado pequeñas imperfecciones. Color a especificar.",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 12,
+          "total": 1200,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: tipo pintura (acrílica/plástica), número manos, colores, acabado (mate/satinado), preparación soporte (masillado incluido)"
+        },
+        {
+          "concepto": "Suelos - Acabado terraza acristalada",
+          "descripcion": "Acabado suelo terraza: baldosa cerámica, gres, madera o tarima exterior. Incluye: suministro material, colocación, rejuntado, sellado.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: tipo material (cerámica/gres/tarima), dimensiones, formato, espesor, adhesivo/mortero, lechada"
+        },
+        {
+          "concepto": "División espacios interior - Tabiquería",
+          "descripcion": "Tabiquería interior ático si aplica (divisiones espacios dúplex): estructura pladur, aislamiento acústico, acabado. Precio por ml altura 2,5-3m.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: ml tabiques nuevos, altura, tipo aislamiento acústico (si aplica), resistencia fuego"
+        },
+        {
+          "concepto": "Puertas interiores - Suministro e instalación",
+          "descripcion": "Puertas interiores ático (acceso baños, dormitorios, cocina): marco + hoja + herraje + manivelas. Acabado a especificar.",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: número puertas, dimensiones, tipo (madera maciza/tablero/cristal), clasificación acústica"
+        },
+        {
+          "concepto": "Sanitarios baño - Suministro e instalación",
+          "descripcion": "Equipamiento baño: inodoro, lavabo, bañera/ducha, grifo, espejos. Incluye suministro e instalación hidráulica-sanitaria.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar: número baños, calidad sanitarios (gama baja/media/alta), tipo bañera/ducha"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2700,
+        "iva_porcentaje": 21,
+        "iva": 567,
+        "total": 3267
+      },
+      "sugerencias_catalogo": [
+        "Escalera interior: detallar tipo (madera/pladur/metálica), número peldaños, diseño barandilla → aplicar rango 600-6000€ según complejidad",
+        "Terraza acristalada: especificar m² exactos, tipo acristalamiento (simple/doble), perfil aluminio/PVC vs cerrajería metálica",
+        "Climatización: determinar número splits, potencia total kW, tipo sistema (aire-aire/bomba calor)",
+        "Fontanería: confirmar si incluye cocina/baños completos para estimar tuberías y grifería",
+        "Suelos: definir material final (cerámica/gres/tarima) y acabado terraza",
+        "Tabiquería interior: especificar ml tabiques nuevos para división espacios dúplex"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Escalera interior de madera - ESTRUCTURA COMPLETA",
+          "oficio": "carpinteria",
+          "motivo": "Reforma integral ático requiere escalera interior; no hay especificación de tipo/tamaño en texto original"
+        },
+        {
+          "concepto": "Terraza acristalada - Carpintería aluminio/PVC",
+          "oficio": "cerrajeria",
+          "motivo": "Terraza acristalada requiere cerramientos; especificar tipo (aluminio vs acero inox), m² exactos, acristalamiento"
+        },
+        {
+          "concepto": "Climatización - Sistema aire acondicionado ático dúplex",
+          "oficio": "climatizacion",
+          "motivo": "Reforma integral ático presupone climatización; especificar tipo (splits/bomba calor), número unidades, potencia total"
+        },
+        {
+          "concepto": "Fontanería - Instalación completa ático",
+          "oficio": "fontaneria",
+          "motivo": "Reforma integral requiere fontanería; confirmar número baños/cocinas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "estructura_pladur_para_escalera_interior_nueva",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "correccion_de_puentes_termicos_en_cubierta",
+      "instalacion_escalera_de_madera_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 15,
+    "n_catalogo": 1,
+    "n_sugeridas": 14,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

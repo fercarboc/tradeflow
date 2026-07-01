@@ -1,0 +1,250 @@
+{
+  "id": 374,
+  "oficio": "Reformas Integrales",
+  "texto": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+  "http_status": 200,
+  "latency_ms": 32194,
+  "raw_response": {
+    "transcript": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "REFORMA INTEGRAL detectada: 5+ oficios simultáneos (albanilería, fontanería, electricidad, pintura, pladur, gestión residuos, trámites)",
+          "Requiere PROYECTO TÉCNICO y LICENCIA DE OBRA (gestión de trámites incluida)",
+          "Falta información crítica: dimensiones garaje, tipo de puerta garaje, estado actual instalaciones, tipo baño (ducha/bañera), acabados deseados",
+          "Presupuesto ORIENTATIVO — cada capítulo requiere revisión en obra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: múltiples oficios simultáneos (obra civil, instalaciones, acabados)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición puerta garaje, tabiquería baño, solera, revestimientos"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Red agua fría/caliente, desagüe baño, inodoro, lavabo, ducha/bañera"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica nueva, iluminación, enchufes, climatización, protecciones"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Tabiquería baño, trasdosados, falsos techos si aplica"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura paredes y techo habitación y baño"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado baño (paredes y suelo)"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Gestión y retirada de escombros (puerta garaje, solera, tabiques)"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Licencia de obra, proyecto técnico, inspección final"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – DEMOLICIÓN Y OBRA CIVIL",
+          "descripcion": "Demolición puerta garaje (metálica/hormigón), retirada solera hormigón, demolición tabiques existentes si aplica, saneo y preparación base para nueva tabiquería baño. Incluye: desmontaje puerta, rotura solera, retirada escombros a contenedor, limpieza zona, nivelación base.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 2500-4500€ según dimensiones garaje y complejidad demolición. Instalador revisa in situ: tipo puerta (abatible/seccional/corredera), espesor solera, presencia tuberías/cableado en zona demolición."
+        },
+        {
+          "concepto": "CAP.2 – INSTALACIONES (Fontanería, Electricidad, Climatización)",
+          "descripcion": "Red agua fría/caliente (tuberías PEX o cobre) desde acometida principal a baño y habitación. Desagüe baño (PVC Ø40-50mm) con sifones. Instalación eléctrica nueva: cuadro secundario, circuitos iluminación (mín. 150 lux habitación, 200 lux baño), enchufes (mín. 4 habitación, 3 baño), protecciones diferenciales, toma tierra. Climatización: split inverter 2.5-3.5kW o radiadores según demanda. Pruebas de estanqueidad y funcionamiento.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 3500-6000€ según: longitud tuberías, número circuitos eléctricos, tipo climatización (split vs radiadores), necesidad de cuadro nuevo vs ampliación existente. Requiere plano instalaciones y cálculo de cargas."
+        },
+        {
+          "concepto": "CAP.3 – ACABADOS (Pladur, Alicatado, Pintura, Carpintería)",
+          "descripcion": "Tabiquería baño con pladur + aislamiento acústico. Alicatado baño: paredes (hasta 2.10m) y suelo con baldosa cerámica/porcelánico (calidad baño, antideslizante suelo). Pintura paredes y techo habitación (2 manos, acabado mate). Pintura baño (pintura acrílica resistente humedad). Puerta entrada habitación (marco + hoja madera/PVC). Puerta baño (marco + hoja madera/PVC). Molduras/rodapiés si aplica.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 3000-5500€ según: superficie alicatado (baño ~8-12m²), tipo baldosa (económica vs premium), pintura (marca/calidad), puertas (estándar vs diseño). Falta: dimensiones exactas garaje, tipo acabados deseados, presencia ventana/claraboya."
+        },
+        {
+          "concepto": "CAP.4 – GESTIÓN RESIDUOS, PROYECTO Y LICENCIA",
+          "descripcion": "Proyecto técnico de reforma (planos, cálculos estructurales si aplica, instalaciones). Licencia de obra municipal. Gestión y retirada escombros a gestor autorizado. Inspección técnica final. Certificado de fin de obra.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 800-1500€: proyecto técnico (400-700€), licencia municipal (200-400€), gestión residuos (200-400€). Varía según municipio y complejidad reforma."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "INFORMACIÓN CRÍTICA FALTANTE — Solicitar al cliente ANTES de presupuesto detallado:",
+        "1. Dimensiones garaje (largo × ancho × alto)",
+        "2. Tipo puerta garaje actual (abatible, seccional, corredera, manual/automática)",
+        "3. Presencia ventana/claraboya en garaje",
+        "4. Tipo baño deseado: ducha (plato/obra), bañera, o ambos",
+        "5. Acabados: pintura económica/estándar/premium, baldosa cerámica/porcelánico/gres",
+        "6. Climatización: split inverter, radiadores, o sin climatización",
+        "7. Ubicación acometidas agua/electricidad actuales",
+        "8. Presencia canalización/tuberías en solera garaje",
+        "9. Municipio (para estimar coste licencia)",
+        "10. Plazo ejecución deseado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Demolición puerta garaje y preparación obra civil",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo específico de reforma garaje → habitación, no en catálogo estándar"
+        },
+        {
+          "concepto": "Red instalaciones completa (agua, electricidad, clima)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Reforma integral con múltiples oficios simultáneos, requiere coordinación y presupuesto global"
+        },
+        {
+          "concepto": "Acabados integrales (pladur, alicatado, pintura, puertas)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Capítulo de acabados agrupado para reforma integral"
+        },
+        {
+          "concepto": "Proyecto técnico, licencia y gestión residuos",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Reforma con cambio de uso (garaje → vivienda) requiere licencia y proyecto"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_escalera_o_rampa_exterior",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "instalacion_alumbrado_garaje",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "instalacion_de_puerta_de_garaje_abatible_lateral"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3535,
+      "tokens_out": 3796
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

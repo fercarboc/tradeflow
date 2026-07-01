@@ -1,0 +1,363 @@
+{
+  "id": 152,
+  "oficio": "Pladur",
+  "texto": "Renovar paredes de dormitorio con trasdosado de pladur y mejorar aislamiento acústico de vecinos",
+  "http_status": 200,
+  "latency_ms": 35148,
+  "raw_response": {
+    "transcript": "Renovar paredes de dormitorio con trasdosado de pladur y mejorar aislamiento acústico de vecinos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Renovar paredes de dormitorio con trasdosado de pladur y mejorar aislamiento acústico de vecinos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume que al menos una pared es medianera (vecinos). Confirmar número de paredes y si todas son medianeras.",
+          "Dimensiones del dormitorio no especificadas: se requiere medición en m² de superficies a trasdosar.",
+          "Acabado de pintura incluido en presupuesto base; si requiere otros acabados (papel pintado, estucos) revisar."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 50
+          },
+          "motivo": "Trasdosado acústico y estructura con aislante"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Acabado y pintura de pladur nuevo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm",
+          "descripcion": "Placa de yeso laminado espesor 15mm para acabado y aislamiento acústico",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe fijar cantidad (m²) y precio unitario del suministrador"
+        },
+        {
+          "concepto": "Perfil canal y montante 70mm con banda resiliente",
+          "descripcion": "Perfil metálico de estructura con sistema acústico/banda resiliente para evitar transmisión rígida en medianera",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: calcular ml según perímetro y altura. Banda resiliente obligatoria en medianera"
+        },
+        {
+          "concepto": "Lana mineral alta densidad 70-80 kg/m³ espesor 80mm",
+          "descripcion": "Aislante acústico de alta densidad entre estructura metálica y pared existente para máximo aislamiento de ruido vecinos",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cantidad en m² según superficie trasdosada. Alta densidad requerida para acústica"
+        },
+        {
+          "concepto": "Banda resiliente perimetral",
+          "descripcion": "Banda resiliente de perímetro (base pared, suelo, techo) para desacoplamiento acústico total",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: calcular ml de perímetro (2×altura + 2×ancho dormitorio)"
+        },
+        {
+          "concepto": "Tornillería, tacos y fijación",
+          "descripcion": "Tornillos para placa, tacos expansivos, tuercas y elementos de fijación de estructura metálica",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: calcular según m² trasdosado y densidad de fijación"
+        },
+        {
+          "concepto": "Cinta de papel para juntas y pasta de juntas",
+          "descripcion": "Cinta de papel y pasta de juntas (mudable) para acabado de juntas entre placas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cantidad según ml de juntas. Incluye 2-3 pasadas"
+        },
+        {
+          "concepto": "Ángulo metálico esquinas",
+          "descripcion": "Ángulo metálico de protección en esquinas salientes para acabado limpio",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: medir esquinas salientes en dormitorio"
+        },
+        {
+          "concepto": "Pequeño material (masillas, imprimación pared, sellados)",
+          "descripcion": "Masilla de agarre, imprimación de pared base si porosa, sellado perimetral con silicona",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: incluir imprimación si pared existente es porosa/humedad"
+        },
+        {
+          "concepto": "Preparación y desmontaje",
+          "descripcion": "Retirada de elementos previos (enchufes, apliques), protección de mobiliario y suelo, limpieza inicial",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 280,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje estructura metálica con bandas resilientes",
+          "descripcion": "Colocación de perfiles canal, montantes y bandas resilientes perimetrales en suelo, techo y paredes",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra: tarifa por m² de superficie trasdosada. Cantidad pendiente medición"
+        },
+        {
+          "concepto": "Colocación de aislante acústico (lana mineral)",
+          "descripcion": "Inserción de lana mineral entre estructura metálica y pared existente, asegurando cobertura total sin huecos",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra: tarifa estimada 8€/m². Cantidad pendiente medición"
+        },
+        {
+          "concepto": "Clavado y tornillería de placas de yeso",
+          "descripcion": "Fijación de placas con tornillos autorroscantes, densidad según normativa (cada 30-40cm)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra: tarifa estimada 12€/m². Cantidad pendiente medición"
+        },
+        {
+          "concepto": "Tratamiento y pegado de juntas",
+          "descripcion": "Aplicación de pasta en juntas, colocación de cinta de papel, masillado de tornillos y juntas (3 pasadas mínimo)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 15,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra: tarifa estimada 15€/m² (incluye 3 pasadas y lijado). Cantidad pendiente medición"
+        },
+        {
+          "concepto": "Imprimación fijadora pladur",
+          "descripcion": "Aplicación de imprimación específica para pladur previo a pintura (fija polvillo, permite mejor adherencia)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: rendimiento ~8-10 m²/litro. Cantidad según m² final"
+        },
+        {
+          "concepto": "Pintura plástica mate acabado",
+          "descripcion": "Pintura plástica interior mate, 2 manos mínimo, color a elegir",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: rendimiento ~10 m²/litro por mano. Calcular 2 manos"
+        },
+        {
+          "concepto": "Aplicación imprimación pladur",
+          "descripcion": "Pintado de imprimación con rodillo y pincel en toda superficie pladur",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 5,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra: tarifa 5€/m². Cantidad pendiente medición"
+        },
+        {
+          "concepto": "Pintado 2 manos pintura plastica",
+          "descripcion": "Aplicación de 2 manos de pintura plástica mate con rodillo y pincel, incluye secado entre manos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra: tarifa 8€/m² (2 manos). Cantidad pendiente medición"
+        },
+        {
+          "concepto": "Reposición enchufes, apliques e interruptores",
+          "descripcion": "Reinstalación de elementos eléctricos (enchufes, interruptores, apliques) sobre trasdosado nuevo",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 15,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra: 15€/unidad. Cantidad a confirmar según elementos existentes"
+        },
+        {
+          "concepto": "Limpieza y retirada de escombros",
+          "descripcion": "Recogida de escombros, polvo y pequeños residuos del trabajo. Barrido y limpieza final del dormitorio",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 180,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 460,
+        "iva_porcentaje": 21,
+        "iva": 96.6,
+        "total": 556.6
+      },
+      "sugerencias_catalogo": [
+        "Base Maestra aplicada: [trasdosado_acustico_pared_medianera] - todas las partidas obligatorias incluidas",
+        "Base Maestra aplicada: [pintura_y_acabado_paredes_de_pladur_nuevo] - imprimación y pintura obligatorias",
+        "Se recomienda usar banda resiliente SIN ANCLAJE RÍGIDO en medianera para máximo desacoplamiento acústico",
+        "Confirmar si el dormitorio tiene puerta: puede requerir marco reforzado o jamba de pladur (añadir partida)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Colocación de aislante acústico (lana mineral)",
+          "motivo": "Partida auxiliar crítica para aislamiento acústico de medianera - no explícita en tarifa hora pero esencial",
+          "origen": "sugerida_ia",
+          "precio_estimado_unitario": "8€/m²"
+        },
+        {
+          "nombre": "Clavado y tornillería de placas de yeso",
+          "motivo": "Desglose de mano de obra: fijación específica de placas (no incluida en montaje estructura)",
+          "origen": "sugerida_ia",
+          "precio_estimado_unitario": "12€/m²"
+        },
+        {
+          "nombre": "Tratamiento y pegado de juntas",
+          "motivo": "Desglose de mano de obra: trabajo intensivo de acabado (3 pasadas mínimo)",
+          "origen": "sugerida_ia",
+          "precio_estimado_unitario": "15€/m²"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "trasdosado_con_estructura_pladur_y_aislante",
+      "trasdosado_pladur_para_mejora_energetica_fachada",
+      "trasdosado_directo_pladur_sobre_pared_existente",
+      "trasdosado_acustico_pared_medianera",
+      "pintura_y_acabado_paredes_de_pladur_nuevo"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 19,
+    "n_catalogo": 6,
+    "n_sugeridas": 13,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

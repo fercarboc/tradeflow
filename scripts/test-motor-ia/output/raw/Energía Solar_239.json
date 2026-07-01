@@ -1,0 +1,291 @@
+{
+  "id": 239,
+  "oficio": "Energía Solar",
+  "texto": "Proyecto de comunidad energética solar en barrio, 20 viviendas participantes, gestoría incluida",
+  "http_status": 200,
+  "latency_ms": 29179,
+  "raw_response": {
+    "transcript": "Proyecto de comunidad energética solar en barrio, 20 viviendas participantes, gestoría incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Proyecto de comunidad energética solar en barrio, 20 viviendas participantes, gestoría incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA MAYOR: Comunidad energética solar con 20 viviendas requiere aprobación de todas las comunidades de propietarios implicadas",
+          "TRAMITACIÓN OBLIGATORIA: Legalización ante distribuidora eléctrica para cada suministro participante",
+          "PROYECTO TÉCNICO OBLIGATORIO: Diseño de sistema de reparto de energía entre 20 viviendas",
+          "GESTORÍA INCLUIDA: Tramitación administrativa, permisos municipales, legalización distribuidora",
+          "SISTEMA DE MEDICIÓN: Contadores inteligentes por vivienda para reparto de energía",
+          "PRESUPUESTO ESTIMADO: Requiere revisión de instalador. Rango orientativo 160.000-520.000€ (20 viviendas × 800-2600€/kWp, asumiendo 5kWp medio por vivienda = 100kWp total)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica comunitaria en múltiples viviendas con sistema de reparto de energía"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cableado, protecciones, cuadros de distribución, conexiones en cada vivienda"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Tramitación administrativa, aprobaciones comunitarias, legalización ante distribuidora, permisos municipales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Aprobación de comunidades de propietarios (20 viviendas)",
+          "descripcion": "Gestión de aprobación en asamblea de cada comunidad de propietarios participante en la comunidad energética solar. Incluye documentación técnica, presentación a juntas de propietarios y actas de aprobación.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por gestoría según complejidad de cada comunidad. Estimado 300-600€/comunidad"
+        },
+        {
+          "concepto": "Proyecto técnico de comunidad energética solar",
+          "descripcion": "Diseño integral del sistema fotovoltaico comunitario para 20 viviendas. Incluye cálculo de potencia instalada, dimensionamiento de inversores, sistema de reparto de energía, esquema de conexiones, estudio de viabilidad técnica y económica, cumplimiento CTE DB-HE4.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por proyectista. Estimado 3.000-8.000€ según complejidad"
+        },
+        {
+          "concepto": "Módulos fotovoltaicos (estimado 100 kWp total)",
+          "descripcion": "Suministro de paneles fotovoltaicos de alta eficiencia para instalación comunitaria. Cantidad estimada en función de 5kWp medio por vivienda (20 viviendas = 100kWp). Precio unitario a revisar según marca, modelo y potencia específica.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mercado 150-250€/kWp. Total estimado 15.000-25.000€"
+        },
+        {
+          "concepto": "Inversores y cuadros de distribución comunitarios",
+          "descripcion": "Suministro e instalación de inversores trifásicos para sistema comunitario, cuadros de protección, seccionadores, magnetotérmicos, diferenciales y elementos de maniobra. Incluye instalación en cuarto técnico comunitario.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 8.000-15.000€ según potencia total y número de inversores"
+        },
+        {
+          "concepto": "Instalación de inversores y cuadros",
+          "descripcion": "Mano de obra para montaje, conexionado e instalación de inversores trifásicos y cuadros de distribución en cuarto técnico comunitario. Incluye pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y protecciones (desde generación a distribución)",
+          "descripcion": "Suministro de cable solar DC (4mm² a 16mm²), cable trifásico AC, tuberías de protección, bandejas portacables, conectores MC4, fusibles DC, protecciones AC. Desde cubierta con paneles hasta cuarto técnico comunitario.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 3.000-6.000€ según longitud de cableado y número de circuitos"
+        },
+        {
+          "concepto": "Instalación de cableado y protecciones",
+          "descripcion": "Mano de obra para tendido de cableado DC y AC, instalación de tuberías, conexionado de conectores, instalación de protecciones y fusibles. Incluye pruebas de continuidad y aislamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 60,
+          "precio_unitario": 50,
+          "total": 3000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de medición y reparto de energía (20 viviendas)",
+          "descripcion": "Suministro e instalación de 20 contadores inteligentes (uno por vivienda) con comunicación remota para medición de energía generada y consumida. Incluye software de gestión de reparto de energía según cuota de participación. Sistema de monitorización centralizado.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 400-800€/contador inteligente. Total 8.000-16.000€"
+        },
+        {
+          "concepto": "Instalación de contadores inteligentes y software",
+          "descripcion": "Mano de obra para instalación de 20 contadores inteligentes en cada vivienda, conexionado, configuración de comunicación remota, instalación y parametrización de software de gestión de reparto de energía.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 50,
+          "precio_unitario": 50,
+          "total": 2500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Legalización ante distribuidora eléctrica (20 suministros)",
+          "descripcion": "Tramitación administrativa para legalización de la instalación fotovoltaica comunitaria ante la distribuidora eléctrica. Incluye solicitud de autorización de vertido a red, modificación de contratos de suministro, actualización de datos técnicos para cada una de las 20 viviendas participantes.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 150-300€/suministro. Total 3.000-6.000€"
+        },
+        {
+          "concepto": "Permisos municipales y licencias",
+          "descripcion": "Gestión de solicitud de licencia de obras municipal, licencia de actividad si aplica, inspección técnica municipal, certificados de conformidad. Incluye coordinación con ayuntamiento y tramitación de documentación.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 1.500-3.000€ según municipio"
+        },
+        {
+          "concepto": "Instalación de estructura de paneles en cubiertas (estimado 100 kWp)",
+          "descripcion": "Suministro e instalación de estructuras de aluminio/acero galvanizado para fijación de paneles fotovoltaicos en cubiertas de las viviendas participantes. Incluye anclajes, tornillería, impermeabilización de penetraciones. Estimado para 100 kWp distribuidos en múltiples cubiertas.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 2.000-4.000€ según número de cubiertas y complejidad de instalación"
+        },
+        {
+          "concepto": "Montaje de paneles en cubiertas",
+          "descripcion": "Mano de obra para instalación de estructuras de soporte, fijación de paneles fotovoltaicos, conexionado DC entre paneles, impermeabilización de penetraciones. Incluye trabajos en altura con medidas de seguridad.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 80,
+          "precio_unitario": 65,
+          "total": 5200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 12700,
+        "iva_porcentaje": 21,
+        "iva": 2667,
+        "total": 15367
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de 'instalacion_fotovoltaica_en_comunidad_de_propietarios' para validar estructura de partidas y precios de referencia",
+        "Validar con distribuidora eléctrica local los requisitos específicos de legalización para comunidad energética con 20 viviendas",
+        "Considerar ayudas IDAE o fondos europeos para comunidades energéticas (pueden reducir costes para participantes)",
+        "Solicitar presupuesto a proveedores de contadores inteligentes con software de gestión de reparto de energía"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aprobación de comunidades de propietarios",
+          "oficio": "gestoria_tramites",
+          "motivo": "Gestión específica de aprobaciones en múltiples comunidades para comunidad energética"
+        },
+        {
+          "concepto": "Sistema de medición y reparto de energía",
+          "oficio": "electricidad",
+          "motivo": "Contadores inteligentes con software de gestión de reparto entre 20 viviendas (no es instalación estándar)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_foco_solar_exterior",
+      "instalacion_fotovoltaica_en_comunidad_de_propietarios",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "max_tokens",
+      "tokens_in": 3973,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 4,
+    "n_sugeridas": 9,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

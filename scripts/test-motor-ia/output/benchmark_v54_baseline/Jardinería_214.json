@@ -1,0 +1,142 @@
+{
+  "id": 214,
+  "oficio": "Jardinería",
+  "texto": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 12782,
+  "raw_response": {
+    "transcript": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de jardinería/limpieza en parcela grande (500 m²). Verificar accesibilidad para maquinaria y destino final de residuos vegetales."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Desbroce, limpieza y retirada de maleza en parcela. Trabajo de jardinería especializada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desbroce y limpieza de maleza",
+          "descripcion": "Desbroce manual y mecanizado de maleza, hierbas y vegetación invasora en parcela de 500 m². Incluye corte, arranque y acopio de residuos vegetales.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0.8,
+          "total": 400,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa por m² estimada. Revisar según densidad de maleza, tipo de vegetación y accesibilidad real de la parcela."
+        },
+        {
+          "concepto": "Retirada y transporte de residuos vegetales",
+          "descripcion": "Carga, transporte y gestión de residuos vegetales (maleza, ramas, escombros vegetales) a punto de acopio o gestor autorizado.",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen estimado de residuos (aprox. 15 m³ para 500 m² de maleza densa). Precio a definir según gestor y distancia de transporte."
+        },
+        {
+          "concepto": "Nivelación y preparación del terreno",
+          "descripcion": "Nivelación superficial del terreno tras desbroce, eliminación de tocones pequeños y preparación de la parcela para uso posterior.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 25,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alquiler de maquinaria (desbrozadora/trituradora)",
+          "descripcion": "Alquiler de desbrozadora de gasolina o trituradora de residuos vegetales para optimizar el trabajo en parcela de 500 m².",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "dia",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de alquiler de maquinaria a definir (típicamente 40-80€/día). Opcional si se realiza desbroce manual."
+        }
+      ],
+      "calculos": {
+        "subtotal": 600,
+        "iva_porcentaje": 21,
+        "iva": 126,
+        "total": 726
+      },
+      "sugerencias_catalogo": [
+        "Considerar si la parcela requiere tratamiento herbicida post-desbroce para evitar rebrotes rápidos.",
+        "Verificar si hay tocones grandes que requieran extracción especializada (raíces profundas).",
+        "Evaluar si el cliente desea acolchado o cobertura vegetal tras la limpieza para evitar recolonización de maleza."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desbroce y limpieza de maleza",
+          "oficio": "jardineria",
+          "motivo": "Partida creada por IA. Tarifa por m² estimada en 0,8€/m² (trabajo de desbroce en parcela grande). Revisar según condiciones reales."
+        },
+        {
+          "concepto": "Retirada y transporte de residuos vegetales",
+          "oficio": "jardineria",
+          "motivo": "Partida creada por IA. Volumen estimado en 15 m³. Precio a definir según gestor de residuos y distancia."
+        },
+        {
+          "concepto": "Alquiler de maquinaria (desbrozadora/trituradora)",
+          "oficio": "jardineria",
+          "motivo": "Partida creada por IA. Coste opcional según necesidad. Típicamente 40-80€/día."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "presupuesto_e_informe_inicial_instalacion_contra_incendios",
+      "reparacion_de_piscina_con_filtraciones",
+      "instalacion_bomba_de_calor_para_piscina",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3913,
+      "tokens_out": 1532
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

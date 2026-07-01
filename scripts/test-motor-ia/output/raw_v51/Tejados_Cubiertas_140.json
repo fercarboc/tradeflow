@@ -1,0 +1,146 @@
+{
+  "id": 140,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+  "http_status": 200,
+  "latency_ms": 11397,
+  "raw_response": {
+    "transcript": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cemento blanco no es sellador flexible recomendado para cubiertas. Se recomienda sustituir por sellador poliuretano o silicona de exterior para movimientos térmicos.",
+          "Si la rotura es significativa, valorar sustitución de teja en lugar de reparación puntual."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de cubiertas, recolocación de tejas y sellado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Recolocación y fijación de teja",
+          "descripcion": "Retirada de teja con viento o rotura puntual, limpieza de mortero antiguo, reposicionamiento y fijación con mortero o grapas de acero inoxidable",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero o cemento gris para recolocación",
+          "descripcion": "Mortero de agarre para reposicionamiento de teja",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "requiere_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de consumo, requiere presupuesto del proveedor"
+        },
+        {
+          "concepto": "Sellado flexible con silicona o poliuretano de exterior",
+          "descripcion": "Sellado de juntas y encuentros con sellador flexible de exterior (recomendado: poliuretano o silicona), sustituyendo cemento blanco para permitir movimientos térmicos",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "requiere_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Producto de sellado flexible, presupuesto según volumen y marca"
+        },
+        {
+          "concepto": "Mano de obra sellado y acabado",
+          "descripcion": "Aplicación de sellador flexible en juntas y encuentros, alisado y acabado limpio",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 40,
+          "total": 20,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y pequeño material",
+          "descripcion": "Limpieza de zona, retirada de escombros, EPI básico y herramientas menores",
+          "oficio": "cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0.25,
+          "precio_unitario": 40,
+          "total": 10,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 70,
+        "iva_porcentaje": 21,
+        "iva": 14.7,
+        "total": 84.7
+      },
+      "sugerencias_catalogo": [
+        "El cemento blanco (sellador rígido) no se recomienda en cubiertas por falta de flexibilidad ante movimientos térmicos. Sustituir por sellador poliuretano o silicona de exterior de buena calidad.",
+        "Si la teja tiene rotura importante (>30% superficie), considerar sustitución por teja nueva en lugar de reparación puntual.",
+        "Para trabajos en altura, verificar necesidad de andamio, línea de vida o plataforma según altura y accesibilidad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sellador flexible poliuretano o silicona exterior",
+          "oficio": "cubiertas",
+          "motivo": "Producto de sellado recomendado, requiere presupuesto según volumen y marca específica"
+        },
+        {
+          "concepto": "Mortero de agarre para teja",
+          "oficio": "cubiertas",
+          "motivo": "Material de consumo variables según volumen de trabajo, presupuesto requerido"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "impermeabilizacion_de_encuentro_fachada_cubierta"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

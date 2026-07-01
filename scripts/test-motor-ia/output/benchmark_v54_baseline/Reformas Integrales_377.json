@@ -1,0 +1,221 @@
+{
+  "id": 377,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+  "http_status": 200,
+  "latency_ms": 22279,
+  "raw_response": {
+    "transcript": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: múltiples oficios simultáneos (pintura, suelos, cocina, baño). Se agrupan en capítulos según complejidad.",
+          "Cocina y baño 'modernizados' requieren especificación de alcance (solo acabados vs. cambio de instalaciones).",
+          "Se asume reforma de acabados + instalaciones básicas. Revisar si incluye cambio de fontanería/electricidad completa."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma integral de vivienda para alquiler: pintura + suelos + cocina + baño. Múltiples oficios coordinados."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura general de vivienda"
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Instalación suelo laminado"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 30,
+            "max": 35
+          },
+          "motivo": "Alicatado baño y cocina"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Modernización baño y cocina (grifería, desagües)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Revisión/actualización instalación eléctrica, iluminación cocina y baño"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Muebles cocina y baño (si incluye carpintería)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y preparación",
+          "descripcion": "Desmontaje de suelo existente, retirada de muebles cocina/baño antiguos, limpieza y preparación de superficies. Gestión de residuos incluida.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado según alcance. Instalador debe revisar jornadas reales según m² y complejidad de desmontaje."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (fontanería, electricidad, climatización)",
+          "descripcion": "Revisión/actualización instalación eléctrica (enchufes, iluminación cocina/baño), grifería y desagües baño/cocina modernizados, tuberías agua caliente/fría.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye fontanería + electricidad. Precio alzado estimado. Revisar si requiere cambio de tuberías completo o solo grifería."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (suelos, alicatados, pintura, carpintería)",
+          "descripcion": "Instalación suelo laminado en zonas comunes, alicatado baño y cocina (baldosas suelo + azulejos pared), pintura general vivienda, muebles cocina/baño modernizados.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Agrupa suelos, alicatados, pintura y carpintería. Precio alzado estimado. Instalador debe desglosar m² suelo, m² alicatado, m² pintura."
+        },
+        {
+          "concepto": "CAP.4 – Materiales, pequeño material y gestión residuos",
+          "descripcion": "Suministro baldosas, azulejos, laminado, pintura, grifería, muebles cocina/baño, mortero, lechada, silicona, tornillos, gestión residuos y limpieza final.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de especificación. Instalador debe detallar: marca/modelo muebles cocina, tipo baldosa/azulejo, marca pintura, grifería, etc."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Usar referencia [reforma_de_vivienda_para_arrendar_o_vender] como base: incluye pintura_completa, suelo_si_deteriorado, bano_si_muy_deteriorado, cocina_si_muy_deteriorada, instalacion_electrica_revisada, fontaneria_revisada, limpieza_profunda.",
+        "Especificar: ¿Cambio de tuberías completo o solo grifería? ¿Cambio de cableado eléctrico o solo enchufes/iluminación? ¿Muebles cocina nuevos o solo pintura/grifería?",
+        "Solicitar m² totales: suelo laminado, alicatado baño, alicatado cocina, pintura.",
+        "Certificado de eficiencia energética OBLIGATORIO para alquiler/venta.",
+        "Considerar aire acondicionado si zona turística o demanda de mercado."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desmontaje y preparación",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Agrupación de demolición, retirada residuos y limpieza inicial."
+        },
+        {
+          "concepto": "Instalaciones integradas (fontanería + electricidad)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Agrupación de trabajos de fontanería y electricidad en cocina/baño."
+        },
+        {
+          "concepto": "Acabados integrados (suelos + alicatados + pintura + carpintería)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Agrupación de todos los acabados finales según complejidad de reforma integral."
+        },
+        {
+          "concepto": "Materiales y gestión residuos",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Suministro de todos los materiales necesarios + gestión de residuos de obra."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_vivienda_para_arrendar_o_vender",
+      "reforma_integral_piso_turistico_o_apartamento",
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "instalacion_de_suelo_metalico_tramex_o_rejilla",
+      "alicatado_y_solado_completo_cocina"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3929,
+      "tokens_out": 3052
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

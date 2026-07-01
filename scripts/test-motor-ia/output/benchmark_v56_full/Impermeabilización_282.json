@@ -1,0 +1,173 @@
+{
+  "id": 282,
+  "oficio": "Impermeabilización",
+  "texto": "Tratamiento impermeabilizante en fachada exterior de edificio antiguo con mortero flexible",
+  "http_status": 200,
+  "latency_ms": 18099,
+  "raw_response": {
+    "transcript": "Tratamiento impermeabilizante en fachada exterior de edificio antiguo con mortero flexible",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tratamiento impermeabilizante en fachada exterior de edificio antiguo con mortero flexible",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda inspección previa de la fachada para evaluar estado de grietas, desprendimientos y porosidad",
+          "Confirmar superficie exacta a tratar (m²)",
+          "Verificar acceso y necesidad de andamios/plataformas de trabajo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Tratamiento impermeabilizante en fachada con mortero flexible es competencia directa de impermeabilización. Aunque implique mortero (albanilería), la función primaria es estanca/impermeabilizante."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de fachada",
+          "descripcion": "Limpieza de suciedad, algas, musgo y material suelto. Reparación de grietas y desprendimientos menores. Preparación del soporte para recibir tratamiento impermeabilizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 8,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² a confirmar por el profesional. Tarifa estimada según complejidad de limpieza."
+        },
+        {
+          "concepto": "Mortero flexible impermeabilizante",
+          "descripcion": "Suministro de mortero flexible impermeabilizante de alta calidad, con aditivos hidrofugos y elastómeros. Apto para fachadas antiguas con movimientos y cambios térmicos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en kg a calcular según espesor de aplicación (típicamente 15-20mm) y superficie total. Precio unitario a confirmar por proveedor."
+        },
+        {
+          "concepto": "Malla de fibra de vidrio reforzada",
+          "descripcion": "Suministro e instalación de malla de fibra de vidrio en encuentros, grietas y zonas de riesgo para refuerzo del mortero flexible.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad a estimar según número y extensión de grietas y encuentros. Precio unitario a confirmar."
+        },
+        {
+          "concepto": "Aplicación de mortero flexible impermeabilizante",
+          "descripcion": "Aplicación del mortero flexible en 2 manos, con técnica de proyección o llana según soporte. Incluye maestras, guías y control de planeidad. Espesor 15-20mm.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 35,
+          "total": 3500,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² a confirmar. Tarifa de 35€/m² es referencia para aplicación de mortero flexible en fachada. Puede variar según accesibilidad y complejidad."
+        },
+        {
+          "concepto": "Juntas de dilatación con sellador flexible",
+          "descripcion": "Ejecución de juntas de dilatación cada 6m (vertical y horizontal) con sellador poliuretano o silicona de calidad exterior. Incluye fondo de junta y material de sellado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje lineal de juntas a calcular según perímetro y altura de fachada. Precio unitario (20-95€/ml según complejidad) a confirmar."
+        },
+        {
+          "concepto": "Andamios y plataformas de trabajo",
+          "descripcion": "Alquiler, montaje y desmontaje de andamios o plataformas de trabajo para acceso seguro a toda la fachada durante el tratamiento impermeabilizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Duración del trabajo y altura de fachada a confirmar. Presupuesto de andamios a solicitar a empresa especializada."
+        }
+      ],
+      "calculos": {
+        "subtotal": 4300,
+        "iva_porcentaje": 21,
+        "iva": 903,
+        "total": 5203
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de morteros impermeabilizantes flexibles: marca, elasticidad, resistencia a UV y durabilidad esperada (5-10 años según producto y exposición).",
+        "Confirmar si la fachada requiere imprimación previa o tratamiento de grietas profundas antes de aplicar mortero.",
+        "Evaluar si es necesario tratamiento hidrofugo adicional (siloxano/silicona) tras el mortero para mayor durabilidad.",
+        "Solicitar presupuesto separado de andamios según altura y superficie de fachada."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero flexible impermeabilizante",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para tratamiento impermeabilizante en fachada antigua. Requiere especificación de marca, elasticidad y características técnicas."
+        },
+        {
+          "concepto": "Malla de fibra de vidrio reforzada",
+          "oficio": "impermeabilizacion",
+          "motivo": "Refuerzo estructural del mortero flexible en encuentros y grietas. Cantidad a estimar según estado de fachada."
+        },
+        {
+          "concepto": "Juntas de dilatación con sellador flexible",
+          "oficio": "impermeabilizacion",
+          "motivo": "Elemento crítico para permitir movimientos térmicos en fachada antigua. Metraje lineal a calcular según dimensiones."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_iluminacion_exterior_fachada",
+      "instalacion_de_grafica_corporativa_o_mural_en_fachada",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "revestimiento_con_mortero_monocapa"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3746,
+      "tokens_out": 2331
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

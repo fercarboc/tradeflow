@@ -1,0 +1,400 @@
+{
+  "id": 368,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+  "http_status": 200,
+  "latency_ms": 34584,
+  "raw_response": {
+    "transcript": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Cambio de uso de local a restaurante requiere LICENCIA URBANÍSTICA obligatoria",
+          "CRÍTICO: Proyecto técnico obligatorio para cumplimiento CTE (habitabilidad, instalaciones, accesibilidad)",
+          "CRÍTICO: Verificar altura libre mínima 2.5m en planta baja",
+          "CRÍTICO: Cocina industrial requiere normativa específica (ventilación, extracción, seguridad alimentaria)",
+          "Reforma integral detectada: 5+ oficios simultáneos (albanilería, fontanería, electricidad, climatización, carpintería, contra_incendios)",
+          "Se recomienda desglose técnico completo antes de ejecución"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral de local: múltiples oficios simultáneos (≥3: albanilería, fontanería, electricidad, climatización, carpintería, contra_incendios)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición, tabiquería, distribución de espacios, revestimientos"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación agua fría/caliente, desagües, cocina industrial, servicios (aseos)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Cuadro eléctrico, circuitos, enchufes, iluminación, equipos cocina industrial"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Climatización sala, extracción cocina industrial, ventilación forzada"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, marcos, distribución interior, muebles cocina"
+        },
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 70
+          },
+          "motivo": "Extintores, señalización, sistema detección humo/CO, normativa restauración"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Licencia urbanística, proyecto técnico, permisos cambio de uso"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Licencia urbanística cambio de uso local a restaurante",
+          "descripcion": "Tramitación licencia de actividad y cambio de uso de local a restaurante. Obligatorio para apertura legal.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de municipio y complejidad. Consultar gestoría local. Rango estimado: 800-2500€"
+        },
+        {
+          "concepto": "Proyecto técnico CTE y seguridad alimentaria",
+          "descripcion": "Proyecto técnico para cumplimiento CTE (habitabilidad, instalaciones, accesibilidad), normativa restauración y seguridad alimentaria. Obligatorio.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de superficie y complejidad. Rango estimado: 1500-4000€"
+        },
+        {
+          "concepto": "Demolición y retirada de elementos existentes",
+          "descripcion": "Demolición de tabiques, revestimientos, instalaciones antiguas. Retirada y gestión de escombros.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 320,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tabiquería y distribución de espacios (sala, cocina, servicios)",
+          "descripcion": "Construcción de tabiques para separar zona de cocina, sala de comensales y servicios (aseos, almacén). Incluye placa de yeso laminado e hidrofuga en zonas húmedas.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 40,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revestimientos y acabados (alicatado cocina y servicios)",
+          "descripcion": "Alicatado de cocina industrial (paredes hasta 2m) y servicios. Baldosa cerámica resistente a humedad y grasa.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 35,
+          "total": 2100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pavimento sala de comensales (porcelánico antideslizante)",
+          "descripcion": "Colocación de pavimento porcelánico antideslizante en zona de comensales. Resistente a tráfico intenso.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación fontanería: agua fría, caliente y desagües",
+          "descripcion": "Red completa de agua fría y caliente (tuberías multicapa PEX) para cocina industrial y servicios. Desagües y sifones. Incluye tomas para lavapiés, fregaderos y aseos.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación eléctrica: cuadro, circuitos e iluminación",
+          "descripcion": "Cuadro eléctrico general, circuitos independientes para cocina industrial, iluminación LED en sala y cocina, enchufes de seguridad. Cumplimiento REBT.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 50,
+          "precio_unitario": 50,
+          "total": 2500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación cocina industrial: equipos y conexiones",
+          "descripcion": "Suministro e instalación de equipos cocina industrial (fogones, horno, freidora, campana extractora). Conexiones gas, electricidad y agua. Pruebas de funcionamiento.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 35,
+          "precio_unitario": 60,
+          "total": 2100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema extracción y ventilación cocina industrial",
+          "descripcion": "Campana extractora industrial con filtros, conductos de extracción, ventilación forzada en cocina. Cumplimiento normativa restauración (renovación aire mínima).",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 30,
+          "precio_unitario": 60,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Climatización sala de comensales (split o conductos)",
+          "descripcion": "Instalación sistema climatización para sala de comensales. Temperatura y humedad controladas. Unidades split o conductos según distribución.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 25,
+          "precio_unitario": 60,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puertas, marcos y distribución interior",
+          "descripcion": "Puertas de acceso, puertas de paso (cocina-sala), marcos. Puertas cortafuego en cocina si normativa lo requiere. Herrajes de calidad.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 180,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Extintores y señalización contra incendios",
+          "descripcion": "Instalación extintores (CO2 en cocina, polvo ABC en sala), señalización fotoluminiscente, planos evacuación. Cumplimiento CTE DB SI.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 150,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Detector humo y sistema alarma incendios",
+          "descripcion": "Detectores de humo interconectados, central de alarma incendios, pulsadores manuales. Normativa restauración obligatoria.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de superficie y complejidad. Rango estimado: 1200-3000€ (material + instalación)"
+        },
+        {
+          "concepto": "Pintura y acabados finales",
+          "descripcion": "Pintura de paredes en sala (acabado mate lavable), pintura especial en cocina (resistente a grasa y humedad). Dos manos.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 8,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "descripcion": "Retirada, transporte y gestión de escombros y residuos de construcción. Contenedor y vertedero autorizado.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de volumen de escombros. Rango estimado: 800-2000€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 21400,
+        "iva_porcentaje": 21,
+        "iva": 4494,
+        "total": 25894
+      },
+      "sugerencias_catalogo": [
+        "Verificar con ayuntamiento local requisitos específicos para licencia de restaurante (distancia a viviendas, horarios, ruido)",
+        "Consultar normativa local sobre cocina industrial (ventilación mínima, extracción, seguridad alimentaria)",
+        "Considerar instalación de sistema de detección de gas en cocina (obligatorio en algunos municipios)",
+        "Evaluar necesidad de BIE (Boca de Incendio Equipada) según superficie y normativa local",
+        "Incluir revisión anual de extintores y sistema de alarma en presupuesto de mantenimiento",
+        "Solicitar certificado de instalación eléctrica (REBT) y fontanería al finalizar obra"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Licencia urbanística cambio de uso local a restaurante",
+          "oficio": "gestoria_tramites",
+          "motivo": "Trámite administrativo obligatorio no incluido en catálogo estándar"
+        },
+        {
+          "concepto": "Proyecto técnico CTE y seguridad alimentaria",
+          "oficio": "gestoria_tramites",
+          "motivo": "Proyecto técnico obligatorio para reforma integral con cambio de uso"
+        },
+        {
+          "concepto": "Detector humo y sistema alarma incendios",
+          "oficio": "contra_incendios",
+          "motivo": "Sistema completo de detección y alarma específico para restauración"
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de retirada y gestión de residuos de construcción"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "aplicacion_pintura_de_pizarra_o_pared_escritura",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3910,
+      "tokens_out": 5263
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 16,
+    "n_catalogo": 12,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

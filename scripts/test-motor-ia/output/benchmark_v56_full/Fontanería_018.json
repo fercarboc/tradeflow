@@ -1,0 +1,263 @@
+{
+  "id": 18,
+  "oficio": "Fontanería",
+  "texto": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+  "http_status": 200,
+  "latency_ms": 18420,
+  "raw_response": {
+    "transcript": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montaje de cocina nueva con conexiones de agua fría y caliente, desagüe fregadero y lavavajillas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación de muebles de cocina (carpintería) no incluida en este presupuesto",
+          "Revisar si hay desmontaje de instalación anterior",
+          "Confirmar longitud de tuberías y ubicación de tomas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación completa de fontanería en cocina: agua fría, caliente, desagües"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tuberías agua fría y caliente (multicapa)",
+          "descripcion": "Suministro e instalación de tubería multicapa PEX para distribución de agua fría y caliente desde tomas principales hasta fregadero y lavavajillas, incluyendo tes, racores y abrazaderas de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según marca y diámetro (16mm recomendado)"
+        },
+        {
+          "concepto": "Instalación tuberías agua fría y caliente",
+          "descripcion": "Mano de obra para tendido, fijación y conexión de tuberías multicapa, incluyendo rozas si es necesario",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Llaves de paso agua fría y caliente",
+          "descripcion": "Suministro e instalación de 2 llaves de paso independientes (una para agua fría, otra para agua caliente) con manómetro",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario a confirmar (rango típico 25-50€/ud)"
+        },
+        {
+          "concepto": "Grifo fregadero con caño móvil",
+          "descripcion": "Suministro e instalación de grifo monomando o bimando con caño móvil para fregadero, incluyendo latiguillos de conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar según modelo (rango 80-300€)"
+        },
+        {
+          "concepto": "Instalación grifo fregadero",
+          "descripcion": "Mano de obra para instalación de grifo, conexión de latiguillos y prueba de funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sifón y desagüe fregadero",
+          "descripcion": "Suministro e instalación de sifón cromado con tubo de desagüe flexible hacia sumidero o bajante",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar (rango típico 20-60€)"
+        },
+        {
+          "concepto": "Toma de agua lavavajillas",
+          "descripcion": "Suministro e instalación de toma de agua fría para lavavajillas con llave de corte independiente y latiguillo de conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar (rango 15-40€)"
+        },
+        {
+          "concepto": "Desagüe lavavajillas",
+          "descripcion": "Suministro e instalación de tubo de desagüe flexible para lavavajillas hacia sumidero o bajante, incluyendo abrazaderas",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar (rango 10-30€)"
+        },
+        {
+          "concepto": "Instalación desagües fregadero y lavavajillas",
+          "descripcion": "Mano de obra para conexión de desagües, sifón y tuberías de evacuación, incluyendo prueba de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de presión y funcionamiento",
+          "descripcion": "Prueba de presión de toda la instalación de agua fría y caliente, verificación de estanqueidad en todas las conexiones y prueba de funcionamiento de grifos y desagües",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Cinta de teflón, pasta de fontanero, abrazaderas, tacos, tornillos y otros accesorios necesarios para la instalación completa",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar (rango estimado 30-60€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 350,
+        "iva_porcentaje": 21,
+        "iva": 73.5,
+        "total": 423.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: tuberías multicapa PEX 16mm (precio/metro)",
+        "Verificar en catálogo: grifos monomando cocina con caño móvil",
+        "Verificar en catálogo: sifones cromados estándar",
+        "Verificar en catálogo: latiguillos de conexión (pares agua fría/caliente)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tuberías agua fría y caliente (multicapa)",
+          "oficio": "fontaneria",
+          "razon": "Material específico de instalación, requiere precio de mercado"
+        },
+        {
+          "concepto": "Llaves de paso agua fría y caliente",
+          "oficio": "fontaneria",
+          "razon": "Accesorios específicos, requiere precio de mercado"
+        },
+        {
+          "concepto": "Grifo fregadero con caño móvil",
+          "oficio": "fontaneria",
+          "razon": "Elemento principal, precio variable según modelo y marca"
+        },
+        {
+          "concepto": "Sifón y desagüe fregadero",
+          "oficio": "fontaneria",
+          "razon": "Material específico, requiere precio de mercado"
+        },
+        {
+          "concepto": "Toma de agua lavavajillas",
+          "oficio": "fontaneria",
+          "razon": "Accesorio específico, requiere precio de mercado"
+        },
+        {
+          "concepto": "Desagüe lavavajillas",
+          "oficio": "fontaneria",
+          "razon": "Material específico, requiere precio de mercado"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "fontaneria",
+          "razon": "Partida de consumibles, requiere estimación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cocina_completa_fontaneria",
+      "instalacion_toma_agua_nueva",
+      "instalacion_fontaneria_cocina_completa",
+      "desatasco_fregadero",
+      "instalacion_osmosis_inversa"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3381,
+      "tokens_out": 2875
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

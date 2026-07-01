@@ -1,0 +1,152 @@
+{
+  "id": 397,
+  "oficio": "Persianas",
+  "texto": "Reparar toldo de terraza que ha roto la tela con el viento, cambio de tejido y tensado de estructura",
+  "http_status": 200,
+  "latency_ms": 13818,
+  "raw_response": {
+    "transcript": "Reparar toldo de terraza que ha roto la tela con el viento, cambio de tejido y tensado de estructura",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar toldo de terraza que ha roto la tela con el viento, cambio de tejido y tensado de estructura",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar estado de brazos articulados y mecanismo de extensión antes de tensado",
+          "Confirmar medidas exactas del toldo para suministro de tela de reemplazo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación, sustitución de tela y tensado de toldo de terraza"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de tela dañada del toldo",
+          "descripcion": "Desmontaje cuidadoso de la tela rota del toldo, desenganche de sistemas de fijación, retirada y gestión de residuo textil",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de tela acrílica tratada UV para toldo",
+          "descripcion": "Tela acrílica o poliéster de alta calidad tratada contra rayos UV, resistente a intemperie, medidas según toldo existente",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tela pendiente de confirmación según medidas exactas del toldo y calidad seleccionada (rango típico 15-35€/m2)"
+        },
+        {
+          "concepto": "Instalación de nueva tela en toldo",
+          "descripcion": "Colocación, enganche y fijación de tela nueva en estructura del toldo, alineación correcta en todos los puntos de anclaje",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tensado y ajuste de estructura del toldo",
+          "descripcion": "Tensado uniforme de la tela en toda la estructura, ajuste de brazos articulados, verificación de alineación y funcionamiento correcto del mecanismo de extensión/retracción",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios de fijación",
+          "descripcion": "Tornillería, arandelas, clips de fijación, selladores y material auxiliar necesario para la instalación",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 20-40€ según accesorios necesarios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 225,
+        "iva_porcentaje": 21,
+        "iva": 47.25,
+        "total": 272.25
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente las medidas exactas del toldo (ancho x vuelo) para cálculo preciso de m2 de tela",
+        "Inspeccionar brazos articulados, mecanismo de manivela y puntos de fijación a pared para detectar daños adicionales",
+        "Ofrecer tela de calidad superior (acrílica 100% tratada UV) para mayor durabilidad ante vientos fuertes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de tela acrílica tratada UV para toldo",
+          "oficio": "persianas",
+          "motivo": "Material específico cuyo precio depende de medidas exactas y calidad seleccionada"
+        },
+        {
+          "concepto": "Pequeño material y accesorios de fijación",
+          "oficio": "persianas",
+          "motivo": "Accesorios auxiliares cuyo importe debe confirmarse según necesidades de la reparación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "instalacion_de_faldones_o_cenefas_para_toldo",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3800,
+      "tokens_out": 1550
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "id": 36,
+  "oficio": "Electricidad",
+  "texto": "Instalación de luminaria exterior de jardín con sensor de movimiento y célula fotoeléctrica",
+  "http_status": 200,
+  "latency_ms": 12925,
+  "raw_response": {
+    "transcript": "Instalación de luminaria exterior de jardín con sensor de movimiento y célula fotoeléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de luminaria exterior de jardín con sensor de movimiento y célula fotoeléctrica",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de luminaria solar exterior con célula fotoeléctrica (sensor crepuscular integrado)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de sensor de movimiento PIR y conexiones eléctricas si aplica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Luminaria solar exterior de jardín con célula fotoeléctrica",
+          "descripcion": "Luminaria solar all-in-one para jardín con panel solar integrado, batería interna, célula fotoeléctrica (sensor crepuscular) para encendido automático al anochecer. Incluye LED de bajo consumo. Potencia típica 5-10W, autonomía 3-5 noches.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de luminaria solar a definir por instalador según marca, potencia y calidad"
+        },
+        {
+          "concepto": "Sensor de movimiento PIR para luminaria exterior",
+          "descripcion": "Detector de movimiento PIR (infrarrojos pasivos) para control de encendido/apagado de luminaria. Ángulo de detección 120-180°, alcance 6-12m, tiempo de apagado ajustable. Apto para exterior IP65.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sensor PIR a definir por instalador según modelo y especificaciones"
+        },
+        {
+          "concepto": "Instalación de luminaria solar con sensor de movimiento",
+          "descripcion": "Mano de obra para instalación completa: fijación de luminaria a poste/pared/suelo, orientación óptima del panel solar (sur), integración del sensor PIR, pruebas de funcionamiento (encendido/apagado por movimiento y luz natural), ajuste de parámetros de sensibilidad y tiempo de apagado.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios de fijación",
+          "descripcion": "Tornillería, tacos, bridas, pasta térmica si aplica, y otros accesorios menores para fijación segura de luminaria y sensor.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a definir por instalador (típicamente 10-30€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 97.5,
+        "iva_porcentaje": 21,
+        "iva": 20.475,
+        "total": 117.975
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la luminaria solar elegida incluya célula fotoeléctrica integrada (sensor crepuscular) para encendido automático",
+        "Confirmar compatibilidad del sensor PIR con la luminaria (algunos modelos ya lo incluyen integrado)",
+        "Orientar el panel solar hacia el sur para máxima carga durante el día",
+        "Ajustar la sensibilidad del PIR según zona (evitar activaciones por animales pequeños si es necesario)",
+        "Probar funcionamiento nocturno completo antes de dar por finalizada la instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Luminaria solar exterior de jardín con célula fotoeléctrica",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de luminaria solar; precio variable según marca y especificaciones"
+        },
+        {
+          "concepto": "Sensor de movimiento PIR para luminaria exterior",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Componente complementario; precio variable según modelo y rango de detección"
+        },
+        {
+          "concepto": "Pequeño material y accesorios de fijación",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Accesorios menores; importe a definir por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_detector_movimiento_pir",
+      "instalacion_de_farolas_o_luminaria_solar_exterior",
+      "instalacion_de_sistema_de_iluminacion_de_fachada",
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_sistema_de_videovigilancia_CCTV"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3779,
+      "tokens_out": 1648
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

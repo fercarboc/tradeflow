@@ -1,0 +1,207 @@
+{
+  "id": 126,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 17392,
+  "raw_response": {
+    "transcript": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si existe estructura soporte existente o requiere construcción nueva",
+          "Confirmar pendiente de inclinación (mínimo 5-10% recomendado para evacuación agua)",
+          "Validar carga de nieve/viento según zona geográfica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Construcción de cubierta inclinada con panel sándwich es competencia directa de tejados_cubiertas"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado de encuentros y juntas de panel sándwich requiere impermeabilización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro panel sándwich inclinado (20 m²)",
+          "descripcion": "Panel sándwich aislante para cubierta inclinada, espesor 40-50mm, núcleo poliestireno expandido, caras acero galvanizado o aluminio, incluye transporte a obra",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de panel sándwich según espesor, calidad y acabado a definir por instalador"
+        },
+        {
+          "concepto": "Perfiles de aluminio soporte y remate (20 m²)",
+          "descripcion": "Perfiles de aluminio anodizado para fijación panel sándwich, correas de soporte, perfiles de remate lateral y cumbrera, tornillería inox",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfiles y accesorios según sistema de fijación elegido"
+        },
+        {
+          "concepto": "Instalación cubierta panel sándwich inclinado (20 m²)",
+          "descripcion": "Colocación y fijación de paneles sándwich sobre estructura existente, alineación, nivelación, fijación con tornillos de holgura para dilatación térmica, EPI y medidas de seguridad en altura",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 50,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado e impermeabilización de encuentros y juntas (20 m²)",
+          "descripcion": "Sellado de juntas longitudinales y transversales con sellador poliuretano de 2 componentes, impermeabilización de encuentros con cumbrera, laterales y encuentros con estructura, cinta de estanqueidad en solapes",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de sellador y cinta según longitud de juntas a definir"
+        },
+        {
+          "concepto": "Aplicación sellador y cinta impermeabilizante (20 m²)",
+          "descripcion": "Limpieza de juntas, aplicación de sellador poliuretano en juntas longitudinales y transversales, colocación de cinta de estanqueidad en encuentros, curado y verificación de estanqueidad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 45,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Canalón y sistema evacuación agua (20 m²)",
+          "descripcion": "Canalón de aluminio anodizado o acero galvanizado, bajantes de PVC o aluminio, accesorios de unión y remate, fijación a estructura",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo de canalón y longitud de bajantes a definir"
+        },
+        {
+          "concepto": "Instalación canalón y bajantes (20 m²)",
+          "descripcion": "Colocación de canalón con pendiente correcta, fijación de soportes, instalación de bajantes, conexiones y remates, prueba de evacuación de agua",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 50,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2900,
+        "iva_porcentaje": 21,
+        "iva": 609,
+        "total": 3509
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: Panel sándwich para cubiertas inclinadas (espesor 40-50mm)",
+        "Verificar en catálogo: Perfiles de aluminio para fijación panel sándwich",
+        "Verificar en catálogo: Sellador poliuretano 2 componentes para juntas cubierta",
+        "Verificar en catálogo: Canalón aluminio/acero galvanizado sistema evacuación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro panel sándwich inclinado (20 m²)",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para cubierta panel sándwich, requiere cotización según especificaciones técnicas"
+        },
+        {
+          "concepto": "Perfiles de aluminio soporte y remate (20 m²)",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de fijación y remate específico, requiere cotización según diseño"
+        },
+        {
+          "concepto": "Sellado e impermeabilización de encuentros y juntas (20 m²)",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material sellador y cinta impermeabilizante, requiere cotización según longitud de juntas"
+        },
+        {
+          "concepto": "Canalón y sistema evacuación agua (20 m²)",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de canalización, requiere cotización según tipo y longitud"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "instalacion_de_cubierta_de_policarbonato_o_acrilico",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4099,
+      "tokens_out": 2365
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

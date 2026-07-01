@@ -1,0 +1,204 @@
+{
+  "id": 64,
+  "oficio": "Pintura",
+  "texto": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+  "http_status": 200,
+  "latency_ms": 25429,
+  "raw_response": {
+    "transcript": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: No se especifica la superficie en m² de la fachada. Se requiere medición exacta para presupuesto definitivo.",
+          "CRÍTICO: Pintura impermeabilizante sugiere trabajo de impermeabilización, no solo pintura decorativa. Oficio reclasificado a 'impermeabilizacion'.",
+          "Se asume acceso mediante andamio/plataforma elevadora para 5 plantas. Incluido en presupuesto orientativo.",
+          "Se requiere revisión de estado previo de fachada (grietas, humedades, desperfectos)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Pintura impermeabilizante en fachada exterior = trabajo de impermeabilización (no pintura estándar). Regla: pintura impermeabilizante en fachada/cubierta/terraza → impermeabilizacion."
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Revestimiento y acabado exterior de fachada de edificio (5 plantas)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa y preparación de fachada",
+          "descripcion": "Limpieza con agua a presión, cepillado de superficies, eliminación de suciedad, algas y eflorescencias. Preparación de soporte para aplicación de impermeabilizante.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total desconocida. Instalador debe medir fachada (5 plantas) y aplicar tarifa 5-8€/m2 para limpieza previa."
+        },
+        {
+          "concepto": "Reparación de grietas, fisuras y desperfectos",
+          "descripcion": "Sellado de grietas con masilla elástica o mortero de reparación. Relleno de desperfectos en fachada previa a impermeabilización.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de reparaciones desconocidas. Requiere inspección previa. Presupuestar según estado real (masilla, mortero, mano de obra reparación)."
+        },
+        {
+          "concepto": "Imprimación/fijadora en fachada",
+          "descripcion": "Aplicación de imprimación consolidante y fijadora en soporte poroso (ladrillo, piedra, mampostería) para mejorar adherencia de pintura impermeabilizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total desconocida. Aplicar tarifa 2-4€/m2 (material + mano de obra) según superficie medida."
+        },
+        {
+          "concepto": "Pintura impermeabilizante en fachada (2 manos)",
+          "descripcion": "Aplicación de pintura impermeabilizante de alta calidad (acrílica, siloxano o poliuretano) en dos manos. Protección contra humedades, filtraciones y degradación por agua.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total desconocida. Presupuestar: material pintura impermeabilizante (8-15€/m2) + mano de obra aplicación (10-15€/m2). Rendimiento típico: 6-8 m2/litro."
+        },
+        {
+          "concepto": "Mano de obra: Aplicación pintura impermeabilizante",
+          "descripcion": "Aplicación de pintura impermeabilizante en dos manos con rodillo y brocha. Incluye masillado de pequeños defectos durante aplicación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total desconocida. Aplicar tarifa 10-15€/m2 según complejidad y accesibilidad."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora (5 plantas)",
+          "descripcion": "Alquiler, montaje y desmontaje de andamio tubular o plataforma elevadora para acceso seguro a fachada de 5 plantas durante trabajos de pintura impermeabilizante.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Duración total de obra desconocida. Presupuestar alquiler andamio: 150-300€/día (5 plantas) + montaje/desmontaje 400-800€. Alternativa: plataforma elevadora 200-400€/día."
+        },
+        {
+          "concepto": "Protección y cinta de carrocero",
+          "descripcion": "Cinta de carrocero, plásticos de protección, lonas para proteger elementos adyacentes (ventanas, puertas, elementos metálicos, suelo).",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de material consumible. Presupuestar 100-200€ en función de perímetro de fachada y número de huecos."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Rodillos, brochas, pinceles, cubetas, trapos, disolventes, EPIs (arnés, casco, guantes, gafas), etc.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar 150-300€ según duración de obra y número de operarios."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "MEDICIÓN URGENTE: Solicitar al cliente/propietario planos o medición de fachada (m² totales). Fórmula aproximada: perímetro edificio × altura (5 plantas × 3,5m/planta ≈ 17,5m altura). Ejemplo: edificio 30m perímetro × 17,5m altura = 525 m².",
+        "INSPECCIÓN PREVIA: Realizar visita técnica para evaluar estado de fachada (grietas, humedades, tipo de soporte: ladrillo, piedra, hormigón, etc.). Esto determinará necesidad de reparaciones y tipo de imprimación.",
+        "TIPO DE PINTURA: Confirmar especificación de pintura impermeabilizante (acrílica, siloxano, poliuretano). Presupuestar según marca y calidad (rango: 8-25€/litro).",
+        "PERMISOS: Verificar si se requiere permiso municipal para andamio en vía pública (5 plantas implica ocupación de espacio público).",
+        "ACCESO: Confirmar si hay acceso para andamio o si se requiere plataforma elevadora (más costoso pero sin ocupación de vía pública)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura impermeabilizante en fachada",
+          "oficio": "impermeabilizacion",
+          "motivo": "Trabajo de impermeabilización de fachada exterior con pintura impermeabilizante. Clasificado como 'impermeabilizacion' (no 'pintura' estándar) según regla: pintura impermeabilizante en fachada/cubierta/terraza → impermeabilizacion."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_chimenea_exterior",
+      "pintura_de_medianera_o_pared_ciega_exterior",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "pintura_fachada_exterior_plastica_o_siloxano",
+      "pintado_de_muros_de_piedra_o_mamposteria_exterior"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3596,
+      "tokens_out": 3364
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 8,
+    "n_catalogo": 0,
+    "n_sugeridas": 8,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

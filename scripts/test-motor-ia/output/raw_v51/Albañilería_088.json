@@ -1,0 +1,178 @@
+{
+  "id": 88,
+  "oficio": "Albañilería",
+  "texto": "Hacer solera de hormigón en garaje de 25 metros cuadrados, preparación del terreno y mallazo",
+  "http_status": 200,
+  "latency_ms": 18184,
+  "raw_response": {
+    "transcript": "Hacer solera de hormigón en garaje de 25 metros cuadrados, preparación del terreno y mallazo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer solera de hormigón en garaje de 25 metros cuadrados, preparación del terreno y mallazo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Espesor de solera no especificado. Se asume 15cm mínimo para garaje según CTE. Revisar con cliente.",
+          "Carga de tráfico del garaje no definida. Mallazo incluido como estándar para garaje con vehículos.",
+          "Gestión de tierras excavadas no incluida. Si hay retirada, añadir partida de gestor autorizado."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Solera de hormigón en masa. Oficio identificado en Base Maestra [solera_de_hormigon_en_masa]."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Capa de zahorra compactada previa",
+          "descripcion": "Preparación del terreno: aporte, extendido y compactación de zahorra o grava de base. 25 m². Espesor 10-15cm.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 8,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lámina de polietileno (barrera de vapor)",
+          "descripcion": "Colocación de lámina de polietileno como barrera de vapor sobre zahorra. 25 m². Espesor 0,2mm mínimo.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 3,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mallazo armado (ø 8mm cada 15cm)",
+          "descripcion": "Colocación de mallazo armado tipo #200 (ø 8mm cada 15cm) sobre lámina de polietileno. 25 m². Solera de garaje con tráfico de vehículos.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 5,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Hormigón HA-20 (15cm de espesor)",
+          "descripcion": "Suministro y colocación de hormigón HA-20 tipo para solera de garaje. 25 m² × 0,15m = 3,75 m³. Incluye vertido, extendido y nivelación.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 3.75,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material principal. Precio depende de proveedor hormigonera y distancia. Incluir coste de bomba si necesaria."
+        },
+        {
+          "concepto": "Fratasado y acabado superficial",
+          "descripcion": "Fratasado mecánico y manual de la solera. Acabado liso para fácil limpieza y circulación. 25 m².",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 6,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Juntas de retracción (cada 4-5m)",
+          "descripcion": "Corte y relleno de juntas de retracción cada 4-5 metros lineales para evitar fisuras de retracción. Aproximadamente 12 ml en parcela de 25 m². Incluye sellado.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 8,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, herramientas y equipos",
+          "descripcion": "Pequeño material: clavos, grapas, cables, masilla, sellador, desencofrador, EPI (guantes, botas, gafas), equipos menores.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida de pequeño material. Estimar entre 100-250€ según disponibilidades."
+        }
+      ],
+      "calculos": {
+        "subtotal": 646,
+        "iva_porcentaje": 21,
+        "iva": 135.66,
+        "total": 781.66
+      },
+      "sugerencias_catalogo": [
+        "Verificar espesor final con cliente: 15cm es estándar para garaje con tráfico de vehículos ligeros.",
+        "Hormigón HA-20 es recomendado. Si hay cargas puntuales altas o industrial, considerar HA-25.",
+        "Si el terreno está muy compactado o es zona de drenaje deficiente, añadir tubo de PVC drenante bajo zahorra.",
+        "Considerar sellado epoxídico posterior (opcional, +2-5€/m²) para mayor durabilidad y estética."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hormigón HA-20",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material principal de solera. Precio variable por hormigonera. Instalar a revisar coste y disponibilidad."
+        },
+        {
+          "concepto": "Pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Auxiliar obligatorio. Estimar por el instalador según obra."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solera_de_hormigon_en_masa",
+      "construccion_de_piscina_de_obra",
+      "reforma_de_garaje_o_trastero_para_uso_habitual",
+      "losa_de_hormigon_armado_suelo_tecnico",
+      "impermeabilizacion_de_escalera_o_rampa_exterior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "id": 220,
+  "oficio": "Jardinería",
+  "texto": "Plantar fila de árboles para crear pantalla visual entre vivienda y vecinos, 8 cipreses",
+  "http_status": 200,
+  "latency_ms": 11472,
+  "raw_response": {
+    "transcript": "Plantar fila de árboles para crear pantalla visual entre vivienda y vecinos, 8 cipreses",
+    "quote": {
+      "resumen": {
+        "texto_original": "Plantar fila de árboles para crear pantalla visual entre vivienda y vecinos, 8 cipreses",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto simple de jardinería. Verificar disponibilidad de especies y época de plantación óptima.",
+          "Incluye preparación del terreno, suministro de árboles y plantación completa."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Plantación de árboles, trabajo de paisajismo y jardín."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación terreno para plantación",
+          "descripcion": "Limpieza, nivelación y acondicionamiento del terreno para fila de 8 árboles. Incluye análisis básico de suelo.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de cipreses (8 unidades)",
+          "descripcion": "Cipreses de tamaño estándar (altura recomendada 1,5-2m) para pantalla visual. Incluye transporte a obra.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de árboles varía según dimensión, vivero y transporte. Instalador debe fijar precio por unidad."
+        },
+        {
+          "concepto": "Plantación de 8 cipreses",
+          "descripcion": "Excavación de hoyos, plantación de árboles con distancia recomendada (1,5-2m entre ejes), relleno y compactación. Incluye riego inicial.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 25,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustrato, enmienda y pequeño material",
+          "descripcion": "Sustrato de calidad, abono, mulch protector, estacas de sujeción y ataduras para cada árbol.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y calidad de sustrato debe especificarse. Instalador fija precio total del lote."
+        },
+        {
+          "concepto": "Riego y cuidados iniciales",
+          "descripcion": "Riego profundo inicial, aporques de tierra y colocación de mulch. Orientación sobre cuidados básicos post-plantación.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 25,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 175,
+        "iva_porcentaje": 21,
+        "iva": 36.75,
+        "total": 211.75
+      },
+      "sugerencias_catalogo": [
+        "Considerar si cliente desea sistema de riego por goteo integrado (mano de obra fontanería + materiales).",
+        "Verificar normativa local sobre plantaciones (separación de límites de parcela, altura máxima permitida).",
+        "Proponer revisión a los 3-6 meses para ajuste de tutores y estado general."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de cipreses (8 unidades)",
+          "oficio": "jardineria",
+          "razon": "Precio de árboles pendiente de cotización en vivero/proveedor del instalador."
+        },
+        {
+          "concepto": "Sustrato, enmienda y pequeño material",
+          "oficio": "jardineria",
+          "razon": "Lote de materiales a especificar según proyecto y presupuesto local."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_pantalla_de_proyeccion_motorizada",
+      "instalacion_de_sistema_audiovisual_en_sala_de_reuniones",
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "instalacion_enchufe_exterior_ip44"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

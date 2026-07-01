@@ -1,0 +1,162 @@
+{
+  "id": 75,
+  "oficio": "Pintura",
+  "texto": "Pintar dormitorio infantil con motivos de colores y figuras de dibujos, superficies 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 13352,
+  "raw_response": {
+    "transcript": "Pintar dormitorio infantil con motivos de colores y figuras de dibujos, superficies 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar dormitorio infantil con motivos de colores y figuras de dibujos, superficies 30 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye decoración mural elaborada. Se recomienda aprobación previa de diseño y colores con cliente.",
+          "Tiempo de ejecución superior a pintura estándar por complejidad decorativa."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura decorativa infantil con motivos y figuras. Tarifa superior a pintura estándar por complejidad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Imprimación fijadora paredes dormitorio infantil",
+          "descripcion": "Imprimación fijadora para preparación de superficies antes de pintura decorativa. Aplicación en 30 m² de paredes.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar precio de imprimación según marca y calidad seleccionada."
+        },
+        {
+          "concepto": "Pintura ecológica sin COV para dormitorio infantil",
+          "descripcion": "Pintura ecológica de baja emisión (sin COV) apta para habitaciones infantiles. Colores base para fondo y motivos decorativos. 30 m² de cobertura.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar precio según cantidad de colores y litros necesarios."
+        },
+        {
+          "concepto": "Pequeño material y accesorios pintura (rodillos, pinceles, cinta carrocero, plástico protección)",
+          "descripcion": "Rodillos, pinceles variados (gruesos y finos para detalles), cinta carrocero, plástico de protección, bandejas, etc.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar precio según cantidad y calidad de herramientas."
+        },
+        {
+          "concepto": "Plantillas decorativas y stencils para motivos infantiles",
+          "descripcion": "Plantillas reutilizables o stencils para aplicación de figuras de dibujos y motivos decorativos. Incluye diseño personalizado si aplica.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar precio según complejidad y cantidad de plantillas necesarias."
+        },
+        {
+          "concepto": "Mano de obra: Preparación de superficies, imprimación y pintura base",
+          "descripcion": "Limpieza, reparación de grietas menores, aplicación de imprimación y pintura base en 30 m² de paredes dormitorio infantil.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 32,
+          "total": 384,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Pintura decorativa, motivos y figuras de dibujos",
+          "descripcion": "Aplicación de motivos decorativos, figuras de dibujos, detalles en colores. Trabajo de precisión con pinceles finos. Incluye múltiples capas según diseño. 30 m² con decoración elaborada.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 32,
+          "total": 512,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 896,
+        "iva_porcentaje": 21,
+        "iva": 188.16,
+        "total": 1084.16
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente aprobación previa de diseño, colores y motivos antes de iniciar obra.",
+        "Considerar fotografía de referencia o muestra de colores para validar expectativas.",
+        "Tiempo estimado: 28 horas de mano de obra (preparación + decoración). Puede variar según complejidad final del diseño."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plantillas decorativas y stencils para motivos infantiles",
+          "oficio": "pintura",
+          "origen": "sugerida_ia",
+          "motivo": "Elemento específico de decoración mural infantil no presente en catálogo base. Requiere precio del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_chapas_de_datos_y_marcado_industrial",
+      "pintado_canalizaciones_y_tuberias_vista",
+      "pintado_y_decoracion_habitacion_infantil",
+      "pintado_de_medianeras_o_paredes_ciegas",
+      "pintura_de_valla_o_cerca_madera_exterior"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3437,
+      "tokens_out": 1736
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

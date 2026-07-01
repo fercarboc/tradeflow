@@ -1,0 +1,264 @@
+{
+  "id": 308,
+  "oficio": "Contra Incendios",
+  "texto": "Plan de emergencia y simulacro de evacuación para empresa de 50 trabajadores, documentación legal",
+  "http_status": 200,
+  "latency_ms": 25142,
+  "raw_response": {
+    "transcript": "Plan de emergencia y simulacro de evacuación para empresa de 50 trabajadores, documentación legal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Plan de emergencia y simulacro de evacuación para empresa de 50 trabajadores, documentación legal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda verificar si la empresa está sujeta a RD 393/2007 (obligatoriedad de plan autoprotección técnico)",
+          "El simulacro debe coordinarse con la jornada laboral de la empresa",
+          "La documentación legal debe cumplir normativa de protección de datos (trabajadores)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Prevención de incendios, planes de emergencia y seguridad en evacuación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación de riesgos y diagnóstico del plan de emergencia",
+          "descripcion": "Visita a las instalaciones, evaluación de zonas de riesgo, identificación de puntos críticos y evaluación de capacidad de evacuación para 50 trabajadores",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según complejidad del local (superficie, número de plantas, salidas de emergencia)"
+        },
+        {
+          "concepto": "Redacción de plan de emergencia y autoprotección",
+          "descripcion": "Documento técnico completo: identificación de peligros, evaluación de riesgos, procedimientos de actuación, designación de responsables, medios disponibles, procedimientos de coordinación con servicios externos",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según complejidad legal (sector de actividad, si requiere plan técnico por RD 393/2007)"
+        },
+        {
+          "concepto": "Planos de evacuación normalizados",
+          "descripcion": "Planos por cada planta o zona: recorridos de evacuación, ubicación de escaleras, salidas de emergencia, puntos de encuentro, señalización de equipos (extintores, BIEs, pulsadores). Formato A3 normalizado",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de plantas/zonas a determinar. Estimado 3-5 planos. Precio unitario a definir"
+        },
+        {
+          "concepto": "Señalización normalizada fotoluminiscente (vías y salidas evacuación)",
+          "descripcion": "Señales fotoluminiscentes EN ISO 7010 para recorridos de evacuación, salidas de emergencia, ubicación de equipos de protección. Material adhesivo o anclaje según superficie",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo según plano de local. Estimado 15-30 señales. Precio unitario a definir"
+        },
+        {
+          "concepto": "Instalación de señalización de emergencia",
+          "descripcion": "Colocación y anclaje de señales fotoluminiscentes en paredes, puertas y elementos de emergencia",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Formación inicial del plan de emergencia",
+          "descripcion": "Sesión de formación para designados de emergencia (coordinador, equipos de evacuación, primeros auxilios). Explicación de procedimientos, roles, ubicación de equipos, sistema de alarma",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Organización y coordinación de simulacro de evacuación",
+          "descripcion": "Planificación, coordinación con empresa, supervisión del simulacro de evacuación para 50 trabajadores. Evaluación de tiempos de evacuación, comportamiento, identificación de mejoras",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir. Estimado: incluye 2-4 horas de coordinación presencial + coordinación con bomberos si aplicable"
+        },
+        {
+          "concepto": "Ejecución del simulacro de evacuación",
+          "descripcion": "Supervisión presencial del simulacro: control de tiempos, evacuación ordenada, cierre de puertas, acceso a punto de encuentro, registro de incidentes y mejoras",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acta de simulacro y informe de mejoras",
+          "descripcion": "Documento oficial: fecha, hora, personal evacuado, tiempos, incidentes detectados, recomendaciones de mejora, firma de responsables y bomberos (si aplicable)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir. Generalmente incluido en coordinación del simulacro"
+        },
+        {
+          "concepto": "Instrucciones de actuación en caso de emergencia (carteles informativos)",
+          "descripcion": "Material impreso y plastificado: instrucciones de actuación, números de teléfono de emergencia, protocolos de comunicación interna, ubicación de equipos y puntos de encuentro",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 10 carteles (puntos clave: entrada, salidas, salas de reunión, cocina, etc.). Precio unitario a definir"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (señales, anclajes, adhesivos)",
+          "descripcion": "Material fungible: tacos, tornillos, adhesivos especiales para señales, tinta impresión documentos, plastificación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 50-100€. Incluye material auxiliar para instalación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 600,
+        "iva_porcentaje": 21,
+        "iva": 126,
+        "total": 726
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la empresa está sujeta a RD 393/2007 (sectores de alto riesgo, más de 500 trabajadores, administración pública, etc.). Si es obligatorio, el plan de emergencia debe incluir 'Plan Técnico de Autoprotección'",
+        "Considerar contratación de empresa de control de plagas especializada si se detectan áreas de riesgo durante visita",
+        "Recomendar revisión anual del plan de emergencia y simulacro anual mínimo",
+        "Si existe central de alarma integrada, verificar conexión con central receptora para evacuación automática"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Evaluación de riesgos y diagnóstico del plan de emergencia",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de inspección inicial, no catalogado específicamente"
+        },
+        {
+          "concepto": "Redacción de plan de emergencia y autoprotección",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de asesoría legal y técnica, precio variable según normativa aplicable"
+        },
+        {
+          "concepto": "Planos de evacuación normalizados",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Material gráfico especializado, cantidad variable según número de plantas"
+        },
+        {
+          "concepto": "Señalización normalizada fotoluminiscente (vías y salidas evacuación)",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Material de seguridad especializado, cantidad variable según plano de local"
+        },
+        {
+          "concepto": "Organización y coordinación de simulacro de evacuación",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de gestión y coordinación, precio variable según complejidad"
+        },
+        {
+          "concepto": "Acta de simulacro y informe de mejoras",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Documentación oficial de cumplimiento normativo"
+        },
+        {
+          "concepto": "Instrucciones de actuación en caso de emergencia (carteles informativos)",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Material impreso específico, cantidad variable según zonas de riesgo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "replanteo_y_trazado_de_obra",
+      "planificacion_y_presupuesto_reforma_integral",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_plan_de_autoproteccion_y_señalizacion",
+      "impermeabilizacion_de_cubierta_verde_con_lamina_antirraiz"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 3,
+    "n_sugeridas": 8,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

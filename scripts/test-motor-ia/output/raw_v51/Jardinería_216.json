@@ -1,0 +1,218 @@
+{
+  "id": 216,
+  "oficio": "Jardinería",
+  "texto": "Renovar jardín con macizos de plantas de temporada y arbustos perennes, zona de 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 17141,
+  "raw_response": {
+    "transcript": "Renovar jardín con macizos de plantas de temporada y arbustos perennes, zona de 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Renovar jardín con macizos de plantas de temporada y arbustos perennes, zona de 30 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto depende de especie y tamaño de arbustos (varían 30-600€/ud)",
+          "Plantas de temporada: confirmar cantidad y variedad",
+          "Revisar estado actual del terreno para determinar preparación necesaria"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Plantación de arbustos perennes + plantas de temporada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada y limpieza de macizo existente",
+          "descripcion": "Eliminación de plantas viejas, malas hierbas y residuos en zona de 30 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 3,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación y amejonamiento del terreno",
+          "descripcion": "Excavación, descompactación y amejonamiento de 30 m² + aporte de tierra vegetal y abono",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 4,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aporte tierra vegetal y enmienda",
+          "descripcion": "Tierra vegetal de calidad + abono/turba + compost para 30 m² (espesor medio 15-20 cm)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado local (suministro + transporte)"
+        },
+        {
+          "concepto": "Plantación de arbustos perennes",
+          "descripcion": "Plantación de arbustos perennes (tamayos variables: pequeños 0,5-1m, medianos 1-2m, grandes 2m+). Incluye apertura hoyo doble tamaño cepellón, riego de asiento, tutores si procede",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 25,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y especie de arbustos a confirmar. Precio unitario variable según tamaño (30-600€/ud incluido material)"
+        },
+        {
+          "concepto": "Suministro arbustos perennes",
+          "descripcion": "Arbustos perennes según selección (especies autóctonas, resistentes, adaptadas a condiciones de luz/sombra/suelo)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según especie y tamaño (rango estimado 30-150€/ud)"
+        },
+        {
+          "concepto": "Plantación plantas de temporada",
+          "descripcion": "Plantación de plantas anuales/bianuales en macizos (flores, arbustillos de temporada). Incluye preparación hoyo, riego de asiento",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 4,
+          "total": 80,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y densidad de plantas a confirmar"
+        },
+        {
+          "concepto": "Suministro plantas de temporada",
+          "descripcion": "Plantas de temporada (anuales, bianuales) según paleta cromática solicitada",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según variedad (plantas anuales típicas 2-8€/ud, densidad 10-15 plantas/m²)"
+        },
+        {
+          "concepto": "Acolchado mulching con corteza de pino",
+          "descripcion": "Geotextil antimalas hierbas + corteza de pino espesor 6-8 cm en 30 m². Reduce malas hierbas y conserva humedad",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 3,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro geotextil + corteza de pino",
+          "descripcion": "Geotextil anti-malas hierbas (100g/m²) + corteza de pino decorativa espesor 6-8 cm para 30 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Geotextil + corteza: estimado 12-25€/m² según calidad"
+        },
+        {
+          "concepto": "Riego de asiento final y limpieza",
+          "descripcion": "Riego abundante tras plantación completa (20-30 l/m²) + retirada residuos y materiales de trabajo",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 2,
+          "total": 60,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 640,
+        "iva_porcentaje": 21,
+        "iva": 134.4,
+        "total": 774.4
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: especies de arbustos perennes preferidas (ej: boj, pitósporo, durillo, lentisco, forsitia, hebe, etc.)",
+        "Confirmar paleta cromática plantas de temporada (colores, altura, época de floración)",
+        "Evaluar presencia de riego automático o manual programado (importante para mantenimiento posterior)",
+        "Considerar si es necesario sistema de drenaje subterráneo si terreno retiene agua"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Retirada y limpieza de macizo existente",
+          "oficio": "jardineria",
+          "motivo": "Preparación previa necesaria"
+        },
+        {
+          "concepto": "Preparación y amejonamiento del terreno",
+          "oficio": "jardineria",
+          "motivo": "Mejora de suelo para nueva plantación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "instalacion_cubierta_verde_o_ajardinada",
+      "acolchado_mulching_de_zonas_de_plantacion",
+      "pintura_de_escalera_comunitaria_completa",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 2,
+    "n_sugeridas": 8,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

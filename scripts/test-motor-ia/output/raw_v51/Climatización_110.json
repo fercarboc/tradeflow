@@ -1,0 +1,206 @@
+{
+  "id": 110,
+  "oficio": "Climatización",
+  "texto": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+  "http_status": 200,
+  "latency_ms": 20370,
+  "raw_response": {
+    "transcript": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+        "tipo_presupuesto": "instalacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda solicitar plano de cocina y ubicación de salida exterior para dimensionamiento preciso del conducto",
+          "Verificar normativa de extracción local (distancia a vecinos, ruido, salida en fachada)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación de sistema de ventilación/extracción en cocina profesional"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Obra civil para paso de conducto, perforación de muros, sellados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Extractor industrial para cocina",
+          "descripcion": "Suministro e instalación de extractor centrífugo industrial para cocina de restaurante, potencia según caudal de extracción requerido (típicamente 2000-4000 m³/h)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de coste variable según potencia y marca. El instalador debe indicar modelo y potencia específica (kW o m³/h)"
+        },
+        {
+          "concepto": "Instalación extractor industrial",
+          "descripcion": "Montaje y conexión eléctrica del extractor en ubicación definida, fijación a estructura, conexión a conducto de salida",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conducto de salida (tubo galvanizado o aluminio)",
+          "descripcion": "Suministro de conducto rígido o semirrígido galvanizado/aluminio desde extractor hasta salida exterior. Incluye codos, bridas y soportes de fijación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a definir según distancia a salida exterior y diámetro del conducto (típicamente 150-315 mm). Precio variable por tipo y diámetro"
+        },
+        {
+          "concepto": "Instalación conducto de extracción",
+          "descripcion": "Montaje y fijación de conducto, colocación de codos, bridas, sellados de juntas con masilla, prueba de estanqueidad",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Salida al exterior con rejilla y compuerta antiretorno",
+          "descripcion": "Suministro e instalación de salida de conducto en fachada con rejilla mosquitera, compuerta antiretorno motorizada o de gravedad para evitar retorno de aire",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Componente de coste variable según tipo (motorizada o mecánica) y diámetro. El instalador debe especificar modelo"
+        },
+        {
+          "concepto": "Obra civil: perforación y paso de conducto",
+          "descripcion": "Perforación de muros, losas o fachada para paso del conducto de extracción. Sellado con espuma poliuretano, mortero y tapajuntas",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (soportes, abrazaderas, tornillería, masillas)",
+          "descripcion": "Soportes de fijación de conducto, abrazaderas metálicas, tornillería inoxidable, masilla acrílica, silicona, cinta aislante, junta de goma",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada de pequeño material. Coste estimado 30-80€ según longitud conducto y complejidad"
+        },
+        {
+          "concepto": "Conexión eléctrica del extractor",
+          "descripcion": "Conexión a cuadro eléctrico, instalación de interruptor de extracción, cableado, protecciones diferenciales si es necesario. Incluye pruebas de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 580,
+        "iva_porcentaje": 21,
+        "iva": 121.8,
+        "total": 701.8
+      },
+      "sugerencias_catalogo": [
+        "Solicitar especificación de potencia del extractor (kW) o caudal (m³/h) para dimensionamiento exacto",
+        "Confirmar distancia lineal entre extractor e salida exterior para cuantificar metros de conducto",
+        "Indicar diámetro del conducto (150, 200, 250, 315 mm son estándares)",
+        "Especificar si se requiere aislamiento acústico del conducto (reduce ruido pero aumenta coste)",
+        "Considerar filtro de grasa/carbón si hay necesidad de recirculación parcial (menos común en restaurantes)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Extractor industrial para cocina",
+          "oficio": "climatizacion",
+          "motivo": "Material profesional específico sin tarifa predeterminada"
+        },
+        {
+          "concepto": "Conducto de salida (tubo galvanizado o aluminio)",
+          "oficio": "climatizacion",
+          "motivo": "Suministro de material a metros lineales sin precio definido (depende de longitud y diámetro)"
+        },
+        {
+          "concepto": "Salida al exterior con rejilla y compuerta antiretorno",
+          "oficio": "climatizacion",
+          "motivo": "Componente específico cuyo coste varía según tipo (motorizado o mecánico)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_extincion_en_cocina_industrial",
+      "instalacion_trampa_grasa_cocina",
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_de_sistema_de_extincion_por_espuma",
+      "instalacion_electrica_local_hosteleria"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

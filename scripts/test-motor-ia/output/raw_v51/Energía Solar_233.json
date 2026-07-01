@@ -1,0 +1,284 @@
+{
+  "id": 233,
+  "oficio": "Energía Solar",
+  "texto": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+  "http_status": 200,
+  "latency_ms": 31218,
+  "raw_response": {
+    "transcript": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema de seguimiento solar: requiere cálculos de estructura, cimentación y control automático",
+          "Potencia 6kW: incluye módulos, inversores y protecciones",
+          "Seguidor: puede ser eje único (1-eje) o doble eje (2-ejes). Afecta precio significativamente",
+          "Requiere legalización ante distribuidora si está conectado a red",
+          "Material principal (seguidor, estructura) necesita revisión de precios de proveedor"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Instalación fotovoltaica con sistema de seguimiento automático. Especialidad: energía solar y sistemas de generación renovable."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Cableado, protecciones, puesta a tierra, legalización y conexión a red eléctrica."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Cimentación y preparación de bases para estructura del seguidor solar."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulos fotovoltaicos 6kW (aprox. 15-20 paneles 300-400W)",
+          "descripcion": "Suministro de módulos fotovoltaicos monocristalinos de alta eficiencia para sistema de 6kWp. Incluye certificación y garantía de fabricante.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de módulos varía según marca, eficiencia y origen. Típicamente 0,12-0,18€/W instalado. Para 6kW: 720-1080€."
+        },
+        {
+          "concepto": "Sistema de seguimiento solar (seguidor eje único o dual)",
+          "descripcion": "Seguidor solar automático con motor, controlador y estructura metálica. Especificar: tipo (1-eje horizontal o 2-ejes), capacidad de carga 6kW, materiales anticorrosión.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Seguidor 1-eje: 3000-8000€. Seguidor 2-ejes: 8000-15000€. Incluye estructura, motor, controlador y sensores."
+        },
+        {
+          "concepto": "Inversor fotovoltaico 6kW (conexión red o aislado)",
+          "descripcion": "Inversor trifásico o monofásico según necesidad. Especificar si es conexión a red (con legalización) o sistemas híbridos/aislados.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Inversor 6kW red: 1200-2000€. Inversor híbrido 6kW: 2500-4000€. Precio según tipo y marca."
+        },
+        {
+          "concepto": "Cableado DC (fotovoltaico)",
+          "descripcion": "Cable solar DC 6mm², 10mm² y 16mm² según secciones de diseño. Incluye conectores MC4 y protecciones.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cableado DC especializado. Típicamente 0,80-1,50€/ml según sección. Para 150ml: 120-225€."
+        },
+        {
+          "concepto": "Protecciones eléctricas (diferenciales, magnetotérmicos, fusibles DC)",
+          "descripcion": "Cuadro de protección CC con fusibles/magnetotérmicos DC. Protecciones AC en cuadro de CA. Puesta a tierra del sistema.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cuadros de protección fotovoltaicos: 400-800€ según complejidad y certificaciones."
+        },
+        {
+          "concepto": "Cimentación y preparación de base para seguidor solar",
+          "descripcion": "Excavación, hormigonado y preparación de bases para estructura del seguidor. Incluye cálculos de carga según viento y nieve según zona.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 40,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje estructura y módulos fotovoltaicos sobre seguidor",
+          "descripcion": "Instalación de estructura de acero/aluminio del seguidor. Montaje de 15-20 paneles sobre estructura. Alineación y fijación mecánica.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 24,
+          "precio_unitario": 65,
+          "total": 1560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y calibración sistema de seguimiento (motor, sensores, controlador)",
+          "descripcion": "Montaje del motor de seguimiento, sensores de posición y controlador automático. Calibración, prueba de movimiento y programación de algoritmo de seguimiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 65,
+          "total": 780,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación inversor y cuadro de protecciones",
+          "descripcion": "Montaje de inversor en caseta o armario. Conexión de cables DC y AC. Instalación de cuadro de protecciones. Puesta a tierra.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 50,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y conexiones eléctricas",
+          "descripcion": "Tendido de cableado DC desde módulos a inversor. Conexiones AC desde inversor a cuadro general. Soldadura de terminales y conexiones MC4.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas, mediciones y puesta en servicio",
+          "descripcion": "Medición de aislamiento DC, tensiones de circuito abierto, corrientes en funcionamiento. Pruebas de seguimiento solar. Generación de informe de mediciones.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Legalización ante distribuidora (si conexión a red)",
+          "descripcion": "Tramitación de solicitud de conexión, modificación de contrato, instalación de contador bidireccional si aplica. Inspección final.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestiones administrativas: 200-400€. Variable según distribuidora y complejidad."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillería, silicona, cintas adhesivas, bridas, conectores, fusibles, tubería, EPI (casco, arnés, guantes).",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material diverso: 200-400€ típicamente para instalación de este tamaño."
+        }
+      ],
+      "calculos": {
+        "subtotal": 4270,
+        "iva_porcentaje": 21,
+        "iva": 896.7,
+        "total": 5166.7
+      },
+      "sugerencias_catalogo": [
+        "Ampliación: Si el cliente desea monitoreo remoto en tiempo real, considerar adición de sistema SCADA o aplicación móvil (200-500€).",
+        "Optmización: Estudiar ROI: seguidor 1-eje típicamente incrementa producción 25-35%; 2-ejes 35-45% pero con mayor consumo eléctrico del motor.",
+        "Ayudas: Sistema fotovoltaico con seguimiento puede acogerse a ayudas IDAE, líneas ICO o subvenciones autonómicas. Consultar elegibilidad.",
+        "Mantenimiento: Incluir contrato de mantenimiento anual (200-300€/año) para lubricación de motor y calibración de sensores."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sistema de seguimiento solar",
+          "oficio": "energia_solar",
+          "razon": "Seguidor solar es especialidad dentro de fotovoltaica. No existe partida específica en catálogo para sistemas de seguimiento (1-eje o 2-ejes). Requiere especificación del tipo y dimensionamiento según estructura y carga."
+        },
+        {
+          "concepto": "Legalización ante distribuidora",
+          "oficio": "electricidad",
+          "razon": "Gestión administrativa de conexión a red es servicio complementario. Precio variable por distribuidora y comunidad autónoma."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 6,
+    "n_sugeridas": 7,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

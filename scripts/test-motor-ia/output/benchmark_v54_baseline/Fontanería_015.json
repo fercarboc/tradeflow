@@ -1,0 +1,185 @@
+{
+  "id": 15,
+  "oficio": "Fontanería",
+  "texto": "Cambio de inodoro y lavabo en baño de servicio, incluida fontanería y sellado",
+  "http_status": 200,
+  "latency_ms": 12657,
+  "raw_response": {
+    "transcript": "Cambio de inodoro y lavabo en baño de servicio, incluida fontanería y sellado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de inodoro y lavabo en baño de servicio, incluida fontanería y sellado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye 2 sanitarios: verificar estado de ramal desagüe (si >30mm recomendar sustitución)",
+          "Sellado completo incluido en partidas de instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cambio de sanitarios, fontanería de conexión y sellado sanitario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje inodoro antiguo",
+          "descripcion": "Desmontaje completo de inodoro antiguo, desconexión de ramal desagüe y latiguillos de alimentación, retirada de fijaciones",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación inodoro completo",
+          "descripcion": "Inodoro de cerámica blanca, cisterna de doble descarga, manguito descarga WC, latiguillos flex, llave escuadra, junta descarga, silicona sanitaria, tacos fijación, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de inodoro y accesorios a definir por instalador según marca/modelo (rango típico 150-350€)"
+        },
+        {
+          "concepto": "Mano de obra instalación inodoro",
+          "descripcion": "Instalación completa: conexión ramal desagüe, fijación a suelo, conexión latiguillos, prueba de funcionamiento, sellado con silicona sanitaria",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje lavabo antiguo",
+          "descripcion": "Desmontaje completo de lavabo antiguo, desconexión de latiguillos de agua fría y caliente, retirada de fijaciones y sifón",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación lavabo con grifería",
+          "descripcion": "Lavabo de cerámica blanca, grifo monomando cromado, sifón PVC, latiguillos flex agua fría y caliente, llaves escuadra, silicona sanitaria, fijaciones, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lavabo, grifería y accesorios a definir por instalador según marca/modelo (rango típico 120-280€)"
+        },
+        {
+          "concepto": "Mano de obra instalación lavabo",
+          "descripcion": "Instalación completa: fijación a pared, conexión latiguillos agua fría y caliente, instalación sifón, prueba de funcionamiento, sellado con silicona sanitaria",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos sanitarios",
+          "descripcion": "Retirada y gestión de residuos (inodoro y lavabo antiguos), transporte a punto limpio autorizado",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de gestión de residuos a definir (típicamente 30-60€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 240,
+        "iva_porcentaje": 21,
+        "iva": 50.4,
+        "total": 290.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar estado del ramal de desagüe: si tiene diámetro >30mm, recomendar sustitución completa",
+        "Confirmar presión de agua en latiguillos: si baja, revisar llaves escuadra",
+        "Sellado completo con silicona sanitaria de calidad (no usar silicona estándar en baños)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación inodoro completo",
+          "oficio": "fontaneria",
+          "motivo": "Material sanitario a precio variable según marca/modelo"
+        },
+        {
+          "concepto": "Suministro e instalación lavabo con grifería",
+          "oficio": "fontaneria",
+          "motivo": "Material sanitario a precio variable según marca/modelo"
+        },
+        {
+          "concepto": "Gestión de residuos sanitarios",
+          "oficio": "fontaneria",
+          "motivo": "Servicio de retirada y gestión a definir"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_lavabo",
+      "cambio_inodoro",
+      "cambio_grifo_lavabo",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3467,
+      "tokens_out": 1958
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

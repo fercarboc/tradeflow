@@ -1,0 +1,188 @@
+{
+  "id": 62,
+  "oficio": "Pintura",
+  "texto": "Pintar toda la vivienda interior, paredes y techos, superficie aproximada de 250 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 18905,
+  "raw_response": {
+    "transcript": "Pintar toda la vivienda interior, paredes y techos, superficie aproximada de 250 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar toda la vivienda interior, paredes y techos, superficie aproximada de 250 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda que el instalador confirme el estado actual de las superficies (manchas, humedad, grietas, tipo de pintura existente)",
+          "La superficie de 250 m² se distribuye entre paredes y techos; se sugiere confirmar el desglose aproximado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura interior de vivienda completa (paredes y techos)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de superficies",
+          "descripcion": "Limpieza general, masillado de grietas y pequeños defectos, lijado grano 120-220 de paredes y techos, imprimación fijadora en superficies nuevas o degradadas",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 5,
+          "total": 1250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación fijadora",
+          "descripcion": "Imprimación fijadora-selladora para pintura plástica interior, asegura agarre y cobertura uniforme",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - instalador debe indicar marca, cantidad de litros necesarios y precio de suministro"
+        },
+        {
+          "concepto": "Pintura plástica mate interior - Paredes",
+          "descripcion": "Pintura plástica interior de calidad estándar, acabado mate, 2 manos sobre paredes (aproximadamente 170 m²)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 170,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - instalador debe indicar marca, rendimiento real, cantidad de litros y precio"
+        },
+        {
+          "concepto": "Pintura plástica mate interior - Techos",
+          "descripcion": "Pintura plástica interior de calidad estándar, acabado mate, 2 manos sobre techos (aproximadamente 80 m²)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - instalador debe indicar marca, rendimiento, cantidad de litros y precio. Techos requieren mayor precisión"
+        },
+        {
+          "concepto": "Aplicación de pintura - Paredes",
+          "descripcion": "Mano de obra aplicación de 2 manos de pintura plástica en paredes (170 m²), con rodillo y pincel",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 170,
+          "precio_unitario": 8,
+          "total": 1360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aplicación de pintura - Techos",
+          "descripcion": "Mano de obra aplicación de 2 manos de pintura plástica en techos (80 m²), con rodillo de extensión larga y medios auxiliares (escalera/andamio)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 12,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Precio superior al de paredes por dificultad de acceso y medios auxiliares"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Cinta carrocero, trapos, papel, brochas, rodillos, pinceles, cubetas, lijas, mascarilla, EPI, cartón protección",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote consumibles - instalador estima presupuesto según calidad y cantidad necesaria (típicamente 150-300€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3570,
+        "iva_porcentaje": 21,
+        "iva": 749.7,
+        "total": 4319.7
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si las superficies requieren tratamiento antihumedad o pinturas especiales (baños, cocina)",
+        "Verificar si hay molduras, zócalos o trabajos decorativos adicionales",
+        "Considerar protección de suelos y muebles (plástico/cartón) como partida aparte si el cliente lo demanda"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Imprimación fijadora",
+          "oficio": "pintura",
+          "tipo": "material",
+          "razon": "Material consumible, cantidad en litros a estimar por instalador"
+        },
+        {
+          "nombre": "Pintura plástica mate interior - Paredes",
+          "oficio": "pintura",
+          "tipo": "material",
+          "razon": "Material consumible, rendimiento variable según marca y aplicación"
+        },
+        {
+          "nombre": "Pintura plástica mate interior - Techos",
+          "oficio": "pintura",
+          "tipo": "material",
+          "razon": "Material consumible, rendimiento variable según marca"
+        },
+        {
+          "nombre": "Pequeño material y consumibles",
+          "oficio": "pintura",
+          "tipo": "material",
+          "razon": "Lote de herramientas y accesorios desechables"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "pintado_de_nave_industrial_interior",
+      "pintado_de_foso_de_ascensor",
+      "pintura_y_acabado_paredes_de_pladur_nuevo",
+      "pintado_de_sotanos_y_aparcamientos_comunitarios"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

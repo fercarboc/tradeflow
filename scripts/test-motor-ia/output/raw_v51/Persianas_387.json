@@ -1,0 +1,176 @@
+{
+  "id": 387,
+  "oficio": "Persianas",
+  "texto": "Instalar celosía de aluminio orientable en fachada de vivienda para privacidad y sombreado",
+  "http_status": 200,
+  "latency_ms": 21344,
+  "raw_response": {
+    "transcript": "Instalar celosía de aluminio orientable en fachada de vivienda para privacidad y sombreado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar celosía de aluminio orientable en fachada de vivienda para privacidad y sombreado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Falta especificar: superficie en m², orientación fachada, tipo de mecanismo (manual o motorizado), altura de instalación",
+          "Se ha generado presupuesto base con 1 m² como referencia — el instalador DEBE actualizar cantidad",
+          "Requiere cálculo de angulación óptima según latitud y orientación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de elementos de regulación solar y privacidad en fachada — especialidad persianas/celosías"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lamas de aluminio orientables para celosía exterior",
+          "descripcion": "Suministro de lamas de aluminio de calidad exterior, tratadas para intemperie, con capacidad de orientación manual. Incluye anodizado o lacado según diseño",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de calidad, espesor de lama y acabado. Rango típico 80-150€/m² material. Instalador revisa especificación."
+        },
+        {
+          "concepto": "Estructura soporte de perfiles de aluminio",
+          "descripcion": "Estructura de perfiles de aluminio estructural para fijación de lamas, incluyendo montantes y travesaños. Cálculo de secciones según viento y carga",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según carga de viento y superficie. Estimado 40-80€/m² material. Requiere cálculo estructural si altura >2m o superficie >5m²"
+        },
+        {
+          "concepto": "Eje de rotación y mecanismo de regulación manual",
+          "descripcion": "Eje de aluminio anodizado con rodamientos para rotación de lamas, incluyendo sistema de regulación manual (varilla, cadena o manilla) para control de orientación",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango 150-400€/unidad según tipo y calidad. Si es motorizado, sumar motor (300-800€) y sistema de control"
+        },
+        {
+          "concepto": "Anclajes y fijación a fachada",
+          "descripcion": "Anclajes de acero inoxidable o aluminio calculados para viento según zona climática. Fijación a forjado o muro con tacos apropiados. Incluye pequeño material (tornillería, arandelas, tuercas)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 30-60€/m². Incluye cálculo de resistencia a viento. En zonas ventosas, revalúa"
+        },
+        {
+          "concepto": "Instalación de celosía orientable — mano de obra",
+          "descripcion": "Montaje completo de estructura, fijación de lamas, ajuste de ejes y regulación, nivelación y prueba funcional de mecanismo",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 4h para 1m² en fachada accesible. Incrementar si altura >3m, superficie >10m² o acceso complejo (andamio, cuerda)"
+        },
+        {
+          "concepto": "Cálculo de angulación y proyecto técnico",
+          "descripcion": "Estudio de orientación solar, latitud y diseño óptimo de ángulo de lamas para máximo sombreado en verano y aprovechamiento en invierno. Documentación técnica si altura significativa o integración con proyecto arquitectónico",
+          "oficio": "persianas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio recomendado si superficie >5m² o integración arquitectónica. Rango típico 150-300€. Si es simple (celosía estándar), puede omitirse"
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "La partida [instalacion_celosia_o_lamas_regulables_exteriores] está en Base Maestra — verificar si coincide exactamente con especificación del cliente",
+        "Si fachada es muy alta (>4m) o con cargas de viento extremas, considerar refuerzo estructural y cálculo de ingeniero",
+        "Si cliente desea motorización, agregar partida 'Motor para celosía orientable' (300-800€ según potencia) y sistema de control domótico"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lamas de aluminio orientables para celosía exterior",
+          "origen": "sugerida_ia",
+          "razon": "Material específico — precio debe confirmarse por instalador tras especificar calidad y acabado"
+        },
+        {
+          "concepto": "Estructura soporte de perfiles de aluminio",
+          "origen": "sugerida_ia",
+          "razon": "Componente estructural — requiere cálculo de cargas según geometría y zona climática"
+        },
+        {
+          "concepto": "Eje de rotación y mecanismo de regulación manual",
+          "origen": "sugerida_ia",
+          "razon": "Componente mecánico especializado — precio varía según calidad y tipo de sistema"
+        },
+        {
+          "concepto": "Anclajes y fijación a fachada",
+          "origen": "sugerida_ia",
+          "razon": "Material + cálculo estructural — requiere revisión según tipo de muro y zona de viento"
+        },
+        {
+          "concepto": "Cálculo de angulación y proyecto técnico",
+          "origen": "sugerida_ia",
+          "razon": "Servicio técnico opcional pero recomendado para optimizar eficacia solar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_alumbrado_exterior_jardin",
+      "instalacion_de_sistema_de_lamas_solares_fijas_en_fachada",
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "instalacion_carril_electrificado_focos",
+      "instalacion_celosia_o_lamas_regulables_exteriores"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

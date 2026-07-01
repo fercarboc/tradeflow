@@ -1,0 +1,174 @@
+{
+  "id": 129,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar remates de zinc en cumbrera y limahoyas del tejado, hay filtraciones de agua",
+  "http_status": 200,
+  "latency_ms": 16032,
+  "raw_response": {
+    "transcript": "Reparar remates de zinc en cumbrera y limahoyas del tejado, hay filtraciones de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar remates de zinc en cumbrera y limahoyas del tejado, hay filtraciones de agua",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: verificar medidas de seguridad y uso de arnés",
+          "Las filtraciones pueden indicar deterioro mayor: diagnóstico previo recomendado antes de reparación",
+          "Material zinc: verificar disponibilidad y costes actuales de mercado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de remates metálicos en cubierta (zinc cumbrera y limahoyas) con filtraciones. Trabajo técnico de tejadista/fachadista especializado en remates metálicos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y localización de filtraciones en remates zinc",
+          "descripcion": "Inspección completa de cumbrera y limahoyas para identificar origen exacto de filtraciones, grietas, corrosión o desprendimientos del zinc",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje de remates zinc deteriorados (cumbrera y limahoyas)",
+          "descripcion": "Desinstalación cuidadosa de remates de zinc existentes en cumbrera y limahoyas, retira tornillería y material adherente",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de remates zinc nuevos (cumbrera y limahoyas)",
+          "descripcion": "Material: piezas de zinc conformadas para cumbrera y limahoyas, incluye accesorios de fijación (tornillería inoxidable, arandelas). Cantidad y especificaciones a determinar en obra según metros lineales y perfiles",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de construcción especializado: precio variable según proveedores y metraje total. Instalador introduce metros lineales de cumbrera + metros lineales de limahoyas y presupuesta material"
+        },
+        {
+          "concepto": "Instalación de remates zinc nuevos en cumbrera y limahoyas",
+          "descripcion": "Montaje de remates de zinc, fijación con tornillería inoxidable, alineación y sellado con silicona neutra o cordón hermético compatible con zinc",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y impermeabilización de remates (cumbrera y limahoyas)",
+          "descripcion": "Aplicación de sellante/silicona neutra en todas las juntas y uniones de remates zinc, prestando especial atención a puntos de unión con tejas y cambios de dirección",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de pequeño material y consumibles (selladoras, tornillería, silicona)",
+          "descripcion": "Tornillería inoxidable A4, arandelas de neopreno, silicona neutra, masilla, productos de limpieza y otros consumibles necesarios para instalación",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Suma de pequeño material variables. Instalador estima costes reales en obra"
+        },
+        {
+          "concepto": "Prueba de estanqueidad (verificación post-reparación)",
+          "descripcion": "Control visual e inspección de sellados tras lluvia o simulación para confirmar que las filtraciones han sido eliminadas",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 540,
+        "iva_porcentaje": 21,
+        "iva": 113.4,
+        "total": 653.4
+      },
+      "sugerencias_catalogo": [
+        "Consultar con proveedor de materiales de construcción especializado en remates metálicos para obtener presupuesto de zinc conformado (cumbrera + limahoyas) según metros lineales del tejado",
+        "Verificar si es necesario andamio o acceso mediante plataforma elevadora para seguridad en altura"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de remates zinc",
+          "razon": "Material específico de tejado, variable según metrado. Requiere medición en obra.",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "razon": "Variable según alcance exacto de la reparación.",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_piscina_con_filtraciones",
+      "reparacion_grifo_o_griferia_averiada",
+      "reparacion_averia_caldera_gas",
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "id": 246,
+  "oficio": "Telecomunicaciones",
+  "texto": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+  "http_status": 200,
+  "latency_ms": 12603,
+  "raw_response": {
+    "transcript": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+    "quote": {
+      "resumen": {
+        "texto_original": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema CCTV existente: diagnóstico previo recomendado para identificar causa del fallo de grabación",
+          "Posibles causas: disco duro lleno, configuración NVR incorrecta, cámaras desconectadas, almacenamiento corrupto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Configuración y puesta en marcha de sistema CCTV existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y verificación sistema CCTV",
+          "descripcion": "Inspección completa del sistema (cámaras, grabador NVR/DVR, conexiones, almacenamiento, configuración de grabación)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación conexiones, cables y alimentación",
+          "descripcion": "Comprobación de integridad de cableado (UTP/coaxial), conexiones de cámaras, fuente de alimentación y PoE",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración grabador NVR/DVR",
+          "descripcion": "Ajuste de parámetros de grabación (resolución, bitrate, fps), configuración de almacenamiento, políticas de retención, acceso remoto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste y orientación de cámaras",
+          "descripcion": "Reorientación de cámaras para optimizar cobertura, ajuste de enfoque y apertura de iris, alineación con puntos clave",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y grabación",
+          "descripcion": "Verificación de grabación en todos los modos (continuo, por movimiento), reproducción de video grabado, prueba de acceso remoto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico de puesta en marcha",
+          "descripcion": "Documento con configuración final, resolución de incidencias, recomendaciones de mantenimiento preventivo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a determinar por profesional (suele incluirse en mano de obra)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 350,
+        "iva_porcentaje": 21,
+        "iva": 73.5,
+        "total": 423.5
+      },
+      "sugerencias_catalogo": [
+        "Si se detecta disco duro dañado o insuficiente: añadir partida 'Sustitución disco duro NVR' (material + instalación)",
+        "Si las cámaras están obstruidas o sucias: considerar 'Limpieza y mantenimiento cámaras IP/analógicas'",
+        "Si hay problemas de conectividad: diagnosticar cableado y considerar reparación o sustitución de tramos",
+        "Si falla la alimentación PoE: verificar inyector PoE o fuente de alimentación (posible sustitución)"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_sistema_cctv_videovigilancia",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "instalacion_sistema_de_riego_por_goteo",
+      "puesta_en_marcha_y_ajuste_instalacion_termica"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 5,
+    "n_sugeridas": 1,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

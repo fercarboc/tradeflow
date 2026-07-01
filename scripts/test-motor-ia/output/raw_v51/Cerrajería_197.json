@@ -1,0 +1,198 @@
+{
+  "id": 197,
+  "oficio": "Cerrajería",
+  "texto": "Instalar caja fuerte empotrada en pared del dormitorio, resistente al fuego",
+  "http_status": 200,
+  "latency_ms": 24653,
+  "raw_response": {
+    "transcript": "Instalar caja fuerte empotrada en pared del dormitorio, resistente al fuego",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar caja fuerte empotrada en pared del dormitorio, resistente al fuego",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: Caja fuerte resistente al fuego requiere especificación de certificación (30/60/90 min) y clasificación de seguridad (Clase I-VI)",
+          "Empotrada en pared requiere obra de albañilería previa (apertura/cavidad)",
+          "Anclaje OBLIGATORIO a estructura para evitar sustracción",
+          "Se recomienda programar configuración de combinación con cliente en sitio"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación cajas de seguridad, anclajes y sistemas de cierre"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil necesaria para empotramiento: apertura/cavidad en pared, revestimiento posterior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Caja fuerte empotrable resistente al fuego",
+          "descripcion": "Caja fuerte de acero reforzado, resistente al fuego (especificación: 30/60/90 min pendiente de definir), clasificación de seguridad según normativa europea (Clase I-VI), apta para empotrar en pared de obra o pladur. Incluye cerradura de seguridad mecánica o electrónica. Medidas aproximadas 40x50x25 cm (ajustable según disponibilidad)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Caja fuerte resistente al fuego (certificación y clase de seguridad pendiente de especificar por cliente). Rango estimado 400-1200€ según Clase (I=más segura, VI=básica) y resistencia fuego. INSTALADOR DEBE VERIFICAR DISPONIBILIDAD Y CERTIFICACIONES"
+        },
+        {
+          "concepto": "Apertura y preparación cavidad en pared para empotramiento",
+          "descripcion": "Rotura selectiva en pared de obra/ladrillo para crear cavidad de empotramiento de caja fuerte. Incluye picado, retirada de escombro, limpieza y preparación de base nivelada. Mano de obra: 2-3 horas según grosor y accesibilidad",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 40,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Anclaje mecánico a estructura (OBLIGATORIO)",
+          "descripcion": "Sistema de anclaje de caja fuerte a estructura portante (pared, suelo o ambas). Incluye tacos químicos o mecánicos de alta resistencia, tornillería de seguridad inox A4, regletas de fijación. Evita sustracción completa de la caja. Instalación: 1 hora",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material anclaje (tacos, tornillos, regletas inox)",
+          "descripcion": "Tacos químicos M16 (2 ud), tornilería inox A4 M16x80 (2 ud), regletas inox de fijación. Material consumible necesario para anclaje seguro",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "set",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estimado 25-50€. INSTALADOR VERIFICA DISPONIBILIDAD Y AJUSTA SEGÚN SISTEMA DE ANCLAJE ELEGIDO (tacos químicos vs mecánicos)"
+        },
+        {
+          "concepto": "Revestimiento y acabado posterior (sellado/yeso)",
+          "descripcion": "Revestimiento de cavidad tras empotramiento: aplicación de mortero de agarre, enlucido de yeso liso o cartón-yeso para integración con pared. Incluye lijado y prepración para pintura. Mano de obra: 2 horas",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material revestimiento (yeso, mortero, pequeño material)",
+          "descripcion": "Sacos de yeso (2-3 ud), mortero de agarre, malla de refuerzo, espátulas, papel cinta, masilla lista. Para acabado cavidad empotramiento",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estimado 20-35€. Material consumible para revestimiento/acabado"
+        },
+        {
+          "concepto": "Configuración, combinación y pruebas de funcionamiento",
+          "descripcion": "Programación de combinación de apertura (mecánica o electrónica según modelo), pruebas de cierre y apertura, instrucciones de uso al cliente. Incluye documentación de código de acceso en sitio de forma segura. Mano de obra: 1 hora",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "REVISAR ESPECIFICACIÓN DE CAJA FUERTE: Solicitar al cliente certificación requerida (Resistencia fuego 30/60/90 min) y Clase de seguridad (I-VI según EN 1143-1). Las cajas resistentes al fuego Clase II-III oscilan 600-1000€; Clase IV-VI 1000-2000€",
+        "VERIFICAR ACCESO: Caja empotrada en dormitorio ↦ asegurar que la profundidad de pared (38-40 cm típica) permite empotramiento sin dañar estructura ni instalaciones eléctricas/fontanería ocultas",
+        "ALTERNATIVA MENOS INVASIVA: Si pared muy fina o estructura comprometida, considerar anclaje en base de armario empotrado en lugar de pared"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Caja fuerte empotrable resistente al fuego",
+          "oficio": "cerrajeria",
+          "precio_estimado_rango": "600-1200€ (según Clase seguridad y resistencia fuego)",
+          "estado": "sugerida_ia",
+          "nota": "Material crítico. INSTALADOR SELECCIONA Y PRESUPUESTA según especificación cliente"
+        },
+        {
+          "partida": "Material anclaje (tacos químicos, tornilería inox, regletas)",
+          "oficio": "cerrajeria",
+          "precio_estimado_rango": "25-50€",
+          "estado": "sugerida_ia",
+          "nota": "Componente obligatorio. Imprescindible para seguridad"
+        },
+        {
+          "partida": "Material revestimiento (yeso, mortero, pequeño material)",
+          "oficio": "albanileria",
+          "precio_estimado_rango": "20-35€",
+          "estado": "sugerida_ia",
+          "nota": "Consumible para acabado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_caja_fuerte_o_arcon_de_seguridad",
+      "instalacion_puerta_corredera_interior",
+      "instalacion_conjunto_bano_suspendido",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "alicatado_con_piedra_natural_o_gres_porcelanico"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

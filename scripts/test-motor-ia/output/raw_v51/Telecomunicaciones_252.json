@@ -1,0 +1,253 @@
+{
+  "id": 252,
+  "oficio": "Telecomunicaciones",
+  "texto": "Montar rack de telecomunicaciones con patch panel, switch y gestión de cables",
+  "http_status": 200,
+  "latency_ms": 18387,
+  "raw_response": {
+    "transcript": "Montar rack de telecomunicaciones con patch panel, switch y gestión de cables",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montar rack de telecomunicaciones con patch panel, switch y gestión de cables",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "No se especifica número de unidades U del rack ni tipo (mural/suelo)",
+          "No se indica cantidad de puertos del switch ni especificaciones técnicas",
+          "Se recomienda confirmar: altura rack, número de equipos, cableado existente, ventilación necesaria"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de infraestructura de red y rack de telecomunicaciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de rack de telecomunicaciones",
+          "descripcion": "Rack de telecomunicaciones con estructura para equipos, incluyendo guías de deslizamiento y accesorios de fijación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de altura en U del rack (12U, 24U, 42U, etc.) y tipo (mural o suelo). Instalador debe especificar."
+        },
+        {
+          "concepto": "Suministro e instalación de patch panel",
+          "descripcion": "Patch panel de telecomunicaciones con conectores RJ45 para organización de cableado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del número de puertos (24, 48 puertos, etc.). Instalador debe especificar."
+        },
+        {
+          "concepto": "Suministro e instalación de switch gestionable",
+          "descripcion": "Switch de red gestionable para distribución de conectividad en rack",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del número de puertos y especificaciones (PoE, VLAN, etc.). Instalador debe especificar."
+        },
+        {
+          "concepto": "Organizadores de cables horizontales",
+          "descripcion": "Guías de organización de cable horizontal dentro del rack para gestión ordenada del cableado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio según profundidad y número de cables. Instalador ajusta cantidad."
+        },
+        {
+          "concepto": "Organizadores de cables verticales",
+          "descripcion": "Guías de organización de cable vertical dentro del rack para gestión ordenada del cableado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio según altura del rack y número de cables. Instalador ajusta cantidad."
+        },
+        {
+          "concepto": "Regleta PDU de alimentación del rack",
+          "descripcion": "Unidad de distribución de potencia (PDU) para alimentación de equipos con protección y monitorización",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de capacidad (16A/32A) y número de tomas. Instalador especifica."
+        },
+        {
+          "concepto": "Pequeño material (tornilería, bridas, conectores)",
+          "descripcion": "Tornilería M6, bridas de velcro, conectores RJ45, etiquetas y accesorios varios",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a estimar por instalador según cantidad de accesorios necesarios."
+        },
+        {
+          "concepto": "Mano de obra: Instalación y montaje del rack",
+          "descripcion": "Ensamblaje de estructura, fijación a pared/suelo, nivelación y preparación del rack",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Instalación de patch panel y cableado",
+          "descripcion": "Montaje del patch panel, instalación de conectores RJ45, numeración y etiquetado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Instalación y configuración de switch",
+          "descripcion": "Montaje físico del switch en el rack, conexión de puertos, configuración básica y pruebas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Gestión y organización de cables",
+          "descripcion": "Instalación de organizadores, canalización de cables, aplicación de bridas y etiquetado completo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Pruebas y verificación funcional",
+          "descripcion": "Pruebas de conectividad, medición de continuidad, verificación de cableado y documentación final",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 500,
+        "iva_porcentaje": 21,
+        "iva": 105,
+        "total": 605
+      },
+      "sugerencias_catalogo": [
+        "Confirmar altura total del rack en Unidades U (12U, 24U, 42U, etc.)",
+        "Especificar tipo de instalación: mural o suelo",
+        "Definir número de puertos del switch y especificaciones técnicas",
+        "Indicar si requiere sistema de ventilación activa (equipos que generen calor)",
+        "Confirmar si hay cableado existente que conectar",
+        "Especificar si se requiere puerta de seguridad con llave"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de rack de telecomunicaciones",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material base no especificado en catálogo con precio fijo. Depende de dimensiones y tipo."
+        },
+        {
+          "concepto": "Suministro e instalación de patch panel",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material variable según número de puertos."
+        },
+        {
+          "concepto": "Suministro e instalación de switch gestionable",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material variable según especificaciones técnicas (puertos, PoE, VLAN, etc.)."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_rack_o_armario_de_telecomunicaciones",
+      "desmontaje_tabique_pladur_existente",
+      "instalacion_sistema_climatizacion_para_server_room",
+      "instalacion_de_red_de_datos_en_hotel_u_hospitality",
+      "instalacion_circuito_exclusivo_cocina"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 5,
+    "n_sugeridas": 7,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

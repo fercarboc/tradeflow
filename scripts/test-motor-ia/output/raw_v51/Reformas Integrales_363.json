@@ -1,0 +1,46 @@
+{
+  "id": 363,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de baño completo con ducha a ras de suelo, doble lavabo, sanitarios suspendidos y suelo calefactado",
+  "http_status": 200,
+  "latency_ms": 50136,
+  "raw_response": {
+    "transcript": "Reforma de baño completo con ducha a ras de suelo, doble lavabo, sanitarios suspendidos y suelo calefactado",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "sustitucion_banera_por_ducha",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "reforma_integral_atic_o_penthouse"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

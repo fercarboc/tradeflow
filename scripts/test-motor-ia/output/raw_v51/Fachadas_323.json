@@ -1,0 +1,169 @@
+{
+  "id": 323,
+  "oficio": "Fachadas",
+  "texto": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+  "http_status": 200,
+  "latency_ms": 24076,
+  "raw_response": {
+    "transcript": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Especificar superficie total en m² para cálculo exacto",
+          "Identificar tipo de mancha/suciedad (eflorescencias, óxido, biológico, contaminación) para seleccionar producto químico específico",
+          "Presión máxima recomendada: 80-120 bar para ladrillo visto (no usar >150 bar para evitar daños)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 35,
+            "max": 75
+          },
+          "motivo": "Limpieza química de fachada con equipo de presión controlada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza química fachada ladrillo visto con equipo de presión",
+          "descripcion": "Limpieza de fachada de ladrillo visto mediante aplicación de producto químico específico según tipo de suciedad (eflorescencias/óxido/biológico) y posterior limpieza con equipo de presión a baja-media presión (80-120 bar) para preservar integridad de la piedra. Incluye EPI obligatorio (gafas, guantes, mascarilla) y medidas de seguridad.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² no especificada. Establecer superficie total de fachada a limpiar"
+        },
+        {
+          "concepto": "Producto químico limpiador específico para ladrillo visto",
+          "descripcion": "Producto químico específico según análisis de mancha: limpiador decolorante para eflorescencias, removedor de óxido para manchas de ferrería, biocida para suciedad biológica, o desencostrante general. Incluye neutralizante si es necesario (ácido). Ficha técnica según tipo de mancha detectado.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo de mancha no especificado. Instalador debe indicar: eflorescencias/óxido/biológico/contaminación general. Precio varía 8-25€/litro según producto específico. Cantidad aprox. 1-3 litros por 100m²"
+        },
+        {
+          "concepto": "Neutralizante o enjuague final post-limpieza química",
+          "descripcion": "Agua destilada o neutralizante específico (según producto químico empleado) para enjuague abundante post-tratamiento. Obligatorio para eliminar residuos químicos y evitar eflorescencias secundarias. Incluido en presupuesto si se usa agua de red con presión controlada.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad variable según superficie. Si se usa agua de red: incluir en mano de obra. Si neutralizante específico: 5-15€/litro. Aprox. 2-5 litros por 100m²"
+        },
+        {
+          "concepto": "EPI y equipamiento de seguridad (gafas, guantes, mascarilla, ropa protección)",
+          "descripcion": "Equipo de protección individual obligatorio para trabajo con productos químicos: gafas de seguridad, guantes nitrilo resistentes químicos, mascarilla FFP2, ropa de protección desechable o reutilizable según producto. Incluye costo de reposición.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "EPI reutilizable: 8-15€/jornada. EPI desechable por jornada completa: 12-20€. Especificar duración estimada del trabajo"
+        },
+        {
+          "concepto": "Alquiler equipo de presión de agua controlada (presostato 80-120 bar)",
+          "descripcion": "Alquiler de hidrolimpiador con presión regulable y sistema de control (presostato) limitado a 80-120 bar máximo para preservar integridad del ladrillo visto. Incluye manguera de presión reforzada, lanza regulable y conexión a red eléctrica o compresor.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Alquiler hidrolimpiador: 30-60€/día. Compra de equipo propio: 200-600€ (si aplica). Especificar si el profesional dispone de equipo o necesita alquiler"
+        },
+        {
+          "concepto": "Andamio o plataforma de acceso para fachada en altura",
+          "descripcion": "Sistema de acceso seguro a fachada (andamio modular, plataforma elevadora, escalera extensible con soporte, o similar) según altura y superficie de fachada. Obligatorio para trabajo en altura >2m. Incluye montaje, desmontaje y medidas de seguridad laboral.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Andamio modular alquiler: 100-250€/semana. Plataforma elevadora: 150-400€/día. Escalera extensible: 40-80€. Especificar altura de fachada y sistema de acceso disponible"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (escobillas, cepillos, trapos, selladores temporales)",
+          "descripcion": "Material consumible auxiliar: cepillos de nylon suave (no metálicos para no dañar ladrillo), escobillas, trapos de limpieza, productos desengrasantes puntuales, selladores temporales si se detectan grietas durante limpieza.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: 15-30€/jornada. Especificar duración estimada del trabajo y estado inicial de fachada"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Antes de presupuestar, realizar INSPECCIÓN VISUAL de fachada para identificar: tipo de mancha (eflorescencias blancas, óxido rojizo, suciedad biológica verde/negra, contaminación atmosférica), estado de juntas y ladrillo, presencia de grietas o zonas débiles",
+        "MUESTREO DE LIMPIEZA: probar producto químico y presión en zona reducida (1-2 m²) para verificar que no daña ladrillo ni juntas antes de ampliar a toda fachada",
+        "Especificar ALTURA total de fachada y SUPERFICIE total en m² para cálculo de mano de obra y equipamiento",
+        "Si fachada tiene grietas, eflorescencias secundarias o daños previos: considerar tratamiento HIDROFUGO FINAL post-limpieza (10-20€/m²) para proteger ladrillo limpios"
+      ],
+      "partidas_nuevas_detectadas": [
+        "Producto químico limpiador específico para ladrillo visto (origen: sugerida_ia, tipo_partida: material)",
+        "Neutralizante o enjuague final post-limpieza química (origen: sugerida_ia, tipo_partida: material)",
+        "Alquiler equipo de presión de agua controlada (origen: sugerida_ia, tipo_partida: material)"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_quimica_de_fachada_con_eflorescencias_o_manchas",
+      "reparacion_y_rejuntado_de_ladrillo_cara_vista",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "revestimiento_de_zocalo_exterior_con_piedra"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

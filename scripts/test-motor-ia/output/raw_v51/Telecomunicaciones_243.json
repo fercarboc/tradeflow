@@ -1,0 +1,190 @@
+{
+  "id": 243,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar punto de acceso WiFi adicional en zona muerta de empresa, cobertura de 200 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 21841,
+  "raw_response": {
+    "transcript": "Instalar punto de acceso WiFi adicional en zona muerta de empresa, cobertura de 200 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar punto de acceso WiFi adicional en zona muerta de empresa, cobertura de 200 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Zona de 200 m² requiere análisis RF previo para ubicación óptima",
+          "Verificar disponibilidad de alimentación PoE en la ubicación o planificar toma eléctrica adicional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de infraestructura de red inalámbrica profesional"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Access Point WiFi 6 profesional",
+          "descripcion": "Equipo access point estándar WiFi 6 (802.11ax) para cobertura interior empresarial, antenas integradas, soporte PoE",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar modelo específico y coste del equipo AP (rango típico 150-350€)"
+        },
+        {
+          "concepto": "Alimentación PoE - Inyector o Switch PoE",
+          "descripcion": "Inyector PoE standalone o integración en switch existente para suministro de energía al AP (30W mínimo)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de infraestructura existente: si hay switch PoE disponible no se factura; si no, inyector PoE (50-120€)"
+        },
+        {
+          "concepto": "Cable categoría 6 (Cat6) desde distribución hacia AP",
+          "descripcion": "Cable UTP Cat6 para conexión de datos y energía PoE desde ubicación de distribución/switch hasta punto de montaje del AP",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe medir la distancia exacta (recorrido real por conductos). Precio típico 0,5-1,2€/ml"
+        },
+        {
+          "concepto": "Montaje de access point en techo o pared",
+          "descripcion": "Instalación física del AP: taladrado de anclajes, fijación con soportes, conexión de cable Cat6, gestión de pequeño material",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración SSID, seguridad WPA3 y parámetros WiFi",
+          "descripcion": "Parametrización del AP: creación/sincronización SSID con red existente, activación WPA3, canal óptimo (5GHz preferente), potencia, roaming si es multipunto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de radiofrecuencia (RF) previo - Ubicación óptima",
+          "descripcion": "Medición y análisis de campo RF para determinar ubicación óptima del AP y evitar interferencias. Imprescindible en zona de 200 m² con zona muerta detectada",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio auxiliar recomendado. Precio típico 100-200€ (puede facturarse aparte o incluirse en mano de obra)"
+        },
+        {
+          "concepto": "Pequeño material (conectores, protecciones, canaletas)",
+          "descripcion": "Racores RJ45, protectores de conectores, tapas de canaletas, bridas, tornillería, selladores",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado típico 15-30€ por instalación de 1 AP"
+        }
+      ],
+      "calculos": {
+        "subtotal": 100,
+        "iva_porcentaje": 21,
+        "iva": 21,
+        "total": 121
+      },
+      "sugerencias_catalogo": [
+        "IMPORTANTE: Si la empresa dispone de infraestructura WiFi existente (controladora centralizada, cloud WiFi), verificar compatibilidad de modelo AP para roaming transparente entre puntos",
+        "Si la zona muerta es por obstáculos estructurales (ascensores, metal, hormigón denso), considerar segunda unidad AP adicional o posicionamiento en punto de difusión intermedio",
+        "Después de instalación, realizar TEST de velocidad y cobertura en zona muerta para validar eliminación completa de sombra RF",
+        "Documentar ubicación exacta de AP y parámetros WiFi (SSID, canal, potencia) en acta de entrega"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Access Point WiFi 6 profesional",
+          "razon": "Material específico, precio pendiente de revisión según marca/modelo elegido",
+          "origen": "sugerida_ia"
+        },
+        {
+          "partida": "Alimentación PoE - Inyector o Switch PoE",
+          "razon": "Depende de infraestructura existente, se sugiere plantificar opciones",
+          "origen": "sugerida_ia"
+        },
+        {
+          "partida": "Cable categoría 6 (Cat6)",
+          "razon": "Material con medida variable, requiere levantamiento en obra",
+          "origen": "sugerida_ia"
+        },
+        {
+          "partida": "Análisis de radiofrecuencia (RF) previo",
+          "razon": "Servicio técnico recomendado para zona de 200 m² con zona muerta detectada",
+          "origen": "sugerida_ia"
+        },
+        {
+          "partida": "Pequeño material",
+          "razon": "Botiguería, precio alzado típico según cantidad de puntos instalados",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_punto_de_acceso_wifi_o_AP_profesional",
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "instalacion_electrica_pergola_terraza",
+      "instalacion_domotica_basica_wifi",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

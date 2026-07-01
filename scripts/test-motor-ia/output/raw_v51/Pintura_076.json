@@ -1,0 +1,197 @@
+{
+  "id": 76,
+  "oficio": "Pintura",
+  "texto": "Lijar y lacar puertas de armario empotrado en blanco satinado, 6 puertas de 210x60",
+  "http_status": 200,
+  "latency_ms": 14851,
+  "raw_response": {
+    "transcript": "Lijar y lacar puertas de armario empotrado en blanco satinado, 6 puertas de 210x60",
+    "quote": {
+      "resumen": {
+        "texto_original": "Lijar y lacar puertas de armario empotrado en blanco satinado, 6 puertas de 210x60",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Trabajo de lijado y lacado de puertas de madera/tablero. Oficio pintura aplicable."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje puertas armario empotrado",
+          "descripcion": "Desmontaje de 6 puertas correderas o abatibles del armario empotrado, desenganche de herraje, sin daño",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 15,
+          "total": 90,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lijado puertas armario (preparación)",
+          "descripcion": "Lijado manual y/o orbital de 6 puertas de 210x60 cm, lija grano 120-150-220, eliminación de polvo, preparación para lacado",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 5.04,
+          "precio_unitario": 20,
+          "total": 100.8,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación puertas",
+          "descripcion": "Imprimación acrílica o base para madera/tablero en 6 puertas, una mano, preparación para lacado blanco",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 5.04,
+          "precio_unitario": 16,
+          "total": 80.64,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lacado puertas blanco satinado",
+          "descripcion": "Aplicación de laca acrílica blanco satinado en 6 puertas, 2 manos, acabado uniforme y resistente",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 5.04,
+          "precio_unitario": 24,
+          "total": 120.96,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje puertas en armario",
+          "descripcion": "Montaje y ajuste de 6 puertas en armario empotrado, alineación, enganche de herraje, pruebas de funcionamiento",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 15,
+          "total": 90,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lija 120-220",
+          "descripcion": "Consumibles de lijado (lijas varias granos, esponjas abrasivas, papel abrasivo)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Instalador revisa cantidad y proveedor."
+        },
+        {
+          "concepto": "Laca blanca satinado",
+          "descripcion": "Laca acrílica blanco satinado, cantidad necesaria para 2 manos en 5.04 m2",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material principal. Instalador especifica cantidad (estimado 2-3 litros) y marca."
+        },
+        {
+          "concepto": "Imprimación acrílica",
+          "descripcion": "Imprimación acrílica para madera/tablero, cantidad necesaria para preparación",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material principal. Instalador especifica cantidad (estimado 1-1.5 litros) y marca."
+        },
+        {
+          "concepto": "Pequeño material pinturas",
+          "descripcion": "Pinceles planos, rodillo pelo corto, cinta carrocero, trapos, disolvente, papel de protección",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Kit de pequeño material. Instalador revisa y presupuesta."
+        }
+      ],
+      "calculos": {
+        "subtotal": 482.4,
+        "iva_porcentaje": 21,
+        "iva": 101.304,
+        "total": 583.704
+      },
+      "sugerencias_catalogo": [
+        "Consultar BASE MAESTRA [pintado_armarios_empotrados_interiores]: incluye obligatoriamente esmalte acrílico/sintético satinado, imprimación, lijado, aplicación 2 manos. Partidas generadas según este modelo."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desmontaje puertas armario empotrado",
+          "razon": "Partida de preparación, necesaria para ejecutar el trabajo. No está explícita en BASE MAESTRA pero es fase obligatoria.",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Montaje puertas en armario",
+          "razon": "Partida de remate, necesaria tras lacado. No está explícita en BASE MAESTRA pero es fase obligatoria.",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_armario_empotrado_a_medida",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "pintado_armarios_empotrados_interiores",
+      "tabique_pladur_armario_empotrado_nuevo"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 9,
+    "n_catalogo": 0,
+    "n_sugeridas": 9,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

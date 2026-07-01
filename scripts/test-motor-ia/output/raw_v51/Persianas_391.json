@@ -1,0 +1,196 @@
+{
+  "id": 391,
+  "oficio": "Persianas",
+  "texto": "Instalar toldo vertical de lona en terraza de ático para sombra y privacidad lateral",
+  "http_status": 200,
+  "latency_ms": 21276,
+  "raw_response": {
+    "transcript": "Instalar toldo vertical de lona en terraza de ático para sombra y privacidad lateral",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar toldo vertical de lona en terraza de ático para sombra y privacidad lateral",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Falta especificar: ancho y alto del toldo, medidas exactas de la terraza",
+          "Falta clarificar: ¿toldo vertical enrollable (cortina) o toldo de brazos extensibles con faldón lateral?",
+          "Recomendación: solicitar foto de la terraza y medidas para ajustar precio_unitario de materiales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de sistemas de protección solar exterior (toldos, cortinas, mallas de privacidad)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro tela lona acrílica tratada UV para toldo vertical",
+          "descripcion": "Tela acrílica de alta calidad tratada contra rayos UV, opaca, para privacidad lateral. Medida a definir según ancho y alto de terraza",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Falta definir m2 totales (ancho × alto terraza). Instalador debe especificar medidas exactas para calcular cantidad y precio del material"
+        },
+        {
+          "concepto": "Suministro mecanismo enrollador tubo aluminio con sistema de rodillos",
+          "descripcion": "Tubo aluminio con rodillos, freno de seguridad, para enrollado vertical de lona. Sistema automático o manual según preferencia",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud y sistema (manual/motorizado). Instalador revisa catálogo de proveedores"
+        },
+        {
+          "concepto": "Suministro guías laterales o flejes de tensión para toldo vertical",
+          "descripcion": "Guías aluminio o flejes de tensión para estabilizar lona en viento y mantener privacidad lateral. Sistema según medidas de terraza",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml depende de altura terraza. Instalador mide y cuantifica"
+        },
+        {
+          "concepto": "Suministro soportes de fijación a pared/techo del toldo",
+          "descripcion": "Herrajes, ménsulas y anclajes acero galvanizado para fijar tubo enrollador y guías a estructura terraza ático",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de herrajes depende de envergadura. Instalador revisa resistencia soporte"
+        },
+        {
+          "concepto": "Pequeño material (tornillos, tacos, bridas, silicona, etc.)",
+          "descripcion": "Tornilería, tacos expansion, bridas nylon, silicona neutra, cinta PTFE y otros consumibles para instalación",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado genérico. Instalador ajusta según necesidad real"
+        },
+        {
+          "concepto": "Desmontaje (si existe toldo o estructura anterior)",
+          "descripcion": "Retirada selectiva de toldo, tela, estructura anterior. Limpieza y retirada de escombros",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según complejidad. Si no hay desmontaje previo, puede ser 0"
+        },
+        {
+          "concepto": "Instalación toldo vertical: preparación, fijación estructura y enrollador",
+          "descripcion": "Montaje tubo enrollador en posición correcta, fijación de soportes a pared/techo, verificación de nivelación y estabilidad",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación lona y guías laterales",
+          "descripcion": "Enrollado de tela en tubo, ajuste de tensión, fijación guías laterales o flejes, verificación de movimiento suave",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas, ajustes y limpieza final",
+          "descripcion": "Funcionamiento suave del enrollado, verificación cierre hermético en privacidad, ajuste flejes, limpieza escombros y protecciones",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Partida 'instalacion_cortina_exterior_de_lona_enrollable' (persianas) → se ajusta perfectamente a toldo vertical de lona. Rango 100-550€/ud según medidas",
+        "Partida 'instalacion_panel_o_malla_de_privacidad_para_valla_o_terraza' → si requiere refuerzo privacidad lateral adicional"
+      ],
+      "partidas_nuevas_detectadas": [
+        "Tela lona acrílica tratada UV para toldo vertical (m2) — origen: sugerida_ia, requiere medidas exactas",
+        "Mecanismo enrollador tubo aluminio (ud) — origen: sugerida_ia, requiere longitud",
+        "Guías/flejes tensión (ml) — origen: sugerida_ia, requiere altura terraza",
+        "Soportes fijación pared/techo (ud) — origen: sugerida_ia, requiere inspección estructura"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cortina_exterior_de_lona_enrollable",
+      "instalacion_lampara_parasol_o_sombrilla_de_brazo",
+      "instalacion_de_faldones_o_cenefas_para_toldo",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_panel_o_malla_de_privacidad_para_valla_o_terraza"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

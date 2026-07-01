@@ -1,0 +1,217 @@
+{
+  "id": 312,
+  "oficio": "Contra Incendios",
+  "texto": "Legalizar instalación contra incendios en local que va a abrir como bar con cocina",
+  "http_status": 200,
+  "latency_ms": 28779,
+  "raw_response": {
+    "transcript": "Legalizar instalación contra incendios en local que va a abrir como bar con cocina",
+    "quote": {
+      "resumen": {
+        "texto_original": "Legalizar instalación contra incendios en local que va a abrir como bar con cocina",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "NORMATIVA CRÍTICA: CTE DB-SI y RD 513/2017 aplican. Uso hostelería con cocina requiere sistemas específicos.",
+          "EMPRESA AUTORIZADA OBLIGATORIA: La instalación y certificación de contra incendios debe realizarla empresa registrada en RITE.",
+          "INSPECCIÓN PREVIA NECESARIA: Se requiere visita técnica para evaluar estado actual, superficie, carga fuego, accesos y cumplimiento normativo.",
+          "DOCUMENTACIÓN LEGAL: Proyecto técnico, certificado de instalación, mantenimiento anual obligatorio, revisiones trimestrales de BIEs.",
+          "RIESGO ESPECIAL: Cocina = zona de alto riesgo. Detectores temperatura obligatorios. Sistema extinción automática en campana extractora recomendado."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Instalación y legalización de sistema contra incendios en local hostelería. Oficio especializado con normativa específica CTE DB-SI."
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Central de detección automática de incendios (CIE), cableado resistente al fuego E30, detectores, pulsadores, sirenas."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Tramitación de licencia de actividad, proyecto técnico, certificados de instalación, registro en administración."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica, evaluación y análisis normativo",
+          "descripcion": "Visita a local, evaluación de superficie, carga fuego, accesos, estado actual instalaciones, análisis CTE DB-SI y RD 513/2017, propuesta de soluciones con opciones y presupuesto desglosado.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Red hidráulica contra incendios (columna seca/húmeda)",
+          "descripcion": "Instalación de red de tuberías acero galvanizado o CPVC, válvulas de seccionamiento por planta, manómetros, toma siamesa exterior, señalización, pintura roja identificación, pequeño material. Incluye presurización si es necesario.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según superficie local, altura, número de plantas y presión disponible. Requiere visita técnica previa. Rango estimado: 800-2500€."
+        },
+        {
+          "concepto": "Bocas de incendio equipadas (BIE 25mm)",
+          "descripcion": "Instalación de armarios BIE 25mm certificados UNE 23403, manguera 25mm, devanadera, lanza boquilla, válvula cierre, conexión a red, señalización normalizada, pequeño material. Cantidad según superficie y normativa CTE (típicamente 1 BIE cada 750m²).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio unitario dependen de superficie local. Rango por unidad: 250-650€. Requiere visita técnica."
+        },
+        {
+          "concepto": "Central de detección automática de incendios (CIE)",
+          "descripcion": "Central incendios CIE certificada EN 54-2, detectores humo (óptico/ionización), detectores temperatura para cocina, pulsadores manuales, sirenas y strobes, cableado resistente fuego E30, alimentación y batería respaldo 72h, pequeño material. Integración con control acceso si aplica.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según número de detectores, zonas, complejidad. Rango estimado: 1200-3500€. Requiere proyecto técnico."
+        },
+        {
+          "concepto": "Sistema extinción automática en cocina (campana extractora)",
+          "descripcion": "Instalación de sistema de extinción automática (polvo seco o espuma) en campana extractora de cocina, válvulas de corte gas/electricidad, detectores temperatura, señalización, pequeño material. Obligatorio en cocinas profesionales según normativa.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo campana y sistema. Rango estimado: 800-2000€. Requiere evaluación técnica."
+        },
+        {
+          "concepto": "Proyecto técnico y documentación legal",
+          "descripcion": "Redacción de proyecto técnico contra incendios según CTE DB-SI, memoria descriptiva, planos, cálculos, especificaciones técnicas, documentación para licencia de actividad, certificado de instalación, registro en administración.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según complejidad y gestoría. Rango estimado: 600-1500€."
+        },
+        {
+          "concepto": "Tramitación licencia de actividad y permisos",
+          "descripcion": "Gestión de solicitud de licencia de actividad (bar-restaurante), presentación de documentación técnica, coordinación con administración local, obtención de certificados y autorizaciones, seguimiento de trámites.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según municipio y complejidad. Rango estimado: 400-1200€."
+        },
+        {
+          "concepto": "Mano de obra instalación y puesta en marcha",
+          "descripcion": "Instalación de todos los elementos (red hidráulica, BIEs, central detección, sistema extinción cocina), conexiones, pruebas funcionales, puesta en marcha, formación usuario, documentación de entrega.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 55,
+          "total": 2200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación inicial 40h. Requiere ajuste según complejidad real tras visita técnica. Puede variar 30-60h."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2500,
+        "iva_porcentaje": 21,
+        "iva": 525,
+        "total": 3025
+      },
+      "sugerencias_catalogo": [
+        "PRESUPUESTO INCOMPLETO INTENCIONALMENTE: Las partidas de materiales (red hidráulica, BIEs, central detección, extinción cocina, proyecto y trámites) tienen precio_unitario=0 porque requieren visita técnica previa y evaluación normativa específica. El instalador debe completar estos precios tras análisis detallado.",
+        "ORDEN RECOMENDADO DE EJECUCIÓN: 1) Visita técnica y análisis normativo. 2) Redacción proyecto técnico. 3) Tramitación licencia. 4) Suministro de materiales. 5) Instalación y puesta en marcha. 6) Certificación y registro.",
+        "NORMATIVA APLICABLE: CTE DB-SI (Seguridad en caso de incendio), RD 513/2017 (Instalaciones de protección contra incendios), UNE 23007 (Instalación de sistemas de detección), UNE 23403 (BIEs), EN 54-2 (Centrales incendios).",
+        "EMPRESA AUTORIZADA: La instalación debe realizarla empresa registrada en RITE (Registro de Instaladores de Sistemas de Protección Contra Incendios). Obligatorio para validez legal.",
+        "MANTENIMIENTO OBLIGATORIO: Revisión trimestral de BIEs, revisión anual de toda la instalación, mantenimiento de central detección semestral. Incluir en presupuesto anual de explotación.",
+        "RIESGO ESPECIAL COCINA: Detectores temperatura obligatorios en cocina. Sistema extinción automática en campana recomendado (polvo seco o espuma). Corte automático gas/electricidad si se activa."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sistema extinción automática en cocina",
+          "oficio": "contra_incendios",
+          "motivo": "Específico para hostelería con cocina. No está en catálogo base pero es obligatorio según normativa CTE DB-SI para locales de restauración."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "presupuesto_e_informe_inicial_instalacion_contra_incendios",
+      "instalacion_de_red_hidraulica_contra_incendios_en_edificio",
+      "instalacion_bocas_de_incendio_equipadas_BIE_25mm",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4079,
+      "tokens_out": 3725
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

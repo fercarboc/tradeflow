@@ -1,0 +1,176 @@
+{
+  "id": 19,
+  "oficio": "Fontanería",
+  "texto": "Revisión anual de caldera de condensación y cambio de filtros, emisión de certificado oficial",
+  "http_status": 200,
+  "latency_ms": 15425,
+  "raw_response": {
+    "transcript": "Revisión anual de caldera de condensación y cambio de filtros, emisión de certificado oficial",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión anual de caldera de condensación y cambio de filtros, emisión de certificado oficial",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Técnico debe estar certificado en gas (obligatorio por normativa)",
+          "Certificado oficial debe emitirse tras la revisión",
+          "Cambio de filtros incluido en el presupuesto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Mantenimiento anual de caldera de condensación (sistema de climatización/calefacción)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión quemador y cámara de combustión",
+          "descripcion": "Inspección visual y limpieza de quemador, cámara de combustión y electrodos de ionización en caldera de condensación",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluida en mantenimiento anual obligatorio. Instalador define precio según tarifa horaria"
+        },
+        {
+          "concepto": "Limpieza intercambiador de calor",
+          "descripcion": "Limpieza del intercambiador primario y secundario (característica de calderas de condensación)",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida obligatoria en mantenimiento anual. Precio según tarifa"
+        },
+        {
+          "concepto": "Verificación presión vaso de expansión y válvulas de seguridad",
+          "descripcion": "Comprobación de presión del vaso de expansión, válvulas de seguridad y purga del circuito de calefacción",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Verificación obligatoria en mantenimiento anual"
+        },
+        {
+          "concepto": "Análisis de combustión y evacuación de humos",
+          "descripcion": "Medición de parámetros de combustión (CO2, CO, temperatura humos) y verificación de conducto de evacuación",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio para emisión de certificado oficial"
+        },
+        {
+          "concepto": "Cambio de filtros (agua y aire)",
+          "descripcion": "Sustitución de filtro de agua (si dispone) y filtro de aire/combustible según especificaciones fabricante",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales consumibles. Precio según modelo caldera y disponibilidad"
+        },
+        {
+          "concepto": "Emisión de certificado oficial de mantenimiento",
+          "descripcion": "Generación, firma y entrega de certificado oficial de revisión anual conforme a normativa (RD 1027/2007 o equivalente autonómico)",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo obligatorio. Incluir en tarifa de visita"
+        },
+        {
+          "concepto": "Pequeño material y desplazamiento",
+          "descripcion": "Materiales auxiliares (juntas, lubricantes, selladores), herramientas y desplazamiento del técnico",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gastos auxiliares. Instalador define según tarifa"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Rango de precio típico para revisión anual caldera condensación: 250-400€ (incluye mano de obra, filtros y certificado)",
+        "Técnico DEBE estar certificado en instalaciones de gas (obligatorio por ley)",
+        "Recomendación: incluir contrato de mantenimiento anual para garantizar revisiones periódicas y validez de póliza de seguros"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Revisión anual caldera de condensación",
+          "oficio": "climatizacion",
+          "motivo": "Mantenimiento preventivo obligatorio de equipo de calefacción"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_y_limpieza_de_caldera_de_gas",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_caldera",
+      "mantenimiento_anual_persianas_y_toldos",
+      "instalacion_solado_de_barro_ceramico_o_terracota"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3612,
+      "tokens_out": 2059
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 7,
+    "n_catalogo": 0,
+    "n_sugeridas": 7,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

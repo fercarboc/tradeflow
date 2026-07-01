@@ -1,0 +1,203 @@
+{
+  "id": 292,
+  "oficio": "Impermeabilización",
+  "texto": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+  "http_status": 200,
+  "latency_ms": 16659,
+  "raw_response": {
+    "transcript": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Fijación mecánica especificada: incluir perfilería metálica de cubrición",
+          "Cubierta comunitaria: verificar acceso con línea de vida y EPI de seguridad en altura",
+          "Junta de dilatación en cubierta: punto crítico de infiltración"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación de junta de dilatación en cubierta con sistema de impermeabilización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de material existente en junta de dilatación",
+          "descripcion": "Desmontaje completo de material de sellado deteriorado, limpieza de residuos y polvo en junta de 10 ml",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 8,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fondo de junta elastómero celular",
+          "descripcion": "Inserción de cordón elastómero celular de diámetro ajustado (base de junta) en toda la longitud de 10 ml",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: cordón elastómero. Instalador debe confirmar diámetro y proveedor"
+        },
+        {
+          "concepto": "Sistema de impermeabilización para junta de cubierta con lámina de puente",
+          "descripcion": "Aplicación de sellado elastómero con lámina de puente de aluminio o PVC sobre junta de dilatación, 10 ml con fijación mecánica",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 35,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lámina de puente y perfilería metálica de cubrición",
+          "descripcion": "Suministro e instalación de lámina de puente de aluminio/zinc anodizado y perfil metálico de cubrición con fijación mecánica (tornillería), 10 ml",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perfilería metálica específica. Instalador debe confirmar tipo de metal (aluminio anodizado/zinc), espesor y sistema de fijación"
+        },
+        {
+          "concepto": "Sellado superior flexible",
+          "descripcion": "Aplicación de sellador elastómero de poliuretano o silicona de curado neutro en reborde superior de junta, 10 ml, dos cordones de 5 mm",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sellador específico. Instalador confirma producto (monocomponente/bicomponente), color y cantidad necesaria"
+        },
+        {
+          "concepto": "Mano de obra sellado elastómero superior",
+          "descripcion": "Aplicación profesional de sellador con pistola de calafateo en toda la extensión superior de junta, 10 ml",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 6,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Trapos, disolvente de limpieza, cinta de enmascarar, guantes, mascarilla, herramientas menores para reparación de 10 ml",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: se recomienda presupuestar 30-50€ como importe aproximado"
+        },
+        {
+          "concepto": "Equipos de Protección Individual (EPI) y seguridad en altura",
+          "descripcion": "Arnés de seguridad, línea de vida, cascos, gafas, botas de seguridad, para trabajo en cubierta comunitaria (10 ml a altura)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Control y prueba de estanqueidad",
+          "descripcion": "Inspección visual y prueba de agua simulada en junta reparada para verificar ausencia de filtraciones, 10 ml",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 4,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 630,
+        "iva_porcentaje": 21,
+        "iva": 132.3,
+        "total": 762.3
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente acceso a cubierta y condiciones de seguridad: necesidad de instalación de línea de vida temporal",
+        "Especificar tipo de metal para lámina de puente: aluminio anodizado (más económico, buen rendimiento) vs. zinc (más durable, precio superior)",
+        "Documentar estado previo de junta con fotografías antes de reparación para garantía de trabajos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lámina de puente y perfilería metálica de cubrición",
+          "origen": "sugerida_ia",
+          "razon": "Sistema específico con fijación mecánica no detallado en base maestra. Incluye material y fijación"
+        },
+        {
+          "concepto": "Sellado superior flexible",
+          "origen": "sugerida_ia",
+          "razon": "Material de sellador elastómero para cierre superior de junta"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "reparacion_de_piscina_con_filtraciones",
+      "impermeabilizacion_terraza_con_pintura_poliuretano"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

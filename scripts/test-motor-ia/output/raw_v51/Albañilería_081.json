@@ -1,0 +1,116 @@
+{
+  "id": 81,
+  "oficio": "Albañilería",
+  "texto": "Quiero tirar un tabique para unir la cocina con el salón, aproximadamente 3 metros de largo",
+  "http_status": 200,
+  "latency_ms": 15072,
+  "raw_response": {
+    "transcript": "Quiero tirar un tabique para unir la cocina con el salón, aproximadamente 3 metros de largo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Quiero tirar un tabique para unir la cocina con el salón, aproximadamente 3 metros de largo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Demolición de tabique requiere verificación de carga estructural. Si es tabique de carga, necesita proyecto técnico y viga de sustentación.",
+          "Se asume tabique divisorio (no de carga). Confirmar con cliente/técnico.",
+          "No se incluye reposición de instalaciones (electricidad, fontanería, climatización) que pueda haber en el tabique.",
+          "No se incluye acabados finales (pintura, suelos, alicatados)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición/desmontaje de tabique, limpieza y retirada de escombros"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y desmontaje de tabique",
+          "descripcion": "Demolición completa de tabique divisorio (aproximadamente 3 metros de largo). Incluye: despiece de estructura (perfiles metálicos o madera), retirada de placas de yeso, eliminación de aislamiento si existe, retirada de zócalo y molduras, limpieza y acopio de escombros.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio puede variar si tabique contiene instalaciones eléctricas, fontanería o si es de materiales pesados (ladrillo, hormigón). Verificar in situ."
+        },
+        {
+          "concepto": "Retirada y gestión de escombros",
+          "descripcion": "Transporte, carga y descarga de escombros derivados de la demolición del tabique. Incluye bolsas de escombros o contenedor según volumen generado (estimado 2-3 m³).",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir presupuesto de gestión de residuos o transporte a vertedero. Precio depende de ubicación y volumen real de escombros."
+        },
+        {
+          "concepto": "Limpieza y preparación de zona",
+          "descripcion": "Limpieza exhaustiva de la zona tras demolición: barido, aspirado de polvo de yeso, limpieza de vigas/forjado, preparación de surfaces para trabajos posteriores.",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 20,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 160,
+        "iva_porcentaje": 21,
+        "iva": 33.6,
+        "total": 193.6
+      },
+      "sugerencias_catalogo": [
+        "Si el tabique es de carga o hay dudas estructurales: solicitar CÁLCULO TÉCNICO por ingeniero. Presupuestar viga de acero/hormigón e instalación (oficio: albanileria/carpinteria metálica).",
+        "Si el tabique contiene instalaciones eléctricas: incluir presupuesto de REPOSICIÓN DE CIRCUITOS con electricista.",
+        "Si el tabique contiene tuberías de fontanería/calefacción: incluir presupuesto de REENCAMINAMIENTO con fontanero.",
+        "Solicitar presupuesto SEPARADO para acabados finales (pintura techo/paredes, igualación de suelos, alicatados si cocina)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Retirada y gestión de escombros",
+          "razon": "Servicio de transporte/vertedero no tiene precio estándar, depende de volumen y distancia. Instalador debe cotizar.",
+          "sugerencia": "Incluir como 'servicio' con origen 'sugerida_ia', precio_unitario=0, requiere_revision=true"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "instalacion_electrica_local_hosteleria"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 2,
+    "n_sugeridas": 1,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

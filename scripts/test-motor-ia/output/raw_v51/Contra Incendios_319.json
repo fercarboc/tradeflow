@@ -1,0 +1,240 @@
+{
+  "id": 319,
+  "oficio": "Contra Incendios",
+  "texto": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+  "http_status": 200,
+  "latency_ms": 23088,
+  "raw_response": {
+    "transcript": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Señalización de evacuación está regulada por CTE DB SI y normativa de seguridad laboral. Verificar que cumple con RD 486/1997 y requisitos de visibilidad/durabilidad",
+          "Si se instalan nuevas rutas, se requiere plano de evacuación actualizado",
+          "Considerar si se necesita coordinación con instalador de iluminación de emergencia"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de señalética y pintura de rutas de evacuación en suelo/paredes"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Fijación de señales y refuerzo de estructuras si es necesario"
+        },
+        {
+          "oficio": "instalador_cctv",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de señalización de seguridad estructurada (análogo a sistemas de control/señalética)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de señalización antigua",
+          "descripcion": "Retirada de señales de evacuación, placas y marcas antiguas. Limpieza de superficies. Retirada de anclajes y fijaciones.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 256,
+          "total": 256,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de señales de evacuación conforme CTE DB SI",
+          "descripcion": "Señales fotoluminiscentes de salida de emergencia, flechas direccionales, placas de ruta de evacuación, material conforme UNE 23034 y CTE DB SI. Incluye variedad de formatos y reentrantes.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "El instalador debe cuantificar número de señales (salidas, flechas, placas) y precio según proveedor y cantidad exacta tras inspección de nuevas rutas"
+        },
+        {
+          "concepto": "Instalación de señales de evacuación en paredes y puertas",
+          "descripcion": "Fijación de señales fotoluminiscentes, flechas direccionales y placas de ruta en paredes, puertas de emergencia y pasillos. Aplomado y nivelación. Sellado de anclajes.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 40,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Marcado de rutas de evacuación en suelo",
+          "descripcion": "Pintura de líneas de ruta de evacuación en suelo mediante pintura para pavimento reflectante o fluorescente. Preparación de superficie, limpieza y aplicación de pintura de seguridad según normativa.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe medir longitud total de rutas en metros lineales y especificar anchura de línea (típicamente 5-10 cm). Precio incluye preparación y pintura reflectante."
+        },
+        {
+          "concepto": "Suministro de pintura y materiales de ruta de evacuación",
+          "descripcion": "Pintura para pavimento reflectante o fluorescente de seguridad, imprimación, cintas adhesivas reflectantes complementarias, disolventes y pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a determinar según longitud de rutas y especificación de pintura/cinta elegida"
+        },
+        {
+          "concepto": "Señalización de puntos de concentración",
+          "descripcion": "Instalación de señales y marcas en zonas de concentración de emergencia (exteriores). Fijación en suelo, poste o estructura según localización.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de señales de punto de concentración",
+          "descripcion": "Señales de punto de concentración, placas informativas con teléfono emergencias, material reflectante duradero conforme CTE.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cuantificar número de puntos de concentración tras análisis de nueva distribución de rutas"
+        },
+        {
+          "concepto": "Revisión de iluminación de emergencia en rutas",
+          "descripcion": "Inspección y verificación de funcionamiento de luminarias de emergencia situadas en nuevas rutas. Pruebas de autonomía y encendido. Informe de conformidad.",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plano de evacuación actualizado",
+          "descripcion": "Elaboración de plano de evacuación con nuevas rutas, salidas de emergencia, puntos de concentración, zonas de riesgo. Impresión y colocación en áreas de tránsito de personal.",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según número de copias, tamaño y material (plastificado recomendado). Incluye diseño/actualización si es necesario."
+        },
+        {
+          "concepto": "Informe de cumplimiento normativo",
+          "descripcion": "Informe técnico certificando conformidad de señalización con CTE DB SI, RD 486/1997 y normativa UNE 23034. Recomendaciones y certificado de trabajo realizado.",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 716,
+        "iva_porcentaje": 21,
+        "iva": 150.36,
+        "total": 866.36
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada de catálogo: 'instalacion_señalizacion_evacuacion_empresa' — oficio: pintura/albanileria — unidad: ud (proyecto completo) — rango: 500-3000€ según tamaño instalación",
+        "Considerar servicio de auditoría de seguridad en evacuación como partida complementaria (análogo a mantenimiento eléctrico)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Marcado de rutas de evacuación en suelo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "motivo": "Especialidad de pintura de seguridad en pavimentos — no encontrada en catálogo base"
+        },
+        {
+          "concepto": "Plano de evacuación actualizado",
+          "oficio": "administrativo/diseño",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio de diseño/documentación no incluido en oficios base — sugerida como complemento obligatorio"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_barra_antipánico",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "reparacion_o_cambio_guias_persiana"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

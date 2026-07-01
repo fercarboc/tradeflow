@@ -1,0 +1,135 @@
+{
+  "id": 214,
+  "oficio": "Jardinería",
+  "texto": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 12376,
+  "raw_response": {
+    "transcript": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Desbroce, limpieza y retirada de maleza en parcela — trabajo de jardinería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desbroce y limpieza de maleza",
+          "descripcion": "Desbroce manual y mecánico de maleza, hierbas silvestres y vegetación invasora en parcela abandonada",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0.8,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Retirada y transporte de residuos vegetales",
+          "descripcion": "Acopio, carga y transporte de maleza, ramas y residuos vegetales generados en la limpieza a punto de acopio o gestor autorizado",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen estimado de residuos vegetales (aprox. 8 m³ para 500 m² de parcela abandonada). Instalador debe confirmar volumen real y tarifa de transporte/gestor"
+        },
+        {
+          "concepto": "Nivelación y perfilado del terreno",
+          "descripcion": "Nivelación superficial del terreno tras desbroce, eliminación de tocones pequeños y perfilado de la parcela",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0.5,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y combustible",
+          "descripcion": "Combustible para desbrozadora, cuchillas, discos de corte, EPP (guantes, gafas, mascarilla) y herramientas menores",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado: 80-150€ según intensidad de maleza y estado de la parcela"
+        }
+      ],
+      "calculos": {
+        "subtotal": 650,
+        "iva_porcentaje": 21,
+        "iva": 136.5,
+        "total": 786.5
+      },
+      "sugerencias_catalogo": [
+        "Si la parcela contiene árboles o arbustos de gran tamaño que requieran tala especializada, considerar partida adicional de 'Tala y destoconado' con oficio jardineria",
+        "Si hay acumulación de escombros o residuos no vegetales, solicitar presupuesto separado de 'Gestión de residuos' (gestion_residuos)",
+        "Confirmar con el cliente si desea aporte de tierra vegetal o semilla de césped tras la limpieza (partidas adicionales de jardinería)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Retirada y transporte de residuos vegetales",
+          "oficio": "jardineria",
+          "motivo": "Volumen de residuos estimado; requiere confirmación de gestor y tarifa real"
+        },
+        {
+          "concepto": "Pequeño material y combustible",
+          "oficio": "jardineria",
+          "motivo": "Consumibles y herramientas menores; instalador debe presupuestar según experiencia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "presupuesto_e_informe_inicial_instalacion_contra_incendios",
+      "reparacion_de_piscina_con_filtraciones",
+      "instalacion_bomba_de_calor_para_piscina",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4061,
+      "tokens_out": 1338
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

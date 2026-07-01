@@ -1,0 +1,282 @@
+{
+  "id": 98,
+  "oficio": "Albañilería",
+  "texto": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+  "http_status": 200,
+  "latency_ms": 28761,
+  "raw_response": {
+    "transcript": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reconstruir escalera interior de madera por una de hormigón, 12 peldaños con barandilla",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra de envergadura: demolición + obra civil + acabados. Requiere cálculo estructural y permisos municipales.",
+          "Barandilla: debe cumplir CTE DB-SUA (altura mínima 100cm en uso público, 90cm en privado; separación máxima entre barrotes 10cm).",
+          "Hormigón: requiere encofrado, armadura, curado. Presupuesto estimado; instalador debe revisar dimensiones exactas y especificaciones técnicas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma que combina demolición (carpintería) + obra civil (hormigón, albañilería) + acabados (barandilla metálica/cerrajería). ≥3 oficios simultáneos."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Desmontaje escalera madera existente."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Construcción escalera hormigón: encofrado, armadura, hormigonado, desencofrado, acabado."
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación barandilla metálica según normativa CTE."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión y retirada de escombros (madera, hormigón, encofrado)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y desmontaje escalera madera existente",
+          "descripcion": "Desmontaje completo escalera interior de madera (12 peldaños), barandilla, zancas y elementos auxiliares. Incluye corte, extracción y preparación para retirada.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 360,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Encofrado escalera hormigón 12 peldaños",
+          "descripcion": "Encofrado de madera/metálico para escalera de hormigón armado. Incluye tableros, puntales, arriostramientos y elementos de fijación. Desmontaje incluido.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material encofrado: instalador debe presupuestar según tipo (madera reutilizable vs. metálico alquilado) y complejidad de la escalera."
+        },
+        {
+          "concepto": "Armadura escalera hormigón (acero corrugado)",
+          "descripcion": "Suministro e instalación de armadura de acero corrugado B500S para escalera de hormigón. Incluye barras, estribos y ataduras según cálculo estructural.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de acero: depende de cálculo estructural. Instalador debe revisar planos y especificar kg totales."
+        },
+        {
+          "concepto": "Hormigonado escalera (H-25 o superior)",
+          "descripcion": "Suministro, transporte y colocación de hormigón armado (H-25 mínimo) para escalera de 12 peldaños. Incluye vibrado, nivelación y curado inicial.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen hormigón: estimado en 2-4 m³ según dimensiones exactas (ancho, altura total, espesor losa). Instalador debe calcular y presupuestar."
+        },
+        {
+          "concepto": "Mano de obra hormigonado y curado escalera",
+          "descripcion": "Mano de obra para hormigonado, vibrado, nivelación, desencofrado y curado de escalera hormigón (12 peldaños). Incluye trabajos de acabado superficial.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado superficial peldaños (pulido/bruñido)",
+          "descripcion": "Acabado de peldaños: pulido, bruñido o aplicación de mortero de acabado para superficie lisa y segura. Incluye limpieza y sellado.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 25,
+          "total": 300,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario por m² de acabado: instalador debe revisar según tipo de acabado (pulido, bruñido, mortero, pintura antideslizante)."
+        },
+        {
+          "concepto": "Barandilla metálica escalera hormigón",
+          "descripcion": "Suministro e instalación de barandilla metálica (acero inoxidable, aluminio o acero pintado) con pasamanos tubo redondo/plano. Altura mínima 100cm (uso público) o 90cm (privado). Separación máxima entre barrotes 10cm. Incluye anclajes químicos/mecánicos a hormigón.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud barandilla: depende de geometría escalera (ancho, número de tramos). Instalador debe medir y especificar ml totales y tipo de material (inox, aluminio, acero)."
+        },
+        {
+          "concepto": "Mano de obra instalación barandilla",
+          "descripcion": "Mano de obra para instalación barandilla metálica: marcado, taladrado, anclaje químico/mecánico, fijación pasamanos, ajuste y acabado.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Retirada y gestión de escombros",
+          "descripcion": "Retirada, carga y transporte de escombros (madera, hormigón, encofrado, residuos). Incluye limpieza final de obra y gestión según normativa ambiental.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 280,
+          "total": 560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Pequeño material: tornillos inox, tacos químicos, masilla, cinta carrocero, discos corte/pulido, guantes, gafas, etc.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación: instalador debe revisar según alcance real de obra."
+        }
+      ],
+      "calculos": {
+        "subtotal": 4160,
+        "iva_porcentaje": 21,
+        "iva": 873.6,
+        "total": 5033.6
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo: [instalacion_barandilla_metalica_de_escalera_interior] para especificaciones técnicas de barandilla (altura CTE, separación barrotes, anclajes).",
+        "Consultar catálogo: [instalacion_escalera_de_madera_interior] como referencia de estructura y componentes (aunque en este caso es sustitución por hormigón).",
+        "Recomendación: solicitar cálculo estructural profesional antes de presupuestar. Dimensiones críticas: ancho escalera, altura total, tipo de apoyo (losa, zancas, etc.)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Encofrado escalera hormigón 12 peldaños",
+          "oficio": "albanileria",
+          "motivo": "Encofrado específico para escalera hormigón: no existe partida exacta en catálogo. Creada como sugerida_ia."
+        },
+        {
+          "concepto": "Armadura escalera hormigón (acero corrugado)",
+          "oficio": "albanileria",
+          "motivo": "Armadura estructural: cantidad variable según cálculo. Creada como sugerida_ia con precio_unitario=0."
+        },
+        {
+          "concepto": "Hormigonado escalera (H-25 o superior)",
+          "oficio": "albanileria",
+          "motivo": "Hormigón armado para escalera: volumen variable. Creada como sugerida_ia con precio_unitario=0."
+        },
+        {
+          "concepto": "Acabado superficial peldaños (pulido/bruñido)",
+          "oficio": "albanileria",
+          "motivo": "Acabado peldaños hormigón: no existe partida específica. Creada como sugerida_ia."
+        },
+        {
+          "concepto": "Barandilla metálica escalera hormigón",
+          "oficio": "cerrajeria",
+          "motivo": "Barandilla para escalera hormigón: longitud variable según geometría. Creada como sugerida_ia con precio_unitario=0."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_barandilla_metalica_de_escalera_interior",
+      "instalacion_escalera_de_madera_interior",
+      "instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_persiana_veneciana_de_madera_o_bambu"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3901,
+      "tokens_out": 3963
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

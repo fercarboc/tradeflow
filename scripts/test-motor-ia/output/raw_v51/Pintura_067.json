@@ -1,0 +1,179 @@
+{
+  "id": 67,
+  "oficio": "Pintura",
+  "texto": "Pintar local comercial de 80 metros cuadrados, paredes blancas y suelo epoxy gris",
+  "http_status": 200,
+  "latency_ms": 15710,
+  "raw_response": {
+    "transcript": "Pintar local comercial de 80 metros cuadrados, paredes blancas y suelo epoxy gris",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar local comercial de 80 metros cuadrados, paredes blancas y suelo epoxy gris",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Confirmar si los 80 m² incluyen paredes y suelo o solo superficie de paredes",
+          "Verificar estado actual del suelo (si necesita lija/preparación previa)",
+          "Aclarar si incluye techo y en qué estado se encuentra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintado de locales comerciales y pintura de suelos epoxi detectados en Base Maestra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Pintura plástica lavable paredes (blancas) - local comercial",
+          "descripcion": "Pintura plástica lavable especial para locales comerciales en paredes, incluye imprimación, rodillo, pinceles, cinta carrocero y protecciones",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 8,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro pintura plástica lavable blanca para paredes",
+          "descripcion": "Material: pintura plástica lavable de calidad comercial, rendimiento aproximado 6-8 m²/litro",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador según marca y calidad seleccionada"
+        },
+        {
+          "concepto": "Imprimación paredes local comercial",
+          "descripcion": "Imprimación adherente para paredes, incluida en preparación de superficie",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador"
+        },
+        {
+          "concepto": "Pintura epoxi bicomponente suelo gris - local comercial",
+          "descripcion": "Pintura epoxi gris para suelos de local comercial, incluye imprimación consolidante, lija previa, rodillo pelo corto y pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 10,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro pintura epoxi bicomponente gris para suelos",
+          "descripcion": "Material: resina epoxi de dos componentes color gris, rendimiento 5-6 m²/litro",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 14,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador según marca y acabado seleccionado"
+        },
+        {
+          "concepto": "Imprimación consolidante suelo epoxi",
+          "descripcion": "Imprimación adherente especial para suelos antes de epoxi",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar por instalador"
+        },
+        {
+          "concepto": "Lija previa mecánica suelo y preparación de superficie",
+          "descripcion": "Lija mecánica del suelo para preparación previa antes de aplicar epoxi, incluye limpieza y desengrasante",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 3,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, cinta carrocero, protecciones y auxiliares",
+          "descripcion": "Cinta carrocero, plástico de protección, rodillos, pinceles y pequeño material necesario para ejecución",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según necesidades reales de obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1680,
+        "iva_porcentaje": 21,
+        "iva": 352.8,
+        "total": 2032.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente si techo también requiere pintura (no incluido en presupuesto actual)",
+        "Preguntar si hay zócalos, rodapiés o elementos decorativos a pintar",
+        "Verificar si el local estará ocupado durante la obra (coordinar horarios si es activo)",
+        "Sugerir acabado antideslizante en suelo epoxi si hay posible riesgo de resbalones"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "pintura_de_suelo_interior_con_epoxi",
+      "pintado_locales_comerciales_y_tiendas",
+      "pintado_de_canchas_de_padel_interior",
+      "instalacion_sistema_de_climatizacion_en_local_comercial",
+      "pintado_de_foso_de_ascensor"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

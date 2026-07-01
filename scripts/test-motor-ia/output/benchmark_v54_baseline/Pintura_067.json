@@ -1,0 +1,178 @@
+{
+  "id": 67,
+  "oficio": "Pintura",
+  "texto": "Pintar local comercial de 80 metros cuadrados, paredes blancas y suelo epoxy gris",
+  "http_status": 200,
+  "latency_ms": 14616,
+  "raw_response": {
+    "transcript": "Pintar local comercial de 80 metros cuadrados, paredes blancas y suelo epoxy gris",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar local comercial de 80 metros cuadrados, paredes blancas y suelo epoxy gris",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye pintura de paredes + suelo epoxi. Verificar si el local está en uso (requiere coordinación horaria).",
+          "Suelo epoxi requiere preparación previa (limpieza, desengrasante). Confirmar estado actual del suelo."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura de paredes y suelo epoxi en local comercial. Tarifa según catálogo de pintura."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Pintura plástica lavable paredes blancas",
+          "descripcion": "Pintura plástica lavable para paredes interiores de local comercial, color blanco. Incluye imprimación, dos manos de pintura, cinta carrocero, plástico de protección y pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pintura plástica lavable. El instalador debe indicar precio según marca y calidad seleccionada."
+        },
+        {
+          "concepto": "Mano de obra pintura paredes blancas",
+          "descripcion": "Preparación, imprimación y pintado de paredes (dos manos) en local comercial de 80 m². Incluye limpieza previa, aplicación de cinta carrocero y protecciones.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 6,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura epoxi bicomponente suelo gris",
+          "descripcion": "Pintura epoxi bicomponente de dos componentes para suelo, color gris. Incluye resina y endurecedor. Rendimiento aproximado 5-6 m²/litro.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material epoxi bicomponente. El instalador debe indicar precio según marca y especificaciones técnicas (resistencia química, tráfico, etc.)."
+        },
+        {
+          "concepto": "Imprimación consolidante suelo",
+          "descripcion": "Imprimación consolidante para preparación de suelo antes de aplicar epoxi. Mejora la adherencia y sella el sustrato.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material imprimación. El instalador debe indicar precio según producto seleccionado."
+        },
+        {
+          "concepto": "Mano de obra pintura epoxi suelo",
+          "descripcion": "Preparación del suelo (limpieza, desengrasante, lija si es necesario), aplicación de imprimación y dos manos de epoxi. Incluye pequeño material (rodillo pelo corto, pinceles, cinta carrocero, plástico protección).",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 8,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza previa y desengrasante suelo",
+          "descripcion": "Limpieza profunda del suelo con desengrasante industrial para eliminar grasas, polvo y residuos. Imprescindible antes de aplicar epoxi.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material desengrasante. El instalador debe indicar precio según producto y cantidad necesaria."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1120,
+        "iva_porcentaje": 21,
+        "iva": 235.2,
+        "total": 1355.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el local está en funcionamiento. Si es así, coordinar horario de trabajo (preferiblemente fuera de horario comercial o cierre temporal).",
+        "Confirmar estado actual del suelo: ¿es hormigón nuevo, antiguo, con grietas, con pintura anterior? Esto puede requerir preparación adicional (lijado mecánico, sellado de grietas).",
+        "Epoxi gris: especificar si requiere propiedades antideslizantes (añadir cuarzo o microesferas) o resistencia química especial (según actividad comercial).",
+        "Tiempo de secado epoxi: mínimo 48-72 horas antes de permitir tráfico. Coordinar cierre del local si es necesario.",
+        "Ventilación: asegurar ventilación adecuada durante aplicación de epoxi (vapores tóxicos)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura plástica lavable paredes blancas",
+          "oficio": "pintura",
+          "motivo": "Material específico para paredes comerciales. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Pintura epoxi bicomponente suelo gris",
+          "oficio": "pintura",
+          "motivo": "Material epoxi específico. Precio pendiente de revisión del instalador según marca y especificaciones."
+        },
+        {
+          "concepto": "Imprimación consolidante suelo",
+          "oficio": "pintura",
+          "motivo": "Material preparatorio. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Limpieza previa y desengrasante suelo",
+          "oficio": "pintura",
+          "motivo": "Material preparatorio. Precio pendiente de revisión del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_de_suelo_interior_con_epoxi",
+      "pintado_locales_comerciales_y_tiendas",
+      "pintado_de_canchas_de_padel_interior",
+      "instalacion_sistema_de_climatizacion_en_local_comercial",
+      "pintado_de_foso_de_ascensor"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3526,
+      "tokens_out": 2062
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

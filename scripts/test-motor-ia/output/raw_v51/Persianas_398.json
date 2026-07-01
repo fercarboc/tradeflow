@@ -1,0 +1,166 @@
+{
+  "id": 398,
+  "oficio": "Persianas",
+  "texto": "Instalar persiana veneciana de aluminio en ventana de oficina, 120x90 centímetros, lama de 25mm",
+  "http_status": 200,
+  "latency_ms": 18878,
+  "raw_response": {
+    "transcript": "Instalar persiana veneciana de aluminio en ventana de oficina, 120x90 centímetros, lama de 25mm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar persiana veneciana de aluminio en ventana de oficina, 120x90 centímetros, lama de 25mm",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de persiana veneciana de aluminio interior, oficio especializado en catálogo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Persiana veneciana aluminio 120x90cm lama 25mm",
+          "descripcion": "Persiana veneciana de aluminio con lamas de 25mm, ancho 120cm x alto 90cm, según medida y color de ventana oficina",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "El instalador debe introducir el precio según proveedor y acabado seleccionado (color, tipo de lama). Rango orientativo: 150-300€"
+        },
+        {
+          "concepto": "Cabezal, mecanismo de giro y subida",
+          "descripcion": "Cabezal completo con mecanismo de giro (varilla) y sistema de subida (cordón), incluye componentes internos",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a introducir según proveedor. Rango orientativo: 40-80€"
+        },
+        {
+          "concepto": "Cordón o cinta de subida",
+          "descripcion": "Cordón resistente de poliéster para sistema de subida y bajada de persiana",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido frecuentemente en cabezal, pero verificar si es adicional. Rango: 5-15€"
+        },
+        {
+          "concepto": "Varilla de giro de lamas",
+          "descripcion": "Varilla metálica para control de inclinación y giro de lamas",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Típicamente incluido en cabezal, pero validar. Rango: 10-20€"
+        },
+        {
+          "concepto": "Fijaciones para cabezal (soportes laterales)",
+          "descripcion": "Soportes metálicos de fijación del cabezal a pared o techo, incluye tornillería inoxidable",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "par",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según material y tipo de anclaje. Rango: 15-30€"
+        },
+        {
+          "concepto": "Pequeño material (arandelas, tacos, tornillos)",
+          "descripcion": "Accesorios diversos: tacos de expansión, tornillos inoxidables, arandelas, masilla de fijación si precisa",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en kit estándar o comprado aparte. Rango: 5-15€"
+        },
+        {
+          "concepto": "Instalación persiana veneciana aluminio 120x90cm",
+          "descripcion": "Mano de obra de instalación: toma de medidas finales, fijación de soportes, colocación de cabezal, lamas y mecanismos, ajuste y prueba de funcionamiento",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 67.5,
+        "iva_porcentaje": 21,
+        "iva": 14.18,
+        "total": 81.68
+      },
+      "sugerencias_catalogo": [
+        "Confirmar color/acabado de lamas aluminio (plata, blanco, gris, bronce, etc.)",
+        "Verificar si se precisa soporte de techo o soporte de pared según instalación",
+        "Para oficinas con alta luminosidad, considerar lamas de 50mm como alternativa (más amplias, mejor estética)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "tipo": "material",
+          "concepto": "Persiana veneciana aluminio 120x90cm lama 25mm",
+          "motivo": "Medida específica del cliente; requiere cotización a proveedor"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_persiana_veneciana_interior_aluminio",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_estor_enrollable_interior",
+      "instalacion_persiana_mallorquina_o_librillo",
+      "instalacion_persiana_veneciana_de_madera_o_bambu"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "id": 303,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar rociadores automáticos sprinklers en zona de almacén de 200 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 26525,
+  "raw_response": {
+    "transcript": "Instalar rociadores automáticos sprinklers en zona de almacén de 200 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar rociadores automáticos sprinklers en zona de almacén de 200 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "PROYECTO TÉCNICO OBLIGATORIO según UNE EN 12845 — debe ser realizado por ingeniero especializado",
+          "Cálculo hidráulico imprescindible: densidad de aplicación, área de operación, presión mínima en rociador más desfavorable",
+          "Inspección y prueba hidráulica ANTES de cubrir tuberías",
+          "Revisión trimestral obligatoria post-instalación",
+          "Requiere licencia municipal y coordinación con autoridades locales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de rociadores sprinklers es instalación de protección contra incendios certificada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico sistema sprinklers UNE EN 12845",
+          "descripcion": "Cálculo hidráulico, planos, memoria técnica, densidad de aplicación, área de operación, presión mínima en rociador más desfavorable. Incluye coordinación con autoridades y licencia municipal.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proyecto técnico especializado — instalador debe cotizar según complejidad y normativa local"
+        },
+        {
+          "concepto": "Red de tuberías según cálculo hidráulico",
+          "descripcion": "Tuberías de acero galvanizado o cobre, diámetros según cálculo hidráulico (aspiración e impulsión), accesorios, codos, tes, reducciones, válvulas de retención, válvulas de corte, soportes y fijaciones.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje y diámetros dependen del cálculo hidráulico — instalador debe medir y cotizar materiales específicos"
+        },
+        {
+          "concepto": "Cabezas rociadores certificadas EN 12259",
+          "descripcion": "Rociadores automáticos certificados EN 12259 según tipo (pendent, upright, sidewall) y temperatura de activación. Cantidad según densidad de aplicación y área de operación (200 m²).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de rociadores depende del cálculo hidráulico (densidad aplicación) — instalador debe determinar cantidad exacta"
+        },
+        {
+          "concepto": "Central de alarma y válvula de control",
+          "descripcion": "Válvula de control principal con central de alarma integrada, manómetros, válvula de retención, válvula de drenaje, válvula de prueba, accesorios de conexión.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca, capacidad y certificaciones — instalador debe cotizar modelo específico"
+        },
+        {
+          "concepto": "Depósito o conexión a red hidráulica",
+          "descripcion": "Conexión a red de agua municipal con presión y caudal suficientes (mínimo 2.5 bar, caudal según cálculo), o depósito elevado/subterráneo si red insuficiente. Incluye válvulas de corte y retención.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de disponibilidad de red municipal y presión — instalador debe verificar in situ"
+        },
+        {
+          "concepto": "Estación de bombeo si necesario",
+          "descripcion": "Grupo de presión con bomba centrífuga, motor eléctrico, válvulas de retención, manómetro, presostato, accesorios. Solo si red municipal insuficiente.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesidad y potencia dependen del cálculo hidráulico — instalador debe evaluar presión y caudal disponibles"
+        },
+        {
+          "concepto": "Señalización y pequeño material",
+          "descripcion": "Señales de prohibición, obligación y advertencia (UNE 81-501), placas identificativas, tuercas, arandelas, teflon, pasta selladora, abrazaderas, soportes, etc.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo dependen de extensión de la instalación — instalador debe cotizar según necesidades"
+        },
+        {
+          "concepto": "Mano de obra: instalación red tuberías y accesorios",
+          "descripcion": "Tendido, conexión, fijación y prueba de tuberías, válvulas, accesorios. Incluye rozas, reposición y limpieza.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas dependen de metraje de tuberías y complejidad de la instalación — instalador debe estimar tiempo real"
+        },
+        {
+          "concepto": "Mano de obra: instalación cabezas rociadores",
+          "descripcion": "Montaje de rociadores en tuberías, ajuste de altura y orientación, prueba de funcionamiento individual.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas dependen del número de rociadores — instalador debe estimar 0.5-1 hora por rociador"
+        },
+        {
+          "concepto": "Mano de obra: instalación central de alarma y válvula de control",
+          "descripcion": "Montaje, conexión, calibración de presostato, prueba de alarma, ajuste de parámetros.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 55,
+          "total": 220,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba hidráulica y puesta en marcha",
+          "descripcion": "Prueba de presión a 1.5 veces la presión de trabajo, inspección de fugas, drenaje de aire, llenado del sistema, prueba de funcionamiento de rociadores, ajuste de presión, documentación de pruebas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 55,
+          "total": 330,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 550,
+        "iva_porcentaje": 21,
+        "iva": 115.5,
+        "total": 665.5
+      },
+      "sugerencias_catalogo": [
+        "Consultar con ingeniero especializado en sistemas de protección contra incendios para validar cálculo hidráulico",
+        "Verificar normativa local y requisitos de inspección municipal antes de iniciar obra",
+        "Solicitar certificados EN 12259 de los rociadores a suministrador",
+        "Establecer plan de mantenimiento y revisión trimestral post-instalación (obligatorio por ley)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico sistema sprinklers UNE EN 12845",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Proyecto técnico especializado obligatorio — no tiene precio unitario en catálogo base"
+        },
+        {
+          "concepto": "Red de tuberías según cálculo hidráulico",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Metraje y diámetros específicos dependen del cálculo hidráulico — requiere medición in situ"
+        },
+        {
+          "concepto": "Cabezas rociadores certificadas EN 12259",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad depende de densidad de aplicación y área de operación — requiere cálculo técnico"
+        },
+        {
+          "concepto": "Central de alarma y válvula de control",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Precio depende de marca y certificaciones — requiere cotización de proveedor"
+        },
+        {
+          "concepto": "Depósito o conexión a red hidráulica",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Depende de disponibilidad de red municipal — requiere inspección in situ"
+        },
+        {
+          "concepto": "Estación de bombeo si necesario",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Necesidad y potencia dependen del cálculo hidráulico — requiere evaluación técnica"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "construccion_de_piscina_de_obra",
+      "instalacion_electrica_exterior_urbanizacion",
+      "instalacion_de_pavimento_de_grava_o_gravilla_decorativa",
+      "instalacion_sistema_hilo_musical_multizona"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4189,
+      "tokens_out": 3661
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

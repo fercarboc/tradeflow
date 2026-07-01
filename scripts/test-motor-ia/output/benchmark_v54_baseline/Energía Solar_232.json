@@ -1,0 +1,114 @@
+{
+  "id": 232,
+  "oficio": "Energía Solar",
+  "texto": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+  "http_status": 200,
+  "latency_ms": 14166,
+  "raw_response": {
+    "transcript": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Este presupuesto es ÚNICAMENTE gestión administrativa y trámites. NO incluye paneles, inversor, cableado ni instalación física.",
+          "El cliente debe confirmar si necesita también la instalación de equipos (paneles, inversor, estructura, cableado).",
+          "La potencia de 8kW es referencial para los trámites; verificar con distribuidora local."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Gestión administrativa, trámites de alta ante distribuidora, legalización de autoconsumo con compensación."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Gestión de trámites de alta y conexión a red",
+          "descripcion": "Tramitación completa ante distribuidora para alta de instalación fotovoltaica de 8kW con sistema de compensación de excedentes. Incluye: solicitud de acceso, estudio de viabilidad, proyecto técnico de conexión, coordinación con distribuidora, obtención de CUPS, autorización de explotación, inscripción en registro de autoconsumo con compensación, seguimiento hasta puesta en servicio.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "servicio",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por gestor según distribuidora, complejidad de acceso a red y tiempo de tramitación. Rango orientativo: 400-800€ según zona y distribuidora."
+        },
+        {
+          "concepto": "Documentación técnica y proyecto de conexión",
+          "descripcion": "Elaboración o coordinación de documentación técnica requerida: esquema unifilar de conexión, cálculo de protecciones, memoria técnica de compatibilidad con red, certificado de conformidad de equipos, documentación de seguridad.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "servicio",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir. Rango orientativo: 150-300€ según complejidad de acceso a red."
+        },
+        {
+          "concepto": "Inscripción en registro de autoconsumo con compensación",
+          "descripcion": "Tramitación específica para registro de instalación de autoconsumo con compensación de excedentes ante organismo competente (CCAA o administración local según territorio). Incluye documentación de solicitud, datos de instalación, contrato de compensación con distribuidora.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "servicio",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir. Rango orientativo: 100-250€ según comunidad autónoma."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "El presupuesto actual cubre ÚNICAMENTE trámites administrativos y gestión de conexión a red.",
+        "Si el cliente necesita también la instalación física (paneles, inversor, cableado, estructura), solicitar presupuesto separado con oficio 'energia_solar' para instalación de sistema fotovoltaico de 8kW.",
+        "Verificar con el cliente: ¿Instalación ya realizada y solo falta legalizar? ¿O necesita también equipos e instalación?"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "instalacion_vidrio_antibalas_o_antiatraco",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_energia_solar_para_caravana_o_autocaravana"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3937,
+      "tokens_out": 1644
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 3,
+    "n_catalogo": 0,
+    "n_sugeridas": 3,
+    "oficio_detectado": "gestoria_tramites",
+    "coincide_oficio": "NO"
+  }
+}

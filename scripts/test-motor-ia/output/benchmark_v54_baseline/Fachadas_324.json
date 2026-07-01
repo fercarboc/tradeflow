@@ -1,0 +1,175 @@
+{
+  "id": 324,
+  "oficio": "Fachadas",
+  "texto": "Reparar y rejuntar fachada de ladrillo con mortero de cal, zona afectada 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 17583,
+  "raw_response": {
+    "transcript": "Reparar y rejuntar fachada de ladrillo con mortero de cal, zona afectada 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar y rejuntar fachada de ladrillo con mortero de cal, zona afectada 30 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en fachada: verificar acceso seguro y necesidad de andamio/plataforma",
+          "Mortero de cal: confirmar compatibilidad con tipo de ladrillo (histórico vs moderno)",
+          "Superficie 30 m²: presupuesto orientativo, requiere inspección in situ para detectar extensión real de daños"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación y rejuntado de ladrillo cara vista en fachada exterior con mortero de cal"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Fresado de juntas deterioradas",
+          "descripcion": "Fresado de juntas de ladrillo a profundidad mínima 2 cm para garantizar adherencia del mortero nuevo. Incluye retirada de mortero antiguo suelto y limpieza de polvo.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 18,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero de cal blanco para rejuntado",
+          "descripcion": "Suministro de mortero de cal hidráulica blanco, compatible con ladrillo antiguo, para rejuntado de juntas. Cantidad estimada según superficie y profundidad de junta.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar cantidad exacta de mortero (sacos/m³) y proveedor según tipo de ladrillo"
+        },
+        {
+          "concepto": "Aplicación y rejuntado de mortero de cal",
+          "descripcion": "Aplicación de mortero de cal en juntas fresadas, compactación, enrasado y acabado uniforme. Incluye herramientas manuales (paleta, lechada, cepillo).",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 22,
+          "total": 660,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza final de ladrillo",
+          "descripcion": "Limpieza de restos de mortero, polvo y eflorescencias en ladrillo. Cepillado suave y, si es necesario, limpieza con agua destilada o ácido suave diluido.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 12,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler, montaje y desmontaje de andamio tubular o plataforma elevadora para acceso seguro a fachada durante toda la ejecución del trabajo. Incluye protecciones y señalización.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio: instalador debe confirmar altura de fachada, duración estimada de obra (días) y tipo de andamio necesario (alquiler vs compra)"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Herramientas manuales (paletas, cepillos, esponjas, cubos), consumibles (trapos, esponjas de limpieza), protecciones personales (guantes, gafas) y señalización de obra.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe estimar coste de consumibles y herramientas (aprox. 50-150€ según duración)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1560,
+        "iva_porcentaje": 21,
+        "iva": 327.6,
+        "total": 1887.6
+      },
+      "sugerencias_catalogo": [
+        "Si la fachada presenta eflorescencias o manchas de humedad, considerar partida adicional de 'Limpieza con ácido suave' (especializada, +15-25€/m²)",
+        "Si hay ladrillo suelto o roto, añadir partida de 'Reparación de ladrillo suelto o roto' (albanilería, precio alzado según cantidad)",
+        "Si se requiere hidrofugación final para proteger el mortero de cal, añadir partida de 'Aplicación de hidrofugo' (impermeabilización, +8-15€/m²)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero de cal blanco para rejuntado",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Material específico: cantidad y coste dependen de proveedor y tipo de ladrillo"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar: coste variable según altura, duración y tipo de acceso"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Consumibles: coste estimado según duración de obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "reparacion_y_rejuntado_de_ladrillo_cara_vista",
+      "enfoscado_o_revoco_de_fachada_exterior",
+      "reparacion_de_desprendimiento_de_revestimiento_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3799,
+      "tokens_out": 2317
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

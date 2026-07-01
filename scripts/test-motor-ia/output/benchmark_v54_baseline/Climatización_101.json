@@ -1,0 +1,182 @@
+{
+  "id": 101,
+  "oficio": "Climatización",
+  "texto": "Instalar aire acondicionado split de 3000 frigorías en el dormitorio principal",
+  "http_status": 200,
+  "latency_ms": 14560,
+  "raw_response": {
+    "transcript": "Instalar aire acondicionado split de 3000 frigorías en el dormitorio principal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar aire acondicionado split de 3000 frigorías en el dormitorio principal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar accesibilidad para unidad exterior (balcón, fachada o patio)",
+          "Confirmar disponibilidad de circuito eléctrico exclusivo de 16A mínimo",
+          "Revisar distancia entre unidad interior y exterior para longitud de tubería"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de equipo split aire acondicionado, trabajo especializado en climatización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro unidad split inverter 3000 frigorías",
+          "descripcion": "Equipo split aire acondicionado inverter de 3000 frigorías (1 kW aprox.), incluye unidad interior mural y unidad exterior, refrigerante R32",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de equipo split a definir por instalador según marca y modelo"
+        },
+        {
+          "concepto": "Instalación unidad split 3000 frigorías en pared",
+          "descripcion": "Instalación completa: fijación unidad interior en pared, soporte unidad exterior, conexión tubería frigorífica, cableado eléctrico circuito exclusivo, tubo desagüe condensados, canaleta exterior, pruebas de funcionamiento y carga de gas si necesario",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tubería frigorífica de interconexión (aislada)",
+          "descripcion": "Tubería de cobre aislada para conexión entre unidad interior y exterior, diámetro según potencia (3000 frigorías), incluye aislamiento térmico",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tubería frigorífica a definir según longitud real y diámetro"
+        },
+        {
+          "concepto": "Cable eléctrico circuito exclusivo split",
+          "descripcion": "Cable eléctrico 3x2.5 mm² para circuito exclusivo de alimentación del split, con protección magnetotérmica de 16A y diferencial 30mA",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado y protecciones a definir según distancia real a cuadro eléctrico"
+        },
+        {
+          "concepto": "Tubo desagüe condensados con bomba",
+          "descripcion": "Tubo PVC desagüe condensados Ø16-20mm con bomba de condensados si la altura de descarga lo requiere, incluye accesorios y fijaciones",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sistema desagüe a definir según necesidad de bomba y longitud"
+        },
+        {
+          "concepto": "Pequeño material y accesorios instalación",
+          "descripcion": "Soportes de fijación, tacos, tornillería, canaleta exterior, bridas, cinta aislante, pasta térmica, válvulas de corte, manómetros y otros accesorios menores",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo si existe partida específica 'instalacion_split_1x1_pared' con rango 250-3500€/ud",
+        "Considerar si la instalación requiere adaptaciones en falso techo o cerramiento adicional",
+        "Confirmar si el cliente necesita servicio de mantenimiento anual post-instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro unidad split inverter 3000 frigorías",
+          "origen": "sugerida_ia",
+          "razon": "Material específico cuyo precio depende de marca y modelo seleccionado"
+        },
+        {
+          "concepto": "Tubería frigorífica de interconexión (aislada)",
+          "origen": "sugerida_ia",
+          "razon": "Material cuyo precio depende de longitud real entre unidades"
+        },
+        {
+          "concepto": "Cable eléctrico circuito exclusivo split",
+          "origen": "sugerida_ia",
+          "razon": "Material cuyo precio depende de distancia a cuadro eléctrico"
+        },
+        {
+          "concepto": "Tubo desagüe condensados con bomba",
+          "origen": "sugerida_ia",
+          "razon": "Material cuyo precio depende de necesidad de bomba y longitud"
+        },
+        {
+          "concepto": "Pequeño material y accesorios instalación",
+          "origen": "sugerida_ia",
+          "razon": "Accesorios menores cuyo precio debe definir el instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_split_1x1_cassette_techo",
+      "instalacion_split_1x1_pared",
+      "cerramiento_pladur_para_maquina_aire_acondicionado_split",
+      "instalacion_sistema_de_climatizacion_en_local_comercial",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3826,
+      "tokens_out": 2004
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

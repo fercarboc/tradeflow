@@ -1,0 +1,224 @@
+{
+  "id": 49,
+  "oficio": "Carpintería",
+  "texto": "Fabricación de cocina a medida en madera de melamina blanca con tiradores de aluminio, 6 metros lineales",
+  "http_status": 200,
+  "latency_ms": 21669,
+  "raw_response": {
+    "transcript": "Fabricación de cocina a medida en madera de melamina blanca con tiradores de aluminio, 6 metros lineales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación de cocina a medida en madera de melamina blanca con tiradores de aluminio, 6 metros lineales",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto en PRECIO ALZADO: requiere medición exacta y diseño aprobado antes de finalizar",
+          "Coordinar con electricista (conexiones) y fontanero (tomas agua/desagüe) antes de instalación",
+          "Confirmar huecos para electrodomésticos empotrados si aplica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de mueble de cocina a medida"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulos base cocina estructura melanina blanca",
+          "descripcion": "Fabricación de módulos base para 6 metros lineales en tablero melanina blanca de 18mm. Incluye costados, fondo y divisiones internas. Precio por unidad de módulo estándar (80cm).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de módulos melanina blanca a definir por proveedor según especificaciones exactas"
+        },
+        {
+          "concepto": "Puertas y cajones melanina blanca",
+          "descripcion": "Fabricación de puertas y frentes de cajones en melanina blanca con acabado de cantos. Cantidad según distribución de 6 metros (estimado 4 puertas + 4 cajones).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de frentes melanina a definir según diseño aprobado"
+        },
+        {
+          "concepto": "Herraje bisagras clip y guías telescópicas cierre suave",
+          "descripcion": "Bisagras clip de calidad para puertas (4 ud) y guías telescópicas de cierre suave para cajones (4 ud), con amortiguadores integrados.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herraje completo a confirmar según proveedores"
+        },
+        {
+          "concepto": "Tiradores de aluminio",
+          "descripcion": "Tiradores de aluminio anodizado para 4 puertas y 4 cajones (8 ud total). Medida y acabado según diseño.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tiradores aluminio a confirmar"
+        },
+        {
+          "concepto": "Zócalo y cornisa",
+          "descripcion": "Zócalo de melanina blanca (rodapié) y cornisa superior para los 6 metros lineales. Incluye material y acabados.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal de zócalo y cornisa a definir"
+        },
+        {
+          "concepto": "Organizadores interiores y accesorios",
+          "descripcion": "Pequeño material: tornillos, tacos, escuadras de fijación, cantos de borde, organizadores interiores estándar (separadores, guías para cajoneras).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material y accesorios incluido en presupuesto alzado"
+        },
+        {
+          "concepto": "Fabricación en taller de toda la estructura",
+          "descripcion": "Mano de obra en taller: corte, taladrado, montaje de módulos, colocación de herraje, aplicación de cantos. Estimado 40 horas para 6 metros de cocina.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 45,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Transporte e instalación en obra",
+          "descripcion": "Transporte de módulos desde taller. Desembalaje, colocación en hueco, nivelación, fijación a pared, instalación de puertas y cajones, ajustes. Estimado 16 horas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Diseño y medición en cliente (si no incluido en presupuesto alzado)",
+          "descripcion": "Visita de toma de medidas, diseño en plano, presentación de opciones, aprobación del cliente. Estimado 3 horas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2655,
+        "iva_porcentaje": 21,
+        "iva": 557.55,
+        "total": 3212.55
+      },
+      "sugerencias_catalogo": [
+        "IMPORTANTE: Este presupuesto es PARCIAL en mano de obra solamente. Los MATERIALES (módulos, puertas, herraje, tiradores, zócalo) requieren cotización de proveedor.",
+        "Modelo presupuesto RECOMENDADO: Generar PRECIO ALZADO final una vez confirmado el DISEÑO EXACTO del cliente (distribución de módulos, tipo de puertas/cajones, acabados, huecos electrodomésticos).",
+        "Rango de referencia para PRECIO ALZADO total (mano de obra + materiales): 2.500€ a 6.500€ según acabados y complejidad.",
+        "Recomendación: Coordinar con electricista ANTES (conexiones cocina) y fontanero (tomas agua/desagüe) para evitar modificaciones posteriores."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulos base cocina estructura melanina blanca",
+          "origen": "sugerida_ia",
+          "motivo": "Desglose de fabricación de estructura principal según Base Maestra"
+        },
+        {
+          "concepto": "Puertas y cajones melanina blanca",
+          "origen": "sugerida_ia",
+          "motivo": "Partida obligatoria según Base Maestra para muebles de cocina a medida"
+        },
+        {
+          "concepto": "Herraje bisagras clip y guías telescópicas cierre suave",
+          "origen": "sugerida_ia",
+          "motivo": "Partida obligatoria de herraje para funcionalidad"
+        },
+        {
+          "concepto": "Tiradores de aluminio",
+          "origen": "sugerida_ia",
+          "motivo": "Especificación cliente: tiradores aluminio (vs. estándar madera)"
+        },
+        {
+          "concepto": "Zócalo y cornisa",
+          "origen": "sugerida_ia",
+          "motivo": "Partida obligatoria según Base Maestra"
+        },
+        {
+          "concepto": "Organizadores interiores y accesorios",
+          "origen": "sugerida_ia",
+          "motivo": "Pequeño material obligatorio"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_mueble_cocina_a_medida",
+      "fabricacion_e_instalacion_de_cajonera_o_modulo_bajo_a_medida",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria",
+      "fabricacion_de_estanterias_y_baldas_a_medida",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

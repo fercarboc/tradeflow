@@ -1,0 +1,139 @@
+{
+  "id": 333,
+  "oficio": "Fachadas",
+  "texto": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 49702,
+  "raw_response": {
+    "transcript": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume acceso a fachada sin andamio (local bajo). Si altura >3m o fachada de difícil acceso, revisar necesidad de andamio.",
+          "Precio de material (gres porcelánico) pendiente de especificación: tipo, formato, acabado, origen."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Revestimiento exterior de fachada con material cerámico (gres porcelánico). Oficio especializado en envolvente exterior."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de gres porcelánico para aplacado de fachada",
+          "descripcion": "Gres porcelánico para revestimiento exterior de fachada, 20 m². Incluye piezas, adhesivo y lechada. Especificación pendiente: formato, acabado, color, resistencia a heladas.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sin especificación técnica. Instalador debe indicar: tipo gres (porcelánico técnico, porcelánico esmaltado), formato (30x60, 60x120, etc.), acabado (mate, brillante, antideslizante), origen (nacional/importado), resistencia a heladas (si zona fría). Rango típico: 25-80€/m² según calidad."
+        },
+        {
+          "concepto": "Preparación y replanteo de fachada",
+          "descripcion": "Limpieza, saneado de soporte, imprimación adherente y replanteo de alineaciones para colocación de gres porcelánico en 20 m².",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de gres porcelánico en fachada",
+          "descripcion": "Colocación de aplacado de gres porcelánico en fachada de local, 20 m². Incluye aplicación de adhesivo, nivelación, rejuntado y acabado. Mano de obra especializada en revestimientos exteriores.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 45,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y residuos",
+          "descripcion": "Pequeño material (esponjas, trapos, protecciones), gestión de residuos de obra y limpieza final de fachada.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado: 2-5€/m². Incluye esponjas, trapos, protecciones, bolsas residuos, limpieza final. Total estimado: 40-100€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1060,
+        "iva_porcentaje": 21,
+        "iva": 222.6,
+        "total": 1282.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar especificación técnica del gres porcelánico: formato (30x60, 60x120, 45x90, etc.), acabado (mate, brillante, antideslizante), resistencia a heladas (si aplica), origen.",
+        "Evaluar necesidad de andamio si altura de fachada >3m o acceso difícil. Si es necesario, añadir partida de alquiler y montaje de andamio (rango: 1000-5000€ según altura y duración).",
+        "Confirmar estado del soporte: si requiere reparación previa de grietas, humedades o irregularidades, añadir partida de saneado y reparación.",
+        "Especificar tipo de adhesivo: mortero cola C2S1 (estándar) o C2S2 (mejorado) según exposición y tipo de gres."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de gres porcelánico para aplacado de fachada",
+          "oficio": "fachadas",
+          "motivo": "Material específico sin precio en catálogo. Requiere especificación técnica del instalador."
+        },
+        {
+          "concepto": "Pequeño material y residuos",
+          "oficio": "fachadas",
+          "motivo": "Partida auxiliar estimada. Instalador debe confirmar importe según volumen de residuos y gestión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_gresite_o_mosaico_en_piscina_o_zona_acuatica",
+      "colocacion_de_andamio_de_fachada",
+      "impermeabilizacion_de_piscina_con_gresite_o_ceramica",
+      "construccion_de_piscina_de_obra",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4187,
+      "tokens_out": 1959
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

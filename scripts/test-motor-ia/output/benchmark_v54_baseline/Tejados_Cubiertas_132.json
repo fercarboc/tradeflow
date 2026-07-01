@@ -1,0 +1,247 @@
+{
+  "id": 132,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 29063,
+  "raw_response": {
+    "transcript": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Energía solar térmica (ACS) detectada. Diferente de fotovoltaica. Requiere validación de materiales específicos (colectores, acumulador, circuito primario).",
+          "Tejado inclinado: verificar tipo de teja (plana, árabe, pizarra) para seleccionar ganchos/soportes específicos.",
+          "Superficie total: 5 m² (2 × 2.5 m²). Acumulador ACS típico: 200-300 L para esta potencia térmica.",
+          "Impermeabilización de perforaciones OBLIGATORIA con goma EPDM en puntos de anclaje."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema solar térmico para ACS en tejado. Requiere conocimientos de energía solar, fontanería de circuito primario y seguridad en altura."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión del circuito primario (colectores-acumulador), válvulas de seguridad, purgadores, tuberías aisladas."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de perforaciones en tejado con goma EPDM para evitar goteras en puntos de anclaje de soportes."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro colectores solares térmicos",
+          "descripcion": "2 colectores solares térmicos de 2.5 m² cada uno (total 5 m²), tipo placa plana o tubo de vacío, con conexiones y accesorios de montaje",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de colectores solares térmicos varía según tecnología (placa plana 400-800€/unidad, tubo vacío 600-1200€/unidad). Instalador debe confirmar modelo y proveedor."
+        },
+        {
+          "concepto": "Suministro acumulador ACS solar",
+          "descripcion": "Depósito acumulador de agua caliente sanitaria de 200-300 L con serpentín integrado para circuito primario, aislamiento térmico, válvulas de seguridad y purgadores",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio acumulador solar 200-300 L: 800-1500€. Depende de marca, aislamiento y accesorios incluidos."
+        },
+        {
+          "concepto": "Suministro tuberías, válvulas y accesorios circuito primario",
+          "descripcion": "Tuberías de cobre o multicapa aisladas (Ø 16-20 mm), válvula de seguridad, válvula antirretorno, purgadores automáticos, termómetro, manómetro, válvulas de corte, bridas, codos, tes, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote de tuberías y accesorios para circuito primario solar: 300-600€. Varía según longitud de tuberías y complejidad de instalación."
+        },
+        {
+          "concepto": "Suministro soportes, ganchos y estructura de anclaje",
+          "descripcion": "Soportes metálicos específicos para tejado inclinado, ganchos de anclaje según tipo de teja (plana, árabe, pizarra), perfiles de aluminio, abrazaderas, tornillería inoxidable, EPI (arnés, línea de vida, casco)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estructura de anclaje para 2 colectores en tejado inclinado: 200-400€. Depende del tipo de teja y sistema de fijación."
+        },
+        {
+          "concepto": "Impermeabilización de perforaciones en tejado",
+          "descripcion": "Sellado e impermeabilización de puntos de perforación en tejado con goma EPDM, masilla impermeabilizante, sellador de silicona, para evitar filtraciones de agua",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales impermeabilizantes (EPDM, selladores): 50-150€. Cantidad depende de número de puntos de anclaje."
+        },
+        {
+          "concepto": "Mano de obra: Preparación, anclaje y montaje colectores",
+          "descripcion": "Trabajos en altura: inspección tejado, preparación superficie, colocación soportes, anclaje de colectores, conexión de tuberías de entrada/salida, pruebas de estanqueidad",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Instalación acumulador y circuito primario",
+          "descripcion": "Colocación acumulador, conexión serpentín, instalación válvulas de seguridad, purgadores, tuberías aisladas, conexión a red ACS existente, pruebas de presión y funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Impermeabilización de perforaciones",
+          "descripcion": "Sellado de puntos de anclaje en tejado con goma EPDM, aplicación de masilla y sellador, verificación de estanqueidad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Llenado del circuito primario con fluido caloportador, purga de aire, prueba de presión, verificación de circulación, calibración termostato, prueba de producción ACS, entrega de documentación",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de puesta en marcha y pruebas: 150-300€. Incluye documentación técnica y garantía."
+        }
+      ],
+      "calculos": {
+        "subtotal": 910,
+        "iva_porcentaje": 21,
+        "iva": 191.1,
+        "total": 1101.1
+      },
+      "sugerencias_catalogo": [
+        "Verificar tipo de teja del tejado (plana, árabe, pizarra, hormigón) para seleccionar ganchos específicos. Cada tipo requiere anclaje diferente.",
+        "Confirmar si existe acumulador ACS previo o si se instala uno nuevo. Si existe, validar compatibilidad con serpentín solar.",
+        "Especificar tecnología de colectores: placa plana (más económica, 400-800€) vs. tubo de vacío (mayor rendimiento, 600-1200€).",
+        "Definir volumen acumulador: típicamente 50-100 L por m² de colector. Para 5 m², rango 250-500 L.",
+        "Incluir fluido caloportador (propilenglicol o similar) en presupuesto: 30-80€.",
+        "Validar distancia entre colectores y acumulador para calcular longitud de tuberías aisladas.",
+        "Considerar sistema de regulación (termostato diferencial) para optimizar funcionamiento: 100-300€.",
+        "Solicitar certificado de legalización ante distribuidora si sistema conecta a red de ACS comunitaria."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro colectores solares térmicos",
+          "oficio": "energia_solar",
+          "motivo": "Colectores solares térmicos para ACS no están en catálogo fotovoltaico. Requiere especificación de modelo y proveedor."
+        },
+        {
+          "concepto": "Suministro acumulador ACS solar",
+          "oficio": "fontaneria",
+          "motivo": "Acumulador específico para circuito solar con serpentín integrado. Precio varía según capacidad y marca."
+        },
+        {
+          "concepto": "Suministro tuberías, válvulas y accesorios circuito primario",
+          "oficio": "fontaneria",
+          "motivo": "Circuito primario solar requiere componentes específicos (válvula antirretorno, purgadores, aislamiento). No es fontanería estándar."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "oficio": "energia_solar",
+          "motivo": "Servicio de puesta en marcha con pruebas de presión, circulación y producción ACS. Requiere especialización en sistemas solares térmicos."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_placa_solar_fotovoltaica_integrada_en_cubierta",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda"
+    ],
+    "kb_score": 4.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4151,
+      "tokens_out": 3758
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

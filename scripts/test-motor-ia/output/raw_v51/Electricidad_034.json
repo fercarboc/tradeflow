@@ -1,0 +1,282 @@
+{
+  "id": 34,
+  "oficio": "Electricidad",
+  "texto": "Instalación de línea independiente para aire acondicionado de 5000 frigorías en el salón",
+  "http_status": 200,
+  "latency_ms": 29703,
+  "raw_response": {
+    "transcript": "Instalación de línea independiente para aire acondicionado de 5000 frigorías en el salón",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de línea independiente para aire acondicionado de 5000 frigorías en el salón",
+        "tipo_presupuesto": "instalacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume 1 unidad split de ~5000 frigorías (≈1,5 kW). Verificar marca/modelo exacto para precisar materiales.",
+          "Revisar accesibilidad de la ubicación (altura, distancia exterior) para ajustar longitud de tubería frigorífica.",
+          "Confirmar si existe toma eléctrica cercana o requiere nueva línea independiente con protecciones (diferenciales, magnetotérmico)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de climatización (split aire acondicionado). Oficio especializado en climatización."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Línea eléctrica independiente, protecciones, cableado y conexión del split. Trabajo eléctrico complementario."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de elementos existentes (si aplica)",
+          "descripcion": "Desmontaje de aire acondicionado anterior, tuberías, cableado y accesorios. Retirada de escombros.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro unidad split aire acondicionado 5000 frigorías (~1,5 kW)",
+          "descripcion": "Unidad split de aire acondicionado reversible (frío/calor), 5000 frigorías, A++. Incluye unidad exterior e interior, refrigerante R32.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de equipo variable según marca/modelo. Instalador debe especificar: marca, modelo, especificaciones técnicas exactas, certificación CE."
+        },
+        {
+          "concepto": "Instalación unidad split (interior + exterior)",
+          "descripcion": "Instalación de unidad interior (split) en pared del salón con nivelación y fijación. Posicionamiento y fijación de unidad exterior. Conexión mecánica.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro tubería frigorífica de cobre (línea refrigerante)",
+          "descripcion": "Tubería de cobre duro, aislada con espuma elastómera de 9 mm. Diámetro y longitud según proyecto (estimado 15-20 ml para salón). Incluye accesorios de conexión.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud exacta depende de ubicación de unidades. Precio variable según diámetro (6/10 mm típico para 5000 frigorías). Verificar recorrido exacto instalación."
+        },
+        {
+          "concepto": "Instalación y conexión de tubería frigorífica",
+          "descripcion": "Tendido de tubería frigorífica entre unidades, encintado, drenaje de aire, carga de refrigerante R32, presurización y prueba de estanqueidad.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro tubo desagüe condensados (PVC/polietileno)",
+          "descripcion": "Tubo de desagüe PVC/polietileno Ø16-20 mm para condensación de unidad interior. Longitud estimada 5-10 ml con accesorios y sifón.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud y recorrido dependen de ubicación de desagüe. Confirmar punto de evacuación (sumidero, canaleta exterior, alcantarilla)."
+        },
+        {
+          "concepto": "Instalación tubo desagüe",
+          "descripcion": "Instalación y fijación de tubo de desagüe desde unidad interior hasta punto de evacuación. Incluso con pendiente adecuada.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Línea eléctrica independiente para aire acondicionado",
+          "descripcion": "Cableado desde cuadro eléctrico hasta split. Línea independiente con protecciones: magnetotérmico 16A, diferencial 30mA tipo AC. Cable H07V-U 3x2,5 mm² en conducción. Incluye regleta y conexionado en cuadro.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud estimada 20-30 ml según ubicación cuadro. Verificar sección exacta en función de caída de tensión y protecciones. Incluir canaletas si necesario."
+        },
+        {
+          "concepto": "Instalación línea eléctrica independiente",
+          "descripcion": "Tendido de cable desde cuadro hasta split, instalación de protecciones (magnetotérmico+diferencial), conexionado en regleta, prueba de aislamiento y funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Termostato/control remoto",
+          "descripcion": "Control remoto inalámbrico o termostato digital de pared para regulación de temperatura, velocidad ventilador y modos de funcionamiento.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido generalmente con equipo. Verificar si es control remoto estándar o termostato digital independiente (precio variable 30-150€)."
+        },
+        {
+          "concepto": "Pequeño material (accesorios climatización)",
+          "descripcion": "Accesorios de fijación, tornillería, bridas, pasta térmica, sellador, aislamiento complementario, conexiones rápidas, manómetro, válvulas, válvula de purga.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 50-150€. Revisar en función de materiales definitivos."
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Pruebas de funcionamiento en frío y calor, regulación de termostato, comprobación de caudales, medición de presiones, verificación de ruido y vibraciones, entrega al cliente.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 870,
+        "iva_porcentaje": 21,
+        "iva": 182.7,
+        "total": 1052.7
+      },
+      "sugerencias_catalogo": [
+        "Si la longitud de tubería frigorífica es mayor a 20 ml, considerar sistema VRV/VRF con múltiples unidades interiores para mayor eficiencia.",
+        "Revisar si requiere proyecto técnico RITE para aire acondicionado (obligatorio si potencia > 12 kW). En este caso (5000 frigorías = 1,5 kW) no es obligatorio, pero sí recomendable si va integrado en sistema HVAC mayor.",
+        "Coordinación con otros trabajos: si hay obras de albañilería o pintura, ejecutar instalación de tuberías ANTES de cerramientos finales."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro unidad split aire acondicionado 5000 frigorías (~1,5 kW)",
+          "oficio": "climatizacion",
+          "tipo": "material",
+          "motivo": "No especificado en catálogo base. Marca/modelo variable según cliente. Instalador asigna precio."
+        },
+        {
+          "concepto": "Suministro tubería frigorífica de cobre (línea refrigerante)",
+          "oficio": "climatizacion",
+          "tipo": "material",
+          "motivo": "Longitud y diámetro específicos por obra. Requiere medición en sitio."
+        },
+        {
+          "concepto": "Suministro tubo desagüe condensados (PVC/polietileno)",
+          "oficio": "climatizacion",
+          "tipo": "material",
+          "motivo": "Longitud y punto de descarga específico por obra."
+        },
+        {
+          "concepto": "Línea eléctrica independiente para aire acondicionado",
+          "oficio": "electricidad",
+          "tipo": "material",
+          "motivo": "Cable, protecciones y accesorios específicos según distancia y normativa local."
+        },
+        {
+          "concepto": "Termostato/control remoto",
+          "oficio": "climatizacion",
+          "tipo": "material",
+          "motivo": "Especificación de control (remoto básico vs. termostato digital inteligente) requiere revisión."
+        },
+        {
+          "concepto": "Pequeño material (accesorios climatización)",
+          "oficio": "climatizacion",
+          "tipo": "material",
+          "motivo": "Presupuesto global. Revisar según marcas y accesorios definitivos."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "instalacion_de_rejillas_de_ventilacion_de_camara_de_fachada",
+      "instalacion_sistema_de_climatizacion_en_local_comercial",
+      "tabique_pladur_para_sepultar_conductos_climatizacion",
+      "instalacion_vrv_o_vrf_sistema_multiple"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

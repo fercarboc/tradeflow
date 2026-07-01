@@ -1,0 +1,163 @@
+{
+  "id": 155,
+  "oficio": "Pladur",
+  "texto": "Hacer capialzado de pladur para persiana empotrada en ventana del salón",
+  "http_status": 200,
+  "latency_ms": 14698,
+  "raw_response": {
+    "transcript": "Hacer capialzado de pladur para persiana empotrada en ventana del salón",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer capialzado de pladur para persiana empotrada en ventana del salón",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Capialzado de pladur: requiere medidas exactas de la ventana (ancho, alto, profundidad)",
+          "Especificar tipo de persiana (enrollable, estores, etc.) para dimensionar correctamente la caja",
+          "Confirmar si incluye pintura/acabado final del capialzado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Construcción de estructura de pladur para capialzado/caja de persiana empotrada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm para capialzado",
+          "descripcion": "Suministro de placa de yeso laminado de 15mm de espesor para estructura de capialzado de persiana empotrada",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medidas exactas de la ventana para calcular m2 de placa necesaria"
+        },
+        {
+          "concepto": "Perfiles metálicos (canal y montante) para capialzado",
+          "descripcion": "Suministro de perfiles de acero galvanizado (canal UW y montante CW) para estructura de soporte del capialzado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de perfiles depende de dimensiones y profundidad del capialzado"
+        },
+        {
+          "concepto": "Tornillería y pequeño material",
+          "descripcion": "Tornillos autorroscantes para pladur, tacos, arandelas y pequeño material de fijación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a determinar según cantidad de fijaciones necesarias"
+        },
+        {
+          "concepto": "Cinta de juntas y pasta de juntas",
+          "descripcion": "Cinta de papel perforada y pasta de juntas para sellado y acabado de juntas entre placas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según longitud total de juntas a sellar"
+        },
+        {
+          "concepto": "Ángulo metálico para esquinas",
+          "descripcion": "Ángulo metálico perforado para protección y acabado de esquinas del capialzado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud según perímetro de esquinas del capialzado"
+        },
+        {
+          "concepto": "Mano de obra: Construcción e instalación capialzado pladur",
+          "descripcion": "Montaje de estructura metálica, colocación de placas de yeso, sellado de juntas y acabado de capialzado para persiana empotrada",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de trabajo dependen de complejidad y dimensiones del capialzado (estimado 4-8 horas)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: ancho exacto de ventana, alto del capialzado deseado, profundidad de la caja (para alojar persiana)",
+        "Confirmar si la persiana ya está suministrada o se incluye en este presupuesto",
+        "Especificar si se incluye pintura/acabado final del capialzado",
+        "Considerar si hay que hacer trampilla de acceso para mantenimiento del mecanismo de la persiana"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Capialzado de pladur para persiana empotrada",
+          "oficio": "pladur_escayola",
+          "motivo": "Trabajo específico de construcción de caja/capialzado de pladur para alojar persiana empotrada en ventana"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_persiana_o_estor_en_ventana_de_techo",
+      "tabique_pladur_para_caja_de_persiana_o_capialzado",
+      "instalacion_estor_enrollable_interior",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "estructura_pladur_para_escalera_interior_nueva"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3670,
+      "tokens_out": 1736
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

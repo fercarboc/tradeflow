@@ -1,0 +1,171 @@
+{
+  "id": 292,
+  "oficio": "Impermeabilización",
+  "texto": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+  "http_status": 200,
+  "latency_ms": 19350,
+  "raw_response": {
+    "transcript": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Junta de dilatación en cubierta: punto crítico de filtraciones. Verificar estado del material existente antes de aplicar sistema.",
+          "Fijación mecánica especificada: requiere perfilería metálica de cubrición adicional.",
+          "Superficie de 10 ml: asegurar acceso seguro a cubierta y protección anticaídas si altura > 2m."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de junta de dilatación en cubierta con sistema impermeabilizante. Oficio especializado en sellado y estanqueidad de juntas críticas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de material existente en junta de dilatación",
+          "descripcion": "Extracción completa de sellante, fondo de junta y restos de material antiguo en los 10 ml de junta. Limpieza y preparación de superficies adyacentes.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 8,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fondo de junta elastómero celular",
+          "descripcion": "Colocación de fondo de junta elastómero celular de 10 mm de espesor en toda la longitud de junta (10 ml). Material base para correcta aplicación del sellante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material elastómero celular: precio pendiente de cotización según marca y espesor específico."
+        },
+        {
+          "concepto": "Sistema impermeabilizante para junta de cubierta con perfilería de fijación mecánica",
+          "descripcion": "Aplicación de membrana líquida elastómera o sistema de sellante polimérico de dos componentes en junta de dilatación. Incluye perfilería metálica (aluminio o acero galvanizado) para fijación mecánica y cubrición superior. Longitud: 10 ml.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema específico para cubierta con fijación mecánica: precio pendiente. Incluye membrana + perfilería metálica de cubrición."
+        },
+        {
+          "concepto": "Instalación de sistema impermeabilizante y perfilería de fijación mecánica",
+          "descripcion": "Colocación del sistema impermeabilizante en junta preparada. Fijación mecánica de perfilería metálica mediante tornillos o remaches según especificación. Sellado superior con material elastomérico. Prueba de estanqueidad. Longitud: 10 ml.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 35,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado superior con material elastomérico",
+          "descripcion": "Aplicación de sellante elastomérico de acabado (poliuretano, silicona o acrílico elastómero) en la parte superior de la junta para garantizar estanqueidad total y acabado estético. Longitud: 10 ml.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sellante elastomérico de acabado: precio pendiente según tipo y marca."
+        },
+        {
+          "concepto": "Pequeño material, EPI y herramientas",
+          "descripcion": "Cinta de enmascarar, trapos, disolventes de limpieza, guantes, gafas de protección, arnés de seguridad (si altura > 2m), herramientas manuales varias.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y EPI: precio pendiente según alcance y medidas de seguridad requeridas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 430,
+        "iva_porcentaje": 21,
+        "iva": 90.3,
+        "total": 520.3
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'impermeabilizacion_de_junta_de_dilatacion_en_cubierta' (rango 20-85€/ml). Este presupuesto incluye mano de obra especializada + materiales.",
+        "Considerar si la junta requiere refuerzo adicional con lámina de puente (si ancho > 5 cm) o geotextil en encuentros.",
+        "Fijación mecánica: confirmar tipo de perfilería (aluminio anodizado vs. acero galvanizado) y método de fijación (tornillos, remaches, soldadura)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sistema impermeabilizante para junta de cubierta con perfilería de fijación mecánica",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "motivo": "Material específico para cubierta con fijación mecánica. No existe partida exacta en catálogo base. Requiere cotización de proveedor."
+        },
+        {
+          "concepto": "Sellado superior con material elastomérico",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "motivo": "Sellante de acabado elastomérico. Precio pendiente según tipo (poliuretano, silicona, acrílico)."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "reparacion_de_piscina_con_filtraciones",
+      "impermeabilizacion_terraza_con_pintura_poliuretano"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3951,
+      "tokens_out": 2466
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

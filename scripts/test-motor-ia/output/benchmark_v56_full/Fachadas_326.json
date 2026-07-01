@@ -1,0 +1,176 @@
+{
+  "id": 326,
+  "oficio": "Fachadas",
+  "texto": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+  "http_status": 200,
+  "latency_ms": 19895,
+  "raw_response": {
+    "transcript": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Superficie total no especificada en m². Instalador debe medir y confirmar.",
+          "Acceso a 4 plantas requiere andamio o plataforma elevadora: presupuestar por separado o incluir en mano de obra.",
+          "Pintura siloxánica impermeabilizante: confirmar marca, especificación técnica y rendimiento real (típicamente 6-8 m²/litro).",
+          "Reparación de grietas/fisuras previas no incluida: evaluar estado de fachada antes de presupuestar."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Pintura exterior de fachada de edificio completo (4 plantas). Oficio 'fachadas' es prioritario para revestimiento exterior y pintura de envolvente."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa fachada con agua a presión",
+          "descripcion": "Limpieza y preparación de superficie exterior de fachada, 4 plantas, con agua a presión para eliminar suciedad, algas y depósitos.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 2,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe ser medida por instalador. Precio unitario es referencia; ajustar según complejidad de acceso."
+        },
+        {
+          "concepto": "Imprimación fijadora exterior",
+          "descripcion": "Aplicación de imprimación fijadora en fachada exterior para mejorar adherencia de pintura siloxánica. Incluye material y mano de obra.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y cantidad a confirmar por instalador según superficie real y tipo de soporte (ladrillo, hormigón, etc.)."
+        },
+        {
+          "concepto": "Pintura siloxánica impermeabilizante, 2 manos",
+          "descripcion": "Aplicación de pintura siloxánica impermeabilizante en fachada exterior, 4 plantas. Incluye 2 manos de pintura. Material y mano de obra.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² y precio de material a confirmar. Rendimiento típico: 6-8 m²/litro. Especificar marca y características técnicas de pintura siloxánica."
+        },
+        {
+          "concepto": "Mano de obra pintura fachada exterior, 4 plantas",
+          "descripcion": "Mano de obra para pintura de fachada exterior con acceso a 4 plantas. Incluye preparación, aplicación de 2 manos y acabado.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe ser medida. Tarifa: 8 €/m² (referencia para fachada de 4 plantas con acceso complejo). Ajustar si hay dificultades de acceso adicionales."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora, 4 plantas",
+          "descripcion": "Alquiler y montaje de andamio tubular o plataforma elevadora para acceso seguro a fachada de 4 plantas durante trabajos de pintura.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de andamio/plataforma a solicitar a empresa especializada. Incluir: montaje, desmontaje, alquiler diario/semanal, permiso municipal si ocupa vía pública."
+        },
+        {
+          "concepto": "Cinta carrocero, plásticos de protección y pequeño material",
+          "descripcion": "Suministro de cinta carrocero, plásticos de protección, lonas, cinta adhesiva y pequeño material consumible para protección de elementos adyacentes durante pintura.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según superficie a proteger y cantidad de material consumible estimado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición exacta de superficie de fachada (m²) antes de cerrar presupuesto.",
+        "Confirmar especificación técnica de pintura siloxánica: marca, impermeabilidad, resistencia UV, garantía.",
+        "Evaluar estado actual de fachada: presencia de grietas, fisuras, desperfectos que requieran reparación previa (no incluida en este presupuesto).",
+        "Coordinar con administración del edificio: permisos, horarios de trabajo, acceso a zonas comunes.",
+        "Presupuestar andamio/plataforma por separado con empresa especializada; incluir montaje, desmontaje y permiso municipal si aplica.",
+        "Considerar si es necesario sellado de grietas o juntas previo a imprimación (partida adicional)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación fijadora exterior",
+          "oficio": "fachadas",
+          "motivo": "Material específico para preparación de fachada; precio a confirmar por instalador."
+        },
+        {
+          "concepto": "Pintura siloxánica impermeabilizante, 2 manos",
+          "oficio": "fachadas",
+          "motivo": "Material específico; cantidad y precio a confirmar según superficie real y rendimiento de producto."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora, 4 plantas",
+          "oficio": "fachadas",
+          "motivo": "Servicio especializado; presupuestar con empresa de alquiler de andamios."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_fachada_exterior",
+      "pintura_de_medianera_o_pared_ciega_exterior",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "pintura_fachada_exterior_plastica_o_siloxano",
+      "pintado_de_chimenea_exterior"
+    ],
+    "kb_score": 4.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3800,
+      "tokens_out": 2434
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

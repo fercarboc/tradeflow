@@ -1,0 +1,188 @@
+{
+  "id": 46,
+  "oficio": "Carpintería",
+  "texto": "Fabricación e instalación de estantería de madera a medida para biblioteca, 3 metros de ancho y 2.5 de alto",
+  "http_status": 200,
+  "latency_ms": 16002,
+  "raw_response": {
+    "transcript": "Fabricación e instalación de estantería de madera a medida para biblioteca, 3 metros de ancho y 2.5 de alto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación e instalación de estantería de madera a medida para biblioteca, 3 metros de ancho y 2.5 de alto",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Estantería de gran tamaño (3m x 2.5m) con carga potencial elevada: verificar capacidad de carga y refuerzos estructurales",
+          "Fijación a pared CRÍTICA: debe anclarse solidamente para evitar riesgo de vuelco"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de mueble/estantería a medida en madera"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tablero de madera maciza o contrachapado para estantería",
+          "descripcion": "Suministro de tablero de madera (roble, haya o similar) o contrachapado de calidad para estructura y baldas de estantería 3m x 2.5m. Incluye corte a medida en taller.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según tipo de madera y calidad seleccionada"
+        },
+        {
+          "concepto": "Estructura vertical y soportes reforzados",
+          "descripcion": "Fabricación de montantes verticales reforzados (sección mínima 50x50mm) y travesaños horizontales para estructura portante de estantería de 3m de ancho y 2.5m de alto. Incluye ensambles y refuerzos internos.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fabricación de baldas y módulos",
+          "descripcion": "Corte, cepillado y acabado de 5-6 baldas de madera maciza o contrachapado con cantos reforzados. Incluye preparación para ensamble en estructura.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Herrajes, bisagras y sistema de fijación",
+          "descripcion": "Suministro de escuadras de refuerzo, tacos de expansión M10 o M12, tornilería de acero inoxidable, y herrajes de calidad para fijación a pared y ensambles internos.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herrajes a definir según cantidad y tipo de fijación seleccionada"
+        },
+        {
+          "concepto": "Montaje, ensamble e instalación en pared",
+          "descripcion": "Ensamble de estructura en taller, transporte, posicionamiento en pared, fijación con tacos y tornillos a muro (incluye taladrado y nivelación), y ajuste de baldas. Anclaje reforzado para evitar riesgo de vuelco.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 45,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado, pintura o barniz de madera",
+          "descripcion": "Aplicación de barniz, pintura o tinte según especificación (protección y acabado estético). Incluye preparación de superficie, lijado y capas de acabado.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 45,
+          "total": 225,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Colas de carpintería, masilla, lijas, disolventes, trapos, cinta de enmascarar y otros consumibles necesarios para fabricación e instalación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de consumibles a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1305,
+        "iva_porcentaje": 21,
+        "iva": 274.05,
+        "total": 1579.05
+      },
+      "sugerencias_catalogo": [
+        "Verificar capacidad de carga de la estantería: con 3m de ancho y 2.5m de alto, se recomienda refuerzo estructural adicional si se prevé carga superior a 50kg por balda",
+        "Considerar arriostramientos horizontales cada 1.5-2m en altura para estabilidad",
+        "Anclaje a pared OBLIGATORIO: usar tacos de expansión M10 mínimo, preferiblemente M12, en al menos 4 puntos de fijación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tablero de madera maciza o contrachapado para estantería",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de tipo de madera y calidad seleccionada por el cliente"
+        },
+        {
+          "concepto": "Herrajes, bisagras y sistema de fijación",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes de fijación cuyo precio varía según especificación técnica y cantidad"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles de taller cuyo precio debe ser estimado por el instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "fabricacion_de_estanterias_y_baldas_a_medida",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3791,
+      "tokens_out": 2129
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

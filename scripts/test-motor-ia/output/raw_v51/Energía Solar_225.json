@@ -1,0 +1,178 @@
+{
+  "id": 225,
+  "oficio": "Energía Solar",
+  "texto": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+  "http_status": 200,
+  "latency_ms": 15460,
+  "raw_response": {
+    "transcript": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda especificar: número de módulos, potencia instalada (kWp), ubicación geográfica (zona con polvo/polen), tipo de inversor, última revisión realizada",
+          "Precio alzado final dependerá del tamaño de la instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación y mantenimiento de sistemas fotovoltaicos según catálogo Base Maestra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza de módulos fotovoltaicos",
+          "descripcion": "Limpieza completa de superficie de módulos solares, eliminación de polvo, suciedad y residuos que afecten al rendimiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión visual de módulos y estructura",
+          "descripcion": "Inspección visual de todos los módulos solares, detección de grietas, delaminaciones, marcos oxidados y estado general de la estructura de soporte",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de conexiones y protecciones",
+          "descripcion": "Revisión de conectores, cables, fusibles, descargadores de sobretensión y sistemas de protección. Comprobación de continuidad y ausencia de corrosión",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 65,
+          "total": 162.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión funcionamiento inversor y lectura de producción",
+          "descripcion": "Comprobación de funcionamiento correcto del inversor, lectura de parámetros de funcionamiento, producción actual, históricos de energía y detección de errores o avisos",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe de resultado y análisis de producción histórica",
+          "descripcion": "Elaboración de informe detallado con resultados de revisión, comparativa de producción esperada vs real, recomendaciones de mejora y certificación de mantenimiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y medidas de seguridad para trabajos en altura",
+          "descripcion": "Suministro y colocación de equipos de protección individual (arnés, línea de vida, casco) y medidas de seguridad para acceso a cubierta/estructura",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de EPI y medidas de seguridad pendiente de confirmación según normativa y riesgos específicos"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Materiales auxiliares: agua desmineralizada, trapos, spray desengrasante, sellantes de inspección, etc.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y presupuesto de consumibles a confirmar según tamaño instalación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 650,
+        "iva_porcentaje": 21,
+        "iva": 136.5,
+        "total": 786.5
+      },
+      "sugerencias_catalogo": [
+        "IMPORTANTE: El precio total estimado (786,5€) corresponde a una instalación de PEQUEÑO/MEDIO tamaño (~5-10 kWp). Para instalaciones mayores (>15 kWp) se recomienda incrementar horas de trabajo y ajustar precio alzado según Base Maestra (2.000-25.000€/mantenimiento anual).",
+        "Si se detectan módulos averiados se debe realizar TERMOGRAFÍA INFRARROJA (partida auxiliar no incluida)",
+        "Si hay pérdida de presión en conexiones, incluir APRETADO DE CONEXIONES como servicio adicional",
+        "Se recomienda frecuencia ANUAL mínimo; SEMESTRAL en zonas con mucho polvo/polen",
+        "Revisar si instalación está en período de garantía - algunos fabricantes exigen revisión anual para mantenerla"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "EPI y medidas de seguridad para trabajos en altura",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material/equipamiento de seguridad - precio variable según normativa"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles auxiliares - cantidad dependiente del tamaño de instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_instalacion_fotovoltaica",
+      "mantenimiento_anual_split_o_aire_acondicionado",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "mantenimiento_de_sistema_de_climatizacion_split"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

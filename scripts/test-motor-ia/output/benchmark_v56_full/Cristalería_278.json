@@ -1,0 +1,187 @@
+{
+  "id": 278,
+  "oficio": "Cristalería",
+  "texto": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+  "http_status": 200,
+  "latency_ms": 19026,
+  "raw_response": {
+    "transcript": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas exactas de la tapa de cristal no especificadas — se requiere patrón o plano antes de encargar el templado",
+          "Verificar estado y capacidad de carga de la estructura de hierro existente",
+          "Plazo de fabricación del vidrio templado: 5-10 días laborales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio templado de seguridad en mesa de centro"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Preparación y adaptación de estructura metálica existente para recibir tapa de cristal"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado 10mm para tapa de mesa",
+          "descripcion": "Suministro de vidrio templado de seguridad, espesor 10mm, medidas según patrón/plano a proporcionar. Incluye marcado CE según EN 12150, corte y templado en fábrica. NO se puede cortar en obra.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas (m2) y forma de la tapa. Instalador debe proporcionar plano o patrón para cotizar. Rango típico: 150-400€/m2 según tamaño y complejidad de corte."
+        },
+        {
+          "concepto": "Cantos pulidos y biselados para seguridad",
+          "descripcion": "Pulido y biselado de cantos del vidrio templado para evitar aristas cortantes. Obligatorio en vidrio de seguridad para mesas de uso.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del perímetro total de la tapa. Rango típico: 8-15€/ml. Incluido en precio del vidrio templado en muchos casos."
+        },
+        {
+          "concepto": "Herrajes de apoyo y taloneras de silicona",
+          "descripcion": "Suministro e instalación de herrajes de acero inoxidable o aluminio para apoyo de tapa de cristal sobre estructura metálica. Incluye taloneras de silicona para aislamiento y protección de la estructura.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del número de puntos de apoyo y tipo de herraje. Rango típico: 60-200€/juego."
+        },
+        {
+          "concepto": "Preparación y adaptación de estructura metálica",
+          "descripcion": "Limpieza, esmerilado y preparación de la estructura de hierro existente para recibir la tapa de cristal. Verificación de nivelación y capacidad de carga. Tratamiento antioxido si es necesario.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de tapa de cristal templado",
+          "descripcion": "Colocación y fijación de la tapa de vidrio templado sobre la estructura metálica mediante herrajes y taloneras de silicona. Nivelación, ajuste y prueba de estabilidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Silicona neutra, tornillería inoxidable, abrasivos, disolventes y otros consumibles necesarios para la instalación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico: 25-50€. Incluye silicona, tornillería, abrasivos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 187.5,
+        "iva_porcentaje": 21,
+        "iva": 39.38,
+        "total": 226.88
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente plano o patrón exacto de la tapa (medidas, forma, si es rectangular o con cantos especiales)",
+        "Verificar espesor de 10mm es suficiente para la carga esperada (típicamente sí para mesa de centro de uso doméstico)",
+        "Confirmar si la estructura metálica existente está en buen estado y nivelada",
+        "Considerar si se requiere antideslizante en la tapa (no es obligatorio en mesa de centro, pero recomendable si hay riesgo de deslizamiento)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado 10mm para tapa de mesa",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de medidas exactas no proporcionadas. Instalador debe cotizar con medidas reales."
+        },
+        {
+          "concepto": "Herrajes de apoyo y taloneras de silicona",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Componente auxiliar cuyo precio depende de configuración específica de la estructura existente."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles varios cuyo precio debe ajustarse según necesidades reales de la instalación."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_en_mesa_o_mueble",
+      "fabricacion_e_instalacion_estructura_metalica_escalera",
+      "instalacion_de_pavimento_o_suelo_de_vidrio_o_cristal",
+      "instalacion_vidrio_de_seguridad_templado",
+      "reparacion_y_soldadura_de_estructura_metalica"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3911,
+      "tokens_out": 2493
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

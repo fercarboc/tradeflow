@@ -1,0 +1,191 @@
+{
+  "id": 327,
+  "oficio": "Fachadas",
+  "texto": "Reparar desprendimientos de revestimiento en fachada de bloque de viviendas, andamio incluido",
+  "http_status": 200,
+  "latency_ms": 15874,
+  "raw_response": {
+    "transcript": "Reparar desprendimientos de revestimiento en fachada de bloque de viviendas, andamio incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar desprendimientos de revestimiento en fachada de bloque de viviendas, andamio incluido",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Extensión de fachada no especificada: presupuesto estimado, requiere medición en obra",
+          "Altura del bloque no indicada: andamio puede requerir proyecto técnico si altura > planta baja",
+          "Tipo de revestimiento no especificado: mortero, pintura, cerámica, piedra — afecta materiales y precio",
+          "Grado de desprendimiento no cuantificado: se asume reparación puntual, no rehabilitación integral de fachada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de desprendimiento de revestimiento en fachada — oficio especializado en envolvente exterior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo de zona afectada y perímetro suelto",
+          "descripcion": "Retirada completa de revestimiento desprendido y material suelto en zona de reparación y perímetro de seguridad",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 18,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 15 m2 — requiere medición real en obra del bloque"
+        },
+        {
+          "concepto": "Imprimación adherente",
+          "descripcion": "Aplicación de imprimación adherente en superficie preparada para mejorar agarre del mortero de reparación",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — precio pendiente de revisión según marca y tipo de imprimación"
+        },
+        {
+          "concepto": "Mortero de reparación compatible",
+          "descripcion": "Suministro e instalación de mortero de reparación compatible con revestimiento existente",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — precio depende de tipo de mortero (bastardo, hidráulico, monocapa, etc.)"
+        },
+        {
+          "concepto": "Aplicación de mortero y acabado coordinado",
+          "descripcion": "Aplicación de mortero de reparación y acabado final coordinado con revestimiento existente (textura, color, granulometría)",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 22,
+          "total": 330,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra — cantidad estimada, requiere medición real"
+        },
+        {
+          "concepto": "Andamio metálico de seguridad",
+          "descripcion": "Montaje, mantenimiento y desmontaje de andamio metálico certificado para acceso seguro a zona de reparación en fachada",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio — precio depende de altura, duración, acceso y disponibilidad de empresa de andamios en zona"
+        },
+        {
+          "concepto": "Señalización de zona de peligro",
+          "descripcion": "Señalización de zona de peligro bajo andamio durante ejecución de obra (vallas, cintas, carteles de advertencia)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y servicio — duración estimada en 5 jornadas, requiere revisión según cronograma real"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Pequeño material, herramientas, EPIs y consumibles (cepillos, espátulas, mascarillas, guantes, etc.)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — estimado en 5 jornadas de trabajo"
+        }
+      ],
+      "calculos": {
+        "subtotal": 600,
+        "iva_porcentaje": 21,
+        "iva": 126,
+        "total": 726
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: extensión exacta de fachada a reparar (m2), altura del bloque, tipo de revestimiento actual (mortero, pintura, cerámica, piedra)",
+        "Presupuesto de andamio: contactar con empresa especializada — varía significativamente según altura, duración y zona geográfica",
+        "Si altura > planta baja: puede requerir proyecto técnico de andamio y coordinación con autoridades locales",
+        "Materiales (imprimación, mortero): especificar marca y tipo según análisis de revestimiento existente para garantizar compatibilidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación adherente",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Material específico para reparación de fachada — no encontrado en catálogo base, requiere especificación técnica"
+        },
+        {
+          "concepto": "Mortero de reparación compatible",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Material específico para reparación de fachada — no encontrado en catálogo base, requiere especificación técnica"
+        },
+        {
+          "concepto": "Andamio metálico de seguridad",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio de alquiler y montaje de andamio — requiere cotización de empresa especializada"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_desprendimiento_de_revestimiento_fachada",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_fachada_ventilada_con_revestimiento_ceramico"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3959,
+      "tokens_out": 2139
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

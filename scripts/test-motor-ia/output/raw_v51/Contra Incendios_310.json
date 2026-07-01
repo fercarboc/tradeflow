@@ -1,0 +1,198 @@
+{
+  "id": 310,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada",
+  "http_status": 200,
+  "latency_ms": 19808,
+  "raw_response": {
+    "transcript": "Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Certificación EI90 (equivalente a RF90) OBLIGATORIA según CTE DB-SI",
+          "Cierrapuertas hidráulico OBLIGATORIO",
+          "Junta intumescente alrededor del marco OBLIGATORIA",
+          "Verificar que la puerta esté homologada exactamente para EI90",
+          "Instalación debe cumplir normativa de accesibilidad en vías de evacuación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de puerta de seguridad cortafuego con ferretería especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Puerta cortafuego RF90 (EI90) certificada",
+          "descripcion": "Puerta cortafuego certificada EI90 según norma EN 13501-1 y CTE DB-SI, con marco cortafuego integrado, homologada para vía de evacuación en escalera comunitaria",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas, marca homologada y tipo de hoja (ciega, con cristal, etc.). Rango típico 600-1200€"
+        },
+        {
+          "concepto": "Cierrapuertas hidráulico homologado EI90",
+          "descripcion": "Cierrapuertas hidráulico OBLIGATORIO, certificado para puertas cortafuego EI90, con brazo resistente al fuego y regulación de cierre y velocidad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cierrapuertas especial cortafuego. Rango típico 150-400€"
+        },
+        {
+          "concepto": "Marco cortafuego certificado EI90",
+          "descripcion": "Marco cortafuego certificado EI90, resistente al fuego, instalado sin puentes térmicos. Incluye refuerzo lateral si es necesario",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Marco especializado cortafuego. Rango típico 200-500€"
+        },
+        {
+          "concepto": "Junta intumescente alrededor de marco",
+          "descripcion": "Junta intumescente de cierre perimetral alrededor del marco cortafuego, obligatoria para garantizar estanqueidad al fuego. Material resistente al fuego hasta 90 minutos",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Calcular lineales según altura y ancho de puerta. Típicamente 80-180€/puerta"
+        },
+        {
+          "concepto": "Pequeño material y tornillería",
+          "descripcion": "Tornillería, tacos, pasadores, pernos y pequeño material específico para instalación de puerta cortafuego homologada",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida global. Rango típico 40-80€"
+        },
+        {
+          "concepto": "Instalación puerta cortafuego RF90 con ferretería",
+          "descripcion": "Instalación completa de puerta cortafuego EI90 en escalera comunitaria: desmontaje de puerta existente (si aplica), colocación de marco, instalación de hoja cortafuego, cierrapuertas hidráulico, junta intumescente, regulación, ajuste y prueba de funcionamiento según homologación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Señalización de emergencia y salida",
+          "descripcion": "Señalización de emergencia (pictograma salida + flechas direccionales) en puerta cortafuego según CTE DB-SI e indicador de 'Mantener cerrado' o 'Acceso restringido'",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico 30-60€"
+        },
+        {
+          "concepto": "Verificación y prueba de funcionamiento",
+          "descripcion": "Inspección final, ajuste de cierrapuertas, prueba de cierre correcto, estanqueidad visual y certificación de instalación conforme a homologación EI90",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Verificar disponibilidad de puerta cortafuego EI90 homologada antes de presupuestar materiales (plazo típico 10-15 días)",
+        "Solicitar certificado de homologación al proveedor (EN 13501-1 o equivalente)",
+        "Medir hueco exacto: ancho y alto interior sin marco existente",
+        "Confirmar si existe puerta anterior a desmontar (aumenta mano de obra: +1-2 horas)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Puerta cortafuego RF90 (EI90) certificada",
+          "motivo": "Material especializado, requiere especificación de medidas y homologación exacta"
+        },
+        {
+          "concepto": "Cierrapuertas hidráulico homologado EI90",
+          "motivo": "Componente obligatorio específico para cortafuego, distinto de cierrapuertas estándar"
+        },
+        {
+          "concepto": "Marco cortafuego certificado EI90",
+          "motivo": "Marco especializado resistente al fuego"
+        },
+        {
+          "concepto": "Junta intumescente alrededor de marco",
+          "motivo": "Material obligatorio para sellado intumescente en puertas cortafuego"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_puerta_cortafuego",
+      "instalacion_de_compuertas_cortafuego_en_conductos_HVAC",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_de_barra_antipánico",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

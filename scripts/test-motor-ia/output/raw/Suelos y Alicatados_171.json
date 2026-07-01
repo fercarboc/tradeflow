@@ -1,0 +1,181 @@
+{
+  "id": 171,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo de resina epoxi en garaje de 30 metros cuadrados, acabado gris con destellos",
+  "http_status": 200,
+  "latency_ms": 15196,
+  "raw_response": {
+    "transcript": "Poner suelo de resina epoxi en garaje de 30 metros cuadrados, acabado gris con destellos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo de resina epoxi en garaje de 30 metros cuadrados, acabado gris con destellos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material epoxi con pigmentos metálicos requiere revisión de precios por el instalador",
+          "Preparación del soporte crítica: debe estar limpio, seco (humedad máx 4%) y lijado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de pavimento de resina epoxi decorativa en garaje"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lija mecánica y preparación del soporte",
+          "descripcion": "Lija mecánica o granallado del soporte existente para garantizar adherencia óptima de la resina epoxi. Limpieza y desengrasado completo",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 8,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación epoxi consolidante",
+          "descripcion": "Aplicación de imprimación epoxi de una componente para consolidar el soporte y mejorar la adherencia de la resina base",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material epoxi: instalador debe confirmar marca, rendimiento (m2/litro) y coste"
+        },
+        {
+          "concepto": "Sistema epoxi bicomponente gris con pigmentos metálicos",
+          "descripcion": "Resina epoxi bicomponente de dos capas con pigmento metálico (aluminio/plata) para efecto destellos. Incluye base transparente coloreada en gris y pigmentación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material epoxi decorativo con efecto metálico: instalador debe cotizar sistema completo (base + pigmentos + rendimiento)"
+        },
+        {
+          "concepto": "Aplicación de resina epoxi con efecto decorativo",
+          "descripcion": "Aplicación de capas de resina epoxi con técnica de distribución de pigmentos metálicos para lograr efecto destellos uniforme. Mínimo 2-3 capas según espesor deseado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 35,
+          "total": 1050,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador poliuretano acabado alto brillo",
+          "descripcion": "Aplicación de sellador poliuretano de dos componentes para protección final, durabilidad y acabado de alto brillo. Capa de protección contra abrasión y químicos",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sellador poliuretano: instalador debe confirmar marca, rendimiento y coste"
+        },
+        {
+          "concepto": "Aplicación de sellador y acabado final",
+          "descripcion": "Aplicación del sellador poliuretano final, nivelación y pulido para lograr acabado uniforme de alto brillo con efecto destellos visible",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 12,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rodillos, brochas, trapos, disolventes, masilla de reparación puntual, cinta de protección perimetral y otros consumibles necesarios para la aplicación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles: instalador debe estimar según experiencia (aprox. 50-100€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1650,
+        "iva_porcentaje": 21,
+        "iva": 346.5,
+        "total": 1996.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar que el soporte del garaje está en condiciones óptimas: hormigón sano, sin grietas activas, humedad ≤4%",
+        "El efecto destellos requiere técnica de aplicación precisa: considerar experiencia del instalador con sistemas decorativos",
+        "Tiempo de curado: esperar mínimo 72 horas antes de tráfico de vehículos, 7 días para carga pesada",
+        "Temperatura de aplicación: 10-30°C (óptimo 15-25°C). Evitar aplicar en condiciones de humedad alta o temperaturas extremas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sistema epoxi bicomponente gris con pigmentos metálicos",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material específico decorativo con efecto metálico no detallado en catálogo base"
+        },
+        {
+          "concepto": "Sellador poliuretano acabado alto brillo",
+          "oficio": "suelos_alicatados",
+          "motivo": "Sellador específico para acabado decorativo de alto brillo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial",
+      "instalacion_de_pavimento_de_resina_continua_exterior",
+      "instalacion_suelo_epoxi_o_resina_decorativa",
+      "instalacion_de_pavimento_de_resina_epoxi_con_efecto_metalico",
+      "solera_de_hormigon_en_masa"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3983,
+      "tokens_out": 2049
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

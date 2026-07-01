@@ -1,0 +1,235 @@
+{
+  "id": 152,
+  "oficio": "Pladur",
+  "texto": "Renovar paredes de dormitorio con trasdosado de pladur y mejorar aislamiento acústico de vecinos",
+  "http_status": 200,
+  "latency_ms": 18026,
+  "raw_response": {
+    "transcript": "Renovar paredes de dormitorio con trasdosado de pladur y mejorar aislamiento acústico de vecinos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Renovar paredes de dormitorio con trasdosado de pladur y mejorar aislamiento acústico de vecinos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume que las paredes son medianeras (vecinos). Si no es así, ajustar especificaciones de aislamiento acústico.",
+          "Medición de m² de pared a trasdosar debe confirmarse en obra."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Trasdosado acústico de pared medianera con estructura y aislante."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Acabado e imprimación de pladur nuevo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Trasdosado acústico pared medianera - Estructura metálica con banda resiliente",
+          "descripcion": "Instalación de estructura metálica (perfiles canal y montantes 70mm) con banda resiliente perimetral para desacoplamiento acústico. Anclaje solo en suelo y techo para evitar transmisión de ruido por puentes rígidos.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 35,
+          "total": 700,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Placa de yeso laminado 15mm - Trasdosado acústico",
+          "descripcion": "Suministro e instalación de placas de yeso laminado de 15mm de espesor para trasdosado acústico. Cantidad: 20 m² (aprox. 8-10 placas estándar 2.5x1.2m).",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según proveedor y cantidad exacta."
+        },
+        {
+          "concepto": "Lana mineral alta densidad 80mm - Aislamiento acústico",
+          "descripcion": "Suministro e instalación de lana mineral de alta densidad (70-80 kg/m³) de 80mm de espesor entre estructura y pared base. Mejora significativa de aislamiento acústico a ruido aéreo.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar. Verificar densidad y espesor según normativa acústica local."
+        },
+        {
+          "concepto": "Banda resiliente perimetral - Desacoplamiento acústico",
+          "descripcion": "Suministro e instalación de banda resiliente en perímetro (suelo, techo, laterales) para evitar transmisión de vibraciones y ruido por contacto directo con estructura del edificio.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar. Medición lineal aproximada (perímetro dormitorio)."
+        },
+        {
+          "concepto": "Tornillería, cinta de papel y pasta de juntas - Trasdosado",
+          "descripcion": "Suministro de tornillos autorroscantes, cinta de papel para juntas, pasta de juntas y pequeño material necesario para montaje y acabado de trasdosado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar. Incluye tornillos, cinta, pasta, ángulos metálicos."
+        },
+        {
+          "concepto": "Imprimación fijadora pladur - Preparación para pintura",
+          "descripcion": "Aplicación de imprimación fijadora obligatoria sobre pladur nuevo para sellar porosidad y preparar superficie para pintura. Esencial para evitar manchas y asegurar acabado uniforme.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 6,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Masilla fina y lijado de juntas - Acabado pladur",
+          "descripcion": "Aplicación de masilla fina en juntas y tornillos, lijado con grano 150-220 para obtener superficie perfectamente lisa y lista para pintura.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura plástica mate - Acabado final paredes",
+          "descripcion": "Aplicación de dos manos de pintura plástica mate de calidad en paredes trasdosadas. Incluye rodillo, pincel y cinta carrocero.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 10,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura plástica mate - Material",
+          "descripcion": "Suministro de pintura plástica mate de calidad (2 manos, aprox. 0.2-0.25 L/m²).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar según marca y calidad seleccionada."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1180,
+        "iva_porcentaje": 21,
+        "iva": 247.8,
+        "total": 1427.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar en obra la medición exacta de m² de pared a trasdosar (se ha estimado 20 m² como referencia).",
+        "Verificar si las paredes son efectivamente medianeras. Si son exteriores, considerar barrera de vapor adicional.",
+        "Solicitar certificado de densidad de lana mineral (70-80 kg/m³) para garantizar aislamiento acústico.",
+        "Considerar doble placa de pladur (2x15mm) si se requiere mayor aislamiento acústico (RA,w > 60 dB)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm - Trasdosado acústico",
+          "oficio": "pladur_escayola",
+          "motivo": "Material específico para trasdosado acústico. Precio a confirmar por instalador."
+        },
+        {
+          "concepto": "Lana mineral alta densidad 80mm - Aislamiento acústico",
+          "oficio": "pladur_escayola",
+          "motivo": "Material específico para mejora acústica. Precio a confirmar por instalador."
+        },
+        {
+          "concepto": "Banda resiliente perimetral - Desacoplamiento acústico",
+          "oficio": "pladur_escayola",
+          "motivo": "Material específico para desacoplamiento acústico. Precio a confirmar por instalador."
+        },
+        {
+          "concepto": "Tornillería, cinta de papel y pasta de juntas - Trasdosado",
+          "oficio": "pladur_escayola",
+          "motivo": "Pequeño material y consumibles. Precio a confirmar por instalador."
+        },
+        {
+          "concepto": "Pintura plástica mate - Material",
+          "oficio": "pintura",
+          "motivo": "Material de pintura. Precio a confirmar según marca y calidad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "trasdosado_con_estructura_pladur_y_aislante",
+      "trasdosado_pladur_para_mejora_energetica_fachada",
+      "trasdosado_directo_pladur_sobre_pared_existente",
+      "trasdosado_acustico_pared_medianera",
+      "pintura_y_acabado_paredes_de_pladur_nuevo"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3872,
+      "tokens_out": 2811
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

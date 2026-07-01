@@ -1,0 +1,246 @@
+{
+  "id": 15,
+  "oficio": "Fontanería",
+  "texto": "Cambio de inodoro y lavabo en baño de servicio, incluida fontanería y sellado",
+  "http_status": 200,
+  "latency_ms": 16608,
+  "raw_response": {
+    "transcript": "Cambio de inodoro y lavabo en baño de servicio, incluida fontanería y sellado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de inodoro y lavabo en baño de servicio, incluida fontanería y sellado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar estado del ramal de desagüe (>30mm recomendar sustitución)",
+          "Confirmar acabado y marca de sanitarios en presupuesto final",
+          "Validar disponibilidad de agua caliente para el lavabo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Cambio de sanitarios, fontanería completa y sellado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje inodoro antiguo",
+          "descripcion": "Desconexión, desmontaje y retirada de inodoro antiguo incluida gestión de residuos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inodoro completo",
+          "descripcion": "Suministro e instalación inodoro nuevo con asiento y tapa",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sanitario a confirmar según marca/modelo"
+        },
+        {
+          "concepto": "Manguito descarga WC y conexionado",
+          "descripcion": "Manguito de descarga, latiguillos flexibles y llave de escuadra para inodoro",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales varios a presupuestar"
+        },
+        {
+          "concepto": "Instalación inodoro",
+          "descripcion": "Fijación, nivelación y conexión desagüe + agua del inodoro nuevo",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje lavabo antiguo",
+          "descripcion": "Desconexión, desmontaje y retirada de lavabo antiguo incluida gestión de residuos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 50,
+          "total": 37.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lavabo nuevo",
+          "descripcion": "Suministro lavabo cerámico o porcelana nuevas",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio sanitario a confirmar según modelo"
+        },
+        {
+          "concepto": "Grifo monomando y conexionado lavabo",
+          "descripcion": "Grifo monomando, latiguillos flexibles 40cm (agua fría/caliente) y llaves de escuadra",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio grifo y accesorios a confirmar"
+        },
+        {
+          "concepto": "Instalación lavabo",
+          "descripcion": "Fijación y nivelación lavabo + conexión agua fría/caliente y desagüe",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado completo con silicona sanitaria",
+          "descripcion": "Sellado de junta entre lavabo y pared, alrededor de sifón e inodoro con silicona flexible de buena calidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silicona sanitaria",
+          "descripcion": "Materiales sellado (silicona, disolvente, trapos, cartuchos)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pequeño a presupuestar"
+        },
+        {
+          "concepto": "Pruebas y ajustes finales",
+          "descripcion": "Verificación descargas, cierre de llaves, prueba de estanqueidad y ajustes menores",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 312.5,
+        "iva_porcentaje": 21,
+        "iva": 65.625,
+        "total": 378.125
+      },
+      "sugerencias_catalogo": [
+        "Añadir partida de sifón PEX si la tubería antigua no es válida",
+        "Considerar cambio de válvula de escuadra si está defectuosa",
+        "Solicitar confirmación de colores y acabados de sanitarios"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inodoro completo",
+          "razon": "Material sanitario, precio variable según modelo",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Lavabo nuevo",
+          "razon": "Material sanitario, precio variable según modelo",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Grifo monomando y conexionado lavabo",
+          "razon": "Material fontanería, precio variable según marca",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Manguito descarga WC y conexionado",
+          "razon": "Conjunto materiales fontanería WC",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Silicona sanitaria",
+          "razon": "Materiales consumibles sellado",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_lavabo",
+      "cambio_inodoro",
+      "cambio_grifo_lavabo",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

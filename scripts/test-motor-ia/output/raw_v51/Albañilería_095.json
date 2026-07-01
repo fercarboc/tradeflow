@@ -1,0 +1,241 @@
+{
+  "id": 95,
+  "oficio": "Albañilería",
+  "texto": "Reforma de cocina, quitar azulejos viejos, alicatar de nuevo y cambiar encimera de granito",
+  "http_status": 200,
+  "latency_ms": 21196,
+  "raw_response": {
+    "transcript": "Reforma de cocina, quitar azulejos viejos, alicatar de nuevo y cambiar encimera de granito",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de cocina, quitar azulejos viejos, alicatar de nuevo y cambiar encimera de granito",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere medir la superficie de alicatado (m²) para precisar presupuesto",
+          "Se requiere especificar dimensiones y materiales de la nueva encimera",
+          "Verificar si la encimera incluye instalación de grifería o solo sustitución de encimera",
+          "Coordinar desmontaje de encimera antigua con obra de alicatado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Desmontaje de azulejos y alicatado de nuevas cerámicas"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Desmontaje e instalación de encimera de granito"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de azulejos existentes",
+          "descripcion": "Demolición y retirada de alicatado existente en paredes de cocina, incluyendo mortero y pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 15,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Se requiere especificar m² de pared a desalicar"
+        },
+        {
+          "concepto": "Azulejo o cerámica pared cocina",
+          "descripcion": "Suministro de azulejo o cerámica para paredes de cocina, calidad estándar",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio según calidad y proveedor. Instalador debe especificar €/m² del azulejo elegido"
+        },
+        {
+          "concepto": "Alicatado de paredes cocina",
+          "descripcion": "Colocación de azulejos en paredes de cocina con mortero cola C2 flexible y rejuntado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Se requiere especificar m² de pared a alicatar"
+        },
+        {
+          "concepto": "Mortero cola C2 flexible",
+          "descripcion": "Mortero flexible para adhesión de azulejos en paredes de cocina",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: incluido en obra. Instalador ajusta según consumo real"
+        },
+        {
+          "concepto": "Lechada epoxi para juntas (recomendada en cocina)",
+          "descripcion": "Lechada epoxi de alta resistencia a manchas y humedad, muy recomendada para cocinas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: lechada epoxi recomendada por higiene y resistencia en cocinas. Precio según marca"
+        },
+        {
+          "concepto": "Rejuntado y sellado de azulejos",
+          "descripcion": "Rejuntado de juntas y sellado con silicona sanitaria en encuentros",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Se requiere especificar m² de alicatado"
+        },
+        {
+          "concepto": "Desmontaje de encimera de granito existente",
+          "descripcion": "Demolición y retirada de encimera de granito antigua, incluyendo desconexión de grifería si procede",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Encimera de granito",
+          "descripcion": "Suministro de encimera de granito nuevo (medidas y acabado a especificar por instalador)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio de granito muy variable según color, espesor y proveedor. Instalador especifica €/ml"
+        },
+        {
+          "concepto": "Instalación de encimera de granito",
+          "descripcion": "Colocación, nivelación y fijación de encimera de granito nueva, con junta silicona perimetral",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Se requiere especificar metros lineales de encimera"
+        },
+        {
+          "concepto": "Perfiles de aluminio esquinas y remates",
+          "descripcion": "Perfiles de aluminio para esquinas y remates del alicatado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: incluido en obra. Cantidad según m² de alicatado"
+        },
+        {
+          "concepto": "Pequeño material (crucetas, cuñas, espátulas, etc.)",
+          "descripcion": "Diversos materiales de consumo (crucetas, cuñas, espátulas, esponjas, etc.)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: partida de pequeño material estimada en 5-8% del alicatado. Instalador ajusta"
+        }
+      ],
+      "calculos": {
+        "subtotal": 120,
+        "iva_porcentaje": 21,
+        "iva": 25.2,
+        "total": 145.2
+      },
+      "sugerencias_catalogo": [
+        "Activar base maestra: [alicatado_y_solado_completo_cocina] — incluye todas las partidas obligatorias de alicatado cocina",
+        "Lechada epoxi muy recomendada en cocinas por resistencia a manchas y humedad (frente a lechada estándar)",
+        "Coordinar con fontanero si es necesario adaptar salida de grifo a nueva encimera"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Encimera de granito",
+          "motivo": "Material no cuantificado: se requieren datos de dimensiones (ml) y especificación de granito (color, espesor, pulido/apomazado)"
+        },
+        {
+          "concepto": "Azulejo o cerámica pared cocina",
+          "motivo": "Material no cuantificado: se requieren m² y especificación del tipo de azulejo (marca, colección, color, tamaño)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "alicatado_y_solado_completo_cocina",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "sustitucion_banera_por_ducha"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

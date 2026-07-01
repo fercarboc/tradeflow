@@ -1,0 +1,167 @@
+{
+  "id": 46,
+  "oficio": "Carpintería",
+  "texto": "Fabricación e instalación de estantería de madera a medida para biblioteca, 3 metros de ancho y 2.5 de alto",
+  "http_status": 200,
+  "latency_ms": 18329,
+  "raw_response": {
+    "transcript": "Fabricación e instalación de estantería de madera a medida para biblioteca, 3 metros de ancho y 2.5 de alto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación e instalación de estantería de madera a medida para biblioteca, 3 metros de ancho y 2.5 de alto",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Estantería de gran dimensión (3m x 2.5m): verificar carga total estimada y refuerzos necesarios",
+          "Madera a medida en biblioteca: confirmar tipo de madera (roble, pino, tablero melanina) y acabado final",
+          "Altura 2.5m: puede requerir escalera/plataforma para instalación segura"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación e instalación de estructura de madera a medida"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tablero madera maciza o melanina a medida",
+          "descripcion": "Suministro de tableros de madera (roble/pino) o melanina para estructura y baldas según diseño aprobado. Dimensiones: 3m ancho x 2.5m alto",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 7.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a medida: depende de tipo de madera (pino ~25€/m2, roble ~80€/m2, melanina ~15€/m2). Instalador debe indicar tipo y presupuestar"
+        },
+        {
+          "concepto": "Soportes, escuadras y herrajes",
+          "descripcion": "Escuadras reforzadas, soportes de aluminio o acero, tornillería, tacos de anclaje y herrajes necesarios para fijación de baldas y estructura a pared",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de soportes depende de distribución de baldas y peso estimado. Rango indicativo: 150-500€"
+        },
+        {
+          "concepto": "Acabado canto, pintura o barniz",
+          "descripcion": "Acabado de cantos de tableros (si melanina: canto de borde), pintura o barniz protector si madera vista, lijado y tratamiento preservante",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Acabado a elegir: canto de borde (50-100€), pintura/barniz (100-300€). Instalador define"
+        },
+        {
+          "concepto": "Fabricación estructura y baldas a medida",
+          "descripcion": "Corte, ensamblaje y preparación de estructura principal y baldas según plano. Incluye cálculo técnico de cargas, refuerzos según peso estimado, y preparación para instalación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y fijación a pared",
+          "descripcion": "Fijación de estructura principal a pared con anclajes de seguridad (tacos de expansión), nivelación, instalación de baldas, y prueba de estabilidad. Incluye medidas anti-vuelco",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Lijas, pegamento, clavos, tornillos, cola de carpintero, protecciones, trapos, masilla y otros consumibles necesarios",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado: 50-150€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 900,
+        "iva_porcentaje": 21,
+        "iva": 189,
+        "total": 1089
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: tipo de madera (pino nórdico, roble, haya, melanina blanca/wengué), acabado final (barniz satinado, pintura, natural), y distribución de baldas",
+        "Solicitar plano o croquis con medidas exactas del hueco y especificar carga total estimada de libros para dimensionar soportes",
+        "Verificar pared de fijación (ladrillo, hormigón, pladur) para elegir anclajes adecuados",
+        "Estantería de 2.5m de altura requiere anclaje superior a pared y posible arriostrado horizontal cada 1-1.5m si cargas pesadas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Tablero madera maciza o melanina a medida",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico a medida, precio variable según tipo de madera elegido"
+        },
+        {
+          "partida": "Soportes, escuadras y herrajes",
+          "origen": "sugerida_ia",
+          "motivo": "Herrajes específicos según diseño y cargas"
+        },
+        {
+          "partida": "Acabado canto, pintura o barniz",
+          "origen": "sugerida_ia",
+          "motivo": "Acabado según material y preferencia estética"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "fabricacion_de_estanterias_y_baldas_a_medida",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

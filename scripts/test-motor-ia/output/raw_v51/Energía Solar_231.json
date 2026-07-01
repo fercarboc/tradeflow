@@ -1,0 +1,172 @@
+{
+  "id": 231,
+  "oficio": "Energía Solar",
+  "texto": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+  "http_status": 200,
+  "latency_ms": 14867,
+  "raw_response": {
+    "transcript": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume que el sistema fotovoltaico existente de 3kW tiene regulador MPPT compatible con batería",
+          "Se recomienda revisar compatibilidad del inversor existente con banco de baterías",
+          "Conexión a tierra y protecciones deben verificarse en sitio"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Instalación de batería en sistema fotovoltaico existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro banco de baterías litio 10kWh",
+          "descripcion": "Banco de baterías de acumulación (litio/LiFePO4/ácido-plomo) capacidad 10kWh, tensión compatible con sistema 3kW existente",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tecnología (litio: 3000-5000€; LiFePO4: 4000-7000€; ácido-plomo: 1500-2500€). Instalador debe confirmar especificaciones."
+        },
+        {
+          "concepto": "Cableado DC batería-regulador-inversor",
+          "descripcion": "Cable DC de alta sección (según cálculo en sitio), conectores Anderson o equivalentes, protecciones y fusibles DC",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de distancia regulador-batería y sección de cable. Rango aproximado: 200-600€"
+        },
+        {
+          "concepto": "Protecciones eléctricas (fusibles, interruptores, puesta a tierra)",
+          "descripcion": "Fusibles DC, magnetotérmicos DC, interruptor principal batería, conductor de protección y toma de tierra para circuito DC",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio aproximado según protecciones: 150-400€"
+        },
+        {
+          "concepto": "Instalación y conexionado de batería",
+          "descripcion": "Montaje físico del banco de baterías, conexionado a regulador/inversor, verificación de polaridad, ajuste de parámetros en regulador/inversor para batería, pruebas de carga y descarga",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de compatibilidad del inversor y regulador",
+          "descripcion": "Comprobación en sitio de compatibilidad del regulador MPPT y inversor existentes con el banco de baterías. Reprogramación si es necesario.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas y puesta en marcha del sistema",
+          "descripcion": "Prueba de ciclo completo (carga y descarga de batería), verificación de voltajes, monitoreo de temperatura en batería, validación de protecciones y alarmas",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, conectores, bridas y accesorios",
+          "descripcion": "Conectores, bridas, cinta aislante, tubo termorretráctil, tornillería, y pequeño material complementario",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio aproximado: 80-150€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 650,
+        "iva_porcentaje": 21,
+        "iva": 136.5,
+        "total": 786.5
+      },
+      "sugerencias_catalogo": [
+        "Consultar con el cliente sobre tecnología de batería preferida (litio es más cara pero duradera; ácido-plomo es más económica)",
+        "Verificar en sitio la distancia entre batería y regulador/inversor para dimensionar correctamente el cableado DC",
+        "Solicitar documentación del sistema fotovoltaico existente (regulador, inversor, potencia real instalada) para verificar compatibilidad",
+        "Considerar si el sistema requiere monitoreo remoto o software de gestión"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Banco de baterías 10kWh",
+          "oficio": "energia_solar",
+          "razon": "Especificación de capacidad exacta (10kWh) requiere presupuestación individual según tecnología elegida",
+          "precio_rango_orientativo": "1500-7000€ según tecnología"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_riego_por_aspersion",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_de_sistema_de_rociadores_sprinklers"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

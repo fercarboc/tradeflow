@@ -1,0 +1,204 @@
+{
+  "id": 99,
+  "oficio": "Albañilería",
+  "texto": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+  "http_status": 200,
+  "latency_ms": 18810,
+  "raw_response": {
+    "transcript": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume balcón transitable. Si es cubierta o zona húmeda, revisar impermeabilización adicional.",
+          "Cantidad de baldosas sueltas no especificada: presupuesto base para 10-15 m² estimados.",
+          "Inyección de resina requiere diagnóstico previo de grietas/despegues."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Reparación de baldosas sueltas, recolocación y rejuntado."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Inyección de resina y sellado de juntas perimetrales para estanqueidad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada y limpieza de baldosas sueltas",
+          "descripcion": "Desmontaje cuidadoso de baldosas despegadas, limpieza de mortero antiguo y preparación de base.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 18,
+          "total": 216,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de mortero adhesivo y lechada de rejunte",
+          "descripcion": "Mortero adhesivo flexible C2 TE y lechada epoxi o poliuretano para juntas. Cantidad estimada según m² a recolocar.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: mortero adhesivo y lechada. Instalador debe confirmar tipo y cantidad según baldosas."
+        },
+        {
+          "concepto": "Recolocación y rejuntado de baldosas",
+          "descripcion": "Colocación de baldosas con mortero adhesivo, nivelación y rejunte de juntas con lechada.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 32,
+          "total": 384,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inyección de resina epoxi bajo baldosas",
+          "descripcion": "Inyección de resina epoxi de baja viscosidad en grietas, despegues y huecos bajo baldosas para consolidación y estanqueidad.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: resina epoxi inyectable. Cantidad estimada 2-4 litros según extensión de grietas/despegues. Instalador ajusta."
+        },
+        {
+          "concepto": "Aplicación de inyección de resina",
+          "descripcion": "Perforación, inyección y sellado de puntos de inyección. Incluye preparación, aplicación y limpieza.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de juntas perimetrales con silicona/poliuretano",
+          "descripcion": "Retirada de sellado antiguo, limpieza, aplicación de fondo de junta y sellador flexible de buena calidad en juntas perimetrales del balcón.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de sellador perimetral y fondo de junta",
+          "descripcion": "Sellador poliuretano o silicona de calidad exterior, fondo de junta espuma polietileno. Cantidad según ml de juntas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: sellador y fondo de junta. Instalador confirma tipo y cantidad según ancho/profundidad de juntas."
+        },
+        {
+          "concepto": "Limpieza final y protección",
+          "descripcion": "Limpieza de restos de mortero, resina y sellador. Protección de juntas durante secado si es necesario.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 32,
+          "total": 48,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 988,
+        "iva_porcentaje": 21,
+        "iva": 207.48,
+        "total": 1195.48
+      },
+      "sugerencias_catalogo": [
+        "Confirmar número exacto de baldosas sueltas para ajustar m² de recolocación.",
+        "Especificar tipo de baldosa (cerámica, porcelánico, gres) para seleccionar mortero y lechada adecuados.",
+        "Evaluar si hay grietas estructurales en la losa del balcón (requeriría inyección previa).",
+        "Considerar tratamiento hidrofugo adicional si el balcón está expuesto a lluvia directa frecuente."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inyección de resina epoxi bajo baldosas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo específico de consolidación. Material requiere revisión de cantidad y tipo según diagnóstico."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "reparacion_de_embocadura_de_bajante_en_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "remate_y_acabado_juntas_pladur_para_pintar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3638,
+      "tokens_out": 2661
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "NO"
+  }
+}

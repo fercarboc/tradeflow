@@ -1,0 +1,189 @@
+{
+  "id": 291,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 23981,
+  "raw_response": {
+    "transcript": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Impermeabilización de gran superficie (500 m²) — verificar acceso, andamios y seguridad en altura",
+          "Poliurea proyectada requiere equipo especializado y condiciones climáticas controladas (temperatura 15-25°C, humedad <85%)",
+          "Presupuesto estimado orientativo — requiere inspección previa de estado de cubierta"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de cubierta con membrana líquida (poliurea proyectada) — oficio especializado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de cubierta",
+          "descripcion": "Limpieza mecánica de suciedad, óxido, algas y restos de impermeabilización anterior. Barrido, cepillado y eliminación de residuos. Incluye EPI y línea de vida.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 3,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación antioxidante y adherente",
+          "descripcion": "Aplicación de imprimación específica para metal (cubierta industrial). Mejora adherencia de poliurea. Incluye material y mano de obra.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material imprimación antioxidante — instalador debe cotizar según marca y especificación técnica (ej: epoxi, poliéster, etc.)"
+        },
+        {
+          "concepto": "Proyección de membrana de poliurea elastómera",
+          "descripcion": "Aplicación de poliurea proyectada de 2-3 mm de espesor. Sistema de dos componentes (isocianato + poliol) aplicado con equipo de proyección de alta presión. Incluye mano de obra especializada, equipo de proyección, EPI y línea de vida.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material poliurea proyectada (2-3 mm) — instalador debe cotizar según marca, espesor final y especificaciones técnicas. Rango orientativo: 35-70€/m² material + aplicación"
+        },
+        {
+          "concepto": "Refuerzo de solapes, encuentros y puntos singulares",
+          "descripcion": "Refuerzo con cinta de poliurea o sellador flexible en solapes de placas, encuentros con petos, chimeneas, lucernarios, tornillos y puntos de riesgo de gotera. Incluye material y mano de obra.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de refuerzo (cinta, sellador) — instalador debe cotizar según cantidad de puntos singulares detectados en inspección previa"
+        },
+        {
+          "concepto": "Pintura reflectante blanca de acabado",
+          "descripcion": "Aplicación de pintura reflectante blanca (poliuretano o acrílica) sobre membrana de poliurea para mejorar reflectancia térmica y protección UV. Espesor mínimo 0,5 mm. Incluye material y mano de obra.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pintura reflectante — instalador debe cotizar según marca y especificación. Rango orientativo: 5-15€/m²"
+        },
+        {
+          "concepto": "Andamios, protecciones y seguridad en altura",
+          "descripcion": "Alquiler y montaje de andamios tubulares o plataformas de trabajo. Redes de seguridad, barandillas, líneas de vida, anclajes. Incluye montaje, desmontaje y certificación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de andamios y seguridad — instalador debe cotizar según altura de cubierta, acceso y duración de obra. Rango orientativo: 2-8€/m² o alzado según presupuesto de empresa especializada"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1500,
+        "iva_porcentaje": 21,
+        "iva": 315,
+        "total": 1815
+      },
+      "sugerencias_catalogo": [
+        "Verificar en inspección previa: estado de cubierta (óxido, corrosión, grietas), pendiente, presencia de petos/chimeneas/lucernarios, acceso y facilidad de trabajo",
+        "Poliurea proyectada es solución premium — durabilidad 20-25 años, excelente elasticidad y resistencia UV. Alternativas más económicas: membrana asfáltica (15-30€/m²) o pintura impermeabilizante (8-15€/m²)",
+        "Condiciones de aplicación críticas: temperatura 15-25°C, humedad relativa <85%, sin lluvia. Planificar según climatología",
+        "Equipo de proyección especializado — considerar subcontratación a empresa certificada en poliurea si no se dispone de equipo propio",
+        "Incluir en presupuesto final: gestión de residuos (material antiguo), permisos si aplica, inspección final y garantía de impermeabilidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación antioxidante y adherente",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material específico para preparación de cubierta metálica — no encontrado en catálogo base, creado por IA"
+        },
+        {
+          "concepto": "Proyección de membrana de poliurea elastómera",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material de impermeabilización especializado (poliurea proyectada) — no encontrado en catálogo base, creado por IA"
+        },
+        {
+          "concepto": "Refuerzo de solapes, encuentros y puntos singulares",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material de refuerzo específico para poliurea — no encontrado en catálogo base, creado por IA"
+        },
+        {
+          "concepto": "Pintura reflectante blanca de acabado",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material de acabado y protección UV — no encontrado en catálogo base, creado por IA"
+        },
+        {
+          "concepto": "Andamios, protecciones y seguridad en altura",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar de seguridad en altura — no encontrado en catálogo base, creado por IA"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_cubierta_metalica_con_membrana_liquida",
+      "instalacion_cubierta_de_fibrocemento_ondulado_o_plano",
+      "impermeabilizacion_peto_o_murete_de_cubierta",
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3851,
+      "tokens_out": 2953
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

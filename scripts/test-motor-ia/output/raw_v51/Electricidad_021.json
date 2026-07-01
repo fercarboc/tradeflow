@@ -1,0 +1,199 @@
+{
+  "id": 21,
+  "oficio": "Electricidad",
+  "texto": "Cambio de cuadro eléctrico antiguo por uno nuevo con ICP y diferenciales homologados",
+  "http_status": 200,
+  "latency_ms": 20605,
+  "raw_response": {
+    "transcript": "Cambio de cuadro eléctrico antiguo por uno nuevo con ICP y diferenciales homologados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de cuadro eléctrico antiguo por uno nuevo con ICP y diferenciales homologados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere boletín eléctrico del distribuidor tras la instalación",
+          "Verificar potencia contratada para dimensionar ICP",
+          "Revisar número de circuitos existentes para definir magnetotérmicos necesarios"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación y conexionado de cuadro eléctrico con componentes homologados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de cuadro eléctrico antiguo",
+          "descripcion": "Desmontaje completo del cuadro eléctrico existente, desconexión segura de circuitos, etiquetado y retirada del material antiguo",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa_tabla",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro caja cuadro 24 módulos",
+          "descripcion": "Caja metálica/plástica homologada para 24 módulos DIN, con puerta y cerradura",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - Instalador debe indicar modelo y precio (caja básica 80-150€)"
+        },
+        {
+          "concepto": "Suministro ICP (Interruptor de Control de Potencia)",
+          "descripcion": "ICP homologado según potencia contratada (16A, 20A, 25A, 32A, 40A, 63A). Debe ser compatible con la potencia de la vivienda",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - Instalador debe indicar amperaje e precio (típicamente 40-80€)"
+        },
+        {
+          "concepto": "Suministro diferenciales de 40A 30mA tipo A (mínimo 2 unidades)",
+          "descripcion": "Diferenciales homologados 40A 30mA tipo A. Se recomienda mínimo 2: uno para circuitos normales y otro para circuitos con electrodomésticos",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - Instalador debe indicar precio unitario (típicamente 35-60€/ud)"
+        },
+        {
+          "concepto": "Suministro magnetotérmicos de protección (16A, 20A, 25A)",
+          "descripcion": "Magnetotérmicos modulares para protección de circuitos. Cantidad y amperaje según número de circuitos y cargas de la vivienda",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - PENDIENTE: Instalador debe identificar circuitos existentes y especificar cantidad de magnetotérmicos (típicamente 4-8 ud, 15-25€/ud)"
+        },
+        {
+          "concepto": "Suministro cables de conexión interna y pequeño material",
+          "descripcion": "Cables de conexión interna del cuadro (sección según normativa), tornillería, etiquetas identificativas, tuercas de latón y pequeño material fungible",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - Instalador debe presupuestar (típicamente 30-60€)"
+        },
+        {
+          "concepto": "Instalación y conexionado del nuevo cuadro eléctrico",
+          "descripcion": "Montaje de componentes en carril DIN, conexionado interno según esquema unifilar, reconexión de circuitos, pruebas de continuidad y funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa_tabla",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento, ajustes y puesta en servicio",
+          "descripcion": "Verificación de protecciones, pruebas de disparo diferencial, comprobación de continuidad de puesta a tierra, medición de voltaje en circuitos, documentación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_tabla",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Boletín eléctrico y legalización con distribuidor",
+          "descripcion": "Tramitación de boletín eléctrico obligatorio ante el distribuidor, inspección y legalización de la instalación. Incluye gestión administrativa",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio/Trámite - Instalador debe indicar coste (típicamente 50-150€ según zona y distribuidor)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Se recomienda usar referencia base [cambio_cuadro_electrico_vivienda] para completar presupuesto",
+        "Antes de finalizar: solicitar esquema unifilar o fotografía del cuadro antiguo para identificar número exacto de circuitos",
+        "Verificar potencia contratada (3.3kW, 5.5kW, 10kW, etc.) para dimensionar ICP correcto"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Suministro ICP (Interruptor de Control de Potencia)",
+          "razon": "Componente específico solicitado por cliente, no es genérico",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_cuadro_electrico_vivienda",
+      "cambio_inodoro",
+      "sustitucion_termo_electrico",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_radiador"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

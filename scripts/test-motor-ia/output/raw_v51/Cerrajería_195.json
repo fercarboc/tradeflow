@@ -1,0 +1,285 @@
+{
+  "id": 195,
+  "oficio": "Cerrajería",
+  "texto": "Instalación de portero automático con videoportero y apertura a distancia desde el móvil",
+  "http_status": 200,
+  "latency_ms": 28037,
+  "raw_response": {
+    "transcript": "Instalación de portero automático con videoportero y apertura a distancia desde el móvil",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de portero automático con videoportero y apertura a distancia desde el móvil",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema IP con funcionalidad móvil detectado: requiere cableado CAT6 y fuente de alimentación PoE o independiente",
+          "Apertura a distancia implica electroimán o electropestillo: verificar tipo de cerradura existente",
+          "Se asume 1 vivienda. Si es edificio multivivienda, el presupuesto debe ampliarse con sistema general y distribución a otros vecinos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica, alimentación y circuito de videoportero IP con apertura electrónica"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cableado CAT6, configuración IP, integración app móvil y conectividad de sistema videoportero"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de placa exterior, monitor interior, electroimán/electropestillo y mecanismos de apertura"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa exterior de videoportero IP con cámara integrada y pulsador",
+          "descripcion": "Placa de calle con cámara de video IP, pulsador de llamada, micrófono y visión nocturna. Compatible con control remoto desde aplicación móvil",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de placa exterior IP debe ser confirmado por instalador (rango típico: 250-600€)"
+        },
+        {
+          "concepto": "Monitor interior videoportero IP",
+          "descripcion": "Monitor de interior con pantalla a color, altavoz integrado, micrófono bidireccional y conexión a red LAN/WiFi. Compatible con App móvil",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de monitor IP debe ser confirmado por instalador (rango típico: 150-400€)"
+        },
+        {
+          "concepto": "Electroimán o electropestillo para apertura de puerta",
+          "descripcion": "Mecanismo de apertura electrónica (electroimán 500N o electropestillo) para control remoto desde móvil e interfono",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio debe ser confirmado por instalador según tipo: electroimán (80-200€), electropestillo (120-300€)"
+        },
+        {
+          "concepto": "Cableado CAT6 para sistema videoportero IP",
+          "descripcion": "Cable CAT6 de red para conexión placa exterior - monitor - router. Incluye pequeño material (conectores RJ45, bridas, tubo corrugado)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del cableado debe ser confirmado (estimación: 0,8-2€/ml). Ajustar cantidad según distancia real placa-monitor"
+        },
+        {
+          "concepto": "Fuente de alimentación PoE o independent para videoportero IP",
+          "descripcion": "Fuente de alimentación 12V/24V DC adecuada para placa exterior, monitor e electroimán. Incluye cableado de 2x1,5mm² desde cuadro/enchufe a placa y cerradura",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio debe ser confirmado por instalador (típico: 60-180€)"
+        },
+        {
+          "concepto": "Instalación de placa exterior de videoportero",
+          "descripcion": "Fijación de placa exterior en marco de puerta o pared próxima. Incluye taladrado, fijaciones inoxidables, estanqueidad y alineación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de monitor interior",
+          "descripcion": "Fijación de monitor interior en pared próxima a puerta de acceso. Incluye taladrado, fijaciones, conexiones eléctricas y de red",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de electroimán/electropestillo",
+          "descripcion": "Fijación de mecanismo de apertura en puerta o marco. Incluye refuerzos, conexiones eléctricas y pruebas de funcionamiento. Coordinación con tipo de puerta existente",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado eléctrico y de red (CAT6)",
+          "descripcion": "Tendido de cableado CAT6 de red desde placa exterior hasta monitor interior. Incluye tubo corrugado, bridas y pequeño material. Cableado eléctrico desde fuente a placa y cerradura",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de fuente de alimentación",
+          "descripcion": "Conexión de fuente de alimentación a cuadro eléctrico o enchufe. Cableado desde fuente a placa exterior, monitor y electroimán. Incluye pruebas de voltaje",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración, integración de app móvil y pruebas",
+          "descripcion": "Configuración IP del videoportero, conexión a red local y WiFi, instalación de aplicación móvil, pruebas de video, audio, apertura remota y documentación de accesos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, conectores y accesorios",
+          "descripcion": "Conectores RJ45, bridas nylon, tubo corrugado, cinta aislante, tornillos inoxidables, tacos, masilla de estanqueidad y otros consumibles de instalación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 30-80€. Instalador debe confirmar según cantidad de material consumido"
+        }
+      ],
+      "calculos": {
+        "subtotal": 425,
+        "iva_porcentaje": 21,
+        "iva": 89.25,
+        "total": 514.25
+      },
+      "sugerencias_catalogo": [
+        {
+          "actuacion": "instalacion_de_videoportero_o_intercomunicador",
+          "razon": "Coincidencia: Sistema IP con apertura remota desde móvil. Partidas obligatorias cubiertas: placa exterior con cámara, monitor interior, fuente alimentación, cableado CAT6, electroimán/electropestillo",
+          "precio_referencia_rango": "200-1500€/ud",
+          "nota": "El rango alto aplica si es edificio multivivienda con sistema de distribución. Para vivienda unifamiliar, el presupuesto total se aproximará al rango bajo-medio (600-900€ materiales + mano de obra)"
+        }
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Placa exterior de videoportero IP con cámara integrada y pulsador",
+          "oficio": "cerrajeria",
+          "razon": "Partida específica: videoportero IP (no simple analógico). Incluye cámara de vídeo, control remoto móvil y visión nocturna"
+        },
+        {
+          "concepto": "Monitor interior videoportero IP",
+          "oficio": "electricidad",
+          "razon": "Partida específica: monitor con conectividad de red (LAN/WiFi) para integración de app móvil"
+        },
+        {
+          "concepto": "Electroimán o electropestillo para apertura de puerta",
+          "oficio": "cerrajeria",
+          "razon": "Partida obligatoria: Sistema de apertura remota desde móvil requiere mecanismo electrónico en cerradura o marco"
+        },
+        {
+          "concepto": "Cableado CAT6 para sistema videoportero IP",
+          "oficio": "telecomunicaciones",
+          "razon": "Partida específica: Videoportero IP requiere cableado de datos CAT6, no simple cable coaxial o 4 hilos"
+        },
+        {
+          "concepto": "Fuente de alimentación PoE o independent para videoportero IP",
+          "oficio": "electricidad",
+          "razon": "Partida específica: Alimentación para sistema IP con mayores requerimientos que videoportero analógico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_videoportero_o_interfono",
+      "instalacion_videoportero_vivienda",
+      "instalacion_de_videoportero_o_intercomunicador",
+      "pintado_locales_comerciales_y_tiendas",
+      "automatizacion_cancela_o_puerta_con_motor"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

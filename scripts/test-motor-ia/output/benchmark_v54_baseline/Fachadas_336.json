@@ -1,0 +1,232 @@
+{
+  "id": 336,
+  "oficio": "Fachadas",
+  "texto": "Reparar balcones de fachada, corrosión de barandillas y fisuras en losa, 6 balcones",
+  "http_status": 200,
+  "latency_ms": 22679,
+  "raw_response": {
+    "transcript": "Reparar balcones de fachada, corrosión de barandillas y fisuras en losa, 6 balcones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar balcones de fachada, corrosión de barandillas y fisuras en losa, 6 balcones",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo en altura: andamios OBLIGATORIOS para seguridad",
+          "Corrosión de barandillas: requiere tratamiento anticorrosión y posible sustitución",
+          "Fisuras en losa: diagnóstico previo para determinar si son pasivas o activas",
+          "Múltiples balcones: se recomienda agrupar por tipo de actuación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de elementos salientes de fachada (balcones), fisuras en losa, impermeabilización"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Reparación y tratamiento anticorrosión de barandillas metálicas, posible sustitución"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de losas de balcones y juntas de dilatación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Andamio o plataforma de trabajo en altura",
+          "descripcion": "Instalación de andamio modular o plataforma de seguridad para acceso a 6 balcones en fachada. Incluye montaje, desmontaje y señalización de zona de peligro",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de alquiler/instalación de andamio depende de altura, duración y tipo de estructura"
+        },
+        {
+          "concepto": "Diagnóstico y saneo de fisuras en losas de balcones",
+          "descripcion": "Inspección visual de 6 losas de balcón para determinar tipo de fisura (activa/pasiva), profundidad y origen. Saneo de zonas afectadas, retirada de material suelto y preparación de superficie",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación de fisuras en losas de balcones (6 unidades)",
+          "descripcion": "Inyección de resina epoxi o mortero hidrofugo en fisuras, colocación de malla de fibra de vidrio en fisuras >3mm, aplicación de mortero de reparación flexible, imprimación y acabado coordinado con fachada",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales (resina, mortero, malla) depende de extensión y profundidad de fisuras"
+        },
+        {
+          "concepto": "Mano de obra reparación de fisuras en losas",
+          "descripcion": "Aplicación de inyecciones, colocación de malla, mortero de reparación y acabado en 6 losas de balcón",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento anticorrosión de barandillas metálicas (6 balcones)",
+          "descripcion": "Decapado mecánico de óxido y corrosión en barandillas, aplicación de imprimación anticorrosión, pintura de acabado en 2 capas. Incluye protección de zonas adyacentes",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 60,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales tratamiento anticorrosión barandillas",
+          "descripcion": "Imprimación anticorrosión, pintura epoxi de acabado, disolventes, lijas, masillas y pequeño material para tratamiento de 6 barandillas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de extensión de corrosión y tipo de barandilla (acero, aluminio, hierro)"
+        },
+        {
+          "concepto": "Impermeabilización de losas de balcones (6 unidades)",
+          "descripcion": "Aplicación de membrana impermeabilizante (lámina EPDM, TPO o pintura poliuretano) en losas de balcón. Incluye preparación de superficie, sellado de juntas de dilatación y remates perimetrales",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de superficie de cada losa y tipo de membrana impermeabilizante elegida"
+        },
+        {
+          "concepto": "Mano de obra impermeabilización de losas",
+          "descripcion": "Preparación de superficie, aplicación de membrana impermeabilizante, sellado de juntas y remates en 6 losas de balcón",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 45,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Señalización y protección de zona de trabajo",
+          "descripcion": "Señalización de peligro en zona inferior de balcones, vallas de protección, cintas de seguridad y carteles informativos durante toda la duración de la obra",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de duración total de la obra y extensión de zona a señalizar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1950,
+        "iva_porcentaje": 21,
+        "iva": 409.5,
+        "total": 2359.5
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [reparacion_cornisa_o_elemento_saliente_de_fachada] para validar partidas de andamio y saneo",
+        "Consultar Base Maestra: [reparacion_fisuras_y_grietas_en_fachada] para metodología de reparación de fisuras",
+        "Considerar si barandillas requieren sustitución completa (cerrajería) o solo tratamiento (pintura/anticorrosión)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tratamiento anticorrosión de barandillas metálicas",
+          "oficio": "cerrajeria",
+          "motivo": "Reparación específica de corrosión en elementos metálicos de balcones"
+        },
+        {
+          "concepto": "Impermeabilización de losas de balcones",
+          "oficio": "impermeabilizacion",
+          "motivo": "Protección de losas contra filtraciones y humedad tras reparación de fisuras"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_piscina_con_filtraciones",
+      "reparacion_de_fisuras_y_grietas_en_fachada",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3709,
+      "tokens_out": 3076
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

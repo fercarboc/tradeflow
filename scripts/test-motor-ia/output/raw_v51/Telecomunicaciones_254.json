@@ -1,0 +1,227 @@
+{
+  "id": 254,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+  "http_status": 200,
+  "latency_ms": 24956,
+  "raw_response": {
+    "transcript": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Confirmar: ¿PBX on-premise o cloud? On-premise es más control, cloud más económica para 10 ext.",
+          "Confirmar: ¿Cuántas líneas externas (SIP trunk) necesita? Se asume 2 líneas estándar.",
+          "Confirmar: ¿Sistema inalámbrico (WiFi) o cableado Cat6? Se asume cableado Cat6 para estabilidad.",
+          "Confirmar: ¿Necesita grabación de llamadas, IVR o cola de espera?",
+          "El precio de la central PBX depende de marca/modelo — se requiere revisión del instalador."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema de telefonía IP — especialidad de telecomunicaciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Central telefónica IP (PBX) — 10 extensiones",
+          "descripcion": "Sistema PBX IP on-premise o cloud para gestionar 10 extensiones internas y líneas externas SIP. Incluye licencias de extensiones.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca (Asterisk, Elastix, 3CX, Avaya, etc.) y tipo (on-premise vs cloud). Rango típico: 500-2000€."
+        },
+        {
+          "concepto": "Teléfonos IP — 10 extensiones",
+          "descripcion": "Terminales telefónicos IP (SIP) para 10 puestos de trabajo. Incluye auriculares estándar.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por teléfono IP: 150-400€/ud según marca (Polycom, Cisco, Grandstream, Yealink). Subtotal est: 1500-4000€."
+        },
+        {
+          "concepto": "Switch PoE (Power over Ethernet) — 16 puertos",
+          "descripcion": "Switch gestionado PoE para alimentar teléfonos IP y dispositivos de red. Incluye 16 puertos PoE + 2 uplink SFP.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Switch PoE 16 puertos: 300-800€. Necesario para eliminar cables de alimentación en teléfonos."
+        },
+        {
+          "concepto": "Cableado Cat6 — canalización e instalación",
+          "descripcion": "Tendido de cable de red Cat6 desde central a 10 puestos de trabajo. Incluye canaletas, regletas de conexión y etiquetado.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión SIP Trunk — 2 líneas externas",
+          "descripcion": "Configuración y contratación de 2 líneas SIP trunk con proveedor de VoIP (alternativa a ISDN, mucho más económica). Incluye activación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de configuración: 150-300€. Coste mensual de línea SIP: 5-15€/línea/mes (fuera de presupuesto de instalación)."
+        },
+        {
+          "concepto": "Configuración de extensiones y grupos de llamada",
+          "descripcion": "Programación de 10 extensiones, números cortos internos, grupos de llamada, desvíos y buzones de voz.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Número de empresa (DNI corporativo)",
+          "descripcion": "Gestión y activación del número principal de empresa en proveedor SIP. Incluye redirección a grupos de llamada.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de portabilidad/activación: 50-150€ (típicamente incluido en paquete SIP). Requiere coordinación con operador actual si portabilidad."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento, capacitación básica y documentación",
+          "descripcion": "Comprobación de todas las extensiones, prueba de llamadas internas/externas, capacitación de 2 usuarios clave y entrega de manual de usuario.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, bridas, etiquetas, pasta térmica)",
+          "descripcion": "Consumibles: conectores RJ45 Cat6, bridas, etiquetas de identificación, pasta térmica, etc.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estimado: 40-80€. Se carga como material sin revisar si está cuantificado en otras partidas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 750,
+        "iva_porcentaje": 21,
+        "iva": 157.5,
+        "total": 907.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de PBX: ¿on-premise (Asterisk/Elastix en servidor propio) o cloud (3CX cloud, Teléfonica Centralita Inteligente, etc.)? Cloud es más económica para 10 ext.",
+        "SIP Trunk es 70% más económico que ISDN — recomendado para nuevas instalaciones.",
+        "Si la empresa ya tiene central antigua (ISDN/analógica), añadir partida de 'desmontaje y retirada de central anterior'.",
+        "Valorar si necesita IVR (menú automático) o grabación de llamadas — son servicios adicionales de valor.",
+        "El precio indicado (750€ mano de obra) NO incluye materiales (central, teléfonos, switch) — requiere revisión completa de presupuesto."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central telefónica IP (PBX)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material crítico cuyo precio depende de marca y arquitectura (on-premise vs cloud). Rango: 500-2000€."
+        },
+        {
+          "concepto": "Teléfonos IP — 10 unidades",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo terminal cuyo precio varía según marca y características. Rango: 150-400€/ud."
+        },
+        {
+          "concepto": "Switch PoE",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Infraestructura de red cuyo precio depende de puerto y gestión. Rango: 300-800€."
+        },
+        {
+          "concepto": "Configuración SIP Trunk",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de configuración de líneas externas — precio variable por proveedor."
+        },
+        {
+          "concepto": "Número de empresa / DNI corporativo",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de portabilidad/activación — típicamente 50-150€ según portabilidad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_central_telefonica_IP_o_PBX",
+      "instalacion_armario_metalico_o_taquilla",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

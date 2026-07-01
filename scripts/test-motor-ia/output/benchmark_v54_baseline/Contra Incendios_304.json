@@ -1,0 +1,174 @@
+{
+  "id": 304,
+  "oficio": "Contra Incendios",
+  "texto": "Revisar y recargar extintores de empresa, 10 extintores de polvo y 2 de CO2, con certificado",
+  "http_status": 200,
+  "latency_ms": 19235,
+  "raw_response": {
+    "transcript": "Revisar y recargar extintores de empresa, 10 extintores de polvo y 2 de CO2, con certificado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y recargar extintores de empresa, 10 extintores de polvo y 2 de CO2, con certificado",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de contra_incendios: requiere empresa mantenedora AUTORIZADA y certificación oficial",
+          "Extintores CO2: verificar pesaje y presión con manómetro especializado",
+          "Certificado de revisión obligatorio para cumplir normativa CTE DB-SI y REBT"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Revisión y recarga de extintores portatiles es actividad de contra_incendios según normativa CTE DB-SI"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión visual, funcional y pesaje de 10 extintores de polvo ABC",
+          "descripcion": "Inspección completa de estado físico, precintos, manómetro, válvula de seguridad y pesaje de carga. Comprobación de fecha última revisión. Documentación en libro de mantenimiento.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 35,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recarga de 10 extintores de polvo ABC (según estado)",
+          "descripcion": "Recarga completa de agente extintor polvo ABC en extintores que lo requieran tras revisión. Incluye válvula de seguridad, pequeño material y etiqueta de revisión con fecha y empresa.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de recarga de polvo ABC según capacidad del extintor (6kg, 9kg, etc.). Instalador debe especificar capacidades y precios unitarios."
+        },
+        {
+          "concepto": "Revisión visual, funcional y pesaje de 2 extintores de CO2",
+          "descripcion": "Inspección completa de estado físico, precintos, manómetro, válvula de seguridad y pesaje de botella CO2 (crítico para CO2). Comprobación de fecha última revisión. Documentación en libro de mantenimiento.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recarga de 2 extintores de CO2 (según estado)",
+          "descripcion": "Recarga completa de CO2 en extintores que lo requieran tras revisión. Incluye válvula de seguridad, pequeño material y etiqueta de revisión con fecha y empresa. CRÍTICO: CO2 no apto para uso en cuadros eléctricos sin protección adicional.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de recarga de CO2 según capacidad (2kg, 5kg, etc.). Instalador debe especificar capacidades y precios unitarios. Verificar ubicación de extintores CO2 (no en cuadros eléctricos sin protección)."
+        },
+        {
+          "concepto": "Certificado de revisión y mantenimiento de extintores",
+          "descripcion": "Emisión de certificado oficial de revisión y recarga de los 12 extintores (10 polvo + 2 CO2) conforme a normativa CTE DB-SI, REBT y legislación de prevención de incendios. Incluye libro de mantenimiento actualizado y etiquetas de revisión fotoluminiscentes.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de certificación y documentación oficial. Incluye emisión de certificado, etiquetas y actualización de registros. Instalador debe especificar tarifa de gestión administrativa."
+        },
+        {
+          "concepto": "Retimbrado de extintores (si aplica, cada 5 años)",
+          "descripcion": "Prueba de presión hidrostática y retimbrado de botellas que cumplan 5 años desde último retimbrado. Incluye inspección interna, prueba de presión y marcado oficial. SOLO si es necesario según fecha de último retimbrado.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio a determinar según fechas de retimbrado de cada extintor. Revisar libro de mantenimiento para identificar cuáles necesitan retimbrado. Precio típico 80-150€/ud si aplica."
+        }
+      ],
+      "calculos": {
+        "subtotal": 430,
+        "iva_porcentaje": 21,
+        "iva": 90.3,
+        "total": 520.3
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el cliente si algún extintor ha sido utilizado o presenta pérdida de presión (requiere recarga obligatoria)",
+        "Verificar ubicación de los 2 extintores CO2: NO deben estar en cuadros eléctricos sin protección adicional (usar polvo ABC en esos casos)",
+        "Solicitar libro de mantenimiento actual para verificar fechas de último retimbrado (obligatorio cada 5 años)",
+        "Empresa mantenedora DEBE estar autorizada y certificada según normativa de prevención de incendios",
+        "Incluir en presupuesto final: coste de agente extintor (polvo ABC y CO2), válvulas, pequeño material y etiquetas fotoluminiscentes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Recarga de polvo ABC",
+          "oficio": "contra_incendios",
+          "motivo": "Material consumible, precio variable según capacidad del extintor"
+        },
+        {
+          "concepto": "Recarga de CO2",
+          "oficio": "contra_incendios",
+          "motivo": "Material consumible, precio variable según capacidad de la botella"
+        },
+        {
+          "concepto": "Certificado de revisión y mantenimiento",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio administrativo de certificación oficial obligatoria"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "revision_y_recarga_de_extintores_portatiles",
+      "revision_y_recarga_de_extintores",
+      "instalacion_de_extintores_portatiles",
+      "revision_instalacion_electrica_vivienda",
+      "revision_y_recarga_de_botellas_de_gas_o_instalacion_de_gas"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3658,
+      "tokens_out": 2575
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

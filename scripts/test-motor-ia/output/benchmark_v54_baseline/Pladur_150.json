@@ -1,0 +1,198 @@
+{
+  "id": 150,
+  "oficio": "Pladur",
+  "texto": "Tabique curvo de pladur para zona de recepción de empresa, diseño específico con radio de 2 metros",
+  "http_status": 200,
+  "latency_ms": 21305,
+  "raw_response": {
+    "transcript": "Tabique curvo de pladur para zona de recepción de empresa, diseño específico con radio de 2 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique curvo de pladur para zona de recepción de empresa, diseño específico con radio de 2 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Tabique curvo requiere cálculo técnico y plantilla de curvatura",
+          "Radio de 2 metros es moderado; verificar si requiere refuerzo adicional",
+          "Diseño específico para recepción: considerar acabado premium (liso/lacado)",
+          "Fijaciones puntuales en zona expositiva/recepción pueden requerir refuerzo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Tabique de pladur con curvatura especial; requiere mayor precisión y tiempo de instalación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm para tabique curvo",
+          "descripcion": "Suministro de placa de yeso estándar 15mm, cantidad estimada según desarrollo de curvatura (radio 2m). Incluye cortes y preparación para curvatura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad exacta depende de desarrollo lineal de la curvatura; instalador debe medir y confirmar m2 reales"
+        },
+        {
+          "concepto": "Perfiles metálicos (canal y montante) para estructura curva",
+          "descripcion": "Suministro de perfiles galvanizados canal 48/70mm y montantes 48/70mm con cortes y preparación para curvatura radio 2m. Incluye arriostramientos horizontales",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje lineal de perfiles depende de altura y desarrollo de curvatura; requiere cálculo técnico"
+        },
+        {
+          "concepto": "Tornillería inox y pequeño material",
+          "descripcion": "Tornillos autorroscantes 25mm inox, cinta papel juntas, pasta juntas, ángulos metálicos inox para esquinas y remates de curvatura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de tornillería y pequeño material a confirmar según desarrollo final"
+        },
+        {
+          "concepto": "Cálculo técnico y plantilla de curvatura",
+          "descripcion": "Elaboración de cálculo técnico para tabique curvo radio 2m, plantilla de curvatura, verificación de estabilidad y arriostramientos. Incluye planos de ejecución",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio técnico especializado; instalador define tarifa según complejidad"
+        },
+        {
+          "concepto": "Montaje estructura metálica curva",
+          "descripcion": "Instalación de estructura metálica con perfiles curvados/cortados, arriostramientos horizontales cada 2m, fijación a suelo y techo. Incluye nivelación y aplomado de curvatura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de montaje dependen de altura total y complejidad de curvatura; instalador estima según medidas reales"
+        },
+        {
+          "concepto": "Colocación de placas de yeso y tratamiento de juntas",
+          "descripcion": "Colocación de placas 15mm sobre estructura curva, cortes y ajustes, cinta de juntas, dos manos de pasta de juntas, lijado y acabado liso para pintura/lacado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo de colocación y acabado aumenta por curvatura; instalador estima horas según m2 y complejidad"
+        },
+        {
+          "concepto": "Acabado premium (liso/lacado) para zona de recepción",
+          "descripcion": "Preparación de superficie para acabado de calidad superior: masillado fino, lijado fino, imprimación y preparación para pintura lacada o acabado decorativo de recepción",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Acabado premium en zona expositiva requiere mayor precisión; horas a confirmar según m2"
+        },
+        {
+          "concepto": "Refuerzo de puntos de fijación para señalética/decoración",
+          "descripcion": "Instalación de refuerzos metálicos en puntos específicos para fijación de señalética, cuadros, elementos decorativos o de branding en zona de recepción",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número y tipo de refuerzos depende de proyecto de decoración/señalética; a confirmar con cliente"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar con cliente planos o croquis del tabique curvo para precisar radio exacto y altura",
+        "Considerar si la curvatura es convexa o cóncava (afecta a técnica de montaje)",
+        "Verificar si requiere refuerzo adicional por altura superior a 3,5m",
+        "Coordinar con pintura/decoración para acabado final (lacado, pintura especial, papel pintado)",
+        "Considerar iluminación empotrada si es zona de recepción corporativa"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cálculo técnico y plantilla de curvatura",
+          "oficio": "pladur_escayola",
+          "motivo": "Tabique curvo requiere servicio técnico especializado no incluido en partidas estándar"
+        },
+        {
+          "concepto": "Acabado premium (liso/lacado) para zona de recepción",
+          "oficio": "pladur_escayola",
+          "motivo": "Acabado de calidad superior específico para zona expositiva/recepción corporativa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "tabique_pladur_para_ducha_o_plato_de_ducha",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_hidrofugo_bano_o_cocina"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3799,
+      "tokens_out": 2730
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "id": 226,
+  "oficio": "Energía Solar",
+  "texto": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+  "http_status": 200,
+  "latency_ms": 31131,
+  "raw_response": {
+    "transcript": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema fotovoltaico conectado a red (on-grid) inferido por contexto empresarial y consumo mensual alto. Se requiere confirmación del tipo de instalación (on-grid vs off-grid)",
+          "Estudio previo incluido: evaluación de cubierta, radiación solar, orientación, sombras",
+          "Consumo 2000 kWh/mes (24000 kWh/año) requiere sistema de potencia significativa (~5-8 kWp recomendado). Revisar con instalador",
+          "Trámites administrativos y conexión distribuidora NO incluidos en presupuesto técnico de instalación",
+          "Seguros de responsabilidad civil y cobertura de obra no incluidos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica on-grid para consumo empresarial. Oficio especializado en energías renovables."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexiones eléctricas, protecciones, cuadro de control e integración con red existente."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estudio técnico previo sistema fotovoltaico",
+          "descripcion": "Levantamiento de cubierta, evaluación radiación solar, análisis de sombras, estudio de viabilidad técnica y económica, cálculo de potencia óptima",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estudio técnico pendiente de revisión. Rango típico 300-800€ según complejidad"
+        },
+        {
+          "concepto": "Módulos fotovoltaicos bifaciales monocristalinos",
+          "descripcion": "Suministro e instalación módulos fotovoltaicos 400-450W, cantidad según dimensionado (estimado 6-8 kWp = 15-18 módulos), fijaciones, cableado DC, conectores, protecciones",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 7,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumo 2000 kWh/mes → ~7 kWp recomendado (sobredimensionamiento 20-30% incluido). Precio material 800-1200€/kWp. Revisar con proveedor."
+        },
+        {
+          "concepto": "Inversor fotovoltaico trifásico on-grid",
+          "descripcion": "Suministro e instalación inversor string trifásico 6-8 kW, conversión DC-AC, sincronización red, protecciones, cableado AC, conexión a cuadro de control",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Inversor trifásico 6-8 kW estimado. Precio 1500-3500€ según marca y características. Revisar selección técnica."
+        },
+        {
+          "concepto": "Cableado DC y protecciones sistema fotovoltaico",
+          "descripcion": "Cableado DC 6mm² o superior, fusibles DC, desconectadores DC, cajas de fusibles, conectores MC4, canaletas, bandejas portacables",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y cableado DC. Precio estimado 800-1500€ según longitud y complejidad."
+        },
+        {
+          "concepto": "Cuadro de control e integración con red",
+          "descripcion": "Suministro e instalación cuadro de CA con interruptor de desconexión de red, protección diferencial, magnetotérmicos, varistores, contador bidireccional (si requerido), conexión a cuadro principal empresa",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cuadro de control AC on-grid. Precio estimado 600-1200€. Revisar con electricista."
+        },
+        {
+          "concepto": "Estructuras de soporte y fijaciones cubierta",
+          "descripcion": "Suministro estructuras aluminio anodizado, fijaciones inoxidables, aislantes, revisión estabilidad cubierta, impermeabilización puntual si necesario",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estructura para 7 kWp. Precio estimado 2000-3500€. Depende de tipo cubierta (teja, chapa, hormigón)."
+        },
+        {
+          "concepto": "Instalación y montaje módulos fotovoltaicos",
+          "descripcion": "Montaje módulos sobre estructuras, conexionado DC serie-paralelo, pruebas de continuidad y aislamiento, optimización ángulos",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 65,
+          "total": 1300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación inversor, cuadro de control y conexión a red",
+          "descripcion": "Montaje inversor, configuración parámetros red, instalación cuadro CA, conexión desconectador red, pruebas sincronización, puesta en servicio",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 65,
+          "total": 780,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y protecciones DC",
+          "descripcion": "Tendido y fijación cableado DC, instalación fusibles, desconectadores, cajas de conexión, pruebas de aislamiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 65,
+          "total": 650,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexiones eléctricas integración red empresa",
+          "descripcion": "Conexión cuadro fotovoltaico a cuadro principal, canalizaciones, cables de potencia, verificación compatibilidad, pruebas de continuidad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas, mediciones y puesta en servicio",
+          "descripcion": "Pruebas de aislamiento, continuidad, sincronización con red, mediciones de potencia, verificación funcionamiento completo, generación de certificados y documentación técnica",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Cinta aislante, pasta térmica, conectores, tuercas, arandelas, guantes de trabajo, arnés de seguridad, cintas de protección, etiquetado",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material estimado 300-500€. Revisar con equipo de trabajo."
+        }
+      ],
+      "calculos": {
+        "subtotal": 3520,
+        "iva_porcentaje": 21,
+        "iva": 739.2,
+        "total": 4259.2
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA [instalacion_sistema_fotovoltaico_aislado_off_grid] aplicada parcialmente: se asume ON-GRID por contexto empresarial. Confirmar tipo instalación con cliente.",
+        "Consumo 2000 kWh/mes = 24000 kWh/año. Dimensionado fotovoltaico recomendado: 6-8 kWp con sobredimensionamiento 20-30% (partida: 7 kWp)",
+        "Regulador MPPT vs PWM: no aplica en on-grid (inversor incluye MPPT). Banco de baterías: NO requerido para on-grid.",
+        "Contador bidireccional: verificar con distribuidora. Puede ser obligatorio para compensación de excedentes.",
+        "Procedimiento administrativo: solicitud acceso distribuidora, inspección técnica, cambio contador — NO incluido en presupuesto técnico."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estudio técnico previo sistema fotovoltaico",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Incluido en descripción. Partida específica no estándar en catálogo base."
+        },
+        {
+          "concepto": "Módulos fotovoltaicos bifaciales monocristalinos",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material principal. Especificación técnica abierta a revisar con proveedor."
+        },
+        {
+          "concepto": "Inversor fotovoltaico trifásico on-grid",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo singular. Requiere selección técnica específica según distribuidor autorizado."
+        },
+        {
+          "concepto": "Cableado DC y protecciones sistema fotovoltaico",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Pequeño material agrupado. Precio unitario a definir por instalador."
+        },
+        {
+          "concepto": "Cuadro de control e integración con red",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Elemento crítico on-grid. Especificaciones normativas (RD 1699/2011). Requiere revisión técnica."
+        },
+        {
+          "concepto": "Estructuras de soporte y fijaciones cubierta",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según tipo de cubierta. Estudio previo requerido para confirmar viabilidad."
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles agrupados. Precio estimado a revisar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_recuperacion_aguas_pluviales"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 5,
+    "n_sugeridas": 7,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

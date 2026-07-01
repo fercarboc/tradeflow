@@ -1,0 +1,228 @@
+{
+  "id": 296,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+  "http_status": 200,
+  "latency_ms": 24840,
+  "raw_response": {
+    "transcript": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Se requiere conocer las dimensiones del canal (largo, ancho, profundidad) para calcular m² de impermeabilización",
+          "Se debe verificar el estado actual del hormigón (grietas, filtraciones, erosión)",
+          "Pendiente del canal hacia punto de descarga debe confirmarse",
+          "Material impermeabilizante a elegir: lámina HDPE, PVC, mortero hidrofugo o geotextil + impermeabilizante líquido"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Trabajo especializado en impermeabilización de estructuras hidráulicas en hormigón"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación de hormigón, limpieza, reparación de grietas previas a impermeabilización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación del canal de hormigón",
+          "descripcion": "Vaciado de agua, limpieza profunda de sedimentos, algas y materia orgánica. Desengrasante y lavado a presión del hormigón. Eliminación de recubrimientos dañados",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² del canal a confirmar por instalador. Tarifa referencial 15-25€/m² según densidad de suciedad"
+        },
+        {
+          "concepto": "Reparación de grietas y fracturas en hormigón",
+          "descripcion": "Sellado de grietas activas con sellador flexible de poliuretano o resina epoxídica según ancho de grieta. Inyección en grietas profundas si es necesario",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metros lineales de grietas a determinar en inspección. Presupuestar material + mano de obra. Referencia: 8-15€/ml"
+        },
+        {
+          "concepto": "Imprimación consolidante del hormigón",
+          "descripcion": "Aplicación de imprimación selladora y consolidante en toda la superficie interna del canal. Mejora adherencia del sistema impermeabilizante y consolida hormigón poroso",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rendimiento típico: 1-1.5 l/m². Presupuestar material + aplicación. Referencia: 3-8€/m²"
+        },
+        {
+          "concepto": "Impermeabilización con mortero hidrofugo cristalizante",
+          "descripcion": "Aplicación de mortero cemento hidrofugo con aditivo cristalizante en 2 capas. Sistema reactivo contra filtraciones activas. Espesor mínimo 3-4 cm. Alternativa a lámina para canales agrícolas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opción 1: mortero hidrofugo. Cantidad en m² pendiente. Referencia: 25-45€/m² (material + mano obra). Presupuestar 20-30 kg/m² según espesor"
+        },
+        {
+          "concepto": "Impermeabilización con lámina HDPE o PVC de espesor 1.0-1.5 mm",
+          "descripcion": "Suministro e instalación de lámina impermeabilizante HDPE (polietileno) o PVC de espesor mínimo 1.0 mm. Con traslapo en juntas de 20 cm mínimo. Fijación puntual en coronación del canal. Sistema duradero 20-30 años",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opción 2: lámina HDPE/PVC. Cantidad en m² pendiente. Referencia: 35-65€/m² (material + instalación). Material: 8-15€/m² | Instalación: 25-50€/m²"
+        },
+        {
+          "concepto": "Mano de obra instalación sistema impermeabilizante",
+          "descripcion": "Preparación de superficies, aplicación de impermeabilizante elegido (mortero o lámina), sellado de juntas y coronación del canal. Prueba hidráulica posterior",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas según dimensiones del canal. Referencia: 4-16 horas según longitud y complejidad"
+        },
+        {
+          "concepto": "Bandas de sellado en juntas estructurales del canal",
+          "descripcion": "Colocación de banda hidrofuga elastómera en juntas de dilatación y uniones entre tramos. Espesor 5-8 mm. Prevent filtraciones en puntos críticos",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metros lineales de juntas a determinar. Referencia: 12-25€/ml (material + colocación)"
+        },
+        {
+          "concepto": "Pequeño material y selladores",
+          "descripcion": "Silicona flexible, cinta adhesiva de borde, conectores de drenaje, piezas de coronación, perfiles de transición, pegamentos especiales, EPI",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar lote según tamaño del canal. Referencia: 150-400€ en total"
+        },
+        {
+          "concepto": "Prueba hidráulica y comprobación de estanqueidad",
+          "descripcion": "Llenado gradual del canal, inspección visual de filtraciones, medición de pérdidas hídricas en 24h, reparación de defectos detectados",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Consultar: [impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico] — estructura similar (paredes + suelo en hormigón, técnica de mortero hidrofugo cristalizante aplicable)",
+        "Sistema recomendado para finca agrícola: MORTERO HIDROFUGO CRISTALIZANTE (económico, duradero, reparable) o LÁMINA HDPE (más costosa, mayor durabilidad 20-30 años, ideal si inversión es alta)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Limpieza y preparación del canal de hormigón",
+          "oficio": "albanileria",
+          "tipo": "mano_obra",
+          "motivo": "Fase previa obligatoria no específicamente en catálogo pero esencial para éxito"
+        },
+        {
+          "nombre": "Reparación de grietas y fracturas en hormigón",
+          "oficio": "impermeabilizacion",
+          "tipo": "material",
+          "motivo": "Diagnosticar grietas activas previas; afecta sistema impermeabilizante a elegir"
+        },
+        {
+          "nombre": "Impermeabilización con mortero hidrofugo cristalizante",
+          "oficio": "impermeabilizacion",
+          "tipo": "material",
+          "motivo": "Opción principal para canales agrícolas de almacenamiento; sistema cristalizante anti-filtraciones"
+        },
+        {
+          "nombre": "Impermeabilización con lámina HDPE o PVC",
+          "oficio": "impermeabilizacion",
+          "tipo": "material",
+          "motivo": "Opción alternativa premium si durabilidad 20-30 años es prioridad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_canaleta_de_recogida_agua_toldo_o_cubierta",
+      "instalacion_de_canaleta_de_drenaje_lineal",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

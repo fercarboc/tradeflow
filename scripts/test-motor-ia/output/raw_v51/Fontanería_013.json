@@ -1,0 +1,204 @@
+{
+  "id": 13,
+  "oficio": "Fontanería",
+  "texto": "Instalación de radiadores de agua caliente en 4 habitaciones con tubería de cobre y válvulas termostáticas",
+  "http_status": 200,
+  "latency_ms": 25208,
+  "raw_response": {
+    "transcript": "Instalación de radiadores de agua caliente en 4 habitaciones con tubería de cobre y válvulas termostáticas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de radiadores de agua caliente en 4 habitaciones con tubería de cobre y válvulas termostáticas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere validación de planos/medidas para longitud exacta de tubería de cobre",
+          "Se asume 1 radiador por habitación (4 radiadores total) — confirmar cantidad y potencia térmica necesaria (kW)",
+          "Presupuesto no incluye: caldera/fuente de calor, purgadores, llaves de corte principales, sistema de expansión"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de red de distribución en tubería de cobre, radiadores y válvulas termostáticas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de radiadores antiguos (si los hay)",
+          "descripcion": "Desmontaje, desconexión hidráulica y retirada de 4 radiadores antiguos + tuberías asociadas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir tarifa horaria (estimado 0.5-1h por radiador) o precio alzado según situación"
+        },
+        {
+          "concepto": "Suministro e instalación de radiadores de agua caliente",
+          "descripcion": "4 radiadores de aluminio/acero, potencia según cálculo térmico, con conexiones inferiores, válvulas de corte, purgadores y soportes",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio radiador (40-300€/ud según potencia kW). Instalador valida especificaciones y potencia térmica necesaria por habitación"
+        },
+        {
+          "concepto": "Suministro de tubería de cobre",
+          "descripcion": "Tubo de cobre duro o semiduro (según norma), diámetros 10-22 mm según cálculo, incluyendo merma 15%",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de tubería variable según planos. Instalador confirma metraje (50-200 ml estimado). Precio: 8-25€/ml según diámetro"
+        },
+        {
+          "concepto": "Instalación de red de tubería de cobre",
+          "descripcion": "Corte, curvado, soldadura por capilaridad con estaño sin plomo, colocación en rozas/pasos de muro, fijación con abrazaderas, prueba de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 8-16 horas según longitud total y complejidad de trazado (rozas, obstáculos). Instalador ajusta según planos"
+        },
+        {
+          "concepto": "Suministro de válvulas termostáticas",
+          "descripcion": "4 válvulas termostáticas de radiador (roscadas M30x1.5), con cabezal y sensor de temperatura integrado",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario válvula termostática: 15-80€/ud según marca y precisión"
+        },
+        {
+          "concepto": "Instalación de válvulas termostáticas",
+          "descripcion": "Montaje de válvulas termostáticas en entrada de radiadores, conexión y calibración de temperatura de consigna",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 25,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de accesorios y pequeño material",
+          "descripcion": "Racores de cobre, codos, manguitos, acoples, teflón, pasta de soldar, purgadores manuales, llaves de corte individuales por radiador, tornillos, tacos, bridas de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 80-200€ lote según cantidades finales de accesorios"
+        },
+        {
+          "concepto": "Trabajos en obra civil (rozas, revestimiento)",
+          "descripcion": "Apertura/reapertura de rozas en muros para paso de tubería, revestimiento posterior con mortero, patinado o pintura si aplica",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 4-8 horas si rozas no existen. Ajustar según estado de muros y longitud total"
+        },
+        {
+          "concepto": "Prueba de estanqueidad, purga y puesta en marcha",
+          "descripcion": "Llenado del circuito, purga de aire en radiadores y válvulas termostáticas, prueba de presión, regulación de caudales y equilibrado",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si existe caldera/bomba de circulación instalada. Si no, presupuestar por separado (fuera de este trabajo).",
+        "Validar si hay sistema de expansión y purgadores automáticos en circuito principal.",
+        "Considerar incluir termostato ambiente o programador si las válvulas termostáticas requieren control centralizado.",
+        "Solicitar planos/medidas exactas para cuantificar tubería de cobre (ml) y horas mano de obra."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desmontaje de radiadores antiguos",
+          "oficio": "fontaneria",
+          "razon": "Operación previa común en reformas, cantidad variable según situación existente"
+        },
+        {
+          "concepto": "Trabajos de obra civil en rozas",
+          "oficio": "albanileria",
+          "razon": "Necesaria para paso de tuberías en fachadas interiores, variable según distribución"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_solar_termica_para_piscina",
+      "instalacion_suelo_radiante_hidraulico",
+      "reparacion_averia_caldera_gas",
+      "sustitucion_tuberia_multicapa",
+      "instalacion_calentador_gas_instantaneo"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

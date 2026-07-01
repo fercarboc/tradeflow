@@ -1,0 +1,209 @@
+{
+  "id": 41,
+  "oficio": "Carpintería",
+  "texto": "Quiero una puerta corredera de madera maciza para separar el salón del pasillo",
+  "http_status": 200,
+  "latency_ms": 19393,
+  "raw_response": {
+    "transcript": "Quiero una puerta corredera de madera maciza para separar el salón del pasillo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Quiero una puerta corredera de madera maciza para separar el salón del pasillo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Se requiere medición exacta del hueco (ancho y alto) para determinar cantidad de hojas y sistema de guías",
+          "Es necesario confirmar si la estructura soporta el sistema corredera (pared de carga o refuerzo)",
+          "Precio unitario de materiales pendiente de revisión: especificar tipo de madera, acabado y herraje corredera"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación e instalación de puerta de madera con sistema corredera interior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Hoja puerta corredera madera maciza",
+          "descripcion": "Hoja puerta corredera de madera maciza con tratamiento interior, acabado según especificación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo de madera, espesor (35-45mm típico) y acabado (barniz/esmalte). Confirmar medidas exactas del hueco"
+        },
+        {
+          "concepto": "Marco y refuerzos estructura corredera",
+          "descripcion": "Marco superior para anclaje de guía de acero, refuerzos laterales y apertura de paso en pared si es necesario",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según sistema corredera (carril superior/inferior, rodillos, tope final). Evaluar si requiere refuerzo estructural"
+        },
+        {
+          "concepto": "Sistema herraje corredera (guías, rodillos, topes)",
+          "descripcion": "Carril acero superior e inferior, rodillos con cojinetes de precisión, topes de cierre, amortiguadores suave",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema de calidad recomendado para uso residencial continuado. Precios: 150-400€ según marca y robustez"
+        },
+        {
+          "concepto": "Tirador/manilla puerta corredera",
+          "descripcion": "Tirador de acero inoxidable, aluminio o madera integrada en hoja",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según material y acabado: 20-150€"
+        },
+        {
+          "concepto": "Topes finales y tapajuntas laterales",
+          "descripcion": "Tope de cierre final, tapajuntas lateral en madera o aluminio para acabado perimetral",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material de acabado. Precio estimado 30-80€"
+        },
+        {
+          "concepto": "Preparación hueco y apertura paso si necesario",
+          "descripcion": "Demolición parcial si existe puerta interior anterior, apertura de paso en pared, nivelación y preparación superficie para instalación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación inicial. Puede variar según necesidad de refuerzo estructural o demolición. Confirmar in situ"
+        },
+        {
+          "concepto": "Fabricación hoja y estructura (taller)",
+          "descripcion": "Fabricación personalizada de hoja según medidas exactas del hueco, ensamble marcos y pruebas",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo en taller: corte, ensamble, acabado. Puede ser 4-8h según complejidad"
+        },
+        {
+          "concepto": "Instalación sistema corredera y ajustes",
+          "descripcion": "Colocación carril superior/inferior, instalación rodillos, fijación marcos, nivelación, pruebas funcionamiento y ajustes finales",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalación en obra: montaje guías, colocación hoja, ajustes precisión. Típico 3-5h"
+        },
+        {
+          "concepto": "Acabado y retoque pintura/barniz",
+          "descripcion": "Retoque de acabado en puntos de corte, lijado fino, aplicación barniz/esmalte final si es necesario",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 675,
+        "iva_porcentaje": 21,
+        "iva": 141.75,
+        "total": 816.75
+      },
+      "sugerencias_catalogo": [
+        "Confirmar medidas exactas del hueco (ancho × alto) antes de presupuesto final",
+        "Especificar tipo de madera: roble, nogal, haya, pino o madera técnica (maciza o chapada)",
+        "Indicar acabado: barniz transparente, tinte, esmalte mate/satinado, lacado",
+        "Definir sistema corredera: carril superior solo (más moderno) o carril superior + inferior (más robusto)",
+        "Evaluar si la pared soporta anclaje sin refuerzos o si requiere refuerzo estructural",
+        "Considerar espejo o cristal decorativo en hoja si se desea",
+        "Presupuesto de MATERIALES actualmente en 0€: instalar debe introducir precios reales tras medición y especificación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hoja puerta corredera madera maciza",
+          "motivo": "No existe en catálogo variante específica 'puerta corredera interior madera'. Base Maestra cubre puertas de armario correderas y puertas exteriores, pero no puertas interiores correderas de paso",
+          "oficio": "carpinteria",
+          "tipo_presupuesto_ideal": "material + mano_obra"
+        },
+        {
+          "concepto": "Sistema herraje corredera interior",
+          "motivo": "Sistemas de guía para correderas interiores son menos específicos que para armarios. Requiere selección de marca y modelo comercial",
+          "oficio": "carpinteria",
+          "tipo_presupuesto_ideal": "material"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_vidrio_en_puerta_interior",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "instalacion_puerta_de_madera_para_bano_o_zona_humedad"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

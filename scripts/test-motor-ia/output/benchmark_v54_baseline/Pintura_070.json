@@ -1,0 +1,163 @@
+{
+  "id": 70,
+  "oficio": "Pintura",
+  "texto": "Repintar portería del edificio, zona de buzones y escalera hasta el primer piso",
+  "http_status": 200,
+  "latency_ms": 16904,
+  "raw_response": {
+    "transcript": "Repintar portería del edificio, zona de buzones y escalera hasta el primer piso",
+    "quote": {
+      "resumen": {
+        "texto_original": "Repintar portería del edificio, zona de buzones y escalera hasta el primer piso",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda medir superficie exacta (m²) de portería, zona buzones y escalera para ajustar cantidades",
+          "Verificar estado actual: grietas, humedad, moho que requieran masilla o tratamiento previo",
+          "Confirmar tipo de pintura: plástica mate interior vs. esmalte en zonas de mayor tráfico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Repintado de zonas comunitarias interiores (portería, buzones, escalera)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Imprimación fijadora en portería, buzones y escalera",
+          "descripcion": "Aplicación de imprimación fijadora en paredes y techo de portería, zona de buzones y escalera hasta primer piso. Preparación de superficies.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 4,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe ser medida por el instalador en obra"
+        },
+        {
+          "concepto": "Pintura plástica mate interior en portería, buzones y escalera",
+          "descripcion": "Aplicación de pintura plástica mate interior en 2 manos en paredes y techo de portería, zona de buzones y escalera hasta primer piso.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 6,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe ser medida por el instalador en obra"
+        },
+        {
+          "concepto": "Masilla de reparación y lijado de paredes",
+          "descripcion": "Reparación de grietas, agujeros y defectos en paredes y techo. Lijado fino previo a pintura.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de trabajo a estimar según estado actual de superficies"
+        },
+        {
+          "concepto": "Protección y cinta carrocero",
+          "descripcion": "Colocación de plástico de protección en suelos, buzones y elementos fijos. Cinta carrocero en molduras y encuentros.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales (plástico, cinta) a confirmar por instalador"
+        },
+        {
+          "concepto": "Andamio o escalera telescópica para acceso a zonas altas",
+          "descripcion": "Alquiler o uso de escalera telescópica/andamio para acceso seguro a techo y zonas altas de escalera.",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de alquiler/disponibilidad a confirmar según duración obra"
+        },
+        {
+          "concepto": "Pequeño material (pinceles, rodillos, trapos, disolvente)",
+          "descripcion": "Consumibles: pinceles, rodillos, trapos, disolvente, papel de lija, etc.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de consumibles a confirmar por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Medir superficie total en m² (portería + buzones + escalera hasta 1er piso) para calcular mano de obra de imprimación y pintura",
+        "Estimar horas de masilla/lijado según estado actual de paredes (grietas, humedad, moho)",
+        "Confirmar si hay elementos metálicos (barandillas, puertas) que requieran esmalte en lugar de plástica mate",
+        "Verificar accesibilidad: ¿se necesita andamio o escalera telescópica? ¿Altura máxima a pintar?"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Andamio o escalera telescópica para acceso a zonas altas",
+          "oficio": "pintura",
+          "motivo": "Servicio auxiliar no incluido en tarifa base de pintura"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_chapas_y_numeros_en_puertas_o_buzon",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "pintura_de_escalera_comunitaria_completa",
+      "instalacion_de_pavimento_o_suelo_de_vidrio_o_cristal",
+      "tabique_pladur_para_caja_escalera_comunitaria"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3706,
+      "tokens_out": 2150
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

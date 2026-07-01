@@ -1,0 +1,161 @@
+{
+  "id": 215,
+  "oficio": "Jardinería",
+  "texto": "Reparar sistema de riego automático que ha dejado de funcionar, cambio de electroválvulas",
+  "http_status": 200,
+  "latency_ms": 12841,
+  "raw_response": {
+    "transcript": "Reparar sistema de riego automático que ha dejado de funcionar, cambio de electroválvulas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar sistema de riego automático que ha dejado de funcionar, cambio de electroválvulas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere diagnóstico previo para confirmar que la avería es en las electroválvulas",
+          "Material (electroválvulas) pendiente de especificación y precio del instalador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Mantenimiento y reparación de sistema de riego automático"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico de avería en sistema de riego automático",
+          "descripcion": "Inspección completa del sistema (programador, valvulas, tuberías, aspersores) para identificar la causa del fallo",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 25,
+          "total": 37.5,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje de electroválvulas averiadas",
+          "descripcion": "Desconexión y extracción de electroválvulas del sistema de riego",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 25,
+          "total": 25,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de electroválvulas de reemplazo",
+          "descripcion": "Electroválvulas de riego automático (cantidad y especificaciones a determinar por el instalador según número de zonas del sistema)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pendiente de especificación (número de válvulas) y precio según fabricante y modelo"
+        },
+        {
+          "concepto": "Instalación de electroválvulas de reemplazo",
+          "descripcion": "Montaje, conexión hidráulica y eléctrica de nuevas electroválvulas al sistema",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 25,
+          "total": 37.5,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y ajustes",
+          "descripcion": "Revisión completa del sistema, prueba de cada zona de riego, verificación de presión y caudal, ajuste de programador si es necesario",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 25,
+          "total": 25,
+          "precio_origen": "tarifa_catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Cinta de teflón, abrazaderas, conectores, juntas, herramientas menor cuantía",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles accesorios a valorar según cantidad real utilizada"
+        }
+      ],
+      "calculos": {
+        "subtotal": 125,
+        "iva_porcentaje": 21,
+        "iva": 26.25,
+        "total": 151.25
+      },
+      "sugerencias_catalogo": [
+        "Confirmar el número de electroválvulas a sustituir (pueden ser 1 o varias según zonas del sistema)",
+        "Especificar voltaje (24V AC típicamente en sistemas automáticos) y caudal de las válvulas",
+        "Verificar si es necesario revisar/cambiar filtro de riego durante la intervención",
+        "Considerar cambio de batería del programador si lleva más de 1-2 años sin sustituir"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de electroválvulas de reemplazo",
+          "razon": "Material específico cuya cantidad y precio depende de especificaciones técnicas del cliente",
+          "recomendacion": "El instalador debe indicar: número de válvulas, voltaje, caudal, modelo/fabricante y precio unitario"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "razon": "Accesorios variados según montaje concreto",
+          "recomendacion": "Valorar importes de conexiones, teflón, juntas según necesidades reales del trabajo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_y_reparacion_de_sistema_de_riego",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "instalacion_sistema_de_riego_por_aspersion",
+      "instalacion_sistema_de_riego_por_goteo",
+      "instalacion_riego_automatico"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

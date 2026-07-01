@@ -1,0 +1,189 @@
+{
+  "id": 317,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+  "http_status": 200,
+  "latency_ms": 24229,
+  "raw_response": {
+    "transcript": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Trabajo de contra_incendios en instalación hospitalaria. Requiere cumplimiento normativa UNE-EN 671-1 (mangueras BIE) y certificación de instalador autorizado.",
+          "CRÍTICO: No se especifica número de plantas ni puntos exactos. Presupuesto estimado, requiere levantamiento de campo.",
+          "CRÍTICO: Instalación en hospital requiere coordinación con dirección técnica y posible parada de servicios.",
+          "Manguera de primera intervención = BIE (Boca de Incendio Equipada). Oficio: contra_incendios (NO fontanería)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Instalación de BIE (Boca de Incendio Equipada) es sistema de protección contra incendios. Aunque implica fontanería (agua), la naturaleza del sistema es contraincendios → contra_incendios (prioridad estricta)."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión de red de agua a puntos de BIE. Trabajo auxiliar de fontanería."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación BIE 25mm (manguera primera intervención)",
+          "descripcion": "Boca de Incendio Equipada 25mm con manguera semirrígida, válvula de cierre, manómetro, lanza y accesorios según UNE-EN 671-1. Incluye caja de empotrar/sobreponer, señalización y pequeño material.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de plantas y puntos no especificado. Instalador debe confirmar cantidad de BIE. Precio unitario BIE 25mm: 180-350€/ud (material). Requiere presupuesto detallado por planta."
+        },
+        {
+          "concepto": "Instalación BIE por unidad (conexión, pruebas, certificación)",
+          "descripcion": "Mano de obra: conexión a red de agua, fijación a pared, prueba de presión, prueba de funcionamiento, etiquetado y certificación según normativa. Incluye coordinación con dirección técnica del hospital.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de BIE pendiente. Tiempo estimado: 2-3 horas/BIE (conexión + pruebas + certificación). Tarifa: 55€/h recomendado contra_incendios."
+        },
+        {
+          "concepto": "Red de distribución de agua para BIE (tuberías y accesorios)",
+          "descripcion": "Tuberías de cobre o acero galvanizado DN25, válvulas de corte, válvulas reductoras de presión, manómetros, soportes y pequeño material. Cálculo: longitud total según levantamiento de campo.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de red no especificada. Presupuesto estimado: 35-65€/ml (material + accesorios). Requiere plano de distribución."
+        },
+        {
+          "concepto": "Instalación red de distribución agua para BIE (mano de obra)",
+          "descripcion": "Mano de obra: tendido de tuberías, fijaciones, conexiones, prueba de presión, purgado de aire. Incluye coordinación con servicios técnicos del hospital.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud pendiente. Tarifa: 50€/h. Tiempo estimado: 0.5-1h/ml según complejidad y accesibilidad en hospital."
+        },
+        {
+          "concepto": "Pruebas de presión, caudal y certificación de instalación",
+          "descripcion": "Prueba de presión a 1.5 veces presión nominal, prueba de caudal mínimo 60 l/min, inspección visual, documentación técnica y certificado de conformidad según UNE-EN 671-1.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de pruebas y certificación. Presupuesto estimado: 300-600€/jornada (incluye técnico especializado + equipos de medición). Obligatorio para hospital."
+        },
+        {
+          "concepto": "Señalización, planos y documentación técnica",
+          "descripcion": "Señalización de BIE (placas, pictogramas luminosos), planos as-built, manual de mantenimiento, registro de instalación y entrega de documentación a dirección técnica del hospital.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado: 200-400€ (señalización + documentación). Obligatorio en instalación hospitalaria."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "INFORMACIÓN CRÍTICA: Manguera de primera intervención = BIE (Boca de Incendio Equipada). Normativa aplicable: UNE-EN 671-1 (especificaciones técnicas), RD 513/2017 (instalaciones de protección contra incendios), Código Técnico de la Edificación (CTE).",
+        "RECOMENDACIÓN: Solicitar al hospital: (1) Número exacto de plantas, (2) Número de BIE por planta, (3) Plano de distribución de red de agua existente, (4) Presión disponible en acometida, (5) Certificado de instalador autorizado en contraincendios.",
+        "PRESUPUESTO ESTIMADO (referencia para 1 BIE): Material BIE 250€ + Instalación 150€ (3h × 55€/h) + Red distribución 500€ (material + mano de obra) + Pruebas 400€ + Documentación 300€ = ~1.600€/BIE. Multiplicar por número de plantas.",
+        "ALTERNATIVA: Si el hospital requiere sistema de BIE con válvula de seccionamiento automática (más segura), presupuesto +15-20%.",
+        "COORDINACIÓN: Trabajo en hospital requiere: (1) Autorización de dirección técnica, (2) Horario fuera de servicios críticos, (3) Seguridad en obra (EPP, señalización), (4) Inspección final por organismo de control."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación BIE 25mm",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Producto específico de contraincendios. Cantidad y precio unitario pendiente de confirmación del instalador."
+        },
+        {
+          "concepto": "Red de distribución agua para BIE",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Longitud de red no especificada. Requiere levantamiento de campo y plano de distribución."
+        },
+        {
+          "concepto": "Pruebas de presión y certificación",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio obligatorio en instalación de BIE. Requiere técnico especializado y equipos de medición."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toma_agua_nueva",
+      "instalacion_osmosis_inversa",
+      "sustitucion_desague_lavadora",
+      "instalacion_grifo_exterior_jardin",
+      "instalacion_fontaneria_cocina_completa"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3213,
+      "tokens_out": 3232
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

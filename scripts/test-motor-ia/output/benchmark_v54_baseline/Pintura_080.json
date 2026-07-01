@@ -1,0 +1,187 @@
+{
+  "id": 80,
+  "oficio": "Pintura",
+  "texto": "Pintar escalera de caracol de hierro, imprimación y dos manos de esmalte negro forja",
+  "http_status": 200,
+  "latency_ms": 12096,
+  "raw_response": {
+    "transcript": "Pintar escalera de caracol de hierro, imprimación y dos manos de esmalte negro forja",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar escalera de caracol de hierro, imprimación y dos manos de esmalte negro forja",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura de estructura metálica (escalera hierro) con esmalte y tratamiento antioxidante"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desengrasante y limpieza de escalera de hierro",
+          "descripcion": "Limpieza, desengrase y preparación de superficie metálica de escalera de caracol",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material desengrasante y pequeño material de limpieza - precio a definir por instalador"
+        },
+        {
+          "concepto": "Lijado y preparación superficie metálica",
+          "descripcion": "Lijado mecánico con lija metálica (grano 80-120) de toda la estructura de hierro para eliminar óxido y rugosidad",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación antioxido",
+          "descripcion": "Aplicación de imprimación antioxidante de calidad industrial en escalera de caracol de hierro",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Imprimación antioxido para hierro - cantidad y precio a definir por instalador"
+        },
+        {
+          "concepto": "Aplicación imprimación antioxido",
+          "descripcion": "Mano de obra para aplicación de imprimación antioxidante con pincel y rodillo pequeño",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Esmalte negro forja (2 manos)",
+          "descripcion": "Esmalte sintético negro forja de acabado satinado o brillante para estructura metálica - dos manos de aplicación",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Esmalte negro forja de calidad industrial - cantidad y precio a definir por instalador según marca y acabado"
+        },
+        {
+          "concepto": "Aplicación esmalte negro forja (2 manos)",
+          "descripcion": "Mano de obra para aplicación de dos manos de esmalte negro forja con pincel fino y rodillo pequeño, incluyendo lijado entre manos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 32,
+          "total": 128,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y protecciones",
+          "descripcion": "Cinta carrocero, plástico de protección, trapos, brochas, rodillos pequeños y material auxiliar",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y consumibles - precio a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 288,
+        "iva_porcentaje": 21,
+        "iva": 60.48,
+        "total": 348.48
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la escalera requiere tratamiento convertidor de óxido previo (si hay oxidación importante)",
+        "Confirmar si se incluye protección de zonas adyacentes (paredes, suelo)",
+        "Especificar acabado del esmalte: satinado o brillante"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desengrasante y limpieza de escalera de hierro",
+          "origen": "sugerida_ia",
+          "razon": "Material específico para preparación de superficie metálica"
+        },
+        {
+          "concepto": "Imprimación antioxido",
+          "origen": "sugerida_ia",
+          "razon": "Material específico para tratamiento antioxidante"
+        },
+        {
+          "concepto": "Esmalte negro forja (2 manos)",
+          "origen": "sugerida_ia",
+          "razon": "Material específico de acabado final"
+        },
+        {
+          "concepto": "Pequeño material y protecciones",
+          "origen": "sugerida_ia",
+          "razon": "Consumibles y material auxiliar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_pasamanos_y_barandillas_interior",
+      "instalacion_barandilla_metalica_de_escalera_interior",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "pintura_esmalte_carpinteria_madera_interior"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3603,
+      "tokens_out": 1818
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

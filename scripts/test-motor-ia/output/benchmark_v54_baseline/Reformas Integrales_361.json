@@ -1,0 +1,202 @@
+{
+  "id": 361,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+  "http_status": 200,
+  "latency_ms": 20724,
+  "raw_response": {
+    "transcript": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: múltiples oficios simultáneos (albanilería, suelos, cocina, posiblemente electricidad y fontanería)",
+          "Presupuesto agrupado en 4 capítulos según complejidad de reforma integral",
+          "Cada capítulo requiere revisión de precios por el instalador",
+          "Se recomienda solicitar plano/croquis para validar distribución final y necesidades de instalaciones"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma completa con ≥3 oficios: demolición, obra civil, suelos, cocina, acabados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición de tabiques, preparación de suelos"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Colocación de suelo nuevo en 80 m²"
+        },
+        {
+          "oficio": "cocina_amueblada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Actualización/instalación de cocina"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Probable necesidad de adaptación de instalación eléctrica en reforma integral"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Probable necesidad de adaptación de instalación de agua en reforma integral"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición, vaciado y obra civil",
+          "descripcion": "Demolición selectiva de tabiques a quitar, vaciado de escombros, preparación de suelo, retirada de revestimientos existentes, limpieza y nivelación de base para nuevo suelo en 80 m²",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 35,
+          "total": 2800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado según complejidad de demolición y preparación. Revisar según número de tabiques, estado de suelo existente y accesibilidad"
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización)",
+          "descripcion": "Adaptación/renovación de instalación eléctrica (circuitos, tomas, interruptores), fontanería (tuberías agua fría/caliente, desagües), posible climatización según necesidad. Incluye pequeño material y coordinación de gremios",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Instalador debe desglosar: electricidad (boletín REBT obligatorio), fontanería (tuberías, grifería), climatización si aplica. Rango típico: 3000-8000€ según alcance"
+        },
+        {
+          "concepto": "CAP.3 – Acabados (suelos, cocina, pintura, carpintería)",
+          "descripcion": "Colocación de suelo nuevo en 80 m² (baldosa, parquet o laminado según especificación), instalación de cocina actualizada (muebles, electrodomésticos, encimera, grifería), pintura general de paredes y techo, carpintería interior (puertas, molduras)",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Desglosar: suelos (32€/m² mano obra + material), cocina (muebles + instalación), pintura (32€/h), carpintería (45€/h). Rango típico: 8000-15000€"
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos, permisos y coordinación",
+          "descripcion": "Contenedor de escombros, gestión selectiva de residuos, licencia de obras (si aplica según municipio), coordinación de gremios, pequeño material y herramientas",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Incluir: contenedor (500-1500€), licencia obras (consultar municipio), coordinación. Rango típico: 1500-3000€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2800,
+        "iva_porcentaje": 21,
+        "iva": 588,
+        "total": 3388
+      },
+      "sugerencias_catalogo": [
+        "IMPORTANTE: Este presupuesto es ESTRUCTURA BASE. Los capítulos 2, 3 y 4 requieren desglose detallado por el instalador",
+        "Solicitar al cliente: especificación de tipo de suelo (baldosa, parquet, laminado), marca/modelo de cocina, acabados de pintura, número de puertas interiores",
+        "Validar con cliente: ¿Se incluye cambio de ventanas? ¿Aire acondicionado? ¿Domótica? ¿Cambio de puertas de acceso?",
+        "Consultar municipio: licencia de obras mayor/menor según superficie y alcance de demoliciones",
+        "Recomendación: Elaborar plano de distribución final para validar necesidades de instalaciones y presupuestar con precisión"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Instalaciones (electricidad, fontanería, climatización)",
+          "oficio": "reforma_integral",
+          "motivo": "Reforma integral requiere coordinación de múltiples instalaciones. Desglose pendiente de revisión"
+        },
+        {
+          "concepto": "Acabados (suelos, cocina, pintura, carpintería)",
+          "oficio": "reforma_integral",
+          "motivo": "Agrupación de múltiples acabados. Desglose pendiente de revisión"
+        },
+        {
+          "concepto": "Gestión de residuos y permisos",
+          "oficio": "reforma_integral",
+          "motivo": "Servicios complementarios de reforma integral. Desglose pendiente de revisión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_completo_cocina",
+      "renovacion_de_instalacion_electrica_completa_en_vivienda",
+      "reforma_integral_vivienda_completa",
+      "tabique_pladur_en_rehabilitacion_edificio_existente",
+      "alicatado_y_solado_de_bano_completo"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3961,
+      "tokens_out": 2775
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

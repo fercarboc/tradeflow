@@ -1,0 +1,198 @@
+{
+  "id": 151,
+  "oficio": "Pladur",
+  "texto": "Instalar tablero de pladur hidrófugo verde en baño para sustituir tabique de ladrillo",
+  "http_status": 200,
+  "latency_ms": 20222,
+  "raw_response": {
+    "transcript": "Instalar tablero de pladur hidrófugo verde en baño para sustituir tabique de ladrillo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar tablero de pladur hidrófugo verde en baño para sustituir tabique de ladrillo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se interpreta como sustitución de tabique completo (desmontaje ladrillo + nueva estructura pladur)",
+          "Zona húmeda (baño): obligatorio placa hidrófuga verde y impermeabilizante",
+          "Requiere validación de dimensiones (m² de pared) para completar presupuesto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Instalación estructura y placa pladur hidrófugo en zona húmeda (baño)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Desmontaje y retirada de tabique de ladrillo existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada tabique ladrillo",
+          "descripcion": "Demolición completa de tabique de ladrillo existente, incluyendo retirada de escombros y limpieza de zona",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Falta indicar m² de tabique a derribar. Tarifa orientativa: 15-25€/m² según grosor ladrillo y accesibilidad"
+        },
+        {
+          "concepto": "Estructura metálica pladur (perfiles UW/CW galvanizados)",
+          "descripcion": "Suministro e instalación de perfiles canal (UW) y montantes (CW) galvanizados 48/70mm para estructura en zona húmeda de baño",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material_y_mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye perfiles galvanizados, tornillería inox y pequeño material. Falta m² exacto. Estimativo: 8-12€/m² material + 5-8h instalación por cada 10m² de tabique"
+        },
+        {
+          "concepto": "Placa yeso hidrófugo verde 15mm",
+          "descripcion": "Suministro placa yeso laminado hidrófugo (verde) espesor 15mm, especial zonas húmedas baño",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Placa hidrófuga obligatoria en baño. Precio material: 6-10€/m². Falta m² total (una o dos caras)"
+        },
+        {
+          "concepto": "Colocación placa pladur hidrófugo",
+          "descripcion": "Instalación y fijación de placa hidrófugo verde 15mm a estructura metálica con tornillería inox",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estándar pladur. Falta m² exacto. Incluye colocación, tornillería y pequeño material"
+        },
+        {
+          "concepto": "Tratamiento de juntas (cinta + pasta hidrófuga)",
+          "descripcion": "Aplicación cinta papel en juntas perimetrales y entre placas + pasta de juntas hidrófuga (mínimo 2-3 manos) con acabado liso",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material_y_mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio en zona húmeda. Material (cinta + pasta hidrófuga): 2-4€/m². Mano de obra: 4-6h por cada 10m² de junta"
+        },
+        {
+          "concepto": "Membrana impermeabilizante líquida (si aplicable para ducha/bañera)",
+          "descripcion": "Suministro e aplicación membrana impermeabilizante líquida sobre placa (si zona de ducha o bañera adyacente al tabique)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material_y_mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Recomendable si tabique está junto a ducha/bañera. Material: 8-15€/m². Aplicación: 2-3h por cada 10m²"
+        },
+        {
+          "concepto": "Banda estanca perimetral",
+          "descripcion": "Instalación banda selladora estanca en base del tabique (encuentro suelo) y remates superiores para evitar filtraciones de agua",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material_y_mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatoria en baño. Material: 3-5€/ml. Colocación: 1-2h por cada 10-15ml"
+        },
+        {
+          "concepto": "Ángulo metálico reforzado esquinas",
+          "descripcion": "Suministro e instalación ángulo metálico perforado (cubre-juntas) en esquinas y aristas para protección y acabado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material_y_mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado según número de esquinas/aristas. Material: 1-2€/ud. Colocación: 0,5-1h por cada 4-5 unidades"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al instalador: dimensiones exactas del tabique (metros lineales × altura en m²)",
+        "Aclarar si incluye una o dos caras (cara única o revestimiento completo)",
+        "Confirmar si hay zona de ducha/bañera adyacente (para aplicar impermeabilizante líquido)",
+        "Especificar acabado final deseado (liso, listo para pintar, u otro)"
+      ],
+      "partidas_nuevas_detectadas": [
+        "Desmontaje y retirada tabique ladrillo (origen: sugerida_ia, albanileria)",
+        "Estructura metálica pladur perfiles galvanizados (origen: sugerida_ia, pladur_escayola)",
+        "Placa yeso hidrófugo verde 15mm (origen: sugerida_ia, pladur_escayola)",
+        "Tratamiento de juntas con pasta hidrófuga (origen: sugerida_ia, pladur_escayola)",
+        "Membrana impermeabilizante líquida (origen: sugerida_ia, pladur_escayola)",
+        "Banda estanca perimetral (origen: sugerida_ia, pladur_escayola)",
+        "Ángulo metálico reforzado esquinas (origen: sugerida_ia, pladur_escayola)"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "instalacion_de_marcos_de_puertas_en_pared_de_pladur",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

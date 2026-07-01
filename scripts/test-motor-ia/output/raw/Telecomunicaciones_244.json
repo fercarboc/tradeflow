@@ -1,0 +1,177 @@
+{
+  "id": 244,
+  "oficio": "Telecomunicaciones",
+  "texto": "Pasar cable de red ethernet categoría 6 por 5 despachos de oficina, instalación en canaleta",
+  "http_status": 200,
+  "latency_ms": 18796,
+  "raw_response": {
+    "transcript": "Pasar cable de red ethernet categoría 6 por 5 despachos de oficina, instalación en canaleta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pasar cable de red ethernet categoría 6 por 5 despachos de oficina, instalación en canaleta",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume 1 punto de red RJ45 por despacho (5 total). Si requiere más puntos, ajustar cantidad.",
+          "Longitud de cable estimada: se recomienda medir in situ. Presupuesto asume distribución estándar.",
+          "Canaleta: se presupuesta material + instalación. Confirmar tipo (PVC, aluminio) y dimensiones."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de red de datos ethernet en oficina, cableado estructurado, rosetas RJ45, canaleta."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cable UTP Cat.6 para red ethernet",
+          "descripcion": "Suministro de cable UTP categoría 6 (305 m estimados para 5 despachos con distribución en canaleta, incluyendo tramos de conexión y reserva)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "m",
+          "cantidad": 305,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar metraje exacto in situ y precio de cable UTP Cat.6 (típicamente 0.15-0.35€/m)"
+        },
+        {
+          "concepto": "Rosetas RJ45 Cat.6 con cajas de empotrar",
+          "descripcion": "Suministro e instalación de 5 rosetas RJ45 categoría 6 con cajas de empotrar en pared para 5 despachos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: roseta RJ45 + caja empotrar (típicamente 8-15€/ud)"
+        },
+        {
+          "concepto": "Canaleta PVC para paso de cables",
+          "descripcion": "Suministro de canaleta PVC (40x25 mm estimado) para distribución de cable ethernet en oficina, incluyendo accesorios (esquinas, derivaciones, tapas)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "m",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: canaleta PVC + accesorios (típicamente 3-8€/m según dimensión)"
+        },
+        {
+          "concepto": "Instalación de canaleta y paso de cable",
+          "descripcion": "Mano de obra: fijación de canaleta a pared/techo, paso de cable UTP Cat.6 por canaleta, conexión en rosetas RJ45, cierre de canaleta",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Certificación y pruebas de red Cat.6",
+          "descripcion": "Certificación de cada punto de red RJ45 con probador Cat.6, verificación de continuidad, velocidad y cumplimiento de norma. Generación de informe de certificación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio: certificación por punto (típicamente 20-40€/punto o incluido en mano de obra)"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Bridas, cinta aislante, conectores, etiquetado de cables, tornillería y otros accesorios menores",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pequeño material (típicamente 30-60€ para este tipo de instalación)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Referencia: [instalacion_red_datos_ethernet_en_oficina_o_empresa] — precio base 25-90€/punto de red. Este presupuesto incluye 5 puntos + canaleta.",
+        "Considerar si se necesita switch o router centralizado para conectar los 5 despachos (no incluido en este presupuesto).",
+        "Si la distancia entre despachos supera 100 m en un solo segmento, considerar repetidor o switch intermedio."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable UTP Cat.6",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de suministro, precio pendiente de confirmación del instalador"
+        },
+        {
+          "concepto": "Rosetas RJ45 Cat.6 con cajas",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de suministro, precio pendiente de confirmación del instalador"
+        },
+        {
+          "concepto": "Canaleta PVC",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de suministro, precio pendiente de confirmación del instalador"
+        },
+        {
+          "concepto": "Certificación y pruebas Cat.6",
+          "oficio": "telecomunicaciones",
+          "motivo": "Servicio técnico, precio pendiente de confirmación del instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toma_red_ethernet_cat6",
+      "colocacion_rodapie_de_madera_con_instalacion_cables",
+      "instalacion_red_datos_ethernet_cat6_en_vivienda",
+      "instalacion_red_datos_ethernet_en_oficina_o_empresa",
+      "instalacion_circuito_exclusivo_cocina"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3922,
+      "tokens_out": 2276
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

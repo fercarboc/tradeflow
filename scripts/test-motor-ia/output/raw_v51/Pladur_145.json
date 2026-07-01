@@ -1,0 +1,128 @@
+{
+  "id": 145,
+  "oficio": "Pladur",
+  "texto": "Reparar agujero en tabique de pladur del pasillo, diámetro 20 centímetros, dejar listo para pintar",
+  "http_status": 200,
+  "latency_ms": 12026,
+  "raw_response": {
+    "transcript": "Reparar agujero en tabique de pladur del pasillo, diámetro 20 centímetros, dejar listo para pintar",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar agujero en tabique de pladur del pasillo, diámetro 20 centímetros, dejar listo para pintar",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Reparación de agujero en placa de yeso laminado con acabado para pintar"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Imprimación sobre yeso nuevo reparado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Reparación agujero grande en pladur (20 cm diámetro)",
+          "descripcion": "Reparación de agujero de 20 cm de diámetro en placa de yeso laminado. Incluye: extracción de bordes dañados, colocación de trozo de placa de yeso como parche, sujeción con tornillería, aplicación de cinta de papel en juntas, dos manos de pasta de juntas con secado entre manos, lijado fino (grano 120 y 220), pequeño material.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales: trozo placa yeso, cinta juntas, pasta juntas, tornillería",
+          "descripcion": "Suministro de materiales para reparación: trozo placa de yeso 15 mm (aprox. 0,3 m²), cinta papel juntas, pasta de juntas flexible (secado químico), tornillería tornillos-pladur, pequeño material (espátulas, lijador manual, etc.)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe introducir precio de materiales según proveedor"
+        },
+        {
+          "concepto": "Imprimación especial sobre yeso nuevo reparado",
+          "descripcion": "Aplicación de imprimación fijadora (acrílica o poliuretano) sobre zona reparada (aprox. 0,3 m²). Preparación de superficie, aplicación con rodillo de pelo corto. Asegura adherencia óptima de pintura final.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0.3,
+          "precio_unitario": 12,
+          "total": 3.6,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación fijadora (material)",
+          "descripcion": "Imprimación acrílica o poliuretano para fijar yeso nuevo. Rendimiento aproximado 12-15 m²/litro. Cantidad estimada: 0,05 litros.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0.05,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe introducir precio de imprimación según marca y tipo seleccionado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 58.6,
+        "iva_porcentaje": 21,
+        "iva": 12.31,
+        "total": 70.91
+      },
+      "sugerencias_catalogo": [
+        "Agujero de 20 cm de diámetro se considera 'grande' según Base Maestra. Reparación con parche de placa yeso + pastas y lijado está cubierta en actuación [reparacion_golpe_o_agujero_en_pladur].",
+        "Se ha incluido imprimación obligatoria [imprimacion_especial_sobre_yeso_nuevo] para garantizar acabado de calidad antes de pintura final del cliente."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "reparacion_fisura_en_tabique_pladur",
+      "remate_y_acabado_juntas_pladur_para_pintar",
+      "reparacion_golpe_o_agujero_en_pladur",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "imprimacion_especial_sobre_yeso_nuevo"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

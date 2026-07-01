@@ -1,0 +1,205 @@
+{
+  "id": 213,
+  "oficio": "Jardinería",
+  "texto": "Instalar pérgola metálica con lonas de sombra en terraza de 4x5 metros, montaje completo",
+  "http_status": 200,
+  "latency_ms": 20996,
+  "raw_response": {
+    "transcript": "Instalar pérgola metálica con lonas de sombra en terraza de 4x5 metros, montaje completo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar pérgola metálica con lonas de sombra en terraza de 4x5 metros, montaje completo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Pérgola metálica: verificar si requiere licencia municipal según municipalidad",
+          "Lonas de sombra: confirmar material (acrílico, poliéster, HDPE) y tratamiento UV",
+          "Anclaje a terraza: inspeccionar solera/losa para capacidad de carga"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Estructura metálica, uniones, anclajes metálicos, soldaduras si aplica"
+        },
+        {
+          "oficio": "multiservicio",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 38,
+            "max": 45
+          },
+          "motivo": "Montaje, tensionado de lonas, ajustes finales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de elementos previos (si existen)",
+          "descripcion": "Desmontaje de estructuras existentes, limpieza y gestión de residuos",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Revisar si hay elementos previos a desmontar"
+        },
+        {
+          "concepto": "Estructura pérgola metálica 4x5m",
+          "descripcion": "Perfiles metálicos (acero galvanizado o aluminio), vigas principales, pilares, travesaños, uniones metálicas inox/galvanizadas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estructura completa 4x5m metálica: 1500-4000€ (material+fabricación). Revisar presupuesto proveedor"
+        },
+        {
+          "concepto": "Lonas de sombra UV",
+          "descripcion": "Lonas acrílicas o poliéster tratadas UV para cubierta pérgola 20m² (4x5m), incluye anillas, herrajes de fijación y refuerzos perimetrales",
+          "oficio": "multiservicio",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lonas sombra 15-50€/m² según calidad/marca. Revisar proveedor (20m²=300-1000€)"
+        },
+        {
+          "concepto": "Anclaje y fijación a terraza",
+          "descripcion": "Platinas, tacos químicos, pernos metálicos inox para fijación de pilares a losa de hormigón, taladraje incluido",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Accesorios fijación: 200-500€ aprox. Revisar necesidades específicas"
+        },
+        {
+          "concepto": "Montaje estructura metálica",
+          "descripcion": "Elevación, colocación, nivelación y fijación de vigas, pilares y travesaños. Incluye herramientas y EPI",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación y tensionado de lonas de sombra",
+          "descripcion": "Extensión, colocación, alineación y tensionado de lonas en estructura. Ajuste de anillas y herrajes. Incluye EPI",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 38,
+          "total": 304,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas, ajustes finales y limpieza",
+          "descripcion": "Verificación de estabilidad estructura, tensión lonas, fijaciones de seguridad. Limpieza de obra y retirada de embalajes",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 38,
+          "total": 114,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Silicona, pernos adicionales, arandelas, tuercas, cinta de refuerzo, malla antirrobo si aplica",
+          "oficio": "multiservicio",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: 150-300€ aprox. Revisar necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1378,
+        "iva_porcentaje": 21,
+        "iva": 289.38,
+        "total": 1667.38
+      },
+      "sugerencias_catalogo": [
+        "Considerar si la pérgola debe tener sistema de retracción motorizado para lonas (motor 24V o 230V = partida adicional electricidad ~500€)",
+        "Si hay riesgo de viento, añadir refuerzos laterales o estructuras antioscilación",
+        "Inspeccionar terraza: si es de baldosa/gres sobre madera, reforzar con platinas de distribución de carga"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "oficio": "cerrajeria",
+          "concepto": "Estructura pérgola metálica 4x5m",
+          "motivo": "No existe en catálogo — crear según especificaciones cliente (acero galvanizado vs aluminio)"
+        },
+        {
+          "oficio": "multiservicio",
+          "concepto": "Lonas de sombra UV (material)",
+          "motivo": "Material variable — requiere cotización específica con proveedor de lonas técnicas"
+        },
+        {
+          "oficio": "cerrajeria",
+          "concepto": "Anclaje y fijación a terraza",
+          "motivo": "Accesorios metálicos específicos — revisar capacidad de carga de la losa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_inodoro",
+      "instalacion_de_sumidero_o_imbornal"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

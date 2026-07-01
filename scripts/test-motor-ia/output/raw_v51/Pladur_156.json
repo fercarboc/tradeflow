@@ -1,0 +1,235 @@
+{
+  "id": 156,
+  "oficio": "Pladur",
+  "texto": "Construir vestidor con pladur en dormitorio, zona de 3x2 metros con puerta y distribución interior",
+  "http_status": 200,
+  "latency_ms": 17252,
+  "raw_response": {
+    "transcript": "Construir vestidor con pladur en dormitorio, zona de 3x2 metros con puerta y distribución interior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir vestidor con pladur en dormitorio, zona de 3x2 metros con puerta y distribución interior",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume pladur estándar (no hidrofugo). Si hay humedad en dormitorio, revisar especificaciones.",
+          "Puerta y distribución interior requieren coordinación con carpintería si incluye herrajes."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Construcción tabique pladur interior dormitorio"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puerta vestidor, marco y distribución interior (estanterías/barra)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm (tabique vestidor)",
+          "descripcion": "Suministro e instalación de placa yeso 15mm para tabique divisorio vestidor 3x2m (revestimiento ambas caras)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 24,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material placa yeso 15mm a definir por instalador"
+        },
+        {
+          "concepto": "Perfiles metálicos canal y montante (tabique vestidor)",
+          "descripcion": "Suministro e instalación perfiles acero galvanizado canal UW y montante CW para estructura tabique 3x2m",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 32,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio perfiles metálicos a definir por instalador"
+        },
+        {
+          "concepto": "Tornillería, cinta juntas y pasta juntas",
+          "descripcion": "Tornillos autorroscantes, cinta papel y pasta conjunta para juntas pladur (tabique 24m2)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio materiales pequeño_material a definir por instalador"
+        },
+        {
+          "concepto": "Ángulo metálico y pequeno_material",
+          "descripcion": "Ángulo metálico esquinas, sellador, pequeño material varios",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio ángulo y pequeño_material a definir por instalador"
+        },
+        {
+          "concepto": "Montaje estructura tabique pladur (3x2m)",
+          "descripcion": "Mano de obra montaje perfiles, fijación perimetral, replanteo y preparación estructura tabique vestidor 24m2",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación placas yeso (24m2)",
+          "descripcion": "Mano de obra colocación y clavazón placas yeso laminado ambas caras tabique, cortes y ajustes",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 35,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Juntas, cintas y acabado pladur",
+          "descripcion": "Mano de obra aplicación cinta juntas, pasta, lijas y acabado liso para pintura (tabique 24m2)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 35,
+          "total": 210,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Marco y puerta vestidor",
+          "descripcion": "Suministro e instalación marco de puerta (pino/MDF) + puerta interior vestidor (hoja de madera o DM)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio puerta y marco a definir (tipo, acabado, herrajes)"
+        },
+        {
+          "concepto": "Instalación marco y puerta",
+          "descripcion": "Mano de obra colocación marco, ajuste de puertas, instalación bisagras y cierre",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Distribución interior vestidor (barra/estanterías)",
+          "descripcion": "Suministro e instalación barra perchero, anclajes, pequeños soportes para organización interior vestidor",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio barra/estanterías y accesorios a definir según diseño interior"
+        },
+        {
+          "concepto": "Montaje accesorios interiores vestidor",
+          "descripcion": "Mano de obra fijación barra perchero, tacos, soportes y pequeños accesorios de organización",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1065,
+        "iva_porcentaje": 21,
+        "iva": 223.65,
+        "total": 1288.65
+      },
+      "sugerencias_catalogo": [
+        "Si el vestidor requiere iluminación empotrada, coordinar con electricista (partida adicional).",
+        "Si se incluyen espejo, accesorios premium o acabado superior, considerar partida adicional pintura/acabado.",
+        "Verificar si la distribución interior incluye estanterías fijas o solo barra de colgar; esto afecta coste de carpintería."
+      ],
+      "partidas_nuevas_detectadas": [
+        "placa_yeso_15mm_tabique_vestidor",
+        "perfiles_metalicos_tabique_vestidor",
+        "puerta_marco_vestidor",
+        "distribucion_interior_barra_perchero"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_para_ducha_o_plato_de_ducha",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "tabique_pladur_zona_exterior_cubierta_sotillo",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

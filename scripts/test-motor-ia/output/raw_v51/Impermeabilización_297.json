@@ -1,0 +1,225 @@
+{
+  "id": 297,
+  "oficio": "Impermeabilización",
+  "texto": "Tratar filtraciones en muro de hormigón de garaje subterráneo con mortero cristalizante",
+  "http_status": 200,
+  "latency_ms": 22374,
+  "raw_response": {
+    "transcript": "Tratar filtraciones en muro de hormigón de garaje subterráneo con mortero cristalizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tratar filtraciones en muro de hormigón de garaje subterráneo con mortero cristalizante",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diagnóstico previo recomendado: verificar si la filtración es activa (durante lluvia) o estancamiento de agua",
+          "Impermeabilización interior es solución secundaria; considerar si es viable impermeabilización exterior desde trasdos",
+          "Mortero cristalizante requiere hormigón húmedo para activarse correctamente",
+          "Después del tratamiento, esperar mínimo 7-14 días antes de pintar o revestir"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Especialización en tratamiento de filtraciones con sistemas cristalizantes"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Saneado y preparación de superficies afectadas por filtración"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y diagnóstico de filtraciones",
+          "descripcion": "Evaluación visual del muro, localización de puntos de filtración activa, determinación del origen (capilaridad, presión hidrostática, grietas). Incluye marcado de zonas a tratar.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0.5,
+          "precio_unitario": 45,
+          "total": 22.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Saneado de zonas deterioradas por filtración",
+          "descripcion": "Eliminación de mortero erosionado, eflorescencias, sales cristalizadas y hormigón desmenuzado en un perímetro de 30 cm alrededor de los puntos de filtración. Incluye cepillado metálico y limpieza con agua a presión.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 40,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación consolidante mineral",
+          "descripcion": "Aplicación de imprimación consolidante para estabilizar hormigón deteriorado y mejorar adhesión del mortero cristalizante. Una mano.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico; precio debe ser confirmado por profesional (referencia: 5-12€/m2 para consolidantes)"
+        },
+        {
+          "concepto": "Aplicación de mortero cristalizante hidrofugo",
+          "descripcion": "Aplicación de mortero cristalizante cementoso en puntos de filtración y en banda de 20 cm alrededor. El mortero cristaliza en contacto con el agua penetrante, sellando grietas capilares desde el interior. Dos manos mínimo con tiempo de fraguado intermedio.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero cristalizante hidrofugo (suministro)",
+          "descripcion": "Material: mortero cristalizante cementoso de base minera, cristalizantes activos, aditivos hidrofobantes. Aproximadamente 15-20 kg según dimensiones reales.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico; precio debe ser confirmado por profesional (referencia: 4-8€/kg para morteros cristalizantes de calidad)"
+        },
+        {
+          "concepto": "Refuerzo en encuentros muro-suelo y grietas",
+          "descripcion": "Aplicación reforzada de mortero cristalizante en junta perímetral muro-suelo y en grietas detectadas. Sellado profundo con morfología de 'V' invertida. Punto crítico para evitar filtraciones ascendentes.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Banda adhesiva de refuerzo en junta crítica suelo-pared",
+          "descripcion": "Banda de poliéster de refuerzo con adhesivo incorporado, aplicada en la junta crítica muro-suelo antes del mortero cristalizante final para garantizar estanqueidad en punto de máxima presión hidrostática.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico; precio debe ser confirmado por profesional (referencia: 3-8€/ml para banda de refuerzo)"
+        },
+        {
+          "concepto": "EPI y pequeño material de obra",
+          "descripcion": "Equipos de protección individual: mascarilla FFP2, guantes nitrilo, gafas de seguridad, ropa de trabajo. Herramientas: brocha, rodillo, paleta, cepillo metálico, cubetas, pequeño material fungible.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible; precio debe ser confirmado por profesional (referencia: 25-40€/jornada para EPI + pequeño material)"
+        },
+        {
+          "concepto": "Verificación de eficacia y prueba funcional",
+          "descripcion": "Inspección visual tras fraguado completo (7-14 días). Verificación de ausencia de filtraciones durante lluvia o en caso de presencia de agua. Documentación fotográfica del resultado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0.5,
+          "precio_unitario": 45,
+          "total": 22.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1265,
+        "iva_porcentaje": 21,
+        "iva": 265.65,
+        "total": 1530.65
+      },
+      "sugerencias_catalogo": [
+        "Si las filtraciones persisten después del mortero cristalizante, valorar impermeabilización exterior desde trasdos del muro de hormigón (excavación + membrana drenante + drenaje en pie) como solución definitiva",
+        "Considerar drenaje perimetral interior en pie de muro si hay flujo de agua continuo durante lluvia intensa",
+        "Después del tratamiento con cristalizante, no aplicar imprimaciones bituminosas que sellarían la porosidad necesaria para el funcionamiento del sistema"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación consolidante mineral",
+          "oficio": "impermeabilizacion",
+          "motivo": "No existe partida específica en catálogo; creada por IA para fase preparatoria"
+        },
+        {
+          "concepto": "Mortero cristalizante hidrofugo (suministro)",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico de trabajo; requiere precio según marca/proveedor del instalador"
+        },
+        {
+          "concepto": "Banda adhesiva de refuerzo en junta crítica suelo-pared",
+          "oficio": "impermeabilizacion",
+          "motivo": "Elemento complementario del sistema; precio debe confirmar instalador"
+        },
+        {
+          "concepto": "EPI y pequeño material de obra",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material fungible; estimación de coste consumibles"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_sotano_por_interior_con_mortero_hidrofugo",
+      "impermeabilizacion_de_sotano_por_exterior",
+      "trasdosado_pladur_en_edificio_con_humedad_por_capilaridad",
+      "inyeccion_de_resinas_hidrofobas_para_capilaridad",
+      "pintura_sotano_o_zona_bajo_rasante"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

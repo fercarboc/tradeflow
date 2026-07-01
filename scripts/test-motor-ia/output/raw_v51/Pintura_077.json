@@ -1,0 +1,139 @@
+{
+  "id": 77,
+  "oficio": "Pintura",
+  "texto": "Aplicar tratamiento hidrófugo en muros de piedra de fachada, 50 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 15743,
+  "raw_response": {
+    "transcript": "Aplicar tratamiento hidrófugo en muros de piedra de fachada, 50 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar tratamiento hidrófugo en muros de piedra de fachada, 50 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Piedra natural requiere hidrofugo siloxano específico para no alterar permeabilidad",
+          "Verificar estado de suciedad y algas previo (puede requerir limpieza previa)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Tratamiento de fachada en piedra natural - aplicación de hidrofugo por proyección/rodillo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Hidrofugo siloxano para piedra natural",
+          "descripcion": "Producto hidrofugo siloxano incoloro, específico para piedra natural, 5-8 m²/litro según porosidad",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 7,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material debe ser cotizado según marca y especificación técnica (aplicación por rodillo o baja presión en piedra)"
+        },
+        {
+          "concepto": "Aplicación de tratamiento hidrófugo en fachada de piedra",
+          "descripcion": "Limpieza previa, aplicación uniforme de hidrofugo siloxano en muros de piedra natural con rodillo o pistola de baja presión, una mano saturando soporte, 50 m²",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 40,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Andamio modular o plataforma de acceso para aplicación segura del tratamiento en fachada, montaje y desmontaje",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo de andamio/plataforma debe cotizarse según altura, accesibilidad y duración de obra (típicamente 200-500€/día)"
+        },
+        {
+          "concepto": "Rodillo/pistola de baja presión y pequeño material",
+          "descripcion": "Rodillo profesional, pistola de baja presión, trapos, masillas, etc. para aplicación uniforme del hidrofugo",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costos de herramientas y fungibles (típicamente 30-80€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2000,
+        "iva_porcentaje": 21,
+        "iva": 420,
+        "total": 2420
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA [tratamiento_hidrofugo_incoloro_en_fachada]: rango 15-75€/m² incluye material+mano. Aquí separado: mano_obra=40€/m² catalogado, material pendiente de cotización",
+        "Para piedra natural verificar compatibilidad siloxano (no silicona que obtura poros). Rendimiento esperado 5-8 m²/litro según porosidad piedra"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hidrofugo siloxano para piedra natural",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "tipo_partida": "material"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "tipo_partida": "servicio"
+        },
+        {
+          "concepto": "Rodillo/pistola de baja presión y pequeño material",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "tipo_partida": "material"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "alicatado_con_piedra_natural_o_gres_porcelanico",
+      "forrado_exterior_fachada_ventilada",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "instalacion_descalcificador"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

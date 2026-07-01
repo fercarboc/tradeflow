@@ -1,0 +1,237 @@
+{
+  "id": 399,
+  "oficio": "Persianas",
+  "texto": "Automatizar apertura y cierre de portón de garaje con sensor de presencia y mando inalámbrico",
+  "http_status": 200,
+  "latency_ms": 21587,
+  "raw_response": {
+    "transcript": "Automatizar apertura y cierre de portón de garaje con sensor de presencia y mando inalámbrico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Automatizar apertura y cierre de portón de garaje con sensor de presencia y mando inalámbrico",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume portón basculante estándar. Confirmar tipo (basculante/seccional/corredera) y peso para ajustar motor.",
+          "Sensor de presencia: se incluye instalación. Confirmar rango de detección requerido.",
+          "Mando inalámbrico: incluye receptor radiocontrol integrado en motor."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Automatización de portón/puerta garaje con motor, brazos, célula fotoelectrica, mando inalámbrico y sensor presencia."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Motor tubular para portón basculante",
+          "descripcion": "Motor eléctrico tubular para automatización portón garaje basculante, potencia según peso puerta (típico 200-400W), incluye receptor radiocontrol integrado.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio motor depende de peso portón y tipo (basculante/seccional). Instalador debe confirmar especificaciones técnicas."
+        },
+        {
+          "concepto": "Brazos articulados para portón basculante",
+          "descripcion": "Brazos de acero galvanizado para transmisión movimiento motor a portón, incluye herrajes de fijación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo portón y carrera. Incluir en presupuesto final."
+        },
+        {
+          "concepto": "Célula fotoelectrica de seguridad",
+          "descripcion": "Célula fotoelectrica de seguridad (emisor + receptor) para detención automática portón ante obstáculo. Obligatoria por normativa.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio célula fotoelectrica estándar. Confirmar modelo compatible con motor."
+        },
+        {
+          "concepto": "Sensor de presencia PIR",
+          "descripcion": "Sensor de presencia infrarrojo pasivo (PIR) para detección automática de vehículos/personas, rango 5-10m, montaje en pared o pilar.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio sensor PIR. Confirmar rango de detección y tipo (interior/exterior)."
+        },
+        {
+          "concepto": "Mando a distancia inalámbrico",
+          "descripcion": "Mando a distancia inalámbrico (radiofrecuencia 433MHz) para apertura/cierre portón, incluye 2 mandos.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio mandos inalámbricos. Incluir cantidad según cliente."
+        },
+        {
+          "concepto": "Cableado eléctrico y pequeño material",
+          "descripcion": "Cable eléctrico H07V-K 2x1.5mm² para conexión motor-célula-sensor, tubo corrugado, conectores, regletas, tornillería y pequeño material.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio lote cableado y pequeño material. Ajustar según longitud recorrido."
+        },
+        {
+          "concepto": "Instalación motor, brazos y célula fotoelectrica",
+          "descripcion": "Desmontaje de mecanismo manual si existe, instalación motor tubular en cabezal, fijación brazos articulados, alineación y ajuste finales de carrera, instalación célula fotoelectrica.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación sensor de presencia y mando inalámbrico",
+          "descripcion": "Montaje sensor PIR en pared/pilar, conexión a circuito motor, programación sensor, instalación receptor mando inalámbrico, emparejamiento mandos, pruebas funcionamiento.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programación finales de carrera y pruebas",
+          "descripcion": "Ajuste y programación finales de carrera (apertura/cierre completo), calibración sensor presencia, pruebas de seguridad célula fotoelectrica, pruebas mando inalámbrico, informe de funcionamiento.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo portón (basculante/seccional/corredera) para seleccionar motor correcto.",
+        "Pesar portón o estimar peso para dimensionar motor (típico 200-400W para portones estándar).",
+        "Definir rango sensor presencia: 5m, 8m o 10m según distancia acceso.",
+        "Considerar sensor viento si portón está expuesto a vendavales (protección adicional).",
+        "Incluir batería de emergencia si se requiere desbloqueo manual en caso de corte eléctrico."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Motor tubular para portón basculante",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según peso portón. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Brazos articulados para portón basculante",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según tipo portón. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Célula fotoelectrica de seguridad",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Material obligatorio por normativa. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Sensor de presencia PIR",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según rango detección. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Mando a distancia inalámbrico",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Cableado eléctrico y pequeño material",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Lote material auxiliar. Precio pendiente de revisión según longitud recorrido."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_motor_puerta_garaje_seccional_o_basculante",
+      "instalacion_sistema_de_deteccion_gas_en_aparcamiento",
+      "automatizacion_cancela_o_puerta_con_motor",
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "instalacion_toldo_de_brazos_extensibles_motorizado"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3982,
+      "tokens_out": 3066
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

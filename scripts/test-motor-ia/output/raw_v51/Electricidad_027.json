@@ -1,0 +1,156 @@
+{
+  "id": 27,
+  "oficio": "Electricidad",
+  "texto": "Avería en el cuadro eléctrico, se va el diferencial continuamente cuando arranco la lavadora",
+  "http_status": 200,
+  "latency_ms": 17442,
+  "raw_response": {
+    "transcript": "Avería en el cuadro eléctrico, se va el diferencial continuamente cuando arranco la lavadora",
+    "quote": {
+      "resumen": {
+        "texto_original": "Avería en el cuadro eléctrico, se va el diferencial continuamente cuando arranco la lavadora",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Problema de aislamiento o fuga a tierra en la lavadora o circuito dedicado",
+          "Diferencial puede estar defectuoso o sensibilidad insuficiente",
+          "Requiere diagnóstico electrónico antes de sustitución de componentes",
+          "Recomendado: prueba de aislamiento con megóhmetro en circuito lavadora"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 55,
+            "max": 220
+          },
+          "motivo": "Diagnóstico de avería diferencial según BASE MAESTRA [diagnostico_averia_diferencial]"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico eléctrico avería diferencial",
+          "descripcion": "Prueba sistemática: desconexión de circuitos uno a uno, medición de corriente diferencial, verificación funcionamiento diferencial con botón test, comprobación de aislamiento en circuito lavadora",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 55,
+          "total": 82.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba aislamiento con megóhmetro circuito lavadora",
+          "descripcion": "Medición de resistencia de aislamiento en línea dedicada a lavadora para detectar fugas a tierra o humedad en cableado o equipos",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 55,
+          "total": 27.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Diferencial 40A 30mA tipo A (si defectuoso)",
+          "descripcion": "Suministro e instalación de diferencial de reemplazo en caso de fallo comprobado del componente existente. Tipo A recomendado para electrodomésticos con rectificadores",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de diferencial 40A 30mA Tipo A pendiente de revisar por instalador. Rango estimado: 25-55€. Se instala solo si diagnóstico confirma defecto del diferencial"
+        },
+        {
+          "concepto": "Instalación diferencial de reemplazo",
+          "descripcion": "Desmontaje de diferencial defectuoso, conexión de nuevo diferencial en carril DIN, prueba de funcionamiento con botón test y bajo carga",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 55,
+          "total": 41.25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (bornes, arandelas, pasta térmica)",
+          "descripcion": "Consumibles necesarios para sustitución de diferencial y conexiones",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estimado pequeño material: 5-15€. Pendiente revisión instalador"
+        },
+        {
+          "concepto": "Informe de diagnóstico y recomendaciones",
+          "descripcion": "Documentación escrita de resultados de pruebas, causa identificada de la avería, y recomendaciones de reparación o mejora",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en diagnóstico, sin coste adicional si se resuelve la avería"
+        }
+      ],
+      "calculos": {
+        "subtotal": 151.25,
+        "iva_porcentaje": 21,
+        "iva": 31.76,
+        "total": 183.01
+      },
+      "sugerencias_catalogo": [
+        "Si el diagnóstico revela fuga a tierra en la lavadora: derivar a técnico reparación electrodomésticos o cambio de aparato",
+        "Si se identifica humedad en conductos: plantear revisión y sustitución de cableado en esa zona",
+        "Considerar instalación de protección adicional tipo RCD tipo B si futuras ampliaciones incluyen cargadores vehículos eléctricos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Prueba aislamiento con megóhmetro",
+          "motivo": "No existe en catálogo base. Partida técnica especializada de diagnóstico eléctrico. Creada como sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_averia_diferencial",
+      "cambio_cuadro_electrico_vivienda",
+      "inspeccion_y_test_de_toma_de_tierra_y_diferencial",
+      "instalacion_electrica_garaje_comunitario",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

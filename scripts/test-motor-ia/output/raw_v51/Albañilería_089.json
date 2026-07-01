@@ -1,0 +1,204 @@
+{
+  "id": 89,
+  "oficio": "Albañilería",
+  "texto": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+  "http_status": 200,
+  "latency_ms": 22834,
+  "raw_response": {
+    "transcript": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA ESTRUCTURAL: Requiere proyecto técnico de ingeniero (incluido en presupuesto)",
+          "SEGURIDAD CRÍTICA: Apuntalamiento obligatorio antes de demolición",
+          "PRECIO ALZADO: Varía significativamente según luz de viga y cargas. Presupuesto base orientativo.",
+          "PERMISOS: Verificar normativa local y licencia de obra mayor si aplica",
+          "El profesional debe confirmar dimensiones de viga y cargas reales en revisión"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición controlada de estructura de carga + recepción de viga"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico de demolición y cálculo de viga de acero",
+          "descripcion": "Proyecto estructural completo: cálculo de viga metálica, dimensionado de apeos, planos de ejecución, memoria justificativa. Incluye visita de inspección.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por ingeniero proyectista. Rango típico 800-2500€ según complejidad."
+        },
+        {
+          "concepto": "Apuntalamiento, apeos y cimbras de forjado superior",
+          "descripcion": "Sistema completo de apeos: puntuales metálicas, sopandas, durmientes en tablones, verificación de puntos de apoyo. Incluye desmontaje posterior.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según envergadura. Rango: 600-2500€. Requiere dimensionado en proyecto técnico."
+        },
+        {
+          "concepto": "Suministro viga de acero laminado o soldada",
+          "descripcion": "Viga metálica (IPE, HEB o viga soldada) según cálculo de proyecto. Incluye secciones de asiento, placas base, anclajes y pequeño material de sujeción.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Peso y tipo de viga a definir en proyecto técnico. Precio material: 1.2-1.8€/kg. Presupuestar tras cálculo estructural."
+        },
+        {
+          "concepto": "Demolición controlada de pared de carga",
+          "descripcion": "Derribamento gradual y controlado de pared de carga de fábrica/hormigón. Incluye herramientas manuales y mecanizadas, protección de zona, retirada selectiva de escombros.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad (m2) a definir por espesor y altura real de pared. Tarifa: 40-55€/m2 (obra estructural, controlada)."
+        },
+        {
+          "concepto": "Placas de asiento y anclajes de viga a pilares/muros laterales",
+          "descripcion": "Colocación de placas de asiento de acero soldadas o apernadas. Anclajes químicos o mecánicos en pilares/muros colindantes. Pequeño material de fijación.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en precio alzado de mano de obra. Rango: 300-800€ según número de puntos de anclaje."
+        },
+        {
+          "concepto": "Recibido, nivelación y acabado de viga",
+          "descripcion": "Mortero de nivelación bajo viga, recibido de apoyos, protección anticorrosión, acabado perimetral con mortero o escayola según proyecto.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud (ml) a medir según luz de viga. Tarifa: 30-40€/ml (mano de obra + material menor)."
+        },
+        {
+          "concepto": "Reposición de pavimento y falso techo bajo nueva viga",
+          "descripcion": "Recomposición de pavimento, trasdosado o falso techo en zona afectada bajo la viga. Incluye alineación, acabado y pintura.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional según estado final deseado. Presupuestar tras medir superficie bajo viga."
+        },
+        {
+          "concepto": "Protección, contención de polvo y gestión de escombros",
+          "descripcion": "Protección de zonas contiguas con plásticos y tableros. Barreras acústicas si necesario. Contenedor de escombros 15m3, incluso retirada y transporte a gestor autorizado.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango: 400-1200€ según duración y volumen de escombros. Incluye gestión ambiental."
+        },
+        {
+          "concepto": "Andamio interior o plataforma elevadora durante obra",
+          "descripcion": "Alquiler de andamio interior modular o plataforma elevadora para acceso seguro durante demolición y colocación de viga. Incluye montaje y desmontaje.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "mes",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango: 300-800€/mes según envergadura. A confirmar según planificación de obra."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Partida 'demolicion_muro_de_carga_con_viga' en Base Maestra: precio alzado 600-10000€ según luz y cargas",
+        "Partida 'recalce_y_apeo_de_estructura_para_reforma' en Base Maestra: complementaria para apeos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico de demolición y cálculo de viga",
+          "razon": "Partida obligatoria pero sujeta a profesional especializado (ingeniero)",
+          "sugerencia": "Crear en catálogo como servicio tipo 'ingeniería_estructural' con rango 800-2500€"
+        },
+        {
+          "concepto": "Viga de acero laminado o soldada (suministro)",
+          "razon": "Material estratégico, precio variable por tipo IPE/HEB/soldada y peso",
+          "sugerencia": "Crear partida de material con precio por kg o por tipo de perfil"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "demolicion_muro_de_carga_con_viga",
+      "recalce_y_apeo_de_estructura_para_reforma",
+      "desmontaje_tabique_pladur_existente",
+      "demolicion_tabique_interior",
+      "pintado_de_medianeras_o_paredes_ciegas"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 9,
+    "n_catalogo": 0,
+    "n_sugeridas": 9,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "id": 285,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar cubierta plana de chalet con lámina de EPDM adherida, 80 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14015,
+  "raw_response": {
+    "transcript": "Impermeabilizar cubierta plana de chalet con lámina de EPDM adherida, 80 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar cubierta plana de chalet con lámina de EPDM adherida, 80 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de cubierta plana con lámina EPDM adherida — oficio especializado en impermeabilización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lámina EPDM espesor 1,2-1,5 mm",
+          "descripcion": "Suministro de lámina EPDM de espesor 1,2-1,5 mm para impermeabilización de cubierta plana adherida. Incluye material necesario para 80 m².",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material EPDM — el instalador debe confirmar espesor exacto, marca y precio de suministro según proveedor"
+        },
+        {
+          "concepto": "Adhesivo específico EPDM",
+          "descripcion": "Adhesivo de contacto específico para EPDM en zonas adheridas. Incluye cantidad necesaria para 80 m² con solapes y encuentros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Adhesivo especializado EPDM — el instalador debe confirmar cantidad y precio según marca y rendimiento"
+        },
+        {
+          "concepto": "Sellado de juntas y solapes con cinta EPDM",
+          "descripcion": "Cinta de sellado específica para EPDM. Sellado de todas las juntas, solapes (mínimo 10 cm) y encuentros con paramentos. Incluye material para 80 m².",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cinta de sellado EPDM — el instalador debe confirmar cantidad y precio según longitud de juntas y marca"
+        },
+        {
+          "concepto": "Refuerzo de encuentros con lámina EPDM adicional",
+          "descripcion": "Refuerzo en encuentros con paramentos verticales, sumideros y puntos singulares. Lámina EPDM adicional para refuerzos de 30 cm de altura en encuentros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Refuerzo EPDM — el instalador debe confirmar longitud de encuentros y cantidad de refuerzo necesario"
+        },
+        {
+          "concepto": "Preparación, limpieza y saneo de cubierta",
+          "descripcion": "Limpieza, barrido, eliminación de suciedad, musgo y restos. Saneo de grietas y zonas deterioradas. Preparación de la superficie para recibir la lámina EPDM.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de lámina EPDM adherida con adhesivo",
+          "descripcion": "Extendido, alineación y adhesión de lámina EPDM sobre cubierta. Aplicación de adhesivo de contacto, presionado y sellado de juntas y solapes. Refuerzo de encuentros con paramentos y sumideros. Incluye prueba de estanqueidad.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 45,
+          "total": 3600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual (arnés, casco, guantes, gafas), herramientas menores, trapos, disolventes de limpieza y otros consumibles necesarios para la ejecución.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "EPI y consumibles — el instalador debe confirmar cantidad y precio según necesidades específicas del trabajo en altura"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3960,
+        "iva_porcentaje": 21,
+        "iva": 831.6,
+        "total": 4791.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la cubierta requiere geotextil de protección o lastre de grava tras la colocación de EPDM (si no es adherida o si se requiere protección adicional contra UV).",
+        "Verificar si existen sumideros, desagües o puntos singulares que requieran refuerzos adicionales o remates especiales.",
+        "Considerar si la cubierta es transitable o no transitable — esto puede afectar a la necesidad de protección adicional."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM",
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "impermeabilizacion_de_terraza_invertida_con_XPS",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4001,
+      "tokens_out": 1932
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

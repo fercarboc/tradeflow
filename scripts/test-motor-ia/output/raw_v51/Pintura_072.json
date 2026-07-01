@@ -1,0 +1,176 @@
+{
+  "id": 72,
+  "oficio": "Pintura",
+  "texto": "Pintar vallas y rejas exteriores con imprimación antióxido y esmalte negro",
+  "http_status": 200,
+  "latency_ms": 16327,
+  "raw_response": {
+    "transcript": "Pintar vallas y rejas exteriores con imprimación antióxido y esmalte negro",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar vallas y rejas exteriores con imprimación antióxido y esmalte negro",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Falta especificar: metros lineales (ml) de valla/reja, estado actual (oxidación), número de caras a pintar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura metálica exterior (valla/reja) — oficio consolidado en catálogo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y desoxidación de valla/reja metálica exterior",
+          "descripcion": "Limpieza con cepillo metálico, lijado (120-150), desengrasante y eliminación de óxido previo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar cantidad de horas según metros lineales reales (aproximadamente 1 h por 8-10 ml)"
+        },
+        {
+          "concepto": "Imprimación antióxido para metal",
+          "descripcion": "Imprimación epoxi o específica antióxido para superficies metálicas exteriores",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sin_especificar",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar por instalador. Cantidad: calcular según ml de valla (aprox. 0.1-0.15 l/m² en dos caras)"
+        },
+        {
+          "concepto": "Esmalte negro para metal exterior",
+          "descripcion": "Esmalte sintético o acrílico negro de alta durabilidad para protección exterior",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sin_especificar",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar. Cantidad: 0.15-0.2 l/m² (dos manos). Rendimiento típico 6-8 m²/litro"
+        },
+        {
+          "concepto": "Aplicación de imprimación antióxido (1ª mano)",
+          "descripcion": "Mano de imprimación con pincel o rodillo en valla/reja metálica exterior",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar según ml reales (aprox. 1 h por 10-12 ml)"
+        },
+        {
+          "concepto": "Aplicación esmalte negro — 1ª mano",
+          "descripcion": "Primera mano de esmalte negro con pincel o rodillo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar según ml reales"
+        },
+        {
+          "concepto": "Aplicación esmalte negro — 2ª mano",
+          "descripcion": "Segunda mano de esmalte negro para cobertura y durabilidad",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar según ml reales"
+        },
+        {
+          "concepto": "Pequeño material y auxiliares (cinta carrocero, pinceles, rodillo, lija)",
+          "descripcion": "Consumibles necesarios: cinta carrocero, pinceles planos, rodillo pequeño, papel lija 120-150, desengrasante",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sin_especificar",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 15-25€ por lote según metro lineal a pintar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 128,
+        "iva_porcentaje": 21,
+        "iva": 26.88,
+        "total": 154.88
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al instalador: metros lineales exactos de valla/reja a pintar",
+        "Confirmar si es pintura de ambas caras o una sola",
+        "Evaluar estado actual (¿mucho óxido? → +tiempo de preparación)",
+        "Especificar tipo de esmalte: sintético (más económico) vs. acrílico de calidad (más duradero en exterior)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación antióxido para metal",
+          "motivo": "Material específico, precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Esmalte negro para metal exterior",
+          "motivo": "Material específico, precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Pequeño material y auxiliares",
+          "motivo": "Estimado, ajustar según volumen real de trabajo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_esmalte_carpinteria_metalica",
+      "pintado_pasamanos_y_barandillas_interior",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "pintura_esmalte_carpinteria_madera_interior"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,396 @@
+{
+  "id": 376,
+  "oficio": "Reformas Integrales",
+  "texto": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+  "http_status": 200,
+  "latency_ms": 46560,
+  "raw_response": {
+    "transcript": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Falta información de superficie de fachada (m²). Presupuesto estructurado con placeholder.",
+          "CRÍTICO: No se especifica qué instalaciones comunes se reforman (electricidad, fontanería, ascensor, etc.). Se incluyen las partidas obligatorias genéricas.",
+          "CRÍTICO: No se confirma si existe ITE (Informe Técnico de Edificios) previo.",
+          "CRÍTICO: No se confirma estado actual de fachada (pintura, enfoscado, SATE, ventilada).",
+          "ADVERTENCIA: Presupuesto de reforma integral requiere aprobación de junta de propietarios OBLIGATORIA.",
+          "ADVERTENCIA: Se requiere gestión de permisos municipales (andamios, licencia de obra si procede).",
+          "INFORMACIÓN: Edificio puede ser elegible para ayudas de rehabilitación (NextGenEU, IDAE, CCAFCC)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reformas_integrales",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Coordinación de reforma integral de edificio comunitario. Requiere gestión administrativa y de obra."
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": false,
+          "nuevo_oficio": true,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Rehabilitación de fachada de edificio. Trabajo en altura, posible andamiaje. Tarifa estimada por analogía con albañilería especializada."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Renovación de instalación eléctrica de zonas comunes."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Renovación de instalación de agua de zonas comunes."
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Posibles trabajos de revestimiento interior en zonas comunes."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obras civiles de andamiaje, cimentaciones, reparación de elementos estructurales."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Aprobación de junta de propietarios",
+          "descripcion": "Gestión y aprobación de la reforma integral por parte de la comunidad de propietarios. OBLIGATORIA.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión administrativa. El instalador/coordinador debe establecer honorarios de gestión comunitaria."
+        },
+        {
+          "concepto": "Proyecto técnico o memoria descriptiva",
+          "descripcion": "Elaboración de proyecto técnico o memoria descriptiva según alcance de obra (fachada + zonas comunes + instalaciones). Requiere sello de arquitecto o ingeniero técnico.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Honorarios profesionales de proyecto. Varía según complejidad y autor (arquitecto/ingeniero técnico)."
+        },
+        {
+          "concepto": "Licencia municipal de obras",
+          "descripcion": "Tramitación y obtención de licencia municipal para reforma integral de edificio antiguo con cambios en fachada e instalaciones comunes.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tasas municipales variables según municipio. Incluir gastos de gestión administrativa."
+        },
+        {
+          "concepto": "Informe Técnico de Edificios (ITE) previo",
+          "descripcion": "Realización de ITE si no existe previo. Inspección y diagnóstico técnico del edificio antiguo para evaluar estado de estructuras, instalaciones, envolvente térmica.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Honorarios ITE de arquitecto técnico. Varía según tamaño edificio y complejidad."
+        },
+        {
+          "concepto": "Andamiaje perimetral con permiso municipal",
+          "descripcion": "Montaje y desmontaje de andamio tubular perimetral para rehabilitación de fachada de edificio de 5 pisos. Incluye permiso y señalización municipal.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Empresa especializada en andamios. Presupuestar según perímetro de fachada y altura (5 pisos ≈ 20m). Tarifa típica: 800-2500€ mes o por m² de andamio."
+        },
+        {
+          "concepto": "Reparación y sellado de fachada",
+          "descripcion": "Limpieza, reparación de fisuras, resane de enfoscado y sellado de juntas de dilatación en fachada. Incluye retirada de elementos deteriorados, prepapado y acabado.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "FALTA INFORMACIÓN: Indicar superficie total de fachada (m²). Tarifa estimada 250-400€/m² mano de obra + materiales según estado actual."
+        },
+        {
+          "concepto": "Materiales de fachada (pintura, enfoscado, sellador, impermeabilizante)",
+          "descripcion": "Suministro de pintura acrílica exterior, mortero de reparación, sellador poliuretano de calidad, impermeabilizante, imprimación. Según estado y acabado elegido.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "FALTA INFORMACIÓN: Indicar superficie de fachada (m²). Presupuestar materiales según estado actual y acabado elegido (pintura/enfoscado/SATE)."
+        },
+        {
+          "concepto": "Renovación de instalación eléctrica de zonas comunes",
+          "descripcion": "Sustitución de cableado antiguo, cuadro de control, automatismos, protecciones, interruptores y enchufes en portal, escalera y zonas comunes. Incluye desmontaje de instalación antigua.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "FALTA INFORMACIÓN: Especificar alcance: ¿solo portal y escaleras? ¿incluye sótano, trasteros? Presupuestar por jornadas según m lineal de cableado a renovar."
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, tuberías, cuadro, interruptores, enchufes)",
+          "descripcion": "Suministro de cable RV-K o similar, tuberías protectoras, nuevo cuadro de control, interruptores, enchufes, protecciones, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "El instalador debe presupuestar según especificaciones técnicas de la reforma (tensión, potencia, número de circuitos)."
+        },
+        {
+          "concepto": "Renovación de instalación de fontanería de zonas comunes",
+          "descripcion": "Sustitución de tuberías de agua fría y caliente antiguas por tubería PEX o multicapa, válvulas de regulación, acometida, contadores, grifería. Incluye desmontaje de instalación antigua.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "FALTA INFORMACIÓN: Especificar metros lineales de tubería a renovar, número de plantas con distribución de agua. Presupuestar por jornadas."
+        },
+        {
+          "concepto": "Materiales de fontanería (tuberías, válvulas, grifería, accesorios)",
+          "descripcion": "Suministro de tuberías PEX o multicapa, válvulas de corte, reguladores de presión, grifería común, accesorios de fontanería, pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "El instalador debe presupuestar según plano de distribución de agua y especificaciones técnicas."
+        },
+        {
+          "concepto": "Reparación de escalera y portal (revestimientos, peldaños, barandilla)",
+          "descripcion": "Reparación y renovación de escalera común: reparación de peldaños, pintura, renovación de barandilla si procede. Incluye pequeñas reparaciones de revestimiento (azulejos, pintura).",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "FALTA INFORMACIÓN: Especificar número de tramos, estado actual, tipo de reparación (solo pintura vs. reposición de peldaños). Presupuestar por jornadas."
+        },
+        {
+          "concepto": "Alumbrado LED de zonas comunes",
+          "descripcion": "Renovación de luminarias antiguas por LED de bajo consumo en portal, escaleras, pasillos y zonas comunes. Incluye desmontaje de antiguas e instalación de nuevas.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "FALTA INFORMACIÓN: Especificar número de puntos de luz. Presupuestar por unidad o jornada según cantidad."
+        },
+        {
+          "concepto": "Luminarias LED para zonas comunes",
+          "descripcion": "Suministro de luminarias LED de calidad (empotradas, apliques, downlights según zona). Incluye driver, transformadores si procede, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "FALTA INFORMACIÓN: Indicar número de puntos de luz a renovar."
+        },
+        {
+          "concepto": "Gestión y transporte de residuos de obra",
+          "descripcion": "Recogida, clasificación, transporte y gestión de escombros y residuos generados por demolición (enfoscado, tuberías, cableado, elementos constructivos). Incluye contenedor.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según volumen estimado de escombros y tipología (residuos inertes, cables, fontanería, etc.). Tarifa típica: 300-1500€ según cantidad."
+        },
+        {
+          "concepto": "Pequeño material e imprevistos",
+          "descripcion": "Cintas, tornillería, adhesivos, imprimaciones, masillas, estopas, conexiones, abrazaderas, protecciones, material de seguridad y otros elementos auxiliares de obra.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar como porcentaje del total de obra (típicamente 5-10% del subtotal) o según necesidades específicas."
+        },
+        {
+          "concepto": "Reunión informativa con la comunidad",
+          "descripcion": "Reunión de información y coordinación con propietarios para comunicar cronograma, molestias previstas, acceso a zonas de obra, medidas de seguridad.",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión administrativa. Incluir en honorarios de coordinación de obra."
+        }
+      ],
+      "calculos": {
+        "subtotal": 190,
+        "iva_porcentaje": 21,
+        "iva": 39.9,
+        "total": 229.9
+      },
+      "sugerencias_catalogo": [
+        {
+          "actuacion": "reforma_de_instalaciones_comunes_edificio",
+          "referencia_catalogo": "BASE MAESTRA",
+          "descripcion": "Esta actuación encaja con 'reforma_de_instalaciones_comunes_edificio' (precio alzado 8000-90000€). El presupuesto debe estructurarse incluyendo TODAS las partidas obligatorias: aprobación comunidad, proyecto, licencia, renovación instalación según tipo, gestión residuos.",
+          "sugerencia": "Confirmar con el instalador si la reforma incluye: electricidad, fontanería, calefacción, ascensor, o combinación. Cada uno impacta significativamente en el presupuesto total."
+        },
+        {
+          "actuacion": "reforma_de_fachada_de_edificio_comunitario",
+          "referencia_catalogo": "BASE MAESTRA",
+          "descripcion": "La rehabilitación de fachada encaja con 'reforma_de_fachada_de_edificio_comunitario' (250-950€/m² según tipo). Presupuestar según estado actual (pintura, enfoscado, SATE, ventilada).",
+          "sugerencia": "INFORMACIÓN CRÍTICA FALTANTE: Indicar superficie total de fachada (m²). Esto permitirá aplicar tarifa exacta del catálogo y generar presupuesto cerrado."
+        },
+        {
+          "actuacion": "tabique_pladur_en_rehabilitacion_edificio_existente",
+          "referencia_catalogo": "BASE MAESTRA",
+          "descripcion": "Si la reforma incluye redistribución de espacios interiores (crear/cerrar zonas comunes, oficina, sala reuniones), aplicar 25-65€/m² según especificaciones.",
+          "sugerencia": "Confirmar si hay trabajos de pladur o solo reparaciones menores en revestimiento existente."
+        },
+        {
+          "actuacion": "instalacion_electrica_exterior_urbanizacion",
+          "referencia_catalogo": "BASE MAESTRA",
+          "descripcion": "Si la reforma incluye alumbrado exterior de acceso o zonas comunes exteriores, considerar esta actuación (5-18€/ud farolas LED).",
+          "sugerencia": "Especificar si hay alumbrado exterior a renovar en acceso, portal, o espacios exteriores comunes."
+        },
+        {
+          "actuacion": "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+          "referencia_catalogo": "BASE MAESTRA",
+          "descripcion": "Específicamente para las juntas de dilatación de fachada: 20-95€/ml según anchura y sellador elegido.",
+          "sugerencia": "Si la fachada tiene juntas a reparar, presupuestar aparte esta actuación. Incluye retirada de material viejo, fondo de junta y sellador poliuretano exterior."
+        }
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación y sellado de fachada",
+          "oficio": "fachadas",
+          "motivo_creacion": "El término 'fachadas' no existe en catálogo como oficio especializado. Creada por analogía con 'reformas_integrales' y referencias a 'reforma_de_fachada_de_edificio_comunitario'. Tarifa estimada 45€/h."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_instalaciones_comunes_edificio",
+      "reforma_de_fachada_de_edificio_comunitario",
+      "tabique_pladur_en_rehabilitacion_edificio_existente",
+      "instalacion_electrica_exterior_urbanizacion",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 17,
+    "n_catalogo": 4,
+    "n_sugeridas": 13,
+    "oficio_detectado": "reformas_integrales",
+    "coincide_oficio": "SI"
+  }
+}

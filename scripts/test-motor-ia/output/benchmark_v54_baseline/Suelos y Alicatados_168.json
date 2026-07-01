@@ -1,0 +1,175 @@
+{
+  "id": 168,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Reparar baldosas sueltas y rotas en terraza exterior, ajuste y rejuntado, 8 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14038,
+  "raw_response": {
+    "transcript": "Reparar baldosas sueltas y rotas en terraza exterior, ajuste y rejuntado, 8 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar baldosas sueltas y rotas en terraza exterior, ajuste y rejuntado, 8 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar estado del soporte base antes de reponer baldosas",
+          "Confirmar si la terraza está sobre espacio habitable (requeriría impermeabilización previa)",
+          "Merma estimada 10% incluida en cálculo de material"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Reparación de baldosas cerámicas en terraza exterior, ajuste y rejuntado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Baldosas cerámicas exterior antideslizante R11 (reposición)",
+          "descripcion": "Suministro de baldosas cerámicas antideslizante mínimo R11, igual o similar a las existentes, para reposición de piezas rotas/sueltas en terraza exterior. Incluye merma 10%",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8.8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baldosas a confirmar por instalador según tipo, marca y disponibilidad"
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior flexible",
+          "descripcion": "Mortero adhesivo flexible C2S2 para fijación de baldosas cerámicas en terraza exterior. Incluye merma 10%",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 35.2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mortero a confirmar por instalador"
+        },
+        {
+          "concepto": "Lechada junta exterior flexible",
+          "descripcion": "Lechada de junta flexible para rejuntado de baldosas en terraza exterior. Incluye merma 10%",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 17.6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lechada a confirmar por instalador"
+        },
+        {
+          "concepto": "Pequeño material (crucetas, esponjas, trapos, etc.)",
+          "descripcion": "Crucetas de nivelación, esponjas de limpieza, trapos, cinta de protección y otros consumibles necesarios para la reparación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material a confirmar por instalador"
+        },
+        {
+          "concepto": "Desmontaje de baldosas sueltas/rotas y limpieza de soporte",
+          "descripcion": "Retirada cuidadosa de baldosas dañadas, eliminación de mortero viejo, limpieza y preparación del soporte base. Incluye gestión de residuos de obra",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 32,
+          "total": 128,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de baldosas, rejuntado y acabado",
+          "descripcion": "Colocación de baldosas con mortero flexible, nivelación, rejuntado con lechada flexible y limpieza final. Incluye ajuste de piezas sueltas adyacentes si es necesario",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 32,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 288,
+        "iva_porcentaje": 21,
+        "iva": 60.48,
+        "total": 348.48
+      },
+      "sugerencias_catalogo": [
+        "Si la terraza está sobre espacio habitable (vivienda, local comercial, etc.), añadir partida de impermeabilización previa con lámina o pintura impermeabilizante antes de colocar baldosas",
+        "Si el soporte base presenta irregularidades >5mm, considerar regularización con mortero de nivelación antes de colocar baldosas",
+        "Verificar que las baldosas nuevas sean antideslizante mínimo R11 según CTE DB-SUA para exteriores"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Baldosas cerámicas exterior antideslizante R11",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material específico de reposición, precio variable según marca y tipo"
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior flexible",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material de fijación, precio variable según marca"
+        },
+        {
+          "concepto": "Lechada junta exterior flexible",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material de rejuntado, precio variable según marca"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_reposicion_de_pavimento_exterior_deteriorado",
+      "solado_exterior_terraza_o_patio",
+      "solado_ceramico_exterior_terraza",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "sustitucion_lamas_persiana_enrollable_aluminio"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3692,
+      "tokens_out": 1891
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

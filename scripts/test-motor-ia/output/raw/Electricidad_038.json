@@ -1,0 +1,159 @@
+{
+  "id": 38,
+  "oficio": "Electricidad",
+  "texto": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 16594,
+  "raw_response": {
+    "transcript": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trastero sin instalación eléctrica: requiere acometida desde cuadro general o circuito existente más cercano",
+          "Verificar capacidad del cuadro general y disponibilidad de PIA (Pequeño Interruptor Automático)",
+          "Confirmar número exacto de enchufes y puntos de luz solicitados",
+          "Obra en trastero: verificar accesibilidad para paso de tuberías y cableado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de circuito eléctrico completo: cableado, enchufes, puntos de luz, protecciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Acometida y cableado principal circuito trastero",
+          "descripcion": "Tendido de cable H07V-K 2.5mm² desde cuadro general o circuito existente hasta trastero, incluyendo tubo corrugado de protección, cajas de derivación y pequeño material. Incluye rozas si es necesario.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 8,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de enchufes Schuko 16A",
+          "descripcion": "Suministro e instalación de 4 enchufes Schuko 16A con bases de empotrar, cable H07V-K 2.5mm², cajas de empotrar universal, teflon y pequeño material. Incluye verificación de tierra y capacidad de circuito.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 55,
+          "total": 220,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de puntos de luz",
+          "descripcion": "Suministro e instalación de 2 puntos de luz con luminarias LED, cable H07V-K 1.5mm², cajas de empotrar, interruptor de control, pequeño material y conexión a circuito principal.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protección diferencial e interruptor automático",
+          "descripcion": "Suministro e instalación de PIA (Pequeño Interruptor Automático) 16A y diferencial 30mA para protección del circuito del trastero en cuadro general.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 75,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, tubo, cajas, pequeño material)",
+          "descripcion": "Cable H07V-K 2.5mm² (25ml), cable H07V-K 1.5mm² (15ml), tubo corrugado M20 (25ml), cajas de empotrar, bases enchufes, luminarias LED, interruptor, teflon, tornillos, bridas y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a confirmar por instalador según proveedores y especificaciones exactas"
+        },
+        {
+          "concepto": "Pruebas y verificación de instalación",
+          "descripcion": "Pruebas de continuidad, aislamiento, toma de tierra, funcionamiento de protecciones diferenciales y carga de circuito. Emisión de certificado de instalación.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 675,
+        "iva_porcentaje": 21,
+        "iva": 141.75,
+        "total": 816.75
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿4 enchufes es la cantidad correcta? (recomendación: 1 enchufe cada 2-3 m² en trastero = 3-4 enchufes para 8 m²)",
+        "Confirmar: ¿2 puntos de luz es suficiente? (recomendación: 1 punto cada 4-5 m² = 2 puntos para 8 m²)",
+        "Verificar si el trastero está en zona húmeda o seca (afecta a grado de protección de enchufes)",
+        "Solicitar plano o croquis de ubicación del cuadro general y distancia aproximada al trastero",
+        "Confirmar si hay que hacer rozas en paredes o si se puede pasar cableado por superficie (tubo visto)"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_enchufe_nuevo",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_luna_ventana_rota",
+      "instalacion_llave_escuadra"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3778,
+      "tokens_out": 1822
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 5,
+    "n_sugeridas": 1,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "id": 137,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Revisar y rellenar juntas de cubierta de chapa grecada de nave industrial, 400 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 16730,
+  "raw_response": {
+    "transcript": "Revisar y rellenar juntas de cubierta de chapa grecada de nave industrial, 400 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y rellenar juntas de cubierta de chapa grecada de nave industrial, 400 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de mantenimiento preventivo en cubierta industrial. Verificar estado actual de juntas antes de presupuestar materiales selladores.",
+          "Superficie importante (400 m²): considerar andamios o plataforma elevadora si acceso es difícil.",
+          "Especificar tipo de sellador (poliuretano, silicona, EPDM) según exposición y movimiento esperado."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Trabajo de mantenimiento y reparación de cubierta metálica (chapa grecada). Relleno de juntas es actuación típica de tejados_cubiertas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y limpieza de juntas de cubierta chapa grecada",
+          "descripcion": "Inspección completa de juntas, limpieza de suciedad, líquenes, restos de sellador antiguo y preparación de superficies para nuevo sellado. Incluye pequeño material de limpieza.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 400,
+          "precio_unitario": 8,
+          "total": 3200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador poliuretano para juntas cubierta chapa grecada",
+          "descripcion": "Sellador poliuretano monocomponente de alta elasticidad, resistencia UV y movimiento, específico para juntas de cubiertas metálicas. Cantidad estimada según ancho y profundidad de juntas.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión. Instalador debe confirmar tipo de sellador (poliuretano/silicona/EPDM), cantidad exacta según profundidad y ancho de juntas, y proveedor."
+        },
+        {
+          "concepto": "Aplicación de sellador en juntas de cubierta",
+          "descripcion": "Relleno y sellado de todas las juntas de chapa grecada con herramientas manuales (pistola de sellador). Alisado y acabado de juntas. Incluye pequeño material de aplicación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 400,
+          "precio_unitario": 12,
+          "total": 4800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Medios auxiliares: andamio o plataforma elevadora",
+          "descripcion": "Alquiler y montaje de andamio tubular o plataforma elevadora para acceso seguro a cubierta de 400 m² en nave industrial. Estimado 3-4 días de alquiler.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio auxiliar: precio pendiente. Instalador debe confirmar si es necesario andamio/plataforma, tipo, duración del alquiler y proveedor."
+        },
+        {
+          "concepto": "EPI y equipos de seguridad en altura",
+          "descripcion": "Arnés de seguridad, línea de vida, cascos, guantes y botas de seguridad para trabajos en cubierta a altura. Incluye inspección y certificación de equipos.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material/servicio: precio pendiente. Confirmar si EPI es suministrado por instalador o cliente, y coste de certificación si aplica."
+        }
+      ],
+      "calculos": {
+        "subtotal": 8000,
+        "iva_porcentaje": 21,
+        "iva": 1680,
+        "total": 9680
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de 'reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas' para validar precios de mano de obra en tratamiento de cubiertas metálicas.",
+        "Si se detecta oxidación durante la revisión, considerar partida adicional de imprimación antioxido y pintura elastomerica según 'reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas'."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sellador poliuretano para juntas cubierta chapa grecada",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Material específico para sellado de juntas. Precio unitario pendiente de revisión del instalador según marca, tipo y cantidad real necesaria."
+        },
+        {
+          "concepto": "Medios auxiliares: andamio o plataforma elevadora",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar de alquiler de medios de acceso. Precio pendiente según disponibilidad, tipo de medio y duración."
+        },
+        {
+          "concepto": "EPI y equipos de seguridad en altura",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Equipos de protección individual obligatorios. Precio pendiente según si es suministro o certificación."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cubierta_de_fibrocemento_ondulado_o_plano",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "instalacion_de_cubierta_de_chapa_metalica_o_panel_sandwich",
+      "impermeabilizacion_de_cubierta_de_fibrocemento_con_tratamiento",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4043,
+      "tokens_out": 1931
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

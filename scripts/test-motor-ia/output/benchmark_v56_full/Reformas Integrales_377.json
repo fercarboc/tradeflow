@@ -1,0 +1,341 @@
+{
+  "id": 377,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+  "http_status": 200,
+  "latency_ms": 27835,
+  "raw_response": {
+    "transcript": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Reforma integral de vivienda para alquiler: verificar que los acabados sean resistentes al uso intensivo y rotación de inquilinos",
+          "Cocina y baño modernizados: requiere confirmación de alcance (solo acabados vs. cambio de instalaciones)",
+          "Suelo laminado: confirmar tipo (flotante, pegado) y m² totales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma integral de piso: múltiples oficios simultáneos (pintura, suelos, cocina, baño, fontanería, electricidad)"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura general de vivienda"
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Instalación suelo laminado (tarima flotante)"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Modernización baño: cambio grifería, sanitarios, posible redistribución"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Modernización cocina y baño: enchufes, iluminación, electrodomésticos"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 22,
+            "recomendado": 25,
+            "max": 28
+          },
+          "motivo": "Alicatado baño y cocina"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Pintura general vivienda",
+          "descripcion": "Pintura de paredes y techos en toda la vivienda (preparación, imprimación, 2 manos)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 6,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar m² totales de paredes y techos a pintar"
+        },
+        {
+          "concepto": "Suministro pintura",
+          "descripcion": "Pintura plástica interior, imprimación y acabado (120 m²)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar marca, tipo y coste de pintura"
+        },
+        {
+          "concepto": "Instalación suelo laminado",
+          "descripcion": "Colocación suelo laminado flotante con subbase y perfiles de remate (cocina, salón, dormitorios)",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar m² exactos y tipo de laminado (clase de uso para alquiler: mínimo AC4)"
+        },
+        {
+          "concepto": "Suministro suelo laminado",
+          "descripcion": "Laminado flotante resistente (AC4 mínimo para alquiler), subbase, perfiles aluminio",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar marca, clase de uso y coste del laminado"
+        },
+        {
+          "concepto": "Alicatado baño y cocina",
+          "descripcion": "Alicatado paredes baño (azulejo 20x20 o similar) y cocina (zona fregadero), con lechada epoxi",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 28,
+          "total": 700,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar m² de alicatado (paredes baño + zona fregadero cocina)"
+        },
+        {
+          "concepto": "Suministro azulejo y lechada",
+          "descripcion": "Azulejo cerámico/porcelánico baño y cocina, mortero cola C2 flexible, lechada epoxi, perfiles aluminio",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar marca, tipo de azulejo y coste total de materiales"
+        },
+        {
+          "concepto": "Modernización baño: sanitarios y grifería",
+          "descripcion": "Cambio inodoro, lavabo y bañera/plato ducha con grifería monomando, válvulas de corte",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar si incluye desmontaje de sanitarios antiguos y redistribución de tuberías"
+        },
+        {
+          "concepto": "Suministro sanitarios y grifería baño",
+          "descripcion": "Inodoro, lavabo, bañera o plato ducha, grifería monomando, válvulas, tuberías conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar marcas y precios de sanitarios y grifería"
+        },
+        {
+          "concepto": "Modernización cocina: muebles y electrodomésticos",
+          "descripcion": "Instalación muebles cocina (base y colgantes), encimera, fregadero, electrodomésticos (placa, horno, campana)",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar si cocina es modular o a medida, y si incluye desmontaje de cocina antigua"
+        },
+        {
+          "concepto": "Suministro muebles y electrodomésticos cocina",
+          "descripcion": "Muebles cocina (base, colgantes), encimera, fregadero, placa, horno, campana extractora",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar marcas, modelos y precios de muebles y electrodomésticos"
+        },
+        {
+          "concepto": "Instalación eléctrica cocina y baño",
+          "descripcion": "Nuevos enchufes, iluminación LED, conexión electrodomésticos, revisión cuadro eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 50,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar número de enchufes, puntos de luz y si requiere ampliación de líneas"
+        },
+        {
+          "concepto": "Suministro material eléctrico",
+          "descripcion": "Cable, enchufes, interruptores, luminarias LED, diferenciales, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe detallar y presupuestar material eléctrico específico"
+        },
+        {
+          "concepto": "Limpieza profunda y retirada escombros",
+          "descripcion": "Limpieza profunda post-obra, retirada de escombros y material de demolición",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 20,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar volumen de escombros y si requiere contenedor"
+        }
+      ],
+      "calculos": {
+        "subtotal": 6240,
+        "iva_porcentaje": 21,
+        "iva": 1310.4,
+        "total": 7550.4
+      },
+      "sugerencias_catalogo": [
+        "Reforma de vivienda para alquiler: considerar materiales resistentes al uso intensivo (laminado AC4 mínimo, lechada epoxi en cocina)",
+        "Baño modernizado: incluir barras de apoyo si vivienda dirigida a público mayor (accesibilidad)",
+        "Cocina: verificar si incluye cambio de instalación de gas/electricidad o solo acabados",
+        "Certificado de eficiencia energética: OBLIGATORIO para alquiler (incluir en presupuesto si no está)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro pintura",
+          "oficio": "pintura",
+          "motivo": "Material sin precio definido por instalador"
+        },
+        {
+          "concepto": "Suministro suelo laminado",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material sin precio definido por instalador"
+        },
+        {
+          "concepto": "Suministro azulejo y lechada",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material sin precio definido por instalador"
+        },
+        {
+          "concepto": "Suministro sanitarios y grifería baño",
+          "oficio": "fontaneria",
+          "motivo": "Material sin precio definido por instalador"
+        },
+        {
+          "concepto": "Suministro muebles y electrodomésticos cocina",
+          "oficio": "carpinteria",
+          "motivo": "Material sin precio definido por instalador"
+        },
+        {
+          "concepto": "Suministro material eléctrico",
+          "oficio": "electricidad",
+          "motivo": "Material sin precio definido por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_vivienda_para_arrendar_o_vender",
+      "reforma_integral_piso_turistico_o_apartamento",
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "instalacion_de_suelo_metalico_tramex_o_rejilla",
+      "alicatado_y_solado_completo_cocina"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4077,
+      "tokens_out": 4206
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 7,
+    "n_sugeridas": 6,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

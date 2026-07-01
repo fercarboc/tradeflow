@@ -1,0 +1,187 @@
+{
+  "id": 274,
+  "oficio": "Cristalería",
+  "texto": "Instalar vitrina de exposición con LED interior para joyería, 100x50x30 centímetros en cristal",
+  "http_status": 200,
+  "latency_ms": 18638,
+  "raw_response": {
+    "transcript": "Instalar vitrina de exposición con LED interior para joyería, 100x50x30 centímetros en cristal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar vitrina de exposición con LED interior para joyería, 100x50x30 centímetros en cristal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vitrina para joyería requiere vidrio de seguridad templado obligatorio (riesgo de robo/impacto)",
+          "Iluminación LED interior incluida en presupuesto",
+          "Medidas exactas proporcionadas: 100x50x30 cm (volumen pequeño-medio)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de vitrina de cristal templado con herrajes y sellado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Paneles de vidrio templado para vitrina joyería",
+          "descripcion": "Suministro de 5 paneles de vidrio templado 8mm (frente, fondo, laterales x2, tapa) cortados y templados según medidas exactas 100x50x30cm. Certificado EN 12150. Incluye marcado CE.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de seguridad especializado. Instalador debe cotizar según proveedor de vidrio templado certificado"
+        },
+        {
+          "concepto": "Estructura soporte en aluminio anodizado",
+          "descripcion": "Perfil de aluminio anodizado para estructura perimetral de vitrina. Incluye esquineros reforzados, patas de apoyo ajustables y sistema de fijación modular.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estructura personalizada según medidas. Cotizar con fabricante de perfiles aluminio"
+        },
+        {
+          "concepto": "Herrajes, bisagras y cierre de seguridad",
+          "descripcion": "Bisagras de acero inoxidable para puerta frontal, cerradura de seguridad con llave (recomendado para joyería), pernios de fijación y pequeño material de herrería.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cerradura de seguridad especializada para joyería. Cotizar según nivel de seguridad requerido"
+        },
+        {
+          "concepto": "Iluminación LED interior con transformador",
+          "descripcion": "Tira LED blanca fría 4000K (recomendada para joyería), 2 metros lineales, transformador 12V, cableado interno, difusor acrílico mate. Instalación en interior de tapa y laterales.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "LED especializado para joyería (temperatura color crítica). Cotizar según marca y especificaciones lumínicas"
+        },
+        {
+          "concepto": "Silicona neutra y sellado de encuentros",
+          "descripcion": "Silicona neutra de calidad premium para sellado de todos los encuentros vidrio-aluminio. Garantiza estanqueidad y durabilidad. Incluye aplicación profesional.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Cantidad estimada en 10-15 metros lineales de sellado"
+        },
+        {
+          "concepto": "Montaje, ensamblaje e instalación de vitrina",
+          "descripcion": "Mano de obra: ensamblaje de estructura, colocación de paneles de vidrio, fijación de herrajes, instalación de LED interior, sellado con silicona, pruebas de funcionamiento y ajustes finales. Incluye nivelación y fijación a superficie de apoyo.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Vitrina de exposición con LED interior para joyería (100x50x30cm) → Referencia: [instalacion_o_reparacion_de_vitrina_o_expositor_de_vidrio] con partidas_obligatorias completas",
+        "Rango de precio total estimado (sin materiales): 400-3000€/ud según complejidad y acabados",
+        "Para joyería: vidrio templado 8mm OBLIGATORIO (EN 12150), cerradura de seguridad recomendada, LED blanca fría 4000K para realce de gemas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Paneles de vidrio templado para vitrina joyería",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material especializado de seguridad. Requiere cotización de proveedor certificado"
+        },
+        {
+          "concepto": "Estructura soporte en aluminio anodizado",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Estructura personalizada según medidas exactas del cliente"
+        },
+        {
+          "concepto": "Herrajes, bisagras y cierre de seguridad",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Cerradura de seguridad especializada para joyería"
+        },
+        {
+          "concepto": "Iluminación LED interior con transformador",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "LED especializado para joyería con temperatura de color crítica"
+        },
+        {
+          "concepto": "Silicona neutra y sellado de encuentros",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible de sellado premium"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_o_reparacion_de_vitrina_o_expositor_de_vidrio",
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_toldos_retractiles_para_invernadero_o_jardin_de_invierno",
+      "instalacion_vidrio_en_puerta_interior"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3752,
+      "tokens_out": 2469
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

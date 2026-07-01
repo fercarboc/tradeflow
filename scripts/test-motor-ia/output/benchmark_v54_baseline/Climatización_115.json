@@ -1,0 +1,158 @@
+{
+  "id": 115,
+  "oficio": "Climatización",
+  "texto": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+  "http_status": 200,
+  "latency_ms": 19635,
+  "raw_response": {
+    "transcript": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere verificación de compatibilidad con circuito existente",
+          "Se asume circuito de agua (calefacción/refrigeración) ya operativo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de unidad terminal (fan coil) en sistema de agua helada/caliente existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro fan coil 2 tubos frío/calor",
+          "descripcion": "Fan coil de 2 tubos (impulsión agua caliente/fría) con capacidad según dormitorio, incluye filtro y válvulas de corte",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipo fan coil según potencia (kW) y marca a definir por instalador"
+        },
+        {
+          "concepto": "Instalación fan coil y conexión a circuito existente",
+          "descripcion": "Montaje de fan coil en pared/techo, conexión de tuberías de impulsión y retorno al circuito existente, purgado y pruebas de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tuberías de conexión (impulsión y retorno)",
+          "descripcion": "Tuberías de cobre o multicapa (PEX) para conexión fan coil al circuito existente, aislamiento térmico, válvulas de corte y accesorios",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo de tubería, diámetro y longitud real a definir"
+        },
+        {
+          "concepto": "Válvulas de corte, purga y accesorios",
+          "descripcion": "Válvulas de bola, válvula de purga, manómetro, termómetro y pequeño material de conexión",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de accesorios según especificación técnica"
+        },
+        {
+          "concepto": "Purgado, llenado y pruebas de funcionamiento",
+          "descripcion": "Purgado de aire en circuito, llenado con agua tratada, pruebas de estanqueidad, equilibrado de caudal y verificación de temperaturas",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar potencia térmica requerida (kW) según volumen y aislamiento del dormitorio",
+        "Confirmar compatibilidad del fan coil con presión y temperatura del circuito existente",
+        "Considerar control termostático (válvula de 3 vías o válvula termostática) si no existe",
+        "Evaluar necesidad de válvula de equilibrado si hay múltiples fan coils en el circuito"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro fan coil 2 tubos frío/calor",
+          "oficio": "climatizacion",
+          "motivo": "Material específico cuyo precio depende de potencia y marca"
+        },
+        {
+          "concepto": "Tuberías de conexión (impulsión y retorno)",
+          "oficio": "climatizacion",
+          "motivo": "Material cuyo precio depende de tipo, diámetro y longitud real"
+        },
+        {
+          "concepto": "Válvulas de corte, purga y accesorios",
+          "oficio": "climatizacion",
+          "motivo": "Accesorios cuyo precio depende de especificación técnica"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "instalacion_sistema_agua_helada_chiller",
+      "reparacion_averia_caldera_gas",
+      "reparacion_grifo_o_griferia_averiada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3592,
+      "tokens_out": 1613
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

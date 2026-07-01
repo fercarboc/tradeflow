@@ -1,0 +1,135 @@
+{
+  "id": 295,
+  "oficio": "Impermeabilización",
+  "texto": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+  "http_status": 200,
+  "latency_ms": 14594,
+  "raw_response": {
+    "transcript": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de sellado de juntas en terraza descubierta. Requiere especificación de superficie total (m²) o longitud total de juntas (ml) para presupuesto definitivo.",
+          "Material: sellante elástico de poliuretano debe ser específico para exteriores y resistente a UV."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sellado de juntas con función estanca en terraza descubierta. Aunque implica azulejos (suelos_alicatados), la función principal es impermeabilización y estanqueidad de juntas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de sellante antiguo de juntas",
+          "descripcion": "Extracción completa del sellante existente en juntas de azulejos terraza descubierta, limpieza y preparación de juntas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas depende de superficie total y estado actual de juntas. Instalador debe estimar según m² de terraza."
+        },
+        {
+          "concepto": "Sellante elástico de poliuretano para juntas exteriores",
+          "descripcion": "Sellante elástico de poliuretano de alta elasticidad, resistente a UV y cambios térmicos, específico para juntas de azulejos en terraza descubierta",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del sellante depende de marca y especificación. Instalador debe indicar: longitud total de juntas (ml), ancho de junta (mm) y precio unitario del sellante elegido. Referencia: 8-15€/cartucho (300ml cubre aprox. 30-50ml según ancho junta)."
+        },
+        {
+          "concepto": "Aplicación de sellante en juntas",
+          "descripcion": "Aplicación profesional de sellante elástico de poliuretano en todas las juntas de azulejos terraza, con herramientas adecuadas y acabado liso",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas depende de longitud total de juntas y complejidad. Rendimiento típico: 15-25 ml/hora según ancho junta y experiencia."
+        },
+        {
+          "concepto": "Limpieza y protección post-aplicación",
+          "descripcion": "Limpieza de excedentes de sellante, protección de zona durante curado (24-48h), señalización de área no transitable",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 45,
+        "iva_porcentaje": 21,
+        "iva": 9.45,
+        "total": 54.45
+      },
+      "sugerencias_catalogo": [
+        "Especificar superficie total de terraza (m²) o longitud total de juntas (ml) para cálculo preciso de material y mano de obra.",
+        "Indicar ancho de juntas (típicamente 3-5mm en azulejos) para estimar consumo de sellante.",
+        "Confirmar si hay sellante antiguo a retirar o si es aplicación en juntas nuevas.",
+        "Sellante debe ser específico para exteriores, resistente a UV y con elasticidad mínima 25% (norma EN ISO 11600).",
+        "Tiempo de curado típico: 24-48 horas. Terraza no transitable durante este período."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sellante elástico de poliuretano para juntas exteriores",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para sellado de juntas en terraza descubierta. Precio unitario a definir por instalador según marca y especificación técnica elegida."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "impermeabilizacion_cubierta_plana_con_membrana_liquida_poliuretano",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3819,
+      "tokens_out": 1539
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "id": 255,
+  "oficio": "Telecomunicaciones",
+  "texto": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+  "http_status": 200,
+  "latency_ms": 25191,
+  "raw_response": {
+    "transcript": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume 4 dormitorios con 1 toma por dormitorio. Confirmar número exacto de tomas y ubicación.",
+          "Longitud total de cable coaxial no especificada. Se estima presupuesto base; requiere medición en obra.",
+          "Amplificador: tipo y potencia no especificados. Presupuesto orientativo; revisar según señal disponible."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de red de distribución de televisión (cable coaxial, tomas, amplificador)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cable coaxial 75Ω para televisión",
+          "descripcion": "Suministro e instalación de cable coaxial de 75 ohmios, tipo RG-6 o equivalente, para distribución de señal de televisión en dormitorios. Incluye pequeño material (conectores, bridas).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud estimada en 80 ml (4 dormitorios × ~20 ml promedio por recorrido). Revisar medición real en obra. Precio unitario del material a cargo del instalador."
+        },
+        {
+          "concepto": "Tomas de usuario para televisión",
+          "descripcion": "Suministro e instalación de 4 tomas de usuario (derivadores/conectores) para televisión en dormitorios. Incluye caja de empotrar, toma tipo F y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de toma a cargo del instalador. Incluye derivador/splitter de 1 salida."
+        },
+        {
+          "concepto": "Amplificador de señal de televisión",
+          "descripcion": "Suministro e instalación de amplificador de banda ancha (UHF/VHF) para refuerzo de señal de televisión. Incluye fuente de alimentación, pequeño material y conexionado.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo y ganancia del amplificador no especificados. Precio a revisar según modelo (típicamente 80-250€). Requiere cálculo de atenuación de la red."
+        },
+        {
+          "concepto": "Mano de obra: Instalación de red de televisión",
+          "descripcion": "Mano de obra para apertura de rozas, paso de cable coaxial, instalación de tomas, conexionado del amplificador, pruebas de señal y ajuste de niveles en cada toma.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rozas y reposición para paso de cable",
+          "descripcion": "Apertura de rozas en paredes/techos para paso de cable coaxial, limpieza, soplado y cierre con mortero/yeso. Incluye pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de rozas: 25-130€/ml según complejidad. Estimado 80 ml. Revisar según dificultad de paso (tuberías existentes, materiales de soporte, etc.)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de amplificadores de banda ancha (UHF/VHF) con ganancia 20-30 dB para determinar modelo y precio exacto.",
+        "Verificar si la instalación requiere ICT (Instalación Común de Telecomunicaciones) según normativa RD 346/2011 si es edificio nuevo o reforma integral.",
+        "Considerar medidor de potencia óptica/analizador de espectro para certificación de niveles de señal en cada toma (RD 346: -15 dBmV a +15 dBmV)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable coaxial 75Ω para televisión",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Especificación de longitud y tipo de cable no disponible en catálogo base. Requiere medición en obra."
+        },
+        {
+          "concepto": "Amplificador de señal de televisión",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Tipo y modelo de amplificador no especificado. Precio variable según ganancia y banda (80-250€ típico)."
+        },
+        {
+          "concepto": "Rozas y reposición para paso de cable",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Tarifa de rozas variable según complejidad (25-130€/ml). Requiere evaluación en obra."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "instalacion_linea_electrica_electrodomestico"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3827,
+      "tokens_out": 2186
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

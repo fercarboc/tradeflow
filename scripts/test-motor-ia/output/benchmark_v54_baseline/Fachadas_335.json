@@ -1,0 +1,194 @@
+{
+  "id": 335,
+  "oficio": "Fachadas",
+  "texto": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+  "http_status": 200,
+  "latency_ms": 22535,
+  "raw_response": {
+    "transcript": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Marquesina de 3m de vuelo requiere cálculo estructural y permisos municipales",
+          "Necesario verificar carga de viento, nieve y peso propio según zona geográfica",
+          "Instalación en fachada de edificio de oficinas: requiere coordinación con obra civil y posible andamio"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de estructura en fachada de edificio"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación de paneles de vidrio templado/seguridad en marquesina"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Montaje de estructura de aluminio y herrajes de fijación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro estructura marquesina aluminio anodizado 3m vuelo",
+          "descripcion": "Estructura completa de aluminio anodizado (perfiles, soportes, ménsulas, uniones) para marquesina de 3 metros de vuelo, incluye cálculo estructural y certificado CE",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones exactas, carga de viento/nieve zona, y especificaciones técnicas. Instalador debe cotizar con fabricante de estructuras"
+        },
+        {
+          "concepto": "Suministro vidrio templado seguridad para marquesina",
+          "descripcion": "Paneles de vidrio templado de seguridad (espesor 8-10mm según cálculo), marcado CE EN 12150, para cubierta de marquesina 3m x ancho entrada",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie exacta no especificada. Instalador debe medir ancho entrada y calcular m2 totales. Precio vidrio templado: 150-300€/m2 según espesor"
+        },
+        {
+          "concepto": "Montaje estructura aluminio marquesina",
+          "descripcion": "Montaje completo de estructura de aluminio: anclaje a fachada con tacos químicos/mecánicos, alineación, nivelación, apriete de uniones, verificación de escuadra y aplomado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación paneles vidrio templado en marquesina",
+          "descripcion": "Colocación de paneles de vidrio templado en estructura: sellado con silicona neutra de alta resistencia, fijación con herrajes de acero inoxidable, juntas de dilatación, limpieza final",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Anclaje a fachada y refuerzo estructural",
+          "descripcion": "Tacos químicos M16 o anclajes mecánicos para fijación de ménsulas a fachada, incluye perforación, limpieza, inyección y curado. Refuerzo local si necesario",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro pequeño material (silicona, herrajes, tacos, juntas)",
+          "descripcion": "Silicona neutra de alta resistencia, tacos químicos, herrajes acero inoxidable, juntas EPDM, cinta de espuma, tornillería, material de limpieza",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado: 200-400€ según cantidad de herrajes y sellados"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1860,
+        "iva_porcentaje": 21,
+        "iva": 390.6,
+        "total": 2250.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica de 'instalación marquesina aluminio y vidrio' en catálogo de fachadas o cerrajería",
+        "Considerar si el proyecto requiere andamio (partida auxiliar de fachadas) para acceso seguro a 3m de altura",
+        "Solicitar presupuesto de cálculo estructural y proyecto técnico (partida de gestoria_tramites o servicios técnicos)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro estructura marquesina aluminio anodizado 3m vuelo",
+          "oficio": "cerrajeria",
+          "motivo": "No existe partida específica en catálogo para estructuras de marquesina personalizadas. Requiere cotización directa con fabricante"
+        },
+        {
+          "concepto": "Suministro vidrio templado seguridad para marquesina",
+          "oficio": "cristaleria",
+          "motivo": "Partida de material específica para vidrio templado en marquesina. Precio depende de m2 exactos y espesor requerido por cálculo"
+        },
+        {
+          "concepto": "Suministro pequeño material (silicona, herrajes, tacos, juntas)",
+          "oficio": "cerrajeria",
+          "motivo": "Agrupación de consumibles necesarios para instalación completa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_de_videoportero_o_intercomunicador"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3820,
+      "tokens_out": 2571
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

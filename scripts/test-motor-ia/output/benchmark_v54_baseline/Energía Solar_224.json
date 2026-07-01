@@ -1,0 +1,256 @@
+{
+  "id": 224,
+  "oficio": "Energía Solar",
+  "texto": "Instalación de paneles solares térmicos para agua caliente sanitaria, 2 colectores y depósito de 200 litros",
+  "http_status": 200,
+  "latency_ms": 20773,
+  "raw_response": {
+    "transcript": "Instalación de paneles solares térmicos para agua caliente sanitaria, 2 colectores y depósito de 200 litros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de paneles solares térmicos para agua caliente sanitaria, 2 colectores y depósito de 200 litros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Anticongelante OBLIGATORIO en circuito primario",
+          "Verificar orientación sur e inclinación según latitud de la zona",
+          "Pasteurización antilegionela recomendada (60°C periódicamente)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación solar térmica para ACS con colectores y depósito acumulador"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Colectores solares planos",
+          "descripcion": "Suministro e instalación de 2 colectores solares planos de alta eficiencia para circuito primario",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de colectores solares planos a definir por instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Estructura soporte cubierta",
+          "descripcion": "Estructura metálica de aluminio anodizado para fijación de 2 colectores en cubierta, con anclajes y sellados",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura soporte a definir según tipo de cubierta y configuración"
+        },
+        {
+          "concepto": "Depósito acumulador solar",
+          "descripcion": "Suministro e instalación de depósito acumulador solar de 200 litros con serpentín doble para circuito primario y apoyo",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de depósito acumulador 200L a definir por instalador según marca y aislamiento"
+        },
+        {
+          "concepto": "Grupo hidráulico solar",
+          "descripcion": "Suministro e instalación de grupo hidráulico completo: bomba circulación, válvulas antirretorno, válvula seguridad, manómetro, termómetro y purgador automático",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de grupo hidráulico a definir según potencia de bomba y componentes"
+        },
+        {
+          "concepto": "Vaso de expansión circuito solar",
+          "descripcion": "Suministro e instalación de vaso de expansión cerrado de 8-12 litros para circuito primario solar",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vaso expansión a definir según volumen y presión"
+        },
+        {
+          "concepto": "Líquido anticongelante circuito primario",
+          "descripcion": "Suministro e instalación de 15-20 litros de líquido anticongelante (propilenglicol) para protección circuito primario hasta -20°C",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de anticongelante a definir. OBLIGATORIO en circuito primario"
+        },
+        {
+          "concepto": "Centralita solar con sondas",
+          "descripcion": "Suministro e instalación de centralita solar diferencial con sondas de temperatura (colectores, depósito, apoyo) y relé de bomba",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de centralita solar a definir según funcionalidades y marca"
+        },
+        {
+          "concepto": "Cableado eléctrico y conexiones",
+          "descripcion": "Suministro e instalación de cableado eléctrico (sondas, bomba, centralita), tuberías de cobre aisladas (ida/retorno colectores y depósito), válvulas de corte y purgadores",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales auxiliares (tuberías, cableado, válvulas) a definir según longitud de recorrido"
+        },
+        {
+          "concepto": "Mano de obra instalación sistema solar térmico",
+          "descripcion": "Instalación completa: montaje estructura, fijación colectores, conexión hidráulica, eléctrica, pruebas de estanqueidad, llenado y purgado del circuito, puesta en marcha y ajuste de centralita",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 65,
+          "total": 1040,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual, herramientas, materiales consumibles (cinta teflón, pasta térmica, bridas, etc.)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de EPI y pequeño material a definir"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1040,
+        "iva_porcentaje": 21,
+        "iva": 218.4,
+        "total": 1258.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar que los colectores solares sean de tipo plano o tubos de vacío según zona climática",
+        "Depósito de 200L es adecuado para 1-2 personas. Si hay más demanda, considerar depósito de 250-300L",
+        "Incluir kit antilegionela con pasteurización automática a 60°C si hay riesgo de legionela",
+        "Considerar caldera o calentador de apoyo para días nublados (conexión con serpentín de apoyo en depósito)",
+        "Orientación recomendada: Sur. Inclinación: latitud ± 10° (típicamente 30-40° en España)",
+        "Fracción solar mínima según CTE DB-HE4: 30-50% según zona climática"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Colectores solares planos",
+          "oficio": "energia_solar",
+          "motivo": "Especificación técnica de cantidad (2 ud) y tipo (planos para ACS)"
+        },
+        {
+          "concepto": "Estructura soporte cubierta",
+          "oficio": "energia_solar",
+          "motivo": "Elemento estructural necesario para fijación segura"
+        },
+        {
+          "concepto": "Depósito acumulador solar 200L",
+          "oficio": "energia_solar",
+          "motivo": "Especificación de capacidad (200L) con serpentín doble"
+        },
+        {
+          "concepto": "Grupo hidráulico solar",
+          "oficio": "energia_solar",
+          "motivo": "Conjunto de componentes hidráulicos obligatorios"
+        },
+        {
+          "concepto": "Vaso de expansión circuito solar",
+          "oficio": "energia_solar",
+          "motivo": "Componente obligatorio para absorber dilataciones"
+        },
+        {
+          "concepto": "Líquido anticongelante",
+          "oficio": "energia_solar",
+          "motivo": "OBLIGATORIO en circuito primario solar"
+        },
+        {
+          "concepto": "Centralita solar con sondas",
+          "oficio": "energia_solar",
+          "motivo": "Control automático de circulación según diferencial de temperaturas"
+        },
+        {
+          "concepto": "Cableado eléctrico y conexiones",
+          "oficio": "energia_solar",
+          "motivo": "Materiales auxiliares de instalación (tuberías, válvulas, cableado)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_solar_termica_para_ACS",
+      "instalacion_solar_termica_para_piscina",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 4.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4158,
+      "tokens_out": 2966
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 1,
+    "n_sugeridas": 9,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

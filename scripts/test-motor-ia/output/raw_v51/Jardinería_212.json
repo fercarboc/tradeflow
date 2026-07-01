@@ -1,0 +1,288 @@
+{
+  "id": 212,
+  "oficio": "Jardinería",
+  "texto": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+  "http_status": 200,
+  "latency_ms": 27899,
+  "raw_response": {
+    "transcript": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Plataforma de acceso detectada: requiere proyecto estructural y cumplimiento normativo CTE",
+          "Trabajo en altura en finca: verificar disponibilidad de medios de acceso y seguridad",
+          "Diferentes alturas de palmeras: revisar si alguna requiere empresa especializada con medios de elevación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Poda y formación de árboles/palmeras"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Plataforma de acceso elevada para trabajo en altura"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Posible estructura metálica y barandillas de seguridad en plataforma"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto estructural plataforma de acceso",
+          "descripcion": "Diseño y cálculo estructural de plataforma metálica de acceso para trabajo en altura en poda de palmeras, cumplimiento CTE DB-SUA",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proyecto técnico requiere presupuesto específico del ingeniero/proyectista"
+        },
+        {
+          "concepto": "Suministro perfilería metálica estructura plataforma",
+          "descripcion": "Perfiles metálicos (HEB, UPN, tubo redondo) para estructura soporte de plataforma elevada, cálculos de proyecto",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y presupuesto dependen del proyecto estructural (superficie estimada 15-25 m² plataforma)"
+        },
+        {
+          "concepto": "Suministro suelo antideslizante tramex/chapa perforada",
+          "descripcion": "Tablero tramex antideslizante o chapa perforada galvanizada para suelo de plataforma de trabajo, seguridad en altura",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie aproximada 15-25 m², instalador debe confirmar dimensiones exactas"
+        },
+        {
+          "concepto": "Suministro barandilla perimetral de seguridad",
+          "descripcion": "Barandilla metálica perimetral (tubo + barrotes) altura mínima 100 cm, norma CTE, para contención en plataforma elevada",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro depende del proyecto (aproximado 20-30 ml según superficie plataforma)"
+        },
+        {
+          "concepto": "Montaje estructura plataforma metálica",
+          "descripcion": "Ejecución de soldadura, pernería, alineación y fijación de estructura metálica de plataforma de acceso para poda",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 60,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar 40-80 horas según complejidad de proyecto (instalador revisar)"
+        },
+        {
+          "concepto": "Colocación suelo tramex/chapa y barandillas",
+          "descripcion": "Fijación de tablero tramex antideslizante y montaje barandilla perimetral en plataforma",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar 16-24 horas según superficie (instalador confirmar)"
+        },
+        {
+          "concepto": "Galvanizado en caliente estructura metálica",
+          "descripcion": "Tratamiento galvanizado en caliente por inmersión de estructura y elementos metálicos para protección exterior en finca",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto en función del peso de perfilería (aprox. 1500-3000 kg)"
+        },
+        {
+          "concepto": "Poda y formación 6 palmeras",
+          "descripcion": "Poda selectiva y formación de copa en 6 palmeras de diferentes alturas (5-15 m), eliminación de hojas secas, frondas muertas y estructuración de porte. Trabajo realizado desde plataforma de acceso. Incluye herramientas desinfectadas, EPI, cicatrizante en cortes y retirada de restos vegetales.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 25,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar 30-60 horas según altura, densidad y estado de palmeras (instalador revisar in situ)"
+        },
+        {
+          "concepto": "Suministro productos fitosanitarios y cicatrizante",
+          "descripcion": "Cicatrizante, mastique vegetal y desinfectante para herramientas de poda en palmeras",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles varios: presupuestar aprox. 80-150€"
+        },
+        {
+          "concepto": "Retirada y gestión de restos vegetales",
+          "descripcion": "Recogida, agrupación y transporte a gestor de residuos vegetales de ramas, hojas y restos de poda de 6 palmeras",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 25,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar 8-16 horas según volumen de restos (aprox. 10-20 m³)"
+        },
+        {
+          "concepto": "Línea de vida temporal para trabajo en altura",
+          "descripcion": "Instalación de línea de vida horizontal temporal en plataforma para amarrado de equipos de protección individual (EPI) durante poda",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cable acero inoxidable + amarres: presupuestar aprox. 40-80€/ml según perímetro"
+        },
+        {
+          "concepto": "Pequeño material y consumibles obra",
+          "descripcion": "Arandelas, pernos, tuercas, arandelas de presión, estaño, cola PU, discos amoladora, cepillos alambre, guantes, mascarillas, combustible herramientas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar aprox. 300-600€ (obra con múltiples oficios)"
+        },
+        {
+          "concepto": "Señalización de seguridad zona de trabajo",
+          "descripcion": "Balizas, cinta reflectante y carteles de advertencia de zona en construcción durante montaje plataforma",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar aprox. 150-250€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones exactas y altura máxima de palmeras para cálculo de plataforma (estimado 15-25 m²)",
+        "Obtener visita técnica en finca para evaluar acceso, topografía y condiciones de seguridad",
+        "Comprobar si alguna palmera requiere grúa o medios de elevación especializados (palmeras > 12 m recomendado equipo especializado)",
+        "Solicitar presupuesto separado de proyecto estructural a ingeniero civil homologado",
+        "Considerar si se requiere coordinador de seguridad (obra > 500€ y duración > 10 días en altura)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto estructural plataforma de acceso",
+          "oficio": "cerrajeria",
+          "motivo": "Trabajo en altura requiere cálculos CTE DB-SUA obligatorios"
+        },
+        {
+          "concepto": "Poda y formación 6 palmeras con plataforma",
+          "oficio": "jardineria",
+          "motivo": "Poda especializada en altura con acceso desde plataforma metálica"
+        },
+        {
+          "concepto": "Línea de vida temporal para trabajo en altura",
+          "oficio": "cerrajeria",
+          "motivo": "Sistema de seguridad complementario en plataforma"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "instalacion_de_sistema_de_monitoreo_solar_online",
+      "instalacion_de_tarima_o_entarimado_de_madera_elevado_para_escenario_o_zona",
+      "poda_de_arboles_de_mediano_porte",
+      "mantenimiento_jardin_y_zonas_verdes_periodico"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 4,
+    "n_sugeridas": 9,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

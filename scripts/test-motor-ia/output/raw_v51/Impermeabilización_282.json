@@ -1,0 +1,194 @@
+{
+  "id": 282,
+  "oficio": "Impermeabilización",
+  "texto": "Tratamiento impermeabilizante en fachada exterior de edificio antiguo con mortero flexible",
+  "http_status": 200,
+  "latency_ms": 22558,
+  "raw_response": {
+    "transcript": "Tratamiento impermeabilizante en fachada exterior de edificio antiguo con mortero flexible",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tratamiento impermeabilizante en fachada exterior de edificio antiguo con mortero flexible",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "SUPERFICIE NO ESPECIFICADA: se requiere m² exactos para calcular material y mano de obra",
+          "ESTADO DEL SOPORTE NO INDICADO: desconocemos si hay grietas, desprendimientos, humedades previas o limpieza necesaria",
+          "TIPO DE MORTERO FLEXIBLE: varias opciones en mercado (poliuretano, acrílico-silicona, cemento flexible). Requiere selección técnica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Revestimiento y tratamiento de fachada con mortero. Oficio base en catálogo."
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Especialidad de tratamientos impermeabilizantes en fachadas. Amplia en Base Maestra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de soporte",
+          "descripcion": "Limpieza de fachada antigua, retirada de suciedad, algas, musgo y material suelto. Preparación del soporte para aplicación de mortero flexible.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 8,
+          "total": 8,
+          "precio_origen": "catalogo_estimado",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total no especificada. Precio por m² estimado. Instalador debe indicar m² reales y ajustar."
+        },
+        {
+          "concepto": "Mortero flexible impermeabilizante",
+          "descripcion": "Suministro de mortero flexible (poliuretano, acrílico-silicona o cemento flexible según selección técnica) para impermeabilización de fachada. Incluye aditivos e imprimación si es necesario.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material no definido. Varía según tipo (poliuretano 25-60€/l, acrílico-silicona 15-35€/l). Instalador introduce precio real según m² y rendimiento."
+        },
+        {
+          "concepto": "Aplicación de mortero flexible impermeabilizante",
+          "descripcion": "Aplicación de mortero flexible en 1-2 manos según porosidad del soporte. Alisado, texturizado y acabado según especificación. Incluye maestras y guías para planeidad.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 28,
+          "total": 28,
+          "precio_origen": "catalogo_base_maestra",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa referencial. Rendimiento típico 4-6 m²/h según textura y complejidad de soporte antiguo. Revisar según presupuesto final de m²."
+        },
+        {
+          "concepto": "Malla de fibra de vidrio en encuentros y puntos singulares",
+          "descripcion": "Colocación de malla de fibra de vidrio en encuentros (esquinas, cambios de material, alfeizares) para evitar grietas de contracción y mejorar adherencia.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0.15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada al 15% de superficie (refuerzos puntuales). Material precio = 0. Instalador define cantidad real y coste unitario."
+        },
+        {
+          "concepto": "Andamio o plataforma de seguridad",
+          "descripcion": "Suministro y montaje de andamio o plataforma de acceso seguro para trabajos en fachada exterior de edificio antiguo. Cumplimiento normativa RD 1407/1992.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio variable según altura, superficie y duración. Presupuesto a parte o incluido en contrata si existe empresa especializada."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Brochas, rodillos, espátulas, trapos, masilla, cinta de enmascarar, arnés de seguridad, guantes, mascarillas, equipos de protección individual (EPI).",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto variable. Estimado 2-5€/m² según complejidad. Instalador define según caso."
+        },
+        {
+          "concepto": "Inspección y pruebas de impermeabilidad",
+          "descripcion": "Inspección visual de la aplicación, comprobación de adherencia y prueba de retención de agua (niebla o riego localizado) para validar impermeabilización correcta.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo_estimado",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "1 hora estimada para inspección. Ajustar según complejidad y superficie."
+        }
+      ],
+      "calculos": {
+        "subtotal": 76,
+        "iva_porcentaje": 21,
+        "iva": 15.96,
+        "total": 91.96
+      },
+      "sugerencias_catalogo": [
+        "OBLIGATORIO DEFINIR SUPERFICIE (m²): El presupuesto está incompleto. La descripción no incluye m² de fachada a tratar.",
+        "OBLIGATORIO ESPECIFICAR TIPO DE MORTERO FLEXIBLE: opciones técnicas son (poliuretano tixotrófico, acrílico-silicona, cemento flexible hidrófugo). Cada una con características y precios distintos.",
+        "OBLIGATORIO DIAGNOSTICAR ESTADO PREVIO: ¿hay grietas, desprendimientos, humedades por capilaridad, sales eflorescentes? Esto determina si se necesita imprimación, limpieza profunda o reparaciones previas.",
+        "CONSIDERAR ENSAYOS PREVIOS: En edificios antiguos, recomendar aplicación de muestra de mortero flexible en zona no visible para validar adherencia y compatibilidad con mortero original.",
+        "REGULACIÓN: Tratamientos en fachada de edificios singulares o protegidos pueden requerir LICENCIA MUNICIPAL O APROBACIÓN DE CONSERVACIÓN. Verificar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero flexible impermeabilizante",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "motivo": "Material específico no detallado en Base Maestra. Creada partida para que instalador especifique tipo exacto y coste.",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Andamio o plataforma de seguridad",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "motivo": "Servicio de alquiler/montaje no especificado en Base Maestra. Creada partida para presupuesto a parte si no está incluido.",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_iluminacion_exterior_fachada",
+      "instalacion_de_grafica_corporativa_o_mural_en_fachada",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "revestimiento_con_mortero_monocapa"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

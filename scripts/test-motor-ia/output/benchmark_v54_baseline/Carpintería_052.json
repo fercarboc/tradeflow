@@ -1,0 +1,242 @@
+{
+  "id": 52,
+  "oficio": "Carpintería",
+  "texto": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+  "http_status": 200,
+  "latency_ms": 17303,
+  "raw_response": {
+    "transcript": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de sustitución: incluye desmontaje de puerta basculante antigua + suministro e instalación de puerta seccional motorizada",
+          "Célula fotoeléctrica de seguridad es OBLIGATORIA en puertas seccionales motorizadas",
+          "Desbloqueo de emergencia manual es OBLIGATORIO"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Desmontaje de puerta basculante antigua y instalación de puerta seccional motorizada"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación de motor, cableado eléctrico, célula fotoeléctrica y botonera de control"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje puerta basculante madera",
+          "descripcion": "Desmontaje completo de puerta basculante de madera antigua, incluyendo brazos, muelles, herrajes y pequeño material. Retirada de escombros.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puerta seccional aluminio motorizada",
+          "descripcion": "Suministro de puerta seccional de aluminio con acabado lacado, guías laterales y superior, muelle de torsión calibrado para el peso de la puerta, motor eléctrico de accionamiento automático, pequeño material de fijación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas del hueco (ancho x alto) y acabado elegido. Rango típico: 800-2500€"
+        },
+        {
+          "concepto": "Instalación puerta seccional con motor",
+          "descripcion": "Instalación completa de puerta seccional: colocación de guías, muelle de torsión, motor, alineación y nivelación, programación de finales de carrera, pruebas de funcionamiento.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad",
+          "descripcion": "Suministro e instalación de célula fotoeléctrica de seguridad (sensor de presencia) para detención automática de puerta en caso de obstáculo. OBLIGATORIA en puertas seccionales motorizadas.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico célula fotoeléctrica: 80-150€"
+        },
+        {
+          "concepto": "Instalación célula fotoeléctrica",
+          "descripcion": "Instalación de célula fotoeléctrica en marco de puerta, cableado de conexión al motor, pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado eléctrico y botonera de control",
+          "descripcion": "Suministro de cable eléctrico (sección según motor), botonera de pared con pulsadores de apertura/cierre/parada, pequeño material de conexión.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico: 60-150€ (cable + botonera)"
+        },
+        {
+          "concepto": "Instalación cableado y botonera",
+          "descripcion": "Instalación de cableado desde motor a botonera, fijación de botonera en pared, conexiones eléctricas, pruebas.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mando a distancia motorización",
+          "descripcion": "Suministro de mando a distancia inalámbrico para accionamiento de puerta seccional motorizada.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico mando a distancia: 40-80€"
+        },
+        {
+          "concepto": "Sistema desbloqueo emergencia manual",
+          "descripcion": "Instalación de sistema de desbloqueo de emergencia manual (palanca o tirador) para apertura manual de puerta en caso de fallo eléctrico. OBLIGATORIO.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico: 30-60€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 485,
+        "iva_porcentaje": 21,
+        "iva": 101.85,
+        "total": 586.85
+      },
+      "sugerencias_catalogo": [
+        "Confirmar medidas exactas del hueco (ancho x alto) para presupuestar puerta seccional",
+        "Especificar acabado de aluminio: lacado blanco, gris, madera, etc.",
+        "Confirmar potencia del motor según peso estimado de puerta",
+        "Verificar disponibilidad de toma eléctrica cerca del motor o presupuestar extensión de línea",
+        "Considerar junta perimetral de estanqueidad si se requiere aislamiento térmico/acústico"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Puerta seccional aluminio motorizada",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Material de sustitución, precio variable según medidas y acabado"
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Componente obligatorio de seguridad en puertas seccionales motorizadas"
+        },
+        {
+          "concepto": "Cableado eléctrico y botonera de control",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Componentes de control y accionamiento eléctrico"
+        },
+        {
+          "concepto": "Mando a distancia motorización",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Accesorio de comodidad para accionamiento remoto"
+        },
+        {
+          "concepto": "Sistema desbloqueo emergencia manual",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Componente obligatorio de seguridad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_motor_puerta_garaje_seccional_o_basculante",
+      "instalacion_puerta_enrollable_seccional_garaje",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_de_puerta_de_garaje_abatible_lateral",
+      "pintado_cancelas_y_portones_metalicos_exterior"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3710,
+      "tokens_out": 2665
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

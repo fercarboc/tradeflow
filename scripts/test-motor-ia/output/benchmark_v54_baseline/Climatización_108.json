@@ -1,0 +1,164 @@
+{
+  "id": 108,
+  "oficio": "Climatización",
+  "texto": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+  "http_status": 200,
+  "latency_ms": 16993,
+  "raw_response": {
+    "transcript": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si la red eléctrica existente soporta 3 splits simultáneos (carga estimada 15-18 kW)",
+          "Confirmar ubicación exacta de unidades interiores y exterior para calcular longitud de tuberías refrigerante",
+          "Revisar si requiere ampliación de acometida eléctrica o nuevo circuito dedicado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de equipos split inverter, conexión refrigerante y pruebas de funcionamiento"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión a red eléctrica, circuitos dedicados, protecciones y puesta en marcha"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de 3 unidades split inverter",
+          "descripcion": "Suministro de 3 equipos split inverter (unidades interiores + exterior), incluyendo refrigerante R32, tuberías de cobre aisladas, drenaje y pequeño material de fijación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (kW), marca y modelo. Rango típico: 800-2500€/ud instalado"
+        },
+        {
+          "concepto": "Instalación de 3 unidades split inverter",
+          "descripcion": "Montaje de unidades interiores en salón y dormitorios, conexión de tuberías refrigerante con sistema existente, pruebas de estanqueidad, carga de refrigerante y puesta en marcha",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 60,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica de 3 splits a red existente",
+          "descripcion": "Tendido de cableado (3x2.5mm² mínimo por unidad), instalación de protecciones (magnetotérmicos y diferenciales), conexión a cuadro eléctrico, tomas de corriente dedicadas y puesta a tierra",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye cable, protecciones, enchufes. Rango: 150-400€/ud según distancia y sección"
+        },
+        {
+          "concepto": "Mano de obra instalación eléctrica splits",
+          "descripcion": "Tendido de cableado, instalación de protecciones en cuadro, conexión de tomas y pruebas de funcionamiento eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Verificación de estanqueidad del circuito refrigerante, carga de refrigerante, calibración de termostatos, pruebas de funcionamiento en modo frío/calor y entrega de documentación",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1200,
+        "iva_porcentaje": 21,
+        "iva": 252,
+        "total": 1452
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: modelos específicos de splits inverter disponibles (potencias: 2.5kW, 3.5kW, 5kW)",
+        "Consultar disponibilidad de cableado eléctrico 2.5mm² y protecciones magnetotérmicas 16A/20A",
+        "Confirmar si existe servicio de 'ampliación acometida eléctrica' si la red actual es insuficiente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de 3 unidades split inverter",
+          "oficio": "climatizacion",
+          "motivo": "Partida agrupada por cantidad (3 unidades). Precio unitario pendiente de revisión según modelo y potencia"
+        },
+        {
+          "concepto": "Conexión eléctrica de 3 splits a red existente",
+          "oficio": "electricidad",
+          "motivo": "Partida agrupada. Incluye materiales (cable, protecciones, enchufes). Precio pendiente de revisión según distancia y sección requerida"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_recuperacion_aguas_pluviales",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_central_de_incendios_deteccion_automatica"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3950,
+      "tokens_out": 2103
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

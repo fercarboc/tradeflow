@@ -1,0 +1,205 @@
+{
+  "id": 170,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+  "http_status": 200,
+  "latency_ms": 14849,
+  "raw_response": {
+    "transcript": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Suelo radiante eléctrico en baño: verificar compatibilidad con humedad y normativa eléctrica (RBT)",
+          "Termostato programable: confirmar modelo y compatibilidad con potencia total instalada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema eléctrico de calefacción por suelo radiante, cableado y termostato"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro cable calefactor suelo radiante eléctrico",
+          "descripcion": "Cable calefactor o manta eléctrica para suelo radiante, 6 m², potencia 100-150 W/m² (600-900 W total)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cable calefactor según marca y potencia específica a confirmar por instalador"
+        },
+        {
+          "concepto": "Instalación cable calefactor suelo radiante",
+          "descripcion": "Colocación, fijación y distribución del cable calefactor en suelo radiante, 6 m²",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 15,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro termostato programable con sonda de suelo",
+          "descripcion": "Termostato digital programable con sensor de temperatura de suelo para control automático de suelo radiante eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de termostato programable según modelo y funcionalidades a confirmar"
+        },
+        {
+          "concepto": "Instalación termostato programable",
+          "descripcion": "Montaje, conexión eléctrica y programación de termostato con sonda de suelo",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro sensor de temperatura suelo",
+          "descripcion": "Sonda de temperatura para suelo radiante eléctrico, cable de conexión al termostato",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sensor/sonda a confirmar"
+        },
+        {
+          "concepto": "Instalación sensor de temperatura y cableado",
+          "descripcion": "Colocación de sonda de suelo en tubería de protección, conexión de cables al termostato",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 30,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro pequeño material eléctrico",
+          "descripcion": "Tuercas, conectores, cinta aislante, bridas, cajas de derivación, pequeño material para instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a confirmar según necesidades finales"
+        },
+        {
+          "concepto": "Pruebas y puesta en marcha suelo radiante",
+          "descripcion": "Pruebas de continuidad, aislamiento y funcionamiento del sistema de suelo radiante eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 210,
+        "iva_porcentaje": 21,
+        "iva": 44.1,
+        "total": 254.1
+      },
+      "sugerencias_catalogo": [
+        "Confirmar potencia total del sistema (600-900 W) y verificar que el circuito eléctrico soporta la carga",
+        "En baños: asegurar que el cable calefactor cumple normativa de seguridad en zonas húmedas (RBT, ITC-BT-24)",
+        "Considerar mortero autonivelante conductor si se requiere cobertura adicional del cable",
+        "Termostato programable: modelo recomendado con función de limitación de temperatura máxima en superficie (máx. 29°C)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro cable calefactor suelo radiante eléctrico",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de suelo radiante eléctrico, requiere precio según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Suministro termostato programable con sonda de suelo",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo de control específico, precio variable según modelo y funcionalidades"
+        },
+        {
+          "concepto": "Suministro sensor de temperatura suelo",
+          "origen": "sugerida_ia",
+          "motivo": "Componente de medición, precio a confirmar"
+        },
+        {
+          "concepto": "Suministro pequeño material eléctrico",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles y accesorios, importe estimado a confirmar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_suelo_radiante_agua",
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_suelo_radiante_hidraulico",
+      "instalacion_de_suelo_radiante_en_reforma",
+      "instalacion_suelo_radiante_electrico"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3710,
+      "tokens_out": 2131
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

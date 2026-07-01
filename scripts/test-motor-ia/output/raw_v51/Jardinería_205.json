@@ -1,0 +1,205 @@
+{
+  "id": 205,
+  "oficio": "Jardinería",
+  "texto": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+  "http_status": 200,
+  "latency_ms": 16449,
+  "raw_response": {
+    "transcript": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "El instalador debe confirmar especie final (mirto o boj) antes de suministro",
+          "Revisar altura objetivo del seto para ajustar densidad de plantas",
+          "Riego de asiento es CRÍTICO para el éxito de la plantación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Plantación de seto - trabajo de jardinería especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación línea de plantación (zanjas/hoyos)",
+          "descripcion": "Excavación y preparación del terreno para 25 ml de seto, incluyendo limpieza, nivelación y apertura de hoyos según especie",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 8,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantas de seto (mirto o boj)",
+          "descripcion": "Suministro de plantas de seto según especie elegida (mirto o boj), altura 40-60 cm, densidad 3-4 plantas/metro lineal. Aproximadamente 75-100 unidades",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 85,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de plantas variable según especie, proveedor y tamaño. El instalador debe cotizar según proveedor local"
+        },
+        {
+          "concepto": "Abono de fondo",
+          "descripcion": "Abono orgánico o enriquecedor de tierra para 25 ml de seto, mejora de sustrato",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo de abono (orgánico, mineral, enmienda). Revisar proveedor"
+        },
+        {
+          "concepto": "Plantación correcta y riego de asiento",
+          "descripcion": "Plantación de todas las unidades con técnica correcta, colocación en profundidad adecuada, compactación de tierra y riego profundo de asiento para todo el perímetro (25 ml)",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 10,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tutores iniciales",
+          "descripcion": "Colocación de tutores de madera o bambú para sujeción inicial de plantas, protección y dirección de crecimiento",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 85,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según material y tamaño de tutores"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Tornillería, grapas, alambre, bolsas, herramientas menores para plantación de seto",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado por conceptos auxiliares"
+        },
+        {
+          "concepto": "Geotextil y corteza/acolchado bajo seto (opcional)",
+          "descripcion": "Colocación de geotextil y acolchado de corteza para retención de humedad, control de maleza y mejora estética",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar opcional - precio y cantidad a confirmar con cliente"
+        },
+        {
+          "concepto": "Riego por goteo para mantenimiento inicial (opcional)",
+          "descripcion": "Instalación de sistema de riego por goteo superficial para primeros meses de enraizamiento, facilita mantenimiento inicial",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar opcional - incluir sólo si cliente lo solicita"
+        }
+      ],
+      "calculos": {
+        "subtotal": 450,
+        "iva_porcentaje": 21,
+        "iva": 94.5,
+        "total": 544.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Mirto o Boj? Mirto más resistente a climas templados, Boj mejor para podas formales en climas frescos",
+        "Confirmar altura objetivo del seto (40-60 cm inicial, 1-2 metros final) → afecta densidad de plantas y tutores",
+        "Época recomendada: otoño (septiembre-noviembre) o primavera (marzo-abril) para mejor enraizamiento",
+        "Riego de asiento es CRÍTICO → primeras 2-3 semanas requieren riego frecuente",
+        "Presupuestar mantenimiento futuro: poda de formación al año 1 y 2"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plantas de seto (mirto o boj)",
+          "motivo": "Material con precio variable - instalador debe cotizar según especie y proveedor local"
+        },
+        {
+          "concepto": "Abono de fondo",
+          "motivo": "Material con precio variable según tipo y cantidad"
+        },
+        {
+          "concepto": "Tutores iniciales",
+          "motivo": "Material auxiliar - precio variable según tipo"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "motivo": "Precio alzado estimado - revisar según necesidades reales"
+        },
+        {
+          "concepto": "Geotextil y corteza/acolchado bajo seto",
+          "motivo": "Partida auxiliar opcional - confirmar con cliente"
+        },
+        {
+          "concepto": "Riego por goteo para mantenimiento inicial",
+          "motivo": "Partida auxiliar opcional - incluir sólo si cliente lo solicita"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "instalacion_de_plantas_trepadoras",
+      "plantacion_de_setos_o_sebes",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

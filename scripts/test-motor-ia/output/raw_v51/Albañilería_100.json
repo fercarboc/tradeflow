@@ -1,0 +1,250 @@
+{
+  "id": 100,
+  "oficio": "Albañilería",
+  "texto": "Construir rampa de acceso para silla de ruedas en entrada de vivienda, longitud 3 metros",
+  "http_status": 200,
+  "latency_ms": 24051,
+  "raw_response": {
+    "transcript": "Construir rampa de acceso para silla de ruedas en entrada de vivienda, longitud 3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir rampa de acceso para silla de ruedas en entrada de vivienda, longitud 3 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "NORMA CTE DB-SUA: pendiente máxima 8% en uso privado (verificar con cliente)",
+          "Se asume ancho rampa estándar 1,20m (confirmar con cliente si necesita mayor)",
+          "Impermeabilización OBLIGATORIA en exterior",
+          "Recomendación: incluir barras de apoyo lateral para seguridad accesibilidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Construcción estructura rampa, obra civil"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": false,
+          "nuevo_oficio": true,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Tratamiento superficial antideslizante obligatorio en rampa exterior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y retirada de pavimento existente en zona de rampa",
+          "descripcion": "Demolición selectiva del pavimento/escalones existentes en la zona de la rampa (3 m aproximadamente), retirada de escombros y carga en contenedor",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3.6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmación de precio por m² de demolición + transporte escombros según ubicación"
+        },
+        {
+          "concepto": "Suministro y colocación de base hormigón para rampa",
+          "descripcion": "Base de hormigón H-20 o superior, espesor 15 cm para rampa de 3 m x 1,2 m, incluyendo compactación y nivelación según pendiente máxima 8% CTE",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0.54,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio hormigón H-20, transporte, bombeo si procede según ubicación"
+        },
+        {
+          "concepto": "Encofrado y desencofrado rampa",
+          "descripcion": "Encofrado lateral y frontal para contención del hormigón durante vertido y fraguado, posterior desencofrado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 2.4,
+          "precio_unitario": 40,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revestimiento pavimento rampa - acabado antideslizante",
+          "descripcion": "Pavimento de alta fricción/antideslizante (baldosa cerámica especial, mortero autonivelante con árido antideslizante o resina epoxi) para rampa de 3 m x 1,2 m. OBLIGATORIO CTE DB-SUA en superficies de circulación exterior",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3.6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo de acabado antideslizante elegido (cerámica, resina, mortero)"
+        },
+        {
+          "concepto": "Instalación acabado antideslizante rampa",
+          "descripcion": "Colocación y acabado del pavimento antideslizante (baldosado, adhesivo, rejuntado o aplicación resina) incluyendo pequeño material y herramientas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3.6,
+          "precio_unitario": 45,
+          "total": 162,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barras de apoyo inoxidable en rampa",
+          "descripcion": "Suministro e instalación de barras de apoyo en acero inoxidable en lateral de rampa (mínimo 2 tramos de 1,5 m cada uno), fijación mediante pernos en hormigón, recomendado para accesibilidad PMR",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio barra inoxidable Ø32-40mm, incluye herrajes de fijación"
+        },
+        {
+          "concepto": "Instalación barras de apoyo",
+          "descripcion": "Taladrado, fijación con pernos químicos o mecánicos, nivelación y test de resistencia de barras",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pendiente y drenaje - canaleta recogida agua",
+          "descripcion": "Instalación de canaleta de recogida de agua en parte inferior de rampa para evacuación correcta, evitando encharcamiento y garantizando seguridad en mojado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1.2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio canaleta de hormigón o acero según ubicación y reglamentación municipal"
+        },
+        {
+          "concepto": "Instalación canaleta drenaje",
+          "descripcion": "Colocación, nivelación e integración de canaleta en pavimento de rampa",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1.2,
+          "precio_unitario": 40,
+          "total": 48,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, herramientas y EPI",
+          "descripcion": "Tornillería, pasadores, mortero, pasta juntas, guantes, gafas, mascarilla, etc.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto a definir por instalador (estimado 5-10% mano de obra)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 486,
+        "iva_porcentaje": 21,
+        "iva": 102.06,
+        "total": 588.06
+      },
+      "sugerencias_catalogo": [
+        "Verificar si cliente necesita proyecto técnico o licencia municipal (puede ser obligatorio según municipio)",
+        "Confirmar ancho rampa: estándar 1,20 m, pero si silla de ruedas grande puede necesitar 1,50 m",
+        "Considerar iluminación LED en rampa si es en sombra o acceso nocturno",
+        "Plantear escalones o rampa alternativa si espacio insuficiente para cumplir pendiente 8%"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Demolición pavimento zona rampa",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Hormigón base rampa H-20",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Pavimento antideslizante rampa",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Barras de apoyo inoxidable",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Canaleta drenaje agua",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "rebaje_de_acera_o_vado_vehicular",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "impermeabilizacion_de_escalera_o_rampa_exterior",
+      "fabricacion_e_instalacion_puerta_exterior_madera"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

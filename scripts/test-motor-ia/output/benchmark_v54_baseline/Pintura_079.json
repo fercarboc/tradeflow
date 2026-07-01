@@ -1,0 +1,186 @@
+{
+  "id": 79,
+  "oficio": "Pintura",
+  "texto": "Reparación de grietas en pared de salón con vendas y masilla, posterior pintado",
+  "http_status": 200,
+  "latency_ms": 13879,
+  "raw_response": {
+    "transcript": "Reparación de grietas en pared de salón con vendas y masilla, posterior pintado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de grietas en pared de salón con vendas y masilla, posterior pintado",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar extensión y profundidad de grietas antes de presupuestar (pueden indicar problemas estructurales)",
+          "Si grietas > 5mm o con patrón de fisuras múltiples, considerar inspección técnica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de grietas con vendas y masilla"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintado posterior de la zona reparada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Reparación de grietas con venda de fibra de vidrio y masilla",
+          "descripcion": "Limpieza de grietas, colocación de venda de fibra de vidrio, aplicación de masilla de reparación, lijado y preparación de superficie para pintura",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Venda de fibra de vidrio para grietas",
+          "descripcion": "Venda autoadhesiva de fibra de vidrio, ancho 10cm, para refuerzo de grietas antes de masilla",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar metraje real de grietas y precio unitario de venda"
+        },
+        {
+          "concepto": "Masilla de reparación para grietas",
+          "descripcion": "Masilla poliéster o acrílica para relleno de grietas, aplicación con espátula",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar cantidad real consumida y precio unitario"
+        },
+        {
+          "concepto": "Imprimación fijadora y lija",
+          "descripcion": "Imprimación fijadora para masilla y lijas de diferentes granulometrías (150, 220) para preparación de superficie",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pequeño material de preparación, instalador revisa consumo"
+        },
+        {
+          "concepto": "Pintado de zona reparada",
+          "descripcion": "Aplicación de pintura plástica o acrílica en zona reparada, igualación con resto de pared (1-2 manos según necesidad)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura plástica para acabado",
+          "descripcion": "Pintura plástica o acrílica de calidad estándar para igualación de zona reparada con resto de pared",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador indica litros reales necesarios y precio"
+        }
+      ],
+      "calculos": {
+        "subtotal": 184,
+        "iva_porcentaje": 21,
+        "iva": 38.64,
+        "total": 222.64
+      },
+      "sugerencias_catalogo": [
+        "Si las grietas son extensas (>10 metros lineales), considerar presupuesto por m² de pared reparada y pintada",
+        "Si hay múltiples grietas con patrón de fisuras, evaluar causa (asentamiento, humedad, movimiento estructural) antes de reparar"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Venda de fibra de vidrio para grietas",
+          "oficio": "albanileria",
+          "motivo": "Material específico de reparación, no en catálogo base"
+        },
+        {
+          "concepto": "Masilla de reparación para grietas",
+          "oficio": "albanileria",
+          "motivo": "Material específico de reparación, no en catálogo base"
+        },
+        {
+          "concepto": "Imprimación fijadora y lija",
+          "oficio": "albanileria",
+          "motivo": "Pequeño material de preparación, no en catálogo base"
+        },
+        {
+          "concepto": "Pintura plástica para acabado",
+          "oficio": "pintura",
+          "motivo": "Material de pintura, precio variable según marca y calidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_zocalo_o_rodapie_pintado",
+      "pintado_paredes_habitacion_con_papel_pintado_retirado",
+      "reconstruccion_de_muro_con_lesiones_estructurales",
+      "pintado_de_medianeras_o_paredes_ciegas",
+      "acabado_con_microcemento_suelo_o_pared"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3551,
+      "tokens_out": 1833
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

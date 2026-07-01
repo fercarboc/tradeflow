@@ -1,0 +1,189 @@
+{
+  "id": 185,
+  "oficio": "Cerrajería",
+  "texto": "Instalación de cerradura electrónica con código y huella dactilar en puerta de oficina",
+  "http_status": 200,
+  "latency_ms": 20674,
+  "raw_response": {
+    "transcript": "Instalación de cerradura electrónica con código y huella dactilar en puerta de oficina",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de cerradura electrónica con código y huella dactilar en puerta de oficina",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cerradura biométrica (huella) + teclado (código): requiere validación de marca/modelo y compatibilidad con puerta existente",
+          "Fuente de alimentación con batería de respaldo: OBLIGATORIA para seguridad en cortes de luz"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de cerradura electrónica biométrica + teclado código. Oficio principal: cerrajería especializada en sistemas de acceso."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cerradura electrónica biométrica con lector de huella dactilar",
+          "descripcion": "Cerradura inteligente con sensor biométrico (huella dactilar) integrado, cuerpo de cerradura de seguridad reforzado, compatible con puertas de oficina estándar",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cerradura biométrica variable según marca (Salto, Assa Abloy, Dormakaba, etc.). Instalador debe confirmar modelo y presupuesto."
+        },
+        {
+          "concepto": "Teclado numérico para código de acceso",
+          "descripcion": "Teclado electrónico retroiluminado para entrada de código PIN, compatible con cerradura biométrica, montaje en marco de puerta",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio teclado numérico según integración con cerradura (puede ser módulo separado o integrado). Requiere confirmación técnica."
+        },
+        {
+          "concepto": "Fuente de alimentación con batería de respaldo",
+          "descripcion": "Fuente de alimentación 12V DC con batería de respaldo (mínimo 24-48h autonomía) para cerradura electrónica en caso de corte de suministro",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Batería de respaldo OBLIGATORIA en sistemas de acceso. Precio variable según capacidad y tecnología (Li-ion vs plomo)."
+        },
+        {
+          "concepto": "Cable de alimentación y comunicación",
+          "descripcion": "Cable eléctrico 2x1.5mm² para alimentación cerradura + cable de comunicación (si sistema requiere conexión a controladora o software de gestión)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud estimada 5ml. Requiere revisión según recorrido real en puerta y proximidad a fuente de alimentación."
+        },
+        {
+          "concepto": "Software de gestión de acceso y usuarios",
+          "descripcion": "Licencia de software para gestión de usuarios, códigos PIN, datos biométricos, registro de accesos y auditoría. Incluye programación inicial de usuarios.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Software puede ser gratuito (sistemas básicos) o de pago (sistemas avanzados con cloud, reportes, integración). Confirmar con fabricante."
+        },
+        {
+          "concepto": "Instalación, ajuste y puesta en marcha",
+          "descripcion": "Desmontaje de cerradura anterior (si existe), instalación de nueva cerradura biométrica, teclado y fuente de alimentación. Ajuste de cilindro, pruebas de funcionamiento biométrico y teclado, programación de usuarios iniciales, entrega de documentación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 60,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillos de seguridad, arandelas, tacos, masilla, silicona, cinta aislante, conectores, y otros accesorios menores para instalación completa",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material estimado. Instalador debe confirmar según necesidades reales de la puerta."
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de cerraduras biométricas: Salto Systems, Assa Abloy Aperio, Dormakaba, Hikvision, Anviz para modelos compatibles con puertas de oficina",
+        "Validar si la puerta existente requiere refuerzo estructural para soportar cerradura biométrica (peso adicional ~2-3kg)",
+        "Confirmar si se requiere integración con sistema de control de acceso centralizado o software de gestión en nube",
+        "Verificar normativa de protección de datos (RGPD) para almacenamiento de datos biométricos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cerradura electrónica biométrica con lector de huella dactilar",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema biométrico avanzado no presente en catálogo base. Requiere especificación de marca/modelo."
+        },
+        {
+          "concepto": "Teclado numérico para código de acceso",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Componente específico de sistema de acceso por código. Precio variable según integración."
+        },
+        {
+          "concepto": "Software de gestión de acceso y usuarios",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de software/licencia. Puede ser incluido en cerradura o requerir compra separada."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_control_de_acceso_por_tarjeta_codigo_o_huella",
+      "instalacion_control_acceso_rfid",
+      "cambio_de_cerradura_completa",
+      "apertura_puerta_cerradura_sin_llave",
+      "instalacion_de_escudo_o_placa_de_proteccion_cerradura"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3686,
+      "tokens_out": 2531
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

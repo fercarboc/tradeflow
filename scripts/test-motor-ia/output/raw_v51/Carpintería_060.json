@@ -1,0 +1,188 @@
+{
+  "id": 60,
+  "oficio": "Carpintería",
+  "texto": "Montaje de estructura de madera para tejado de porche, vigas de pino y tablones",
+  "http_status": 200,
+  "latency_ms": 27225,
+  "raw_response": {
+    "transcript": "Montaje de estructura de madera para tejado de porche, vigas de pino y tablones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montaje de estructura de madera para tejado de porche, vigas de pino y tablones",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incompleto: falta superficie total (m²), longitud de vigas y medidas de tablones",
+          "Se asume trabajo de carpintería estructural. Revisar si incluye cubierta (tejas/panel) o solo armazón",
+          "Madera de pino requiere tratamiento preservante obligatorio para exterior"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Montaje estructura madera, vigas y tablones"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación base/apoyos estructura si es necesario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vigas de pino tratado para estructura porche",
+          "descripcion": "Suministro de vigas de pino clase C24, tratamiento preservante obligatorio para exterior, según medidas y escuadría del proyecto",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Falta definir número de vigas, escuadría (sección cm x cm) y longitud. El instalador debe especificar vigas exactas y tratamiento (autoclave clase 3.1 mínimo para exterior)"
+        },
+        {
+          "concepto": "Tablones de pino para entramado/arriostramiento",
+          "descripcion": "Suministro de tablones pino tratado, escuadría según proyecto, para arriostramientos y sistemas de arriostramiento lateral de estructura",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Falta definir cantidad de tablones, sección y longitud exacta"
+        },
+        {
+          "concepto": "Herrajes metálicos estructura (escuadras, pernos, tirafondos, placas de anclaje)",
+          "descripcion": "Suministro de herrajes galvanizados (acero inoxidable recomendado exterior): escuadras, pernos, tirafondos inox, placas de anclaje estructural",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de herrajes dependen del cálculo estructural y número de uniones"
+        },
+        {
+          "concepto": "Montaje estructura madera porche: ensamble, fijación y aplomado de vigas y tablones",
+          "descripcion": "Mano de obra montaje: ensamble de vigas, fijación con herrajes, aplomado, arriostramientos, comprobación escuadres y nivel. Incluye pequeño material (cuñas, trapos, etiquetas)",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Falta superficie total (m²) o duración estimada en horas. Se sugiere calcular: superficie×0.3 a 0.5 h/m² según complejidad"
+        },
+        {
+          "concepto": "Tratamiento preservante insecticida-fungicida para toda la estructura",
+          "descripcion": "Aplicación de tratamiento preventivo (brocha/spray) en toda la madera expuesta para protección contra insectos xilófagos y hongos. Secado mínimo 48h antes de cubierta",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Falta especificar superficie total a tratar (m²) y producto concreto (ej: xilófago profesional, precio ~15-30€/l según marca)"
+        },
+        {
+          "concepto": "Preparación base/apoyos de estructura en obra civil",
+          "descripcion": "Regularización de superficies de apoyo, nivelación, colocación de placas base o mortero de nivelaciónsi es necesario, comprobación de replanteado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Depende del estado de la base. Se estima 2-6 horas según número de apoyos y complejidad"
+        },
+        {
+          "concepto": "Pequeño material y consumibles montaje (cuñas, tacos, trapos, aserrín, etiquetas)",
+          "descripcion": "Consumibles incluidos en montaje: cuñas de madera, trapos, aserrín para nivelación y llenado, marcadores, etiquetas de seguridad",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 30-80€ según volumen. El instalador ajusta"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Si la estructura incluye cubierta (tejas/panel/lámina), añadir partidas de 'instalacion_cubierta_metalica' o similar",
+        "Si hay trabajos de altura >6m, requiere andamios y EPI específico (cinturón seguridad, arnés): añadir partida de 'alquiler_andamio' + 'seguridad_trabajos_altura'",
+        "Considerar si se necesita proyecto estructural (ingeniero): partida 'proyecto_estructura_madera' (500-2000€ precio alzado)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vigas de pino tratado estructura",
+          "oficio": "carpinteria",
+          "razon": "Material específico: madera pino clase C24 con tratamiento preservante, no cubierto completamente en catálogo base",
+          "sugerencia_integracion": "Crear subcategoría en 'materiales_madera' con rango 150-400€/ud según escuadría"
+        },
+        {
+          "concepto": "Herrajes metálicos estructura galvanizados/inox",
+          "oficio": "carpinteria",
+          "razon": "Fijación estructural: escuadras, pernos, tirafondos. Material crítico para seguridad",
+          "sugerencia_integracion": "Catálogo independiente: 'herrajes_estructurales_galvanizados' rango 200-800€/lote según proyecto"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "reparacion_y_consolidacion_de_estructura_de_madera_cubierta",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "instalacion_ventana_madera_con_vidrio"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

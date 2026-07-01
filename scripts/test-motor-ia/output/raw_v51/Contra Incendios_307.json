@@ -1,0 +1,332 @@
+{
+  "id": 307,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar bocas de incendio equipadas BIE en nave industrial, conectadas a red de agua",
+  "http_status": 200,
+  "latency_ms": 38643,
+  "raw_response": {
+    "transcript": "Instalar bocas de incendio equipadas BIE en nave industrial, conectadas a red de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar bocas de incendio equipadas BIE en nave industrial, conectadas a red de agua",
+        "tipo_presupuesto": "instalacion_sistemas_contra_incendios",
+        "requiere_revision_general": true,
+        "alertas": [
+          "FALTA CANTIDAD DE BIEs: especificar número de unidades a instalar",
+          "FALTA CONFIGURACIÓN RED: determinar si existe red de agua contra incendios o se requiere implementar",
+          "FALTA PLANO/LAYOUT: necesario para calcular longitudes de tuberías y ubicaciones óptimas",
+          "PROYECTO TÉCNICO OBLIGATORIO según UNE 23403 y CTE DB-SI",
+          "REVISIÓN TRIMESTRAL OBLIGATORIA post-instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 70
+          },
+          "motivo": "Especialidad regulada por normativa CTE DB-SI y UNE 23403. Instalación de sistemas de protección contra incendios."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión a red de agua, tuberías, válvulas y conexiones hidráulicas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico sistema BIE",
+          "descripcion": "Proyecto técnico según UNE 23403, CTE DB-SI, cálculo de radios de acción, disposición BIEs, planos de red, especificaciones técnicas y memoria justificativa",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIO. El instalador debe definir alcance: nivel de complejidad según tamaño nave, número de BIEs, accesibilidad red existente. Rango referencia: 400-1500€"
+        },
+        {
+          "concepto": "Armarios BIE 25mm certificados UNE 23403",
+          "descripcion": "Armarios BIE 25mm empotrados o superficie, certificados UNE 23403, incluye marco, puerta con cierre magnético y señalización normalizada",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CANTIDAD PENDIENTE. El instalador debe especificar número de BIEs. Rango precio unitario: 150-400€/ud según ubicación (empotrado/superficie) y marca certificada"
+        },
+        {
+          "concepto": "Manguera 25mm homologada",
+          "descripcion": "Manguera de 25mm DN25, certificada EN 694, dinámica, con acoplamiento rápido, según longitud requerida (típico 25-30m)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CANTIDAD PENDIENTE (longitud total mangueras). Referencia: 25-30m por BIE. Rango: 3-8€/ml según calidad"
+        },
+        {
+          "concepto": "Devanadera semi-rígida BIE 25mm",
+          "descripcion": "Devanadera semi-rígida enrollada o plana para manguera 25mm, con soportes de fijación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CANTIDAD = número de BIEs. Rango: 45-120€/ud según tipo (plana o semicircular)"
+        },
+        {
+          "concepto": "Lanza boquilla 25mm certificada",
+          "descripcion": "Lanza boquilla 25mm, chorro variable, presión mínima de operación 2 bar, caudal 100 l/min, certificada EN 671-1",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CANTIDAD = número de BIEs. Rango: 80-180€/ud según marca y características"
+        },
+        {
+          "concepto": "Válvulas de cierre esférico 25mm",
+          "descripcion": "Válvulas de cierre esférico certificadas para agua contra incendios, DN 25, paso total, cuerpo bronce/latón",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CANTIDAD PENDIENTE (válvulas generales + derivadas). Estimación: 2-3 por BIE. Rango: 35-100€/ud"
+        },
+        {
+          "concepto": "Red de tuberías contra incendios",
+          "descripcion": "Tuberías de acero galvanizado, cobre o fundición dúctil, según cálculo hidráulico, incluyendo soportería, abrazaderas y protección anticorrosiva. Conexión desde red existente o nueva red de alimentación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "LONGITUD PENDIENTE (depende de layout nave y número de BIEs). Requiere cálculo hidráulico. Rango: 12-45€/ml según diámetro (DN25-DN50) y material"
+        },
+        {
+          "concepto": "Manómetros verificación presión",
+          "descripcion": "Manómetros de glicerina 0-4 bar, rango de trabajo 0-2.5 bar efectivos, con válvula de cierre independiente, instalados en puntos críticos de red",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CANTIDAD TÍPICA: 1-2 (salida red + entrada colector). Rango: 25-60€/ud"
+        },
+        {
+          "concepto": "Toma siamesa exterior (si aplica)",
+          "descripcion": "Acoplamiento de conexión rápida DN 45 con manguera de prueba, válvulas de retención integradas, para conexión de bomberos externos",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Típicamente 1 ud para nave industrial. Evaluable según proyecto. Rango: 180-400€/ud"
+        },
+        {
+          "concepto": "Señalización y placas normalizadas",
+          "descripcion": "Señalización UNE 1002 y UNE EN ISO 7010, placas indicadoras BIE, cartelas direccionales, símbolos de seguridad, pintura de seguridad rojo/blanco",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CANTIDAD = número de BIEs + señales de ruta. Rango unitario: 8-25€"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Racores, manguitos, teflón, tuercas, arandelas, pernos, anclajes, codos, T, soportes metálicos, abrazaderas, pasta selladora, soportería tubería",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada estimada. Rango: 200-600€ según extensión red y número de BIEs"
+        },
+        {
+          "concepto": "Desmontaje instalación anterior (si aplica)",
+          "descripcion": "Retira, desconecta y extrae BIEs o tuberías existentes, limpia zona de trabajo, acarreo a vertedero",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "APLICABLE SOLO SI REFORMA. Cantidad estimada: 2-8h según estado actual. Tarifa contra_incendios 55€/h"
+        },
+        {
+          "concepto": "Rozas, punzonados y reposición obra civil",
+          "descripcion": "Ejecución de rozas horizontales/verticales en muros, pilares o forjados para paso de tuberías, punzonado de vigas, reposición con mortero de cemento y pintura",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CANTIDAD PENDIENTE (metros lineales de roza). Típicamente 30-100 ml en nave. Rango: 15-35€/ml (incluye mano de obra + materiales)"
+        },
+        {
+          "concepto": "Montaje y conexión armarios BIE",
+          "descripcion": "Colocación de armarios empotrados o superficie, fijación a muros, conexión de tuberías a entrada/salida, prueba de cierre de puertas, alineación y nivelación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CANTIDAD = número de BIEs. Rango: 1.5-2.5h por BIE. Tarifa: 55€/h"
+        },
+        {
+          "concepto": "Instalación red de tuberías y válvulas",
+          "descripcion": "Tendido, soportería, roscado/soldadura (según material), conexiones, válvulas, manómetros, purgadores, conexión a fuente de agua. Incluye toma siamesa si aplica",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CANTIDAD = metros lineales red. Típico 50-200ml. Tarifa fontanería: 50€/h (estimado 0.5-1h por 10ml según complejidad)"
+        },
+        {
+          "concepto": "Prueba hidráulica y puesta en servicio",
+          "descripcion": "Prueba hidráulica de tubería a presión (1.5x presión trabajo), detección fugas, sangrado de aire, calibración manómetros, prueba funcional de todos los BIEs con caudal, documento de certificación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatoria ante de cubrir/pintar. Rango: 400-800€ jornada especializada (incluye equipo presión, timbrador, documentación)"
+        },
+        {
+          "concepto": "Certificación e informes de instalación",
+          "descripcion": "Generación de certificado de conformidad según UNE 23403, acta de prueba de presión, manual de uso y mantenimiento, esquema de red, plano as-built, entrega a propietario",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIO. Rango: 150-300€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Revisar normas de aplicación: UNE 23403, CTE DB-SI, EN 671-1 (BIE), EN 694 (mangueras), EN 12259 (rociadores si aplica)",
+        "Solicitar al cliente: plano de nave con dimensiones, ubicación de tomas de agua existentes, cálculo de número de BIEs según superficie (típico 1 BIE cada 750-1000m² con radio de acción 25m)",
+        "Determinar tipo de red: ¿existe red contra incendios? ¿hay grupo de presión? ¿presión suficiente en red municipal? (mínimo 2 bar en BIE más desfavorable)",
+        "Especificar material de tuberías: acero galvanizado (más económico), cobre (más duradero, costoso) o fundición dúctil (grandes diámetros)",
+        "Decidir ubicación armarios: empotrados (más caros) vs superficie (más económicos pero menos estéticos)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico sistema BIE",
+          "razon_creacion": "Obligatorio según CTE DB-SI, no puede omitirse"
+        },
+        {
+          "concepto": "Prueba hidráulica y puesta en servicio",
+          "razon_creacion": "Obligatoria antes de dar por finalizada la instalación, debe realizarse y certificarse"
+        },
+        {
+          "concepto": "Certificación e informes de instalación",
+          "razon_creacion": "Obligatorio entregar documentación de conformidad y acta de prueba para justificar cumplimiento normativo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_bocas_de_incendio_equipadas_BIE_25mm",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_descalcificador",
+      "instalacion_suelo_radiante_hidraulico"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 17,
+    "n_catalogo": 0,
+    "n_sugeridas": 17,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

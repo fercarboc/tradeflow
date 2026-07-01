@@ -1,0 +1,154 @@
+{
+  "id": 337,
+  "oficio": "Fachadas",
+  "texto": "Aplicar tratamiento hidrofugante en fachada de piedra granítica, 80 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 12242,
+  "raw_response": {
+    "transcript": "Aplicar tratamiento hidrofugante en fachada de piedra granítica, 80 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar tratamiento hidrofugante en fachada de piedra granítica, 80 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Piedra granítica requiere hidrofugo siloxánico de alta penetración",
+          "Superficie 80 m² requiere andamio o plataforma elevadora",
+          "Recomendable limpieza previa de la fachada antes de aplicación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Tratamiento hidrofugante en fachada es impermeabilización. Piedra granítica requiere siloxánico especializado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa de fachada de piedra granítica",
+          "descripcion": "Limpieza y preparación de la superficie de piedra granítica antes de aplicación de hidrofugo. Eliminación de suciedad, algas y depósitos superficiales.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 3,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Hidrofugo siloxánico concentrado para piedra granítica",
+          "descripcion": "Producto hidrofugante siloxánico de alta penetración, específico para piedra natural granítica. Rendimiento aproximado 6-8 m²/litro según porosidad. Cantidad estimada: 10-13 litros para 80 m² con dos manos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del hidrofugo siloxánico debe ser confirmado por instalador según marca y especificación técnica"
+        },
+        {
+          "concepto": "Aplicación de hidrofugo siloxánico en fachada de piedra granítica",
+          "descripcion": "Aplicación de tratamiento hidrofugante con rodillo o pistola de baja presión. Dos manos saturando completamente el soporte de piedra granítica. Incluye pequeño material (brochas, rodillos, trapos).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 8,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para trabajos en altura",
+          "descripcion": "Alquiler y montaje de andamio o plataforma elevadora para acceso seguro a fachada de 80 m². Incluye desmontaje. Duración estimada según altura de fachada.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio/plataforma depende de altura de fachada y duración del trabajo. Instalador debe confirmar presupuesto con proveedor de andamios."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Brochas, rodillos, trapos, cinta de protección, cubetas, equipos de protección individual (EPIs) y otros consumibles necesarios para la aplicación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de pequeño material a confirmar por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 880,
+        "iva_porcentaje": 21,
+        "iva": 184.8,
+        "total": 1064.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar altura de la fachada para determinar si se requiere andamio o plataforma elevadora",
+        "Solicitar análisis de porosidad de la piedra granítica para ajustar rendimiento del hidrofugo",
+        "Considerar tratamiento de grietas o fisuras previas antes de aplicar hidrofugo",
+        "Especificar marca y certificación del hidrofugo siloxánico (ISO 11925, EN 13501-1 o equivalente)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hidrofugo siloxánico concentrado para piedra granítica",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para piedra natural. Precio variable según marca y especificación técnica."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora para trabajos en altura",
+          "oficio": "impermeabilizacion",
+          "motivo": "Servicio auxiliar. Coste depende de altura de fachada y duración del proyecto."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "aplicacion_de_hidrofugo_siloxanico_en_fachada_o_muro",
+      "aplicacion_hidrofugo_incoloro_fachada",
+      "alicatado_de_fachada_exterior_con_ceramica_o_piedra",
+      "forrado_exterior_fachada_ventilada"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3893,
+      "tokens_out": 1711
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

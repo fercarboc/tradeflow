@@ -1,0 +1,195 @@
+{
+  "id": 43,
+  "oficio": "Carpintería",
+  "texto": "Armario empotrado a medida en el dormitorio, de suelo a techo, con puertas correderas y espejo",
+  "http_status": 200,
+  "latency_ms": 15858,
+  "raw_response": {
+    "transcript": "Armario empotrado a medida en el dormitorio, de suelo a techo, con puertas correderas y espejo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Armario empotrado a medida en el dormitorio, de suelo a techo, con puertas correderas y espejo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto requiere medidas exactas del hueco (alto, ancho, fondo)",
+          "Precio final depende de acabado elegido (melanina, lacado, chapa)",
+          "Sistema de puertas correderas requiere carril bien nivelado",
+          "Espejo en puertas: confirmar si es espejo completo o parcial"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de armario empotrado a medida, estructura, puertas correderas"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de espejo en puertas correderas del armario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura interior armario empotrado a medida (suelo a techo)",
+          "descripcion": "Fabricación de estructura interior con tablero melanina o madera según especificación, incluyendo laterales, fondo, baldas interiores y zócalo inferior. Medidas exactas del hueco a confirmar por el instalador.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas, tipo de tablero (melanina/madera) y acabado interior elegido. Rango estimado: 800-2500€"
+        },
+        {
+          "concepto": "Puertas correderas para armario empotrado",
+          "descripcion": "Fabricación e instalación de 2-3 hojas de puerta corredera con sistema de guías superior e inferior, herraje completo, amortiguadores de cierre suave y pequeño material. Sistema corredera para máxima funcionalidad en dormitorio.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por hoja depende de acabado (melanina/lacado/chapa) y dimensiones. Rango estimado: 400-800€/hoja"
+        },
+        {
+          "concepto": "Espejo en puertas correderas",
+          "descripcion": "Suministro e instalación de espejo laminado o templado en puertas correderas del armario. Incluye adhesivo especial, pequeño material y acabados.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 a confirmar según superficie de puertas. Rango estimado: 150-400€ (incluye material + instalación)"
+        },
+        {
+          "concepto": "Cornisa superior y remates finales",
+          "descripcion": "Fabricación e instalación de cornisa superior si el armario llega a techo, tapajuntas laterales, zócalo inferior y pequeño material de acabado.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de acabado y complejidad de remates. Rango estimado: 200-500€"
+        },
+        {
+          "concepto": "Mano de obra: Instalación armario empotrado completo",
+          "descripcion": "Montaje de estructura, instalación de puertas correderas, nivelación de guías, colocación de espejo, ajustes finales y pruebas de funcionamiento.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Instalación espejo en puertas",
+          "descripcion": "Preparación de superficie, adhesión de espejo, nivelación y acabados.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 855,
+        "iva_porcentaje": 21,
+        "iva": 179.55,
+        "total": 1034.55
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente medidas exactas: alto total (suelo a techo), ancho del hueco, profundidad del armario",
+        "Confirmar tipo de acabado interior: melanina blanca/color, madera natural, lacado",
+        "Especificar si espejo es en toda la puerta o parcial (mitad superior/inferior)",
+        "Considerar iluminación LED interior si el cliente lo desea (partida adicional de electricidad)",
+        "Confirmar número de baldas interiores y distribución según necesidades de almacenaje"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura interior armario empotrado a medida",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material con precio pendiente de revisión según medidas y acabado"
+        },
+        {
+          "concepto": "Puertas correderas para armario empotrado",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material con precio pendiente de revisión según acabado y dimensiones"
+        },
+        {
+          "concepto": "Espejo en puertas correderas",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material con precio pendiente de revisión según superficie"
+        },
+        {
+          "concepto": "Cornisa superior y remates finales",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material con precio pendiente de revisión según acabado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_armario_empotrado_a_medida",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "pintado_armarios_empotrados_interiores",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3866,
+      "tokens_out": 2153
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

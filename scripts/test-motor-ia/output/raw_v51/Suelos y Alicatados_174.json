@@ -1,0 +1,147 @@
+{
+  "id": 174,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+  "http_status": 200,
+  "latency_ms": 15267,
+  "raw_response": {
+    "transcript": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Escalera exterior: verificar impermeabilización y drenaje",
+          "Piedra desgastada: evaluar necesidad de pulido/preparación previa",
+          "Antideslizante: confirmar tipo (pintura, mortero, bandas adhesivas, malla)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Revestimiento y acabados en escalera exterior de piedra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de escalera",
+          "descripcion": "Limpieza mecánica, desengrase y lijado de peldaños de piedra desgastada para recibir tratamiento antideslizante",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero autonivelante o resina antideslizante",
+          "descripcion": "Aplicación de mortero o resina poliuretano con árido antideslizante (mínimo R11 CTE) en 12 peldaños escalera exterior",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material antideslizante específico: confirmar tipo (mortero, pintura poliuretano, resina epoxi, bandas), cantidad (m² o litros), marca y coste"
+        },
+        {
+          "concepto": "Instalación tratamiento antideslizante en escalera",
+          "descripcion": "Aplicación, alisado y curado de mortero/resina antideslizante en 12 peldaños (huella y contrahuella) con acabado rugoso reglamentario",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 40,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado perimetral y juntas",
+          "descripcion": "Sellado de juntas de dilatación perimetral y entre peldaños con sellante poliuretano flexible para evitar infiltraciones en escalera exterior",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sellante: confirmar tipo, metraje lineal exacto, presupuesto"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Crucetas, esponjas, trapos, mascarillas, EPP, herramientas auxiliares",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir en presupuesto de pequeño material (típicamente 5-10% mano de obra)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 560,
+        "iva_porcentaje": 21,
+        "iva": 117.6,
+        "total": 677.6
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de morteros autonivelantes antideslizantes para exterior (ej: Schlüter®-RAMP, Durosol®, etc.)",
+        "Confirmar si piedra desgastada requiere aserrado/pulido previo (partida adicional)",
+        "Evaluar pendiente mínima 1.5% si escalera tiene drenaje en base"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero/resina antideslizante exterior",
+          "oficio": "albanileria",
+          "motivo": "Material específico para escaleras exteriores antideslizantes — precio a confirmar por instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Sellante poliuretano juntas",
+          "oficio": "albanileria",
+          "motivo": "Material de sellado impermeabilizante — presupuestar según metraje y especificaciones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_exterior_terraza_o_patio",
+      "solado_de_marmol_o_piedra_natural",
+      "solado_ceramico_exterior_terraza",
+      "pintado_de_canchas_de_padel_interior",
+      "instalacion_suelo_de_marmol_o_piedra_natural_interior"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

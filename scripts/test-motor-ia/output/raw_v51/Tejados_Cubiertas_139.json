@@ -1,0 +1,325 @@
+{
+  "id": 139,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+  "http_status": 200,
+  "latency_ms": 27145,
+  "raw_response": {
+    "transcript": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Claraboya con apertura eléctrica: requiere suministro específico del modelo y marca",
+          "Tejado plano: verificar impermeabilización según tipo de cubierta (membrana, grava, etc.)",
+          "Instalación en altura: requiere EPI y medidas de seguridad",
+          "Conexión eléctrica: requiere acometida desde cuadro eléctrico más cercano",
+          "Presupuesto pendiente de especificación de marca, modelo y tamaño de claraboya"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de claraboya fija/motorizada en cubierta"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica del motor de apertura y sistema de control"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Impermeabilización del encuentro cubierta-claraboya"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Claraboya motorizada apertura eléctrica",
+          "descripcion": "Claraboya de apertura eléctrica con vidrio laminado de seguridad, marco aluminio o acero inoxidable, motor 230V, sensor de lluvia y control remoto. Dimensión y marca a especificar por el cliente",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca, modelo y tamaño. Rango estimado 800-2500€ según especificaciones"
+        },
+        {
+          "concepto": "Vidrio laminado de seguridad integrado",
+          "descripcion": "Vidrio laminado (obligatorio en cubiertas por CTE) integrado en claraboya. Espesor y características según modelo",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en claraboya. Verificar si requiere refuerzo adicional"
+        },
+        {
+          "concepto": "Marco de fijación específico para tejado plano",
+          "descripcion": "Marco de aluminio o acero inoxidable con sistema de fijación adaptado a cubierta plana. Incluye perfiles de remate y collar de impermeabilización",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Específico del modelo y tipo de cubierta plana"
+        },
+        {
+          "concepto": "Impermeabilización encuentro claraboya-cubierta plana",
+          "descripcion": "Impermeabilización específica del encuentro entre claraboya y cubierta. Puede incluir collar EPDM, sellado perimetral con silicona poliuretano, o lámina asfáltica según tipo de cubierta (membrana, grava, etc.)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Impermeabilización OBLIGATORIA. Tipo depende de cubierta existente (grava, membrana, etc.)"
+        },
+        {
+          "concepto": "Desmontaje/preparación de zona en cubierta plana",
+          "descripcion": "Desmontaje de grava/protección (si existe), limpieza y preparación de la zona donde irá la claraboya. Acopio temporal de materiales. Incluye retirada de escombros",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de claraboya motorizada en cubierta plana",
+          "descripcion": "Instalación de la claraboya con motor eléctrico, anclaje a estructura, nivelación y alineación. Prueba de apertura/cierre. Incluye sensor de lluvia integrado",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado perimetral y remate de impermeabilización",
+          "descripcion": "Sellado perimetral completo con silicona poliuretano de alto rendimiento. Remate de láminas/collares según tipo de cubierta. Acabado estético interior y exterior",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica motor claraboya",
+          "descripcion": "Tendido de cable eléctrico 3x1.5mm² desde cuadro eléctrico hasta motor (longitud a medir in situ). Instalación de interruptor/control de apertura. Conexión a masa y protección diferencial",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable eléctrico 3x1.5mm² para acometida motor",
+          "descripcion": "Cable eléctrico de cobre 3x1.5mm² H07V-K para conexión del motor. Longitud a determinar según ubicación del cuadro eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud a medir in situ. Precio aproximado 0,80-1,20€/ml"
+        },
+        {
+          "concepto": "Interruptor/control de apertura claraboya",
+          "descripcion": "Interruptor doble polo 10A, control remoto inalámbrico (si aplica) o pulsador con protección IP65 para exterior. Instalación en pared o escalera próxima",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio rango 40-120€ según tipo (interruptor básico vs. control remoto)"
+        },
+        {
+          "concepto": "Protección diferencial motor (si no existe)",
+          "descripcion": "Instalación de interruptor diferencial 30mA específico para circuito motor de claraboya (si no existe en cuadro). Cumplimiento normativa REBT",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "A incluir solo si no existe protección diferencial. Precio 60-100€"
+        },
+        {
+          "concepto": "Pequeño material (tornillería, tacos, silicona, etc.)",
+          "descripcion": "Tornillería inoxidable, tacos químicos (si necesario para hormigón), silicona sanitaria, cinta teflón, llaves, destornilladores y accesorios menores",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 30-50€"
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en altura",
+          "descripcion": "Arnés de seguridad, línea de vida, anclajes. Equipo de protección individual para trabajos en cubierta a más de 2m de altura. Montaje de protecciones perimetrales si es necesario",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Prueba de apertura/cierre automático, sensor de lluvia, control remoto (si aplica). Verificación de estanqueidad. Instrucciones de uso al cliente",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Retirada de escombros y limpieza final",
+          "descripcion": "Limpieza de zona de trabajo, retirada de escombros y material sobrante de la cubierta. Barrido y acabado",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 20,
+          "total": 20,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 635,
+        "iva_porcentaje": 21,
+        "iva": 133.35,
+        "total": 768.35
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente especificación exacta de marca y modelo de claraboya motorizada (Velux, Fakro, etc.)",
+        "Medir in situ para determinar longitud exacta de cable eléctrico necesario",
+        "Verificar tipo de cubierta existente (membrana, grava, hormigón, etc.) para seleccionar impermeabilización específica",
+        "Confirmar si existe cuadro eléctrico accesible y distancia hasta claraboya",
+        "Solicitar confirmación de si requiere control remoto o solo interruptor manual",
+        "Considerar sensor de lluvia automático para cierre en caso de lluvia",
+        "Verificar altura de instalación y evaluar necesidad de línea de vida permanente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Claraboya motorizada apertura eléctrica",
+          "oficio": "cristaleria",
+          "motivo": "Material específico del fabricante, requiere confirmación de marca y modelo"
+        },
+        {
+          "concepto": "Impermeabilización encuentro claraboya-cubierta plana",
+          "oficio": "fontaneria",
+          "motivo": "Depende del tipo específico de cubierta existente"
+        },
+        {
+          "concepto": "Cable eléctrico 3x1.5mm² para acometida motor",
+          "oficio": "electricidad",
+          "motivo": "Cantidad y precio dependen de medición in situ"
+        },
+        {
+          "concepto": "Interruptor/control de apertura claraboya",
+          "oficio": "electricidad",
+          "motivo": "Tipo y precio varían según configuración (manual, remoto, automático)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "instalacion_de_lucernarios_en_cubierta_inclinada",
+      "instalacion_lucernario_o_claraboya_fija",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 15,
+    "n_catalogo": 7,
+    "n_sugeridas": 8,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "NO"
+  }
+}

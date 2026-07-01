@@ -1,0 +1,297 @@
+{
+  "id": 132,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 30922,
+  "raw_response": {
+    "transcript": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema solar térmico para ACS: requiere dimensionamiento de acumulador y circuito hidráulico completo",
+          "Tejado inclinado existente: verificar resistencia estructura y tipo de cubierta para selección de ganchos",
+          "Instalación completa incluye: colectores + acumulador + válvulas + tuberías + aislamiento + purgadores + termostatos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de paneles solares térmicos en cubierta inclinada"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito hidráulico, tuberías ACS, válvulas y conexiones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro colectores solares térmicos",
+          "descripcion": "2 colectores solares térmicos de 2.5 m² cada uno (total 5 m²) para instalación en tejado inclinado. Incluye bastidores de aluminio y absorbedor de cobre.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe introducir precio de colectores seleccionados (rango típico 300-600€/colector)"
+        },
+        {
+          "concepto": "Suministro acumulador/depósito ACS solar",
+          "descripcion": "Acumulador térmico para sistema solar ACS. Capacidad a dimensionar según consumo (típico 150-300L para 2 colectores).",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe introducir precio según volumen elegido (rango típico 500-1500€)"
+        },
+        {
+          "concepto": "Suministro válvulas y componentes de regulación",
+          "descripcion": "Válvula termostática de mezcla, válvula de retención, válvula de seguridad, purgadores automáticos y manuales, manómetro.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote de componentes hidráulicos (rango típico 150-400€)"
+        },
+        {
+          "concepto": "Suministro tuberías cobre y aislamiento",
+          "descripcion": "Tuberías de cobre para circuito primario (colectores-acumulador), tubing multicapa para distribución ACS, aislamiento térmico 25-30mm en todas las tuberías exteriores.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de 30ml de tuberías + aislamiento. Instalador ajusta según trazado real (rango típico 3-8€/ml instalado)"
+        },
+        {
+          "concepto": "Suministro bomba circulación solar",
+          "descripcion": "Bomba de circulación para circuito solar primario, regulada por termostato diferencial o controlador solar.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Bomba circuladora solar (rango típico 200-500€)"
+        },
+        {
+          "concepto": "Suministro controlador termostato solar",
+          "descripcion": "Controlador solar diferencial con sensor temperatura colectores y acumulador, para regulación automática de bomba.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Controlador solar (rango típico 150-350€)"
+        },
+        {
+          "concepto": "Suministro ganchos/soportes fijación colectores",
+          "descripcion": "Ganchos específicos para tejado inclinado según tipo de teja (plana, curva, cerámica). 2 colectores x 4 puntos fijación = 8 ganchos.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Ganchos específicos según tipo teja (rango típico 30-80€/gancho)"
+        },
+        {
+          "concepto": "Suministro pequeño material y accesorios",
+          "descripcion": "Manguitos de caucho, bridas, teflón, pasta térmica, tornillería inoxidable, conectores rápidos.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote pequeño material (rango típico 100-200€)"
+        },
+        {
+          "concepto": "Mano de obra: desmontaje e instalación en cubierta",
+          "descripcion": "Trabajos de acceso a tejado, desmontaje de tejas/elementos existentes si aplica, posicionamiento ganchos, fijación colectores solares 2 unidades, impermeabilización perforaciones con goma EPDM, recolocación cubierta.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: instalación circuito hidráulico",
+          "descripcion": "Montaje acumulador, conexión tuberías cobre primario (colectores-acumulador), instalación válvulas termostática y retención, purgadores, manómetro, aislamiento tuberías.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: instalación bomba y controlador",
+          "descripcion": "Montaje bomba de circulación, instalación controlador solar diferencial, calibración y conexionado eléctrico de sensores temperatura.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: pruebas y puesta en marcha",
+          "descripcion": "Llenado circuito con fluido solar anticongelante, purgado de aire, prueba de estanqueidad, calibración válvula termostática, prueba funcionamiento bomba y controlador, ajustes finales.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro fluido solar anticongelante",
+          "descripcion": "Fluido de transferencia térmica (mezcla agua-glicol) para circuito primario solar. Capacidad según volumen tuberías y colectores (típico 10-20L).",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Fluido solar (rango típico 4-8€/litro)"
+        },
+        {
+          "concepto": "EPI trabajos en altura",
+          "descripcion": "Arnés de seguridad, línea de vida, casco, guantes, calzado de seguridad para trabajos en tejado.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote EPI (rango típico 80-150€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1070,
+        "iva_porcentaje": 21,
+        "iva": 224.7,
+        "total": 1294.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar tipo de teja (plana/curva/pizarra/cerámica) ANTES de comprar ganchos — cada tipo requiere gancho específico",
+        "Dimensionar acumulador según consumo ACS diario: típicamente 150-200L para 2 colectores de 5m² (familia 3-4 personas)",
+        "Circuito primario (colectores-acumulador) en cobre, circuito secundario (distribución ACS) puede ser multicapa PEX",
+        "Obligatorio aislamiento 25-30mm en tuberías exteriores para evitar pérdidas y heladas",
+        "Controlador solar diferencial: automatiza bomba según diferencia temperatura (colectores > acumulador + 8°C)",
+        "Fluido solar anticongelante OBLIGATORIO si zona con riesgo heladas; típico mezcla agua-glicol 50/50"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro colectores solares térmicos",
+          "oficio": "energia_solar",
+          "motivo": "Materiales específicos sistema solar térmico no en base maestra (la base incluye fotovoltaica, no térmica)"
+        },
+        {
+          "concepto": "Suministro acumulador/depósito ACS solar",
+          "oficio": "fontaneria",
+          "motivo": "Depósito específico para ACS solar, distinto de termo eléctrico estándar"
+        },
+        {
+          "concepto": "Suministro controlador termostato solar",
+          "oficio": "energia_solar",
+          "motivo": "Controlador diferencial específico para sistemas solares térmicos"
+        },
+        {
+          "concepto": "Suministro fluido solar anticongelante",
+          "oficio": "fontaneria",
+          "motivo": "Fluido de transferencia térmica específico para circuitos solares primarios"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_placa_solar_fotovoltaica_integrada_en_cubierta",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda"
+    ],
+    "kb_score": 4.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 14,
+    "n_catalogo": 4,
+    "n_sugeridas": 10,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

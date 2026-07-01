@@ -1,0 +1,459 @@
+{
+  "id": 365,
+  "oficio": "Reformas Integrales",
+  "texto": "Actualizar piso de los años 80, quitar gotelé, modernizar cocina y baño, pintura y suelo nuevo",
+  "http_status": 200,
+  "latency_ms": 41903,
+  "raw_response": {
+    "transcript": "Actualizar piso de los años 80, quitar gotelé, modernizar cocina y baño, pintura y suelo nuevo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Actualizar piso de los años 80, quitar gotelé, modernizar cocina y baño, pintura y suelo nuevo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: 4+ oficios simultáneos (albanilería, pintura, fontanería, electricidad, suelos)",
+          "Cocina y baño completos requieren especificación de materiales y acabados",
+          "Gotelé: requiere raspado previo antes de pintura",
+          "Suelo nuevo: especificar tipo (cerámica, tarima, vinílico, etc.)",
+          "Modernización baño/cocina: incluye fontanería, electricidad, alicatado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: múltiples oficios simultáneos (albanilería, pintura, fontanería, electricidad, suelos, alicatado)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición, raspado gotelé, preparación superficies"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Pintura interior tras raspado gotelé, paredes y techos"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado cocina y baño, pavimento suelo nuevo"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Modernización baño y cocina: tuberías, grifería, sanitarios"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Modernización cocina y baño: circuitos, enchufes, iluminación"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Muebles cocina, puertas, revestimientos si aplica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y desmontaje",
+          "descripcion": "Demolición de muebles cocina antiguos, sanitarios baño, revestimientos, puertas interiores si aplica. Retirada y gestión de escombros",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar jornadas según superficie real del piso y complejidad de demolición"
+        },
+        {
+          "concepto": "Raspado y preparación gotelé",
+          "descripcion": "Raspado completo de gotelé en techos y paredes. Lijado y preparación de superficies para pintura. Reparación de pequeñas grietas y fisuras",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 3.5,
+          "total": 525,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 150 m2 (piso tipo 80-100 m2 + techos). Ajustar según mediciones reales"
+        },
+        {
+          "concepto": "Pintura interior (paredes y techos)",
+          "descripcion": "Pintura plástica interior 2 manos en paredes y techos tras preparación. Incluye imprimación si necesario. Zonas: salón, dormitorios, pasillos, cocina, baño",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 4.5,
+          "total": 675,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Confirmar superficie total a pintar"
+        },
+        {
+          "concepto": "Pintura interior (material)",
+          "descripcion": "Pintura plástica interior, imprimación, pequeño material (cinta, plásticos protección)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador especifica marca, tipo y cantidad de pintura. Estimado 25-30 litros"
+        },
+        {
+          "concepto": "Alicatado cocina (paredes)",
+          "descripcion": "Alicatado completo de paredes cocina. Azulejo/cerámica, mortero cola C2 flexible, lechada epoxi en juntas, perfiles aluminio esquinas, junta silicona encuentros",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 35,
+          "total": 630,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 18 m2 (cocina tipo 10-12 m2 + paredes). Confirmar mediciones"
+        },
+        {
+          "concepto": "Alicatado cocina (material)",
+          "descripcion": "Azulejo/cerámica pared cocina, mortero cola C2 flexible, lechada epoxi, perfiles aluminio, junta silicona, crucetas, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador especifica tipo azulejo, marca, color. Estimado 25-50€/m2 en materiales"
+        },
+        {
+          "concepto": "Alicatado baño (paredes y suelo)",
+          "descripcion": "Alicatado completo baño: paredes y suelo. Baldosa cerámica/porcelánico, mortero cola C2 flexible, lechada epoxi, perfiles aluminio, junta silicona, impermeabilización zona ducha/bañera",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 22,
+          "precio_unitario": 40,
+          "total": 880,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 22 m2 (baño tipo 5-6 m2 + paredes + suelo). Confirmar mediciones"
+        },
+        {
+          "concepto": "Alicatado baño (material)",
+          "descripcion": "Baldosa cerámica/porcelánico baño, mortero cola C2 flexible, lechada epoxi, perfiles aluminio, junta silicona, lámina impermeabilizante zona ducha, crucetas, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 22,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador especifica tipo baldosa, marca, color, impermeabilización. Estimado 30-60€/m2"
+        },
+        {
+          "concepto": "Pavimento suelo nuevo (mano de obra)",
+          "descripcion": "Colocación pavimento nuevo en zonas comunes (salón, pasillos, dormitorios). Preparación soporte, mortero cola, lechada, perfiles de transición",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 70,
+          "precio_unitario": 32,
+          "total": 2240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 70 m2 (piso tipo 80-100 m2 menos cocina y baño). Confirmar superficie y tipo pavimento"
+        },
+        {
+          "concepto": "Pavimento suelo nuevo (material)",
+          "descripcion": "Baldosa cerámica, porcelánico, tarima, vinílico o similar. Mortero cola, lechada, perfiles transición, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 70,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador especifica tipo pavimento (cerámica, tarima, vinílico, etc.), marca, color. Estimado 15-80€/m2 según tipo"
+        },
+        {
+          "concepto": "Fontanería baño (instalación)",
+          "descripcion": "Instalación tuberías agua fría/caliente baño. Conexión sanitarios (inodoro, lavabo, bañera/ducha). Grifería, válvulas, sifones. Pruebas de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 2 jornadas. Ajustar según complejidad (cambio tuberías, desagüe, etc.)"
+        },
+        {
+          "concepto": "Fontanería baño (material)",
+          "descripcion": "Tuberías PEX/cobre, sanitarios (inodoro, lavabo, bañera/ducha), grifería, válvulas, sifones, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador especifica sanitarios, grifería, marca. Estimado 800-2000€ según calidad"
+        },
+        {
+          "concepto": "Fontanería cocina (instalación)",
+          "descripcion": "Instalación tuberías agua fría/caliente cocina. Conexión grifo, lavavajillas, fregadero. Válvulas, sifones. Pruebas estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1.5,
+          "precio_unitario": 400,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 1.5 jornadas. Ajustar según complejidad"
+        },
+        {
+          "concepto": "Fontanería cocina (material)",
+          "descripcion": "Tuberías PEX/cobre, grifo cocina, válvulas, sifones, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador especifica grifo, marca. Estimado 200-600€"
+        },
+        {
+          "concepto": "Electricidad baño (instalación)",
+          "descripcion": "Instalación circuitos eléctricos baño: iluminación, enchufes, extractor, calefactor toallero si aplica. Cableado, cajas, interruptores, tomas. Cumplimiento normativa humedad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1.5,
+          "precio_unitario": 400,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 1.5 jornadas. Ajustar según complejidad y número de circuitos"
+        },
+        {
+          "concepto": "Electricidad baño (material)",
+          "descripcion": "Cable H07VK, cajas empotrar, interruptores, enchufes, luminarias, extractor, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador especifica luminarias, extractor, marca. Estimado 300-800€"
+        },
+        {
+          "concepto": "Electricidad cocina (instalación)",
+          "descripcion": "Instalación circuitos eléctricos cocina: iluminación, enchufes, circuito vitrocerámica/horno, circuito lavavajillas, circuito frigorífico. Cableado, cajas, interruptores, tomas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 2 jornadas. Ajustar según número de electrodomésticos y circuitos"
+        },
+        {
+          "concepto": "Electricidad cocina (material)",
+          "descripcion": "Cable H07VK (varios calibres), cajas empotrar, interruptores, enchufes, luminarias, magnetotérmicos, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador especifica luminarias, marca. Estimado 400-1000€"
+        },
+        {
+          "concepto": "Carpintería cocina (muebles y puertas)",
+          "descripcion": "Instalación muebles cocina (base y colgantes), encimera, puertas interiores si aplica. Ajustes y acabados",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 360,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 2 jornadas. Ajustar según complejidad de instalación"
+        },
+        {
+          "concepto": "Carpintería cocina (material)",
+          "descripcion": "Muebles cocina (base y colgantes), encimera, herrajes, pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador especifica marca, tipo encimera, acabados. Estimado 1500-4000€"
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "descripcion": "Retirada, transporte y gestión de escombros, gotelé, materiales antiguos. Limpieza final de obra",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador especifica volumen escombros y coste gestión. Estimado 300-800€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 9925,
+        "iva_porcentaje": 21,
+        "iva": 2084.25,
+        "total": 12009.25
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de pavimento nuevo (cerámica, tarima flotante, vinílico, etc.) para ajustar precio unitario",
+        "Especificar si cocina incluye electrodomésticos (vitro, horno, lavavajillas) o solo muebles",
+        "Definir tipo de sanitarios baño (bañera vs ducha, calidad, marca)",
+        "Aclarar si hay cambio de tuberías completo o solo conexiones nuevas",
+        "Especificar si se moderniza cuadro eléctrico o solo se añaden circuitos",
+        "Confirmar si hay puertas interiores a cambiar",
+        "Definir acabados pintura (mate, satinado, color específico)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Raspado y preparación gotelé",
+          "oficio": "albanileria",
+          "motivo": "Trabajo específico de preparación previa a pintura en piso antiguo"
+        },
+        {
+          "concepto": "Alicatado cocina (paredes)",
+          "oficio": "suelos_alicatados",
+          "motivo": "Modernización cocina requiere alicatado completo"
+        },
+        {
+          "concepto": "Alicatado baño (paredes y suelo)",
+          "oficio": "suelos_alicatados",
+          "motivo": "Modernización baño requiere alicatado completo con impermeabilización"
+        },
+        {
+          "concepto": "Pavimento suelo nuevo (mano de obra)",
+          "oficio": "suelos_alicatados",
+          "motivo": "Sustitución completa de pavimento en zonas comunes"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_completo_cocina",
+      "pintura_de_suelo_interior_con_epoxi",
+      "instalacion_circuito_exclusivo_cocina",
+      "acabado_con_microcemento_suelo_o_pared",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3857,
+      "tokens_out": 6344
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 21,
+    "n_catalogo": 10,
+    "n_sugeridas": 11,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

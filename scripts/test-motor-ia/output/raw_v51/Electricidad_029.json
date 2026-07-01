@@ -1,0 +1,161 @@
+{
+  "id": 29,
+  "oficio": "Electricidad",
+  "texto": "Cambio de interruptor y dos enchufes en dormitorio principal, están quemados",
+  "http_status": 200,
+  "latency_ms": 10776,
+  "raw_response": {
+    "transcript": "Cambio de interruptor y dos enchufes en dormitorio principal, están quemados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de interruptor y dos enchufes en dormitorio principal, están quemados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar causa de quemadura (posible sobrecarga o defecto de instalación)",
+          "Revisar circuito eléctrico antes de instalar nuevos mecanismos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cambio de mecanismos eléctricos (interruptores y enchufes)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de mecanismos quemados",
+          "descripcion": "Retirada de 1 interruptor y 2 enchufes dañados, desconexión segura de circuitos",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación interruptor nuevo",
+          "descripcion": "1 interruptor simple 10A, mecanismo con placa decorativa",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mecanismo interruptor a completar por instalador"
+        },
+        {
+          "concepto": "Instalación interruptor nuevo",
+          "descripcion": "Conexión y fijación de 1 interruptor simple en caja existente",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 15,
+          "total": 15,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación 2 enchufes nuevos",
+          "descripcion": "2 enchufes 16A schuko, mecanismos con placas decorativas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mecanismos enchufes a completar por instalador"
+        },
+        {
+          "concepto": "Instalación 2 enchufes nuevos",
+          "descripcion": "Conexión y fijación de 2 enchufes 16A en cajas existentes",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 12,
+          "total": 24,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión circuito eléctrico y pruebas de funcionamiento",
+          "descripcion": "Verificación de continuidad, aislamiento y carga en circuito. Pruebas con carga nominal",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 89,
+        "iva_porcentaje": 21,
+        "iva": 18.69,
+        "total": 107.69
+      },
+      "sugerencias_catalogo": [
+        "Considerar sustituir mecanismos por modelo de mayor amperaje si zona de dormitorio con alto consumo",
+        "Verificar compatibilidad con sistema de automatización si existe domótica en vivienda"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro interruptor simple 10A",
+          "oficio": "electricidad",
+          "tipo": "material",
+          "motivo": "Mecanismo eléctrico estándar, precio variable según marca/modelo"
+        },
+        {
+          "concepto": "Suministro 2 enchufes 16A schuko",
+          "oficio": "electricidad",
+          "tipo": "material",
+          "motivo": "Mecanismos eléctricos estándar, precio variable según marca/modelo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_instalacion_electrica_integrada",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "sustitucion_termo_electrico",
+      "instalacion_domotica_basica_wifi",
+      "cambio_inodoro"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

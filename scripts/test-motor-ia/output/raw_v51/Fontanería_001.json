@@ -1,0 +1,191 @@
+{
+  "id": 1,
+  "oficio": "Fontanería",
+  "texto": "Quiero poner un grifo nuevo en la cocina y cambiar el sifón del fregadero",
+  "http_status": 200,
+  "latency_ms": 11580,
+  "raw_response": {
+    "transcript": "Quiero poner un grifo nuevo en la cocina y cambiar el sifón del fregadero",
+    "quote": {
+      "resumen": {
+        "texto_original": "Quiero poner un grifo nuevo en la cocina y cambiar el sifón del fregadero",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Cambio de grifo de cocina y sustitución de sifón de fregadero"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje grifo cocina antiguo",
+          "descripcion": "Desmontaje completo del grifo monomando existente, desconexión de latiguillos y limpieza de zona",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo monomando cocina",
+          "descripcion": "Suministro de grifo monomando de cocina con aireador regulable",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - instalador proporciona precio según marca y modelo seleccionado"
+        },
+        {
+          "concepto": "Latiguillos flexibles 40cm (fría + caliente)",
+          "descripcion": "2 latiguillos de acero inoxidable flexible 40cm conexión 1/2\" para agua fría y caliente",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - instalador proporciona precio"
+        },
+        {
+          "concepto": "Instalación grifo cocina",
+          "descripcion": "Instalación del grifo monomando nuevo, conexión de latiguillos y ajuste de flujo",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silicona sanitaria sellado",
+          "descripcion": "Silicona sanitaria para sellado perimetral de grifo",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - pequeño material de consumo"
+        },
+        {
+          "concepto": "Desmontaje sifón fregadero",
+          "descripcion": "Desmontaje completo del sifón antiguo, vaciado de agua y limpieza",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sifón botella fregadero",
+          "descripcion": "Suministro de sifón botella de tubo PVC para fregadero 1 1/4\"",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - instalador proporciona precio según tipo y diámetro"
+        },
+        {
+          "concepto": "Instalación sifón fregadero",
+          "descripcion": "Instalación del sifón nuevo, conexión a desagüe y verificación de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 50,
+          "total": 37.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y teflón",
+          "descripcion": "Teflón, tuercas, tuercas de unión y pequeño material fungible",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - pequeño material de consumo"
+        }
+      ],
+      "calculos": {
+        "subtotal": 137.5,
+        "iva_porcentaje": 21,
+        "iva": 28.875,
+        "total": 166.375
+      },
+      "sugerencias_catalogo": [
+        "Verificar diámetro de conexión de latiguillos antes de compra (1/2\" estándar en cocinas)",
+        "Confirmar tipo de sifón según modelo de fregadero (botella standard o sifón bajo encimera)",
+        "Revisar presión de red antes de instalación (mínimo 2 bar recomendado)"
+      ],
+      "partidas_nuevas_detectadas": [
+        "Grifo monomando cocina",
+        "Sifón botella fregadero"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_grifo_cocina",
+      "cambio_grifo_bano_general",
+      "cambio_grifo_lavabo",
+      "cambio_inodoro",
+      "sustitucion_columna_ducha"
+    ],
+    "kb_score": 4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

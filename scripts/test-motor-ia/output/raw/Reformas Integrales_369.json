@@ -1,0 +1,353 @@
+{
+  "id": 369,
+  "oficio": "Reformas Integrales",
+  "texto": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+  "http_status": 200,
+  "latency_ms": 29690,
+  "raw_response": {
+    "transcript": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de vivienda antigua: requiere inspección estructural previa",
+          "Casa de piedra: prioridad en aislamiento térmico y humedad",
+          "Nueva instalación eléctrica y fontanería: verificar estado actual antes de presupuestar",
+          "Presupuesto estimado: requiere mediciones en obra y especificaciones técnicas del cliente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: ≥3 oficios simultáneos (albanilería, fontanería, electricidad, aislamiento, acabados)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación estructura piedra, revestimientos, enfoscados"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamiento humedad en casa antigua de piedra, sellado de grietas, drenaje"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Nueva instalación fontanería completa"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Nueva instalación eléctrica completa"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Acabados interiores: pintura paredes y techos"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado baños y cocina"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, marcos, acabados de madera"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de demolición"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y diagnóstico estructural previo",
+          "descripcion": "Revisión completa del estado estructural de la vivienda antigua, detección de grietas, humedades, asientos diferenciales y capacidad portante de muros de piedra",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de inspección técnica a definir por profesional cualificado"
+        },
+        {
+          "concepto": "Reparación y consolidación de estructura de piedra",
+          "descripcion": "Reparación de muros de piedra, rejuntado con mortero de cal, consolidación de grietas, restitución de piedras dañadas",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de jornadas a definir según estado real de la estructura (medición en obra)"
+        },
+        {
+          "concepto": "Tratamiento de humedad y drenaje perimetral",
+          "descripcion": "Inyección de resinas impermeabilizantes en muros, creación de drenaje perimetral, barrera de vapor, tratamiento de humedades por capilaridad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Jornadas según extensión de humedades y tipo de tratamiento a aplicar"
+        },
+        {
+          "concepto": "Aislamiento térmico interior (prioridad casa piedra)",
+          "descripcion": "Instalación de aislamiento térmico en fachadas interiores (lana mineral, poliestireno expandido o corcho), barrera de vapor, trasdosado con placas de yeso",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total a aislar a medir en obra (paredes exteriores, cubierta si aplica)"
+        },
+        {
+          "concepto": "Nueva instalación eléctrica completa",
+          "descripcion": "Cableado eléctrico nuevo (tuberías, conductores), cuadro de distribución, tomas de corriente, interruptores, iluminación general, puesta a tierra, cumplimiento normativa ITC-BT",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Jornadas según superficie de vivienda y complejidad de distribución"
+        },
+        {
+          "concepto": "Nueva instalación fontanería completa",
+          "descripcion": "Red de agua fría y caliente (tuberías multicapa PEX), derivaciones a cocina y baños, instalación de grifería, desagües y sifones, válvulas de corte",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Jornadas según número de puntos de agua y distribución de la vivienda"
+        },
+        {
+          "concepto": "Alicatado baños y cocina",
+          "descripcion": "Colocación de baldosas cerámicas/porcelánicas en baños y cocina, rejuntado, sellado de juntas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total de alicatado a medir en obra"
+        },
+        {
+          "concepto": "Pintura interior paredes y techos",
+          "descripcion": "Preparación de superficies, imprimación, pintura plástica en paredes y techos de toda la vivienda",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total de pintura a medir en obra"
+        },
+        {
+          "concepto": "Carpintería: puertas, marcos y acabados",
+          "descripcion": "Instalación de puertas interiores, marcos de madera, zócalos, molduras, acabados de carpintería",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Jornadas según número de puertas y complejidad de acabados"
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "descripcion": "Retirada, transporte y gestión de escombros, residuos de demolición y materiales de desecho generados en la rehabilitación",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Jornadas según volumen de escombros generados"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillos, tuercas, arandelas, cinta de teflón, masilla, adhesivos, mortero, cemento, arena, cal, pinturas, disolventes, herramientas menores",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de pequeño material a estimar como % del total (típicamente 5-10%)"
+        },
+        {
+          "concepto": "Certificado de eficiencia energética (opcional)",
+          "descripcion": "Realización de certificado de eficiencia energética de la vivienda tras rehabilitación, cumplimiento normativa CTE",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de certificación energética a definir (típicamente 300-600€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar mediciones precisas en obra: superficie total, número de puntos de agua/electricidad, estado actual de estructura",
+        "Priorizar inspección estructural ANTES de presupuestar: grietas, asientos, capacidad portante de muros de piedra",
+        "Casa antigua de piedra: enfatizar tratamiento de humedad y aislamiento térmico como partidas críticas",
+        "Considerar ayudas de rehabilitación (IDAE, CCAA) si la vivienda cumple requisitos de eficiencia energética",
+        "Definir especificaciones técnicas: tipo de aislamiento, materiales de acabado, sistemas de calefacción/ACS",
+        "Presupuesto estimado para reforma integral de casa rural: 8.000-90.000€ según alcance (precio alzado)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inspección y diagnóstico estructural previo",
+          "oficio": "reforma_integral",
+          "motivo": "Obligatorio en viviendas antiguas antes de presupuestar"
+        },
+        {
+          "concepto": "Reparación y consolidación de estructura de piedra",
+          "oficio": "albanileria",
+          "motivo": "Específico para casas rurales de piedra antigua"
+        },
+        {
+          "concepto": "Tratamiento de humedad y drenaje perimetral",
+          "oficio": "impermeabilizacion",
+          "motivo": "Crítico en casas antiguas de piedra"
+        },
+        {
+          "concepto": "Aislamiento térmico interior (prioridad casa piedra)",
+          "oficio": "pladur_escayola",
+          "motivo": "Prioridad en rehabilitación de viviendas antiguas de piedra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_segunda_residencia_o_casa_campo",
+      "cambio_de_cerradura_completa",
+      "reforma_de_vivienda_para_eficiencia_energetica",
+      "reforma_para_instalar_piscina_en_vivienda_unifamiliar",
+      "diseno_y_creacion_jardin_nuevo_desde_cero"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4101,
+      "tokens_out": 4431
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 12,
+    "n_catalogo": 0,
+    "n_sugeridas": 12,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

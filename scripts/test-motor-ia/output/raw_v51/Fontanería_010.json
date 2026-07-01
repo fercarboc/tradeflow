@@ -1,0 +1,148 @@
+{
+  "id": 10,
+  "oficio": "Fontanería",
+  "texto": "Instalación de sistema de osmosis inversa de 5 etapas bajo el fregadero de la cocina con grifo independiente",
+  "http_status": 200,
+  "latency_ms": 13766,
+  "raw_response": {
+    "transcript": "Instalación de sistema de osmosis inversa de 5 etapas bajo el fregadero de la cocina con grifo independiente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de sistema de osmosis inversa de 5 etapas bajo el fregadero de la cocina con grifo independiente",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar presión mínima de 3 bar en acometida",
+          "Confirmar espacio disponible bajo fregadero (mínimo 40x40x30cm)",
+          "Validar acceso a desagüe para conexión"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación hidráulica de equipo de ósmosis y conexiones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Equipo de ósmosis inversa 5 etapas",
+          "descripcion": "Suministro de equipo osmosis inversa 5 etapas con depósito de almacenamiento y accesorios",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe indicar marca, modelo y precio de equipo (típico 300-600€)"
+        },
+        {
+          "concepto": "Grifo de ósmosis independiente",
+          "descripcion": "Grifo monomando cromado específico para agua osmotizada",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Típico 40-120€ según calidad"
+        },
+        {
+          "concepto": "Tubo acometida 1/4\" y latiguillos flex",
+          "descripcion": "Tubería de conexión 1/4\", latiguillos flexibles 40cm para entrada agua y conexión desagüe",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Típico 15-35€"
+        },
+        {
+          "concepto": "Válvula de corte y accesorios",
+          "descripcion": "Válvula de corte de alimentación, llave escuadra y pequeño material (tacos, tornillos, silicona sanitaria)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Típico 20-50€"
+        },
+        {
+          "concepto": "Instalación de sistema de ósmosis inversa",
+          "descripcion": "Montaje completo: desmontaje de grifo anterior si existe, instalación equipo bajo fregadero, conexión tuberías entrada/salida, conexión desagüe, instalación grifo independiente, pruebas de funcionamiento y calidad de agua",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Presupuesto incluye solo MANO DE OBRA. Materiales requieren revisión de precios por el profesional.",
+        "Rango estimado TOTAL (materiales + mano): 560-1010€ (considerando equipo 300-600€ + grifo 40-120€ + accesorios 35-85€ + mano 150€)",
+        "Solicitar al cliente confirmación de: presión mínima 3 bar, espacio bajo fregadero, acceso desagüe",
+        "Incluye prueba de calidad de agua tras instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Equipo de ósmosis inversa 5 etapas",
+          "oficio": "fontaneria",
+          "motivo": "Material catalogado pero sin precio específico en base maestra (requiere revisión instalador)"
+        },
+        {
+          "concepto": "Grifo de ósmosis independiente",
+          "oficio": "fontaneria",
+          "motivo": "Material catalogado pero sin precio específico en base maestra (requiere revisión instalador)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_osmosis_inversa",
+      "cambio_grifo_cocina",
+      "revision_y_recambio_de_filtros_de_agua_o_osmosis",
+      "desatasco_fregadero",
+      "reparacion_grifo_o_griferia_averiada"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "id": 274,
+  "oficio": "Cristalería",
+  "texto": "Instalar vitrina de exposición con LED interior para joyería, 100x50x30 centímetros en cristal",
+  "http_status": 200,
+  "latency_ms": 24061,
+  "raw_response": {
+    "transcript": "Instalar vitrina de exposición con LED interior para joyería, 100x50x30 centímetros en cristal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar vitrina de exposición con LED interior para joyería, 100x50x30 centímetros en cristal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Vitrina de joyería requiere vidrio de seguridad (templado o laminado) por riesgo de robo y manipulación",
+          "Medidas exactas: 100x50x30 cm (aprox. 0.5 m² de superficie vidrio)",
+          "LED interior incluido en especificación",
+          "Precio alzado recomendado: revisar estructura, sistema de cierre y acabados finales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de vitrina en vidrio con sistemas de fijación, sellado y acabados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Paneles de vidrio templado o laminado para vitrina (0.5 m²)",
+          "descripcion": "Vidrio de seguridad templado 8mm o laminado para joyería. Medidas: 100x50x30 cm. Incluye vidrio frontal, laterales y fondo según tipo de vitrina. Material de seguridad certificado EN 12150 para evitar roturas y robo",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado/laminado de seguridad para joyería debe revisarse según proveedor; varía por espesor, tipo de corte y certificación"
+        },
+        {
+          "concepto": "Estructura soporte en aluminio o acero inoxidable",
+          "descripcion": "Marco/estructura de soporte para vitrina 100x50x30 cm. Aluminio anodizado o acero inoxidable con acabado pulido. Incluye perfiles de unión, esquinas reforzadas y base estable",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estructura debe revisarse según material (aluminio vs inox) y acabado"
+        },
+        {
+          "concepto": "Sistema de cierre y cerradura de seguridad",
+          "descripcion": "Cerradura de seguridad para vitrina de joyería. Sistemas de cierre magnético, cilindro de calidad o electrónico según requerimiento. Herrajes de fijación en aluminio/inox",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio cerradura de seguridad para joyería debe especificarse (mecanismo manual vs electrónico)"
+        },
+        {
+          "concepto": "Iluminación LED interior para vitrina",
+          "descripcion": "Sistema de iluminación LED integrado. Incluye tiras LED de 4000-6500K, transformador/fuente de alimentación, cableado interno, conexión a 230V. Instalación dentro de vitrina con difusores opacales",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio LED de interior debe revisarse según potencia, tipo de tira (flexible/rígida) y fuente de alimentación"
+        },
+        {
+          "concepto": "Silicona neutra y fijación en encuentros",
+          "descripcion": "Sellado estanco con silicona neutra de calidad en todos los encuentros vidrio-estructura y vidrio-vidrio. Previene infiltraciones y proporciona estabilidad estructural. Material de consumo: pequeño material (junquillos, masilla, pegamentos técnicos)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada; revisar consumo real en obra"
+        },
+        {
+          "concepto": "Mano de obra: desembalaje, preparación y montaje de estructura",
+          "descripcion": "Desembalaje de componentes, inspección de materiales, preparación de superficie de instalación, montaje de estructura base, nivelación y fijación a pared/suelo según emplazamiento",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: colocación de paneles vidrio y sellado",
+          "descripcion": "Instalación de paneles de vidrio en estructura. Colocación frontal, laterales y fondo. Aplicación de silicona neutra en encuentros. Limpieza de excedentes y control de estanqueidad",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 45,
+          "total": 112.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: instalación de cerradura y herrajes",
+          "descripcion": "Instalación de sistema de cierre y cerradura de seguridad. Montaje de herrajes, ajuste de mecanismo, pruebas de funcionamiento",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: instalación de iluminación LED e integración eléctrica",
+          "descripcion": "Colocación de tiras LED en interior de vitrina. Conexión de transformador. Cableado y conexión a red 230V. Pruebas de encendido, regulación y funcionamiento correcto. Control de disipación térmica",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: pruebas finales, ajuste y limpieza",
+          "descripcion": "Pruebas integrales: apertura/cierre de cerradura, estanqueidad de sellados, funcionamiento de LED, estabilidad estructural. Ajuste de nivelación. Limpieza total de la vitrina (interior y exterior)",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 382.5,
+        "iva_porcentaje": 21,
+        "iva": 80.325,
+        "total": 462.825
+      },
+      "sugerencias_catalogo": [
+        "Referencia catálogo: [instalacion_o_reparacion_de_vitrina_o_expositor_de_vidrio] — rango precio: 400-3000€/ud según complejidad, medidas y acabados",
+        "Para joyería se recomienda vidrio laminado (más seguro ante robo) o templado de 8mm mínimo",
+        "Considerar incorporar sensor de movimiento + alarma silenciosa si vitrina contiene piezas de alto valor",
+        "Sistema de cierre recomendado: cerradura de cilindro de calidad o electromagnética con control de acceso"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Paneles de vidrio templado o laminado para vitrina",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para seguridad en joyería; requiere especificación de proveedor y certificación"
+        },
+        {
+          "concepto": "Sistema de cierre y cerradura de seguridad",
+          "origen": "sugerida_ia",
+          "motivo": "Elemento crítico para vitrina de joyería; precio varía por tipo de mecanismo"
+        },
+        {
+          "concepto": "Iluminación LED interior para vitrina",
+          "origen": "sugerida_ia",
+          "motivo": "Especificación incluida en encargo; requiere detalle de potencia y tipo de tiras LED"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_o_reparacion_de_vitrina_o_expositor_de_vidrio",
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_toldos_retractiles_para_invernadero_o_jardin_de_invierno",
+      "instalacion_vidrio_en_puerta_interior"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

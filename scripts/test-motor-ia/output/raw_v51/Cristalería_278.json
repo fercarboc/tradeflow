@@ -1,0 +1,193 @@
+{
+  "id": 278,
+  "oficio": "Cristalería",
+  "texto": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+  "http_status": 200,
+  "latency_ms": 18848,
+  "raw_response": {
+    "transcript": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio templado requiere medidas exactas ANTES de templar — confirmar dimensiones exactas de la mesa",
+          "Plazo de fabricación: 5-10 días para vidrio templado",
+          "Estructura existente debe ser revisada (estabilidad, oxidación, tratamiento)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación de vidrio templado de seguridad en mueble"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Reparación y preparación de estructura metálica existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado 10mm para tapa de mesa",
+          "descripcion": "Suministro de vidrio templado de seguridad 10mm, medidas según patrón exacto de la estructura existente. Incluye corte de forma, cantos pulidos y biselados para seguridad, marcado CE según EN 12150. Plazo: 5-10 días",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones exactas (m2 o formato), espesor 10mm y tratamientos (templado, biseles, pulido). Pendiente medidas del cliente"
+        },
+        {
+          "concepto": "Cantos pulidos y biselados para vidrio templado",
+          "descripcion": "Tratamiento de seguridad en todos los cantos: pulido fino y biselado 45° para eliminar aristas cortantes",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en presupuesto de vidrio templado o cobrado por separado según proveedor"
+        },
+        {
+          "concepto": "Silicona neutra + herraje de apoyo",
+          "descripcion": "Silicona neutra de calidad (no acética) para adhesión y herraje de apoyo/taloneras de silicona en puntos de contacto con estructura metálica",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar — precio depende de sistema de fijación elegido"
+        },
+        {
+          "concepto": "Instalación de tapa de vidrio templado en estructura existente",
+          "descripcion": "Colocación, nivelación y fijación segura de tapa de vidrio templado 10mm sobre estructura metálica existente. Incluye control de planeidad, sellado con silicona y ajuste de herraje",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión, limpieza y tratamiento de estructura metálica existente",
+          "descripcion": "Inspección de estabilidad y estado de la estructura de hierro. Limpieza (esmerilado si existe óxido), desengrasado y tratamiento antioxidante con imprimación o pintura protectora según estado actual",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material de tratamiento antioxidante (pintura protectora)",
+          "descripcion": "Pintura anticorrosiva, imprimación o verniz protector para estructura metálica, según estado observado en revisión",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo dependen del estado de la estructura — pendiente inspección"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Trapos, disolventes, lijas, masillas, sellantes y otros consumibles necesarios para la instalación completa",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado en rango 15-30€ según complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 210,
+        "iva_porcentaje": 21,
+        "iva": 44.1,
+        "total": 254.1
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones exactas de la tapa (largo × ancho) en metros cuadrados para presupuestar vidrio templado",
+        "Solicitar medidas del espesor actual de la estructura y verificar cálculo de resistencia (carga estática típica mesa: 3-5 kN/m²)",
+        "Especificar acabado de cantos: biselado simple (45°) o pulido completo",
+        "Definir sistema de fijación: adhesivo silicona, herraje oculto, o taloneras de apoyo",
+        "Fotografía de estructura existente recomendada para evaluar estado y tratamiento necesario"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado 10mm para tapa de mesa",
+          "razon_creacion": "Especificación técnica de material — requiere presupuesto del proveedor de vidrio según m2 exactos",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Silicona neutra + herraje de apoyo",
+          "razon_creacion": "Material auxiliar específico para instalación de vidrio sobre estructura metálica",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Material de tratamiento antioxidante (pintura protectora)",
+          "razon_creacion": "Mantenimiento preventivo de estructura existente — cantidad y tipo pendiente de inspección",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_en_mesa_o_mueble",
+      "fabricacion_e_instalacion_estructura_metalica_escalera",
+      "instalacion_de_pavimento_o_suelo_de_vidrio_o_cristal",
+      "instalacion_vidrio_de_seguridad_templado",
+      "reparacion_y_soldadura_de_estructura_metalica"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

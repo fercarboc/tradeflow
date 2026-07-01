@@ -1,0 +1,169 @@
+{
+  "id": 330,
+  "oficio": "Fachadas",
+  "texto": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+  "http_status": 200,
+  "latency_ms": 19892,
+  "raw_response": {
+    "transcript": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revestir fachada con panel fenólico HPL en color antracita, estructura portante incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere medición de superficie en m² para ajustar cantidades",
+          "Estructura portante: confirmar si es aluminio o acero galvanizado según exposición",
+          "Panel HPL antracita: verificar espesor (6mm, 8mm, 10mm) y acabado (mate/brillo)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Revestimiento exterior de fachada con material compuesto (HPL). Oficio fachadas cubre revestimientos exteriores, aislamiento y rehabilitación de envolvente."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Panel fenólico HPL antracita",
+          "descripcion": "Suministro de panel fenólico HPL color antracita, espesor a confirmar (6-10mm), certificado exterior, resistencia UV y humedad",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material HPL fenólico: el instalador debe indicar espesor, acabado y proveedor. Precio típico 35-85€/m2 según especificación."
+        },
+        {
+          "concepto": "Estructura portante aluminio o acero galvanizado",
+          "descripcion": "Suministro de estructura portante (perfiles, travesaños, anclajes) para fijación de paneles HPL. Material: aluminio anodizado o acero galvanizado según exposición.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estructura portante: confirmar material (aluminio/acero), espesor perfiles y sistema de fijación. Precio típico 25-60€/m2."
+        },
+        {
+          "concepto": "Anclajes, tornillería y pequeño material",
+          "descripcion": "Tornillos inox, tacos, arandelas, selladores, cinta de espuma, juntas de dilatación y pequeño material para fijación de estructura y paneles.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y tornillería: precio típico 8-15€/m2 según cantidad de anclajes y tipo de junta."
+        },
+        {
+          "concepto": "Instalación estructura portante",
+          "descripcion": "Montaje de estructura portante (perfiles, travesaños, anclajes a muro). Incluye replanteo, nivelación y fijación mecánica.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra: tarifa fachadas 45€/h recomendado. Cantidad en horas debe ajustarse según m² (rendimiento típico 2-4 m²/h para estructura)."
+        },
+        {
+          "concepto": "Colocación de paneles HPL",
+          "descripcion": "Fijación de paneles fenólicos HPL a estructura portante. Incluye cortes, ajustes, sellado de juntas y tratamiento de encuentros.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra: tarifa fachadas 45€/h. Cantidad en horas debe ajustarse según m² (rendimiento típico 3-5 m²/h para colocación paneles)."
+        },
+        {
+          "concepto": "Sellado de juntas y remates",
+          "descripcion": "Sellado de juntas entre paneles con silicona o poliuretano flexible. Remates en encuentros, esquinas y perímetro. Tratamiento de dilatación.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra: tarifa fachadas 45€/h. Cantidad en horas debe ajustarse según ml de juntas (rendimiento típico 15-20 ml/h)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'revestimiento_fachada_panel_compuesto' o 'fachada_ventilada_panel_hpl'",
+        "Considerar si existe partida de 'estructura_portante_aluminio_fachada' o 'anclaje_mecanico_fachada'",
+        "Verificar si hay partida específica de 'sellado_juntas_fachada' o 'junta_dilatacion_fachada'"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Panel fenólico HPL antracita",
+          "oficio": "fachadas",
+          "tipo": "material",
+          "razon": "Material compuesto HPL no está explícitamente en Base Maestra. Creada como sugerida_ia con precio pendiente de revisión."
+        },
+        {
+          "concepto": "Estructura portante aluminio o acero galvanizado",
+          "oficio": "fachadas",
+          "tipo": "material",
+          "razon": "Estructura portante para fachada ventilada/revestida no está en Base Maestra. Creada como sugerida_ia."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "colocacion_de_revestimiento_de_madera_o_tablon_en_zocalo_exterior",
+      "revestimiento_con_mortero_monocapa",
+      "alicatado_de_fachada_exterior_con_ceramica_o_piedra",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "instalacion_celosias_metalicas_decorativas_o_de_proteccion"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3961,
+      "tokens_out": 2514
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

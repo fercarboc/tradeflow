@@ -1,0 +1,179 @@
+{
+  "id": 9,
+  "oficio": "Fontanería",
+  "texto": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+  "http_status": 200,
+  "latency_ms": 19726,
+  "raw_response": {
+    "transcript": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de fontanería integral: requiere coordinación con electricista si hay rozas compartidas",
+          "Gestión de residuos de tuberías de plomo: verificar normativa local de eliminación",
+          "Presupuesto basado en 80 m² de vivienda: precio final dependerá de longitud real de tuberías y complejidad de trazado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sustitución completa de instalación de fontanería: desmontaje tuberías plomo, suministro e instalación tuberías multicapa, apertura/cierre rozas"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión y eliminación de tuberías de plomo (residuo especial)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de tuberías de plomo",
+          "descripcion": "Desmontaje completo de instalación de tuberías de plomo en vivienda de 80 m², incluyendo desconexiones en acometida, bajantes y ramales. Preparación para eliminación como residuo especial.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de tuberías multicapa PEX y accesorios",
+          "descripcion": "Tuberías multicapa (PEX) de diferentes diámetros (16, 20, 25 mm), codos, tes, manguitos, válvulas de corte por estancia, colectores de distribución, latiguillos y pequeño material para instalación completa en vivienda de 80 m².",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir por instalador según longitud real de tuberías, diámetros y accesorios necesarios. Estimado: 1.200-2.000€"
+        },
+        {
+          "concepto": "Instalación de tuberías multicapa y accesorios",
+          "descripcion": "Instalación completa de red de tuberías multicapa PEX con válvulas de corte por estancia, colectores de distribución, conexión a acometida y saneamiento. Pruebas de estanqueidad y presión.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 400,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Apertura de rozas en muros y paredes",
+          "descripcion": "Apertura de rozas horizontales y verticales en muros de fábrica y paredes para paso de tuberías multicapa. Incluye corte con radial, limpieza y preparación de superficie.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 40,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cierre y reposición de rozas",
+          "descripcion": "Relleno de rozas con mortero de cemento, nivelación y acabado. Reposición de paramentos en zonas donde sea necesario. Incluye pequeño material (mortero, arena, agua).",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 40,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión y eliminación de tuberías de plomo",
+          "descripcion": "Recogida, clasificación y transporte de tuberías de plomo a gestor autorizado de residuos especiales. Documentación de eliminación conforme a normativa ambiental.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de gestión de residuos especiales a definir según cantidad de plomo y gestor local. Estimado: 150-300€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3120,
+        "iva_porcentaje": 21,
+        "iva": 655.2,
+        "total": 3775.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la vivienda requiere descalcificador (zona de agua dura) → partida adicional fontanería",
+        "Considerar instalación de válvulas de corte por estancia (recomendado en renovación completa) → mejora control y mantenimiento",
+        "Si hay caldera o termo eléctrico antiguo, valorar sustitución simultánea → optimiza costes de mano de obra",
+        "Coordinar con electricista si hay rozas compartidas para paso de cableado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de tuberías multicapa PEX y accesorios",
+          "oficio": "fontaneria",
+          "motivo": "Partida de material con precio pendiente de revisión del instalador según especificaciones técnicas reales"
+        },
+        {
+          "concepto": "Gestión y eliminación de tuberías de plomo",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de residuos especiales con precio pendiente de revisión según gestor autorizado local"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "renovacion_de_instalacion_de_fontaneria_en_vivienda",
+      "acabado_con_microcemento_suelo_o_pared",
+      "sustitucion_termo_electrico",
+      "instalacion_solado_de_barro_ceramico_o_terracota"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3857,
+      "tokens_out": 2388
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

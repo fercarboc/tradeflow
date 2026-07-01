@@ -1,0 +1,165 @@
+{
+  "id": 39,
+  "oficio": "Electricidad",
+  "texto": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+  "http_status": 200,
+  "latency_ms": 20601,
+  "raw_response": {
+    "transcript": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "SAI 2kVA con autonomía 30 minutos: verificar capacidad batería (aprox. 1kWh). Presupuesto incluye mano de obra; materiales requieren revisión de precios actuales."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de SAI/UPS para protección de equipos informáticos. Oficio telecomunicaciones según catálogo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "SAI 2kVA con autonomía 30 minutos",
+          "descripcion": "Unidad SAI/UPS de 2000VA con batería interna para autonomía de 30 minutos. Incluye conexionado de entrada AC, salidas protegidas y configuración de umbrales de apagado.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material SAI 2kVA. Precio depende de marca, topología (offline/online) y características. Rango estimado: 400-800€. Instalador debe confirmar precio real."
+        },
+        {
+          "concepto": "Instalación y conexionado SAI",
+          "descripcion": "Mano de obra para instalación física del SAI, conexionado de entrada AC desde cuadro eléctrico, conexionado de salidas a servidor y equipos protegidos, configuración de parámetros de apagado automático, pruebas de funcionamiento y carga.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y protecciones eléctricas",
+          "descripcion": "Cable de alimentación AC (entrada SAI desde cuadro), cables de salida a servidor, regletas de conexión, pequeño material (conectores, bridas, cinta aislante, etiquetado).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales auxiliares (cableado, conectores, bridas). Precio estimado: 50-120€. Instalador debe confirmar según longitud de cableado y tipo de conectores."
+        },
+        {
+          "concepto": "Software de gestión y apagado automático",
+          "descripcion": "Instalación de software de monitorización del SAI en servidor, configuración de alertas de fallo de red, umbral de batería baja y apagado automático controlado del servidor cuando batería alcanza nivel crítico.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de configuración software. Precio estimado: 100-200€ (incluye instalación driver, configuración parámetros, pruebas). Instalador debe confirmar si incluye licencia software."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y documentación",
+          "descripcion": "Prueba de carga del SAI (simulación de fallo de red), verificación de autonomía real, comprobación de apagado automático del servidor, generación de informe técnico y entrega de documentación (manual, certificado de instalación).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo si existe partida específica 'SAI 2kVA online de doble conversión' para mayor protección de servidor crítico.",
+        "Considerar si el cliente necesita SAI de rack (si servidor está en rack) o SAI de torre (si servidor es de sobremesa).",
+        "Confirmar si el software de gestión (ej: PowerChute, Eaton Intelligent Power Manager) está incluido en el SAI o requiere licencia adicional."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "SAI 2kVA con autonomía 30 minutos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "precio_estimado_rango": "400-800€",
+          "motivo": "Material específico SAI. Precio depende de marca (APC, Eaton, Riello, etc.) y topología (offline/online)."
+        },
+        {
+          "concepto": "Cableado y protecciones eléctricas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "precio_estimado_rango": "50-120€",
+          "motivo": "Materiales auxiliares para conexionado. Precio depende de longitud de cableado y tipo de conectores."
+        },
+        {
+          "concepto": "Software de gestión y apagado automático",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "precio_estimado_rango": "100-200€",
+          "motivo": "Servicio de configuración software del SAI. Incluye instalación driver, configuración parámetros y pruebas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_rack_o_armario_de_telecomunicaciones",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4098,
+      "tokens_out": 2355
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

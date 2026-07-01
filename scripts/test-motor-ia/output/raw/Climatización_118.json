@@ -1,0 +1,162 @@
+{
+  "id": 118,
+  "oficio": "Climatización",
+  "texto": "Carga de gas refrigerante R32 en unidad split que ha perdido gas por vibración",
+  "http_status": 200,
+  "latency_ms": 18052,
+  "raw_response": {
+    "transcript": "Carga de gas refrigerante R32 en unidad split que ha perdido gas por vibración",
+    "quote": {
+      "resumen": {
+        "texto_original": "Carga de gas refrigerante R32 en unidad split que ha perdido gas por vibración",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: Antes de cargar gas, DEBE localizarse y repararse la fuga por vibración. Si no se repara, el gas volverá a escapar.",
+          "Se asume que la verificación de pérdida y localización de fuga ya se han realizado o se incluyen en este presupuesto.",
+          "El precio del refrigerante R32 depende del mercado actual y debe revisarse."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Carga de refrigerante en sistema split, trabajo especializado de climatización."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Verificación de pérdida de refrigerante y localización de fuga",
+          "descripcion": "Inspección completa del circuito frigorífico con detector de fugas electrónico para localizar punto de escape de gas por vibración. Prueba de estanqueidad con nitrógeno a presión.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación de fuga por vibración (soldadura o reemplazo de componente)",
+          "descripcion": "Reparación de la fuga localizada mediante soldadura de cobre o reemplazo de tubo/conexión dañada. Incluye pequeño material (soldadura, flux, etc.).",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de la ubicación y complejidad de la fuga. Rango estimado: 150-400€ (mano de obra + material)."
+        },
+        {
+          "concepto": "Nitrógeno para prueba de estanqueidad post-reparación",
+          "descripcion": "Prueba de presión con nitrógeno seco a 25 bar durante 24h para verificar que la reparación es estanca antes de cargar refrigerante.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 30-60€ (botella nitrógeno + manómetro)."
+        },
+        {
+          "concepto": "Refrigerante R32 para carga",
+          "descripcion": "Gas refrigerante R32 de calidad OEM, cantidad según capacidad del equipo split (típicamente 0.8-1.5 kg para splits 1x1 de 2.5-3.5 kW). Precio por kg.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio mercado R32: 250-350€/kg (revisar proveedor). Cantidad exacta según ficha técnica equipo."
+        },
+        {
+          "concepto": "Carga de refrigerante R32 y puesta en marcha",
+          "descripcion": "Carga controlada del refrigerante R32 en el circuito frigorífico, verificación de presiones de trabajo (alta y baja), comprobación de funcionamiento en modo frío y calor, ajuste de válvulas de expansión si es necesario.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (válvulas, acoples, cinta teflón, etc.)",
+          "descripcion": "Acoples rápidos, válvulas de cierre, cinta teflón, tuercas, juntas y otros consumibles necesarios para la intervención.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 20-40€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 210,
+        "iva_porcentaje": 21,
+        "iva": 44.1,
+        "total": 254.1
+      },
+      "sugerencias_catalogo": [
+        "La partida 'Reparación de fuga por vibración' debe presupuestarse según el tipo de fuga (soldadura simple vs. reemplazo de tubo). Solicitar diagnóstico previo.",
+        "El precio del refrigerante R32 fluctúa. Confirmar precio actual con proveedor antes de facturar.",
+        "Considerar instalar antivibradores en la unidad exterior si la vibración es recurrente (prevención futura)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación de fuga por vibración (soldadura o reemplazo de componente)",
+          "oficio": "climatizacion",
+          "motivo": "Trabajo específico de reparación de fugas en circuito frigorífico. Incluido en catálogo general pero requiere presupuesto específico según diagnóstico."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "carga_de_gas_refrigerante_split",
+      "instalacion_condensadora_exterior_split_en_cubierta",
+      "instalacion_vrv_o_vrf_sistema_multiple",
+      "instalacion_split_1x1_pared",
+      "mantenimiento_de_sistema_de_climatizacion_split"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3928,
+      "tokens_out": 2125
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

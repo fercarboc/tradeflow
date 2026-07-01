@@ -1,0 +1,249 @@
+{
+  "id": 148,
+  "oficio": "Pladur",
+  "texto": "Falso techo de pladur en toda la vivienda con aislamiento acústico de lana mineral, 80 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 26844,
+  "raw_response": {
+    "transcript": "Falso techo de pladur en toda la vivienda con aislamiento acústico de lana mineral, 80 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Falso techo de pladur en toda la vivienda con aislamiento acústico de lana mineral, 80 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto de reforma integral. Verificar acceso a instalaciones (electricidad, fontanería, HVAC) antes de ejecutar.",
+          "Altura libre resultante: considerar que se pierden 15-20 cm mínimo. Confirmar con cliente.",
+          "Aislamiento acústico con muelle antivibratorio obligatorio para máxima eficiencia."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Oficio especializado en sistemas de pladur y escayola. Tarifa por m² incluida en Base Maestra (25-65€/m²)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado (15 mm) para trasdosado acústico",
+          "descripcion": "Suministro e instalación de placas de yeso laminado de 15 mm de espesor para trasdosado de techo con propiedades acústicas mejoradas. Cantidad: 80 m².",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe introducir precio de mercado para placa 15 mm acústica."
+        },
+        {
+          "concepto": "Estructura de cuelgue con muelle antivibratorio (sistema acústico)",
+          "descripcion": "Perfiles de acero galvanizado, varillas de cuelgue ajustables y muelles antivibración para desvinculación acústica de la estructura del edificio. Sistema obligatorio para aislamiento acústico eficiente.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe introducir precio de estructura metálica + muelles antivibración."
+        },
+        {
+          "concepto": "Lana mineral de alta densidad (aislamiento acústico)",
+          "descripcion": "Suministro e instalación de lana mineral de alta densidad (100-140 kg/m³) entre estructura de cuelgue. Espesor recomendado: 100-150 mm para aislamiento acústico óptimo en 80 m².",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe introducir precio de lana mineral alta densidad (100-150 mm)."
+        },
+        {
+          "concepto": "Cinta perimetral de sellado acústico",
+          "descripcion": "Cinta elástica de sellado perimetral para desvinculación acústica total en encuentro placa-pared. Longitud aproximada 80 m² = ~100-120 ml de perímetro.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe introducir precio lineal de cinta perimetral acústica."
+        },
+        {
+          "concepto": "Cinta de juntas y pasta de juntas para acabado",
+          "descripcion": "Cinta de papel para juntas entre placas y pasta de juntas para enmasillado y acabado de superficies. Incluido material auxiliar de acabado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe introducir precio de cinta + pasta de juntas para 80 m²."
+        },
+        {
+          "concepto": "Tornillería y pequeño material de instalación",
+          "descripcion": "Tornillos de 25-35 mm para fijación de placa a estructura, tacos de expansión, arandelas y pequeño material fungible para la instalación completa.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe introducir precio de tornillería y pequeño material por m²."
+        },
+        {
+          "concepto": "Mano de obra: Instalación de estructura de cuelgue acústica",
+          "descripcion": "Montaje completo de estructura metálica con muelles antivibración, ajuste de niveles, desvinculación de forjado y fijación mecánica. Incluye revisión de espacios técnicos.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 35,
+          "total": 2800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Colocación de lana mineral e instalación de placa de yeso",
+          "descripcion": "Extendido y fijación de lana mineral entre estructura. Instalación de placas de yeso laminado de 15 mm, engatillado a estructura y fijación con tornillos a distancia reglamentaria.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 35,
+          "total": 2800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Acabado de juntas (enmasillado y lijado)",
+          "descripcion": "Aplicación de pasta de juntas en 3 capas (pasta base, intermedia, fina), lijado y preparación para pintura. Acabado profesional de toda la superficie.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 35,
+          "total": 2800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Imprimación y pintura final (2 capas)",
+          "descripcion": "Imprimación de fondo y 2 capas de pintura blanca mate para acabado uniforme y listo para habitar.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura imprimación y acabado (material)",
+          "descripcion": "Imprimación fijadora y pintura blanca mate de calidad profesional (2 capas). Incluye disolvente si es necesario.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe introducir precio de pintura imprimación + acabado por m²."
+        }
+      ],
+      "calculos": {
+        "subtotal": 10960,
+        "iva_porcentaje": 21,
+        "iva": 2301.6,
+        "total": 13261.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar en Base Maestra: trasdosado_pladur_para_proteccion_acustica_suelo_techo (rango 25-65€/m² mano de obra). Presupuesto actual: 10,960€ en mano de obra para 80 m² = 137€/m² (incluyendo estructura, lana, acabados y pintura). Dentro del rango alto de complejidad acústica.",
+        "Si cliente requiere máximo aislamiento acústico: considerar doble placa (2×15 mm) en lugar de placa única 15 mm.",
+        "Sellado silicona hermético perimetral (alrededor de marco de acceso a instalaciones) recomendado para máxima eficiencia acústica."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Placa de yeso laminado 15 mm acústica",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de base maestra, precio pendiente de introducción por instalador."
+        },
+        {
+          "concepto": "Estructura metálica con muelles antivibración",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema obligatorio en aislamiento acústico, precio pendiente de introducción."
+        },
+        {
+          "concepto": "Lana mineral alta densidad 100-150 mm",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material aislante específico, precio pendiente de introducción."
+        },
+        {
+          "concepto": "Cinta perimetral de sellado acústico",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material de desvinculación acústica, precio lineal pendiente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "trasdosado_pladur_para_proteccion_acustica_suelo_techo",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "falso_techo_pladur_con_lucernario_o_claraboya_artificial"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

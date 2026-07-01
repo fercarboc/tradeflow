@@ -1,0 +1,190 @@
+{
+  "id": 389,
+  "oficio": "Persianas",
+  "texto": "Instalar persiana exterior de aluminio enrollable para local comercial, 3 metros de ancho",
+  "http_status": 200,
+  "latency_ms": 16060,
+  "raw_response": {
+    "transcript": "Instalar persiana exterior de aluminio enrollable para local comercial, 3 metros de ancho",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar persiana exterior de aluminio enrollable para local comercial, 3 metros de ancho",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume altura estándar de 2.5m (no especificada). Confirmar medida exacta ancho x alto.",
+          "Precio de material (cajón, lamas, guías) pendiente de revisión del instalador según proveedor.",
+          "Ancho 3m requiere refuerzo de lama central según norma."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de persiana enrollable aluminio exterior. Oficio especializado en persianas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cajón persiana aluminio exterior 3m ancho",
+          "descripcion": "Cajón persiana aluminio anodizado para exterior, medida 3000mm ancho x 2500mm alto (altura estándar asumida), con refuerzo de lama central por ancho >2.2m, incluyendo tapas laterales y embellecedor.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material variable según proveedor y acabado anodizado. Instalador debe confirmar medida exacta alto y especificar si cajón de sobrepared o empotrado."
+        },
+        {
+          "concepto": "Lamas aluminio persiana 3m ancho",
+          "descripcion": "Lamas de aluminio lacado o anodizado para persiana enrollable, 3000mm ancho, espesor 0.7-0.8mm, con refuerzo central para ancho >2.2m.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según número de lamas, espesor y acabado. Confirmar con proveedor."
+        },
+        {
+          "concepto": "Guías laterales aluminio persiana",
+          "descripcion": "Guías laterales aluminio anodizado, 2 unidades (izquierda y derecha), altura 2500mm, fijación a jamba o muro con tacos y tornillos.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por unidad según proveedor. Incluye pequeño material de fijación."
+        },
+        {
+          "concepto": "Cinta enrolladora y mecanismo de control",
+          "descripcion": "Cinta enrolladora de acero galvanizado, polea de giro, mecanismo de freno y tope final de carrera. Control manual con cadena o resorte de seguridad.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo de mecanismo (manual, motorizado, con mando). Confirmar especificación."
+        },
+        {
+          "concepto": "Tope inferior y remate goma persiana",
+          "descripcion": "Perfil tope inferior aluminio con junta de goma de cierre, final de carrera mecánico, remate perimetral.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según proveedor. Incluye pequeño material de fijación."
+        },
+        {
+          "concepto": "Instalación persiana enrollable aluminio 3m",
+          "descripcion": "Mano de obra de instalación: montaje cajón, colocación guías laterales, instalación lamas, ensamblaje mecanismo enrollador, pruebas de funcionamiento, ajuste de topes y cierre hermético. Incluye medición previa y marcado.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Confirmar altura exacta del hueco (se asume 2.5m estándar). Medir ancho libre interior.",
+        "Especificar si persiana de sobrepared (cajón exterior) o empotrada en dintel.",
+        "Indicar si se requiere motorización (motor 24V, mando inalámbrico, integración domótica).",
+        "Para ancho 3m, OBLIGATORIO refuerzo de lama central según CTE.",
+        "Solicitar presupuesto de materiales a proveedor habitual (cajón, lamas, guías, mecanismo).",
+        "Considerar malla antihojas si zona con árboles cercanos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cajón persiana aluminio exterior 3m ancho",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de persiana enrollable. Precio pendiente de revisión del instalador según proveedor."
+        },
+        {
+          "concepto": "Lamas aluminio persiana 3m ancho",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico. Precio variable según espesor y acabado."
+        },
+        {
+          "concepto": "Guías laterales aluminio persiana",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material de fijación lateral. Precio por unidad según proveedor."
+        },
+        {
+          "concepto": "Cinta enrolladora y mecanismo de control",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Mecanismo de funcionamiento. Precio variable según tipo (manual/motorizado)."
+        },
+        {
+          "concepto": "Tope inferior y remate goma persiana",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Componente de cierre. Precio según proveedor."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_estor_enrollable_interior",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_pantalla_de_proyeccion_motorizada",
+      "instalacion_de_canaleta_o_canalon_de_fachada"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3813,
+      "tokens_out": 2174
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

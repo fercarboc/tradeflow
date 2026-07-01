@@ -1,0 +1,322 @@
+{
+  "id": 102,
+  "oficio": "Climatización",
+  "texto": "Cambio de caldera de gasoil por aerotermia para calefacción y agua caliente en chalet",
+  "http_status": 200,
+  "latency_ms": 35665,
+  "raw_response": {
+    "transcript": "Cambio de caldera de gasoil por aerotermia para calefacción y agua caliente en chalet",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de caldera de gasoil por aerotermia para calefacción y agua caliente en chalet",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "REFORMA INTEGRAL: 3+ oficios simultáneos (climatización, fontanería, electricidad). Generadas 12 partidas técnicas individuales.",
+          "SUSTITUCIÓN COMPLETA: desmontaje caldera gasoil + suministro aerotermia + instalación + pruebas.",
+          "REQUIERE REVISIÓN: materiales (aerotermia, depósito ACS, tuberías, cableado) con precio_unitario=0. El instalador debe completar precios.",
+          "DEPÓSITO ACS OBLIGATORIO: la aerotermia requiere acumulador para ACS (no genera agua caliente instantánea como caldera).",
+          "OBRA CIVIL: posible refuerzo eléctrico (aerotermia consume 6-15 kW). Verificar potencia contratada.",
+          "EMISORES: si existen radiadores de caldera gasoil, pueden reutilizarse (aerotermia trabaja a menor temperatura). Si hay suelo radiante, óptimo."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: desmontaje caldera + instalación aerotermia + fontanería ACS + electricidad + pruebas. 3+ oficios simultáneos."
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación aerotermia (bomba calor aire-agua) para calefacción y ACS."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Desmontaje caldera gasoil, instalación depósito ACS, conexiones hidráulicas, purgado circuito."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Cableado aerotermia (monofásico/trifásico según potencia), cuadro eléctrico, protecciones, posible refuerzo línea."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión residuos caldera gasoil (desmantelamiento, transporte, reciclaje)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje caldera gasoil",
+          "descripcion": "Desconexión eléctrica, vaciado depósito gasoil, desconexión tuberías calefacción y ACS, extracción caldera, pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión residuos caldera gasoil y depósito",
+          "descripcion": "Transporte, desmantelamiento seguro, reciclaje caldera y depósito gasoil según normativa.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de volumen y distancia a gestor autorizado. Típico 150-400€."
+        },
+        {
+          "concepto": "Suministro aerotermia (bomba calor aire-agua)",
+          "descripcion": "Unidad exterior + interior, potencia 8-12 kW (según demanda térmica chalet), refrigerante R32, compresor inverter, control inteligente.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 4000-8000€ según potencia y marca. Instalador debe especificar modelo y potencia."
+        },
+        {
+          "concepto": "Instalación aerotermia (unidad exterior + interior)",
+          "descripcion": "Montaje unidad exterior en fachada/tejado, instalación unidad interior en sala técnica, conexiones refrigerante, pruebas estanqueidad, carga refrigerante, puesta en marcha.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro depósito acumulador ACS (200-300 L)",
+          "descripcion": "Acumulador de agua caliente sanitaria, aislamiento térmico, ánodo de magnesio, conexiones internas, válvula seguridad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 800-1500€ según capacidad. Instalador debe especificar volumen."
+        },
+        {
+          "concepto": "Instalación depósito ACS y conexiones hidráulicas",
+          "descripcion": "Montaje depósito en sala técnica, conexión entrada agua fría, salida agua caliente, conexión circuito primario aerotermia, válvulas de corte, purgado y llenado circuito.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro tuberías y accesorios hidráulicos",
+          "descripcion": "Tuberías cobre/multicapa circuito primario aerotermia, válvulas 3 vías, válvulas antirretorno, manómetros, termómetros, aislamiento térmico tuberías, pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 15-25€/ml según diámetro y accesorios. Total estimado 750-1250€."
+        },
+        {
+          "concepto": "Cableado y conexión eléctrica aerotermia",
+          "descripcion": "Cable alimentación aerotermia (monofásico 3x6mm² o trifásico según potencia), protecciones (magnetotérmico, diferencial), conexión a cuadro eléctrico, toma tierra, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 300-600€. Depende de distancia cuadro a aerotermia y sección cable."
+        },
+        {
+          "concepto": "Instalación cableado y protecciones eléctricas",
+          "descripcion": "Tendido cable desde cuadro a aerotermia, instalación magnetotérmico y diferencial, conexión a tierra, pruebas aislamiento, puesta en marcha eléctrica.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Posible refuerzo línea eléctrica (si necesario)",
+          "descripcion": "Ampliación potencia contratada, cambio de acometida o refuerzo línea desde contador si aerotermia requiere >10 kW. Coordinación con distribuidora.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable: 0€ (si hay potencia disponible) a 1500-3000€ (si requiere refuerzo). VERIFICAR POTENCIA CONTRATADA ACTUAL."
+        },
+        {
+          "concepto": "Pruebas, puesta en marcha y documentación",
+          "descripcion": "Pruebas estanqueidad circuito refrigerante, pruebas presión circuito agua, calibración termostato, pruebas funcionamiento calefacción y ACS, documentación técnica, certificado instalación.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Formación usuario y garantía",
+          "descripcion": "Explicación funcionamiento aerotermia, uso termostato, mantenimiento básico, garantía instalación (2 años), asistencia técnica.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio incluido típicamente. Si se cobra aparte: 100-200€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 3100,
+        "iva_porcentaje": 21,
+        "iva": 651,
+        "total": 3751
+      },
+      "sugerencias_catalogo": [
+        "VERIFICAR POTENCIA CONTRATADA: aerotermia típica consume 6-15 kW. Si actual es <10 kW, probablemente requiera refuerzo (partida 10).",
+        "EMISORES EXISTENTES: si hay radiadores de caldera gasoil, pueden reutilizarse (aerotermia trabaja a 35-55°C vs 70-80°C caldera). Si hay suelo radiante, es ÓPTIMO.",
+        "DEPÓSITO ACS: aerotermia NO genera agua caliente instantánea. OBLIGATORIO instalar acumulador (partida 5). Capacidad típica: 200-300 L para chalet.",
+        "MANTENIMIENTO: aerotermia requiere revisión anual (filtros, refrigerante). Presupuestar mantenimiento recurrente.",
+        "AYUDAS: en España, instalación aerotermia puede acogerse a ayudas IDAE/PNRR (hasta 40% del coste). Informar al cliente.",
+        "RUIDO: unidad exterior genera 40-50 dB. Verificar distancia a colindantes y normativa local.",
+        "RENDIMIENTO: COP típico 3-4 (consume 1 kWh eléctrico, genera 3-4 kWh térmicos). Ahorro energético vs gasoil: 40-60%."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro aerotermia (bomba calor aire-agua)",
+          "oficio": "climatizacion",
+          "motivo": "Material específico. Precio depende de potencia (8-12 kW típico) y marca. Rango: 4000-8000€."
+        },
+        {
+          "concepto": "Suministro depósito acumulador ACS (200-300 L)",
+          "oficio": "fontaneria",
+          "motivo": "Material específico. Precio rango: 800-1500€ según capacidad."
+        },
+        {
+          "concepto": "Suministro tuberías y accesorios hidráulicos",
+          "oficio": "fontaneria",
+          "motivo": "Material específico. Precio estimado: 750-1250€ (50 ml a 15-25€/ml)."
+        },
+        {
+          "concepto": "Suministro cableado y protecciones eléctricas",
+          "oficio": "electricidad",
+          "motivo": "Material específico. Precio rango: 300-600€."
+        },
+        {
+          "concepto": "Gestión residuos caldera gasoil y depósito",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio especializado. Precio rango: 150-400€."
+        },
+        {
+          "concepto": "Posible refuerzo línea eléctrica (si necesario)",
+          "oficio": "electricidad",
+          "motivo": "Servicio condicional. Precio variable: 0€ a 3000€ según necesidad. REQUIERE VERIFICACIÓN PREVIA."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_caldera_o_termocalentador_averiado",
+      "reparacion_averia_caldera_gas",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "instalacion_solar_termica_para_piscina",
+      "instalacion_sistema_solar_termico_colectivo_para_edificio"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3989,
+      "tokens_out": 4773
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 5,
+    "n_sugeridas": 7,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

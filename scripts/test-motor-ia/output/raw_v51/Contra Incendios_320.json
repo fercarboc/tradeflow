@@ -1,0 +1,295 @@
+{
+  "id": 320,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+  "http_status": 200,
+  "latency_ms": 35483,
+  "raw_response": {
+    "transcript": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "VESDA es sistema de detección muy especializado (aspiración de aire) — requiere proyecto técnico y empresa certificada",
+          "Archivo de documentación = zona de alto riesgo — CTE DB-SI obliga detección automática",
+          "Precio final depende de: superficie archivo, número de puntos de aspiración, longitud tuberías, tipo central VESDA (ASD, LaserScan, híbrido)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Detección incendios automática certificada — especialidad contra_incendios"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cableado E30, integración central, supervisión — apoyo a contra_incendios"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico sistema VESDA",
+          "descripcion": "Proyecto de ingeniería: cálculo de caudal aspiración, número y ubicación puntos toma aire, dimensionado tuberías, selección central VESDA, cumplimiento CTE DB-SI y norma UNE 23007 para detección aspiración",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proyecto técnico especializado VESDA — instalador fija precio según complejidad archivo (m2, altura, puntos aspiración)"
+        },
+        {
+          "concepto": "Central de detección VESDA",
+          "descripcion": "Central de aspiración VESDA (ASD 5, ASD 7, LaserScan u otro modelo) — certificada EN 54-7 para detección aspiración temprana — incluye tarjeta supervisión líneas, módulo comunicación, fuente alimentación regulada",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio central VESDA varía 3.000-12.000€ según modelo (ASD 5 vs ASD 7 vs LaserScan) — instalador revisa especificación"
+        },
+        {
+          "concepto": "Batería de respaldo 72h mínimo",
+          "descripcion": "Batería AGM o LiFePO4 para respaldo central VESDA mínimo 72 horas — cumple REBT y EN 54-4 — incluye equipo cargador automático",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio batería depende de amperios-hora requeridos — típico 500-1.500€"
+        },
+        {
+          "concepto": "Red de tuberías aspiración (PVC D=25-32mm)",
+          "descripcion": "Suministro e instalación tuberías PVC rígidas diámetro 25-32mm para red de aspiración desde puntos de toma en archivo hasta central VESDA — incluye conexiones, codos, reducciones, tramos horizontales con pendiente mínima 2%, anclajes",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml depende de layout archivo y posición central — instalador mide y calcula"
+        },
+        {
+          "concepto": "Puntos de toma aire (cabezas aspiración)",
+          "descripcion": "Cabezas de aspiración VESDA certificadas (Velostat, válvula muestreo) — una por cada zona/sección archivo — incluye filtro previo partículas 5µm y acceso limpieza trimestral",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de puntos = superficie archivo / (120-150 m2 por punto típico) — instalador define según plano"
+        },
+        {
+          "concepto": "Cableado E30 red supervisión VESDA",
+          "descripcion": "Cableado resistente al fuego E30 tipo J1V(O)V2 — conexión central VESDA a puntos de toma, a central incendios si existe, a sirenas y módulos repetidores — incluye bandejas ignífugas, tubos protección, pequeño material de sujeción",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de cableado depende de distribución puntos y ubicación central — instalador calcula"
+        },
+        {
+          "concepto": "Instalación central VESDA y accesorios",
+          "descripcion": "Mano de obra: desembalaje, montaje armario/soporte central, conexión tuberías aspiración, cableado supervisión, programación parámetros detección (sensibilidad, tiempos respuesta, zonas), configuración comunicación — NO incluye puesta en marcha/calibración",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación red tuberías y puntos aspiración",
+          "descripcion": "Mano de obra: tendido tuberías PVC en bandeja/fijación, conexión codos y derivaciones, montaje cabezas aspiración en pared/techo, comprobación estanqueidad red (sin presión de funcionamiento)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 60,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas 8-16h según extensión red — instalador ajusta tras medición"
+        },
+        {
+          "concepto": "Cableado E30 y puntos supervisión",
+          "descripcion": "Mano de obra: tendido cableado E30 en bandeja/tubo, conexiones terminales en central y puntos, identificación según norma, prueba aislamiento — cableado resistente fuego OBLIGATORIO",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar según longitud total cableado a instalar"
+        },
+        {
+          "concepto": "Puesta en marcha y calibración VESDA",
+          "descripcion": "Puesta en marcha: purga aire red tuberías, calibración sensibilidad detectores VESDA según especificación fabricante, programación umbrales alarma temprana, test recorrido todos puntos, registros puesta en marcha — ESPECIALISTA VESDA RECOMENDADO",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Puesta en marcha VESDA = 600-1.200€ típicamente — requiere técnico certificado VESDA/Tyco"
+        },
+        {
+          "concepto": "Integración con central incendios existente (si aplica)",
+          "descripcion": "Conexión supervisión VESDA a central CIE existente — módulo interfaz comunicación, reprogramación zonas incendios, test integración — SOLO si existe central incendios en edificio",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad=0 por defecto — instalador marca cantidad=1 si existe central CIE para integrar"
+        },
+        {
+          "concepto": "Señalización normativa instalación",
+          "descripcion": "Placas PVC señalización ubicación central VESDA, puntos aspiración, corte energía — cumple norma UNE 1004 — incluye material y adhesivos",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar 150-300€ señalización completa"
+        },
+        {
+          "concepto": "Pequeño material y consumibles instalación",
+          "descripcion": "Tornillería, bridas, pasta térmica, limpiador, filtros primarios puntos aspiración, documentación técnica, certificados — OBLIGATORIO",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar 200-400€ pequeño material"
+        },
+        {
+          "concepto": "Certificado final de instalación y conformidad",
+          "descripcion": "Certificado de instalación conforme a CTE DB-SI, UNE 23007 y normas VESDA — registro ante administración si obligatorio — incluye plano final, manual operación y mantenimiento",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Típicamente incluido en puesta en marcha — verificar con gestoría/administración"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1540,
+        "iva_porcentaje": 21,
+        "iva": 323.4,
+        "total": 1863.4
+      },
+      "sugerencias_catalogo": [
+        "VESDA es especialidad muy técnica — asegurar que instalador/empresa es autorizado VESDA/Tyco Security Products",
+        "Revisar CTE DB-SI si archivo ≥ 100 m2 → detección automática OBLIGATORIA",
+        "Norma UNE 23007-14 específica para aspiración — empresa debe estar registrada RITE y Industria",
+        "Puesta en marcha VESDA NO es estándar — requiere técnico certificado (mínimo 2-3 días)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central VESDA (ASD 5/7/LaserScan)",
+          "oficio": "contra_incendios",
+          "razon": "Sistema especializado detección temprana aspiración — no existe genérico en catálogo"
+        },
+        {
+          "concepto": "Batería respaldo 72h VESDA",
+          "oficio": "contra_incendios",
+          "razon": "Especificación técnica VESDA — distinto a batería estándar central incendios"
+        },
+        {
+          "concepto": "Tuberías PVC aspiración D=25-32mm",
+          "oficio": "contra_incendios",
+          "razon": "Red aspiración específica VESDA — diferente a rociadores y red ACS"
+        },
+        {
+          "concepto": "Puesta en marcha y calibración VESDA especializada",
+          "oficio": "contra_incendios",
+          "razon": "Requiere técnico certificado VESDA — no es puesta en marcha estándar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_central_deteccion_y_alarma_incendios",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_recuperacion_aguas_pluviales",
+      "instalacion_bocas_de_incendio_equipadas_BIE_25mm"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 14,
+    "n_catalogo": 3,
+    "n_sugeridas": 11,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

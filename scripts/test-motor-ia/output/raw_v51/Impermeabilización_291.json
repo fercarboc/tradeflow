@@ -1,0 +1,234 @@
+{
+  "id": 291,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 26669,
+  "raw_response": {
+    "transcript": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Poliurea proyectada: material de alto rendimiento, requiere equipo especializado y aplicador certificado",
+          "Superficie grande (500 m²): verificar acceso, andamiaje y seguridad en altura",
+          "Cubierta nave industrial: inspeccionar estado previo, presencia de óxido, grietas o desperfectos antes de aplicación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 55,
+            "max": 75
+          },
+          "motivo": "Impermeabilización de cubierta metálica con membrana especializada (poliurea proyectada)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza mecánica, óxido y suciedad",
+          "descripcion": "Limpieza con cepillo mecánico, hidrolavadora o similar para eliminar óxido superficial, suciedad, algas y musgos en los 500 m² de cubierta",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 3.5,
+          "total": 1750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación antióxido y adhesión",
+          "descripcion": "Aplicación de imprimación antióxido específica para sustratos metálicos, mejora adhesión de poliurea. Cobertura completa 500 m²",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material imprimación: instalador debe introducir precio real (típicamente 2-5 €/m²)"
+        },
+        {
+          "concepto": "Poliurea proyectada elastomérica",
+          "descripcion": "Membrana de poliurea elastomérica de dos componentes, proyectada in situ, espesor mínimo 1,5-2 mm, con propiedades de elasticidad y resistencia UV para cubierta nave industrial. 500 m²",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material poliurea proyectada: instalador introduce precio (rango aproximado 25-50 €/m² según calidad y espesor)"
+        },
+        {
+          "concepto": "Aplicación de poliurea proyectada",
+          "descripcion": "Mano de obra especializada en aplicación de poliurea proyectada con equipo pulverizador de dos componentes. Incluye preparación de equipos, aplicación continua y control de espesor en 500 m²",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 8,
+          "total": 4000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Remates, solapes y refuerzos puntales",
+          "descripcion": "Refuerzo de solapes, encuentros con paredes, petos y tornillos con cinta de poliurea o sellador flexible. Remate de zonas críticas (ventilación, chimeneas, conductos). Aprox. 100 ml",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cinta/sellador refuerzo: precio a introducir por instalador (típicamente 5-15 €/ml)"
+        },
+        {
+          "concepto": "Mano de obra remates y encuentros",
+          "descripcion": "Aplicación de cinta de poliurea y sellador en solapes, petos, chimeneas y encuentros con elementos singulares",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 100,
+          "precio_unitario": 2.5,
+          "total": 250,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Canalones y bajantes (si procede)",
+          "descripcion": "Revisión, limpieza y remate de canalones y bajantes integrados en la nueva impermeabilización. Incluye comprobación de desagüe",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 350,
+          "total": 350,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarea auxiliar: revisar si aplica; si se requiere sustitución de canalones, crear partida adicional"
+        },
+        {
+          "concepto": "Pintura reflectante blanca (opcional)",
+          "descripcion": "Aplicación de pintura reflectante blanca de poliurea o epoxi sobre membrana impermeabilizante para mejorar reflectancia solar y refrigeración interna. 500 m²",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pintura reflectante: opcional, precio a introducir (2-6 €/m²). Recomendable para naves con control térmico"
+        },
+        {
+          "concepto": "Pruebas de impermeabilización y ponencia",
+          "descripcion": "Prueba de impermeabilidad mediante anegación o lluvia simulada en zonas críticas. Inspección final y documentación de trabajos realizados",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 350,
+          "total": 350,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y línea de vida en altura",
+          "descripcion": "Arnés de seguridad, cascos, guantes, gafas de protección, mascarilla respiratoria para proyección de poliurea, línea de vida y anclajes en cubierta para 500 m² con altura > 3 m",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "EPI y equipos de seguridad: alquileres y consumibles, introducir presupuesto (100-200 €/jornada típico)"
+        },
+        {
+          "concepto": "Pequeño material (trapos, cepillos, desengrasante, etc.)",
+          "descripcion": "Consumibles varios: trapos, cepillos de cerdas, desengrasante, alcohol, acetona, etiquetas de seguridad, soportes varios",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: presupuestar 50-100 €/jornada"
+        }
+      ],
+      "calculos": {
+        "subtotal": 6700,
+        "iva_porcentaje": 21,
+        "iva": 1407,
+        "total": 8107
+      },
+      "sugerencias_catalogo": [
+        "La poliurea proyectada es un material premium para impermeabilización de cubiertas industriales. Verificar que el aplicador es técnico certificado del fabricante",
+        "Considerar inspección previa de grietas, desperfectos o fugas existentes. Pueden requerir reparación adicional antes de aplicación",
+        "Cubierta metalizada requiere limpieza exhaustiva: óxido superficial debe eliminarse completamente antes de imprimación",
+        "Para naves con ambiente corrosivo (marinero, químico, etc.), evaluar espesor superior de poliurea (2-2.5 mm)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Poliurea proyectada elastomérica",
+          "oficio": "impermeabilizacion",
+          "razon": "Material específico para proyección in situ, variante de membrana elastomérica, no cubierto explícitamente en Base Maestra pero alineado con [impermeabilizacion_de_cubierta_metalica_con_membrana_liquida]",
+          "sugestion": "Crear línea de catálogo 'Membrana de poliurea proyectada 1,5-2 mm' con rango 25-50 €/m²"
+        },
+        {
+          "concepto": "Aplicación de poliurea proyectada",
+          "oficio": "impermeabilizacion",
+          "razon": "Mano de obra especializada en proyección de dos componentes, requiere equipo específico",
+          "sugestion": "Tarifa 8 €/m² (dentro de rango impermeabilización 40-75 €/h = ~5-10 €/m² para cobertura típica)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_cubierta_metalica_con_membrana_liquida",
+      "instalacion_cubierta_de_fibrocemento_ondulado_o_plano",
+      "impermeabilizacion_peto_o_murete_de_cubierta",
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 1,
+    "n_sugeridas": 10,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

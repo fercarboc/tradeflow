@@ -1,0 +1,178 @@
+{
+  "id": 386,
+  "oficio": "Persianas",
+  "texto": "Cambio de cajón de persiana roto en reforma de ventana, pintado en blanco a juego",
+  "http_status": 200,
+  "latency_ms": 11709,
+  "raw_response": {
+    "transcript": "Cambio de cajón de persiana roto en reforma de ventana, pintado en blanco a juego",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de cajón de persiana roto en reforma de ventana, pintado en blanco a juego",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cajón de persiana: verificar dimensiones exactas y tipo de mecanismo (enrollable, corredera, etc.)",
+          "Pintura blanca: confirmar tipo (acrílica, esmalte, pintura plástica) y acabado (mate, satinado, brillo)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Desmontaje y sustitución de cajón de persiana"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Pintura blanca de acabado en cajón nuevo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje cajón persiana roto",
+          "descripcion": "Desmontaje completo del cajón de persiana deteriorado, incluyendo extracción de mecanismo interno y accesorios",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cajón de persiana nuevo",
+          "descripcion": "Suministro de cajón de persiana nuevo (dimensiones y tipo a confirmar por instalador)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del cajón depende de dimensiones, material (aluminio/PVC) y mecanismo específico"
+        },
+        {
+          "concepto": "Instalación cajón persiana nuevo",
+          "descripcion": "Instalación y fijación del cajón nuevo, conexión de mecanismo enrollable y pruebas de funcionamiento",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura blanca cajón persiana",
+          "descripcion": "Preparación, imprimación y pintura blanca de acabado en cajón de persiana (2 manos), a juego con reforma de ventana",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura blanca (material)",
+          "descripcion": "Suministro de pintura blanca acrílica/plástica para acabado de cajón (cantidad según superficie)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de pintura a confirmar según superficie y acabado deseado"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tacos, tornillos, silicona, masilla, lija y otros accesorios necesarios para instalación y acabado",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado entre 15-30€ según accesorios específicos necesarios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 122,
+        "iva_porcentaje": 21,
+        "iva": 25.62,
+        "total": 147.62
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones exactas del cajón (ancho, alto, profundidad) para cotización precisa del material",
+        "Especificar tipo de mecanismo: enrollable manual, motorizado, o corredera",
+        "Indicar si la pintura debe ser acrílica, esmalte o pintura plástica según acabado deseado",
+        "Verificar si hay que reparar o sustituir también la guía de la persiana"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cajón de persiana nuevo",
+          "oficio": "persianas",
+          "motivo": "Material específico cuyo precio depende de dimensiones y tipo de mecanismo"
+        },
+        {
+          "concepto": "Pintura blanca (material)",
+          "oficio": "pintura",
+          "motivo": "Material de acabado cuya cantidad depende de la superficie del cajón"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_radiador",
+      "cambio_grifo_lavabo",
+      "cambio_inodoro",
+      "sustitucion_termo_electrico",
+      "reparacion_cordon_o_sistema_tiro_persiana"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3475,
+      "tokens_out": 1732
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

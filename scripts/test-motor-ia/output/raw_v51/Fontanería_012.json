@@ -1,0 +1,249 @@
+{
+  "id": 12,
+  "oficio": "Fontanería",
+  "texto": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+  "http_status": 200,
+  "latency_ms": 21593,
+  "raw_response": {
+    "transcript": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar caudal necesario y altura manométrica antes de seleccionar bomba",
+          "Confirmar presión actual del sistema y presión objetivo",
+          "Evaluar si es instalación nueva o sustitución de grupo existente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de grupo de presión con bomba y calderín"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica de la bomba de presión"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Bomba de presión centrífuga",
+          "descripcion": "Bomba centrífuga para grupo de presión, selección según caudal y altura manométrica del proyecto",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a determinar según especificaciones técnicas (caudal l/min, altura manométrica, potencia kW)"
+        },
+        {
+          "concepto": "Calderín de presión (vaso de expansión)",
+          "descripcion": "Calderín de 24 litros con membrana para grupo de presión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar presión nominal (bares) y volumen de agua útil según cálculo"
+        },
+        {
+          "concepto": "Presostato y manómetro",
+          "descripcion": "Presostato para control automático de encendido/apagado y manómetro de lectura directa",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presostato ajustable según rango de presiones deseado (típicamente 1.5-2.5 bar)"
+        },
+        {
+          "concepto": "Válvula de retención unidireccional",
+          "descripcion": "Válvula de retención para evitar retorno de agua en el circuito",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diámetro a determinar según conexión (típicamente 1\" o 1.1/4\")"
+        },
+        {
+          "concepto": "Racores y uniones de cobre/latón",
+          "descripcion": "Conjunto de racores, niples y uniones para interconexión de bomba, calderín, válvula y tuberías",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote de accesorios según diámetros y configuración final"
+        },
+        {
+          "concepto": "Base antivibraciones",
+          "descripcion": "Base de goma o caucho para amortiguación de vibraciones de la bomba",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Capacidad de carga según peso de la bomba y grupo completo"
+        },
+        {
+          "concepto": "Desmontaje y preparación",
+          "descripcion": "Cierre de válvulas, vaciado de tuberías si existe grupo anterior, limpieza de conexiones",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de grupo de presión",
+          "descripcion": "Montaje de bomba, calderín, válvula de retención, presostato y manómetro con acoplamientos e uniones en cuarto de baño o área técnica",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de presión y regulación",
+          "descripcion": "Llenado del sistema, purgado de aire, verificación de presiones en el presostato, ajuste de rango de encendido/apagado (típicamente 1.5-2.5 bar), comprobación de funcionamiento en grifos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica de la bomba",
+          "descripcion": "Acometida eléctrica desde cuadro a bomba con cable adecuado, protección diferencial y magnetotérmico si no existen",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable y protecciones eléctricas",
+          "descripcion": "Cable de alimentación (2.5 mm² mínimo según potencia), tuerca/canaleta, diferencial 30mA si no existe",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar sección de cable y protecciones según potencia de bomba (típicamente 0.5-1.5 kW)"
+        },
+        {
+          "concepto": "Pequeño material fontanería",
+          "descripcion": "Cinta teflón, pasta sellante, clips de fijación, tornilería, anclajes",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote de consumibles según necesidades de la instalación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 325,
+        "iva_porcentaje": 21,
+        "iva": 68.25,
+        "total": 393.25
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo partidas específicas: 'cambio_bomba_presion', 'grupo_presion_24L', 'instalacion_grupo_presion_completo'",
+        "Considerar si existe mantenimiento preventivo posterior recomendado en catálogo"
+      ],
+      "partidas_nuevas_detectadas": [
+        "Bomba de presión centrífuga (requiere especificaciones técnicas de caudal/altura)",
+        "Calderín 24L (requiere especificaciones de presión nominal)",
+        "Presostato y manómetro (requiere rango de presiones)",
+        "Cable y protecciones eléctricas (requiere potencia de bomba)"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_bomba_presion",
+      "mantenimiento_preventivo_de_grupo_de_presion",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "instalacion_suelo_radiante_hidraulico",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 4,
+    "n_sugeridas": 8,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

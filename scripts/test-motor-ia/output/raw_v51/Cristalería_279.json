@@ -1,0 +1,165 @@
+{
+  "id": 279,
+  "oficio": "Cristalería",
+  "texto": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+  "http_status": 200,
+  "latency_ms": 17533,
+  "raw_response": {
+    "transcript": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Ventana de proyección en tabique interior: requiere aclaración si es marco metálico/PVC o carpintería",
+          "Vidrio translúcido: especificar espesor, tipo (satinado, opal, blocks de vidrio) y dimensiones exactas",
+          "Tabique interior: verificar si requiere refuerzo estructural o impermeabilización especial",
+          "No se especifica si incluye marcos, herraje motorizado o manual"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de vidrio translúcido y accesorios de cristalería"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Posible marco de madera o acondicionamiento del tabique"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio translúcido de seguridad para ventana de proyección",
+          "descripcion": "Suministro de vidrio translúcido (satinado, opal o blocks de vidrio) de seguridad templado, espesor a determinar según luz natural requerida y medidas exactas del hueco",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones exactas, espesor (6/8/10mm) y tipo de vidrio translúcido (satinado/opal/blocks). Instalar en catálogo con rango 120-450€ según medida"
+        },
+        {
+          "concepto": "Marco y herraje para ventana de proyección",
+          "descripcion": "Suministro de marco (aluminio, PVC o madera según especificación) con herraje para proyección/abatimiento, bisagras y mecanismo de cierre seguro",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del material (madera 180-350€, aluminio 150-300€, PVC 100-200€) y mecanismo de proyección"
+        },
+        {
+          "concepto": "Instalación de ventana translúcida en tabique interior",
+          "descripcion": "Instalación completa: fijación del marco al tabique, colocación del vidrio translúcido con sellado hermético con silicona neutra, ajuste de herraje y pruebas funcionales de proyección",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado e impermeabilización de encuentros",
+          "descripcion": "Aplicación de silicona neutra de calidad en todos los encuentros entre marco y tabique, interior y exterior, para evitar infiltraciones y garantizar estanqueidad",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Silicona neutra 310ml: 8-15€/unidad. Incluir pequeño material (trapos, herramientas de aplicación)"
+        },
+        {
+          "concepto": "Acondicionamiento del tabique (si requiere refuerzo)",
+          "descripcion": "Evaluación y acondicionamiento del tabique interior: verificación de planeidad, refuerzo estructural si necesario, tratamiento de superficies para correcta fijación del marco",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Hora incluida por precaución. Confirmar con profesional si el tabique está en condiciones o requiere trabajos previos"
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada específica: 'Instalación ventana proyección tabique interior' con rango 350-900€/ud según vidrio translúcido, marco y refuerzo",
+        "Especificar tipos de vidrio translúcido disponibles: satinado (50-120€/m²), blocks de vidrio (80-200€/m²), opal (60-150€/m²)",
+        "Vincular con 'Instalación vidrio de seguridad templado' pero diferenciando translucidez vs transparencia"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Vidrio translúcido de seguridad para ventana de proyección",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "rango_precio_sugerido": "120-450€/ud",
+          "motivo": "No existe en catálogo actual. Diferencia con vidrio templado estándar: requiere translucidez (satinado/opal/blocks)"
+        },
+        {
+          "nombre": "Marco herraje ventana proyección (aluminio/PVC/madera)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "rango_precio_sugerido": "100-350€/ud",
+          "motivo": "Específico para proyección. Puede existir como variante de marco estándar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_claraboya_tubular_o_solatube",
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_estor_enrollable_interior"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

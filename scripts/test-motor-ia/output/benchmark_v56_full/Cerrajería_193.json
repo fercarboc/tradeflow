@@ -1,0 +1,124 @@
+{
+  "id": 193,
+  "oficio": "Cerrajería",
+  "texto": "Instalar cierra puertas neumático en puerta de entrada de edificio de apartamentos",
+  "http_status": 200,
+  "latency_ms": 10744,
+  "raw_response": {
+    "transcript": "Instalar cierra puertas neumático en puerta de entrada de edificio de apartamentos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cierra puertas neumático en puerta de entrada de edificio de apartamentos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume puerta de entrada estándar. Confirmar peso, anchura y tipo de apertura (manual/automática) para seleccionar tamaño correcto de cierrapuertas.",
+          "Cierrapuertas neumático: verificar si es de brazo articulado o deslizante según configuración de la puerta."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de cierrapuertas hidráulico/neumático en puerta de acceso. Oficio especializado en cerrajería."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cierrapuertas neumático",
+          "descripcion": "Suministro de cierrapuertas neumático de tamaño medio (EN 2-4) para puerta de entrada de edificio de apartamentos, con brazo articulado y regulación de velocidad de cierre.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del cierrapuertas neumático pendiente de cotización según marca, tamaño y especificaciones técnicas."
+        },
+        {
+          "concepto": "Instalación cierrapuertas neumático",
+          "descripcion": "Instalación de cierrapuertas neumático: desmontaje de herraje anterior si existe, plantilla de instalación, fijación a puerta y marco, ajuste de brazo articulado, regulación de velocidad de cierre y apertura, pruebas de funcionamiento.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y fijaciones",
+          "descripcion": "Tornillería, tacos, masilla, sellador y pequeño material necesario para la instalación del cierrapuertas.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a determinar según cantidad y tipo de fijaciones necesarias."
+        }
+      ],
+      "calculos": {
+        "subtotal": 120,
+        "iva_porcentaje": 21,
+        "iva": 25.2,
+        "total": 145.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tamaño del cierrapuertas según norma EN 1-6 (peso y anchura de la puerta de entrada).",
+        "Especificar si se requiere retenedor para mantener la puerta abierta en horarios de tránsito intenso.",
+        "Considerar cierrapuertas hidráulico de mayor calidad si la puerta tiene uso muy frecuente (edificio de apartamentos con alto tránsito)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cierrapuertas neumático",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico cuyo precio depende de marca, tamaño (EN 1-6) y especificaciones técnicas. Requiere cotización del instalador."
+        },
+        {
+          "concepto": "Pequeño material y fijaciones",
+          "oficio": "cerrajeria",
+          "motivo": "Tornillería y accesorios de instalación. Importe variable según necesidades específicas del hueco."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_doble_hoja_interior",
+      "instalacion_de_cierrapuertas_hidraulico",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra",
+      "instalacion_puerta_metalica_exterior_o_de_acceso"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3830,
+      "tokens_out": 1250
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 1,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

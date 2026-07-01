@@ -1,0 +1,194 @@
+{
+  "id": 339,
+  "oficio": "Fachadas",
+  "texto": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+  "http_status": 200,
+  "latency_ms": 16843,
+  "raw_response": {
+    "transcript": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Especificar altura total de fachada a pintar (m²)",
+          "Confirmar superficie de zócalo en gres (m²)",
+          "Indicar estado actual: ¿requiere limpieza/demolición previa del zócalo antiguo?",
+          "Tipo de pintura: mineral, siloxano, acrílica (según exposición)",
+          "Tipo de gres: porcelánico, gres rústico, calibrado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de fachada con pintura"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Colocación de zócalo en gres (alicatado vertical)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición y preparación de superficie para zócalo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y retirada de zócalo antiguo",
+          "descripcion": "Demolición selectiva de zócalo existente, retirada de escombros y preparación de superficie",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales de zócalo a demoler no especificada"
+        },
+        {
+          "concepto": "Suministro de gres para zócalo",
+          "descripcion": "Baldosas de gres porcelánico o rústico para zócalo de acceso (incluye adhesivo, lechada y pequeño material)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de especificación (tipo gres, marca, acabado). Cantidad en m² no indicada"
+        },
+        {
+          "concepto": "Colocación de zócalo en gres",
+          "descripcion": "Alicatado de zócalo con gres, rejuntado y acabado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² de zócalo a alicatar no especificada"
+        },
+        {
+          "concepto": "Limpieza y preparación de fachada",
+          "descripcion": "Limpieza de superficie de fachada, eliminación de suciedad, algas y consolidación de base para pintura",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de fachada a limpiar no especificada"
+        },
+        {
+          "concepto": "Suministro de pintura para fachada",
+          "descripcion": "Pintura mineral transpirable, siloxano o acrílica de fachada (según tipo de soporte), imprimación y pequeño material",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura pendiente de especificación (tipo, marca, rendimiento). Cantidad en m² no indicada"
+        },
+        {
+          "concepto": "Pintado de fachada (2 manos)",
+          "descripcion": "Aplicación de imprimación y dos manos de pintura en fachada, rodillo y brocha",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de fachada a pintar no especificada. Tarifa: 8€/m2 (imprimación + 2 manos)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar plano o medición de fachada: altura total × ancho (m²)",
+        "Solicitar medición de zócalo: largo × alto en metros lineales o m²",
+        "Confirmar tipo de soporte actual: ladrillo visto, enfoscado, mortero, etc.",
+        "Especificar tipo de gres: porcelánico (más resistente), rústico, calibrado",
+        "Indicar si hay elementos a proteger (puertas, ventanas, elementos metálicos)",
+        "Confirmar si incluye andamios o plataforma elevadora (altura > 3m)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de gres para zócalo",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material específico sin precio en catálogo base"
+        },
+        {
+          "concepto": "Suministro de pintura para fachada",
+          "oficio": "fachadas",
+          "motivo": "Material específico sin precio en catálogo base"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_y_informe_estado_pinturas_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "pintado_de_fachada_de_ladrillo_visto"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3817,
+      "tokens_out": 2229
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "id": 94,
+  "oficio": "Albañilería",
+  "texto": "Reparar filtraciones en sótano, impermeabilización interior con mortero cristalizante",
+  "http_status": 200,
+  "latency_ms": 24187,
+  "raw_response": {
+    "transcript": "Reparar filtraciones en sótano, impermeabilización interior con mortero cristalizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar filtraciones en sótano, impermeabilización interior con mortero cristalizante",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "IMPORTANTE: La impermeabilización interior es solución secundaria. Se recomienda evaluar causa raíz (drenaje exterior, grietas estructurales)",
+          "Requiere diagnóstico previo: identificar puntos de filtración activa y origen del agua",
+          "Mortero cristalizante penetra en hormigón: óptimo para interior pero debe aplicarse sobre superficie sana"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": false,
+          "nuevo_oficio": true,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Oficio especializado en impermeabilización. Tarifa basada en albanilería + trabajos de precisión"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Saneo y preparación de superficie previa"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y localización de filtraciones",
+          "descripcion": "Inspección completa del sótano, identificación de puntos de filtración activa, evaluación de causa raíz (drenaje, grietas estructurales, nivel freático)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diagnóstico previo OBLIGATORIO antes de ejecutar. El instalador determina tarifa según complejidad"
+        },
+        {
+          "concepto": "Saneo de eflorescencias y zonas deterioradas",
+          "descripcion": "Limpieza de sales eflorescentes, eliminación de mortero suelto, hormigón degradado. Preparación de superficie con cepillo de acero y/o chorro agua a presión",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a determinar por el profesional. Tarifa orientativa 15-25€/m2"
+        },
+        {
+          "concepto": "Imprimación mineral",
+          "descripcion": "Aplicación de imprimación mineral o puente de adherencia sobre hormigón/mortero para optimizar agarre del mortero cristalizante",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a seleccionar. Referencia: 3-8€/m2"
+        },
+        {
+          "concepto": "Aplicación de mortero hidrofugo cristalizante",
+          "descripcion": "Aplicación de mortero hidrofugo de cristalización interna. Penetra en poros del hormigón, sella microfisuras. Aplicación en 1-2 capas según especificación técnica",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a determinar. Tarifa recomendada: 35-50€/m2 según complejidad"
+        },
+        {
+          "concepto": "Suministro mortero cristalizante",
+          "descripcion": "Material mortero hidrofugo de cristalización (ej: Xypex, Krystol, Aqua Blocker). Cantidad según rendimiento 2-3 kg/m2",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y coste a determinar. Referencia: 8-15€/kg"
+        },
+        {
+          "concepto": "Refuerzo de encuentros suelo-pared",
+          "descripcion": "Refuerzo específico en juntas suelo-pared con mortero hidrofugo flexible o banda hidrofuga + mortero. Punto crítico de filtración",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud (ml) a medir en situ. Tarifa: 25-40€/ml"
+        },
+        {
+          "concepto": "Banda hidrofuga en junta suelo-pared (opcional)",
+          "descripcion": "Aplicación de banda hidrofuga prefabricada (neopreno o PVC) en junta perimetral antes del mortero. Refuerzo de estanqueidad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional. Longitud y coste a determinar. Referencia: 5-12€/ml"
+        },
+        {
+          "concepto": "Sistema de drenaje interior (si filtración activa)",
+          "descripcion": "Si diagnóstico revela filtración activa/continua: canaletas de drenaje perimetral, sumidero + bomba desagüe o sistema de recogida de agua",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Solución complementaria si filtración no cede. A presupuestar según alcance"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Espátulas, cepillos, protecciones, cubetas, trapos, deshollinador, andamios ligeros, etc.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada. Estimación: 50-150€ según extensión"
+        },
+        {
+          "concepto": "Equipos de protección personal (EPI)",
+          "descripcion": "Guantes nitrilo, mascarillas FFP2, gafas de protección, botas antideslizantes, ropa de trabajo impermeable",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada. Estimación: 30-80€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Base Maestra contiene: [impermeabilizacion_de_sotano_por_interior_con_mortero_hidrofugo] — este presupuesto sigue exactamente esa actuación validada",
+        "Rango de precio global estimado: 15-70€/m² (mano de obra + material) según complejidad y extensión",
+        "Si filtraciones son severas, considerar presupuesto complementario de impermeabilización exterior o drenaje perimetral"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Diagnóstico y localización de filtraciones",
+          "oficio": "impermeabilizacion",
+          "razon": "Trabajo especializado no cubierto por catálogo estándar. Obligatorio antes de ejecutar"
+        },
+        {
+          "partida": "Sistema de drenaje interior (si filtración activa)",
+          "oficio": "fontaneria",
+          "razon": "Solución complementaria condicionada al diagnóstico. Puede ser necesaria si impermeabilización interior no es suficiente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_sotano_por_interior_con_mortero_hidrofugo",
+      "reparacion_de_piscina_con_filtraciones",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "enfoscado_de_mortero_paredes_interiores"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 10,
+    "n_catalogo": 0,
+    "n_sugeridas": 10,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

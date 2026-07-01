@@ -1,0 +1,386 @@
+{
+  "id": 102,
+  "oficio": "Climatización",
+  "texto": "Cambio de caldera de gasoil por aerotermia para calefacción y agua caliente en chalet",
+  "http_status": 200,
+  "latency_ms": 41597,
+  "raw_response": {
+    "transcript": "Cambio de caldera de gasoil por aerotermia para calefacción y agua caliente en chalet",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de caldera de gasoil por aerotermia para calefacción y agua caliente en chalet",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra importante: requiere proyecto técnico y cálculo de potencia térmica",
+          "Desmontaje de caldera de gasoil: requiere gestión de residuos peligrosos (combustible residual)",
+          "Instalación aerotermia: requiere verificación de espacio exterior para unidad exterior",
+          "Cambio de sistema: posible adaptación de radiadores o instalación de suelo radiante para óptimo rendimiento",
+          "Solicitar presupuesto previo detallado antes de iniciar obra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación aerotermia (bomba calor aire-agua) para calefacción y ACS"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexiones hidráulicas, desmontaje caldera gasoil, instalación depósito ACS integrado"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión eléctrica aerotermia (trifásica recomendada), automatismos, cuadro control"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Apertura/cierre huecos, base unidad exterior, pequeñas obras civiles"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnosis y proyecto técnico",
+          "descripcion": "Levantamiento de instalación existente, cálculo potencia térmica necesaria, dimensionamiento aerotermia, proyecto de instalación",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto técnico previo obligatorio. Revisor debe definir precio según complejidad (típico 400-800€)"
+        },
+        {
+          "concepto": "Desmontaje caldera gasoil y accesorios",
+          "descripcion": "Vaciado y drenaje de combustible residual, desmontaje caldera, quemador, tuberías gasoil, depósito gasoil si aplica, desconexión eléctrica, gestión de residuos peligrosos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir análisis de residuos peligrosos (gasoil). Tarifa: 400-600€/jornada. Requiere contenedor residuos certificado."
+        },
+        {
+          "concepto": "Suministro e instalación unidad exterior aerotermia",
+          "descripcion": "Bomba calor aire-agua inverter (capacidad según proyecto, típico 8-16 kW), incluye suministro, montaje en base, nivelación, fijación antivibración",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Equipo principal. Precio según potencia (8kW: 3.500-5.500€ | 12kW: 5.500-8.000€ | 16kW: 8.000-12.000€). Revisor ajusta según especificaciones técnicas."
+        },
+        {
+          "concepto": "Instalación mano de obra unidad exterior",
+          "descripcion": "Ensamblaje, fijación a base/muro, conexiones refrigerante, purgado circuito, nivelación, pruebas funcionales",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación unidad interior (módulo hidráulico integrado)",
+          "descripcion": "Módulo hidráulico con bomba, válvulas 3 vías, presostato, acumulador inercia, serpentín ACS, termostato inteligente integrado, montaje en interior (sala caldera o similar)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Unidad interior integrada. Rango típico 2.500-5.000€ según capacidad y accesorios. Revisor define según configuración elegida."
+        },
+        {
+          "concepto": "Instalación mano de obra unidad interior",
+          "descripcion": "Montaje módulo hidráulico, conexiones tuberías primarias y secundarias, purgado circuito, instalación termostato, pruebas y puesta en marcha",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje radiadores y válvulas antiguas",
+          "descripcion": "Desconexión tuberías, vaciado circuito, desmontaje radiadores existentes, válvulas termostáticas, tapones finales",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro nuevos radiadores aluminio o acero (si necesario adaptar)",
+          "descripcion": "Radiadores diseñados para baja temperatura (aerotermia opera 35-55°C). Cantidad y modelo según proyecto técnico. Incluye válvulas termostáticas nuevas.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional: si radiadores existentes no son compatibles. Proyecto define cantidad. Rango: 150-400€/radiador. Poner cantidad=0 si se mantienen radiadores existentes."
+        },
+        {
+          "concepto": "Instalación radiadores y válvulas",
+          "descripcion": "Fijación mural, conexión tuberías, instalación válvulas termostáticas, purgadores automáticos, pruebas hermeticidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad provisional. Ajustar según número final de radiadores a instalar."
+        },
+        {
+          "concepto": "Tuberías de interconexión (PEX multicapa o acero inoxidable)",
+          "descripcion": "Red de distribución entre unidad exterior, módulo interior y radiadores. Incluye aislamiento térmico, soportes, pequeño material de sujeción",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según plano de proyecto. Típico: 40-80 ml. Precio: 15-25€/ml. Revisor ajusta según mediciones."
+        },
+        {
+          "concepto": "Instalación tuberías y accesorios",
+          "descripcion": "Tendido tuberías primarias y secundarias, fijación con soportes antivibratorios, aislamiento térmico, válvulas de corte, conexiones, purgado circuito completo",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar cantidad según extensión de obra y complejidad de recorridos."
+        },
+        {
+          "concepto": "Conexión eléctrica aerotermia (línea trifásica)",
+          "descripcion": "Instalación línea trifásica 16A o 25A desde cuadro general, protecciones diferenciales, toma tierra, cableado hasta unidad exterior",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Revisar si cuadro existente soporta carga. Posible necesidad de ampliación (coste adicional 300-800€)."
+        },
+        {
+          "concepto": "Material eléctrico (protecciones, cableado, conectores)",
+          "descripcion": "Diferencial trifásico 4P 30mA, magnetotérmico trifásico 16/25A, cableado 4x6mm2, toma tierra, conectores IP67, tuberías protección",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material según especificaciones. Rango: 150-300€. Revisor ajusta según características finales."
+        },
+        {
+          "concepto": "Instalación cuadro control y termostato inteligente",
+          "descripcion": "Centralita aerotermia con sondas temperatura, termostato WiFi programable, conexión a módulo interior, pruebas automatismos",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación base y obra civil para unidad exterior",
+          "descripcion": "Nivelación terreno, base hormigón o bancada metálica, cierre perímetro, apertura/cierre huecos si necesario para tubería y drenaje",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Según complejidad del terreno. Rango: 250-450€/jornada. Revisor ajusta."
+        },
+        {
+          "concepto": "Pequeño material, tuercas, soportes, aislantes",
+          "descripcion": "Conexiones rápidas, tacos expansión, cintas teflón, aceite mineral para circuito, codos y manguitos acero, espuma aislante, tubería drenaje condensación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida tradicional. Rango: 200-400€. Revisor estima según alcance."
+        },
+        {
+          "concepto": "Pruebas funcionales, puesta en marcha y documentación",
+          "descripcion": "Purgado completo circuito, prueba presión, regulación temperaturas de consigna, verificación calefacción en todos radiadores, prueba ACS, documentación de garantía, entrega al cliente",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión residuos y limpieza final",
+          "descripcion": "Retirada embalajes, reciclaje cartón/plásticos, contenedor residuos peligrosos (gasoil), limpieza obra, barrido y orden",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango: 150-300€. Incluye tasas de gestión residuos peligrosos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2020,
+        "iva_porcentaje": 21,
+        "iva": 424.2,
+        "total": 2444.2,
+        "nota_importante": "PRESUPUESTO INCOMPLETO: Contiene únicamente partidas de mano de obra con precio definido. Los materiales principales (aerotermia, módulo, radiadores, tuberías) están marcados con precio=0 y requieren_revision=true. El revisor/instalador DEBE cumplimentar: 1) Proyecto técnico (kW necesarios, modelos), 2) Cotizaciones de equipos, 3) Ajuste de cantidades de tuberías/radiadores. Presupuesto final estimado: 15.000-25.000€ (equipo + instalación + obra civil + residuos)."
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada en catálogo: 'sustitución_caldera_gasoil_por_aerotermia_integral' con desagregación clara de componentes",
+        "Incluir procedimiento obligatorio: 'diagnosis potencia térmica y viabilidad aerotermia'",
+        "Normalizar partida: 'gestión residuos peligrosos caldera gasoil' con tasa de eliminación",
+        "Considerar catálogo auxiliar: 'adaptación radiadores para baja temperatura' (compatibilidad aerotermia)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "denominacion": "Diagnosis y proyecto técnico aerotermia",
+          "razon_nueva": "Sustitución gas-renovable: requiere cálculo térmico previo obligatorio no contemplado en otras partidas",
+          "oficio_relacionado": "climatizacion",
+          "precio_referencia": "400-800€/ud"
+        },
+        {
+          "denominacion": "Desmontaje caldera gasoil con gestión residuos peligrosos",
+          "razon_nueva": "Específico de combustibles fósiles: incluye vaciado combustible y tratamiento de residuos certificado",
+          "oficio_relacionado": "fontaneria",
+          "precio_referencia": "400-600€/jornada"
+        },
+        {
+          "denominacion": "Módulo hidráulico integrado aerotermia (unidad interior)",
+          "razon_nueva": "Componente central sistema aerotermia diferente de calderas: agrupa bomba, válvulas, acumulador, ACS",
+          "oficio_relacionado": "climatizacion",
+          "precio_referencia": "2500-5000€/ud según potencia"
+        },
+        {
+          "denominacion": "Radiadores baja temperatura compatibles aerotermia",
+          "razon_nueva": "Especificación opcional pero recomendada: radiadores estándar pierden rendimiento en aerotermia",
+          "oficio_relacionado": "fontaneria",
+          "precio_referencia": "150-400€/ud"
+        },
+        {
+          "denominacion": "Línea trifásica dedicada aerotermia + protecciones",
+          "razon_nueva": "Requisito eléctrico específico: consumo aerotermia > líneas monofásicas estándar",
+          "oficio_relacionado": "electricidad",
+          "precio_referencia": "800-1500€ (incluye obra civil cuadro si necesario)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_caldera_o_termocalentador_averiado",
+      "reparacion_averia_caldera_gas",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "instalacion_solar_termica_para_piscina",
+      "instalacion_sistema_solar_termico_colectivo_para_edificio"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 18,
+    "n_catalogo": 8,
+    "n_sugeridas": 10,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

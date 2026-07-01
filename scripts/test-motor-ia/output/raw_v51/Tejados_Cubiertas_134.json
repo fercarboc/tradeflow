@@ -1,0 +1,216 @@
+{
+  "id": 134,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 21029,
+  "raw_response": {
+    "transcript": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Técnica de proyección de poliurea requiere equipamiento especializado y profesional certificado",
+          "Diagnóstico previo de origen de gotera es CRÍTICO: el agua puede infiltrarse lejos del punto de aparición",
+          "Proyección de poliurea es solución permanente pero requiere inspección del estado general de la cubierta"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Reparación de cubierta plana con técnica especializada de impermeabilización"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 75
+          },
+          "motivo": "Proyección de poliurea - técnica especializada de impermeabilización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y localización origen de gotera",
+          "descripcion": "Inspección completa de la zona afectada para identificar punto real de infiltración. Imprescindible antes de cualquier reparación.",
+          "oficio": "cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diagnóstico técnico - el instalador debe estimar tiempo y coste según complejidad de acceso"
+        },
+        {
+          "concepto": "Saneo y preparación zona afectada",
+          "descripcion": "Limpieza, secado y preparación de la superficie de 10 m² a reparar. Eliminación de material deteriorado, suciedad y humedad residual.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 15,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación/adhesivo previo",
+          "descripcion": "Aplicación de imprimación o promotor de adhesión en la superficie antes de proyección de poliurea.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado - requiere especificación del producto y coste de aplicación"
+        },
+        {
+          "concepto": "Proyección de poliurea de dos componentes",
+          "descripcion": "Proyección de sistema de poliurea elástica (componente A + B) en 10 m² de cubierta plana. Espesor mínimo según normativa.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado de alto coste - el instalador debe indicar marca, densidad y rendimiento real"
+        },
+        {
+          "concepto": "Mano de obra proyección de poliurea",
+          "descripcion": "Proyección e instalación de membrana de poliurea en 10 m² con equipo especial. Incluye nivelación, acabado y verificación de estanqueidad.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 55,
+          "total": 550,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de bordes y encuentros",
+          "descripcion": "Refuerzo con banda elastomérica o sellador de poliurea en bordes de la reparación y encuentros con petos, conductos o irregularidades.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material complementario - dimensión estimada a verificar en obra"
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y documentación",
+          "descripcion": "Prueba de impermeabilización (anegación o similar), documentación fotográfica del resultado y reporte de conformidad.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de validación - tiempo variable según método elegido"
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en altura",
+          "descripcion": "Arnés, línea de vida, cascos y equipamiento de seguridad para trabajo en cubierta. Material de protección.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de consumibles de seguridad a especificar según equipamiento necesario"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Brochas, rodillos, trapos, disolventes, cinta de carrocero, señalización temporal y otros consumibles.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de consumibles menores"
+        }
+      ],
+      "calculos": {
+        "subtotal": 700,
+        "iva_porcentaje": 21,
+        "iva": 147,
+        "total": 847
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la cubierta tiene otras zonas deterioradas: reparación puntual de poliurea es eficaz pero requiere que el resto de la impermeabilización esté en buen estado",
+        "Confirmar si el acceso a la cubierta es seguro y si requiere equipamiento adicional (andamios, plataformas)",
+        "La proyección de poliurea es permanente y de alta durabilidad (20+ años) comparada con otras soluciones de reparación puntual"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyección de poliurea de dos componentes",
+          "oficio": "impermeabilizacion",
+          "tipo": "material",
+          "razon": "Técnica especializada de proyección no detallada en Base Maestra estándar. Requiere proveedor certificado y equipo de proyección específico."
+        },
+        {
+          "concepto": "Mano de obra proyección de poliurea",
+          "oficio": "impermeabilizacion",
+          "tipo": "mano_obra",
+          "razon": "Tarifa especializada. Proyección de poliurea requiere certificación y equipamiento; tarifa recomendada 55€/hora (superior a impermeabilización estándar)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "reparacion_puntual_de_gotera_en_cubierta_plana",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 9,
+    "n_catalogo": 0,
+    "n_sugeridas": 9,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "id": 229,
+  "oficio": "Energía Solar",
+  "texto": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+  "http_status": 200,
+  "latency_ms": 25103,
+  "raw_response": {
+    "transcript": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto requiere confirmación de: potencia contratada actual, tipo de wallbox (7.4kW monofásico o 22kW trifásico), existencia previa de instalación fotovoltaica, distancia del punto de carga al cuadro eléctrico, compatibilidad del vehículo con carga inteligente.",
+          "Materiales principales (wallbox, paneles solares si no existen, inversor híbrido) requieren presupuesto específico del instalador.",
+          "Obra civil (rozas, canalización) depende de la ubicación del punto de carga."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de cargador de vehículo eléctrico integrado con sistema fotovoltaico y gestión inteligente de carga. Oficio principal según BASE MAESTRA."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Protecciones eléctricas (magnetotérmico, diferencial tipo A), cableado, toma de tierra, circuito exclusivo desde cuadro."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Wallbox o cargador de vehículo eléctrico (7.4kW monofásico o 22kW trifásico)",
+          "descripcion": "Suministro e instalación de wallbox/cargador Mode 3 según potencia disponible y necesidad de carga. Incluye fijación mural, conexionado y pruebas de funcionamiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (7.4kW: 400-800€ | 22kW: 800-1500€). Instalador debe confirmar modelo y potencia."
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo desde cuadro general",
+          "descripcion": "Instalación de circuito independiente y exclusivo para el cargador. Incluye: cable de alimentación (6mm² para 7.4kW o 10mm² para 22kW), magnetotérmico 40A, diferencial tipo A 40A, toma de tierra, pequeño material (bornes, tuercas, etiquetado).",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y canalización desde cuadro a punto de carga",
+          "descripcion": "Suministro de cable EV (H07RN-F 6mm² o 10mm² según potencia), canalización, rozas en pared si es necesario, reposición de enfoscado. Distancia estimada hasta 20m.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de sección de cable (6mm²: 2-3€/m | 10mm²: 4-6€/m) y tipo de canalización. Instalador debe medir distancia real."
+        },
+        {
+          "concepto": "Instalación de protecciones eléctricas (magnetotérmico + diferencial tipo A)",
+          "descripcion": "Instalación de magnetotérmico 40A y diferencial tipo A 40A en cuadro secundario o principal. Obligatorio según REBT para carga de vehículos eléctricos.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de gestión inteligente de carga (cargador inteligente con comunicación)",
+          "descripcion": "Instalación de sistema de carga inteligente que permite optimizar la carga del vehículo con los excedentes de energía solar. Incluye: configuración de software, conexión con inversor fotovoltaico (si existe), comunicación OCPP o similar, pruebas de funcionamiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo depende de complejidad del sistema existente (si hay instalación solar previa, si hay batería, si hay inversor híbrido). Puede variar 2-6 horas."
+        },
+        {
+          "concepto": "Integración con instalación fotovoltaica existente (si aplica)",
+          "descripcion": "Conexión del cargador inteligente con inversor fotovoltaico existente. Incluye: verificación de compatibilidad, configuración de parámetros de carga, pruebas de funcionamiento en modo solar + red.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Solo aplica si existe instalación fotovoltaica previa. Si no existe, esta partida debe eliminarse y presupuestar instalación solar completa (consultar con cliente)."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Pruebas de seguridad eléctrica (continuidad, aislamiento, diferencial), prueba de carga con vehículo, verificación de comunicación con sistema solar, documentación y certificado de instalación.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales eléctricos complementarios (bornes, tuercas, etiquetado, cinta aislante, etc.)",
+          "descripcion": "Pequeño material eléctrico necesario para la instalación completa del circuito y protecciones.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 30-60€. Instalador debe presupuestar según necesidades reales."
+        }
+      ],
+      "calculos": {
+        "subtotal": 690,
+        "iva_porcentaje": 21,
+        "iva": 144.9,
+        "total": 834.9
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Existe instalación fotovoltaica previa? Si NO, presupuestar instalación solar completa (paneles + inversor híbrido compatible con carga inteligente). Rango: 3000-8000€ según potencia (3-6kWp).",
+        "Confirmar potencia contratada actual. Si es <7.4kW monofásico, puede ser necesario solicitar aumento a distribuidora (coste adicional 200-500€).",
+        "Confirmar compatibilidad del vehículo con carga inteligente/carga solar. Algunos vehículos antiguos no soportan comunicación OCPP.",
+        "Si la distancia del cuadro al punto de carga es >20m, aumentar sección de cable y revisar caída de tensión.",
+        "Considerar instalación de batería de acumulación si el cliente desea cargar por la noche con energía solar acumulada (coste adicional 2000-5000€)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Wallbox o cargador de vehículo eléctrico",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material principal, precio variable según modelo y potencia. Requiere presupuesto específico."
+        },
+        {
+          "concepto": "Cableado y canalización EV",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material, precio por metro lineal variable según sección y tipo de canalización."
+        },
+        {
+          "concepto": "Materiales eléctricos complementarios",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Pequeño material, presupuesto estimado 30-60€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cargador_vehiculo_electrico_wallbox",
+      "instalacion_de_cargador_de_vehiculo_electrico_en_vivienda",
+      "integracion_solar_fotovoltaica_en_vehiculo_electrico_V2H_V2G",
+      "instalacion_punto_recarga_bicicleta_electrica",
+      "instalacion_fotovoltaica_autoconsumo"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3689,
+      "tokens_out": 3252
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

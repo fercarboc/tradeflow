@@ -1,0 +1,245 @@
+{
+  "id": 173,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Alicatar ducha de 90x90 con azulejo de metro de ancho y mampara abatible de 6mm",
+  "http_status": 200,
+  "latency_ms": 22305,
+  "raw_response": {
+    "transcript": "Alicatar ducha de 90x90 con azulejo de metro de ancho y mampara abatible de 6mm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Alicatar ducha de 90x90 con azulejo de metro de ancho y mampara abatible de 6mm",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume ducha 90x90cm. Verificar medidas exactas in situ",
+          "Azulejo 'metro de ancho' → interpretado como 100x100cm. Confirmar dimensión real",
+          "Mampara abatible 6mm: revisar si incluye accesorios (bisagras, tirador, cierre)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Alicatado de paredes y suelo ducha"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación mampara abatible vidrio templado 6mm"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sellado perimetral y encuentros ducha"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Impermeabilización zona ducha con membrana líquida",
+          "descripcion": "Imprimación + membrana elastómera con refuerzo en rincones y juntas. Extensión 20cm fuera zona mojada. Dos manos.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Membrana impermeabilizante líquida elastómera",
+          "descripcion": "Material impermeabilizante específico para zonas húmedas, con refuerzo de cinta en encuentros",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisión de presupuesto según marca y cantidad litros requeridos"
+        },
+        {
+          "concepto": "Alicatado paredes y suelo ducha 90x90",
+          "descripcion": "Colocación de azulejo 100x100cm con mortero cola C2S2 flexible. Incluye replanteo, nivelación y ajuste de piezas. Paredes + suelo.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3.6,
+          "precio_unitario": 40,
+          "total": 144,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Azulejo cerámico/porcelánico 100x100cm",
+          "descripcion": "Piezas de azulejo de métrica 100x100cm para paredes y suelo (suelo antideslizante R11 obligatorio). Cantidad calculada para ducha 90x90 con solapamiento.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3.6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisar selección de azulejo (gama, color, acabado, si incluye antideslizante R11 en suelo)"
+        },
+        {
+          "concepto": "Mortero cola C2S2 flexible + lechada junta flexible",
+          "descripcion": "Mortero adhesivo flexible C2S2 para colocación + lechada flexible para juntas. Incluye pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3.6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisar cantidad de mortero y lechada según grano de junta seleccionado"
+        },
+        {
+          "concepto": "Perfiles aluminio esquinas + junta perimetral silicona",
+          "descripcion": "Perfiles de aluminio inox para esquinas internas. Junta perimetral silicona sanitaria en encuentro suelo-pared y pared-pared.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 9,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisar tipo de perfil (acabado, espesor) y cantidad de silicona"
+        },
+        {
+          "concepto": "Instalación mampara abatible vidrio templado 6mm",
+          "descripcion": "Suministro e instalación mampara abatible de vidrio templado 6mm. Incluye bisagras inox, cierre magnético, tirador, fijaciones y silicona de sellado en encuentros.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mampara abatible vidrio templado 6mm con herrajes",
+          "descripcion": "Vidrio templado 6mm, bisagras inoxidables, cierre magnético, tirador, fijaciones para pared (tacos especiales si gresite) y silicona sanitaria.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisar medida exacta in situ (90x90 asumido), espesor vidrio, tipo de herrajes y accesorios incluidos"
+        },
+        {
+          "concepto": "Sellado y acabado encuentros ducha",
+          "descripcion": "Aplicación de silicona sanitaria en encuentro mampara-pared, mampara-suelo y juntas perimetrales. Limpieza final.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 319,
+        "iva_porcentaje": 21,
+        "iva": 67,
+        "total": 386
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensión real del azulejo: si no es exactamente 100x100cm, recalcular cantidad",
+        "Verificar que el azulejo para suelo sea antideslizante (R11 mínimo) según normativa baños",
+        "Mampara: solicitar presupuesto detallado de fabricante con medidas exactas, tipo de bisagras y accesorios"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Membrana impermeabilizante líquida elastómera",
+          "motivo": "Material específico para impermeabilización ducha",
+          "tipo": "material",
+          "requiere_revision": true
+        },
+        {
+          "nombre": "Azulejo cerámico/porcelánico 100x100cm",
+          "motivo": "Material de alicatado (gama y acabado pendiente de definir)",
+          "tipo": "material",
+          "requiere_revision": true
+        },
+        {
+          "nombre": "Mortero cola C2S2 flexible + lechada junta flexible",
+          "motivo": "Adhesivo y rejunta flexible (cantidad según grano junta)",
+          "tipo": "material",
+          "requiere_revision": true
+        },
+        {
+          "nombre": "Perfiles aluminio esquinas + junta perimetral silicona",
+          "motivo": "Acabados y silicona sanitaria",
+          "tipo": "material",
+          "requiere_revision": true
+        },
+        {
+          "nombre": "Mampara abatible vidrio templado 6mm con herrajes",
+          "motivo": "Vidrio, bisagras, cierre magnético y accesorios (medida final pendiente)",
+          "tipo": "material",
+          "requiere_revision": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_mampara_de_ducha_corredera",
+      "instalacion_mampara_ducha",
+      "tabique_pladur_para_ducha_o_plato_de_ducha",
+      "impermeabilizacion_zona_ducha_con_membrana_liquida",
+      "alicatado_y_solado_de_bano_completo"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

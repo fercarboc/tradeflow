@@ -1,0 +1,476 @@
+{
+  "id": 235,
+  "oficio": "Energía Solar",
+  "texto": "Instalar sistema híbrido solar y aerotermia para vivienda eficiente, cálculo de ahorro energético",
+  "http_status": 200,
+  "latency_ms": 48126,
+  "raw_response": {
+    "transcript": "Instalar sistema híbrido solar y aerotermia para vivienda eficiente, cálculo de ahorro energético",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema híbrido solar y aerotermia para vivienda eficiente, cálculo de ahorro energético",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema híbrido complejo: requiere cálculo térmico previo de la vivienda",
+          "Potencia solar y capacidad aerotermia deben dimensionarse según consumo real",
+          "Legalización ante distribuidora OBLIGATORIA para fotovoltaica",
+          "Estudio de viabilidad estructural cubierta para paneles solares",
+          "Revisar punto de conexión aerotermia (interior/exterior) y conducción refrigerante"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Instalación sistema fotovoltaico + solar térmica"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación bomba calor aerotermia, conexiones, refrigerante"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Cuadro de control, protecciones, cableado DC/AC, legalización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estudio y diseño sistema híbrido solar-aerotermia",
+          "descripcion": "Cálculo térmico vivienda, dimensionado paneles solares (kWp), capacidad aerotermia (kW), simulación producción/consumo anual, análisis ahorro energético y ROI",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir honorarios técnico especializado, software simulación, informe ejecutivo"
+        },
+        {
+          "concepto": "Módulos fotovoltaicos",
+          "descripcion": "Paneles solares de alta eficiencia (monocristalinos, 400-450Wp/u) para autoconsumo, cantidad a definir según potencia dimensionada (rango 3-8 kWp típico vivienda)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar potencia total kWp según cálculo térmico. Precio típico 120-180€/panel (400Wp)"
+        },
+        {
+          "concepto": "Estructura soporte paneles solares",
+          "descripcion": "Estructura aluminio anodizado, tornillería inoxidable, sistema fijación según tipo cubierta (teja, pizarra, zinc, etc.)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir material tornillería, impermeabilización perforaciones, mano de obra fijación aparte"
+        },
+        {
+          "concepto": "Inversor fotovoltaico híbrido (DC/AC + aerotermia)",
+          "descripcion": "Inversor trifásico o monofásico con gestión integrada de carga AC para aerotermia y batería (si aplica). Rango 5-10 kW según instalación",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 1500-3500€ según potencia. Confirmar si incluye baterías o solo inversor"
+        },
+        {
+          "concepto": "Batería de almacenamiento (opcional pero recomendado en híbrido)",
+          "descripcion": "Batería litio LFP (Litio Hierro Fosfato) o AGM, capacidad 5-15 kWh según perfil consumo y autoconsumo deseado",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWh",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "LFP recomendado para mayor durabilidad. Precio 400-800€/kWh según tipo. Definir capacidad según consumo punta"
+        },
+        {
+          "concepto": "Contador bidireccional y legalización autoconsumo",
+          "descripcion": "Contador legalizado por distribuidora, tramitación AEAT autoconsumo, inspección, declaración responsable",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir gestiones administrativas. Precio típico 300-600€"
+        },
+        {
+          "concepto": "Cableado DC y AC (fotovoltaica)",
+          "descripcion": "Cable DC 6mm² (circuito paneles a inversor), cable AC 4-6mm² (inversor a cuadro), conectores MC4, canalizaciones, bandejas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar metraje según ubicación paneles-inversor-cuadro. Precio DC 1.5-3€/m, AC 2-4€/m"
+        },
+        {
+          "concepto": "Protecciones CC (lado corriente continua fotovoltaica)",
+          "descripcion": "Protecciones CC: interruptor general DC, fusibles/magnetotérmicos por string, dispositivos anticaída DC, cableado protección",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 400-800€ según número de strings. Incluir diseño esquema según CTE"
+        },
+        {
+          "concepto": "Protecciones CA (lado corriente alterna)",
+          "descripcion": "Cuadro CA: interruptor general AC, magnetotérmicos monofásicos/trifásicos, diferencial tipo A, descargador sobretensiones, conexión aerotermia",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 600-1200€. Incluir diseño según normativa ITC-BT-05"
+        },
+        {
+          "concepto": "Instalación módulos fotovoltaicos",
+          "descripcion": "Fijación paneles a estructura, conexionado entre módulos, puesta a tierra, impermeabilización",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 65,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar 1.5-2h por kWp instalado. Ej: 6kWp = 9-12 horas"
+        },
+        {
+          "concepto": "Instalación inversor y batería (si aplica)",
+          "descripcion": "Montaje inversor en cuadro o armario, conexionado DC/AC, integración batería, pruebas funcionamiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "8h estimadas para instalación completa inversor + batería + conexiones"
+        },
+        {
+          "concepto": "Instalación cableado y protecciones fotovoltaica",
+          "descripcion": "Tendido cableado DC/AC, canalizaciones, montaje protecciones cuadro DC/CA, puesta a tierra estructural",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "12h estimadas para cableado completo, canalizaciones y protecciones"
+        },
+        {
+          "concepto": "Bomba calor aerotermia (unidad exterior + interior)",
+          "descripcion": "Equipo aerotermia aire-agua, capacidad 6-12 kW según demanda térmica vivienda, alta eficiencia, compresor inverter, refrigerante R32 o similar",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 4000-9000€ según potencia (6-12kW). Incluir módulo hidráulico integrado"
+        },
+        {
+          "concepto": "Red de distribución agua (aerotermia)",
+          "descripcion": "Tuberías agua climatizada (PEX multicapa o cobre), válvulas mezcla/tres vías, válvulas antirretorno, purgadores automáticos, aislamiento tuberías",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar metraje según distribución radiadores/suelo radiante. Precio PEX 3-8€/ml"
+        },
+        {
+          "concepto": "Refrigerante y aceite compresor aerotermia",
+          "descripcion": "Refrigerante R32 (o R410A) con aceite POE compatible, cantidad según capacidad equipo, cilindros/cartuchos certificados",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Carga típica 8-15 kg según potencia. Precio 15-25€/kg R32"
+        },
+        {
+          "concepto": "Vasos de expansión (circuitos primario solar + secundario aerotermia)",
+          "descripcion": "Vaso expansión circuito solar (2-5L) + vaso expansión agua climatización (8-20L), diafragma, válvulas conexión",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 150-400€/ud según capacidad"
+        },
+        {
+          "concepto": "Acumulador ACS (agua caliente sanitaria) con serpentín",
+          "descripcion": "Depósito acumulador 200-300L, serpentín intercambio calor para aerotermia, aislamiento, accesorios conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 600-1200€. Elegir capacidad según consumo familia"
+        },
+        {
+          "concepto": "Instalación unidad exterior aerotermia (bomba calor)",
+          "descripcion": "Montaje en cubierta/pared exterior, fijación estructura, conexión tuberías, ejecución carga refrigerante, prueba funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "6h estimadas instalación unidad exterior + conexiones primarias"
+        },
+        {
+          "concepto": "Instalación unidad interior aerotermia (depósito/radiadores)",
+          "descripcion": "Montaje depósito/módulo interior, conexionado hidráulico, balanceado circuitos, purgado aire, pruebas",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "8h estimadas instalación módulo interior + radiadores/distribución"
+        },
+        {
+          "concepto": "Instalación distribución agua (tuberías, válvulas, radiadores/suelo radiante)",
+          "descripcion": "Tendido tuberías agua climatizada, montaje válvulas tres vías/mezcla, instalación radiadores o circuitos suelo radiante, equilibrado hidráulico",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar 15-30h según magnitud red distribución (radiadores vs suelo radiante en toda casa)"
+        },
+        {
+          "concepto": "Instalación acumulador ACS (depósito agua caliente)",
+          "descripcion": "Montaje depósito en cuarto técnico/armario, conexionado entrada/salida agua fría/caliente, conexión serpentín a aerotermia, purgador, válvula seguridad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "4h estimadas instalación depósito + conexionado completo"
+        },
+        {
+          "concepto": "Puesta en marcha, programación y pruebas sistema híbrido",
+          "descripcion": "Puesta en marcha inversor fotovoltaico, configuración batería, sincronización con red, programación aerotermia, regulador clima, pruebas producción/consumo, ajuste parámetros",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "6h para puesta en marcha completa, tests, configuración y capacitación usuario"
+        },
+        {
+          "concepto": "EPI, pequeño material y herramientas",
+          "descripcion": "Arneses, cascos, botas seguridad, guantes dieléctricos, consumibles (cinta, bridas, conectores, selladores), herramientas especialistas",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar 200-500€ consumibles y EPI según magnitud obra"
+        },
+        {
+          "concepto": "Informe técnico ahorro energético y emisiones CO2",
+          "descripcion": "Simulación anual producción solar + consumo aerotermia, cálculo ahorro energético (kWh/año), estimación emisiones CO2 evitadas, ROI y payback period, certificado eficiencia energética",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir software simulación, informe ejecutivo, certificado. Precio típico 300-600€"
+        },
+        {
+          "concepto": "Mantenimiento primer año y garantía extendida (opcional)",
+          "descripcion": "Visita trimestral inspección, limpieza paneles, comprobación sistemas, calibración, ampliación garantía equipos a 5 años (si aplica)",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mantenimiento recomendado 200-400€/año. Detalle según contrato garantía"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3540,
+        "iva_porcentaje": 21,
+        "iva": 743.4,
+        "total": 4283.4
+      },
+      "sugerencias_catalogo": [
+        "Solicitar a cliente: potencia fotovoltaica deseada (kWp), tipo calefacción actual, m² vivienda, zona climática, presupuesto aproximado",
+        "Obtener autorización previa cubierta: análisis estructural carga paneles (100-120 kg/m²)",
+        "Dimensionar aerotermia: cálculo carga térmica según aislamiento, orientación, climatología zona",
+        "Confirmar tipo distribución calor: radiadores existentes vs suelo radiante (afecta inversión tuberías)",
+        "Batería opcional: recomendada si demanda ACS/calefacción punta supera producción solar (autoconsumo optimizado)",
+        "Legalización OBLIGATORIA: consultar distribuidora sobre canalización y punto conexión contador",
+        "Subvenciones: comprobar disponibilidad fondos Next Generation (rehabilitación energética >30% mejora)",
+        "Seguro: incluir cobertura rotura equipos y responsabilidad civil obra"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estudio y diseño sistema híbrido solar-aerotermia",
+          "oficio": "energia_solar",
+          "motivo": "Servicio especializado no en catálogo, crítico para dimensionado correcto"
+        },
+        {
+          "concepto": "Módulos fotovoltaicos",
+          "oficio": "energia_solar",
+          "motivo": "Material cuantificación por kWp según cálculo térmico"
+        },
+        {
+          "concepto": "Inversor fotovoltaico híbrido (DC/AC + aerotermia)",
+          "oficio": "energia_solar",
+          "motivo": "Equipo específico para gestión integrada solar + aerotermia"
+        },
+        {
+          "concepto": "Batería de almacenamiento (opcional pero recomendado en híbrido)",
+          "oficio": "energia_solar",
+          "motivo": "Material almacenamiento según perfil consumo"
+        },
+        {
+          "concepto": "Bomba calor aerotermia (unidad exterior + interior)",
+          "oficio": "climatizacion",
+          "motivo": "Material base sistema aerotermia según potencia térmica"
+        },
+        {
+          "concepto": "Informe técnico ahorro energético y emisiones CO2",
+          "oficio": "energia_solar",
+          "motivo": "Servicio análisis ROI y simulación específica sistema híbrido"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_solar_termica_para_ACS",
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "instalacion_energia_solar_para_caravana_o_autocaravana"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 25,
+    "n_catalogo": 8,
+    "n_sugeridas": 17,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "id": 40,
+  "oficio": "Electricidad",
+  "texto": "Revisión y certificado de instalación eléctrica para local comercial que pide la aseguradora",
+  "http_status": 200,
+  "latency_ms": 10755,
+  "raw_response": {
+    "transcript": "Revisión y certificado de instalación eléctrica para local comercial que pide la aseguradora",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y certificado de instalación eléctrica para local comercial que pide la aseguradora",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio de inspección/certificación: el instalador debe verificar si requiere acreditación oficial (Organismo de Control Autorizado - OCA) o si es inspección técnica interna",
+          "El certificado puede requerir firma de técnico competente colegiado según normativa local"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión y certificación de instalación eléctrica es trabajo de electricista especializado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión visual y mediciones de instalación eléctrica",
+          "descripcion": "Inspección completa de cuadro eléctrico, circuitos, tomas de corriente, interruptores, puesta a tierra, continuidad de conductores y estado general de la instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de seguridad eléctrica (aislamiento, continuidad, diferencial)",
+          "descripcion": "Medición de resistencia de aislamiento, prueba de continuidad de conductores de protección, verificación de funcionamiento de diferenciales y magnetotérmicos",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Emisión de certificado de instalación eléctrica",
+          "descripcion": "Redacción, firma y entrega de certificado técnico de conformidad de la instalación eléctrica según normativa vigente (REBT, ITC-BT)",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del certificado/informe técnico a definir por instalador según complejidad y si requiere acreditación oficial (OCA)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Si la aseguradora requiere certificación por Organismo de Control Autorizado (OCA), el coste será significativamente superior (500-1500€ según complejidad). Confirmar con cliente si es inspección técnica interna o certificación oficial obligatoria.",
+        "Incluir en el informe: estado del cuadro eléctrico, antigüedad de la instalación, cumplimiento REBT, recomendaciones de mejora si las hay."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Emisión de certificado de instalación eléctrica",
+          "oficio": "electricidad",
+          "motivo": "Servicio de certificación/informe técnico - precio variable según acreditación requerida"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "instalacion_iluminacion_comercial_led",
+      "tabique_pladur_en_local_comercial_o_bar",
+      "instalacion_toldo_terraza_bar_o_restaurante",
+      "pintado_locales_comerciales_y_tiendas"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3860,
+      "tokens_out": 1125
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 2,
+    "n_sugeridas": 1,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

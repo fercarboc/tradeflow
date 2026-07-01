@@ -1,0 +1,360 @@
+{
+  "id": 321,
+  "oficio": "Fachadas",
+  "texto": "Rehabilitar fachada de edificio con revestimiento de mortero monocapa y zócalo de piedra",
+  "http_status": 200,
+  "latency_ms": 35324,
+  "raw_response": {
+    "transcript": "Rehabilitar fachada de edificio con revestimiento de mortero monocapa y zócalo de piedra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitar fachada de edificio con revestimiento de mortero monocapa y zócalo de piedra",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Se requiere medición de superficie neta de fachada (m²) para cálculo final",
+          "Se requiere altura del edificio para determinar necesidad de andamios y medidas de seguridad",
+          "Se requiere especificación de color, textura y tipo de mortero monocapa",
+          "Se requiere especificación de tipo de piedra para zócalo (granito, pizarra, caliza, etc.)",
+          "Se requiere altura y longitud lineal del zócalo en metros lineales",
+          "Presupuesto estructurado — instalador debe confirmar mediciones y especificaciones"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Revestimiento con mortero monocapa y colocación de piedra en zócalo — oficio principal de obra civil"
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Especialidad en rehabilitación de fachadas con revestimiento monocapa"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y preparación de soporte",
+          "descripcion": "Limpieza, eliminación de revestimiento suelto, reparación de grietas y fisuras, imprimación de adherencia en soporte existente",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² no especificada — instalador debe medir fachada"
+        },
+        {
+          "concepto": "Mortero monocapa predosificado según color y textura",
+          "descripcion": "Mortero monocapa de acabado (incluye color y textura especificada: fina, media o gruesa), incluye rendimiento 15-20 kg/m²",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mortero según marca, color y textura — requiere consulta con proveedor. Cantidad en m² a confirmar"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio en encuentros",
+          "descripcion": "Malla de fibra de vidrio para refuerzo en encuentros (esquinas, cambios de plano, juntas entre materiales diferentes)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² a determinar según planos — generalmente 10-15% de la superficie total de fachada"
+        },
+        {
+          "concepto": "Maestras y guías de referencia",
+          "descripcion": "Colocación de maestras horizontales y verticales para asegurar planeidad y uniformidad de revestimiento",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m",
+          "cantidad": 0,
+          "precio_unitario": 2,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total de maestras a calcular según perímetro y altura — típicamente 40-60 ml por cada 100 m² de fachada"
+        },
+        {
+          "concepto": "Aplicación de mortero monocapa en fachada",
+          "descripcion": "Mano de obra: esparcido, proyección y acabado de mortero monocapa con espesor 15-20 mm, incluyendo maestraje y reglado",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 22,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² no especificada — instalador debe medir fachada neta"
+        },
+        {
+          "concepto": "Junta de dilatación según normativa",
+          "descripcion": "Junta de dilatación perimetral y en campo cada 6 m (vertical y horizontal) con elastómero sellador flexible compatible con mortero monocapa",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje lineal de juntas a calcular según dimensiones de fachada y normativa — requiere planos"
+        },
+        {
+          "concepto": "Perfil goterón en alfeizares",
+          "descripcion": "Colocación de perfil goterón en alfeizares de ventanas y encuentros horizontales para desagüe",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total a determinar según número y dimensiones de ventanas — incluir mano de obra de colocación"
+        },
+        {
+          "concepto": "Piedra natural para zócalo (suministro)",
+          "descripcion": "Piedra natural (especificar tipo: granito, pizarra, caliza u otra) para revestimiento de zócalo en fachada, incluye corte y preparación según proyecto",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo, espesor y cantidad de piedra no especificados — requiere especificación de altura de zócalo (m.l.) y tipo de piedra"
+        },
+        {
+          "concepto": "Preparación de soporte para zócalo",
+          "descripcion": "Limpieza, nivelación e imprimación del soporte para colocación de piedra en zócalo",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 5,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje lineal de zócalo a confirmar"
+        },
+        {
+          "concepto": "Colocación de piedra en zócalo con mortero cola",
+          "descripcion": "Mano de obra: colocación de piedra natural con mortero cola C2S2, doble encolado si piezas pesadas, nivelación y plomada",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de zócalo (m²) = altura (m) × perímetro (ml) — a definir"
+        },
+        {
+          "concepto": "Mortero cola C2S2 para zócalo",
+          "descripcion": "Mortero cola C2S2 (deformable) para colocación de piedra natural en zócalo de fachada",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en kg según m² de piedra (rendimiento típico 3-4 kg/m²) y espesor de junta"
+        },
+        {
+          "concepto": "Junta de lechada en zócalo de piedra",
+          "descripcion": "Lechada de junta (gris o color a especificar) con elastómero para juntas entre piezas de piedra en zócalo, flexible y resistente a agua",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en kg según m² y espesor de junta — requiere especificación de ancho de junta"
+        },
+        {
+          "concepto": "Mano de obra: aplicación de lechada en zócalo",
+          "descripcion": "Mano de obra: preparación y aplicación de lechada en juntas, limpieza de excedentes y acabado uniforme",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie en m² de zócalo a confirmar"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler e instalación de andamio o plataforma elevadora para acceso seguro a fachada durante rehabilitación",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo de andamio según altura, superficie y duración — requiere presupuesto de empresa especializada. Típicamente 5-15 €/m² de fachada por mes"
+        },
+        {
+          "concepto": "Pequeño material (herramientas, colas, selladores, etc.)",
+          "descripcion": "Pequeño material diverso: herramientas de aplicación, colas, selladores, cintas de protección, esponjas, etc.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "partida",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto aproximado 3-5% del coste de materiales principales — a ajustar según cotización"
+        },
+        {
+          "concepto": "Señalización y medidas de seguridad en fachada",
+          "descripcion": "Señalización de zona de peligro, vallas de contención, lonas de protección anti-caída durante rehabilitación",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "partida",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIO si altura > planta baja — requiere evaluación de riesgos y presupuesto específico"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición de superficie total de fachada en m² (método: largo × alto considerando solo zona a revestir)",
+        "Especificar altura total del edificio para determinar tipo y coste de andamios/plataformas de acceso",
+        "Confirmar color, textura (fina/media/gruesa) y marca de mortero monocapa preferida",
+        "Especificar tipo de piedra para zócalo: granito, pizarra, caliza, arenisca, etc. — incluir muestra si es posible",
+        "Medir altura exacta del zócalo y perímetro total de fachada en metros lineales",
+        "Solicitar espesor de juntas en piedra: típicamente 8-10 mm",
+        "Confirmar si incluye limpieza y detritus o requiere partida adicional de gestión de residuos",
+        "Si altura del edificio > 3 plantas: evaluar necesidad de anclajes mecánicos adicionales en piedra (OBLIGATORIO según normativa)",
+        "Presupuestar evaluación de riesgos laborales y plan de seguridad si altura > planta baja",
+        "Considerar muestrario de acabados antes de ejecutar obra completa (prueba en zona de 5-10 m²)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero monocapa predosificado según color y textura",
+          "oficio": "albanileria",
+          "unidad": "m2",
+          "motivo": "Material base no tiene precio en catálogo — depende de marca, color y textura elegida. Rango típico: 2-8 €/m²"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio en encuentros",
+          "oficio": "albanileria",
+          "unidad": "m2",
+          "motivo": "Material de refuerzo — rango típico: 0.8-2 €/m²"
+        },
+        {
+          "concepto": "Junta de dilatación según normativa",
+          "oficio": "albanileria",
+          "unidad": "ml",
+          "motivo": "Material elastómero sellador — rango típico: 2-6 €/ml"
+        },
+        {
+          "concepto": "Piedra natural para zócalo",
+          "oficio": "albanileria",
+          "unidad": "m2",
+          "motivo": "Precio muy variable según tipo: granito (40-120 €/m²), pizarra (30-80 €/m²), caliza (20-60 €/m²)"
+        },
+        {
+          "concepto": "Mortero cola C2S2 para zócalo",
+          "oficio": "albanileria",
+          "unidad": "kg",
+          "motivo": "Rango típico: 0.4-0.8 €/kg"
+        },
+        {
+          "concepto": "Junta de lechada en zócalo de piedra",
+          "oficio": "albanileria",
+          "unidad": "kg",
+          "motivo": "Rango típico: 1-3 €/kg según marca"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "albanileria",
+          "unidad": "m2",
+          "motivo": "Costo muy variable según altura, duración y proveedor — requiere presupuesto específico"
+        },
+        {
+          "concepto": "Señalización y medidas de seguridad en fachada",
+          "oficio": "albanileria",
+          "unidad": "partida",
+          "motivo": "Obligatorio según R.D. 1627/1997 — rango: 200-1000 € según complejidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_mortero_monocapa_en_fachada",
+      "revestimiento_con_mortero_monocapa",
+      "forrado_exterior_fachada_ventilada",
+      "alicatado_de_fachada_exterior_con_ceramica_o_piedra",
+      "reparacion_de_desprendimiento_de_revestimiento_fachada"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 16,
+    "n_catalogo": 2,
+    "n_sugeridas": 14,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

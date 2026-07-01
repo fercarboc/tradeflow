@@ -1,0 +1,201 @@
+{
+  "id": 249,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar sistema de megafonía en local de 150 metros cuadrados, 6 altavoces de techo",
+  "http_status": 200,
+  "latency_ms": 24560,
+  "raw_response": {
+    "transcript": "Instalar sistema de megafonía en local de 150 metros cuadrados, 6 altavoces de techo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de megafonía en local de 150 metros cuadrados, 6 altavoces de techo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Local de 150 m² con 6 altavoces: verificar si es local de pública concurrencia (puede requerir sistema de evacuación EN 60849)",
+          "Presupuesto orientativo: revisar con cliente tipo de fuente (micrófono, reproductor, streaming) y si requiere ecualizador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema de megafonía: cableado, amplificador, altavoces, fuente de programa"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Amplificador multizona para megafonía",
+          "descripcion": "Amplificador de potencia según número de zonas y 6 altavoces de techo. Potencia estimada 60-120W según distribución",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar potencia, marca y modelo según especificaciones técnicas"
+        },
+        {
+          "concepto": "Altavoces empotrados de techo para megafonía",
+          "descripcion": "6 altavoces de techo certificados para megafonía, 8Ω, 10-20W, con transformador de línea 100V",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio unitario según marca y especificaciones (rango típico 40-150€/ud)"
+        },
+        {
+          "concepto": "Cableado de altavoz y línea 100V",
+          "descripcion": "Cable de altavoz 2x1.5mm² para conexión de 6 altavoces. Longitud estimada 150-200ml según distribución en local",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 180,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio por metro lineal según calibre y tipo de cable"
+        },
+        {
+          "concepto": "Fuente de programa (micrófono/reproductor/streaming)",
+          "descripcion": "Fuente de señal para megafonía: micrófono inalámbrico, reproductor multimedia o conexión streaming según necesidad del cliente",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio muy variable (micrófono 50-300€, reproductor 100-500€, streaming integrado)"
+        },
+        {
+          "concepto": "Canaleta o tubo de paso para cableado",
+          "descripcion": "Canaleta de PVC o tubo corrugado para protección y ocultamiento de cableado en local. Longitud estimada 150-200ml",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 180,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio por metro lineal según tipo y dimensión de canaleta"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Conectores, regletas, bridas, tornillería, pasta térmica, cinta aislante, etc.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: estimado 50-150€ según complejidad"
+        },
+        {
+          "concepto": "Instalación de sistema de megafonía",
+          "descripcion": "Montaje de amplificador, instalación de 6 altavoces en techo, tendido de cableado, conexionado, pruebas y calibración de niveles por zona",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de evacuación EN 60849 (si aplica)",
+          "descripcion": "Integración de sistema de evacuación de emergencia en megafonía si el local es de pública concurrencia (cine, restaurante, sala eventos, etc.). Incluye central de alarma, micrófono de emergencia y señalización",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional: SOLO si el local es de pública concurrencia. Precio muy variable (500-2000€). Confirmar con cliente tipo de local"
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Es local de pública concurrencia? (restaurante, cine, sala eventos, etc.) → puede requerir sistema de evacuación EN 60849 obligatorio",
+        "Especificar fuente de programa: ¿Micrófono inalámbrico? ¿Reproductor multimedia? ¿Streaming (Spotify, etc.)?",
+        "Considerar ecualizador si acústica del local es compleja (techos altos, materiales reflectantes)",
+        "Considerar zener por zonas si se requiere regulación independiente de volumen en diferentes áreas",
+        "Presupuesto ORIENTATIVO: materiales estimados 800-1500€ + mano de obra 400€ = 1200-1900€ (sin IVA). Revisar precios unitarios de amplificador, altavoces y fuente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Amplificador multizona para megafonía",
+          "oficio": "telecomunicaciones",
+          "motivo": "Especificación técnica según potencia y número de zonas"
+        },
+        {
+          "concepto": "Fuente de programa (micrófono/reproductor/streaming)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Elemento crítico: precio muy variable según tipo. Requiere confirmación con cliente"
+        },
+        {
+          "concepto": "Sistema de evacuación EN 60849 (si aplica)",
+          "oficio": "contra_incendios",
+          "motivo": "Opcional pero OBLIGATORIO si local de pública concurrencia. Requiere confirmación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_megafonia_y_hilo_musical",
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_sistema_hilo_musical_multizona",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_pantalla_de_proyeccion_motorizada"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3890,
+      "tokens_out": 2795
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

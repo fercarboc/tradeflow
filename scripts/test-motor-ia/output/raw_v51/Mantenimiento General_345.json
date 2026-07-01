@@ -1,0 +1,157 @@
+{
+  "id": 345,
+  "oficio": "Mantenimiento General",
+  "texto": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+  "http_status": 200,
+  "latency_ms": 11584,
+  "raw_response": {
+    "transcript": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Mantenimiento de ascensor requiere técnico especializado certificado",
+          "Revisión de cables y puertas pueden requerir parada del ascensor",
+          "Verificar si es contrato anual o servicio puntual",
+          "Incluir informe técnico post-revisión según normativa"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 85
+          },
+          "motivo": "Mantenimiento y revisión de ascensor requiere especialización técnica en sistemas mecánicos complejos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza general cabina ascensor",
+          "descripcion": "Limpieza interior cabina, espejos, pasamanos, botones y suelo",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo puede variar según tamaño cabina"
+        },
+        {
+          "concepto": "Revisión y lubricación de cables de tracción",
+          "descripcion": "Inspección visual de cables, verificación de desgaste, lubricación según especificaciones técnicas",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo depende de número de cables y estado"
+        },
+        {
+          "concepto": "Revisión sistema de puertas",
+          "descripcion": "Inspección puertas cabina y rellano, verificación mecanismos cierre, alineación, pruebas de seguridad",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye ajustes menores de mecanismos"
+        },
+        {
+          "concepto": "Verificación sistemas de seguridad",
+          "descripcion": "Comprobación de finales de carrera, sistemas de frenado, botones emergencia, iluminación cabina",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pruebas funcionales básicas"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Lubricantes, productos limpieza, trapos, pequeñas piezas de repuesto si procede",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a determinar según consumibles reales"
+        },
+        {
+          "concepto": "Informe técnico post-mantenimiento",
+          "descripcion": "Elaboración informe estado ascensor con observaciones y recomendaciones",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio; precio a determinar por profesional"
+        }
+      ],
+      "calculos": {
+        "subtotal": 390,
+        "iva_porcentaje": 21,
+        "iva": 81.9,
+        "total": 471.9
+      },
+      "sugerencias_catalogo": [
+        "Considerar contrato anual de mantenimiento preventivo para ascensores (similar a estructura base maestra de mantenimiento automatismos)",
+        "Si hay reposición de piezas desgastadas, añadir partida material aparte",
+        "Verificar si requiere certificado técnico según normativa REAL DECRETO 656/2017"
+      ],
+      "partidas_nuevas_detectadas": [
+        "Limpieza cabina ascensor",
+        "Revisión cables tracción",
+        "Revisión sistema puertas ascensor",
+        "Verificación sistemas seguridad ascensor",
+        "Informe técnico post-mantenimiento ascensor"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_split_o_aire_acondicionado"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "mecanica_especializada",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "id": 21,
+  "oficio": "Electricidad",
+  "texto": "Cambio de cuadro eléctrico antiguo por uno nuevo con ICP y diferenciales homologados",
+  "http_status": 200,
+  "latency_ms": 22731,
+  "raw_response": {
+    "transcript": "Cambio de cuadro eléctrico antiguo por uno nuevo con ICP y diferenciales homologados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de cuadro eléctrico antiguo por uno nuevo con ICP y diferenciales homologados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Boletín eléctrico obligatorio tras cambio de cuadro",
+          "Verificar potencia contratada para dimensionar ICP",
+          "Revisar número de circuitos existentes antes de diseñar nuevo cuadro"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Cambio de cuadro eléctrico con componentes homologados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje cuadro eléctrico antiguo",
+          "descripcion": "Desconexión segura, desmontaje y retirada de cuadro eléctrico existente con gestión de residuos",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Caja cuadro eléctrico 24 módulos",
+          "descripcion": "Caja de distribución modular 24 módulos DIN, grado de protección IP65, para empotrar o superficie",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según marca y modelo"
+        },
+        {
+          "concepto": "ICP (Interruptor de Control de Potencia)",
+          "descripcion": "ICP homologado según potencia contratada (16A, 25A, 40A, 63A), con protección térmica y magnética",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Amperaje del ICP depende de potencia contratada. Confirmar con cliente"
+        },
+        {
+          "concepto": "Diferenciales homologados 40A 30mA tipo A",
+          "descripcion": "2 diferenciales de 40A 30mA tipo A (sensibles a corrientes alternas y pulsantes), para protección de circuitos generales",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario a confirmar. Mínimo 2 diferenciales obligatorios por normativa"
+        },
+        {
+          "concepto": "Magnetotérmicos de protección de circuitos",
+          "descripcion": "Magnetotérmicos 16A, 20A y 25A (cantidad según circuitos existentes: iluminación, enchufes, cocina, calefacción, etc.)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y amperajes a revisar según circuitos reales de la vivienda"
+        },
+        {
+          "concepto": "Cableado interno y conexiones cuadro",
+          "descripcion": "Cable de conexión interna (rojo, negro, azul), bornes de conexión, regletas de distribución y pequeño material de montaje",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cable y accesorios según número de circuitos. Incluir en presupuesto final"
+        },
+        {
+          "concepto": "Instalación y conexionado cuadro eléctrico",
+          "descripcion": "Montaje de componentes en caja, conexionado de ICP, diferenciales y magnetotérmicos, pruebas de funcionamiento y ajuste de protecciones",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Boletín eléctrico y legalización",
+          "descripcion": "Redacción, firma y tramitación de boletín eléctrico ante distribuidora. Obligatorio para cambio de cuadro",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de boletín eléctrico a confirmar (típicamente 80-150€)"
+        },
+        {
+          "concepto": "Gestión de residuos y retirada cuadro antiguo",
+          "descripcion": "Retirada, transporte y gestión de residuos del cuadro eléctrico antiguo",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de gestión de residuos a confirmar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: potencia contratada actual (para dimensionar ICP)",
+        "Solicitar: número y tipo de circuitos existentes (iluminación, enchufes, cocina, calefacción, aire acondicionado, etc.)",
+        "Considerar: ¿necesita circuito adicional para vehículo eléctrico (wallbox) o bomba de calor?",
+        "Recomendación: diferencial tipo A obligatorio si hay electrodomésticos con motor o sistemas de calefacción"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "ICP (Interruptor de Control de Potencia)",
+          "oficio": "electricidad",
+          "motivo": "Componente específico homologado, precio variable según amperaje"
+        },
+        {
+          "concepto": "Boletín eléctrico y legalización",
+          "oficio": "electricidad",
+          "motivo": "Servicio obligatorio de tramitación administrativa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_cuadro_electrico_vivienda",
+      "cambio_inodoro",
+      "sustitucion_termo_electrico",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_radiador"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3552,
+      "tokens_out": 2594
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

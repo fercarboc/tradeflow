@@ -1,0 +1,248 @@
+{
+  "id": 135,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+  "http_status": 200,
+  "latency_ms": 26714,
+  "raw_response": {
+    "transcript": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume terraza con cubierta plana. Cantidad de sumideros a definir según superficie y pluviometría local.",
+          "Conexión a bajante existente. Si no existe, se generará partida adicional de acometida.",
+          "Diagnóstico previo recomendado para identificar causa del encharcamiento (pendientes insuficientes, obstrucciones, etc.)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sumideros/cazoletas en cubierta plana, drenaje y impermeabilización"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obras auxiliares: formación de pendientes si es necesario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Sumidero o cazoleta sifónica de cubierta",
+          "descripcion": "Suministro de sumidero/cazoleta sifónica de PVC o aluminio, diámetro adaptado a caudal (típicamente 110-160 mm), con sistema de cierre hidráulico para evitar olores",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del sumidero sifónico pendiente de cotización según marca, tipo y diámetro. Asumir 2 unidades para terraza de 50-100 m². Revisar cantidad según superficie real."
+        },
+        {
+          "concepto": "Instalación de sumideros sifónicos",
+          "descripcion": "Colocación, nivelación e instalación de sumideros sifónicos en cubierta plana. Incluye alineación, fijación mecánica y comprobación de funcionamiento.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión a bajante existente",
+          "descripcion": "Suministro e instalación de tuberías de desagüe (PVC rigido D-110/160 mm según sumidero) desde sumidero hasta conexión con bajante. Incluye codos, manguitos y pequeño material de fijación.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tubería PVC D-110 mm y accesorios pendiente. Asumir 8 ml (aproximadamente 4 ml por sumidero). Revisar trazado real en obra."
+        },
+        {
+          "concepto": "Instalación de tuberías de desagüe y conexiones",
+          "descripcion": "Colocación, nivelación (pendiente mínima 1-1,5%) e instalación de tuberías de desagüe desde sumideros hasta bajante. Incluye sellado de uniones con masilla o cinta PTFE.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 50,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de impermeabilización perimetral",
+          "descripcion": "Suministro e instalación de lámina impermeabilizante (tela asfáltica o membrana elastomérica) alrededor de cada sumidero. Ancho mínimo 50 cm. Sellado con adhesivo de caucho.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina impermeabilizante pendiente de cotización (material y espesor). Asumir ~2,5 m² por sumidero."
+        },
+        {
+          "concepto": "Colocación de refuerzo impermeabilización",
+          "descripcion": "Instalación de lámina impermeabilizante perimetral alrededor de sumideros. Incluye limpieza, preparación de superficie, aplicación de adhesivo y termosoldadura o pegado según tipo.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejilla o sombrero guardahojas",
+          "descripcion": "Suministro de rejilla metálica o sombrero guardahojas de acero inoxidable o PVC para evitar obstrucciones por restos de vegetación. Una por sumidero.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de rejilla/sombrero guardahojas pendiente según tipo y dimensiones."
+        },
+        {
+          "concepto": "Instalación de rejillas guardahojas",
+          "descripcion": "Colocación y fijación de rejillas o sombreros guardahojas en bocas de sumidero. Verificación de encaje y estabilidad.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Diagnóstico y evaluación de pendientes",
+          "descripcion": "Inspección previa de la terraza para identificar puntos de encharcamiento, comprobar pendientes existentes (mínimo 1,5%) y detectar obstrucciones o grietas. Reporte con recomendaciones.",
+          "oficio": "cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de diagnóstico pendiente. Sugerir entre 150-300€/jornada según complejidad."
+        },
+        {
+          "concepto": "Pequeño material y fungibles",
+          "descripcion": "Mortero de agarre, masilla elástica, cinta PTFE, tornillería de acero inoxidable, llave inglesa, destornilladores, nivel, etc.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio global de pequeño material pendiente. Sugerir 50-100€ por sumidero instalado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Actualmente se incluyen sumideros sifónicos de cubierta plana. Si la terraza tiene características especiales (cubierta invertida, cubierta vegetal, etc.), revisar compatibilidad.",
+        "La cantidad de sumideros recomendada es 1 por cada 25-50 m² de superficie. Solicitar medidas exactas de la terraza para dimensionar correctamente.",
+        "Si la bajante existente no está próxima o el desnivel no es suficiente, puede ser necesaria una acometida nueva de saneamiento (partida aparte)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sumidero o cazoleta sifónica",
+          "oficio": "cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico. Precio depende de marca, tipo (PVC/aluminio) y diámetro (110-160 mm). Rango orientativo: 150-400€/ud."
+        },
+        {
+          "concepto": "Tubería PVC de desagüe y accesorios",
+          "oficio": "cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material de conexión. Precio por metro lineal según diámetro. Rango: 15-25€/ml (D-110) + accesorios 20-50€."
+        },
+        {
+          "concepto": "Lámina impermeabilizante de refuerzo",
+          "oficio": "cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material impermeabilización. Precio por m² según tipo (asfáltica/elastomérica). Rango: 5-20€/m²."
+        },
+        {
+          "concepto": "Rejilla o sombrero guardahojas",
+          "oficio": "cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Accesorio protección. Rango: 30-80€/ud según material y tamaño."
+        },
+        {
+          "concepto": "Diagnóstico y evaluación de drenaje de terraza",
+          "oficio": "cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de diagnóstico. Incluye inspección, mediciones y reporte. Rango: 150-300€ según complejidad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_de_sumidero_o_imbornal",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_electrica_pergola_terraza"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

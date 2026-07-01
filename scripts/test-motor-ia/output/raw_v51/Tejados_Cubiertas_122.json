@@ -1,0 +1,302 @@
+{
+  "id": 122,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Cambio completo de cubierta plana en piso ático, impermeabilización con lámina líquida",
+  "http_status": 200,
+  "latency_ms": 37543,
+  "raw_response": {
+    "transcript": "Cambio completo de cubierta plana en piso ático, impermeabilización con lámina líquida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio completo de cubierta plana en piso ático, impermeabilización con lámina líquida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: No se especifica superficie (m²) de la cubierta. El presupuesto es estructural pero requiere medición en obra.",
+          "CRÍTICO: 'Lámina líquida' requiere clarificación: ¿poliuretano?, ¿acrílica?, ¿cemento-acrílica?. Se asume impermeabilizante líquido estándar.",
+          "ADVERTENCIA: 'Cambio completo' implica desmontaje de cubierta antigua, gestión de residuos, nueva estructura base si aplica. Requiere inspección.",
+          "ADVERTENCIA: En ático, riesgo de acceso complicado. Puede aumentar tiempo de instalación.",
+          "INFORMACIÓN: Se incluyen partidas de impermeabilización obligatoria (imprimación, refuerzos en encuentros, sellado de juntas) + desmontaje + gestión residuos."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Desmontaje de cubierta antigua, preparación de base, aplicación de impermeabilizante líquido, refuerzos en encuentros."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Especialidad de impermeabilización con lámina líquida, aplicación de imprimación, sellado de juntas y encuentros."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de cubierta antigua",
+          "descripcion": "Desmontaje completo de cubierta plana existente (lámina, aislamiento, capas protectoras si existen). Incluye puntual de estructuras de soporte en mal estado si aplica. Preparación de base para nueva impermeabilización.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie no especificada. Tarifa estimada 8€/m² incluye desescombro básico. Requiere medición en obra."
+        },
+        {
+          "concepto": "Gestión de residuos de cubierta antigua",
+          "descripcion": "Retirada, carga y transporte a gestor autorizado de residuos procedentes de desmontaje (lámina, aislamiento, materiales bituminosos si aplica). Certificado de entrega si procede.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 3,
+          "total": 0,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen de residuos sin especificar. Tarifa 3€/m² es orientativa. Depende de tipología de residuos y distancia a gestor."
+        },
+        {
+          "concepto": "Preparación y limpieza de base para impermeabilización",
+          "descripcion": "Limpieza profunda de la base (hormigón, forjado o losa), eliminación de polvo, restos adhesivos, aceites. Reparación puntual de grietas y huecos menores (<5cm). Secado de base si procede.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 4,
+          "total": 0,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie no especificada. Tarifa 4€/m² es estimada. Puede variar según estado de base."
+        },
+        {
+          "concepto": "Imprimación asfáltica/adhesiva para lámina líquida",
+          "descripcion": "Aplicación de imprimación específica para lámina líquida (poliuretano, acrílica o cemento-acrílica según tipo). Garantiza adherencia óptima. Incluye pequeño material (brochas, rodillos).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo_pendiente",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo de lámina líquida sin especificar. Precio material 0: instalador introduce coste real (imprimación 2-8€/m² según tipo)."
+        },
+        {
+          "concepto": "Aplicación de lámina líquida impermeabilizante",
+          "descripcion": "Aplicación de lámina líquida (poliuretano, acrílica o cemento-acrílica) mediante rodillo, brocha o proyección según tipo. Incluye 2 manos mínimo. Cobertura completa de superficie con espesor de película final 1,5-2mm según especificación técnica del fabricante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo_pendiente",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo y rendimiento de lámina líquida sin especificar. Precio material 0: instalador introduce coste real (5-35€/m² según tipo: acrílica económica vs poliuretano premium)."
+        },
+        {
+          "concepto": "Mano de obra aplicación lámina líquida",
+          "descripcion": "Aplicación manual de lámina líquida impermeabilizante en dos capas mínimo, incluyendo herramientas de aplicación, movilización de materiales en cubierta, control de espesores y adherencia.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie no especificada. Tarifa 12€/m² estimada para 2 manos en condiciones normales. Puede aumentar en áticos con acceso complicado (+30-50%)."
+        },
+        {
+          "concepto": "Refuerzo de impermeabilización en encuentros y paramentos",
+          "descripcion": "Refuerzo con lámina líquida enduida o tela de refuerzo integrada en encuentros con muros, chimeneas, antepechos y bordes de cubierta. Altura mínima 30cm en paredes. Sellado especial de ángulos de 90°.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo_pendiente",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro de encuentros sin especificar. Precio material 0: instalador introduce coste real (8-15€/ml según material de refuerzo)."
+        },
+        {
+          "concepto": "Mano de obra refuerzo en encuentros y paramentos",
+          "descripcion": "Ejecución de refuerzos en encuentros: aplicación manual de refuerzo, manejo de perímetro vertical, sellado de ángulos. Incluye movilización en altura si precisa.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 6,
+          "total": 0,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro de encuentros sin especificar. Tarifa 6€/ml estimada. Depende de complejidad y accesibilidad en ático."
+        },
+        {
+          "concepto": "Sellado de juntas de dilatación",
+          "descripcion": "Preparación y sellado de juntas de dilatación existentes en cubierta con masilla elástica o sellador compatible con lámina líquida. Limpieza previa de junta, aplicación de cordón de fondo si precisa, y sellado superficial.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo_pendiente",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de juntas de dilatación sin especificar. Precio material 0: instalador introduce coste real (cordón fondo + sellador 2-6€/ml)."
+        },
+        {
+          "concepto": "Mano de obra sellado de juntas de dilatación",
+          "descripcion": "Ejecución del sellado de juntas: limpieza mecánica de junta, colocación de cordón de fondo, aplicación de sellador con herramienta adecuada, alisado y curado según especificación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 3,
+          "total": 0,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de juntas sin especificar. Tarifa 3€/ml estimada."
+        },
+        {
+          "concepto": "Capa de protección/acabado de la lámina líquida",
+          "descripcion": "Aplicación de pintura/barniz de protección UV o acabado especificado (gris, blanco reflectante) sobre lámina líquida para protección ante intemperismo y radiación solar. Mejora de reflectancia térmica si aplica.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo_pendiente",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo de acabado sin especificar. Precio material 0: instalador introduce coste (pintura blanca reflectante 3-8€/m²)."
+        },
+        {
+          "concepto": "Mano de obra aplicación de capa de protección",
+          "descripcion": "Aplicación de pintura/acabado protector sobre lámina líquida con rodillo o brocha. Dos manos si precisa. Control de cobertura uniforme.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 5,
+          "total": 0,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie no especificada. Tarifa 5€/m² estimada para aplicación simple."
+        },
+        {
+          "concepto": "Pequeño material, herramientas y EPI",
+          "descripcion": "Suministro y uso de pequeño material: trapos, disolvente, cepillos, rodillos, cubetas, cinta de obra, EPI (arneses, botas seguridad, guantes, mascarillas), costes de herramientas menores por desgaste.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo_pendiente",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie no especificada. Precio material 0: tarifa estimada 1-2€/m² de pequeño material + EPI incluido en mano de obra en casilla específica si precisa."
+        },
+        {
+          "concepto": "Inspección y pruebas de impermeabilización",
+          "descripcion": "Inspección visual de cobertura, espesor de lámina (con medidor si aplica), estanqueidad en encuentros y juntas. Prueba de inundación puntual si se requiere verificación de estanqueidad.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "estimado_sector",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa 150€ de inspección estándar. Puede aumentar si requiere equipos especializados (termografía, etc.)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "MEDICIÓN OBLIGATORIA: Obtener superficie exacta en m² de la cubierta plana. Es el parámetro crítico que multiplica la mayoría de partidas.",
+        "CLARIFICACIÓN DE TIPO DE LÁMINA LÍQUIDA: Especificar si es acrílica, poliuretano, cemento-acrílica o elastómera. Cada una tiene rendimiento, precio y aplicación diferentes (2-35€/m²).",
+        "PERÍMETRO DE ENCUENTROS: Medir longitud total de encuentros con muros, paramentos, chimeneas, antepechos para estimar refuerzo (ml).",
+        "JUNTAS DE DILATACIÓN: Identificar número y longitud de juntas de dilatación existentes para presupuestar sellado (ml).",
+        "ESTADO DE BASE: Inspeccionar estado de losa/forjado. Si hay grietas >5mm, daños estructurales o humedades previas, puede requerir reparación previa más extensa.",
+        "ACCESIBILIDAD: Confirmar acceso a cubierta en ático. ¿Hay escalera fija, requiere andamios, movilización de materiales complicada? Esto afecta tarifa y plazo.",
+        "COBERTURA FINAL DESEADA: ¿Se desea acabado blanco reflectante (ahorro energético), gris estándar u otro color? Afecta a capa de protección.",
+        "IMPERMEABILIZANTE EXISTENTE: ¿Hay resto de lámina asfáltica, betún, EPDM anterior? Afecta al desmontaje y gestión de residuos.",
+        "ESTRUCTURAS ESPECIALES: ¿Hay chimenea, salidas de ventilación, antena, lucernarios u otras penetraciones? Cada una requiere refuerzo específico."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Desmontaje de cubierta antigua",
+          "oficio": "albanileria",
+          "motivo": "Cambio completo implica retirada de estructura anterior. No es renovación de impermeabilización simple."
+        },
+        {
+          "nombre": "Gestión de residuos de cubierta antigua",
+          "oficio": "albanileria",
+          "motivo": "Obligatoria en reforma completa de cubierta con residuos constructivos/tóxicos."
+        },
+        {
+          "nombre": "Impermeabilización con lámina líquida",
+          "oficio": "impermeabilizacion",
+          "motivo": "Sistema diferente a lámina bituminosa o EPDM. Requiere especialista en impermeabilizantes líquidos."
+        },
+        {
+          "nombre": "Inspección y pruebas de impermeabilización",
+          "oficio": "impermeabilizacion",
+          "motivo": "Recomendable en reforma completa de cubierta para asegurar estanqueidad y garantía."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_inodoro",
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 14,
+    "n_catalogo": 0,
+    "n_sugeridas": 14,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

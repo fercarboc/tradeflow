@@ -1,0 +1,198 @@
+{
+  "id": 279,
+  "oficio": "Cristalería",
+  "texto": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+  "http_status": 200,
+  "latency_ms": 18366,
+  "raw_response": {
+    "transcript": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Ventana interior en tabique: requiere clarificación de carga estructural y tipo de tabique (pladur, ladrillo, hormigón)",
+          "Vidrio translúcido: especificar si es vidrio esmerilado, satinado, opal o laminado translúcido",
+          "Proyección: confirmar si es proyectante (abatible) o fija",
+          "Obra civil: posible apertura/refuerzo de tabique según espesor y material"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de marco y herraje de ventana proyectante"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Suministro e instalación de vidrio translúcido templado o laminado"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Apertura/refuerzo de tabique interior si es necesario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Apertura de hueco en tabique interior",
+          "descripcion": "Apertura de hueco en tabique interior (pladur, ladrillo o mixto) para alojamiento de ventana proyectante. Incluye refuerzo con dintel si es necesario según tipo de tabique y carga.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de material del tabique, dimensiones del hueco y necesidad de refuerzo estructural. Instalador debe revisar in situ."
+        },
+        {
+          "concepto": "Marco y herraje ventana proyectante",
+          "descripcion": "Suministro e instalación de marco de aluminio o PVC para ventana proyectante interior. Incluye herraje de proyección, bisagras, cierre y fijación a tabique.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de material (aluminio/PVC), dimensiones y tipo de herraje. Instalador debe cotizar según medidas exactas."
+        },
+        {
+          "concepto": "Instalación marco ventana proyectante",
+          "descripcion": "Mano de obra de instalación: fijación del marco al tabique, nivelación, aplomado y sellado perimetral con silicona neutra.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Vidrio translúcido templado o laminado",
+          "descripcion": "Suministro de vidrio translúcido (esmerilado, satinado, opal o laminado translúcido) templado según medidas exactas. Incluye certificado CE y marcado de seguridad si aplica.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de vidrio translúcido, espesor (6/8/10mm), dimensiones exactas y templado. Plazo de fabricación 5-10 días."
+        },
+        {
+          "concepto": "Instalación vidrio translúcido en marco",
+          "descripcion": "Mano de obra de instalación: colocación del vidrio en marco, sellado con silicona neutra, ajuste de herraje y pruebas de funcionamiento.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabados y sellado perimetral",
+          "descripcion": "Sellado perimetral con silicona neutra, pequeño material (tornillería, tacos, masilla), limpieza final y retirada de protecciones.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: silicona, tacos, tornillería. Precio estimado 15-30€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 157.5,
+        "iva_porcentaje": 21,
+        "iva": 33.08,
+        "total": 190.58
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de vidrio translúcido: esmerilado (máxima privacidad), satinado (privacidad media), opal (translúcido con luz difusa) o laminado translúcido (seguridad).",
+        "Especificar si la ventana es proyectante abatible (eje horizontal) o fija. Si es proyectante, incluir herraje de proyección con tope de seguridad.",
+        "Medir exactamente el hueco: ancho interior libre, alto interior libre, profundidad del tabique.",
+        "Revisar carga estructural: si el tabique es pladur de una sola hoja, puede requerir refuerzo con perfiles metálicos.",
+        "Considerar si necesita aislamiento acústico adicional (vidrio laminado de seguridad acústica).",
+        "Plazo: apertura tabique 1-2 días + fabricación vidrio 5-10 días + instalación 1 día."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Apertura de hueco en tabique interior",
+          "oficio": "albanileria",
+          "motivo": "Trabajo específico de obra civil para crear hueco en tabique interior. No está en catálogo base pero es obligatorio para esta instalación."
+        },
+        {
+          "concepto": "Marco y herraje ventana proyectante interior",
+          "oficio": "carpinteria",
+          "motivo": "Ventana proyectante interior (no estándar de catálogo). Requiere especificación de material y dimensiones exactas."
+        },
+        {
+          "concepto": "Vidrio translúcido templado o laminado",
+          "oficio": "cristaleria",
+          "motivo": "Vidrio translúcido específico (no float estándar). Requiere especificación de tipo (esmerilado, satinado, opal, laminado) y templado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_claraboya_tubular_o_solatube",
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_estor_enrollable_interior"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3703,
+      "tokens_out": 2572
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

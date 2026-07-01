@@ -1,0 +1,183 @@
+{
+  "id": 157,
+  "oficio": "Pladur",
+  "texto": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 21607,
+  "raw_response": {
+    "transcript": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si el local requiere normativa de incendios (RF) según actividad y regulaciones locales",
+          "Confirmar altura disponible bajo forjado para cuelgue de estructura",
+          "Revisar si hay instalaciones (electricidad, climatización, CCTV) que pasen por el falso techo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Instalación de falso techo registrable con placas de yeso. Trabajo de pladur/escayola en local comercial."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura de cuelgue y perfilería metálica",
+          "descripcion": "Suministro e instalación de estructura de acero galvanizado (perfiles maestros, secundarios, varillas roscadas, horquillas) para cuelgue de falso techo registrable en 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de estructura metálica. El instalador debe confirmar tipo de perfilería, galvanizado y cantidad exacta según cálculo de carga."
+        },
+        {
+          "concepto": "Placas de yeso registrables",
+          "descripcion": "Suministro de placas de yeso laminado registrables (estándar o ignífugas según normativa) de 60x60 cm o 120x60 cm, cantidad según cobertura de 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Placas registrables. Confirmar si requieren RF (ignífugas) según actividad del local y normativa local. Precio varía significativamente."
+        },
+        {
+          "concepto": "Lana de roca o aislamiento acústico",
+          "descripcion": "Suministro e instalación de lana de roca o material aislante acústico/térmico en cámara de falso techo (100 m²)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Aislamiento acústico/térmico. Confirmar espesor requerido (40-100 mm típico) y si es obligatorio por normativa."
+        },
+        {
+          "concepto": "Mano de obra: instalación de estructura y placas registrables",
+          "descripcion": "Instalación completa de estructura de cuelgue, colocación de placas registrables, ajuste y nivelación en 100 m²",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 35,
+          "total": 3500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, cinta de juntas, pasta de juntas, selladores, grapas, clips de sujeción y otros accesorios necesarios para la instalación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material. Estimación típica 3-8€/m² según complejidad. El instalador debe revisar y ajustar."
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza",
+          "descripcion": "Retirada de escombros, embalajes y limpieza final de la obra en local comercial",
+          "oficio": "limpieza",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión de residuos. Estimación: 1-2 jornadas según volumen. Confirmar si incluye transporte a gestor autorizado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 3500,
+        "iva_porcentaje": 21,
+        "iva": 735,
+        "total": 4235
+      },
+      "sugerencias_catalogo": [
+        "Si el local requiere normativa de incendios (RF-30, RF-60, RF-120), utilizar placas ignífugas (rosa) y documentar sistema certificado según UNE-EN 13501-1.",
+        "Si hay instalaciones (electricidad, climatización, CCTV) en cámara, prever pasos de tuberías/cables y sellado con material intumescente si aplica RF.",
+        "Considerar altura de cuelgue: típicamente 10-15 cm bajo forjado para paso de instalaciones y mantenimiento de placas registrables.",
+        "Presupuesto orientativo SOLO en mano de obra (3.500€). Materiales pendientes de revisión del instalador según especificaciones técnicas finales."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura de cuelgue y perfilería metálica",
+          "oficio": "pladur_escayola",
+          "motivo": "Material de estructura. Incluido en partidas_obligatorias de falso techo registrable."
+        },
+        {
+          "concepto": "Placas de yeso registrables",
+          "oficio": "pladur_escayola",
+          "motivo": "Material específico de techo registrable. Requiere confirmación de tipo (estándar vs. ignífugas)."
+        },
+        {
+          "concepto": "Lana de roca o aislamiento acústico",
+          "oficio": "pladur_escayola",
+          "motivo": "Material de aislamiento. Espesor y tipo a confirmar según requisitos acústicos/térmicos."
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "pladur_escayola",
+          "motivo": "Tornillería, cintas, pastas, clips. Precio unitario a revisar por instalador."
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza",
+          "oficio": "limpieza",
+          "motivo": "Servicio complementario. Jornadas y precio a confirmar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "falso_techo_pladur_en_local_con_normativa_incendios",
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_de_sistema_de_megafonia_y_hilo_musical",
+      "instalacion_iluminacion_comercial_led",
+      "instalacion_red_electrica_local_comercial"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3759,
+      "tokens_out": 2579
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

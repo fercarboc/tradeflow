@@ -1,0 +1,193 @@
+{
+  "id": 8,
+  "oficio": "Fontanería",
+  "texto": "Reparación de caldera de gas averiada, revisión completa y puesta a punto, cambio de juntas",
+  "http_status": 200,
+  "latency_ms": 20422,
+  "raw_response": {
+    "transcript": "Reparación de caldera de gas averiada, revisión completa y puesta a punto, cambio de juntas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de caldera de gas averiada, revisión completa y puesta a punto, cambio de juntas",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Caldera averiada: requiere diagnóstico técnico previo para determinar alcance exacto de reparación",
+          "Cambio de juntas: material específico pendiente de identificación (tipo/cantidad)",
+          "Verificación de legalizacion/certificación gas obligatoria post-reparación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación y mantenimiento de caldera de gas (calefacción/ACS)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y acceso a componentes internos caldera",
+          "descripcion": "Desmontaje parcial de la caldera para acceso a cámara de combustión, quemador e intercambiadores",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión completa y diagnóstico caldera de gas",
+          "descripcion": "Inspección visual quemador y cámara combustión, verificación intercambiadores, comprobación circuito agua, revisión presión vaso expansión, análisis combustión, verificación válvulas seguridad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza quemador, intercambiadores y circuito interno",
+          "descripcion": "Limpieza de inyectores y quemador, deshollinado de intercambiadores, purgado de circuito de agua, limpieza de filtros si procede",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cambio de juntas y reposición de piezas de desgaste",
+          "descripcion": "Cambio de juntas tóricas, empaques y retenes (tipos y cantidad a determinar según inspección). Incluye juntas quemador, intercambiadores y válvulas.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico pendiente de identificación. El instalador debe indicar: tipos de juntas, cantidad y referencias exactas para cotización"
+        },
+        {
+          "concepto": "Montaje de componentes y puesta a punto",
+          "descripcion": "Recolocación de componentes desmontados, ajuste de carrera de válvulas, verificación presión vaso expansión, llenado y purgado del circuito, calibración de parámetros combustión",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de combustión y verificación evacuación de humos",
+          "descripcion": "Medición de parámetros combustión (CO, O2, T gases), verificación estanqueidad cámara combustión, comprobación sistema evacuación humos y tiro",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material consumible (líquidos deshollinador, refrigerante, cinta teflón, etc.)",
+          "descripcion": "Material auxiliar necesario para reparación: productos limpieza, lubricantes, cinta de teflón, bridas, abrazaderas, etc.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 20-50€. El instalador ajusta según consumo real."
+        },
+        {
+          "concepto": "Informe técnico de reparación y certificación post-revisión",
+          "descripcion": "Generación de informe detallado con hallazgos, reparaciones realizadas, parámetros combustión, estado de componentes y recomendaciones. Certificación de correcto funcionamiento.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Puede estar incluido en tarifa horaria o ser servicio adicional (20-40€). Instalador decide si cobrar aparte o incluir."
+        }
+      ],
+      "calculos": {
+        "subtotal": 375,
+        "iva_porcentaje": 21,
+        "iva": 78.75,
+        "total": 453.75
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA APLICABLE: [mantenimiento_anual_caldera_gas] — aunque aquí es REPARACIÓN urgente, no mantenimiento rutinario. Las partidas obligatorias de inspección aplican.",
+        "Considerar oferta de CONTRATO MANTENIMIENTO ANUAL (250-500€/año) tras reparación para evitar averías futuras y cumplir obligaciones asegurador",
+        "Si caldera tiene >10 años: asesorar sobre sustitución por modelo eficiente (A.1.3) más rentable que reparaciones recurrentes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cambio de juntas y reposición de piezas de desgaste",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "razon_creacion": "No existe especificación de tipos/cantidad de juntas en descripción. Requiere detalle técnico del instalador."
+        },
+        {
+          "concepto": "Pequeño material consumible",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "razon_creacion": "Material auxiliar típico en reparaciones caldera, pero importe específico pendiente de identificación."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_caldera",
+      "instalacion_calefaccion_radiadores_completa",
+      "revision_anual_instalacion_general_vivienda",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_persianas_y_toldos"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

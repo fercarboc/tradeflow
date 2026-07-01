@@ -1,0 +1,203 @@
+{
+  "id": 6,
+  "oficio": "Fontanería",
+  "texto": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+  "http_status": 200,
+  "latency_ms": 19902,
+  "raw_response": {
+    "transcript": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se detectan 2 oficios: fontanería e impermeabilización. El revoque de azulejos por humedad requiere tratamiento impermeabilizante previo.",
+          "Se recomienda inspeccionar la causa raíz de la humedad antes de proceder al revoque."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cambio de grifo termostático de ducha - actuación validada en BASE MAESTRA [instalacion_grifo_termostatico_ducha]"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamiento de azulejos afectados por humedad - requiere impermeabilización antes de revoque/alicatado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje grifo ducha existente",
+          "descripcion": "Desmontaje cuidadoso del grifo termostático actual, desconexión de tuberías de agua fría y caliente, retirada de embellecedores y excentricas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo termostático de ducha (suministro)",
+          "descripcion": "Grifo termostático de ducha con regulación a 38°C, excentricas 1/2\", embellecedores cromados, pequeño material (teflón, silicona, arandelas)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del grifo termostático a definir por instalador (rango típico 150-350€)"
+        },
+        {
+          "concepto": "Instalación grifo termostático de ducha",
+          "descripcion": "Instalación del grifo termostático, conexión de tuberías agua fría y caliente, ajuste de excentricas, colocación de embellecedores, verificación de presión mínima 1.5 bar y diferencia de presión máxima 20%",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección y preparación zona azulejos con humedad",
+          "descripcion": "Inspección de la zona afectada por humedad, identificación de puntos de infiltración, limpieza y preparación de la superficie para tratamiento impermeabilizante",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento impermeabilizante zona azulejos (membrana líquida)",
+          "descripcion": "Aplicación de membrana impermeabilizante líquida elastomérica en zona afectada por humedad, con refuerzo en rincones y juntas, extensión mínimo 20cm fuera de zona crítica, dos manos con tiempo de curado entre aplicaciones",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie afectada a medir en obra. Rango típico 15-70€/m2. Incluir cantidad real de m2 y producto específico (cementosa o elastomérica)"
+        },
+        {
+          "concepto": "Revoque y rejuntado de azulejos",
+          "descripcion": "Revoque de azulejos dañados o desprendidos, rejuntado con mortero flexible, sellado de juntas con silicona sanitaria, acabado limpio y uniforme",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y EPI (impermeabilización)",
+          "descripcion": "Imprimación adherente, cinta de refuerzo, silicona sanitaria, EPI (guantes, mascarilla), herramientas menores",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según cantidad de m2 a tratar (rango estimado 30-80€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 260,
+        "iva_porcentaje": 21,
+        "iva": 54.6,
+        "total": 314.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar en obra la extensión real de la zona afectada por humedad para ajustar cantidad de membrana impermeabilizante (m2)",
+        "Confirmar marca y modelo del grifo termostático para presupuestar material con precisión",
+        "Investigar causa raíz de humedad (fugas en tuberías, condensación, infiltración externa) antes de proceder al revoque",
+        "Considerar tratamiento preventivo adicional si la humedad es recurrente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Grifo termostático de ducha (suministro)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de marca/modelo. Rango típico 150-350€"
+        },
+        {
+          "concepto": "Tratamiento impermeabilizante zona azulejos (membrana líquida)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad en m2 a definir en obra. Rango típico 15-70€/m2"
+        },
+        {
+          "concepto": "Pequeño material y EPI (impermeabilización)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Presupuestar según cantidad de m2 y productos específicos (rango estimado 30-80€)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_grifo_lavabo",
+      "impermeabilizacion_zona_ducha_con_membrana_liquida",
+      "sustitucion_columna_ducha",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "instalacion_grifo_termostatico_ducha"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3582,
+      "tokens_out": 2321
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

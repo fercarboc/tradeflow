@@ -1,0 +1,113 @@
+{
+  "id": 14,
+  "oficio": "Fontanería",
+  "texto": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+  "http_status": 200,
+  "latency_ms": 14472,
+  "raw_response": {
+    "transcript": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio especializado de saneamiento. Requiere verificación de acceso, ubicación de la fosa y si incluye transporte/gestión de residuos."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "saneamiento",
+          "existe_en_catalogo": false,
+          "nuevo_oficio": true,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 70
+          },
+          "motivo": "Servicio de vaciado y limpieza de fosa séptica. No existe en catálogo oficial, creado como nuevo oficio especializado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado de fosa séptica con camión de bombeo",
+          "descripcion": "Vaciado completo de fosa séptica 3000 litros con camión de bombeo especializado, incluyendo transporte del residuo a gestor autorizado",
+          "oficio": "saneamiento",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de: acceso del camión, distancia a gestor autorizado, tasa de gestión de residuos, si hay limpieza química adicional. Instalador debe confirmar."
+        },
+        {
+          "concepto": "Limpieza interior y desinfección de fosa séptica",
+          "descripcion": "Limpieza manual/química interior de fosa séptica tras vaciado, incluyendo eliminación de depósitos, desinfección y verificación de estado estructural",
+          "oficio": "saneamiento",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según grado de ensuciamiento y si requiere limpieza química especializada. A valorar in situ."
+        },
+        {
+          "concepto": "Gestión y transporte de residuos a gestor autorizado",
+          "descripcion": "Transporte de lodos extraídos desde fosa séptica hasta gestor autorizado de residuos sanitarios/fecales. Incluye documentación de trazabilidad.",
+          "oficio": "saneamiento",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de distancia a gestor y volumen de residuos. Puede incluirse en tarifa de vaciado o facturarse por separado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Este servicio no está en la Base Maestra actual. Se recomienda crear entrada de catálogo: [vaciado_limpieza_fosa_septica] con rango 400-1500€/ud según capacidad y complejidad.",
+        "Considerar crear subentrada: mantenimiento_preventivo_fosa_septica (cada 3-5 años) vs. emergencias de desbordamiento."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "oficio": "saneamiento",
+          "actividad": "Vaciado y limpieza de fosa séptica",
+          "motivo": "Servicio especializado no catalogado. Requiere nuevo oficio en Base Maestra.",
+          "partidas_sugeridas": 3,
+          "rango_precio_estimado": "400-1500€ totales según capacidad, acceso y gestión de residuos"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 3,
+    "n_catalogo": 0,
+    "n_sugeridas": 3,
+    "oficio_detectado": "saneamiento",
+    "coincide_oficio": "NO"
+  }
+}

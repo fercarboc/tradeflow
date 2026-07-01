@@ -1,0 +1,145 @@
+{
+  "id": 204,
+  "oficio": "Jardinería",
+  "texto": "Mantenimiento mensual de jardín, corte de césped, poda de setos y limpieza de hojas",
+  "http_status": 200,
+  "latency_ms": 11474,
+  "raw_response": {
+    "transcript": "Mantenimiento mensual de jardín, corte de césped, poda de setos y limpieza de hojas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento mensual de jardín, corte de césped, poda de setos y limpieza de hojas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto de mantenimiento recurrente mensual. Confirmar frecuencia exacta y superficie de jardín para ajustar precios.",
+          "Poda de setos: respetar normativa de protección de aves (no podar marzo-agosto)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Trabajo de mantenimiento periódico que combina múltiples tareas de jardinería (corte, poda, limpieza) en una visita mensual."
+        },
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 22,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Tareas específicas de jardinería: corte de césped, poda de setos, retirada de residuos vegetales."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Corte de césped mensual",
+          "descripcion": "Corte y mantenimiento del césped con máquina cortacésped, incluye retirada de restos y limpieza de bordes.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 80,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Poda de setos y arbustos",
+          "descripcion": "Poda de setos y arbustos según temporada, corte de ramas, perfilado y retirada de restos vegetales.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza de hojas y residuos vegetales",
+          "descripcion": "Recogida y retirada de hojas caídas, ramas secas y otros residuos vegetales. Barrido y limpieza general de zonas verdes.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Consumibles: cuchillas cortacésped, desgaste herramientas, bolsas residuos, combustible máquinas.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de consumibles a definir por profesional según equipos y frecuencia de uso."
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Este presupuesto es para UNA visita mensual. Si el cliente desea contrato anual (12 visitas), multiplicar por 12 meses.",
+        "Confirmar con el cliente: ¿superficie aproximada del jardín? ¿Altura de setos? ¿Frecuencia de corte de césped (semanal, quincenal, mensual)?",
+        "En épocas de crecimiento rápido (primavera-verano), puede ser necesario aumentar frecuencia de corte.",
+        "Poda de setos: respetar normativa local de protección de aves (generalmente prohibido podar marzo-agosto)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "jardineria",
+          "motivo": "Consumibles de mantenimiento (cuchillas, combustible, bolsas). Precio a definir por profesional."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "poda_de_palmeras",
+      "poda_de_setos_y_arbustos",
+      "mantenimiento_jardin_y_zonas_verdes_periodico",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_anual_caldera_gas"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3950,
+      "tokens_out": 1442
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "id": 228,
+  "oficio": "Energía Solar",
+  "texto": "Instalación de placas solares en cubierta plana de edificio de apartamentos, 10 unidades en comunidad",
+  "http_status": 200,
+  "latency_ms": 28348,
+  "raw_response": {
+    "transcript": "Instalación de placas solares en cubierta plana de edificio de apartamentos, 10 unidades en comunidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de placas solares en cubierta plana de edificio de apartamentos, 10 unidades en comunidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "APROBACIÓN COMUNIDAD OBLIGATORIA antes de iniciar obra",
+          "Requiere PROYECTO TÉCNICO y tramitación con distribuidora",
+          "Sistema de reparto de energía entre vecinos debe estar definido",
+          "Verificar capacidad de carga de la cubierta plana (típico 30-50 kg/m²)",
+          "Instalador debe estar certificado RITE"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica en comunidad de propietarios con sistema de reparto de energía"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de perforaciones en cubierta plana si sistema anclado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Aprobación de comunidad de propietarios",
+          "descripcion": "Gestión y aprobación en junta de propietarios para instalación fotovoltaica comunitaria con reparto de energía",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere presupuesto de gestoría o administrador de fincas"
+        },
+        {
+          "concepto": "Proyecto técnico e ingeniería solar",
+          "descripcion": "Proyecto técnico completo, cálculo de estructura, carga sobre cubierta, distancias entre filas, sistema de reparto de energía entre 10 viviendas, tramitación distribuidora",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según complejidad y potencia total a instalar (requiere kWp estimado)"
+        },
+        {
+          "concepto": "Estructura de aluminio inclinada lastrada para cubierta plana",
+          "descripcion": "Estructura de aluminio anodizado con sistema de lastrado (ballast) para evitar perforaciones en cubierta plana. Incluye fijaciones, distanciadores y elementos de seguridad. Cálculo de carga: típico 30-50 kg/m²",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según potencia por módulo (típico 400-550W). Presupuesto: 150-300€/unidad estructura"
+        },
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos",
+          "descripcion": "10 módulos fotovoltaicos monocristalinos de alta eficiencia (400-550W cada uno). Incluye certificados de origen y garantía de fabricante",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según potencia: típico 200-350€/unidad (400-550W)"
+        },
+        {
+          "concepto": "Inversor trifásico y cuadros de protección",
+          "descripcion": "Inversor trifásico de potencia adecuada para 10 módulos (4-5,5 kWp estimado), cuadros de protección AC/DC, interruptores magnetotérmicos, diferenciales, fusibles y elementos de seguridad según normativa",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según potencia total: típico 1500-3500€ (inversor + cuadros)"
+        },
+        {
+          "concepto": "Cableado, conectores y protecciones eléctricas",
+          "descripcion": "Cable solar DC 6mm², conectores MC4, tuberías de protección, canaletas, tomas de tierra, puesta a tierra de estructura, protecciones contra sobretensiones y rayos",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según longitud de cableado y complejidad: típico 800-1500€"
+        },
+        {
+          "concepto": "Sistema de medición y reparto de energía entre vecinos",
+          "descripcion": "Instalación de 10 medidores individuales (uno por vivienda), sistema de gestión de reparto de energía según cuota de participación, software de monitorización y control de consumo/generación por vivienda",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según sistema elegido: típico 2000-5000€ (medidores + software + instalación)"
+        },
+        {
+          "concepto": "Tramitación y legalización con distribuidora",
+          "descripcion": "Gestión de trámites con distribuidora eléctrica, solicitud de conexión, inspección previa, certificado de instalación, puesta en servicio y legalización del sistema fotovoltaico comunitario",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según distribuidora y complejidad: típico 500-1500€"
+        },
+        {
+          "concepto": "Instalación de módulos, estructura y conexiones eléctricas",
+          "descripcion": "Montaje de estructura lastrada, fijación de 10 módulos fotovoltaicos, conexionado DC, instalación de inversor y cuadros, cableado AC, puesta a tierra, pruebas de funcionamiento y seguridad",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 65,
+          "total": 2600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización de perforaciones (si aplica sistema anclado)",
+          "descripcion": "Sellado y impermeabilización de perforaciones en cubierta plana si se opta por sistema anclado en lugar de lastrado. Incluye retirada de material, fondo de junta elastómero, sellado superior con silicona de cubierta",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad a definir según número de anclajes. Sistema lastrado evita perforaciones"
+        },
+        {
+          "concepto": "Pequeño material, EPI y trabajos en altura",
+          "descripcion": "Arneses, cascos, cuerdas de seguridad, cinturones, anclajes temporales, escaleras, herramientas menores, consumibles (cinta aislante, bridas, pasta térmica, etc.)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto típico: 300-600€"
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza de obra",
+          "descripcion": "Retirada de embalajes, residuos de instalación, limpieza de cubierta y zonas de trabajo, gestión de residuos según normativa ambiental",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto típico: 200-400€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2600,
+        "iva_porcentaje": 21,
+        "iva": 546,
+        "total": 3146
+      },
+      "sugerencias_catalogo": [
+        "Confirmar potencia total estimada en kWp (10 módulos × 0,4-0,55 kWp = 4-5,5 kWp aprox.)",
+        "Definir si sistema LASTRADO (sin perforaciones) o ANCLADO (con impermeabilización)",
+        "Verificar capacidad de carga de cubierta plana con ingeniero estructural",
+        "Solicitar certificado RITE del instalador antes de contratar",
+        "Presupuestar sistema de reparto de energía: por cuota de participación o acuerdo específico",
+        "Incluir en presupuesto final: proyecto técnico, aprobación comunidad, tramitación distribuidora, medidores individuales y software de gestión"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aprobación de comunidad de propietarios",
+          "oficio": "gestoria_tramites",
+          "motivo": "Requisito obligatorio para instalaciones fotovoltaicas comunitarias"
+        },
+        {
+          "concepto": "Proyecto técnico e ingeniería solar",
+          "oficio": "energia_solar",
+          "motivo": "Obligatorio para instalaciones comunitarias con reparto de energía"
+        },
+        {
+          "concepto": "Sistema de medición y reparto de energía entre vecinos",
+          "oficio": "energia_solar",
+          "motivo": "Específico para comunidades de propietarios con múltiples beneficiarios"
+        },
+        {
+          "concepto": "Tramitación y legalización con distribuidora",
+          "oficio": "gestoria_tramites",
+          "motivo": "Obligatorio para conexión a red y legalización de sistema comunitario"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_fotovoltaica_en_comunidad_de_propietarios",
+      "reforma_de_cubierta_de_edificio_comunitario",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3938,
+      "tokens_out": 3936
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 2,
+    "n_sugeridas": 10,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

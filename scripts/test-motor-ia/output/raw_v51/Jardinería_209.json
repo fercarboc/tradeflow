@@ -1,0 +1,334 @@
+{
+  "id": 209,
+  "oficio": "Jardinería",
+  "texto": "Diseño de jardín vertical con plantas trepadoras en fachada de 3x4 metros con estructura metálica",
+  "http_status": 200,
+  "latency_ms": 33909,
+  "raw_response": {
+    "transcript": "Diseño de jardín vertical con plantas trepadoras en fachada de 3x4 metros con estructura metálica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Diseño de jardín vertical con plantas trepadoras en fachada de 3x4 metros con estructura metálica",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diseño incluido: requiere validación de planos y cálculo estructural",
+          "Sistema de riego automático obligatorio para jardin vertical",
+          "Impermeabilización de fachada recomendada antes de instalación",
+          "Mantenimiento recurrente estimado: poda y riego automatizado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Diseño, plantación y gestión jardin vertical"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Estructura metálica tubular y anclajes a fachada"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación sistema de riego automatizado y conectores"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diseño y planos jardin vertical 3x4m",
+          "descripcion": "Diseño arquitectónico y técnico de jardín vertical con plantas trepadoras, cálculo de cargas, planos de estructura metálica y sistema de riego",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Honorarios de diseño a criterio del profesional (estimado 300-800€)"
+        },
+        {
+          "concepto": "Estructura tubular metálica y anclajes a fachada",
+          "descripcion": "Estructura de acero o aluminio tubular (40x40x2mm o similar) para soporte de jardín vertical 3x4m con 12m² de superficie, incluye perfiles horizontales, verticales, angulares de refuerzo, tornillería inox, pasadores anclajes a estructura fachada, tratamiento anticorrosión",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Suministro estructura metálica a presupuestar (estimado 800-2000€ según perfil)"
+        },
+        {
+          "concepto": "Fabricación y montaje estructura metálica",
+          "descripcion": "Corte, soldadura, ensamblaje y montaje de estructura metálica a fachada con anclajes calculados a cargas de viento y peso plantas (estimado 15-20kg/m² con riego)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de bolsillos o paneles vegetales para jardín vertical",
+          "descripcion": "Paneles modulares con bolsillos textiles (fieltro geotextil) o sistemas de módulos prefabricados para cultivo vertical, resistentes a humedad, con drenaje integrado, 12m² (incluye anclaje a estructura)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Paneles vegetales: 30-80€/m² según calidad (estimado 360-960€ total)"
+        },
+        {
+          "concepto": "Instalación paneles y bolsillos vegetales",
+          "descripcion": "Colocación y fijación de paneles/bolsillos a estructura metálica, nivelación, aseguración de drenaje y evacuación de agua",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 25,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustrato específico para jardín vertical",
+          "descripcion": "Sustrato ligero especializado para cultivo vertical, mezcla de fibra de coco, perlita, compost, retenedor de humedad y nutrientes, 12m² x 8cm espesor (aproximadamente 0,96m³)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sustrato especializado: 40-80€/m³ (estimado 40-80€)"
+        },
+        {
+          "concepto": "Plantas trepadoras y de cobertura",
+          "descripcion": "Plantas trepadoras ornamentales según diseño (Hedera helix, Clematis, Jazmín, Enredadera de Virginia, etc.), adaptadas a orientación de fachada, cantidad estimada 40-50 unidades, incluye macetas/contenedores integrados",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Plantas trepadoras: 8-25€/ud según especie (estimado 360-1125€)"
+        },
+        {
+          "concepto": "Plantación de plantas trepadoras en jardín vertical",
+          "descripcion": "Preparación de sustrato en bolsillos/paneles, plantación de 45 unidades, riego de asiento, acomodo de tallos a estructura de soporte, tutores si necesario",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 25,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de riego por goteo automatizado OBLIGATORIO",
+          "descripcion": "Sistema de riego por goteo integrado con tuberías polietileno (16-20mm), goteros regulables, válvulas de corte, temporizador/programador electrónico, válvula solenoide, drip-line con distribución uniforme a los 12m² del jardín vertical, incluye pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema riego automatizado completo: 400-1200€ (incluye temporizador electrónico y programador)"
+        },
+        {
+          "concepto": "Instalación sistema de riego automatizado",
+          "descripcion": "Colocación de tuberías y goteros en paneles, conexión a toma de agua, instalación de válvulas, temporizador electrónico, pruebas de caudal y uniformidad, ajuste de goteros",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización de fachada en zona de jardín vertical",
+          "descripcion": "Tratamiento impermeabilizante de fachada en zona de 3x4m con barrera antiumedad, sellante acrilico o poliuretano en juntas y encuentros, protección de puntos débiles, evita filtraciones en estructura del edificio",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Impermeabilizante fachada: 10-30€/m² (estimado 120-360€)"
+        },
+        {
+          "concepto": "Aplicación impermeabilización de fachada",
+          "descripcion": "Limpieza fachada, aplicación de impermeabilizante con brocha/rodillo, sellado de juntas y encuentros, curado según especificaciones producto",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 32,
+          "total": 192,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tirafondos inox, pasadores, tuercas, arandelas, cinta teflón, abrazaderas, conectores, válvulas mini, clips para tuberías, geotextil filtrante complementario, sellantes, disolventes, materiales auxiliares",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material accesorios: 150-300€"
+        },
+        {
+          "concepto": "Pruebas, ajustes y recepción",
+          "descripcion": "Comprobación integral del sistema (riego, drenaje, anclajes, estética), ajuste de caudales y tiempos de riego, prueba en seco y con agua, corrección de defectos, documentación y entrega",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 25,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2202,
+        "iva_porcentaje": 21,
+        "iva": 462.42,
+        "total": 2664.42
+      },
+      "sugerencias_catalogo": [
+        "Considera la entrada en catálogo especializado de 'Diseño e instalación de jardines verticales' con rangos 8-50€/m² según complejidad y automatización",
+        "Ampliar catálogo de 'Sistemas de riego automatizado para jardines verticales' diferenciando por caudal, número de goteros y tipo de temporizador",
+        "Incluir 'Tratamientos impermeabilizantes para fachadas con jardines vertical' como entrada relacionada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diseño y planos jardin vertical 3x4m",
+          "oficio": "jardineria",
+          "precio_unitario_sugerido": "550€",
+          "motivo": "Servicio de diseño técnico especializado no recurrente"
+        },
+        {
+          "concepto": "Estructura tubular metálica y anclajes a fachada",
+          "oficio": "cerrajeria",
+          "precio_unitario_sugerido": "1200€ (alzado)",
+          "motivo": "Suministro de estructura metálica personalizada según proyecto"
+        },
+        {
+          "concepto": "Sistema de bolsillos o paneles vegetales para jardín vertical",
+          "oficio": "jardineria",
+          "precio_unitario_sugerido": "50€/m²",
+          "motivo": "Material especializado para cultivo vertical, 12m² = 600€"
+        },
+        {
+          "concepto": "Sustrato específico para jardín vertical",
+          "oficio": "jardineria",
+          "precio_unitario_sugerido": "60€/m³",
+          "motivo": "Mezcla especializada ligera con retenedor humedad"
+        },
+        {
+          "concepto": "Plantas trepadoras y de cobertura",
+          "oficio": "jardineria",
+          "precio_unitario_sugerido": "15€/ud (promedio)",
+          "motivo": "45 plantas x 15€ = 675€ aproximado"
+        },
+        {
+          "concepto": "Sistema de riego por goteo automatizado OBLIGATORIO",
+          "oficio": "electricidad",
+          "precio_unitario_sugerido": "750€ (alzado)",
+          "motivo": "Sistema completo con temporizador programable y tuberías"
+        },
+        {
+          "concepto": "Impermeabilización de fachada en zona de jardín vertical",
+          "oficio": "pintura",
+          "precio_unitario_sugerido": "20€/m²",
+          "motivo": "Barrera protectora fachada contra filtraciones, 12m² = 240€"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "jardineria",
+          "precio_unitario_sugerido": "200€ (alzado)",
+          "motivo": "Tornillería, conectores, sellantes y accesorios varios"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_toldos_y_marquesinas_metalicas_estructurales",
+      "instalacion_cubierta_verde_o_ajardinada",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "acolchado_mulching_de_zonas_de_plantacion",
+      "creacion_de_jardin_vertical_o_pared_vegetal"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 14,
+    "n_catalogo": 6,
+    "n_sugeridas": 8,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

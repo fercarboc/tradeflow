@@ -1,0 +1,235 @@
+{
+  "id": 108,
+  "oficio": "Climatización",
+  "texto": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+  "http_status": 200,
+  "latency_ms": 21752,
+  "raw_response": {
+    "transcript": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si la red eléctrica existente soporta 3 splits simultáneos (carga estimada 15-18 kW)",
+          "Confirmar ubicación exacta de unidades interiores y exteriores para calcular longitud de tuberías refrigerante",
+          "Revisar si requiere ampliación de acometida eléctrica o nuevo circuito dedicado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de equipos split inverter, conexión a sistema existente"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión a red eléctrica, circuitos dedicados, protecciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación unidad interior split inverter",
+          "descripcion": "Suministro e instalación de 3 unidades interiores split inverter (tipo mural o cassette) en salón y dormitorios, incluyendo soportes, anclajes y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de equipos split inverter a definir por instalador según marca, potencia (kW) y modelo"
+        },
+        {
+          "concepto": "Suministro unidad exterior split inverter",
+          "descripcion": "Suministro unidad exterior (condensadora) multisplit inverter para 3 unidades interiores, incluyendo compresor, ventilador y controles",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de unidad exterior multisplit a definir según capacidad total (kW) y marca"
+        },
+        {
+          "concepto": "Instalación unidades interiores y exterior",
+          "descripcion": "Instalación mecánica de 3 unidades interiores y 1 unidad exterior: montaje en pared, fijación, nivelación, pruebas de funcionamiento y puesta en marcha",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 60,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tuberías refrigerante y aislamiento",
+          "descripcion": "Suministro e instalación de tuberías de cobre para circuito refrigerante (ida y retorno) desde unidad exterior a 3 unidades interiores, incluyendo aislamiento térmico, accesorios y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a definir según distancia entre unidades. Precio unitario (€/ml) a revisar por instalador"
+        },
+        {
+          "concepto": "Conexión a sistema existente",
+          "descripcion": "Conexión de nuevo sistema multisplit a instalación existente: purga de aire, carga de refrigerante, pruebas de estanqueidad y equilibrado de circuitos",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuito eléctrico dedicado para splits",
+          "descripcion": "Instalación de circuito eléctrico dedicado desde cuadro general a unidad exterior: cableado 4x6 mm² (o según cálculo de carga), magnetotérmico 32A, diferencial 30mA y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según longitud de cableado, sección necesaria (cálculo de carga) y accesorios"
+        },
+        {
+          "concepto": "Instalación circuito eléctrico y conexión unidad exterior",
+          "descripcion": "Instalación de cableado, protecciones (magnetotérmico, diferencial), conexión a cuadro general y conexión de unidad exterior al circuito dedicado, incluyendo pruebas de continuidad y aislamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado de control y comunicación",
+          "descripcion": "Suministro e instalación de cable de control (2x1.5 mm²) entre unidades interiores y exterior, incluyendo canalizaciones, pasos de pared y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a definir según distribución de unidades. Precio unitario (€/ml) a revisar"
+        },
+        {
+          "concepto": "Pruebas finales y puesta en marcha",
+          "descripcion": "Pruebas de funcionamiento en modo frío y calor, calibración de termostatos, verificación de consumo eléctrico, entrega de documentación técnica y manual de usuario",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1380,
+        "iva_porcentaje": 21,
+        "iva": 289.8,
+        "total": 1669.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Instalación de sistema multisplit inverter' para obtener precios de equipos y tuberías refrigerante",
+        "Consultar tarifa de 'Circuitos eléctricos dedicados' para climatización en catálogo de electricidad",
+        "Revisar si existe partida de 'Carga de refrigerante y pruebas de estanqueidad' en catálogo de climatización"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación unidad interior split inverter",
+          "oficio": "climatizacion",
+          "motivo": "Equipo específico multisplit inverter, cantidad y especificaciones a definir por instalador"
+        },
+        {
+          "concepto": "Suministro unidad exterior multisplit inverter",
+          "oficio": "climatizacion",
+          "motivo": "Condensadora multisplit, capacidad total a calcular según unidades interiores"
+        },
+        {
+          "concepto": "Tuberías refrigerante y aislamiento",
+          "oficio": "climatizacion",
+          "motivo": "Cobre y aislamiento, cantidad variable según distancia entre unidades"
+        },
+        {
+          "concepto": "Circuito eléctrico dedicado para splits",
+          "oficio": "electricidad",
+          "motivo": "Cableado, protecciones y accesorios, sección a calcular según carga total"
+        },
+        {
+          "concepto": "Cableado de control y comunicación",
+          "oficio": "electricidad",
+          "motivo": "Cable de control entre unidades, cantidad variable según distribución"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_recuperacion_aguas_pluviales",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_central_de_incendios_deteccion_automatica"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4098,
+      "tokens_out": 3018
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "id": 357,
+  "oficio": "Mantenimiento General",
+  "texto": "Instalar barras de seguridad en ventanas de bajo de edificio de alquiler, 4 ventanas",
+  "http_status": 200,
+  "latency_ms": 12299,
+  "raw_response": {
+    "transcript": "Instalar barras de seguridad en ventanas de bajo de edificio de alquiler, 4 ventanas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar barras de seguridad en ventanas de bajo de edificio de alquiler, 4 ventanas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en edificio de alquiler: verificar permiso del propietario/comunidad antes de ejecutar",
+          "Barras de seguridad requieren anclaje estructural: inspeccionar estado de jambas y muros"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de elementos de seguridad metálicos (barras/rejas) en ventanas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro barras de seguridad ajustables",
+          "descripcion": "Barras de seguridad metálicas (acero galvanizado o aluminio) ajustables para ventanas, incluye herrajes de fijación, 4 unidades",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de barras de seguridad según medida, tipo (ajustables/fijas) y material. El instalador debe confirmar especificaciones y coste unitario"
+        },
+        {
+          "concepto": "Anclajes y pequeño material",
+          "descripcion": "Tacos, tornillos, tuercas, arandelas y pequeño material para fijación de barras a jambas y muros, 4 ventanas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de anclajes según tipo de muro (hormigón, ladrillo, etc.) y número de puntos de fijación por ventana"
+        },
+        {
+          "concepto": "Instalación barras de seguridad",
+          "descripcion": "Mano de obra: medición, marcado, taladrado, anclaje y fijación de barras de seguridad en 4 ventanas, incluye ajuste y prueba de funcionamiento",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento antioxidante y acabado",
+          "descripcion": "Limpieza, desoxidación y aplicación de pintura/barniz protector en barras metálicas para evitar corrosión, 4 unidades",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de productos de tratamiento antioxidante y pintura protectora según cantidad y tipo de acabado"
+        },
+        {
+          "concepto": "Mano de obra tratamiento antioxidante",
+          "descripcion": "Aplicación de tratamiento antioxidante y pintura protectora en barras de seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 600,
+        "iva_porcentaje": 21,
+        "iva": 126,
+        "total": 726
+      },
+      "sugerencias_catalogo": [
+        "Verificar si las barras son ajustables (sin taladro) o fijas (requieren anclaje estructural)",
+        "Confirmar medidas exactas de ventanas para presupuestar barras a medida",
+        "Especificar material: acero galvanizado (más resistente) vs aluminio (más ligero)",
+        "Considerar si se requiere pintura de acabado o barniz transparente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro barras de seguridad ajustables",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico de seguridad, precio variable según medida y tipo"
+        },
+        {
+          "concepto": "Anclajes y pequeño material",
+          "oficio": "cerrajeria",
+          "motivo": "Consumibles de fijación, precio variable según tipo de muro"
+        },
+        {
+          "concepto": "Tratamiento antioxidante y acabado",
+          "oficio": "cerrajeria",
+          "motivo": "Productos de protección, precio variable según cantidad y tipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_reja_fija_en_ventana_o_puerta",
+      "instalacion_camara_frigorifica_negativa_congelacion",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_videoportero_o_intercomunicador"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3965,
+      "tokens_out": 1595
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

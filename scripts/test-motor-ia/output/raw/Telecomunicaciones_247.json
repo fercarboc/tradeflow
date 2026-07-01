@@ -1,0 +1,168 @@
+{
+  "id": 247,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+  "http_status": 200,
+  "latency_ms": 12949,
+  "raw_response": {
+    "transcript": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere confirmación de marca/modelo de antena parabólica y receptor",
+          "Verificar orientación y ubicación exacta de instalación (azimut, elevación)",
+          "Confirmar tipo de cableado (RG6, RG11) según distancia entre antena y receptor"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de antena parabólica satelital con distribución de señal a múltiples salidas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Antena parabólica satelital",
+          "descripcion": "Suministro de antena parabólica para recepción de señal de satélite (diámetro según zona de cobertura)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca, modelo y diámetro de antena (60cm, 80cm, 120cm, etc.)"
+        },
+        {
+          "concepto": "Receptor/decodificador satelital",
+          "descripcion": "Suministro de receptor decodificador para recepción de señal satelital con capacidad de dos salidas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca, modelo y características (HD, 4K, número de sintonizadores)"
+        },
+        {
+          "concepto": "Cableado coaxial y conectores",
+          "descripcion": "Suministro de cable coaxial 75 ohmios (RG6 o RG11 según distancia), conectores F y accesorios de conexión para dos salidas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 30ml; ajustar según distancia real entre antena y receptor y entre receptor y salidas"
+        },
+        {
+          "concepto": "Soporte y herrajes de fijación",
+          "descripcion": "Suministro de soporte mural o de tejado, abrazaderas, tacos de anclaje y herrajes inoxidables para fijación de antena parabólica",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de soporte (mural, tejado, poste) y material de fijación"
+        },
+        {
+          "concepto": "Instalación de antena parabólica y receptor",
+          "descripcion": "Mano de obra: montaje de antena parabólica, orientación y alineación de señal, instalación de receptor, conexión de cableado, pruebas de recepción y calibración de dos salidas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Silicona neutra, cinta aislante, bridas, pasta térmica, tornillería inoxidable y otros accesorios menores",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado entre 15-40€ según cantidad y tipo de accesorios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la instalación incluye canalización de cables (tubo corrugado, canaleta) para protección",
+        "Verificar si se requiere puesta a tierra de la antena parabólica (obligatorio en muchas zonas)",
+        "Considerar si se necesita amplificador de señal si las distancias son muy largas",
+        "Aclarar si las 'dos salidas' son para dos televisores independientes o distribución de una misma señal"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Antena parabólica satelital",
+          "oficio": "telecomunicaciones",
+          "razon": "Material específico de instalación satelital, requiere especificación de marca/modelo"
+        },
+        {
+          "concepto": "Receptor/decodificador satelital",
+          "oficio": "telecomunicaciones",
+          "razon": "Material específico, precio variable según características técnicas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4001,
+      "tokens_out": 1790
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

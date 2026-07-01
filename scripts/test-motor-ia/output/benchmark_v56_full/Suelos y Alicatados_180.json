@@ -1,0 +1,191 @@
+{
+  "id": 180,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Colocar suelo de baldosa hidráulica en pasillo de vivienda antigua, 8 metros cuadrados, patrón geométrico",
+  "http_status": 200,
+  "latency_ms": 16994,
+  "raw_response": {
+    "transcript": "Colocar suelo de baldosa hidráulica en pasillo de vivienda antigua, 8 metros cuadrados, patrón geométrico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar suelo de baldosa hidráulica en pasillo de vivienda antigua, 8 metros cuadrados, patrón geométrico",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Baldosa hidráulica requiere mortero flexible C2S2 y junta perimetral obligatoria",
+          "Patrón geométrico implica replanteo y cortes adicionales (merma estimada 12-15%)",
+          "Vivienda antigua: verificar regularización previa del soporte"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 45
+          },
+          "motivo": "Colocación de baldosa cerámica/hidráulica en interior. Baldosa hidráulica es variante de solado cerámico interior con mayor complejidad por patrón geométrico."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Baldosa hidráulica patrón geométrico",
+          "descripcion": "Suministro de baldosa hidráulica de alta calidad, patrón geométrico, formato según diseño, incluidas mermas por cortes y ajustes (12-15% estimado)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 9.2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baldosa hidráulica variable según calidad, diseño y proveedor. Instalador debe confirmar precio unitario y cantidad exacta con mermas."
+        },
+        {
+          "concepto": "Mortero cola flexible C2S2",
+          "descripcion": "Mortero cola flexible C2S2 para baldosa hidráulica en interior, aplicación con llana dentada 10x10 mm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 2 kg/m2 para baldosa hidráulica. Precio según marca y disponibilidad."
+        },
+        {
+          "concepto": "Lechada de junta flexible",
+          "descripcion": "Lechada de junta flexible (epoxi o cementosa flexible) para juntas entre baldosas hidráulicas, ancho junta 3-4 mm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada según perímetro de juntas. Precio según tipo (cementosa o epoxi)."
+        },
+        {
+          "concepto": "Junta perimetral silicona",
+          "descripcion": "Junta perimetral con silicona o espuma de poliuretano en encuentro con paredes y pilares (obligatoria en baldosa hidráulica)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud estimada según perímetro del pasillo. Precio según material (silicona o espuma)."
+        },
+        {
+          "concepto": "Replanteo y cortes patrón geométrico",
+          "descripcion": "Replanteo simétrico del patrón geométrico, marcado de líneas de referencia, cortes y ajustes de baldosas para encaje correcto del diseño",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación baldosa hidráulica",
+          "descripcion": "Colocación de baldosa hidráulica con mortero flexible C2S2, aplicación con llana dentada, nivelación y alineación según patrón geométrico",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 32,
+          "total": 256,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado y limpieza",
+          "descripcion": "Rejuntado de juntas con lechada flexible, limpieza de excedentes, curado y acabado final",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Regularización previa soporte (si necesario)",
+          "descripcion": "Regularización y nivelación del soporte existente si presenta irregularidades superiores a 3 mm bajo regla de 2 m (vivienda antigua)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Partida condicional: solo si el soporte requiere regularización. Instalador debe verificar estado del pavimento existente en vivienda antigua."
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Baldosa hidráulica: confirmar proveedor, calidad (artesanal vs industrial), precio unitario €/m2 y disponibilidad del patrón geométrico solicitado",
+        "Mortero C2S2: recomendado flexible para baldosa hidráulica en interior. Marcas: Mapei, Ceresit, Sika",
+        "Lechada flexible: considerar epoxi para mayor durabilidad en pasillos con tráfico frecuente",
+        "Vivienda antigua: realizar inspección previa del soporte (humedad, regularidad, resistencia) antes de presupuestar"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Baldosa hidráulica patrón geométrico",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material específico de baldosa hidráulica con patrón geométrico. Variante de solado cerámico interior con mayor complejidad y precio variable según diseño y proveedor."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_ceramico_interior_estandar",
+      "solado_ceramico_interior",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_suelo_flotante_sobre_plots_regulables",
+      "solado_ceramico_exterior_terraza"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4062,
+      "tokens_out": 2237
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

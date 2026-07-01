@@ -1,0 +1,251 @@
+{
+  "id": 347,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar goteras en tejado de nave industrial, revisión de cubierta y sellado de juntas",
+  "http_status": 200,
+  "latency_ms": 17509,
+  "raw_response": {
+    "transcript": "Reparar goteras en tejado de nave industrial, revisión de cubierta y sellado de juntas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar goteras en tejado de nave industrial, revisión de cubierta y sellado de juntas",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: requiere EPI y línea de vida",
+          "Nave industrial: posible acceso con andamio o plataforma elevadora",
+          "Sellado de juntas: material elastómerico recomendado para movimientos térmicos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Reparación de goteras, revisión de cubierta y sellado de juntas en tejado industrial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y diagnóstico de cubierta",
+          "descripcion": "Inspección completa de la cubierta de la nave industrial, identificación de puntos de fuga, estado de juntas y solapes",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza mecánica de óxido y suciedad en cubierta",
+          "descripcion": "Limpieza de la superficie de cubierta, eliminación de óxido, suciedad, musgo y restos de selladores antiguos",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 8,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación antioxido",
+          "descripcion": "Aplicación de imprimación antioxido en zonas con corrosión detectada",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: imprimación antioxido. Instalador debe indicar precio según marca y cantidad"
+        },
+        {
+          "concepto": "Pintura elastomérica o poliuretano para cubierta",
+          "descripcion": "Aplicación de pintura elastomérica o poliuretano de protección e impermeabilización en cubierta",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pintura elastomérica/poliuretano. Instalador debe indicar precio según rendimiento y marca"
+        },
+        {
+          "concepto": "Mano de obra: aplicación de pintura elastomérica",
+          "descripcion": "Aplicación de pintura elastomérica en toda la superficie de cubierta",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 12,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de juntas con sellador poliuretano",
+          "descripcion": "Sellado flexible de juntas, solapes y encuentros con sellador poliuretano de alta elasticidad",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: sellador poliuretano. Instalador debe indicar precio según tipo y cantidad de cartuchos"
+        },
+        {
+          "concepto": "Mano de obra: aplicación de sellador en juntas",
+          "descripcion": "Aplicación de sellador poliuretano en juntas, solapes y encuentros de cubierta",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 200,
+          "precio_unitario": 5,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de solapes con banda de refuerzo",
+          "descripcion": "Colocación de banda de refuerzo geotextil en solapes y puntos críticos de filtración",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: banda de refuerzo geotextil. Instalador debe indicar precio"
+        },
+        {
+          "concepto": "Mano de obra: colocación de banda de refuerzo",
+          "descripcion": "Colocación y fijación de banda de refuerzo en solapes y encuentros",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 100,
+          "precio_unitario": 6,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y línea de vida para trabajos en altura",
+          "descripcion": "Equipos de protección individual (arnés, casco, guantes) y línea de vida para trabajos en cubierta de nave industrial",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material/servicio: EPI y línea de vida. Instalador debe indicar si es alquiler o compra"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Trapos, disolventes, cepillos, masilla, tornillería inox, abrazaderas y otros consumibles",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pequeño material y consumibles. Instalador debe indicar presupuesto"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4750,
+        "iva_porcentaje": 21,
+        "iva": 997.5,
+        "total": 5747.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la nave industrial tiene cubierta metálica, de chapa o de otro material para ajustar el tipo de pintura y sellador",
+        "Considerar si hay puntos críticos como encuentros de chimenea, lucernarios o tuberías que requieran refuerzo adicional",
+        "Evaluar si es necesario andamio o plataforma elevadora según altura y accesibilidad de la cubierta"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación antioxido",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Material específico para tratamiento de óxido en cubiertas metálicas"
+        },
+        {
+          "concepto": "Pintura elastomérica o poliuretano para cubierta",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Material de impermeabilización y protección para cubiertas industriales"
+        },
+        {
+          "concepto": "Sellador poliuretano para juntas",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Material elastómerico para sellado de juntas y solapes"
+        },
+        {
+          "concepto": "Banda de refuerzo geotextil",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Refuerzo estructural en puntos críticos de filtración"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "reforma_de_cubierta_de_edificio_comunitario",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "impermeabilizacion_de_encuentro_fachada_cubierta",
+      "reparacion_o_sustitucion_de_canalon_o_bajante_en_tejado"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3981,
+      "tokens_out": 2752
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "NO"
+  }
+}

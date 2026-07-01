@@ -1,0 +1,165 @@
+{
+  "id": 280,
+  "oficio": "Cristalería",
+  "texto": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+  "http_status": 200,
+  "latency_ms": 16067,
+  "raw_response": {
+    "transcript": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto requiere confirmación de marca/modelo vehículo y tipo de parabrisas (laminado, templado, con sensor)",
+          "Logotipo adhesivo: especificar dimensiones, material (vinilo, impresión digital) y ubicación",
+          "Mano de obra de desmontaje/instalación estimada; revisar según complejidad real del vehículo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Desmontaje e instalación de parabrisas en vehículo industrial"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Suministro e instalación de parabrisas laminado/templado con posible sensor"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje parabrisas antiguo",
+          "descripcion": "Desmontaje cuidadoso del parabrisas existente, extracción de juntas y sellante, limpieza de marco",
+          "oficio": "mecanica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 55,
+          "total": 82.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Parabrisas laminado para vehículo industrial",
+          "descripcion": "Parabrisas laminado de seguridad, templado, con o sin sensor de lluvia/luz según modelo. Incluye junta de estanqueidad y adhesivo estructural",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca/modelo vehículo, tipo de parabrisas (con/sin sensor), y proveedor. Rango estimado: 300-800€"
+        },
+        {
+          "concepto": "Instalación parabrisas nuevo",
+          "descripcion": "Colocación del parabrisas nuevo, aplicación de adhesivo estructural, sellado perimetral, prueba de estanqueidad y ajuste",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Logotipo adhesivo empresa",
+          "descripcion": "Diseño, impresión y aplicación de logotipo adhesivo en vinilo o material similar. Incluye posicionamiento y acabado profesional",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tamaño, complejidad del diseño y material. Rango estimado: 50-200€"
+        },
+        {
+          "concepto": "Aplicación logotipo adhesivo",
+          "descripcion": "Colocación, alineación y acabado del logotipo adhesivo en parabrisas. Incluye limpieza previa y sellado de bordes",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.75,
+          "precio_unitario": 45,
+          "total": 33.75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 206.25,
+        "iva_porcentaje": 21,
+        "iva": 43.31,
+        "total": 249.56
+      },
+      "sugerencias_catalogo": [
+        "Confirmar marca y modelo exacto del vehículo industrial para obtener parabrisas correcto",
+        "Especificar si el parabrisas incluye sensor de lluvia, sensor de luz o ambos (afecta precio material)",
+        "Detallar dimensiones y ubicación exacta del logotipo (esquina superior, centrado, etc.)",
+        "Considerar si se requiere certificación de instalación o garantía del parabrisas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Parabrisas laminado para vehículo industrial",
+          "oficio": "cristaleria",
+          "motivo": "Material específico cuyo precio depende de modelo y características del vehículo"
+        },
+        {
+          "concepto": "Logotipo adhesivo empresa",
+          "oficio": "cristaleria",
+          "motivo": "Servicio personalizado de diseño e impresión de logotipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "cambio_inodoro",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial",
+      "instalacion_de_mosquitera_metalica_en_ventana_o_puerta"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3725,
+      "tokens_out": 1668
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "mecanica",
+    "coincide_oficio": "NO"
+  }
+}

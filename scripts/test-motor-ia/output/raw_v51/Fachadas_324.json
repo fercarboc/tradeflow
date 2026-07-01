@@ -1,0 +1,166 @@
+{
+  "id": 324,
+  "oficio": "Fachadas",
+  "texto": "Reparar y rejuntar fachada de ladrillo con mortero de cal, zona afectada 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 17626,
+  "raw_response": {
+    "transcript": "Reparar y rejuntar fachada de ladrillo con mortero de cal, zona afectada 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar y rejuntar fachada de ladrillo con mortero de cal, zona afectada 30 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si el edificio es histórico (se recomienda mortero de cal hidráulica)",
+          "Confirmar profundidad de fresado de juntas (mínimo 2 cm recomendado)",
+          "Andamio/plataforma: confirmado como incluido en precio o presupuesto aparte"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación y rejuntado de fachada de ladrillo visto con mortero de cal"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Fresado de juntas deterioradas",
+          "descripcion": "Fresado de juntas de ladrillo a profundidad mínima 2 cm para asegurar adherencia del mortero nuevo",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 12,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero de cal para rejuntado",
+          "descripcion": "Mortero de cal blanca o compatible con ladrillo antiguo. Incluye suministro y aplicación en juntas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mortero de cal a definir por instalador según calidad y tipo (cal hidráulica o cal aérea)"
+        },
+        {
+          "concepto": "Aplicación y rejuntado de juntas",
+          "descripcion": "Rejuntado manual de juntas con mortero de cal, asegurar profundidad uniforme y acabado limpio",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 18,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza final de ladrillo",
+          "descripcion": "Limpieza y eliminación de restos de mortero y polvo del ladrillo visto tras rejuntado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 8,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Montaje, mantenimiento y desmontaje de andamio o plataforma de seguridad para acceso a fachada",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de alquiler/montaje de andamio a definir según altura, duración y disponibilidad local"
+        },
+        {
+          "concepto": "Pequeño material y herramienta menor",
+          "descripcion": "Escobillas, cepillos, paletas, cuñas, esponjas de limpieza y demás herramienta menor de trabajo",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material estimable en porcentaje (2-5%) del presupuesto de mano de obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1140,
+        "iva_porcentaje": 21,
+        "iva": 239.4,
+        "total": 1379.4
+      },
+      "sugerencias_catalogo": [
+        "Si el edificio es histórico o de valor patrimonial, confirmar uso de mortero de cal hidráulica (más resistente y transpirable que cal aérea)",
+        "Muestrario de tonalidades de mortero: acordar color con cliente antes de iniciar trabajo masivo",
+        "Hidrofugo final: considerar aplicación de protector de fachada si existe problemas de humedad o filtraciones previas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero de cal para rejuntado",
+          "razon": "Material base: precio varía según tipo (cal aérea, cal hidráulica, mortero premezclado) y marca",
+          "sugerencia": "Solicitar al cliente especificación o marca preferida; rango estimado 15-40€/saco según calidad"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "razon": "Servicio auxiliar: coste variable según altura de fachada y duración de obra",
+          "sugerencia": "Presupuestar por separado o incluir en jornales según acuerdo con cliente"
+        },
+        {
+          "concepto": "Pequeño material y herramienta menor",
+          "razon": "Consumibles: escobillas, cepillos, esponjas, cuñas",
+          "sugerencia": "Estimable entre 2-5% del coste de mano de obra o presupuestar cifra fija 30-50€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "reparacion_y_rejuntado_de_ladrillo_cara_vista",
+      "enfoscado_o_revoco_de_fachada_exterior",
+      "reparacion_de_desprendimiento_de_revestimiento_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

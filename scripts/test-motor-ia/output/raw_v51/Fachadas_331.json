@@ -1,0 +1,227 @@
+{
+  "id": 331,
+  "oficio": "Fachadas",
+  "texto": "Reparar grietas estructurales en fachada con inyección de resina epoxy y grapas de acero",
+  "http_status": 200,
+  "latency_ms": 22457,
+  "raw_response": {
+    "transcript": "Reparar grietas estructurales en fachada con inyección de resina epoxy y grapas de acero",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar grietas estructurales en fachada con inyección de resina epoxy y grapas de acero",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Grietas estructurales detectadas: REQUIERE DIAGNÓSTICO PREVIO de actividad (activa/pasiva) y evaluación técnica",
+          "Inyección de resina epoxy es método especializado: se asume grieta activa o con movimiento",
+          "Grapas de acero indican refuerzo estructural: puede requerir PROYECTO TÉCNICO según normativa",
+          "Presupuesto estimado pero PENDIENTE de confirmación tras inspección visual de extensión y tipo de grieta"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación de grietas estructurales en fachada con técnicas especializadas (inyección resina, grapas acero)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y diagnóstico de grietas estructurales",
+          "descripcion": "Evaluación visual y técnica para determinar tipo de grieta (activa/pasiva), extensión, profundidad y necesidad de refuerzo estructural",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diagnóstico previo obligatorio antes de reparación; instalador define tarifa según complejidad"
+        },
+        {
+          "concepto": "Saneo y preparación de grieta estructural",
+          "descripcion": "Limpieza, cepillado mecánico y eliminación de material suelto en grietas para preparación previa a inyección",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inyección de resina epoxy estructural",
+          "descripcion": "Inyección con resina epoxy de alta resistencia (inyectores, válvulas, mangueras, soplado con compresor) para consolidación de grietas activas o con movimiento",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado; instalador especifica marca, viscosidad y cantidad según profundidad/extensión grieta"
+        },
+        {
+          "concepto": "Colocación de grapas de acero estructural",
+          "descripcion": "Instalación de grapas metálicas de acero galvanizado o inoxidable ancladas transversalmente a grieta para refuerzo estructural y control de movimiento",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Grapas especificadas por proyecto; material y cantidad según tipo/espesor grieta; incluye anclajes y accesorios"
+        },
+        {
+          "concepto": "Mano de obra: perforación e instalación grapas",
+          "descripcion": "Perforación, colocación y fijación de grapas de acero perpendiculares a grieta con separación según proyecto",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación y tratamiento anticorrosión",
+          "descripcion": "Aplicación de imprimación anticorrosión en grapas y zona tratada para protección frente a oxidación",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Imprimación y pintura final especificadas por acabado deseado; marca y cantidad según zona"
+        },
+        {
+          "concepto": "Mano de obra: imprimación y acabado",
+          "descripcion": "Aplicación de imprimación anticorrosión y acabado final (pintura) en zona reparada y grapas",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler/montaje de andamio seguro o plataforma elevada para acceso a grietas en fachada durante reparación",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "día",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste andamio variable según altura y días necesarios; instalador cotiza con proveedor"
+        },
+        {
+          "concepto": "Testigos de control (si grieta activa)",
+          "descripcion": "Colocación de testigos de vidrio o plástico para monitorización de movimiento de grieta en tiempo",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional pero recomendado en grietas activas; cantidad según extensión grieta"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Materiales auxiliares: trapos, cepillos, equipos de protección, solventes, cinta adhesiva, etc.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar estándar; instalador incluye en presupuesto final"
+        }
+      ],
+      "calculos": {
+        "subtotal": 414,
+        "iva_porcentaje": 21,
+        "iva": 86.94,
+        "total": 500.94
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si grieta requiere PROYECTO TÉCNICO por normativa local (obra estructural)",
+        "Solicitar CERTIFICADO de resina epoxy con especificaciones técnicas (resistencia, flexibilidad, tiempo curado)",
+        "Especificar dimensiones y material de grapas (acero galvanizado vs inoxidable según exposición)",
+        "Definir si reparación es TEMPORAL o DEFINITIVA (inyección + grapas suele ser definitivo si se hace correctamente)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Inyección de resina epoxy estructural",
+          "razon": "Técnica especializada de consolidación; no catalogada pero fundamental en reparación grietas estructurales activas",
+          "oficio": "fachadas",
+          "impacto": "CRÍTICO — material y cantidad dependen de profundidad y extensión grieta"
+        },
+        {
+          "partida": "Colocación de grapas de acero estructural",
+          "razon": "Refuerzo estructural específico; requiere cálculo por proyecto técnico",
+          "oficio": "fachadas",
+          "impacto": "CRÍTICO — número y dimensión de grapas según evaluación estructural"
+        },
+        {
+          "partida": "Testigos de control para grietas activas",
+          "razon": "Monitorización de movimiento; opcional pero recomendado en grietas estructurales",
+          "oficio": "fachadas",
+          "impacto": "RECOMENDADO para garantizar estabilidad post-reparación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_fisuras_y_grietas_en_fachada",
+      "reconstruccion_de_muro_con_lesiones_estructurales",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "instalacion_celosias_metalicas_decorativas_o_de_proteccion",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 3,
+    "n_sugeridas": 7,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

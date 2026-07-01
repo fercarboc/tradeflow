@@ -1,0 +1,289 @@
+{
+  "id": 16,
+  "oficio": "Fontanería",
+  "texto": "Instalación de calefacción por suelo radiante en cocina y salón, aproximadamente 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 26265,
+  "raw_response": {
+    "transcript": "Instalación de calefacción por suelo radiante en cocina y salón, aproximadamente 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de calefacción por suelo radiante en cocina y salón, aproximadamente 40 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere confirmación de: tipo de caldera/aerotermia existente, estado del suelo actual, necesidad de demolición, número de zonas/circuitos, tipo de acabado final (solado)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de suelo radiante hidráulico (climatización)"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión a caldera/aerotermia, colector distribuidor, válvula mezcladora"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 45
+          },
+          "motivo": "Acabado final del suelo (solado/alicatado sobre mortero de cubrición)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tubo PEX/multicapa suelo radiante",
+          "descripcion": "Suministro e instalación de tubo PEX de 16mm para circuitos suelo radiante, separación 15-20cm, longitud total aproximada 200-250ml según circuitos",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 225,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material PEX: instalador debe confirmar diámetro, longitud exacta y proveedor"
+        },
+        {
+          "concepto": "Aislamiento base poliestireno expandido",
+          "descripcion": "Suministro e instalación de aislamiento térmico XPS/EPS 40-50mm bajo tuberías suelo radiante, 40 m²",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material aislamiento: confirmar espesor y densidad según cálculo térmico"
+        },
+        {
+          "concepto": "Colector distribuidor con actuadores",
+          "descripcion": "Suministro e instalación de manifold colector-distribuidor con válvulas de derivación, caudalímetros, actuadores termoeléctricos y sonda de temperatura para 2-3 circuitos",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Colector: confirmar número de circuitos, marca y modelo según proyecto"
+        },
+        {
+          "concepto": "Válvula mezcladora termostática",
+          "descripcion": "Suministro e instalación de válvula mezcladora con actuador termoeléctrico para regular temperatura salida a 40-45°C en suelo radiante",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Válvula mezcladora: confirmar caudal máximo y compatibilidad con caldera/aerotermia"
+        },
+        {
+          "concepto": "Mortero autonivelante cubrición suelo radiante",
+          "descripcion": "Suministro e instalación de mortero autonivelante o convencional para cubrición de tuberías suelo radiante, espesor 4-5cm, 40 m²",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mortero: confirmar tipo (autonivelante/convencional) y volumen total en m³"
+        },
+        {
+          "concepto": "Banda perimetral dilatación",
+          "descripcion": "Suministro e instalación de banda de dilatación perimetral en encuentros con paredes, aproximadamente 30ml",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Banda dilatación: confirmar perímetro exacto de las dos estancias"
+        },
+        {
+          "concepto": "Termostatos y control por zona",
+          "descripcion": "Suministro e instalación de termostatos digitales programables por zona (cocina/salón) con sondas de temperatura ambiente",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Termostatos: confirmar si se requiere control centralizado o independiente por estancia"
+        },
+        {
+          "concepto": "Mano de obra instalación suelo radiante",
+          "descripcion": "Mano de obra especializada: preparación base, colocación aislamiento, tendido tuberías PEX, instalación colector, válvula mezcladora, pruebas hidráulicas y puesta en marcha",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 32,
+          "precio_unitario": 60,
+          "total": 1920,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión a caldera/aerotermia",
+          "descripcion": "Mano de obra: conexión de colector distribuidor a caldera o aerotermia existente, válvula mezcladora, tuberías de alimentación y retorno, purgadores y válvulas de seguridad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Solado/alicatado sobre mortero cubrición",
+          "descripcion": "Mano de obra: colocación de baldosas/porcelánico/gres sobre mortero de cubrición suelo radiante, 40 m² (incluye preparación, adhesivo, rejuntado)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 32,
+          "total": 1280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Suministro de pequeño material: llaves de derivación, purgadores, válvulas de cierre, cinta teflón, abrazaderas, soportes, conectores, etc.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: instalador debe presupuestar según accesorios reales necesarios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3600,
+        "iva_porcentaje": 21,
+        "iva": 756,
+        "total": 4356
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si existe caldera/aerotermia actual o si requiere suministro e instalación de generador térmico (no incluido en este presupuesto)",
+        "Solicitar plano de circuitos: número de zonas, longitud máxima por circuito (máx. 120m), separación de tubos (15-20cm)",
+        "Especificar tipo de acabado final: baldosas cerámicas, porcelánico, gres, microcemento u otro",
+        "Confirmar si es necesario demolición de solado existente (no incluido)",
+        "Tiempo de espera mínimo 28 días antes de uso real tras curado del mortero"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tubo PEX/multicapa suelo radiante",
+          "oficio": "climatizacion",
+          "motivo": "Material específico suelo radiante, requiere presupuesto de proveedor"
+        },
+        {
+          "concepto": "Aislamiento base poliestireno expandido",
+          "oficio": "climatizacion",
+          "motivo": "Material aislamiento térmico, requiere cálculo de espesor y densidad"
+        },
+        {
+          "concepto": "Colector distribuidor con actuadores",
+          "oficio": "fontaneria",
+          "motivo": "Componente crítico, requiere selección según número de circuitos"
+        },
+        {
+          "concepto": "Válvula mezcladora termostática",
+          "oficio": "fontaneria",
+          "motivo": "Componente regulación temperatura, requiere especificación técnica"
+        },
+        {
+          "concepto": "Mortero autonivelante cubrición suelo radiante",
+          "oficio": "climatizacion",
+          "motivo": "Material específico, requiere cálculo de volumen en m³"
+        },
+        {
+          "concepto": "Banda perimetral dilatación",
+          "oficio": "climatizacion",
+          "motivo": "Material complementario, requiere medición de perímetro"
+        },
+        {
+          "concepto": "Termostatos y control por zona",
+          "oficio": "climatizacion",
+          "motivo": "Sistema control, requiere especificación de funcionalidades"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "climatizacion",
+          "motivo": "Accesorios varios, requiere presupuesto detallado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_microcemento_suelo_interior",
+      "instalacion_valvula_mezcladora_suelo_radiante",
+      "instalacion_suelo_radiante_hidraulico",
+      "reparacion_fuga_suelo_radiante"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3512,
+      "tokens_out": 3789
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 3,
+    "n_sugeridas": 8,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

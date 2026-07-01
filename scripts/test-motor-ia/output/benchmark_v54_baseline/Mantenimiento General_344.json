@@ -1,0 +1,207 @@
+{
+  "id": 344,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+  "http_status": 200,
+  "latency_ms": 20342,
+  "raw_response": {
+    "transcript": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto de mantenimiento general: 3 oficios distintos, trabajo puntual sin reforma",
+          "Algunas partidas requieren revisión de precios de materiales (grifería, bisagra, cinta persiana)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Trabajo combinado de 3 oficios distintos (fontanería, persianas, cerrajería) sin reforma mayor. Clasificado como mantenimiento general de vivienda."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Reparación/sustitución de grifo"
+        },
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación persiana caída (cinta enrolladora o mecanismo)"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Reparación/sustitución bisagra de puerta"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y reparación grifo roto",
+          "descripcion": "Inspección del grifo averiado, desmontaje, limpieza de válvulas, sustitución de juntas y/o grifo completo si está muy deteriorado. Incluye cierre de llave de paso si es necesario.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo nuevo o piezas de repuesto (juntas, cartucho, etc.)",
+          "descripcion": "Grifo monomando de cocina/baño o piezas de reposición según diagnóstico. Precio a determinar por instalador según marca y modelo.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de grifería variable según marca, modelo y acabado. Instalador debe especificar."
+        },
+        {
+          "concepto": "Reparación persiana caída - cinta enrolladora y mecanismo",
+          "descripcion": "Desmontaje de persiana, inspección de cinta enrolladora, recogedor y guías. Sustitución de cinta si está rota o desgastada. Reensambly y ajuste de mecanismo. Prueba de funcionamiento.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cinta enrolladora persiana (18-26 mm según ancho)",
+          "descripcion": "Cinta de persiana enrollable de poliéster reforzado, ancho 18, 23 o 26 mm según recogedor existente. Incluye pequeño material (tornillos, grapas).",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cinta variable según ancho y calidad. Instalador debe verificar ancho existente y presupuestar."
+        },
+        {
+          "concepto": "Reparación/sustitución bisagra de puerta",
+          "descripcion": "Desmontaje de puerta si es necesario, inspección de bisagra(s), limpieza y lubricación o sustitución por bisagra nueva del mismo tipo. Ajuste de alineación de puerta. Prueba de cierre.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bisagra de puerta (acero inoxidable o cromada)",
+          "descripcion": "Bisagra de reposición, tipo y tamaño según puerta (interior/exterior, peso, acabado). Incluye tornillos de fijación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de bisagra variable según material, tamaño y acabado. Instalador debe especificar tipo de puerta y presupuestar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 230,
+        "iva_porcentaje": 21,
+        "iva": 48.3,
+        "total": 278.3
+      },
+      "sugerencias_catalogo": [
+        "Partida 'reparacion_grifo_o_griferia_averiada' (Base Maestra): rango 45-300€/ud según complejidad. Presupuesto previo recomendado antes de actuar.",
+        "Partida 'reparacion_cinta_enrolladora_persiana' (Base Maestra): rango 100-550€/ud. Verificar ancho de cinta existente (18, 23 o 26 mm) antes de comprar.",
+        "Para bisagra: considerar si es reparable (lubricación) o requiere sustitución completa. Si es puerta de seguridad, especificar tipo de bisagra reforzada."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Grifo nuevo o piezas de repuesto",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Material variable según diagnóstico. Instalador debe presupuestar según marca/modelo."
+        },
+        {
+          "concepto": "Cinta enrolladora persiana",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Material variable según ancho de cinta. Instalador debe verificar medida existente."
+        },
+        {
+          "concepto": "Bisagra de puerta",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Material variable según tipo de puerta y acabado. Instalador debe especificar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_grifo_o_griferia_averiada",
+      "reparacion_y_soldadura_de_estructura_metalica",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reparacion_cinta_enrolladora_persiana",
+      "reparacion_de_fisuras_y_grietas_en_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3607,
+      "tokens_out": 2619
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

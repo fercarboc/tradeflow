@@ -1,0 +1,210 @@
+{
+  "id": 319,
+  "oficio": "Contra Incendios",
+  "texto": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+  "http_status": 200,
+  "latency_ms": 17918,
+  "raw_response": {
+    "transcript": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de contra_incendios: verificar cumplimiento normativa CTE DB SI y RD 486/1997",
+          "Requiere coordinación con reforma previa para identificar nuevas rutas exactas",
+          "Señalización debe cumplir UNE 23034 y ser visible en condiciones de emergencia"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Señalización de evacuación y rutas de salida es competencia de contra_incendios según normativa de seguridad en caso de incendio"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de señalización de evacuación antigua",
+          "descripcion": "Retirada y desmontaje de señales de evacuación, salidas de emergencia y rutas existentes. Incluye desconexión de luminarias de emergencia si aplica.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 55,
+          "total": 165,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Señales de salida de emergencia (nuevas rutas)",
+          "descripcion": "Suministro de señales fotoluminiscentes de salida de emergencia según UNE 23034, con pictogramas de dirección según nuevas rutas de evacuación. Incluye fijaciones.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de señales fotoluminiscentes según número exacto de salidas y tamaño (A4, A3, A2). Instalador debe confirmar cantidad y especificación técnica."
+        },
+        {
+          "concepto": "Señales direccionales de ruta de evacuación",
+          "descripcion": "Suministro de señales direccionales fotoluminiscentes para marcar rutas de evacuación en pasillos, escaleras y zonas de paso. Incluye fijaciones y adhesivos.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y especificación según longitud total de rutas de evacuación. Instalador debe medir y confirmar número de señales necesarias."
+        },
+        {
+          "concepto": "Instalación de señalización de evacuación",
+          "descripcion": "Montaje y fijación de todas las señales de salida y rutas de evacuación en paredes, puertas y techos. Incluye nivelación, alineación y verificación de visibilidad.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 55,
+          "total": 220,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Señalización de puertas de emergencia y barras antipánico",
+          "descripcion": "Suministro e instalación de señales de puerta de emergencia y señalización de barras antipánico en puertas de salida. Incluye pictogramas y textos según normativa.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según número de puertas de emergencia. Especificación técnica según tipo de puerta y sistema de cierre."
+        },
+        {
+          "concepto": "Plano de evacuación actualizado y señalización",
+          "descripcion": "Elaboración e instalación de plano de evacuación actualizado con nuevas rutas, zonas de riesgo y puntos de encuentro. Incluye impresión en material resistente y marco.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tamaño del plano y número de copias. Instalador debe confirmar ubicaciones (entrada principal, áreas de trabajo)."
+        },
+        {
+          "concepto": "Pruebas y verificación de señalización",
+          "descripcion": "Verificación de visibilidad de todas las señales en condiciones normales y de emergencia (oscuridad). Comprobación de fotoluminiscencia y cumplimiento normativo UNE 23034.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe de cumplimiento normativo y documentación",
+          "descripcion": "Elaboración de informe técnico de cumplimiento con normativa CTE DB SI, RD 486/1997 y UNE 23034. Documentación fotográfica y certificado de instalación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de documentación técnica. Instalador debe confirmar si incluye coordinación con autoridades locales o inspección."
+        }
+      ],
+      "calculos": {
+        "subtotal": 495,
+        "iva_porcentaje": 21,
+        "iva": 103.95,
+        "total": 598.95
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la empresa requiere instalación de luminarias de emergencia adicionales (no incluidas en este presupuesto)",
+        "Considerar si es necesario actualizar planos de riesgo o señalización de zonas de riesgo específicas",
+        "Confirmar si las nuevas rutas de evacuación requieren cambios en puertas de emergencia o barras antipánico"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Señales de salida de emergencia (nuevas rutas)",
+          "oficio": "contra_incendios",
+          "motivo": "Material específico de señalización fotoluminiscente según nuevas rutas"
+        },
+        {
+          "concepto": "Señales direccionales de ruta de evacuación",
+          "oficio": "contra_incendios",
+          "motivo": "Material específico de señalización direccional fotoluminiscente"
+        },
+        {
+          "concepto": "Señalización de puertas de emergencia y barras antipánico",
+          "oficio": "contra_incendios",
+          "motivo": "Material específico de señalización de puertas de emergencia"
+        },
+        {
+          "concepto": "Plano de evacuación actualizado y señalización",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio de elaboración e instalación de plano de evacuación actualizado"
+        },
+        {
+          "concepto": "Informe de cumplimiento normativo y documentación",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio de documentación técnica y certificación de cumplimiento normativo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_barra_antipánico",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "reparacion_o_cambio_guias_persiana"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3915,
+      "tokens_out": 2480
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

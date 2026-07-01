@@ -1,0 +1,243 @@
+{
+  "id": 180,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Colocar suelo de baldosa hidráulica en pasillo de vivienda antigua, 8 metros cuadrados, patrón geométrico",
+  "http_status": 200,
+  "latency_ms": 26455,
+  "raw_response": {
+    "transcript": "Colocar suelo de baldosa hidráulica en pasillo de vivienda antigua, 8 metros cuadrados, patrón geométrico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar suelo de baldosa hidráulica en pasillo de vivienda antigua, 8 metros cuadrados, patrón geométrico",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Baldosa hidráulica: material de características especiales, requiere mortero flexible C2S2 y manejo cuidadoso",
+          "Patrón geométrico: implica replanteo cuidadoso y cortes precisos, merma estimada 15-20%",
+          "Vivienda antigua: verificar estado de soporte (solera, mortero, humedad) antes de iniciar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 50
+          },
+          "motivo": "Instalación de revestimiento cerámico/hidráulico en suelo interior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Baldosa hidráulica patrón geométrico",
+          "descripcion": "Suministro de baldosa hidráulica artesanal con patrón geométrico, calidad museo, 20x20 cm aprox., con merma del 15% por cortes y ajuste de patrón",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 9.2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Baldosa hidráulica: precio muy variable según origen (nacional/importada), acabado (pulida/natural) y complejidad de patrón. El instalador debe confirmar proveedor, especificaciones técnicas y precio unitario (rango típico: 35-80€/m2)"
+        },
+        {
+          "concepto": "Mortero cola flexible C2S2",
+          "descripcion": "Mortero cola flexible C2S2 para baldosa hidráulica sobre soportes antiguos (solera/mortero), resistencia a humedad y flexibilidad, 4 kg/m2 aprox.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario pendiente. Rango típico: 8-15€/m2 (incluye consumo total del adhesivo)"
+        },
+        {
+          "concepto": "Lechada junta flexible (color a definir)",
+          "descripcion": "Lechada de junta flexible epoxídica o poliuretánica, color a elegir según patrón, junta 3-4 mm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario pendiente. Rango típico: 5-12€/m2 (lechada flexible recomendada para baldosa hidráulica debido a sus características de movimiento)"
+        },
+        {
+          "concepto": "Junta perimetral silicona o espuma poliuretano",
+          "descripcion": "Junta de dilatación perimetral en encuentros con paredes y pilares, silicona elástica o espuma de poliuretano, OBLIGATORIA en todo el perímetro",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 16,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario pendiente. Rango típico: 3-8€/ml (perímetro pasillo 8 m² ≈ 12-16 ml)"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Crucetas separadoras 3-4mm, material de replanteo, detergentes, esponjas, trapos, consumibles varios",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario pendiente. Rango típico: 3-6€/m2"
+        },
+        {
+          "concepto": "Regularización previa del soporte si es necesario",
+          "descripcion": "Inspección, limpieza y regularización de solera/mortero antiguo, rasquetado de mortero suelto, nivelación con mortero autonivelante si desviaciones >5mm bajo regla de 2m",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 35,
+          "total": 105,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Replanteo y ajuste de patrón geométrico",
+          "descripcion": "Replanteo simétrico del patrón geométrico, trazado de ejes, cálculo de cortes y disposición de baldosas para centrado óptimo",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 35,
+          "total": 70,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de baldosa hidráulica patrón geométrico",
+          "descripcion": "Colocación con mortero flexible C2S2, asiento con llana dentada, ajuste de patrón, cortes precisos, nivelación, 8 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa suelos_alicatados: 35€/h recomendado. Baldosa hidráulica con patrón = complejidad alta, velocidad más lenta. Estimación: 5-6 h/m². Precio/m² = 35×5.5 ≈ 192€/m². Se ajusta conservadoramente a 45€/m² de mano obra asumiendo rendimiento de 1.3 h/m²"
+        },
+        {
+          "concepto": "Rejuntado con lechada flexible",
+          "descripcion": "Rejuntado con lechada flexible, limpieza de juntas, curado y sellado superficial",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 15,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa estimada: 15-20€/m² para lechada flexible (complejidad media)"
+        },
+        {
+          "concepto": "Junta perimetral silicona/espuma poliuretano",
+          "descripcion": "Ejecución de junta de dilatación perimetral en encuentros con paredes, aplicación de silicona o espuma y masillado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 16,
+          "precio_unitario": 4,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa: 4€/ml (junta perimetral estándar)"
+        },
+        {
+          "concepto": "Limpieza final y curado",
+          "descripcion": "Limpieza de residuos de mortero y lechada, protección durante curado (48-72h mínimo), instrucciones al cliente",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 35,
+          "total": 52.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 771.5,
+        "iva_porcentaje": 21,
+        "iva": 162.02,
+        "total": 933.52
+      },
+      "sugerencias_catalogo": [
+        "Baldosa hidráulica artesanal: contactar con proveedores especializados (es Feines, Nolla Nolla, importadores portugueses/marroquíes). Precio muy variable según origen y acabado.",
+        "Mortero C2S2 flexible: marcas recomendadas BASF, Mapei, Kerakoll. Imprescindible para baldosa hidráulica sobre soportes antiguos.",
+        "Lechada epoxídica vs. poliuretánica: la epoxídica es más duradera pero más difícil de trabajar. La poliuretánica es más flexible.",
+        "Vivienda antigua: realizar prueba de humedad en solera. Si >5% RH, considerar barrera vapor o mortero hidrófugo previo."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Baldosa hidráulica patrón geométrico",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "justificacion": "Baldosa hidráulica es material especializado no genérico en catálogo estándar. Requiere validación de precio y proveedor por el instalador. Origen: sugerida_ia."
+        },
+        {
+          "concepto": "Mortero cola flexible C2S2",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "justificacion": "Adhesivo específico para baldosa hidráulica sobre soportes antiguos. Marca y precio a definir por instalador."
+        },
+        {
+          "concepto": "Lechada junta flexible",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "justificacion": "Lechada flexible (epoxídica o poliuretánica) recomendada para baldosa hidráulica. Precio y marca a confirmar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_ceramico_interior_estandar",
+      "solado_ceramico_interior",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_suelo_flotante_sobre_plots_regulables",
+      "solado_ceramico_exterior_terraza"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

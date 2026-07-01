@@ -1,0 +1,203 @@
+{
+  "id": 175,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 18088,
+  "raw_response": {
+    "transcript": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material tarima roble: precio pendiente de revisión (m² varía según calidad 45-150€)",
+          "Verificar estado del soporte antes de colocación (debe estar plano, max desviación 3mm bajo regla 2m)",
+          "Aclimatación de la tarima 48-72h obligatoria en obra antes de colocación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Retirada, preparación e instalación de tarima"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación y regularización del soporte si es necesaria"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de moqueta antigua",
+          "descripcion": "Desmontaje, retirada y evacuación de moqueta existente, 45 m²",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 8,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada por m² según dificultad de retirada"
+        },
+        {
+          "concepto": "Preparación y regularización del soporte",
+          "descripcion": "Limpieza, nivelación y regularización del soporte para garantizar planitud máxima desviación 3mm bajo regla 2m. Incluye pequeñas reparaciones si es necesario",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 12,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada; puede variar según estado del soporte"
+        },
+        {
+          "concepto": "Tarima maciza de roble",
+          "descripcion": "Suministro tarima maciza de roble, 45 m² (incluir mermas 5-10%). Calidad, acabado y espesor a especificar",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 48,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio tarima roble varía 45-150€/m² según calidad, acabado y procedencia. Requiere confirmación del cliente"
+        },
+        {
+          "concepto": "Lámina aislante espuma de polietileno",
+          "descripcion": "Suministro e instalación lámina aislante espuma de polietileno reticulada, 45 m² (base para tarima flotante)",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio lámina aislante: 2-8€/m². Especificar espesor (3-5mm recomendado)"
+        },
+        {
+          "concepto": "Instalación tarima maciza de roble",
+          "descripcion": "Colocación tarima flotante o pegada sistema click, nivelación, ajuste y fijación. 45 m²",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 32,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta perimetral 10-12mm",
+          "descripcion": "Colocación junta perimetral de dilatación 10-12mm en todo el perímetro (obligatoria). Material: espuma o corcho expansion",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Calcular perímetro de la sala (metros lineales). Precio aprox 2-5€/ml"
+        },
+        {
+          "concepto": "Rodapié de madera de roble (opcional)",
+          "descripcion": "Suministro e instalación rodapié de madera de roble, acabado a juego con tarima (opcional, incluir si cliente solicita)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional. Calcular perímetro. Precio rodapié: 8-20€/ml + instalación 5-8€/ml"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillos, colas, adhesivos MS, espárragos, materiales auxiliares para instalación",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 80-150€ para 45 m² (consumibles)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2340,
+        "iva_porcentaje": 21,
+        "iva": 491.4,
+        "total": 2831.4
+      },
+      "sugerencias_catalogo": [
+        "OBLIGATORIO: Verificar planitud del soporte. Si desviación > 3mm bajo regla 2m, requiere regularización adicional o uso de mortero autonivelante",
+        "OBLIGATORIO: Aclimatación de tarima 48-72 horas en obra antes de colocación. La tarima maciza de roble es sensible a cambios de humedad",
+        "OBLIGATORIO: Junta perimetral 10-12mm en TODO el perímetro para permitir dilatación/contracción natural de la madera",
+        "RECOMENDADO: Sistema flotante con lámina aislante (mejor aislamiento térmico y acústico). Si se pega, usar adhesivo MS polímero de calidad",
+        "RECOMENDADO: Considerar rodapié de roble a juego para acabado profesional",
+        "NOTA: La tarima maciza de roble es más cara que ingeniería pero ofrece mejor durabilidad y posibilidad de lijado posterior"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Retirada de moqueta antigua",
+          "oficio": "suelos_tarimas",
+          "motivo": "No existe en catálogo partida específica de desmontaje de moqueta. Creada con precio estimado"
+        },
+        {
+          "concepto": "Preparación y regularización del soporte",
+          "oficio": "albanileria",
+          "motivo": "Partida auxiliar no cuantificada en catálogo base. Incluida como partida obligatoria para garantizar calidad de la colocación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "colocacion_parquet_flotante_o_tarima_laminada",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "solado_de_parquet_o_madera"
+    ],
+    "kb_score": 4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "SI"
+  }
+}

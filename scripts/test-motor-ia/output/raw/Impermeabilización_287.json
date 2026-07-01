@@ -1,0 +1,212 @@
+{
+  "id": 287,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+  "http_status": 200,
+  "latency_ms": 23516,
+  "raw_response": {
+    "transcript": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Balcón con filtración activa: requiere diagnóstico previo de causa (grietas, juntas rotas, pendiente insuficiente)",
+          "Baldosas flotadas sin impermeabilización previa: riesgo de nueva filtración si no se sella correctamente la base",
+          "Rejuntado con mortero estándar NO es suficiente: requiere mortero hidrofugo o sellador flexible en juntas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Trabajo de impermeabilización de balcón con filtración activa. Oficio prioritario según reglas: impermeabilizacion → SIEMPRE para humedades en cubierta/terraza, láminas impermeabilizantes, selladores, drenaje de humedad."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Rejuntado y colocación de baldosas. Oficio secundario para acabado final."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y retirada de baldosas flotadas",
+          "descripcion": "Desmontaje completo de baldosas flotadas existentes, retirada de mortero y material de base. Carga y transporte de escombros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 del balcón no especificada. Instalador debe indicar superficie. Tarifa estimada 20-30€/m2 según complejidad."
+        },
+        {
+          "concepto": "Limpieza, imprimación y preparación de base",
+          "descripcion": "Limpieza profunda de la base del balcón, eliminación de polvo y restos. Aplicación de imprimación consolidante. Verificación y corrección de pendiente hacia exterior (mínimo 2-3%).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 del balcón no especificada. Tarifa estimada 15-25€/m2."
+        },
+        {
+          "concepto": "Membrana impermeabilizante líquida o lámina",
+          "descripcion": "Aplicación de membrana impermeabilizante de poliuretano, acrílica o lámina EPDM/TPO sobre toda la superficie del balcón. Mínimo 2 manos. Incluye refuerzo en juntas perimetrales y encuentros con fachada.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y cantidad de m2 no especificados. Precio estimado: membrana líquida 20-40€/m2, lámina 30-60€/m2. Instalador debe elegir sistema."
+        },
+        {
+          "concepto": "Mortero hidrofugo de base para baldosas",
+          "descripcion": "Aplicación de mortero hidrofugo cementoso o cristalizante como capa de nivelación y protección adicional antes de colocación de baldosas. Espesor 3-5 cm.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Precio estimado 15-30€/m2 según tipo de mortero."
+        },
+        {
+          "concepto": "Colocación de baldosas con adhesivo flexible",
+          "descripcion": "Colocación de baldosas flotadas con adhesivo flexible (tipo C2S1 o superior) que permite movimientos y absorbe dilataciones. Incluye nivelación y espaciado uniforme.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 del balcón no especificada. Tarifa de catálogo: 32€/m2."
+        },
+        {
+          "concepto": "Rejuntado con mortero hidrofugo o sellador flexible",
+          "descripcion": "Rejuntado de juntas entre baldosas con mortero hidrofugo de dos componentes o sellador poliuretano flexible. Ancho de junta 3-5 mm. Limpieza y acabado final.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 28,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Tarifa estimada 25-30€/m2 para rejuntado con mortero hidrofugo."
+        },
+        {
+          "concepto": "Sellado perimetral con silicona flexible",
+          "descripcion": "Sellado de encuentros del balcón con fachada, barandilla y elementos verticales con silicona flexible de calidad exterior (durabilidad 10+ años). Incluye limpieza previa, fondo de junta y aplicación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro del balcón no especificado. Tarifa estimada 15-25€/ml."
+        },
+        {
+          "concepto": "Suministro de materiales impermeabilizantes",
+          "descripcion": "Suministro de membrana impermeabilizante, mortero hidrofugo, adhesivo flexible, mortero de rejunte hidrofugo, silicona flexible, imprimación, fondo de junta y pequeño material.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales pendiente de especificación de superficie y sistema elegido. Estimado 300-800€ según m2 y tipo de membrana."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'impermeabilizacion_de_balcon_o_terraza' — si existe, usar como referencia de partidas obligatorias",
+        "Buscar: 'membrana_impermeabilizante_liquida_poliuretano' o 'lamina_EPDM_TPO' — para especificar material",
+        "Buscar: 'mortero_hidrofugo_cementoso' o 'mortero_cristalizante' — para base de baldosas",
+        "Buscar: 'adhesivo_flexible_C2S1_baldosas' — para colocación",
+        "Buscar: 'mortero_rejunte_hidrofugo_dos_componentes' — para rejuntado impermeable"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Impermeabilización de balcón con filtración activa",
+          "descripcion": "Sistema completo de impermeabilización de balcón con baldosas flotadas que filtra agua. Incluye desmontaje, preparación, membrana impermeabilizante, mortero hidrofugo, colocación de baldosas con adhesivo flexible, rejuntado hidrofugo y sellado perimetral.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "INFORMACIÓN CRÍTICA FALTANTE: 1) Superficie del balcón en m2. 2) Perímetro para sellado (ml). 3) Sistema de impermeabilización preferido (membrana líquida vs. lámina). 4) Tipo de baldosas (cerámica, porcelánico, gres). 5) Diagnóstico de causa de filtración (grietas, juntas rotas, pendiente insuficiente). Una vez completada esta información, se pueden generar partidas precisas con precios unitarios reales."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_de_encuentro_fachada_cubierta"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3892,
+      "tokens_out": 3211
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

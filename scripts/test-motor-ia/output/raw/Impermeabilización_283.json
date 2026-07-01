@@ -1,0 +1,257 @@
+{
+  "id": 283,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar sótano con humedades del terreno, sistema de drenaje interior y bomba de achique",
+  "http_status": 200,
+  "latency_ms": 19833,
+  "raw_response": {
+    "transcript": "Impermeabilizar sótano con humedades del terreno, sistema de drenaje interior y bomba de achique",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar sótano con humedades del terreno, sistema de drenaje interior y bomba de achique",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de impermeabilización en sótano: requiere diagnóstico previo de origen de filtraciones",
+          "Sistema de drenaje interior implica excavación parcial y canaletas de drenaje",
+          "Bomba de achique: verificar caudal necesario según volumen de agua infiltrada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de sótano con humedades del terreno es competencia directa de impermeabilización"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Excavación, canaletas de drenaje y relleno de gravas requieren trabajo de albañilería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y saneo de humedades en sótano",
+          "descripcion": "Inspección visual de filtraciones, identificación de puntos críticos, limpieza y saneo de zonas afectadas por humedad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Excavación y acceso a trasdós de muro de sótano",
+          "descripcion": "Excavación parcial del terreno adyacente al muro de sótano para acceso a trasdós, retirada de tierras y preparación de superficie",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 40,
+          "total": 1000,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación bituminosa en trasdós",
+          "descripcion": "Aplicación de imprimación bituminosa como base de adherencia para membrana impermeabilizante",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: imprimación bituminosa. Instalador debe indicar precio según marca y cantidad"
+        },
+        {
+          "concepto": "Membrana impermeabilizante bituminosa en trasdós",
+          "descripcion": "Colocación de lámina bituminosa de 4mm mínimo en trasdós del muro de sótano, solapada y sellada",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: lámina bituminosa. Instalador debe indicar precio según espesor y calidad"
+        },
+        {
+          "concepto": "Instalación de lámina drenante nodular",
+          "descripcion": "Colocación de lámina drenante nodular (HDPE) sobre membrana impermeabilizante para conducción de agua hacia drenaje",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: lámina drenante nodular. Instalador debe indicar precio según especificaciones"
+        },
+        {
+          "concepto": "Geotextil de filtro",
+          "descripcion": "Colocación de geotextil de filtro sobre lámina drenante para evitar colmatación por finos",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: geotextil de filtro. Instalador debe indicar precio"
+        },
+        {
+          "concepto": "Sistema de drenaje interior con canaleta y tubo drenaje",
+          "descripcion": "Instalación de canaleta de drenaje perimetral en base de muro de sótano, tubo drenaje PVC perforado Ø100mm conectado a sumidero, conducción hacia bomba de achique",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 40,
+          "total": 1200,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tubo drenaje PVC perforado y accesorios",
+          "descripcion": "Suministro de tubo PVC perforado Ø100mm, codos, tes, sumidero y pequeño material para sistema de drenaje interior",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: tubo PVC perforado y accesorios. Instalador debe indicar precio según cantidad y accesorios"
+        },
+        {
+          "concepto": "Relleno de gravas drenantes",
+          "descripcion": "Relleno de gravas limpias (4-8cm) sobre geotextil y sistema de drenaje, compactación ligera",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: gravas drenantes. Instalador debe indicar precio según volumen y transporte"
+        },
+        {
+          "concepto": "Bomba de achique sumergible",
+          "descripcion": "Suministro e instalación de bomba de achique sumergible (potencia y caudal a determinar según volumen de infiltración), con flotador automático y tubería de descarga",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: bomba de achique. Instalador debe indicar modelo, potencia (0.5-1.5kW típico) y precio"
+        },
+        {
+          "concepto": "Instalación y prueba de bomba de achique",
+          "descripcion": "Instalación de bomba en sumidero, conexión de tubería de descarga, prueba de funcionamiento y ajuste de flotador",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Restitución de relleno y acabado exterior",
+          "descripcion": "Relleno de excavación con tierra vegetal, compactación y restitución de acabado exterior del sótano",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 40,
+          "total": 1000,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 3695,
+        "iva_porcentaje": 21,
+        "iva": 775.95,
+        "total": 4470.95
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'impermeabilizacion_de_parking_o_aparcamiento_subterraneo' — aplicable a sótanos con humedades del terreno",
+        "Considerar si es necesario proyecto técnico si la profundidad del sótano es mayor a 1.5m o si hay filtraciones activas importantes",
+        "Bomba de achique: especificar caudal (típicamente 300-1000 l/h) según volumen estimado de infiltración"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Bomba de achique sumergible",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para drenaje interior de sótano. Requiere especificación de potencia y caudal por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_muro_de_contencion",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "impermeabilizacion_de_balcon_o_voladizo",
+      "impermeabilizacion_de_parking_o_aparcamiento_subterraneo",
+      "pintura_de_depositos_agua_potable_interior"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3957,
+      "tokens_out": 2968
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 5,
+    "n_sugeridas": 7,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

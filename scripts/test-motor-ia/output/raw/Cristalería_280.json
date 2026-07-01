@@ -1,0 +1,172 @@
+{
+  "id": 280,
+  "oficio": "Cristalería",
+  "texto": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+  "http_status": 200,
+  "latency_ms": 12978,
+  "raw_response": {
+    "transcript": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye material (parabrisas + adhesivo logotipo) y mano de obra de instalación",
+          "Precio del parabrisas específico debe confirmarse según modelo/marca vehículo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Cambio de parabrisas es trabajo de mecánica/cristalería de vehículos. Se clasifica en mecanica por ser trabajo en vehículo industrial."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Parabrisas para vehículo industrial",
+          "descripcion": "Suministro de parabrisas nuevo según modelo y especificaciones del vehículo industrial de empresa",
+          "oficio": "mecanica",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del parabrisas depende de marca, modelo y tipo de vehículo industrial. El instalador debe confirmar especificaciones exactas y precio de mercado."
+        },
+        {
+          "concepto": "Desmontaje de parabrisas antiguo",
+          "descripcion": "Desmontaje cuidadoso del parabrisas antiguo, extracción de juntas y limpieza de marco",
+          "oficio": "mecanica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de parabrisas nuevo",
+          "descripcion": "Colocación del parabrisas nuevo con adhesivo estructural, sellado perimetral y ajuste de marcos",
+          "oficio": "mecanica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 55,
+          "total": 82.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Adhesivo estructural y sellador para parabrisas",
+          "descripcion": "Adhesivo poliuretano o acrílico de alta resistencia para fijación estructural del parabrisas, sellador perimetral",
+          "oficio": "mecanica",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Precio depende de marca y cantidad necesaria según tamaño parabrisas."
+        },
+        {
+          "concepto": "Logotipo adhesivo de empresa",
+          "descripcion": "Suministro e instalación de logotipo adhesivo personalizado en parabrisas según especificaciones de empresa",
+          "oficio": "mecanica",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del vinilo adhesivo personalizado depende de tamaño, complejidad del diseño y cantidad de colores. Requiere confirmación con proveedor de rotulación."
+        },
+        {
+          "concepto": "Pruebas y ajustes finales",
+          "descripcion": "Verificación de estanqueidad, ajuste de marcos, limpieza de parabrisas y prueba de funcionamiento de limpiaparabrisas",
+          "oficio": "mecanica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 55,
+          "total": 27.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 165,
+        "iva_porcentaje": 21,
+        "iva": 34.65,
+        "total": 199.65
+      },
+      "sugerencias_catalogo": [
+        "Confirmar marca, modelo y año del vehículo industrial para obtener parabrisas exacto",
+        "Solicitar presupuesto de parabrisas a proveedor especializado en vehículos industriales",
+        "Especificar dimensiones y tipo de logotipo (vinilo adhesivo, impresión digital, etc.)",
+        "Considerar si el parabrisas requiere tratamientos especiales (tintado, privacidad, etc.)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Parabrisas para vehículo industrial",
+          "oficio": "mecanica",
+          "motivo": "Material específico cuyo precio depende del modelo exacto del vehículo"
+        },
+        {
+          "concepto": "Adhesivo estructural y sellador para parabrisas",
+          "oficio": "mecanica",
+          "motivo": "Material consumible de fijación"
+        },
+        {
+          "concepto": "Logotipo adhesivo de empresa",
+          "oficio": "mecanica",
+          "motivo": "Elemento personalizado de rotulación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "cambio_inodoro",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial",
+      "instalacion_de_mosquitera_metalica_en_ventana_o_puerta"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3873,
+      "tokens_out": 1746
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mecanica",
+    "coincide_oficio": "NO"
+  }
+}

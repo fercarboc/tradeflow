@@ -1,0 +1,171 @@
+{
+  "id": 29,
+  "oficio": "Electricidad",
+  "texto": "Cambio de interruptor y dos enchufes en dormitorio principal, están quemados",
+  "http_status": 200,
+  "latency_ms": 11484,
+  "raw_response": {
+    "transcript": "Cambio de interruptor y dos enchufes en dormitorio principal, están quemados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de interruptor y dos enchufes en dormitorio principal, están quemados",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar causa de quemadura (sobrecarga, cortocircuito, defecto fabricación) antes de instalar nuevos mecanismos",
+          "Revisar estado del cableado interior de la caja de mecanismos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Cambio de mecanismos eléctricos (interruptor y enchufes)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de mecanismos quemados",
+          "descripcion": "Desmontaje de 1 interruptor y 2 enchufes dañados, desconexión segura de cableado",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 15,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de interruptor nuevo",
+          "descripcion": "Interruptor simple 10A 250V, mecanismo + marco + tornillería, instalación y conexión",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del mecanismo a definir por instalador según marca/calidad"
+        },
+        {
+          "concepto": "Instalación de interruptor nuevo",
+          "descripcion": "Conexión, fijación en caja y prueba de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 20,
+          "total": 20,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de 2 enchufes nuevos",
+          "descripcion": "2 enchufes dobles 16A 250V, mecanismos + marcos + tornillería, instalación y conexión",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de los mecanismos a definir por instalador según marca/calidad"
+        },
+        {
+          "concepto": "Instalación de 2 enchufes nuevos",
+          "descripcion": "Conexión, fijación en cajas y prueba de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 20,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, pasta térmica, cinta aislante, pequeño material de instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 5-15€, a confirmar por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 105,
+        "iva_porcentaje": 21,
+        "iva": 22.05,
+        "total": 127.05
+      },
+      "sugerencias_catalogo": [
+        "Verificar que los nuevos mecanismos sean de calidad superior (marca reconocida) para evitar futuras quemaduras",
+        "Considerar instalación de protección diferencial (RCD) si no existe en el circuito",
+        "Revisar el estado de las cajas de mecanismos (posible corrosión o daño interno)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de interruptor",
+          "oficio": "electricidad",
+          "motivo": "Material de reposición, precio variable según marca"
+        },
+        {
+          "concepto": "Suministro de 2 enchufes",
+          "oficio": "electricidad",
+          "motivo": "Material de reposición, precio variable según marca"
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "oficio": "electricidad",
+          "motivo": "Accesorios de instalación, importe estimado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_instalacion_electrica_integrada",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "sustitucion_termo_electrico",
+      "instalacion_domotica_basica_wifi",
+      "cambio_inodoro"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3478,
+      "tokens_out": 1607
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

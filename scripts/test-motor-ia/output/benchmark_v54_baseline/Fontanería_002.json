@@ -1,0 +1,318 @@
+{
+  "id": 2,
+  "oficio": "Fontanería",
+  "texto": "Cambio de bañera por plato de ducha en baño principal de 90x90 con mamparas",
+  "http_status": 200,
+  "latency_ms": 23654,
+  "raw_response": {
+    "transcript": "Cambio de bañera por plato de ducha en baño principal de 90x90 con mamparas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de bañera por plato de ducha en baño principal de 90x90 con mamparas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo incluye múltiples oficios (fontanería, albanilería, impermeabilización). Revisar coordinación de fases.",
+          "Impermeabilización obligatoria antes de alicatado. Verificar pendiente hacia desagüe.",
+          "Mampara incluida en presupuesto. Confirmar tipo (fija, corredera, abatible) y material (vidrio templado, aluminio)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Desmontaje bañera, instalación plato ducha, grifería, desagüe, sifón, sellado."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización obligatoria en zona de ducha antes de alicatado. Membrana líquida + cinta en juntas."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Alicatado perimetral alrededor del plato ducha (reposición parcial)."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 30,
+            "max": 40
+          },
+          "motivo": "Gestión y retirada de bañera antigua y escombros."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje bañera existente",
+          "descripcion": "Desmontaje completo de bañera acrílica/hierro fundido, desconexión de grifería y desagüe, preparación de zona.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plato de ducha 90x90 cm",
+          "descripcion": "Suministro plato ducha de resina/acrílico 90x90 cm, con pendiente integrada hacia desagüe.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según marca/calidad (rango típico: 250-800€)"
+        },
+        {
+          "concepto": "Válvula desagüe y sifón para plato ducha",
+          "descripcion": "Suministro válvula desagüe cromada, sifón de 50mm con rebosadero, tuercas y pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar (rango típico: 80-200€)"
+        },
+        {
+          "concepto": "Grifería ducha monomando",
+          "descripcion": "Suministro grifería monomando cromada/acero inoxidable con flexibles, alcachofa y soporte.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar (rango típico: 150-500€)"
+        },
+        {
+          "concepto": "Instalación plato ducha, grifería y desagüe",
+          "descripcion": "Instalación del plato ducha con nivelación, conexión de desagüe a bajante, instalación de grifería, pruebas de estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización zona ducha (membrana líquida + cinta)",
+          "descripcion": "Aplicación de membrana impermeabilizante líquida en dos manos sobre plato ducha y 20 cm perimetral. Cinta impermeabilizante en juntas y esquinas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales impermeabilización (membrana + cinta + sellador)",
+          "descripcion": "Suministro membrana impermeabilizante líquida (aprox. 5-6 litros), cinta impermeabilizante inox, sellador silicona sanitaria.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a confirmar (rango típico: 150-350€)"
+        },
+        {
+          "concepto": "Alicatado perimetral plato ducha (reposición)",
+          "descripcion": "Alicatado de baldosas cerámicas/porcelánico alrededor del plato ducha (aprox. 12 m2), con rejuntado y sellado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 35,
+          "total": 420,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Baldosas y material alicatado",
+          "descripcion": "Suministro baldosas cerámicas/porcelánico, adhesivo, lechada rejunta, pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar según calidad/diseño (rango típico: 20-60€/m2)"
+        },
+        {
+          "concepto": "Mampara ducha 90x90 cm",
+          "descripcion": "Suministro mampara de vidrio templado 8mm, perfiles aluminio anodizado, bisagras inox, cierre magnético.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar según tipo (fija/corredera/abatible). Rango típico: 300-1200€"
+        },
+        {
+          "concepto": "Instalación mampara ducha",
+          "descripcion": "Instalación mampara con fijación a plato ducha y pared, nivelación, sellado con silicona sanitaria, pruebas.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos (bañera + escombros)",
+          "descripcion": "Retirada, transporte y gestión de bañera antigua, escombros de demolición y embalajes.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1520,
+        "iva_porcentaje": 21,
+        "iva": 319.2,
+        "total": 1839.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones exactas del plato ducha (90x90 es estándar, pero verificar profundidad y tipo de desagüe).",
+        "Especificar tipo de mampara: fija (más económica), corredera (más funcional) o abatible (accesibilidad).",
+        "Verificar si la bañera antigua requiere corte/fragmentación para extracción (afecta tiempo y coste).",
+        "Considerar si se necesita adaptación de tuberías de agua fría/caliente (puede añadir coste).",
+        "Confirmar si el alicatado perimetral es reposición total o parcial (afecta cantidad de m2)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plato de ducha 90x90 cm",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico, precio a confirmar por instalador"
+        },
+        {
+          "concepto": "Válvula desagüe y sifón para plato ducha",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico, precio a confirmar por instalador"
+        },
+        {
+          "concepto": "Grifería ducha monomando",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico, precio a confirmar por instalador"
+        },
+        {
+          "concepto": "Materiales impermeabilización (membrana + cinta + sellador)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico, precio a confirmar por instalador"
+        },
+        {
+          "concepto": "Baldosas y material alicatado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico, precio a confirmar por instalador según diseño"
+        },
+        {
+          "concepto": "Mampara ducha 90x90 cm",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico, precio a confirmar por instalador según tipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "desatasco_banera_ducha",
+      "tabique_pladur_para_ducha_o_plato_de_ducha",
+      "sustitucion_banera_por_ducha",
+      "cambio_plato_ducha"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3560,
+      "tokens_out": 3648
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

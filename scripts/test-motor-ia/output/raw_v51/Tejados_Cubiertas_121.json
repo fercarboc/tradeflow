@@ -1,0 +1,299 @@
+{
+  "id": 121,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar tejado de teja árabe, hay goteras en la zona del canalón y en un lucernario",
+  "http_status": 200,
+  "latency_ms": 22836,
+  "raw_response": {
+    "transcript": "Reparar tejado de teja árabe, hay goteras en la zona del canalón y en un lucernario",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar tejado de teja árabe, hay goteras en la zona del canalón y en un lucernario",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Goteras en canalón y lucernario son puntos críticos de infiltración",
+          "Inspección previa recomendada para evaluar extensión del daño",
+          "Material del lucernario (cristal, policarbonato, aluminio) no especificado",
+          "Altura y accesibilidad del tejado no informadas - puede requerir andamio o escalera"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de tejado, canalón y lucernario - oficio de cubiertas y trabajos en altura"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y saneo zona canalón con goteras",
+          "descripcion": "Revisión detallada de la zona del canalón, limpieza de sedimentos, hojas y suciedad. Identificación de puntos de infiltración y deterioro en tejas adyacentes.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_cubiertas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza mecánica y desobstrucción canalón",
+          "descripcion": "Extracción de sedimentos, musgo, hojas y obstrucciones en canalón. Limpieza completa del sistema de drenaje para restaurar la pendiente y flujo de agua.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_cubiertas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Retirada y recolocación de tejas zona canalón",
+          "descripcion": "Extracción cuidadosa de tejas árabes en zona del canalón para acceder a la junta y refuerzo. Limpieza de mortero antiguo. Recolocación con mortero de agarre nuevo.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 8,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo solapes canalón con sellador poliuretano",
+          "descripcion": "Aplicación de sellador flexible de poliuretano en solapes entre tejas y canalón. Refuerzo de juntas críticas para evitar infiltración de agua.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 6,
+          "precio_unitario": 12,
+          "total": 72,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador poliuretano elástico para canalón",
+          "descripcion": "Material: sellador poliuretano de 1 componente, 600ml, flexible, resistente UV. Incluye aplicación en juntas canalón-tejas.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador confirma cantidad exacta y marca/precio"
+        },
+        {
+          "concepto": "Mortero de agarre para tejas árabes",
+          "descripcion": "Material: mortero premezclado resistente para fijación de tejas cerámicas. Resistencia a ciclos hielo-deshielo.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador confirma cantidad y precio local"
+        },
+        {
+          "concepto": "Inspección y reparación encuentro lucernario",
+          "descripcion": "Revisión completa del perímetro del lucernario, identificación de roturas de cristal, sellador deteriorado, marco con infiltraciones.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_cubiertas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Saneo zona afectada lucernario",
+          "descripcion": "Limpieza profunda alrededor del lucernario, eliminación de musgo, sedimento y materiales degradados. Preparación de la zona para nuevo sellado.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_cubiertas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Retirada y recolocación tejas zona lucernario",
+          "descripcion": "Extracción de tejas árabes alrededor del lucernario para acceder al encuentro. Limpieza de junta. Recolocación con mortero nuevo.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 8,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lámina de zinc o membrana líquida en encuentro lucernario",
+          "descripcion": "Material: lámina de zinc o membrana impermeable líquida en el encuentro entre lucernario y tejado. Máxima durabilidad y protección contra goteras.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1.2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador define si lámina de zinc o membrana líquida y precio"
+        },
+        {
+          "concepto": "Instalación lámina encuentro lucernario",
+          "descripcion": "Colocación de lámina de zinc o membrana impermeable con solapas suficientes. Fijación mecánica y sellado perimetral.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_cubiertas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado flexible superior lucernario",
+          "descripcion": "Aplicación de sellador elástico de silicona neutra o poliuretano en la junta superior del lucernario (encuentro con tejas).",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 4.5,
+          "precio_unitario": 12,
+          "total": 54,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador de silicona neutra para lucernario",
+          "descripcion": "Material: silicona neutra 600ml, resistente UV, flexible. Para juntas de lucernario con tejas.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador confirma marca y precio"
+        },
+        {
+          "concepto": "EPI línea de vida y cinturón de seguridad",
+          "descripcion": "Equipo de protección individual para trabajo en altura: arnés, línea de vida, casco, guantes. Cumplimiento normativa de seguridad.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 8,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (clavos, tornillos, anclajes)",
+          "descripcion": "Clavos inoxidables, tornillos galvanizados, anclajes, pequeña ferretería necesaria para trabajos de reparación tejado.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según necesidades específicas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 663.5,
+        "iva_porcentaje": 21,
+        "iva": 139.34,
+        "total": 802.84
+      },
+      "sugerencias_catalogo": [
+        "Consulta BASE MAESTRA: [reparacion_o_sustitucion_de_canalon_o_bajante_en_tejado] para detalles de secciones de canalón según superficie drenada",
+        "Solicita al instalador inspección con cámara termográfica si se sospecha infiltración extensiva",
+        "Material del lucernario (cristal simple, doble, policarbonato) afecta a las reparaciones - confirmar in situ",
+        "Si altura > 4m, valorar alquiler de andamio en lugar de escalera por seguridad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lámina de zinc o membrana líquida en encuentro lucernario",
+          "origen": "sugerida_ia",
+          "motivo": "Tipo específico de lucernario y material no identificado en entrada - requiere decisión del instalador in situ"
+        },
+        {
+          "concepto": "Sellador poliuretano elástico para canalón",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico requiere confirmación de marca, volumen exacto y precio local"
+        },
+        {
+          "concepto": "Mortero de agarre para tejas árabes",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad estimada; ajustar según superficie real y características locales"
+        },
+        {
+          "concepto": "Sellador de silicona neutra para lucernario",
+          "origen": "sugerida_ia",
+          "motivo": "Confirmación de especificaciones técnicas y precio"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "reforma_de_cubierta_de_edificio_comunitario",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "tabique_pladur_zona_exterior_cubierta_sotillo",
+      "reparacion_o_sustitucion_de_canalon_o_bajante_en_tejado"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 15,
+    "n_catalogo": 10,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

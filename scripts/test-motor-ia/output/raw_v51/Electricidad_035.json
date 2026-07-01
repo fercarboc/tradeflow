@@ -1,0 +1,200 @@
+{
+  "id": 35,
+  "oficio": "Electricidad",
+  "texto": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+  "http_status": 200,
+  "latency_ms": 18988,
+  "raw_response": {
+    "transcript": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo sujeto a normativa de compañía eléctrica distribuidora",
+          "Requiere coordinación externa y posible corte de suministro",
+          "Precios de materiales especializados sujetos a revisión y aprobación de distribuidora",
+          "Puede requerir documentación técnica y certificado de instalador autorizado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de elementos de protección principal y contador; trabajo especializado en punto de suministro"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Caja general de protección (CGP)",
+          "descripcion": "Suministro e instalación de caja general de protección nueva, según especificaciones de compañía distribuidora",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según modelo, tensión e intensidad; debe aprobarlo la distribuidora"
+        },
+        {
+          "concepto": "Contador de energía eléctrica",
+          "descripcion": "Suministro e instalación de contador digital/inteligente nuevo, homologado por distribuidora",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Contador suministrado frecuentemente por distribuidora; precio y modelo sujeto a su aprobación"
+        },
+        {
+          "concepto": "Desmontaje de CGP y contador antiguos",
+          "descripcion": "Desmontaje cuidadoso de caja general de protección y contador existentes, incluyendo desconexión segura",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de CGP y contador nuevos",
+          "descripcion": "Instalación, conexionado y fijación de caja general de protección y contador en su ubicación, comprobación de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios de fijación",
+          "descripcion": "Soportes, tornillería, bridas, cinta aislante y accesorios menores para instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado según accesorios necesarios; el instalador verificará en obra"
+        },
+        {
+          "concepto": "Coordinación y gestiones con compañía distribuidora",
+          "descripcion": "Solicitud de obra, coordinación de cita, trámites administrativos, comunicaciones con distribuidora para autorización y posterior alta",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de gestión administrativa; tarificar según complejidad y tiempo dedicado"
+        },
+        {
+          "concepto": "Certificado de instalación y documentación técnica",
+          "descripcion": "Elaboración y entrega de boletín técnico de instalación eléctrica (BT), si es requerido por normativa",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documento técnico obligatorio en muchas comunidades autónomas; revisar normativa local"
+        },
+        {
+          "concepto": "Gestión de residuos (CGP y contador antiguos)",
+          "descripcion": "Retirada, transporte y gestión adecuada de materiales desmontados",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste variable según gestor de residuos y cantidad; el instalador lo evaluará"
+        }
+      ],
+      "calculos": {
+        "subtotal": 175,
+        "iva_porcentaje": 21,
+        "iva": 36.75,
+        "total": 211.75
+      },
+      "sugerencias_catalogo": [
+        "Verificar con distribuidora eléctrica local qué elementos suministran ellos (contador, CGP) y cuáles corre por cuenta del cliente",
+        "Confirmar si se requiere instalador autorizado según comunidad autónoma",
+        "Solicitar presupuesto de materiales a proveedor especializado en equipos de cabecera"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Caja general de protección (CGP)",
+          "oficio": "electricidad",
+          "motivo": "Material especializado de cabecera; precio controlado por distribuidora"
+        },
+        {
+          "concepto": "Contador de energía eléctrica",
+          "oficio": "electricidad",
+          "motivo": "Suministro frecuente de distribuidora; requiere homologación específica"
+        },
+        {
+          "concepto": "Coordinación y gestiones con compañía distribuidora",
+          "oficio": "electricidad",
+          "motivo": "Servicio administrativo especial; no es trabajo estándar de catálogo"
+        },
+        {
+          "concepto": "Certificado de instalación y documentación técnica",
+          "oficio": "electricidad",
+          "motivo": "Documento técnico obligatorio según normativa; debe revisarse localización"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_armario_empotrado_nuevo",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "sustitucion_termo_electrico",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_inodoro"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

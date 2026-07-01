@@ -1,0 +1,169 @@
+{
+  "id": 237,
+  "oficio": "Energía Solar",
+  "texto": "Instalar farolas solares autónomas en camino de acceso a finca, 6 unidades con sensor de movimiento",
+  "http_status": 200,
+  "latency_ms": 13434,
+  "raw_response": {
+    "transcript": "Instalar farolas solares autónomas en camino de acceso a finca, 6 unidades con sensor de movimiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar farolas solares autónomas en camino de acceso a finca, 6 unidades con sensor de movimiento",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Materiales (farolas solares, sensores) requieren cotización del instalador",
+          "Precio unitario de farolas y sensores pendiente de revisión"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistemas solares fotovoltaicos (farolas solares autónomas)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de sensores de movimiento PIR integrados en farolas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro farolas solares autónomas LED",
+          "descripcion": "6 unidades de farola solar autónoma con panel fotovoltaico integrado, batería de acumulación, LED de alta eficiencia, carcasa resistente a intemperie. Incluye todos los componentes necesarios para funcionamiento autónomo.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de farola solar debe ser cotizado por el instalador según marca, potencia y especificaciones técnicas"
+        },
+        {
+          "concepto": "Suministro sensores de movimiento PIR para farolas",
+          "descripcion": "6 unidades de sensor de movimiento PIR (Passive Infrared) integrable en farolas solares. Rango de detección 6-12m, ángulo 120-180°, tiempo de apagado ajustable. Compatible con sistemas solares autónomos.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del sensor PIR debe ser cotizado según modelo y compatibilidad con farola seleccionada"
+        },
+        {
+          "concepto": "Replanteo y preparación de ubicaciones",
+          "descripcion": "Replanteo de 6 puntos de instalación en camino de acceso. Verificación de orientación solar óptima (sur), comprobación de sombras, marcado de puntos de anclaje.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de 6 farolas solares con sensor de movimiento",
+          "descripcion": "Montaje de 6 farolas solares autónomas en camino de acceso. Incluye: fijación a base/poste, conexión de sensor PIR, verificación de funcionamiento diurno/nocturno, ajuste de sensibilidad y tiempo de apagado del sensor, pruebas de detección de movimiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios de instalación",
+          "descripcion": "Tornillería, tacos de anclaje, bridas, pasta térmica, selladores, cinta aislante, conectores estancos y otros accesorios necesarios para la instalación completa de 6 farolas solares con sensores.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a estimar según cantidad y tipo de accesorios requeridos"
+        }
+      ],
+      "calculos": {
+        "subtotal": 520,
+        "iva_porcentaje": 21,
+        "iva": 109.2,
+        "total": 629.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar que las farolas solares seleccionadas tengan sensor PIR integrado o compatible con instalación de sensor externo",
+        "Confirmar que el camino de acceso permite orientación sur de paneles solares (mínimo 6-8 horas de luz directa diaria)",
+        "Considerar altura de instalación: 2-3m para óptima detección de movimiento en camino",
+        "Especificar tipo de base/poste: enterrada, sobre hormigón, o fijación a estructura existente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro farolas solares autónomas LED",
+          "oficio": "energia_solar",
+          "motivo": "Material específico de farola solar autónoma con batería integrada"
+        },
+        {
+          "concepto": "Suministro sensores de movimiento PIR para farolas",
+          "oficio": "electricidad",
+          "motivo": "Sensor PIR integrable en sistemas solares autónomos"
+        },
+        {
+          "concepto": "Pequeño material y accesorios de instalación",
+          "oficio": "energia_solar",
+          "motivo": "Accesorios de montaje y fijación para farolas solares"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_detector_movimiento_pir",
+      "instalacion_fotovoltaica_autoconsumo",
+      "construccion_de_camino_o_sendero_en_jardin",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_de_detectores_de_llama"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3668,
+      "tokens_out": 1828
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "id": 119,
+  "oficio": "Climatización",
+  "texto": "Instalar 5 unidades de cassette en local comercial con unidad exterior de 14kW",
+  "http_status": 200,
+  "latency_ms": 19745,
+  "raw_response": {
+    "transcript": "Instalar 5 unidades de cassette en local comercial con unidad exterior de 14kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar 5 unidades de cassette en local comercial con unidad exterior de 14kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar cálculo térmico: 5 cassettes con unidad exterior 14kW requiere validación de potencias individuales",
+          "Confirmar disponibilidad de circuito eléctrico exclusivo de suficiente potencia para 14kW",
+          "Coordinar con pladurista para huecos de 600x600mm en falsos techos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación split cassette y unidad exterior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro unidad cassette techo inverter",
+          "descripcion": "5 unidades split cassette techo diseño comercial, compatibles con unidad exterior 14kW, incluyendo marco decorativo",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipamiento a confirmar por instalador según modelos y capacidades individuales"
+        },
+        {
+          "concepto": "Suministro unidad exterior 14kW",
+          "descripcion": "Unidad condensadora multisplit inverter 14kW, compresor rotativo, para 5 unidades interiores cassette",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipamiento a confirmar por instalador"
+        },
+        {
+          "concepto": "Tubo frigorífico de interconexión",
+          "descripcion": "Tuberías de cobre aisladas para conexión unidad exterior - cassettes interiores (estimado 30ml total con ramificaciones)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje exacto a confirmar según layout local y recorrido de tuberías"
+        },
+        {
+          "concepto": "Gas refrigerante R32",
+          "descripcion": "Refrigerante R32 para carga inicial de sistema multisplit 14kW",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio a confirmar según especificaciones del sistema"
+        },
+        {
+          "concepto": "Cable eléctrico circuito exclusivo",
+          "descripcion": "Cable de alimentación 3x6mm² (o superior según cálculo) para unidad exterior 14kW con protecciones y termomagnético",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sección y metraje a revisar según ubicación unidad exterior y cuadro eléctrico"
+        },
+        {
+          "concepto": "Soportes y anclajes para cassettes",
+          "descripcion": "5 soportes de anclaje para cassettes en forjado, incluyendo piezas antivibración",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar tipo de estructura interior (falso techo, forjado)"
+        },
+        {
+          "concepto": "Tubo desagüe condensados con bomba",
+          "descripcion": "5 tuberías desagüe condensados DN20 con 5 bombas de condensados automáticas (drenaje a más de 1m altura estimado)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar altura de punto de desagüe para cada cassette"
+        },
+        {
+          "concepto": "Pequeño material climatización",
+          "descripcion": "Abrazaderas, soportes tubería, aislamiento espuma, tes, válvulas, soldaduras, conectores",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada, a revisar in situ"
+        },
+        {
+          "concepto": "Instalación unidad exterior",
+          "descripcion": "Montaje, anclaje antivibración, conexiones frigoríficas y eléctricas de unidad exterior 14kW",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación 5 unidades cassette techo",
+          "descripcion": "Montaje de 5 cassettes en falso techo/forjado, anclajes, conexión frigorífica, eléctrica y desagüe, pruebas de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje tuberías frigoríficas y eléctricas",
+          "descripcion": "Tendido, fijación e aislamiento de tuberías de cobre (30ml) y cableado de interconexión entre unidad exterior y cassettes",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 60,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación circuito eléctrico exclusivo",
+          "descripcion": "Tendido de cable 3x6mm² desde cuadro eléctrico a unidad exterior 14kW, conexiones, protecciones y pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Carga de refrigerante y pruebas de sistema",
+          "descripcion": "Carga de refrigerante R32, pruebas de estanqueidad, puesta en marcha, equilibrado de zonas y control remoto",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 3580,
+        "iva_porcentaje": 21,
+        "iva": 751.8,
+        "total": 4331.8
+      },
+      "sugerencias_catalogo": [
+        "Base Maestra [instalacion_split_1x1_cassette_techo] aplicada para partidas de mano de obra",
+        "Para sistemas multisplit como este, considerar solicitar proyecto técnico si potencia supera 70kW (aquí 14kW, no aplica obligatoriedad)",
+        "Confirmar modelo cassette techo y especificaciones frigoríficas antes de encargo"
+      ],
+      "partidas_nuevas_detectadas": [
+        "Suministro unidad cassette techo inverter (material)",
+        "Suministro unidad exterior 14kW (material)",
+        "Tubo frigorífico de interconexión (material)",
+        "Gas refrigerante R32 (material)",
+        "Cable eléctrico circuito exclusivo (material)",
+        "Soportes y anclajes para cassettes (material)",
+        "Tubo desagüe condensados con bomba (material)",
+        "Pequeño material climatización (material)"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_iluminacion_comercial_led",
+      "reforma_para_instalar_ascensor_en_edificio_sin_ascensor",
+      "instalacion_electrica_exterior_urbanizacion",
+      "instalacion_sistema_de_expansion_directa_roof_top",
+      "instalacion_split_1x1_cassette_techo"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 5,
+    "n_sugeridas": 8,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

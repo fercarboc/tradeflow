@@ -1,0 +1,220 @@
+{
+  "id": 309,
+  "oficio": "Contra Incendios",
+  "texto": "Mantenimiento anual de sistema de detección y alarma contra incendios de hotel de 30 habitaciones",
+  "http_status": 200,
+  "latency_ms": 22563,
+  "raw_response": {
+    "transcript": "Mantenimiento anual de sistema de detección y alarma contra incendios de hotel de 30 habitaciones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento anual de sistema de detección y alarma contra incendios de hotel de 30 habitaciones",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Mantenimiento anual OBLIGATORIO según RD 513/2017",
+          "Debe ser realizado por empresa mantenedora AUTORIZADA/REGISTRADA",
+          "Certificado anual OBLIGATORIO para póliza de seguros y licencia de actividad",
+          "Hotel de 30 habitaciones: instalación compleja, múltiples zonas, sistemas integrados"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Mantenimiento anual de instalación contra incendios en edificio comercial (hotel)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección completa central de incendios y todos los elementos",
+          "descripcion": "Revisión exhaustiva de la central automática de detección e incendios (CIE), verificación de señales, estado de comunicaciones, batería de respaldo y circuitos de alimentación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de funcionamiento de detectores y pulsadores por muestreo",
+          "descripcion": "Prueba de funcionamiento (disparo controlado) de detectores de humo, temperatura y pulsadores manuales de alarma en puntos representativos de cada zona del hotel (pasillos, habitaciones, áreas comunes, cocina, cuartos técnicos)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recarga de extintores si necesario",
+          "descripcion": "Inspección visual y recarga de extintores en áreas comunes, habitaciones, cocina y cuartos técnicos del hotel. Incluye comprobación de precintos, manómetros y etiquetado",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de extintores a recargar depende del inventario específico del hotel. El profesional debe confirmar número de extintores y necesidad de recarga"
+        },
+        {
+          "concepto": "Prueba de BIEs: apertura y estanqueidad",
+          "descripcion": "Verificación funcional de todas las bocas de incendio equipadas (BIEs): prueba de apertura de mangueras, comprobación de presión de agua, estanqueidad de conexiones, funcionalidad de válvulas de corte y estado general",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 60,
+          "total": 150,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión de rociadores automáticos si existen",
+          "descripcion": "Inspección visual y prueba de funcionamiento de rociadores automáticos (sprinklers), comprobación de tuberías, válvulas maestras, difusores sin obstrucciones y sistemas de drenaje",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Solo aplica si el hotel dispone de sistema de rociadores automáticos. Confirmar si está instalado"
+        },
+        {
+          "concepto": "Prueba de grupo de presión si existe",
+          "descripcion": "Verificación completa del grupo de presión: funcionamiento de bomba principal, bomba jockey, válvulas de seguridad, manómetros, acumulador, presión del circuito y capacidad de suministro para BIEs",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Solo aplica si el hotel dispone de grupo de presión dedicado. Confirmar si está presente"
+        },
+        {
+          "concepto": "Emisión de certificado anual de mantenimiento",
+          "descripcion": "Generación de certificado oficial de mantenimiento conforme a RD 513/2017, válido para póliza de seguros y licencia de actividad del hotel. Incluye documentación técnica de pruebas realizadas",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 85,
+          "total": 85,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Actualización del libro de mantenimiento",
+          "descripcion": "Registro detallado en el libro oficial de mantenimiento de todas las actuaciones realizadas, resultados de pruebas, anomalías detectadas, reparaciones efectuadas y firma del técnico responsable",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 60,
+          "total": 30,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y repuestos menores",
+          "descripcion": "Materiales consumibles durante el mantenimiento: pilas de detectores, pegatinas de prueba, aceite lubricante para mecanismos, filtros menores, pegamento ignífugo, conectores de reemplazo si fuera necesario",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de pequeño material depende de necesidades específicas. Presupuestar cantidad real de repuestos menores identificados durante visita"
+        },
+        {
+          "concepto": "Prueba completa con disparo de central de detección e incendios (opcional)",
+          "descripcion": "Prueba exhaustiva de la central con disparo controlado de detectores en cadena, verificación de tiempo de respuesta, funcionamiento de sirenas, strobes y sistemas de comunicación integrados. RECOMENDADO anualmente",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Prueba profunda recomendada pero depende de disponibilidad del hotel y coordinación con seguridad. Confirmar inclusión"
+        }
+      ],
+      "calculos": {
+        "subtotal": 985,
+        "iva_porcentaje": 21,
+        "iva": 206.85,
+        "total": 1191.85
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el hotel cuenta con sistema de rociadores automáticos (sprinklers) antes de presupuestar esa partida",
+        "Confirmar existencia de grupo de presión dedicado para BIEs",
+        "Incluir prueba completa de disparo de CIE: mejora fiabilidad del sistema y cumplimiento normativo",
+        "Hotel de 30 habitaciones: considerar si requiere sistemas integrados con control de acceso o ascensores (partidas adicionales si aplica)",
+        "Documentar en certificado si se detectan deficiencias que requieran reparación urgente (presupuestar por separado)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Recarga de extintores si necesario",
+          "oficio": "contra_incendios",
+          "motivo": "Cantidad y tipo específicos no determinados hasta inspección"
+        },
+        {
+          "concepto": "Pequeño material y repuestos menores",
+          "oficio": "contra_incendios",
+          "motivo": "Coste real depende de necesidades identificadas en visita"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_de_instalacion_contra_incendios",
+      "mantenimiento_trimestral_de_instalacion_contra_incendios",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_de_instalacion_contra_incendios_en_local"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 8,
+    "n_sugeridas": 2,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

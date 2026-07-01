@@ -1,0 +1,154 @@
+{
+  "id": 158,
+  "oficio": "Pladur",
+  "texto": "Reparar juntas y fisuras en falso techo de pladur con masilla y rejilla de fibra de vidrio",
+  "http_status": 200,
+  "latency_ms": 11069,
+  "raw_response": {
+    "transcript": "Reparar juntas y fisuras en falso techo de pladur con masilla y rejilla de fibra de vidrio",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar juntas y fisuras en falso techo de pladur con masilla y rejilla de fibra de vidrio",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Reparación de juntas y fisuras en pladur con masilla y rejilla de fibra de vidrio"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Reparación de juntas en falso techo de pladur",
+          "descripcion": "Reparación de juntas abiertas o defectuosas en falso techo de pladur mediante aplicación de cinta de fibra de vidrio y masilla de juntas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a reparar debe ser confirmada por el instalador en obra"
+        },
+        {
+          "concepto": "Cinta de fibra de vidrio para juntas de pladur",
+          "descripcion": "Cinta de fibra de vidrio autoadhesiva para refuerzo de juntas en reparación de pladur",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador. Cantidad estimada en 10 ml; ajustar según longitud real de juntas"
+        },
+        {
+          "concepto": "Masilla de juntas para pladur (secado químico)",
+          "descripcion": "Masilla de juntas de secado químico para relleno y acabado de juntas reparadas en falso techo",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar. Cantidad estimada en 2 kg; ajustar según volumen de fisuras"
+        },
+        {
+          "concepto": "Lijado y acabado de juntas reparadas",
+          "descripcion": "Lijado de masilla aplicada con grano 120 y 220 para obtener acabado liso y uniforme previo a pintura",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a lijar debe ser confirmada por el instalador"
+        },
+        {
+          "concepto": "Lija y pequeño material de reparación",
+          "descripcion": "Lija grano 120 y 220, espátulas, trapos y otros consumibles para reparación de juntas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de consumibles a confirmar por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 70,
+        "iva_porcentaje": 21,
+        "iva": 14.7,
+        "total": 84.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar en obra la extensión real de juntas y fisuras para ajustar cantidad de m2 de mano de obra",
+        "Confirmar si la reparación incluye repintado posterior o solo acabado de juntas",
+        "Solicitar presupuesto de materiales (cinta fibra vidrio, masilla, lija) a proveedores habituales"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cinta de fibra de vidrio para juntas de pladur",
+          "oficio": "pladur_escayola",
+          "motivo": "Material específico para refuerzo de juntas en reparación de pladur"
+        },
+        {
+          "concepto": "Masilla de juntas para pladur (secado químico)",
+          "oficio": "pladur_escayola",
+          "motivo": "Material específico para relleno de juntas en reparación de pladur"
+        },
+        {
+          "concepto": "Lija y pequeño material de reparación",
+          "oficio": "pladur_escayola",
+          "motivo": "Consumibles para acabado de juntas reparadas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_gotera_o_humedad_en_pladur",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "remate_y_acabado_juntas_pladur_para_pintar",
+      "falso_techo_pladur_con_lucernario_o_claraboya_artificial",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3769,
+      "tokens_out": 1597
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

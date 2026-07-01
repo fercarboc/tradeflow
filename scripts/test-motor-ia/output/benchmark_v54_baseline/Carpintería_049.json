@@ -1,0 +1,111 @@
+{
+  "id": 49,
+  "oficio": "Carpintería",
+  "texto": "Fabricación de cocina a medida en madera de melamina blanca con tiradores de aluminio, 6 metros lineales",
+  "http_status": 200,
+  "latency_ms": 16577,
+  "raw_response": {
+    "transcript": "Fabricación de cocina a medida en madera de melamina blanca con tiradores de aluminio, 6 metros lineales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación de cocina a medida en madera de melamina blanca con tiradores de aluminio, 6 metros lineales",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto en precio alzado (PA). El instalador debe confirmar medidas exactas, huecos para electrodomésticos y acabados finales antes de cerrar precio.",
+          "Se recomienda coordinar con electricista (conexiones enchufes, iluminación LED) y fontanero (toma agua, desagüe) antes de instalar.",
+          "Encimera NO incluida en este presupuesto. Si se requiere, solicitar presupuesto separado.",
+          "Precio orientativo basado en 6 ml de módulos base. Revisar con cliente medidas exactas del espacio."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de mueble cocina a medida. Oficio principal: carpintería."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Fabricación e instalación de cocina a medida en melamina blanca, 6 metros lineales",
+          "descripcion": "Módulos base y colgantes en tablero de melamina blanca de 18 mm, estructura interna reforzada, incluyendo: cuerpo de módulos, puertas y cajones con frentes melamina blanca, guías telescópicas cierre suave, herraje bisagras de calidad, tiradores de aluminio anodizado, zócalo y cornisa, fijación a pared, pequeño material y acabados. NO incluye encimera, electrodomésticos ni instalaciones (electricidad/fontanería).",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado variable según: configuración exacta de módulos (base/colgantes), número de puertas y cajones, huecos para electrodomésticos (horno, microondas, frigorífico), acabados especiales. Rango orientativo: 3.600€ - 5.400€ (600€/ml × 6 ml, con melamina blanca y tiradores aluminio). El instalador debe medir el espacio, confirmar distribución con cliente y ajustar precio final."
+        },
+        {
+          "concepto": "Coordinación con instalaciones (electricidad y fontanería)",
+          "descripcion": "Revisión previa con electricista para ubicación de enchufes, iluminación LED inferior (si se solicita) y con fontanero para toma de agua y desagüe. Incluye pequeños ajustes de huecos si es necesario. Trabajo coordinado, sin instalación de sistemas (esos van por separado).",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Trabajo de coordinación y ajustes menores. Precio orientativo: 200€ - 400€. Incluir en presupuesto final si se requiere."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: plano o croquis del espacio con medidas exactas (ancho, alto, profundidad).",
+        "Confirmar huecos para electrodomésticos: horno (60×60 cm), microondas, frigorífico, lavavajillas, etc.",
+        "Decidir si incluye: encimera (material y precio separado), iluminación LED inferior, protección trasera.",
+        "Coordinar con electricista: número y ubicación de enchufes, iluminación integrada.",
+        "Coordinar con fontanero: toma de agua fría/caliente, desagüe, ubicación grifería.",
+        "Confirmar acabado: melamina blanca mate o brillo, cantos de aluminio o PVC, tipo de tirador (aluminio anodizado, acero, etc.)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Fabricación e instalación de cocina a medida en melamina blanca, 6 metros lineales",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de precio alzado (PA) basada en Base Maestra [fabricacion_e_instalacion_mueble_cocina_a_medida]. Incluye todas las partidas obligatorias: módulos estructura, tablero melamina, puertas/cajones, herraje, zócalo/cornisa, pequeño material. Precio pendiente de revisión del instalador tras confirmar medidas exactas y configuración final."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_mueble_cocina_a_medida",
+      "fabricacion_e_instalacion_de_cajonera_o_modulo_bajo_a_medida",
+      "fabricacion_e_instalacion_de_mueble_salon_o_libreria",
+      "fabricacion_de_estanterias_y_baldas_a_medida",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3847,
+      "tokens_out": 1847
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 2,
+    "n_catalogo": 0,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

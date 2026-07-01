@@ -1,0 +1,180 @@
+{
+  "id": 207,
+  "oficio": "Jardinería",
+  "texto": "Talar árbol peligroso próximo a la vivienda, pino de 10 metros de altura, gestión de residuos",
+  "http_status": 200,
+  "latency_ms": 14509,
+  "raw_response": {
+    "transcript": "Talar árbol peligroso próximo a la vivienda, pino de 10 metros de altura, gestión de residuos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Talar árbol peligroso próximo a la vivienda, pino de 10 metros de altura, gestión de residuos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Árbol próximo a vivienda: requiere evaluación de riesgo y dirección de caída controlada",
+          "Altura 10m: trabajo en altura, EPI obligatorio, posible necesidad de andamios o plataforma elevadora",
+          "Gestión de residuos: verificar si incluye destocado o solo restos vegetales",
+          "Recomendación: solicitar licencia municipal si el árbol está catalogado o en zona protegida"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Tala de árbol, trabajo especializado en jardinería"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 50
+          },
+          "motivo": "Gestión y retirada de residuos vegetales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación previa de riesgo y dirección de caída",
+          "descripcion": "Inspección técnica del árbol, evaluación de riesgos, planificación de caída controlada, señalización de zona de seguridad",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 200,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tala dirigida pino 10m con motosierra y cuerdas",
+          "descripcion": "Tala del pino de 10 metros de altura mediante motosierra, uso de cuerdas de seguridad para dirección controlada de caída, trabajo en altura con EPI completo (casco, arnés, pantalón anticorte, botas)",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 350,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Troceado y astillado de restos vegetales",
+          "descripcion": "Corte en trozos manejables del tronco y ramas, astillado de restos vegetales para reducción de volumen, carga en contenedor",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 250,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Extracción y retirada de tronco",
+          "descripcion": "Extracción del tronco principal, carga en vehículo de transporte, traslado a gestor autorizado de residuos vegetales",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 200,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos vegetales con gestor autorizado",
+          "descripcion": "Transporte y tratamiento de residuos vegetales (astillas, ramas, tronco) en gestor autorizado, documentación de entrega",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de volumen de residuos y distancia a gestor. Estimado 150-400€ según cantidad y localización"
+        },
+        {
+          "concepto": "EPI completo y pequeño material",
+          "descripcion": "Casco de seguridad, arnés de trabajo en altura, pantalón anticorte, botas de seguridad, guantes, gafas, cuerdas de seguridad, mosquetones, pequeño material consumible",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible y EPI. Estimado 80-150€ según calidad y reutilización"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1200,
+        "iva_porcentaje": 21,
+        "iva": 252,
+        "total": 1452
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el árbol está catalogado o protegido: puede requerir licencia municipal previa (gestoria_tramites)",
+        "Si se requiere destocado (extracción de raíces): añadir partida adicional de 200-400€",
+        "Si se necesita relleno de hoyo tras destocado: añadir partida de albanilería/jardinería",
+        "Considerar contratación de plataforma elevadora si acceso difícil (alquiler 150-300€/día)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Gestión de residuos vegetales con gestor autorizado",
+          "oficio": "gestion_residuos",
+          "motivo": "Partida de servicio externo, precio variable según volumen y distancia"
+        },
+        {
+          "concepto": "EPI completo y pequeño material",
+          "oficio": "jardineria",
+          "motivo": "Material consumible, precio variable según equipamiento específico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "construccion_de_piscina_de_obra",
+      "tala_y_extraccion_de_arbol",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_llave_escuadra"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3925,
+      "tokens_out": 1918
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

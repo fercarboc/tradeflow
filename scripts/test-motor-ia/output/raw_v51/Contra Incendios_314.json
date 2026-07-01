@@ -1,0 +1,220 @@
+{
+  "id": 314,
+  "oficio": "Contra Incendios",
+  "texto": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+  "http_status": 200,
+  "latency_ms": 28062,
+  "raw_response": {
+    "transcript": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo de contra_incendios: requiere empresa instaladora REGISTRADA según RITE e Industria",
+          "Precio alzado del sistema: pendiente de especificación técnica (marca, modelo, número de zonas)",
+          "Cableado resistente al fuego E30 OBLIGATORIO según CTE DB-SI",
+          "Batería de respaldo 72h mínimo OBLIGATORIA según REBT y EN 54",
+          "Revisión semestral OBLIGATORIA post-instalación",
+          "Requiere plano de sectores de incendio y documentación de conformidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 300,
+            "recomendado": 400,
+            "max": 500
+          },
+          "motivo": "Sustitución de central de detección y alarma de incendios. Trabajo especializado con normativa CTE DB-SI, REBT, EN 54-2, EN 54-4 y UNE 23007. Requiere empresa autorizada."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexionado eléctrico, alimentación y batería de respaldo. Trabajo complementario a la instalación principal."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje central de incendios obsoleta",
+          "descripcion": "Desconexión segura, etiquetado de líneas, desmontaje de central analógica obsoleta, cableado antiguo y accesorios asociados. Gestión de residuos electrónicos.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Desmontaje especializado de sistema contra incendios. Instalador determina jornadas según complejidad."
+        },
+        {
+          "concepto": "Central de detección y alarma de incendios analógica certificada EN 54-2 y EN 54-4",
+          "descripcion": "Suministro de central analógica con protocolo de comunicación (dirección de tráfico de datos), certificaciones EN 54-2 (equipos detección) y EN 54-4 (fuente alimentación), batería respaldo 72h mínimo integrada, panel de control con display, módulo supervisor de líneas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado del sistema según marca, modelo, número de zonas y capacidad. Rango referencia: 300-2500€. Instalador especifica modelo y precio real."
+        },
+        {
+          "concepto": "Instalación central de incendios: montaje, fijación y conexionado",
+          "descripcion": "Montaje de central en armario o bastidor, fijación en pared, interconexión de módulos, pruebas funcionales básicas de encendido y display.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalación especializada. Instalador estima jornadas según envergadura y accesibilidad."
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 (instalación y pequeño material)",
+          "descripcion": "Suministro e instalación de cableado de comunicación y alimentación resistente al fuego E30 según CTE DB-SI. Bandejas, tuberías de protección, soportes, bridas resistentes al fuego. Merma técnica 10% + 15% imprevistos.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud exacta de cableado pendiente de medición en obra. Instalador cuantifica ml reales. Rango: 15-45€/ml según sección y accesorios."
+        },
+        {
+          "concepto": "Alimentación eléctrica y batería respaldo 72h",
+          "descripcion": "Conexión de alimentación desde cuadro general (circuito dedicado con magnetotérmico 10A y diferencial 30mA), instalación de batería de respaldo 72h mínimo según REBT y EN 54, caja de conexión, pequeño material eléctrico.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Trabajo de electricidad especializada. Instalador estima tiempo según estado de instalación existente."
+        },
+        {
+          "concepto": "Pruebas funcionales, calibración y documentación de conformidad",
+          "descripcion": "Pruebas de comunicación de protocolo, verificación de detectores y pulsadores (si aplica), comprobación de batería, generación de plano de sectores de incendio, documentación de conformidad según CTE DB-SI y REBT, formación básica de operarios.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pruebas y documentación obligatorias. Tiempo variable según complejidad de la instalación."
+        },
+        {
+          "concepto": "Suministro detectores de humo (optico/ionización) y pulsadores manuales (si aplica)",
+          "descripcion": "Detectores certificados EN 54-7, pulsadores manuales de alarma EN 54-11 (cantidad a especificar según proyecto técnico y plano de sectores).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de detectores y pulsadores pendiente de proyecto técnico. Instalador especifica cantidad y presupuesto por unidad."
+        },
+        {
+          "concepto": "Sirenas acústicas y ópticas (si aplica)",
+          "descripcion": "Sirenas acústicas y elementos ópticos (strobes) certificados EN 54-3, según requerimientos de la instalación obsoleta o especificación nueva.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y modelo de sirenas pendiente de especificación. Instalador determina cantidad."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo especializado de marcas certificadas: HOCHIKI, NOTIFIER, AUTRONIC, BOSCH, MORLEY-IAS (EN 54 Class A/B).",
+        "Verificar que la central elegida soporta protocolo de comunicación especificado (dirección de datos, supervisión de líneas).",
+        "Obtener copia del proyecto técnico de la instalación anterior o encargar proyecto nuevo si no existe (obligatorio para CTE DB-SI).",
+        "Coordinar con técnico de prevención y Administración Local para conformidad normativa.",
+        "Estimar número total de zonas/detectores antes de presupuestar, para calibrar precio de central y cableado."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Desmontaje central de incendios obsoleta",
+          "oficio": "contra_incendios",
+          "razon": "Trabajo de desmantelamiento especializado en sistemas contra incendios. No existe partida explícita en Base Maestra para desmontaje; se crea como partida obligatoria de sustitución."
+        },
+        {
+          "nombre": "Central de detección y alarma de incendios analógica certificada EN 54-2 y EN 54-4",
+          "oficio": "contra_incendios",
+          "razon": "Material de precio alzado según especificación técnica. Base Maestra establece rango 300-2500€/pa; esta partida requiere revisión del instalador para modelo y presupuesto real."
+        },
+        {
+          "nombre": "Cableado resistente al fuego E30 (instalación y pequeño material)",
+          "oficio": "contra_incendios",
+          "razon": "Cableado E30 OBLIGATORIO según CTE DB-SI en instalaciones contra incendios. Partida de material con cantidad variable (ml), requiere medición en obra."
+        },
+        {
+          "nombre": "Suministro detectores de humo y pulsadores manuales (si aplica)",
+          "oficio": "contra_incendios",
+          "razon": "Partida obligatoria de Base Maestra para centrales de detección. Cantidad pendiente de proyecto técnico; creada como sugerida_ia para revisión."
+        },
+        {
+          "nombre": "Sirenas acústicas y ópticas (si aplica)",
+          "oficio": "contra_incendios",
+          "razon": "Partida obligatoria de Base Maestra. Cantidad variable según instalación; requiere especificación del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "recalificacion_instalacion_fontaneria_comunidad",
+      "sustitucion_tuberia_multicapa",
+      "mantenimiento_de_instalacion_contra_incendios_en_local",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_central_deteccion_y_alarma_incendios"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 8,
+    "n_catalogo": 0,
+    "n_sugeridas": 8,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

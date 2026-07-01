@@ -1,0 +1,170 @@
+{
+  "id": 234,
+  "oficio": "Energía Solar",
+  "texto": "Revisar y reparar instalación solar que produce menos de lo esperado, revisión de paneles y cableado",
+  "http_status": 200,
+  "latency_ms": 17133,
+  "raw_response": {
+    "transcript": "Revisar y reparar instalación solar que produce menos de lo esperado, revisión de paneles y cableado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y reparar instalación solar que produce menos de lo esperado, revisión de paneles y cableado",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diagnóstico pendiente: causa de baja producción no identificada. Presupuesto de reparación se generará tras diagnóstico.",
+          "Materiales de reparación (módulos, inversor, cableado) con precio_unitario=0 pendiente de revisión según hallazgos."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Diagnóstico y reparación de instalación fotovoltaica con baja producción. Oficio especializado en energía solar."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión datos monitoreo vs estimación PVGIS",
+          "descripcion": "Análisis de datos históricos de producción, comparativa con estimación teórica según irradiancia y ubicación geográfica",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección visual módulos fotovoltaicos y conexiones",
+          "descripcion": "Revisión de estado físico de paneles (grietas, decoloración, suciedad), verificación de conexiones en cajas de conexión y strings",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Comprobación inversor y lectura códigos de error",
+          "descripcion": "Verificación de funcionamiento del inversor, lectura de códigos de error en pantalla/app, medición de tensión de entrada y salida",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Medición con multímetro tensiones y corrientes en strings",
+          "descripcion": "Medición de voltaje DC en cada string, corriente de cortocircuito, identificación de strings defectuosos o con rendimiento bajo",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Termografía infrarroja para localizar puntos calientes",
+          "descripcion": "Captura térmica de módulos para detectar células defectuosas, conexiones sueltas o módulos con fallo interno (puntos calientes)",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe de diagnóstico con causa identificada y recomendaciones",
+          "descripcion": "Documento técnico con hallazgos, causa raíz de baja producción, fotografías, mediciones y propuesta de reparación/sustitución",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de informe técnico. Instalador valida si incluir en presupuesto o es parte del diagnóstico."
+        },
+        {
+          "concepto": "EPI y pequeño material (arnés, guantes, conectores, pasta térmica)",
+          "descripcion": "Equipos de protección individual para trabajos en altura, pequeño material consumible (conectores MC4, pasta térmica, cinta aislante, etc.)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Instalador estima según necesidades reales del diagnóstico."
+        }
+      ],
+      "calculos": {
+        "subtotal": 520,
+        "iva_porcentaje": 21,
+        "iva": 109.2,
+        "total": 629.2
+      },
+      "sugerencias_catalogo": [
+        "Tras diagnóstico, si se detecta módulo defectuoso: usar partida 'Sustitución módulo fotovoltaico' (energia_solar, precio según modelo).",
+        "Si fallo es inversor: usar partida 'Reparación o sustitución inversor solar averiado' (energia_solar, 300-1800€).",
+        "Si problema es cableado: agregar partida 'Sustitución cableado y protecciones instalación solar' (energia_solar, precio por metros).",
+        "Si hay sombras nuevas: considerar limpieza de obstáculos o reposicionamiento de paneles (energia_solar)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_sustitucion_de_inversor_solar_averiado",
+      "mantenimiento_anual_instalacion_fotovoltaica",
+      "diagnostico_averia_instalacion_fotovoltaica_baja_produccion",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "ampliacion_de_instalacion_fotovoltaica_existente"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4119,
+      "tokens_out": 2177
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "id": 385,
+  "oficio": "Persianas",
+  "texto": "Instalar estores enrollables de tejido screen para sala con grandes ventanales, filtro solar 10%",
+  "http_status": 200,
+  "latency_ms": 18343,
+  "raw_response": {
+    "transcript": "Instalar estores enrollables de tejido screen para sala con grandes ventanales, filtro solar 10%",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar estores enrollables de tejido screen para sala con grandes ventanales, filtro solar 10%",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación en ventanales estándar. Confirmar dimensiones exactas (ancho x alto) para cálculo de cantidad de unidades.",
+          "Filtro solar 10% = opacidad alta (casi opaco). Verificar preferencia del cliente entre 1%, 3%, 5% o 10%.",
+          "No se especifica si incluye motor o sensor de viento. Se presupuesta instalación manual (enrollable)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de estores enrollables screen. Oficio específico en catálogo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tela screen técnico exterior opacidad 10%",
+          "descripcion": "Tejido screen de filtro solar 10% (casi opaco), resistente UV, para estores enrollables en ventanales. Incluye suministro de tela cortada a medida.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones exactas de ventanales (m2 de tela). Instalador debe confirmar medidas y aplicar tarifa de material."
+        },
+        {
+          "concepto": "Tubo enrollador aluminio para estores screen",
+          "descripcion": "Tubo enrollador de aluminio anodizado, diámetro 40-50mm, con rodamientos de precisión para enrollable manual. Incluye pequeño material de montaje.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende de número de ventanales. Precio unitario a confirmar por instalador según proveedor."
+        },
+        {
+          "concepto": "Guías laterales y tensor inferior para estores screen",
+          "descripcion": "Guías laterales de aluminio anodizado y tensor inferior (barra de peso) para mantener tela tensa y evitar movimientos laterales. Incluye pequeño material.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende de número de ventanales. Precio unitario a confirmar."
+        },
+        {
+          "concepto": "Soportes de fijación para estores screen",
+          "descripcion": "Soportes de aluminio o acero galvanizado para fijación de tubo enrollador a dintel o pared. Incluye tacos y tornillería según tipo de superficie.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende de número de ventanales y tipo de fijación (dintel/pared). Precio a confirmar."
+        },
+        {
+          "concepto": "Instalación de estores enrollables screen",
+          "descripcion": "Mano de obra de instalación: montaje de soportes, colocación de tubo enrollador, instalación de guías laterales, tensor inferior, pruebas de funcionamiento y ajustes. Por unidad de estor (ventanal).",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de unidades (ventanales) a confirmar por instalador. Tarifa: 45€/ud según catálogo persianas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar número exacto de ventanales/estores a instalar.",
+        "Solicitar medidas precisas (ancho x alto en cm) de cada ventanal para calcular m2 de tela y cantidad de componentes.",
+        "Opacidad 10% es muy alta (casi opaco). Verificar si cliente prefiere menor opacidad (1%, 3%, 5%) para mayor luminosidad.",
+        "Considerar motor enrollable + sensor de viento si ventanales son grandes o de difícil acceso (precio adicional ~150-300€/ud).",
+        "Pequeño material (tornillería, tacos, grapas, adhesivos) incluido en partidas de material."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tela screen técnico exterior opacidad 10%",
+          "oficio": "persianas",
+          "razon": "Material específico de filtro solar. Precio depende de m2 exactos."
+        },
+        {
+          "concepto": "Tubo enrollador aluminio para estores screen",
+          "oficio": "persianas",
+          "razon": "Componente estándar. Cantidad depende de número de ventanales."
+        },
+        {
+          "concepto": "Guías laterales y tensor inferior para estores screen",
+          "oficio": "persianas",
+          "razon": "Componente estándar. Cantidad depende de número de ventanales."
+        },
+        {
+          "concepto": "Soportes de fijación para estores screen",
+          "oficio": "persianas",
+          "razon": "Componente estándar. Cantidad depende de número de ventanales."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cierres_venecianos_o_screen_exterior",
+      "instalacion_generacion_fotovoltaica_bombeo",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4050,
+      "tokens_out": 2194
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

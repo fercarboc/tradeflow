@@ -1,0 +1,260 @@
+{
+  "id": 301,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar sistema de detección de incendios en local comercial de 100 metros cuadrados con central y detectores",
+  "http_status": 200,
+  "latency_ms": 24304,
+  "raw_response": {
+    "transcript": "Instalar sistema de detección de incendios en local comercial de 100 metros cuadrados con central y detectores",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de detección de incendios en local comercial de 100 metros cuadrados con central y detectores",
+        "tipo_presupuesto": "instalacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de detección de incendios requiere empresa instaladora registrada según normativa RITE e Industria",
+          "Cableado resistente al fuego E30 es obligatorio según CTE DB-SI",
+          "Batería de respaldo de 72h mínimo requerida según EN 54",
+          "Revisión semestral obligatoria tras instalación",
+          "Se recomienda establecer contrato de mantenimiento anual"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistemas de detección y alarma de incendios"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Alimentación, batería de respaldo y conexionado eléctrico"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Central de incendios CIE certificada EN 54-2 y EN 54-4",
+          "descripcion": "Suministro e instalación de central automática de detección y alarma de incendios certificada según normas EN 54-2 y EN 54-4, apta para local comercial de 100 m²",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de central según modelo y funcionalidades debe ser validado por instalador. Rango orientativo: 300-800€"
+        },
+        {
+          "concepto": "Detectores de humo ópticos",
+          "descripcion": "Suministro e instalación de detectores de humo ópticos según UNE 23007, cantidad según cálculo de cobertura para 100 m² (estimado 4-6 unidades)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario detector óptico certificado EN 54-7. Rango: 80-150€/unidad"
+        },
+        {
+          "concepto": "Detectores de temperatura",
+          "descripcion": "Suministro e instalación de detectores de temperatura (si existe zona cocina o similar)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario detector temperatura EN 54-5. Rango: 100-180€/unidad. Revisar si es necesario según actividad del local"
+        },
+        {
+          "concepto": "Pulsadores manuales de alarma",
+          "descripcion": "Suministro e instalación de pulsadores manuales de alarma de incendios (recomendado mínimo 2 para local de 100 m²)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario pulsador certificado EN 54-11. Rango: 40-80€/unidad"
+        },
+        {
+          "concepto": "Sirenas acústicas y ópticas",
+          "descripcion": "Suministro e instalación de sirenas acústicas y ópticas (strobes) certificadas EN 54-3 y EN 54-8 para sala y exterior",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario sirena acustoóptica. Rango: 150-300€/unidad"
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30",
+          "descripcion": "Suministro e instalación de cableado resistente al fuego E30 según CTE DB-SI obligatorio. Estimado 150-200 ml para canalización de detectores y sirenas en 100 m²",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 180,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio cable E30 (típicamente mayor que convencional). Rango: 2-5€/ml"
+        },
+        {
+          "concepto": "Alimentación y batería de respaldo 72h",
+          "descripcion": "Suministro e instalación de fuente de alimentación ininterrumpida (UPS) con batería de respaldo mínimo 72h según EN 54-4. Incluye montaje en cuadro",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio batería UPS 72h. Rango: 250-500€"
+        },
+        {
+          "concepto": "Módulo de supervisión de líneas",
+          "descripcion": "Suministro e instalación de módulo supervisor para detección de fallos en líneas de detectores",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio módulo supervisor. Rango: 100-250€"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Cajetines, soportes, tuercas, tornillos, cintas aislantes, manguitos, dónde sea necesario para la instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material. Rango: 80-150€"
+        },
+        {
+          "concepto": "Instalación y puesta en marcha del sistema completo",
+          "descripcion": "Mano de obra de instalación: montaje de central, instalación de detectores, sirenas, pulsadores, cableado, conexionado, pruebas funcionales, calibración y puesta en marcha del sistema",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionalidad y documentación",
+          "descripcion": "Pruebas de detectores, sirenas, batería, líneas de supervisión. Generación de documentación técnica, planos 'as built', protocolo de entrega y acta de puesta en marcha",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1000,
+        "iva_porcentaje": 21,
+        "iva": 210,
+        "total": 1210
+      },
+      "sugerencias_catalogo": [
+        "Considerar instalación de módulo repetidor si el local tiene múltiples zonas o estructura que dificulte la propagación de señal inalámbrica",
+        "Evaluar integración con sistema de control de acceso si existe",
+        "Informar al cliente sobre obligatoriedad de revisión semestral por empresa autorizada (coste ~150-300€/revisión)",
+        "Establecer contrato de mantenimiento anual para cumplimiento normativo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central de incendios CIE certificada EN 54-2 y EN 54-4",
+          "origen": "sugerida_ia",
+          "motivo": "Especificación técnica de producto requerido. Instalador debe confirmar modelo y precio según presupuesto del fabricante"
+        },
+        {
+          "concepto": "Detectores de humo ópticos",
+          "origen": "sugerida_ia",
+          "motivo": "Material de consumo. Precio depende de marca y certificaciones. Cantidad estimada según cobertura de 100 m²"
+        },
+        {
+          "concepto": "Detectores de temperatura",
+          "origen": "sugerida_ia",
+          "motivo": "Material de consumo. Incluir solo si local tiene zona cocina o de riesgo. Revisar con cliente"
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30",
+          "origen": "sugerida_ia",
+          "motivo": "Material obligatorio por CTE. Precio superior a cableado convencional. Cantidad estimada en 180 ml"
+        },
+        {
+          "concepto": "Alimentación y batería de respaldo 72h",
+          "origen": "sugerida_ia",
+          "motivo": "Componente obligatorio EN 54-4. Especificación técnica de UPS"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_central_deteccion_y_alarma_incendios",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "mantenimiento_de_instalacion_contra_incendios_en_local",
+      "instalacion_de_sistema_de_rociadores_sprinklers"
+    ],
+    "kb_score": 4.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 2,
+    "n_sugeridas": 9,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "id": 289,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar piscina de hormigón con sistema de lámina de polipropileno, 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 20696,
+  "raw_response": {
+    "transcript": "Impermeabilizar piscina de hormigón con sistema de lámina de polipropileno, 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar piscina de hormigón con sistema de lámina de polipropileno, 60 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de lámina de polipropileno no está en Base Maestra; se han creado partidas sugeridas. Revisar precios unitarios de materiales.",
+          "Se recomienda incluir prueba de estanqueidad posterior a la instalación."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 65
+          },
+          "motivo": "Oficio especializado en impermeabilización de piscinas. Tarifa estimada según complejidad y riesgos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y preparación de piscina",
+          "descripcion": "Vaciado completo de piscina, secado mínimo 2-3 días, limpieza exhaustiva del hormigón, eliminación de algas, óxidos y residuos. Preparación del soporte.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 360,
+          "total": 720,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa estimada: 45€/h × 8h/jornada = 360€/jornada"
+        },
+        {
+          "concepto": "Imprimación y sellador de hormigón",
+          "descripcion": "Aplicación de imprimación/sellador específico para hormigón previo a la colocación de lámina de polipropileno. Una mano. Mejora la adherencia y estabilidad.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisar coste de imprimación/sellador hormigón (aprox. 3-8€/m2)"
+        },
+        {
+          "concepto": "Mano de obra: imprimación de soporte",
+          "descripcion": "Aplicación de imprimación sobre superficie de hormigón preparada. Una mano uniforme.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 3,
+          "total": 180,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa estimada: 45€/h; rendimiento ~15m2/h = 3€/m2"
+        },
+        {
+          "concepto": "Lámina de polipropileno para piscina",
+          "descripcion": "Suministro de lámina de polipropileno (espesor 0,75mm-1mm), sistema de anclaje perimetral, accesorios de unión (soldadura por ultrasonidos o mecánica), incluidas esquinas reforzadas y encuentros con muros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisar coste de lámina polipropileno (aprox. 25-60€/m2 según espesor y accesorios)"
+        },
+        {
+          "concepto": "Instalación de lámina de polipropileno",
+          "descripcion": "Despliegue, alineación, soldadura de juntas (ultrasonidos o soldadura térmica), anclaje perimetral, instalación de accesorios de drenaje, sifones y tomas de agua. Ajuste de encuentros con paramentos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 12,
+          "total": 720,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa estimada: 45€/h; rendimiento ~3,5-4m2/h = 11-13€/m2"
+        },
+        {
+          "concepto": "Refuerzo de encuentros, sumideros y drenajes",
+          "descripcion": "Refuerzo adicional de lámina en encuentros con paredes, sumideros, válvulas de drenaje y tomas de agua. Material de refuerzo + mano de obra de instalación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio integral: revisar coste total (aprox. 200-500€ según nº y complejidad de encuentros)"
+        },
+        {
+          "concepto": "Prueba de estanqueidad",
+          "descripcion": "Llenado controlado de piscina y monitoreo de fugas durante 24-48 horas. Detección y reparación de posibles filtraciones.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa estimada: 45€/h × 8h = 360€/jornada"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Adhesivos, selladores, anclajes, clavos, tornillos, roscas de drenaje, bridas, materiales de protección, EPI (guantes, gafas, mascarillas).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisar coste (aprox. 150-300€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2340,
+        "iva_porcentaje": 21,
+        "iva": 491.4,
+        "total": 2831.4
+      },
+      "sugerencias_catalogo": [
+        "Revisar Base Maestra para 'impermeabilizacion_de_piscina_con_lamina' (existen soluciones con betún-polímero y pintura especial). Sistema polipropileno es alternativa válida pero requiere especificación técnica completa.",
+        "Considerar si el profesional prefiere sistema de lámina adhesiva o mecánica (anclaje perimetral). Esto afecta precio y durabilidad.",
+        "Incluir garantía de estanqueidad post-obra (normalmente 1-2 años)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lámina de polipropileno para piscina",
+          "oficio": "impermeabilizacion",
+          "motivo": "Sistema de polipropileno no aparece en Base Maestra. Se han documentado sistemas con betún-polímero, cerámica/gresite y pintura especial. Polipropileno es alternativa moderna; se requiere especificación de espesor, sistema de anclaje y accesorios.",
+          "recomendacion": "Crear entrada en catálogo con variantes (0,75mm, 1mm, 1,5mm) y rangos de precio según calidad y marca."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_bomba_de_calor_para_piscina",
+      "impermeabilizacion_de_piscina_con_gresite_o_ceramica",
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "impermeabilizacion_de_piscina_con_pintura_especial",
+      "impermeabilizacion_de_forjado_de_piscina_o_spa"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 8,
+    "n_catalogo": 0,
+    "n_sugeridas": 8,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

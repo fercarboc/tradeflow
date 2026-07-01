@@ -1,0 +1,14 @@
+======================================================================
+Traceback (most recent call last):
+AN�LISIS COINCIDENCIA DE OFICIO � v56 (400 tests)
+======================================================================
+
+Total: 400
+Coincide (SI):          291 (73%)
+No coincide (NO):       109 (27%)
+  File "C:\tradeflow\scripts\test-motor-ia\analyze_oficio_coincidence.py", line 82, in <module>
+    print(f"  \u2192 Error de alias:    {n_alias:>4} ({round(n_alias*100/total)}%) � modelo elige bien, nombre diferente")
+  File "C:\Users\ferca\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2192' in position 2: character maps to <undefined>

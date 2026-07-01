@@ -1,0 +1,128 @@
+{
+  "id": 190,
+  "oficio": "Cerrajería",
+  "texto": "Reparar caja fuerte que no abre, revisar mecanismo y cambiar código",
+  "http_status": 200,
+  "latency_ms": 11013,
+  "raw_response": {
+    "transcript": "Reparar caja fuerte que no abre, revisar mecanismo y cambiar código",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar caja fuerte que no abre, revisar mecanismo y cambiar código",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo de cerrajería especializada en cajas fuertes. Requiere verificación de marca/modelo de la caja fuerte.",
+          "El cambio de código puede requerir herramientas específicas o acceso a manual técnico.",
+          "Si el mecanismo está dañado, puede requerir piezas de repuesto costosas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Reparación de mecanismo de cierre y cambio de código. Trabajo especializado en cerrajería de seguridad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y diagnosis de mecanismo de caja fuerte",
+          "descripcion": "Apertura, inspección completa del mecanismo de cierre, tambor de combinación y componentes internos. Identificación de fallos o desgastes.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación de mecanismo interno de caja fuerte",
+          "descripcion": "Ajuste, lubricación, reparación o sustitución de componentes del mecanismo de cierre (muelles, levas, ejes). Prueba de funcionamiento.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cambio de código/combinación de caja fuerte",
+          "descripcion": "Programación de nuevo código de acceso en el mecanismo electrónico o mecánico. Pruebas de apertura y cierre con nuevo código.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material cerrajería (muelles, aceites, lubricantes, piezas menores)",
+          "descripcion": "Consumibles necesarios para reparación: muelles de resorte, aceite de máquina, grasas especiales, tornillería, juntas. Según necesidad detectada.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar piezas necesarias tras diagnosis (muelles, ejes, componentes electrónicos si procede). Precio estimado 30-150€ según daño."
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Si es caja fuerte de marca conocida (Garuz, HPC, Juwel, etc.), consultar disponibilidad de kits de reparación específicos del fabricante.",
+        "Verificar si el mecanismo es electrónico (requiere batería/alimentación) o puramente mecánico.",
+        "Preguntar al cliente si tiene documentación/manual de la caja para facilitar diagnosis."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material cerrajería",
+          "oficio": "cerrajeria",
+          "motivo": "Material de consumo variable según diagnosis específica de la caja fuerte. Estimado 30-150€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reparacion_cinta_enrolladora_persiana",
+      "cambio_mecanismo_cisterna",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "cambio_o_revision_de_detector_de_humos"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

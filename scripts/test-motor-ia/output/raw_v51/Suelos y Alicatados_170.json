@@ -1,0 +1,180 @@
+{
+  "id": 170,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+  "http_status": 200,
+  "latency_ms": 18334,
+  "raw_response": {
+    "transcript": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Suelo radiante eléctrico: verificar potencia total instalada (600-900W estimado para 6m²)",
+          "Termostato programable incluido en presupuesto",
+          "Superficie pequeña (baño): ideal para este tipo de instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de suelo radiante eléctrico, conexión de termostato y pruebas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro cable calefactor suelo radiante eléctrico",
+          "descripcion": "Cable calefactor o manta térmica para suelo radiante eléctrico, 6 m², potencia estimada 750W (125W/m²)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe cotizar cable/manta específica según marca y potencia (100-150W/m²)"
+        },
+        {
+          "concepto": "Suministro termostato programable con sonda de suelo",
+          "descripcion": "Termostato digital programable con sensor de temperatura de suelo para control automático de suelo radiante eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe cotizar termostato programable (típicamente 80-200€)"
+        },
+        {
+          "concepto": "Suministro pequeño material (canaletas, conectores, empalmes)",
+          "descripcion": "Canaletas, conectores, empalmes, bridas y material diverso para instalación eléctrica",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar: instalador debe cotizar según necesidades del proyecto"
+        },
+        {
+          "concepto": "Instalación cable calefactor y malla de distribución",
+          "descripcion": "Colocación de cable o manta calefactora en patrón uniforme sobre aislamiento base, fijación y distribución según especificaciones técnicas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 18,
+          "total": 108,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación termostato y sonda de suelo",
+          "descripcion": "Conexión de termostato programable, colocación de sonda de temperatura en suelo radiante, cableado y programación inicial",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión a circuito eléctrico e instalación de protecciones",
+          "descripcion": "Conexión a cuadro eléctrico, instalación de interruptor diferencial y magnetotérmico para circuito exclusivo si potencia > 3kW",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero nivelador conductor (si necesario)",
+          "descripcion": "Mortero autonivelante conductor para cobertura uniforme del cable calefactor antes del pavimento final",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: evaluar si el pavimento se instala directamente o requiere mortero (típicamente 5-12€/m²)"
+        },
+        {
+          "concepto": "Pruebas y puesta en funcionamiento",
+          "descripcion": "Pruebas de continuidad, resistencia aislamiento, puesta en marcha del sistema y comprobación de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 283,
+        "iva_porcentaje": 21,
+        "iva": 59.43,
+        "total": 342.43
+      },
+      "sugerencias_catalogo": [
+        "IMPORTANTE: El subtotal incluye SOLO mano de obra. Los materiales (cable calefactor, termostato, mortero) requieren REVISIÓN Y COTIZACIÓN del instalador.",
+        "Potencia estimada: 750W (6m² × 125W/m²) — válida para baño. Verificar que no supera limitaciones del circuito.",
+        "Si potencia > 3kW (no es el caso), se requiere circuito exclusivo con diferencial e interruptor.",
+        "Tiempo de fragüe mortero: esperar mínimo 28 días antes de activar calefacción en operación real.",
+        "Considerar termostato WiFi o de marca reconocida para mejor control (Danfoss, Honeywell, Netatmo)"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_suelo_radiante_agua",
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_suelo_radiante_hidraulico",
+      "instalacion_de_suelo_radiante_en_reforma",
+      "instalacion_suelo_radiante_electrico"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": 378,
+  "oficio": "Reformas Integrales",
+  "texto": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 51239,
+  "raw_response": {
+    "transcript": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "renovacion_tejado_de_teja_ceramica_o_de_hormigon",
+      "impermeabilizacion_peto_o_murete_de_cubierta"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

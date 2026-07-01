@@ -1,0 +1,214 @@
+{
+  "id": 318,
+  "oficio": "Contra Incendios",
+  "texto": "Diseño de plan de autoprotección para colegio con 500 alumnos, evacuación y emergencias",
+  "http_status": 200,
+  "latency_ms": 28106,
+  "raw_response": {
+    "transcript": "Diseño de plan de autoprotección para colegio con 500 alumnos, evacuación y emergencias",
+    "quote": {
+      "resumen": {
+        "texto_original": "Diseño de plan de autoprotección para colegio con 500 alumnos, evacuación y emergencias",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Plan de autoprotección requiere cumplimiento normativo (RD 393/2007, LSSI-PCE). Recomendable coordinación con autoridades locales y cuerpo de bomberos.",
+          "Presupuesto incluye diseño y documentación. Implementación física de sistemas (detectores, rociadores, señalización, etc.) son partidas adicionales.",
+          "Alcance: documento técnico, planos de evacuación, procedimientos, formación básica. NO incluye instalación de equipos.",
+          "Requiere revisión de normativa autonómica específica según ubicación del colegio."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 75
+          },
+          "motivo": "Plan de autoprotección, evacuación y emergencias es competencia de especialista en sistemas contra incendios y seguridad."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Coordinación con administración, permisos, registros y documentación oficial del plan."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Auditoría y diagnóstico de seguridad contra incendios",
+          "descripcion": "Inspección completa del edificio escolar (500 alumnos): evaluación de vías de evacuación, salidas de emergencia, señalización existente, sistemas de detección y extinción, accesibilidad, puntos de concentración, estado de puertas cortafuego, iluminación de emergencia. Informe técnico detallado.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad del edificio, número de plantas, superficie total. Rango estimado: 800-1500€. Instalador debe revisar y ajustar según características reales del colegio."
+        },
+        {
+          "concepto": "Diseño de planos de evacuación y señalización",
+          "descripcion": "Elaboración de planos técnicos de evacuación por plantas, identificación de vías de salida, puntos de concentración, zonas de riesgo, señalización de emergencia (recorridos, salidas, equipos de extinción, botiquín, punto de reunión). Formato A3 plastificado para colocación en aulas y pasillos. Mínimo 8-10 planos según estructura del colegio.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de número de plantas y complejidad. Rango estimado: 600-1200€ (diseño + impresión plastificada). Incluye revisiones y ajustes."
+        },
+        {
+          "concepto": "Redacción del Plan de Autoprotección (documento técnico)",
+          "descripcion": "Elaboración del documento oficial de Plan de Autoprotección según RD 393/2007 y normativa LSSI-PCE: identificación de riesgos, medidas preventivas, procedimientos de actuación ante emergencias, roles y responsabilidades del personal, protocolos de evacuación, comunicación interna y externa, coordinación con servicios de emergencia (bomberos, policía, ambulancias), plan de formación y simulacros, anexos técnicos.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documento técnico completo. Rango estimado: 1200-2000€. Incluye análisis de riesgos, procedimientos detallados, coordinación normativa. Requiere especialista en seguridad contra incendios."
+        },
+        {
+          "concepto": "Formación inicial del personal docente y no docente",
+          "descripcion": "Sesión de formación teórica y práctica para personal del colegio (docentes, administrativos, conserjes, personal de servicios): conocimiento del plan de autoprotección, roles en evacuación, uso de equipos de extinción (extintores), procedimientos de emergencia, comunicación de alarma, atención a personas con movilidad reducida, primeros auxilios básicos. Duración: 4 horas. Máximo 30 personas por sesión.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "sesion",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 2 sesiones para cubrir todo el personal (aprox. 50-60 personas). Precio por sesión: 400-600€. Total: 800-1200€. Incluye material didáctico y certificados."
+        },
+        {
+          "concepto": "Diseño y coordinación de simulacro de evacuación",
+          "descripcion": "Planificación, coordinación y supervisión de simulacro de evacuación completo con 500 alumnos y personal: cronometraje, evaluación de tiempos de desalojo, identificación de cuellos de botella, verificación de procedimientos, informe de resultados, recomendaciones de mejora. Incluye coordinación previa con dirección, comunicación a familias, presencia de especialista durante el simulacro.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado: 600-1000€. Incluye preparación, supervisión, informe técnico y recomendaciones. Puede repetirse anualmente."
+        },
+        {
+          "concepto": "Coordinación con autoridades y servicios de emergencia",
+          "descripcion": "Gestión administrativa y coordinación con Cuerpo de Bomberos, Policía Local, Protección Civil y servicios de emergencia (112): presentación del plan, validación de procedimientos, coordinación de accesos, comunicación de puntos de concentración, establecimiento de protocolos de comunicación en caso de emergencia real. Incluye trámites administrativos y registro del plan.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado: 400-700€. Incluye gestión de trámites, coordinación con organismos, documentación oficial. Varía según comunidad autónoma."
+        },
+        {
+          "concepto": "Documentación, planos y material de apoyo",
+          "descripcion": "Impresión y encuadernación de documentación: plan de autoprotección (3 copias encuadernadas), planos de evacuación plastificados (10 unidades A3), carteles de señalización de emergencia (20 unidades), guía rápida de procedimientos para aulas (30 copias), registro de simulacros y formación, material de archivo.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado: 300-500€. Incluye impresión, plastificación, encuadernación y material de archivo. Precio depende de cantidad y calidad de impresión."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Auditoría y diagnóstico de seguridad contra incendios' → Buscar en catálogo: 'inspección sistemas contra incendios', 'auditoría seguridad edificio', 'diagnóstico riesgos incendio'.",
+        "Partida 'Redacción del Plan de Autoprotección' → Buscar: 'plan de autoprotección RD 393/2007', 'documento técnico seguridad', 'plan emergencias edificio'.",
+        "Partida 'Formación personal' → Buscar: 'formación contra incendios', 'curso evacuación emergencias', 'capacitación personal seguridad'.",
+        "Partida 'Coordinación con autoridades' → Buscar: 'gestión trámites administrativos', 'coordinación servicios emergencia', 'registro plan autoprotección'."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Auditoría y diagnóstico de seguridad contra incendios",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio especializado de inspección y evaluación de riesgos en edificio escolar. No existe partida estándar en catálogo para auditoría completa de seguridad en centros educativos."
+        },
+        {
+          "concepto": "Diseño de planos de evacuación y señalización",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio de diseño técnico específico de planos de evacuación. Requiere especialista en seguridad contra incendios y conocimiento de normativa de señalización."
+        },
+        {
+          "concepto": "Redacción del Plan de Autoprotección (documento técnico)",
+          "oficio": "contra_incendios",
+          "motivo": "Documento técnico-legal específico regulado por RD 393/2007. Requiere especialista en seguridad y cumplimiento normativo."
+        },
+        {
+          "concepto": "Formación inicial del personal docente y no docente",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio de formación especializada en seguridad contra incendios y evacuación. Requiere instructor certificado."
+        },
+        {
+          "concepto": "Diseño y coordinación de simulacro de evacuación",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio de coordinación y supervisión de simulacro. Requiere especialista para evaluación técnica y mejora continua."
+        },
+        {
+          "concepto": "Coordinación con autoridades y servicios de emergencia",
+          "oficio": "gestoria_tramites",
+          "motivo": "Gestión administrativa y coordinación con organismos públicos. Requiere gestor especializado en trámites administrativos."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_cubierta_verde_con_lamina_antirraiz",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "replanteo_y_trazado_de_obra",
+      "planificacion_y_presupuesto_reforma_integral",
+      "instalacion_de_plantas_trepadoras"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3913,
+      "tokens_out": 3747
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 7,
+    "n_catalogo": 0,
+    "n_sugeridas": 7,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

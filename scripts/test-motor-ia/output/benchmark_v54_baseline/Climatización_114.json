@@ -1,0 +1,175 @@
+{
+  "id": 114,
+  "oficio": "Climatización",
+  "texto": "Reparación urgente de caldera sin calefacción en invierno, diagnóstico y sustitución de piezas",
+  "http_status": 200,
+  "latency_ms": 17432,
+  "raw_response": {
+    "transcript": "Reparación urgente de caldera sin calefacción en invierno, diagnóstico y sustitución de piezas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación urgente de caldera sin calefacción en invierno, diagnóstico y sustitución de piezas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo urgente en invierno: prioridad máxima",
+          "Diagnóstico obligatorio antes de sustitución de piezas",
+          "Presupuesto previo recomendado antes de ejecutar reparación",
+          "Verificar antigüedad de caldera: si >15 años, valorar sustitución completa",
+          "Garantía de reparación debe incluirse en presupuesto final"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Reparación de caldera de calefacción, diagnóstico y sustitución de piezas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico de avería en caldera de calefacción",
+          "descripcion": "Inspección completa, pruebas de funcionamiento, identificación de causa de fallo (sin calefacción)",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustitución de piezas según diagnóstico",
+          "descripcion": "Desmontaje de pieza defectuosa, instalación de repuesto (electrodo encendido, presostato, sensor temperatura NTC, bomba circuladora o intercambiador según avería detectada)",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Piezas de sustitución (electrodo, presostato, sensor, bomba o intercambiador)",
+          "descripcion": "Material según diagnóstico: electrodo encendido, presostato, sensor NTC temperatura, bomba circuladora o intercambiador. Precio unitario a determinar por instalador según pieza específica",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pieza de sustitución pendiente de diagnóstico específico. Instalador debe indicar pieza exacta y coste"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Juntas, teflón, pasta térmica, tornillería, tuercas, arandelas y otros consumibles necesarios para la reparación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado entre 30-80€ según complejidad. Instalador ajusta según necesidad real"
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Verificación de encendido, presión de vaso expansión, circulación de agua, temperatura de salida, evacuación de humos y seguridad general",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Garantía de reparación",
+          "descripcion": "Cobertura de garantía sobre la reparación realizada (mano de obra y piezas sustituidas) por período mínimo 12 meses",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir en presupuesto final. Coste estimado 5-10% del total de reparación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Referencia: [reparacion_averia_caldera_gas] — Estructura de partidas obligatorias aplicada",
+        "Antes de ejecutar: solicitar presupuesto previo al cliente con desglose de pieza a sustituir y coste estimado",
+        "Si caldera tiene >15 años: valorar con cliente opción de sustitución por caldera condensación (más eficiente y con garantía nueva)",
+        "Urgencia en invierno: considerar tarifa de emergencia/fuera de horario si aplica"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Piezas de sustitución (electrodo, presostato, sensor, bomba o intercambiador)",
+          "origen": "sugerida_ia",
+          "motivo": "Pieza específica a determinar tras diagnóstico. Rango estimado: 150-800€ según componente"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles varios. Rango estimado: 30-80€"
+        },
+        {
+          "concepto": "Garantía de reparación",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de cobertura. Rango estimado: 20-50€ (5-10% del total)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_averia_caldera_gas",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_caldera_gasoil",
+      "mantenimiento_anual_caldera_gas"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3657,
+      "tokens_out": 2199
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

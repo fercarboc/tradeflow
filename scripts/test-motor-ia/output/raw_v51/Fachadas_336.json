@@ -1,0 +1,235 @@
+{
+  "id": 336,
+  "oficio": "Fachadas",
+  "texto": "Reparar balcones de fachada, corrosión de barandillas y fisuras en losa, 6 balcones",
+  "http_status": 200,
+  "latency_ms": 22623,
+  "raw_response": {
+    "transcript": "Reparar balcones de fachada, corrosión de barandillas y fisuras en losa, 6 balcones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar balcones de fachada, corrosión de barandillas y fisuras en losa, 6 balcones",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "ANDAMIO OBLIGATORIO para acceso seguro a 6 balcones en fachada",
+          "SEÑALIZACIÓN zona inferior obligatoria durante trabajos",
+          "Corrosión de barandillas requiere tratamiento anticorrosión antes de reparación",
+          "Fisuras en losa pueden indicar problema estructural: recomendar inspección previa"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de balcones, fisuras y elementos salientes en fachada"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Tratamiento anticorrosión y reparación estructural de barandillas metálicas"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Saneo y reparación de fisuras en losa de hormigón"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Andamio metálico multidireccional con plataforma de trabajo y barandilla",
+          "descripcion": "Suministro e instalación de andamio de seguridad para acceso a 6 balcones en fachada. Incluye montaje, desmontaje y retirada",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio andamio depende de altura, duración obra y m² de cobertura. Instalador debe cotizar"
+        },
+        {
+          "concepto": "Señalización y vallado zona de trabajo inferior",
+          "descripcion": "Valla de contención, cintas señalizadoras, cartelería de peligro para protección peatonal bajo zona de trabajo",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste depende de extensión de zona a proteger"
+        },
+        {
+          "concepto": "Saneo, imprimación anticorrosión y reparación de barandillas metálicas",
+          "descripcion": "Limpieza mecánica de corrosión en 6 barandillas, aplicación de convertidor de óxido, imprimación anticorrosión y acabado protector. Incluye reparación de soldaduras si fuese necesario",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Convertidor de óxido y pintura anticorrosión para barandillas",
+          "descripcion": "Suministro de convertidor de óxido (2-3 L), imprimación anticorrosión y pintura poliéster o epoxi para protección a largo plazo de 6 barandillas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y coste de productos químicos a definir por instalador según estado de corrosión"
+        },
+        {
+          "concepto": "Diagnóstico y saneo de fisuras en losa de hormigón",
+          "descripcion": "Inspección visual y sonora de 6 losas, identificación de tipo de fisura (activa/pasiva), saneo en V de fisuras, retirada de material desprendido",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 40,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero de reparación flexible para fisuras en losa",
+          "descripcion": "Relleno de fisuras con mortero polimérico flexible (adaptado a movimientos). Aplicable para fisuras de ancho variable (2-10 mm). Incluye malla de fibra de vidrio si fisuras > 3 mm",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total de fisuras a reparar no especificada. Instalador debe medir sobre terreno"
+        },
+        {
+          "concepto": "Imprimación y sellado final de losas reparadas",
+          "descripcion": "Imprimación epoxi y sellador poliuretano flexible sobre zona reparada para evitar infiltraciones de agua e impermeabilizar superficie",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de sellador depende de superficie a impermeabilizar por losa"
+        },
+        {
+          "concepto": "Aplicación de imprimación y sellado en losas reparadas",
+          "descripcion": "Mano de obra de imprimación y aplicación de sellador poliuretano flexible en 6 losas reparadas",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 40,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (brochas, guantes, mascarillas, cintas, borras)",
+          "descripcion": "Suministro e instalación de pequeño material auxiliar: brochas, guantes, mascarillas de protección, cinta de carrocero, borras de limpieza, etc.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada. Instalador estima coste aproximado (€30-80 típico)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 840,
+        "iva_porcentaje": 21,
+        "iva": 176.4,
+        "total": 1016.4
+      },
+      "sugerencias_catalogo": [
+        "Considerar inspección estructural previa si fisuras > 5 mm o con signos de movimiento activo",
+        "Barandillas: si hay soldaduras dañadas, requiere refuerzo estructural (consultar profesional cualificado)",
+        "Losas: después de reparación, monitorizar fisuras con testigos de yeso para detectar actividad",
+        "Andamio: solicitar presupuesto a empresa especializada; duración típica 2-4 semanas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Andamio metálico multidireccional",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "razon": "Elemento de seguridad obligatorio no catalogado. Precio variable según altura y duración"
+        },
+        {
+          "concepto": "Convertidor de óxido y pintura anticorrosión",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "razon": "Material específico para barandillas con corrosión. Cantidad y tipo depende del estado"
+        },
+        {
+          "concepto": "Mortero polimérico flexible para fisuras",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "razon": "Material de reparación. Longitud total de fisuras no proporcionada en solicitud"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_piscina_con_filtraciones",
+      "reparacion_de_fisuras_y_grietas_en_fachada",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

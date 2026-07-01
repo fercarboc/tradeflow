@@ -1,0 +1,135 @@
+{
+  "id": 183,
+  "oficio": "Cerrajería",
+  "texto": "Apertura de urgencia de puerta de casa, me he quedado encerrado fuera sin llaves",
+  "http_status": 200,
+  "latency_ms": 14808,
+  "raw_response": {
+    "transcript": "Apertura de urgencia de puerta de casa, me he quedado encerrado fuera sin llaves",
+    "quote": {
+      "resumen": {
+        "texto_original": "Apertura de urgencia de puerta de casa, me he quedado encerrado fuera sin llaves",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio de urgencia: aplicar tarifa horaria urgente (generalmente +50-100% sobre tarifa diurna)",
+          "Confirmar horario de llamada (diurno/nocturno/festivo) para ajustar precio",
+          "Si se daña la cerradura durante la apertura, presupuestar cambio como partida adicional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 60,
+            "max": 100
+          },
+          "motivo": "Servicio de apertura de urgencia de cerradura. Tarifa elevada por urgencia y desplazamiento inmediato"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desplazamiento urgente cerrajero",
+          "descripcion": "Desplazamiento inmediato del cerrajero a domicilio para servicio de urgencia",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de desplazamiento urgente variable según zona y horario. Incluir tarifa por km o cuota fija urgente (típico 30-60€)"
+        },
+        {
+          "concepto": "Apertura técnica sin daño cerradura",
+          "descripcion": "Apertura de puerta sin causar daños a la cerradura, mediante técnicas de cerrajería profesional",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 60,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material consumible (pequeño material)",
+          "descripcion": "Herramientas y consumibles: pasadores, lubricantes, material de apertura técnica",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material consumible. Típico 10-25€. El instalador revisa según necesidad"
+        },
+        {
+          "concepto": "Cambio de cerradura (si daño durante apertura)",
+          "descripcion": "Cambio completo de cerradura si la apertura causa daño irreparable en el mecanismo",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "PARTIDA CONDICIONAL: Solo se aplica si durante la apertura se daña la cerradura. Cantidad=0 inicialmente. Si es necesario: cambiar cantidad a 1. Precio típico cerradura estándar + mano obra: 80-200€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 30,
+        "iva_porcentaje": 21,
+        "iva": 6.3,
+        "total": 36.3
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente el HORARIO EXACTO de la llamada (diurno/nocturno/festivo) → aplicar tarifa correcta en desplazamiento",
+        "Establecer PRECIO MÁXIMO DE APERTURA antes de intervenir → evitar sorpresas al cliente",
+        "Si apertura es imposible sin daño: proponer CAMBIO DE CERRADURA como partida adicional con presupuesto separado",
+        "Documentar ESTADO DE LA CERRADURA antes y después (fotos recomendadas) para deslinde de responsabilidades"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desplazamiento urgente cerrajero",
+          "origen": "sugerida_ia",
+          "motivo": "Tarifa específica urgencia no detallada en catálogo base. Varía por zona, horario y distancia"
+        },
+        {
+          "concepto": "Material consumible (pequeño material)",
+          "origen": "sugerida_ia",
+          "motivo": "Pequeño material consumible. Cantidad y precio a revisar por profesional"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "apertura_puerta_cerradura_sin_llave",
+      "instalacion_reja_practicable_o_puerta_de_reja",
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "pintado_locales_comerciales_y_tiendas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "PRECIO_INVALIDO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI",
+    "error_detalle": "Partida de catálogo con precio 0 o nulo"
+  }
+}

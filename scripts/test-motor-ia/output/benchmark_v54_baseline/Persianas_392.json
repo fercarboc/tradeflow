@@ -1,0 +1,173 @@
+{
+  "id": 392,
+  "oficio": "Persianas",
+  "texto": "Cambiar todas las persianas de PVC de piso de 3 dormitorios por lamas de aluminio de mayor calidad",
+  "http_status": 200,
+  "latency_ms": 19463,
+  "raw_response": {
+    "transcript": "Cambiar todas las persianas de PVC de piso de 3 dormitorios por lamas de aluminio de mayor calidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar todas las persianas de PVC de piso de 3 dormitorios por lamas de aluminio de mayor calidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume 1 persiana por dormitorio (3 ud). Verificar número exacto de persianas en el piso.",
+          "Medidas de huecos no especificadas. Presupuesto orientativo; requiere toma de medidas en obra.",
+          "Precio de lamas de aluminio pendiente de revisión según calidad y proveedor."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sustitución de persianas enrollables: desmontaje de PVC e instalación de lamas aluminio."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje persianas PVC existentes",
+          "descripcion": "Desmontaje y retirada de 3 persianas enrollables de PVC (dormitorios). Incluye extracción de cajón, lamas, guías y fijaciones. Gestión de residuos PVC.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lamas de aluminio de calidad superior",
+          "descripcion": "Suministro de lamas de aluminio de mayor calidad (perfiles reforzados, acabado anodizado) para 3 persianas enrollables. Cantidad estimada según medidas estándar de dormitorios (aprox. 1.2-1.5 m ancho × 1.5-1.8 m alto por unidad).",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lamas aluminio calidad superior pendiente de cotización. Rango estimado: 120-200€/ud según medida y acabado."
+        },
+        {
+          "concepto": "Cajones aluminio nuevos (si necesario)",
+          "descripcion": "Suministro de cajones de aluminio con rotura de puente térmico para alojar nuevas lamas. Incluye remates y embellecedores. Cantidad: 3 ud (si los cajones PVC existentes no son reutilizables).",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Verificar en obra si cajones PVC existentes pueden reutilizarse. Si no: precio cajón aluminio 80-150€/ud según medida."
+        },
+        {
+          "concepto": "Guías laterales aluminio",
+          "descripcion": "Suministro e instalación de guías laterales de aluminio (pares) para 3 persianas. Incluye fijaciones a jambas, aplomado y pequeño material.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio guías aluminio: 40-80€/par (ud). Verificar compatibilidad con nuevas lamas."
+        },
+        {
+          "concepto": "Instalación lamas aluminio y reensambly",
+          "descripcion": "Instalación de nuevas lamas de aluminio en cajones (reutilizados o nuevos). Ensamblaje de mecanismo enrollador, topes inferiores, finales de carrera y cinta/cordón. Pruebas de funcionamiento. 3 persianas.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y fijaciones",
+          "descripcion": "Tornillería, tacos, silicona neutra, burlete perimetral, tapajuntas y otros consumibles para instalación de 3 persianas.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado: 15-30€/ud. Incluye consumibles varios."
+        }
+      ],
+      "calculos": {
+        "subtotal": 285,
+        "iva_porcentaje": 21,
+        "iva": 59.85,
+        "total": 344.85
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente medidas exactas de cada hueco (ancho × alto) para cotizar lamas y cajones con precisión.",
+        "Verificar en obra si cajones PVC existentes pueden reutilizarse (estado, compatibilidad con nuevas lamas aluminio).",
+        "Confirmar tipo de acabado aluminio deseado: anodizado natural, plata, bronce, blanco, etc.",
+        "Considerar si se requiere motorización (motor tubular) para mayor confort en dormitorios."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lamas de aluminio de calidad superior",
+          "oficio": "persianas",
+          "motivo": "Material específico de mayor calidad no detallado en catálogo base. Precio pendiente de cotización del instalador."
+        },
+        {
+          "concepto": "Cajones aluminio nuevos (si necesario)",
+          "oficio": "persianas",
+          "motivo": "Sustitución de cajones PVC por aluminio. Precio condicionado a evaluación en obra."
+        },
+        {
+          "concepto": "Guías laterales aluminio",
+          "oficio": "persianas",
+          "motivo": "Componente de sustitución. Precio pendiente de cotización según medidas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "reparacion_o_cambio_guias_persiana",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_ventana_corredera_aluminio_con_vidrio"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3725,
+      "tokens_out": 2328
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

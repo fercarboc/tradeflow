@@ -1,0 +1,230 @@
+{
+  "id": 307,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar bocas de incendio equipadas BIE en nave industrial, conectadas a red de agua",
+  "http_status": 200,
+  "latency_ms": 29234,
+  "raw_response": {
+    "transcript": "Instalar bocas de incendio equipadas BIE en nave industrial, conectadas a red de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar bocas de incendio equipadas BIE en nave industrial, conectadas a red de agua",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: No se especifica número de BIEs. Se asume 1 unidad como base. El instalador DEBE confirmar cantidad real.",
+          "CRÍTICO: No se especifica longitud de red de agua ni distribución en nave. Se requiere levantamiento de planos.",
+          "CRÍTICO: No se confirma si existe red de agua contra incendios previa o se debe crear desde cero.",
+          "CRÍTICO: Proyecto técnico obligatorio según CTE DB-SI y UNE 23403. Debe ser redactado por técnico competente.",
+          "RECOMENDACIÓN: Incluir inspección previa de presión y caudal de red existente."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Instalación de BIEs (bocas de incendio equipadas) es sistema contra incendios certificado. Oficio especializado obligatorio."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión a red de agua, tuberías, válvulas y pequeño material de fontanería."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico instalación BIEs",
+          "descripcion": "Redacción de proyecto técnico según CTE DB-SI, UNE 23403 y normativa local. Incluye cálculo de número de BIEs, distribución en nave, presiones, caudales y planos de ejecución.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Proyecto técnico obligatorio. Precio depende de complejidad nave y número de BIEs. Rango estimado 800-2500€."
+        },
+        {
+          "concepto": "Armarios BIE 25mm certificados UNE 23403",
+          "descripcion": "Suministro e instalación de armarios BIE 25mm (superficie o empotrado según ubicación), con certificación UNE 23403, incluyendo anclaje y fijación a estructura nave.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad base 1 ud. Instalador debe confirmar número real de BIEs según proyecto. Precio unitario 250-650€/ud según tipo (superficie/empotrado)."
+        },
+        {
+          "concepto": "Manguera 25mm y accesorios BIE",
+          "descripcion": "Suministro de manguera 25mm semirrígida/plana, devanadera, lanza boquilla, válvula de cierre y racores según longitud de proyecto (típico 25-30m por BIE).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad base 1 ud. Precio depende de longitud manguera y tipo devanadera. Rango 150-400€/ud."
+        },
+        {
+          "concepto": "Red de tuberías contra incendios (agua)",
+          "descripcion": "Suministro e instalación de tuberías (acero galvanizado o cobre) para red de distribución de agua contra incendios en nave. Incluye válvulas de corte, manómetros, purgadores y pequeño material. Longitud a determinar según planos.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml a definir por proyecto técnico. Precio estimado 35-85€/ml según diámetro y material. CRÍTICO: Levantamiento de planos obligatorio."
+        },
+        {
+          "concepto": "Conexión a red de agua existente",
+          "descripcion": "Trabajos de conexión de red contra incendios a red de agua general de nave. Incluye toma siamesa (si red exterior), válvulas de retención, manómetro de verificación de presión y pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de accesibilidad y complejidad conexión. Rango 400-1200€. Requiere inspección previa de presión/caudal red existente."
+        },
+        {
+          "concepto": "Prueba hidráulica y puesta en servicio",
+          "descripcion": "Prueba hidráulica de red según UNE 23403 (presión mínima en BIE más desfavorable), verificación de caudal (100 l/min mínimo), purga de aire, desinfección y certificación de funcionamiento.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio antes de cubrir tuberías. Precio estimado 300-800€ según complejidad red."
+        },
+        {
+          "concepto": "Señalización normalizada BIEs",
+          "descripcion": "Suministro e instalación de señalización normalizada (placas, pictogramas, iluminación de emergencia) según CTE DB-SI y normativa local. Incluye señalización de ubicación BIEs y recorridos de evacuación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad base 1 lote. Precio depende de número de BIEs y extensión nave. Rango 200-600€."
+        },
+        {
+          "concepto": "Mano de obra instalación BIEs y red",
+          "descripcion": "Mano de obra especializada contra incendios para instalación de armarios, conexión de mangueras, tuberías, válvulas, pruebas y puesta en servicio. Incluye coordinación con fontanería.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según complejidad. Base: 1 BIE simple = 8-12h. Cada BIE adicional +6-8h. Red de tuberías +4-6h por cada 50ml."
+        },
+        {
+          "concepto": "Mano de obra fontanería (conexión red agua)",
+          "descripcion": "Mano de obra fontanería para conexión a red de agua existente, instalación de válvulas, manómetros, purgadores y pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según accesibilidad y complejidad conexión. Base: 4-8h para conexión simple."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "OBLIGATORIO: Solicitar levantamiento de planos de nave (dimensiones, ubicación red agua, puntos de instalación BIEs).",
+        "OBLIGATORIO: Confirmar número exacto de BIEs requeridas según CTE DB-SI (típico: 1 BIE cada 750m² en nave industrial).",
+        "OBLIGATORIO: Verificar presión y caudal de red de agua existente (mínimo 2 bar en BIE más desfavorable, 100 l/min).",
+        "RECOMENDACIÓN: Si presión insuficiente, presupuestar grupo de presión dedicado (rango 1500-4000€).",
+        "RECOMENDACIÓN: Incluir contrato de mantenimiento trimestral obligatorio (revisión, pruebas, certificación).",
+        "RECOMENDACIÓN: Coordinar con Administración Local para permisos y certificación final de instalación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico instalación BIEs",
+          "oficio": "contra_incendios",
+          "motivo": "Obligatorio CTE DB-SI. No existe en catálogo base como partida independiente."
+        },
+        {
+          "concepto": "Red de tuberías contra incendios (agua)",
+          "oficio": "fontaneria",
+          "motivo": "Específica para sistema contra incendios. Requiere cálculo hidráulico previo."
+        },
+        {
+          "concepto": "Conexión a red de agua existente",
+          "oficio": "fontaneria",
+          "motivo": "Servicio específico de conexión. Precio variable según accesibilidad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_bocas_de_incendio_equipadas_BIE_25mm",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_descalcificador",
+      "instalacion_suelo_radiante_hidraulico"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3784,
+      "tokens_out": 3456
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

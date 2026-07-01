@@ -1,0 +1,143 @@
+{
+  "id": 58,
+  "oficio": "Carpintería",
+  "texto": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+  "http_status": 200,
+  "latency_ms": 19196,
+  "raw_response": {
+    "transcript": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo de carpintería especializada (muebles a medida). Requiere mediciones precisas en obra.",
+          "Se asume fabricación en taller + instalación en sitio. Confirmar si incluye diseño/proyecto.",
+          "Precio de materiales (tableros, herrajes, acabados) pendiente de revisión del instalador.",
+          "5 puestos de trabajo: se estima 1 tresillo/módulo por puesto."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación e instalación de muebles de oficina (tresillos y módulos). Oficio de carpintería especializada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diseño y medición de tresillos y módulos",
+          "descripcion": "Levantamiento de medidas en obra, diseño técnico de 5 módulos de office personalizados, planos de fabricación y lista de materiales.",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de diseño/medición. Instalador define si incluye o cobra aparte."
+        },
+        {
+          "concepto": "Fabricación de tresillos y módulos de office (5 unidades)",
+          "descripcion": "Fabricación en taller de 5 tresillos/módulos de office con tableros aglomerado/MDF, estructura madera, herrajes de calidad, acabado en melamina o pintura. Incluye cortes, ensambles, tratamientos y embalaje para transporte.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo de materiales (tableros, herrajes, acabados, embalaje) a definir por instalador según especificaciones técnicas y acabados solicitados."
+        },
+        {
+          "concepto": "Transporte e instalación de tresillos y módulos (5 unidades)",
+          "descripcion": "Transporte desde taller a obra, descarga, posicionamiento, nivelación, fijación a estructura/suelo, ajuste de puertas/cajones, pruebas de funcionamiento. Incluye pequeño material (tornillería, tacos, adhesivos).",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabados y ajustes finales",
+          "descripcion": "Retoques de pintura/melamina, ajuste de herrajes, nivelación final, limpieza de obra, retirada de embalajes.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 900,
+        "iva_porcentaje": 21,
+        "iva": 189,
+        "total": 1089
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿incluye diseño personalizado o son módulos estándar?",
+        "Especificar materiales: tableros (aglomerado/MDF/contrachapado), acabados (melamina/pintura/barniz), herrajes (bisagras, guías, tiradores).",
+        "Definir dimensiones aproximadas de cada módulo para estimar costo de materiales.",
+        "¿Incluye instalación de accesorios (enchufes, regletas, iluminación LED integrada)?",
+        "Confirmar si se requiere desmontaje/retirada de muebles antiguos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diseño y medición de tresillos y módulos",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de diseño técnico no incluido en catálogo base. Típico en proyectos de muebles a medida."
+        },
+        {
+          "concepto": "Fabricación de tresillos y módulos de office (5 unidades)",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material de fabricación personalizada. Precio depende de especificaciones técnicas (dimensiones, materiales, acabados)."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "tabique_pladur_separacion_zona_oficina",
+      "reparacion_puntual_o_chapuza_varios_trabajos_menores",
+      "instalacion_de_plataforma_elevadora_para_fachada"
+    ],
+    "kb_score": 1.25,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3546,
+      "tokens_out": 1939
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "id": 300,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+  "http_status": 200,
+  "latency_ms": 14934,
+  "raw_response": {
+    "transcript": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: requiere andamio o plataforma de acceso seguro",
+          "Edificio antiguo: inspeccionar estado previo del canalón (grietas, desprendimientos, eflorescencias)",
+          "Pintura bituminosa: verificar compatibilidad con material base y estado de adherencia"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 32,
+            "max": 45
+          },
+          "motivo": "Impermeabilización de canalones con pintura bituminosa es especialidad de pintura/impermeabilizaciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de material antiguo y limpieza de canalón",
+          "descripcion": "Raspado, limpieza y saneado de canalón de hormigón antiguo. Eliminación de musgo, óxido, mortero suelto, pintura descascarada.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación bituminosa",
+          "descripcion": "Aplicación de imprimación/sellador bituminoso compatible con hormigón antiguo. Preparación de superficie para pintura de acabado.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 6,
+          "total": 240,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura bituminosa de impermeabilización (2 manos)",
+          "descripcion": "Aplicación de pintura bituminosa elastómera o polimérica para impermeabilización de canalones. Mínimo 2 manos para garantizar estanqueidad. Espesor mínimo 2 mm.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 12,
+          "total": 480,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material: Pintura bituminosa elastómera",
+          "descripcion": "Suministro de pintura bituminosa de buena calidad para impermeabilización de canalones. Cantidad estimada: 4-5 litros (0,1-0,125 l/ml x 40 ml).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 4.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a revisar por instalador según marca/calidad elegida (bituminosa elástica, polimérica o epoxi)"
+        },
+        {
+          "concepto": "Material: Imprimación bituminosa",
+          "descripcion": "Suministro de imprimación/sellador bituminoso. Cantidad estimada: 2-3 litros.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a revisar por instalador"
+        },
+        {
+          "concepto": "Medios auxiliares: Andamio/plataforma de acceso",
+          "descripcion": "Instalación y uso de andamio, plataforma elevadora o escalera de acceso seguro para trabajar en canalón en altura. Incluye medidas de seguridad y protección anticaídas.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 32,
+          "total": 256,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Mascarilla, guantes, gafas, ropa de protección, pinceles, brochas, diluyente si aplica, trapos, cartón protección.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material fungible: presupuestar según necesidad (estimado 40-80€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1296,
+        "iva_porcentaje": 21,
+        "iva": 272.16,
+        "total": 1568.16
+      },
+      "sugerencias_catalogo": [
+        "Si el canalón presenta grietas o desprendimientos significativos, considerar reparación previa con mortero de reparación o parche epoxi antes de impermeabilizar",
+        "En edificios antiguos, descartar presencia de amianto en pinturas previas (norma de seguridad obligatoria)",
+        "Recomendación: usar pintura bituminosa elastómera o polimérica en lugar de bituminosa rígida para absorber dilataciones térmicas del hormigón"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Retirada de material antiguo y limpieza de canalón",
+          "oficio": "pintura",
+          "tipo": "mano_obra",
+          "razon_creacion": "Trabajo preparatorio específico para canalones antiguos, no está en base maestra pero es partida obligatoria"
+        },
+        {
+          "concepto": "Pintura bituminosa de impermeabilización (2 manos)",
+          "oficio": "pintura",
+          "tipo": "mano_obra",
+          "razon_creacion": "Aplicación especializada de impermeabilizante bituminoso en canalones, requiere técnica y múltiples manos"
+        },
+        {
+          "concepto": "Medios auxiliares: Andamio/plataforma de acceso",
+          "oficio": "pintura",
+          "tipo": "mano_obra",
+          "razon_creacion": "Trabajo en altura es obligatorio para canalones de edificio, necesita presupuestarse separadamente por seguridad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_foso_de_ascensor",
+      "pintado_e_impermeabilizacion_de_sotanos_exteriores_trasdos",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "pintura_de_depositos_agua_potable_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 7,
+    "n_catalogo": 0,
+    "n_sugeridas": 7,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

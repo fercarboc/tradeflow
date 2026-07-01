@@ -1,0 +1,488 @@
+{
+  "id": 7,
+  "oficio": "Fontanería",
+  "texto": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas de buena calidad",
+  "http_status": 200,
+  "latency_ms": 42878,
+  "raw_response": {
+    "transcript": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas de buena calidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas de buena calidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de baño: requiere coordinación múltiple de oficios",
+          "Inodoro suspendido: requiere estructura/bastidor de soporte (no especificado en solicitud)",
+          "Lavabo empotrado: requiere obra de encofrado/nivelación",
+          "Materiales de buena calidad: precios unitarios de materiales pendiente de revisión",
+          "No se especifica si incluye revestimiento (alicatados), impermeabilización, etc."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de lavabo, inodoro, ducha, griferías y sistema de evacuación/distribución de agua"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra de encofrado para lavabo empotrado, instalación de estructura para inodoro suspendido, impermeabilización y acabados"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Preparación de paredes, revestimiento y acabados finales si aplica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y gestión de residuos de baño antiguo",
+          "descripcion": "Demolición y retirada de sanitarios, griferías y material de desecho del baño existente",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Estructura/bastidor para inodoro suspendido",
+          "descripcion": "Suministro e instalación de bastidor empotrable de acero galvanizado con anclaje a obra para inodoro suspendido",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de buena calidad: instalador debe revisar precio de bastidor (rango orientativo: 250-500€)"
+        },
+        {
+          "concepto": "Instalación de bastidor inodoro suspendido",
+          "descripcion": "Fijación, nivelación y anclaje del bastidor a estructura de pared",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Encofrado y nivelación para lavabo empotrado",
+          "descripcion": "Preparación, encofrado y nivelación de zona para instalación de lavabo empotrado en muestra/encimera",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inodoro suspendido completo",
+          "descripcion": "Suministro de inodoro suspendido de cerámica blanca, cierre lento, conexión a bastidor empotrable, grifo manual de descarga, accesorios de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Calidad 'buena': precio estimado 400-800€. Instalador revisa catálogo y ajusta"
+        },
+        {
+          "concepto": "Instalación de inodoro suspendido",
+          "descripcion": "Conexión a bastidor, sellado con silicona sanitaria, conexión a ramal de desagüe, prueba de funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lavabo empotrado de cerámica",
+          "descripcion": "Suministro de lavabo empotrado de cerámica blanca, grifo monomando cromado de buena calidad, materiales de montaje",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Calidad 'buena' + grifo cromado: precio estimado 300-700€. Instalador confirma especificación"
+        },
+        {
+          "concepto": "Instalación de lavabo empotrado",
+          "descripcion": "Colocación en encofrado, nivelación, fijación mecánica, conexión de grifo, latiguillos, sifón y desagüe, sellado con silicona sanitaria",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 50,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo monomando cromado para lavabo",
+          "descripcion": "Grifo monomando de latón cromado, cartucho de cerámica, conexión 3/8, incluido en instalación de lavabo",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Grifo cromado de buena calidad: precio estimado 150-300€ (incluido en suministro lavabo o por separado)"
+        },
+        {
+          "concepto": "Plato de ducha o sistema de ducha",
+          "descripcion": "Suministro de plato de ducha de resina o acero, mampara corrediza o fija, sistema de drenaje, grifo mezclador cromado de ducha",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Ducha completa + mampara + grifo cromado de buena calidad: precio estimado 800-2000€"
+        },
+        {
+          "concepto": "Instalación de plato de ducha y mampara",
+          "descripcion": "Colocación de plato con pendiente hacia desagüe, fijación de mampara, conexión a ramal de desagüe y agua caliente/fría, sellado y prueba",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo mezclador para ducha (cromado)",
+          "descripcion": "Grifo de ducha monomando termostático cromado, rociador fijo y/o mano, cartucho cerámico, conexión 1/2",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Grifo ducha cromado de buena calidad (termostático): precio estimado 200-500€"
+        },
+        {
+          "concepto": "Red de fontanería completa (distribución agua)",
+          "descripcion": "Suministro e instalación de tuberías multicapa PEX o cobre para distribución de agua caliente y fría a lavabo, inodoro y ducha, llaves de escuadra, válvulas y conexiones",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de tubería no especificada: instalador debe medir y cotizar. Rango estimado 20-50 ml a 15-30€/ml"
+        },
+        {
+          "concepto": "Instalación red fontanería (agua caliente y fría)",
+          "descripcion": "Tendido, fijación, conexiones, válvulas de escuadra, purgado y prueba de presión de toda la red de distribución",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 50,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Red de evacuación/desagüe completa",
+          "descripcion": "Suministro e instalación de tuberías de PVC para desagüe (sifones, ramales, colectores), pendiente adecuada, conexión a bajante o arqueta, válvulas de cierre",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad no especificada: instalador mide. Rango estimado 15-40 ml a 8-15€/ml"
+        },
+        {
+          "concepto": "Instalación red desagüe",
+          "descripcion": "Tendido de tuberías, fijación con abrazaderas, comprobación de pendientes (2%), sifones, prueba de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización zona ducha",
+          "descripcion": "Aplicación de membrana impermeabilizante en paredes y suelo de zona de ducha, sellado de juntas y encuentros",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Área de ducha no especificada: estimado 3-5 m². Costo 25-50€/m² + mano obra"
+        },
+        {
+          "concepto": "Instalación impermeabilización",
+          "descripcion": "Limpieza y preparación de superficie, aplicación de imprimación y membrana impermeabilizante, sellado de encuentros con silicona",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alicatado/revestimiento zona baño",
+          "descripcion": "Suministro de azulejos/revestimiento cerámico para paredes del baño (calidad estándar/buena), adhesivo, lechada",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie no especificada: estimado 12-18 m². Costo 10-25€/m² + mano obra"
+        },
+        {
+          "concepto": "Instalación alicatado/revestimiento",
+          "descripcion": "Preparación de paredes, colocación de azulejos con llana dentada, rejuntado y limpieza",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 40,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suelo baño (cerámica o similar)",
+          "descripcion": "Suministro de baldosa cerámica/porcelánica para suelo del baño (calidad estándar/buena), adhesivo, lechada",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Área no especificada: estimado 4-8 m². Costo 12-30€/m² + mano obra"
+        },
+        {
+          "concepto": "Instalación suelo baño",
+          "descripcion": "Preparación de base, colocación de baldosa con llana dentada, rejuntado con lechada antihongos, limpieza y sellado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 40,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Silicona sanitaria, latiguillos, juntas, tacos de fijación, llaves de escuadra, tuercas, abrazaderas, papel de lija, detergente, etc.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles: estimado 150-300€ para reforma completa"
+        },
+        {
+          "concepto": "Pruebas finales y puesta en servicio",
+          "descripcion": "Prueba de presión en redes de agua, prueba de estanqueidad en desagüe, verificación de funcionamiento de grifos, inodoro y ducha, ajustes finales",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2425,
+        "iva_porcentaje": 21,
+        "iva": 510.25,
+        "total": 2935.25
+      },
+      "sugerencias_catalogo": [
+        "Revisar con cliente dimensiones exactas del baño para cuantificar alicatado y revestimientos",
+        "Especificar marcas y modelos de sanitarios: Roca, Duravit, Villeroy&Boch (gama alta) o Ferrum, Ideal Standard (gama media)",
+        "Confirmar si la reforma incluye electricidad (punto de luz, ventilador deshumidificador, enchufes)",
+        "Revisar necesidad de calefacción (radiador toallero, radiador eléctrico)",
+        "Inodoro suspendido requiere bastidor específico: consultar compatibilidad con altura de pared y acceso posterior para mantenimiento",
+        "Lavabo empotrado requiere mueble o encimera de soporte: ¿incluye en presupuesto?",
+        "Ducha: especificar tipo de plato (resina, cerámica, microcemento) y dimensiones",
+        "Griferías cromadas 'de buena calidad': confirmar si incluye termostático en ducha (mayor seguridad y confort)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Estructura/bastidor para inodoro suspendido",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Inodoro suspendido requiere bastidor empotrable: no incluido en descripción original",
+          "rango_precio_estimado": "250-500€"
+        },
+        {
+          "partida": "Lavabo empotrado con grifo cromado",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Material de buena calidad no especificado en detalle",
+          "rango_precio_estimado": "300-700€"
+        },
+        {
+          "partida": "Ducha completa (plato + mampara + grifo)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Conjunto completo de ducha con mampara y grifo cromado de buena calidad",
+          "rango_precio_estimado": "800-2000€"
+        },
+        {
+          "partida": "Red fontanería PEX/cobre",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Distribución agua caliente/fría: cantidad depende de layout",
+          "rango_precio_estimado": "20-50 ml a 15-30€/ml = 300-1500€"
+        },
+        {
+          "partida": "Red evacuación PVC",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Desagüe completo: cantidad a medir",
+          "rango_precio_estimado": "15-40 ml a 8-15€/ml = 120-600€"
+        },
+        {
+          "partida": "Impermeabilización zona ducha",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "OBLIGATORIA en zona de ducha antes de alicatar",
+          "rango_precio_estimado": "25-50€/m² (3-5 m²) = 75-250€"
+        },
+        {
+          "partida": "Alicatado revestimiento baño",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Azulejos/revestimiento cerámico: cantidad no especificada",
+          "rango_precio_estimado": "12-18 m² a 10-25€/m² = 120-450€"
+        },
+        {
+          "partida": "Suelo cerámica baño",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Baldosa suelo: cantidad a medir",
+          "rango_precio_estimado": "4-8 m² a 12-30€/m² = 48-240€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_sifon",
+      "cambio_grifo_lavabo",
+      "cambio_inodoro",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_lavabo"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 24,
+    "n_catalogo": 12,
+    "n_sugeridas": 12,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

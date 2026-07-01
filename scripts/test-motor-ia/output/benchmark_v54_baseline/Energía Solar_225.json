@@ -1,0 +1,172 @@
+{
+  "id": 225,
+  "oficio": "Energía Solar",
+  "texto": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+  "http_status": 200,
+  "latency_ms": 17691,
+  "raw_response": {
+    "transcript": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto basado en mantenimiento anual estándar. Confirmar tamaño instalación (kWp) para ajustar precio final.",
+          "Incluye partidas obligatorias según BASE MAESTRA. Revisar si se requiere termografía o reparaciones adicionales."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Mantenimiento anual instalación fotovoltaica. Tarifa especializada en trabajos en altura y sistemas solares."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza módulos fotovoltaicos",
+          "descripcion": "Limpieza completa de paneles solares, eliminación de polvo, suciedad y depósitos. Incluye acceso seguro y EPI trabajos en altura.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de superficie de paneles (m²) y accesibilidad. Instalador debe especificar."
+        },
+        {
+          "concepto": "Revisión visual módulos y estructura",
+          "descripcion": "Inspección visual completa de paneles, marcos, soportes y estructura. Detección de grietas, decoloraciones, corrosión o daños mecánicos.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación conexiones y protecciones",
+          "descripcion": "Revisión de conectores, bornes, fusibles, interruptores DC/AC, tomas de tierra y sistemas de protección. Apretado de conexiones si es necesario.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión funcionamiento inversor y lectura producción",
+          "descripcion": "Comprobación de inversor (display, alarmas, parámetros), lectura de producción histórica, comparativa con producción esperada según irradiancia.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe resultado y producción histórica",
+          "descripcion": "Elaboración de informe técnico con resultados de revisión, análisis de producción, recomendaciones y certificación de mantenimiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en precio alzado mantenimiento anual. Confirmar si requiere informe adicional certificado."
+        },
+        {
+          "concepto": "Pequeño material y EPI trabajos en altura",
+          "descripcion": "Materiales consumibles (trapos, desengrasante, spray contactos), EPI (arnés, casco, guantes), herramientas menores.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según tamaño instalación. Rango típico: 50-150€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 357.5,
+        "iva_porcentaje": 21,
+        "iva": 75.08,
+        "total": 432.58
+      },
+      "sugerencias_catalogo": [
+        "Si se detectan anomalías en módulos (puntos calientes, grietas internas): solicitar TERMOGRAFÍA infrarroja (partida adicional, ~200-400€).",
+        "Si hay pérdida de gas refrigerante en inversor híbrido: añadir CARGA GAS (partida adicional, ~150-300€).",
+        "Frecuencia recomendada: 2 limpiezas/año en zonas con polvo/polen; 1 revisión anual mínimo para mantener garantías.",
+        "Precio alzado típico mantenimiento anual (según BASE MAESTRA): 2.000-25.000€ según tamaño instalación. Este presupuesto es DESGLOSE de mano de obra. Ajustar según kWp instalados."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Limpieza módulos fotovoltaicos",
+          "oficio": "energia_solar",
+          "motivo": "Partida obligatoria BASE MAESTRA. Precio depende de m² paneles y accesibilidad."
+        },
+        {
+          "concepto": "Informe resultado y producción histórica",
+          "oficio": "energia_solar",
+          "motivo": "Partida obligatoria BASE MAESTRA. Incluida en mantenimiento anual."
+        },
+        {
+          "concepto": "Pequeño material y EPI trabajos en altura",
+          "oficio": "energia_solar",
+          "motivo": "Partida obligatoria BASE MAESTRA. Consumibles y equipos de seguridad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_instalacion_fotovoltaica",
+      "mantenimiento_anual_split_o_aire_acondicionado",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "mantenimiento_de_sistema_de_climatizacion_split"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3812,
+      "tokens_out": 2265
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

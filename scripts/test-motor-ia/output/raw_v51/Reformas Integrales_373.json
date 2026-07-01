@@ -1,0 +1,46 @@
+{
+  "id": 373,
+  "oficio": "Reformas Integrales",
+  "texto": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+  "http_status": 200,
+  "latency_ms": 50177,
+  "raw_response": {
+    "transcript": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "alicatado_y_solado_de_bano_completo",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "reforma_integral_atic_o_penthouse"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

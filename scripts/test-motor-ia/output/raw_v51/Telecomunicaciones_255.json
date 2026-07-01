@@ -1,0 +1,191 @@
+{
+  "id": 255,
+  "oficio": "Telecomunicaciones",
+  "texto": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+  "http_status": 200,
+  "latency_ms": 21558,
+  "raw_response": {
+    "transcript": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Se asume distribución en 4 dormitorios. Confirmar longitud total de cable y recorrido.",
+          "Amplificador: revisar si es amplificador de mástil (antena colectiva) o amplificador de banda ancha (distribución). Asumir amplificador de distribución.",
+          "Precios de materiales requieren revisión por instalador según marca y especificaciones."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de red de distribución coaxial para televisión, tomas y amplificador."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Apertura de rozas para paso de cable coaxial en muros (si es necesario)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cable coaxial 75Ω para distribución televisión",
+          "descripcion": "Cable coaxial de 75 ohmios de calidad para distribución de señal de televisión en dormitorios. Incluye pequeño material (cinta, etc.).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Precio pendiente de revisión. Asumir ~80 ml total (estimación 20 ml por dormitorio × 4). Confirmar longitud real de recorrido."
+        },
+        {
+          "concepto": "Tomas de usuario coaxial para televisión",
+          "descripcion": "4 tomas de usuario (derivadores) coaxiales 75Ω con rosca F, para conexión de televisores en dormitorios.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Precio pendiente. Típicamente 5-15€/ud según calidad."
+        },
+        {
+          "concepto": "Amplificador de banda ancha para distribución televisión",
+          "descripcion": "Amplificador de distribución para señal de televisión (20-862 MHz o similar), con alimentación, para compensar pérdidas en la red de distribución coaxial.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Precio pendiente. Rango típico 80-200€ según ganancia y banda de frecuencia."
+        },
+        {
+          "concepto": "Conectores y adaptadores coaxiales",
+          "descripcion": "Conectores tipo F, adaptadores, terminaciones 75Ω, y pequeño material de instalación (cinta aislante, bridas, etc.).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Precio pendiente (típicamente 15-40€ por lote)."
+        },
+        {
+          "concepto": "Apertura de rozas para cable coaxial",
+          "descripcion": "Apertura de rozas en muros/paredes para paso de cable coaxial de televisión hacia 4 tomas en dormitorios. Incluye cierre con mortero/yeso.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 80,
+          "precio_unitario": 35,
+          "total": 2800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra a tarifa recomendada 40€/ml. Revisar si las rozas ya existen o requieren apertura. Si no hay rozas nuevas, restar esta partida."
+        },
+        {
+          "concepto": "Instalación de tomas coaxiales y amplificador",
+          "descripcion": "Montaje de 4 tomas de usuario, instalación del amplificador de distribución, conexionado coaxial, pruebas de señal en cada toma y configuración del sistema.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Medición y verificación de nivel de señal TV",
+          "descripcion": "Medición con medidor de campo de nivel de señal en cada toma, verificación de atenuación y confirmación de que todas las tomas están dentro de rango normativo (DBV según RD 346/2011).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 3000,
+        "iva_porcentaje": 21,
+        "iva": 630,
+        "total": 3630
+      },
+      "sugerencias_catalogo": [
+        "Consultar BASE MAESTRA [instalacion_de_antena_colectiva_TDT_en_edificio] si esta red forma parte de una instalación colectiva de edificio. En ese caso, incluir obligatoriamente: ICT, distribución general, amplificador de mástil, etc.",
+        "Si ya existe una red de distribución de televisión en el edificio (antena colectiva), esta partida es solo extensión/ampliación a dormitorios. Confirmar origen de señal (antena colectiva, SAT, DTT individual, etc.).",
+        "Considerar si es necesario derivador (splitter) de 2 ó 4 salidas si la distribución es en árbol desde un punto central."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable coaxial 75Ω para distribución televisión",
+          "oficio": "telecomunicaciones",
+          "razon": "Especificación de material de distribución. No encontrado con precisión en catálogo base."
+        },
+        {
+          "concepto": "Amplificador de banda ancha para distribución televisión",
+          "oficio": "telecomunicaciones",
+          "razon": "Material específico de climatización de señal. Requiere revisión de marca, ganancia, alimentación."
+        },
+        {
+          "concepto": "Conectores y adaptadores coaxiales",
+          "oficio": "telecomunicaciones",
+          "razon": "Materiales auxiliares agrupados. Precio a confirmar por instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "instalacion_linea_electrica_electrodomestico"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

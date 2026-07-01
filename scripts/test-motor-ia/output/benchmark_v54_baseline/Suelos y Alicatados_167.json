@@ -1,0 +1,200 @@
+{
+  "id": 167,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Alicatar piscina con gresite azul, vaciado y colocación en paredes y fondo, 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 19512,
+  "raw_response": {
+    "transcript": "Alicatar piscina con gresite azul, vaciado y colocación en paredes y fondo, 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Alicatar piscina con gresite azul, vaciado y colocación en paredes y fondo, 40 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume vaciado previo de la piscina. Confirmar si incluye drenaje y gestión de agua.",
+          "Gresite azul: especificar marca, tamaño de tesela (20x20, 25x25, etc.) y acabado (brillo, mate).",
+          "Superficie 40 m² es considerable. Confirmar si incluye encuentros, esquinas reforzadas y desagües."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de piscina con gresite/cerámica es actividad específica de impermeabilización según Base Maestra [impermeabilizacion_de_piscina_con_gresite_o_ceramica]"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y preparación de piscina",
+          "descripcion": "Drenaje completo de la piscina, limpieza de fondo y paredes, retirada de agua residual y gestión según normativa",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación adherente sobre hormigón",
+          "descripcion": "Aplicación de imprimación/sellador sobre superficie de hormigón de piscina para mejorar adherencia del mortero",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión. Referencia: 2-5 €/m² según producto"
+        },
+        {
+          "concepto": "Mortero cola certificado inmersión C2S2",
+          "descripcion": "Mortero cola flexible certificado para inmersión (C2S2) resistente a cloro, para fijación de gresite en piscina",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión. Referencia: 4-8 €/m² según marca y consumo"
+        },
+        {
+          "concepto": "Gresite azul para piscina",
+          "descripcion": "Gresite/tesela cerámica azul para revestimiento interior de piscina (paredes y fondo), 40 m²",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión. Referencia: 8-25 €/m² según calidad y tamaño tesela"
+        },
+        {
+          "concepto": "Lechada específica resistente a cloro",
+          "descripcion": "Lechada/junta flexible y resistente a cloro para rejuntado de gresite en piscina",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión. Referencia: 2-6 €/m² según marca"
+        },
+        {
+          "concepto": "Refuerzo encuentros, esquinas y desagües",
+          "descripcion": "Refuerzo con mortero y lechada en encuentros de paredes-fondo, esquinas interiores y alrededor de desagües/skimmers",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión. Referencia: 80-200 € según complejidad"
+        },
+        {
+          "concepto": "Colocación de gresite (mano de obra)",
+          "descripcion": "Colocación, replanteo y nivelación de gresite azul en paredes y fondo de piscina, 40 m²",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 45,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado y acabado de lechada",
+          "descripcion": "Rejuntado completo de gresite con lechada resistente a cloro, limpieza y acabado final",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 45,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Crucetas, esponjas, herramientas, EPI (guantes, mascarilla, gafas), trapos y material fungible",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión. Referencia: 50-150 € según cantidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3960,
+        "iva_porcentaje": 21,
+        "iva": 832.6,
+        "total": 4792.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar especificaciones del gresite: marca, tamaño de tesela (20x20, 25x25, 30x30 mm), acabado (brillo/mate), código de color exacto.",
+        "Verificar si la piscina tiene skimmers, desagües de fondo o boquillas de impulsión que requieran refuerzo especial.",
+        "Considerar si es necesario aplicar imprimación previa según estado del hormigón (porosidad, humedad residual).",
+        "Tiempo de fragüe: esperar mínimo 7 días antes de llenar la piscina tras finalizar el rejuntado.",
+        "Incluir en presupuesto final: análisis y ajuste químico inicial del agua (cloro, pH, alcalinidad)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_piscina_con_gresite_o_ceramica",
+      "construccion_de_piscina_de_obra",
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4264,
+      "tokens_out": 2649
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

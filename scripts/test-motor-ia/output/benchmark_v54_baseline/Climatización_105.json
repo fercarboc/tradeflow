@@ -1,0 +1,192 @@
+{
+  "id": 105,
+  "oficio": "Climatización",
+  "texto": "Instalar recuperador de calor de doble flujo en vivienda de obra nueva, ventilación mecánica controlada",
+  "http_status": 200,
+  "latency_ms": 19989,
+  "raw_response": {
+    "transcript": "Instalar recuperador de calor de doble flujo en vivienda de obra nueva, ventilación mecánica controlada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar recuperador de calor de doble flujo en vivienda de obra nueva, ventilación mecánica controlada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Obra nueva: verificar cumplimiento CTE DB HS3 (renovaciones/hora según volumen vivienda)",
+          "Recuperador de calor: eficiencia mínima 75% recomendada",
+          "Conductos: coordinar con electricista y fontanero para paso sin conflictos",
+          "Filtros: especificar tipo (G4 mínimo en impulsión exterior)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de recuperador de calor de doble flujo (ventilación mecánica controlada)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Recuperador de calor de doble flujo",
+          "descripcion": "Suministro e instalación de recuperador de calor de doble flujo con eficiencia ≥75%, incluyendo carcasa aislada, filtros G4, y pequeño material de conexión",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipo recuperador a definir por instalador según marca, modelo y caudal (m³/h)"
+        },
+        {
+          "concepto": "Red de conductos de impulsión y retorno",
+          "descripcion": "Suministro e instalación de conductos de chapa galvanizada o PVC rígido para impulsión de aire limpio y retorno de aire viciado. Incluye aislamiento acústico y térmico, soportes y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales a definir según plano de vivienda. Precio unitario (€/ml) a revisar por instalador"
+        },
+        {
+          "concepto": "Rejillas de impulsión en dormitorios y salón",
+          "descripcion": "Suministro e instalación de rejillas de impulsión de aire limpio en habitaciones secas (dormitorios, salón). Incluye marco, rejilla y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de rejillas a definir según número de habitaciones y salón. Precio unitario a revisar"
+        },
+        {
+          "concepto": "Rejillas de extracción en baños y cocina",
+          "descripcion": "Suministro e instalación de rejillas de extracción de aire viciado en baños y cocina. Incluye marco, rejilla y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de rejillas a definir según número de baños y cocina. Precio unitario a revisar"
+        },
+        {
+          "concepto": "Bocas de toma exterior e impulsión exterior",
+          "descripcion": "Suministro e instalación de bocas de toma de aire exterior (con filtro y protección) y boca de expulsión de aire viciado. Incluye remates, protecciones contra lluvia y pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario (toma + expulsión) a revisar por instalador según tipo y acabado"
+        },
+        {
+          "concepto": "Mano de obra: instalación recuperador, conductos y rejillas",
+          "descripcion": "Instalación completa del sistema de ventilación mecánica controlada: montaje recuperador, tendido de conductos, fijación de rejillas, conexión de bocas exteriores, pruebas de funcionamiento y ajuste de caudales",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 60,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas a definir según complejidad de la vivienda, longitud de conductos y número de rejillas. Estimación: 16-24 horas para vivienda unifamiliar estándar"
+        },
+        {
+          "concepto": "Filtros de reposición y pequeño material",
+          "descripcion": "Suministro de filtros G4 de reposición para impulsión exterior, cinta de estanqueidad, bridas, tornillería y pequeño material de conexión",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a revisar según cantidad y tipo de filtros incluidos"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar en proyecto técnico el caudal requerido según CTE DB HS3 (típicamente 0,63 l/s·m² de superficie útil)",
+        "Coordinar con electricista: el recuperador requiere conexión eléctrica (monofásica 230V, típicamente 100-300W)",
+        "Coordinar con fontanero: evitar conflictos de paso de conductos con tuberías de agua",
+        "Considerar by-pass de verano si el recuperador lo permite (ahorro energético en estaciones cálidas)",
+        "Especificar en proyecto: tipo de conductos (chapa galvanizada vs PVC), aislamiento acústico (lana mineral), y posición del recuperador (falso techo, cuarto técnico, etc.)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Recuperador de calor de doble flujo",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo específico de ventilación mecánica controlada. Precio variable según caudal (m³/h) y marca (rango típico: 800-3000€)"
+        },
+        {
+          "concepto": "Red de conductos de impulsión y retorno",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad y precio unitario (€/ml) a definir según plano de vivienda"
+        },
+        {
+          "concepto": "Rejillas de impulsión y extracción",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad variable según número de habitaciones, baños y cocina"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_recuperador_de_calor_ventilacion_mecanica_controlada",
+      "instalacion_ventilacion_mecanica_controlada_vmc",
+      "instalacion_de_suelo_radiante_en_reforma",
+      "reforma_para_instalar_piscina_en_vivienda_unifamiliar",
+      "tabique_pladur_en_vivienda_unifamiliar_nueva"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3849,
+      "tokens_out": 2669
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "id": 248,
+  "oficio": "Telecomunicaciones",
+  "texto": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+  "http_status": 200,
+  "latency_ms": 9902,
+  "raw_response": {
+    "transcript": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+        "tipo_presupuesto": "instalacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar distancia total de cable desde router a rosetas más lejana (máximo 100m sin repetidor)",
+          "Confirmar si las rozas ya existen o requieren apertura de muros",
+          "Revisar accesibilidad a canalización existente entre salón y habitaciones"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de tomas de red estructurada (RJ45 CAT6) y cableado de telecomunicaciones"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cableado estructurado y conexión de red entre router y rosetas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tomas RJ45 CAT6 en 3 habitaciones",
+          "descripcion": "Instalación de 3 rosetas de red RJ45 categoría 6 empotradas (1 por habitación), incluyendo cajas de empotrar, regleta de conexión y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 110,
+          "total": 330,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable UTP CAT6 - distribución rosetas a router",
+          "descripcion": "Suministro e instalación de cable UTP CAT6 para conectar las 3 rosetas al router del salón (incluye canalización, reposición de rozas si aplica, y pequeño material)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 2.5,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros estimada a revisar según plano real de vivienda y recorrido de canalización. Puede variar según distribución y accesibilidad"
+        },
+        {
+          "concepto": "Certificación y pruebas de red CAT6",
+          "descripcion": "Prueba de continuidad y certificación de cada toma RJ45 con tester CAT6 para verificar velocidad y calidad de señal",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 530,
+        "iva_porcentaje": 21,
+        "iva": 111.3,
+        "total": 641.3
+      },
+      "sugerencias_catalogo": [
+        "Si el instalador dispone de armario rack/switch en salón, considerar partida adicional de 'instalación patch panel en armario'",
+        "Si las distancias superan 100m o hay obstáculos importantes, considerar amplificador/repetidor de señal"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toma_red_ethernet_cat6",
+      "instalacion_cocina_gas",
+      "instalacion_toma_tierra_nueva",
+      "instalacion_toma_television_coaxial",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_CATALOGO",
+    "n_partidas": 3,
+    "n_catalogo": 3,
+    "n_sugeridas": 0,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

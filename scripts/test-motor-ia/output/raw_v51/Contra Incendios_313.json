@@ -1,0 +1,130 @@
+{
+  "id": 313,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar detector de monóxido de carbono en garaje privado de vivienda con caldera de gas",
+  "http_status": 200,
+  "latency_ms": 17584,
+  "raw_response": {
+    "transcript": "Instalar detector de monóxido de carbono en garaje privado de vivienda con caldera de gas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar detector de monóxido de carbono en garaje privado de vivienda con caldera de gas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Garaje privado de vivienda: detector CO es RECOMENDADO (no obligatorio por CTE en garajes sin aparcamiento de vehículos compartido). Confirmar con cliente si es garaje con acceso directo a vivienda.",
+          "Caldera de gas detectada: presencia de CO confirmada. Detector es ALTAMENTE RECOMENDADO por seguridad.",
+          "NO confundir con sistema de ventilación forzada de aparcamiento (obligatorio en aparcamientos colectivos). Aquí es detector autónomo.",
+          "Revisar si el garaje tiene ventilación natural suficiente o requiere mejora de ventilación."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación de detector CO, conexión eléctrica y puesta en marcha"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Detector de monóxido de carbono (CO) certificado para vivienda",
+          "descripcion": "Detector CO autónomo o conectado a red eléctrica, certificado EN 50291, con sensor electroquímico, alarma sonora y visual, apto para garajes con fuentes de CO (caldera gas, vehículos). Incluye base de instalación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de cotización. Rango típico mercado: 80–250€ según marca y conectividad (autónomo vs. red)."
+        },
+        {
+          "concepto": "Instalación de detector CO en pared/techo",
+          "descripcion": "Trabajo de instalación: localización óptima (1,5–2m altura, alejado de fuentes humedad), perforación de anclajes, fijación con tornillería, conexión eléctrica (si aplica) a toma auxiliar o enchufe, prueba de funcionamiento y calibración.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tornillería, tacos, cable)",
+          "descripcion": "Tornillería de acero inoxidable, tacos de fijación, cable de conexión (si necesario), tuerca de seguridad, conexiones.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico: 15–30€. Incluir en presupuesto final."
+        },
+        {
+          "concepto": "Prueba de funcionamiento y entrega de documentación",
+          "descripcion": "Activación del detector, prueba de alarma sonora, verificación de sensor CO, explicación de uso y mantenimiento al cliente, entrega de manual en español.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir como servicio de puesta en marcha. Precio: 0–30€ (puede estar incluido en mano obra)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 75,
+        "iva_porcentaje": 21,
+        "iva": 15.75,
+        "total": 90.75
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'detector_CO_vivienda', 'detector_monoxido_carbono_domestico', 'sensor_CO_autónomo'.",
+        "Confirmar con proveedor si detector es AUTÓNOMO (batería 10 años) o CONECTADO a red 230V (requiere enchufe auxiliar en garaje).",
+        "Detector autónomo es MÁS RECOMENDADO para garaje privado (mayor independencia, sin obra eléctrica)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Detector de monóxido de carbono (CO) certificado para vivienda",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Material específico no encontrado en catálogo. Crear entrada: 'detector_CO_certificado_EN_50291_vivienda' con rango precio 80–250€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_ventilacion_aparcamiento_segun_cte",
+      "instalacion_de_detectores_de_humo_opticos",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_sistema_de_deteccion_gas_en_aparcamiento",
+      "instalacion_de_central_de_incendios_deteccion_automatica"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

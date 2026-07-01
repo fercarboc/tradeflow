@@ -1,0 +1,224 @@
+{
+  "id": 73,
+  "oficio": "Pintura",
+  "texto": "Reparar y pintar paredes de garaje comunitario, superficie 200 metros cuadrados con gotelé fino",
+  "http_status": 200,
+  "latency_ms": 20205,
+  "raw_response": {
+    "transcript": "Reparar y pintar paredes de garaje comunitario, superficie 200 metros cuadrados con gotelé fino",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar y pintar paredes de garaje comunitario, superficie 200 metros cuadrados con gotelé fino",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Garaje comunitario: verificar estado de humedad y eflorescencias",
+          "Gotelé fino: requiere imprimación especial antes de pintar",
+          "200 m² es superficie importante: considerar andamios o plataformas si techos altos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Reparación y pintura de paredes en garaje comunitario"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de paredes (picado, corrección de irregularidades)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Picado y limpieza de paredes dañadas",
+          "descripcion": "Picado de zonas con desprendimientos, humedad o defectos. Eliminación de restos de pintura suelta. Limpieza y desempolvado de superficie",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 6,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Masilla y pasta fina - relleno de grietas y holes",
+          "descripcion": "Aplicación de masilla de relleno en grietas, agujeros y zonas picadas. Nivelación previa para recibir pintura",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible: instalador debe especificar cantidad de sacos y precio unitario"
+        },
+        {
+          "concepto": "Lijado y preparación de superficie",
+          "descripcion": "Lijado con grano 120-220 de toda la superficie reparada. Eliminación de polvo de lija. Preparación final para imprimación",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 8,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación especial para gotelé y superficies porosas",
+          "descripcion": "Imprimación fijadora acrílica o poliuretano. Especialmente formulada para gotelé fino y superficies muy porosas de garaje. Previene absorciones desiguales de la pintura",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible: especificar litros y precio. Rendimiento estimado: 12-15 m2/litro"
+        },
+        {
+          "concepto": "Aplicación de imprimación",
+          "descripcion": "Aplicación con rodillo de pelo corto de imprimación en toda la superficie. Una mano. Secado entre capas",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 5,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura plástica o vinílica resistente a humedad - garaje",
+          "descripcion": "Pintura de calidad media-alta, resistente a humedad y condensación. Formulada para garajes, sótanos y zonas con variación de humedad. Acabado mate",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible: especificar litros y precio. Rendimiento estimado: 10-12 m2/litro (dos manos)"
+        },
+        {
+          "concepto": "Pintado de paredes - dos manos",
+          "descripcion": "Aplicación de dos manos de pintura con rodillo estándar. Incluye primera mano y segunda mano. Secado y ventilación entre manos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 10,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (rodillos, pinceles, cintas, etc.)",
+          "descripcion": "Rodillos, pinceles, bandejas, cintas de carrocero, plásticos de protección, trapos. Material consumible necesario para la ejecución",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote consumible: instalador estima cantidad y precio"
+        },
+        {
+          "concepto": "Medios auxiliares y protección en garaje comunitario",
+          "descripcion": "Protección de vehículos, instalaciones eléctricas y zonas adyacentes. Señalización. Si techos >3,5m: plataforma móvil o andamio. Tarea de limpieza final",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de altura de techos y acceso. Instalador estima si requiere plataforma y coste de alquiler"
+        }
+      ],
+      "calculos": {
+        "subtotal": 5800,
+        "iva_porcentaje": 21,
+        "iva": 1218,
+        "total": 7018
+      },
+      "sugerencias_catalogo": [
+        "Verificar en BASE MAESTRA: [pintado_de_sotanos_y_aparcamientos_comunitarios] para garajes con características similares",
+        "Si hay signos de humedad activa o eflorescencias: considerar añadir partida de mortero hidrofugo o tratamiento anti-humedad previo",
+        "Garajes con tránsito de vehículos: valorar pintura epoxi de tráfico en suelos si está incluido en el alcance"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Masilla y pasta fina - relleno de grietas y holes",
+          "motivo": "Material consumible específico para reparación previa"
+        },
+        {
+          "concepto": "Imprimación especial para gotelé y superficies porosas",
+          "motivo": "Imprimación formulada para garajes y gotelé fino"
+        },
+        {
+          "concepto": "Pintura plástica o vinílica resistente a humedad - garaje",
+          "motivo": "Pintura de acabado específica para garajes con humedad"
+        },
+        {
+          "concepto": "Pequeño material (rodillos, pinceles, cintas, etc.)",
+          "motivo": "Consumibles necesarios para la ejecución"
+        },
+        {
+          "concepto": "Medios auxiliares y protección en garaje comunitario",
+          "motivo": "Seguridad y protección en zona comunitaria con posible tránsito"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "pintura_sotano_o_zona_bajo_rasante",
+      "pintado_de_sotanos_y_aparcamientos_comunitarios",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "imprimacion_especial_sobre_yeso_nuevo"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

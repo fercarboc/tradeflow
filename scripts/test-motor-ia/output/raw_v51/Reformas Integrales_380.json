@@ -1,0 +1,96 @@
+{
+  "id": 380,
+  "oficio": "Reformas Integrales",
+  "texto": "Presupuesto para reforma de casita de campo abandonada, partida por partida con materiales incluidos",
+  "http_status": 200,
+  "latency_ms": 16662,
+  "raw_response": {
+    "transcript": "Presupuesto para reforma de casita de campo abandonada, partida por partida con materiales incluidos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Presupuesto para reforma de casita de campo abandonada, partida por partida con materiales incluidos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "FALTA INFORMACIÓN CRÍTICA: No se especifican actuaciones concretas (techumbre, fontanería, electricidad, acabados, etc.)",
+          "FALTA ALCANCE: No se indica si es reforma integral, parcial, rehabilitación estructural, etc.",
+          "FALTA MEDICIONES: No hay m², m³, unidades, kW, número de elementos a sustituir",
+          "ESTADO INICIAL DESCONOCIDO: 'abandonada' sugiere daños potenciales graves — requiere VISITA DIAGNÓSTICA PREVIA",
+          "SORPRESAS FRECUENTES: Vivienda antigua abandonada = riesgos de humedades, plagas, estructuras dañadas, instalaciones peligrosas",
+          "REFORMA INTEGRAL REQUIERE MULTIPLE OFICIOS: electricidad, fontanería, climatización, pintura, albañilería, carpintería mínimo"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [
+        {
+          "concepto": "VISITA DIAGNÓSTICA Y PRESUPUESTO DETALLADO",
+          "descripcion": "Visita completa con láser para medir, evaluación estado estructural, instalaciones (eléctrica, fontanería, climatización, etc.), detección de humedades/plagas, fotografía estado previo, informe detallado con propuestas y desglose por partidas",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 650,
+          "total": 650,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "OBLIGATORIA antes de comprometer partidas — vivienda abandonada requiere diagnóstico previo para estimar alcance real"
+        },
+        {
+          "concepto": "PRESUPUESTO ESTIMADO REFORMAS INTEGRALES (sujeto a diagnóstico)",
+          "descripcion": "Reforma integral típica casita de campo: desmontaje selectivo, reparación estructura si necesario, sustitución instalación eléctrica, fontanería con red PEX, climatización básica, pintura, alicatado baños/cocina, suelos, carpintería puertas/ventanas, gestión residuos. PRECIO APROXIMADO PENDIENTE DE MEDICIONES Y DIAGNÓSTICO",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CRÍTICA: No se puede presupuestar reforma integral sin mediciones, fotos, planos y diagnóstico previo. Rango típico casita de campo: 25.000€–120.000€ según estado, superficie y calidad finales. ESTABLECER CON CLIENTE PRESUPUESTO MÁXIMO Y PARTIDA IMPREVISTOS 15%"
+        }
+      ],
+      "calculos": {
+        "subtotal": 650,
+        "iva_porcentaje": 21,
+        "iva": 136.5,
+        "total": 786.5
+      },
+      "sugerencias_catalogo": [
+        "PASO 1 — DIAGNÓSTICO: Solicitar al cliente que el instalador realice VISITA DIAGNÓSTICA COMPLETA (650€ recomendado). Incluir fotos, mediciones, inspección daños estructurales, humedades, plagas, estado instalaciones.",
+        "PASO 2 — DESGLOSE POR OFICIOS: Una vez diagnóstico, generar presupuesto estructurado por oficios: (1) Estructura/Albañilería, (2) Instalación Eléctrica, (3) Fontanería+ACS, (4) Climatización, (5) Suelos+Alicatados, (6) Pintura, (7) Carpintería, (8) Residuos",
+        "PASO 3 — PARTIDAS OBLIGATORIAS REFORMA INTEGRAL: Incluir IMPREVISTOS 15% (vivienda abandonada = sorpresas garantizadas), GESTIÓN RESIDUOS, PROTECCIÓN SOLAR/PERMISOS si aplica",
+        "PASO 4 — FASES: Proponer cronograma: Desmontaje selectivo → Reparación estructura → Instalaciones → Acabados → Limpieza final",
+        "RECOMENDACIÓN: Presupuesto máximo cliente antes de diagnóstico, evaluar si reforma completa rentable o parcial por fases"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "REFORMA INTEGRAL CASITA CAMPO ABANDONADA",
+          "descripcion": "Reforma completa con todos oficios (estructura, eléctrica, fontanería, climatización, suelos, pintura, carpintería, residuos)",
+          "oficio": "reformas_integrales",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo": "Concepto genérico. Descomponerlo en partidas específicas tras diagnóstico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "planificacion_y_presupuesto_reforma_integral",
+      "diagnostico_y_presupuesto_de_jardin",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "diagnostico_y_presupuesto_suelos_y_alicatados",
+      "diagnostico_y_presupuesto_cerrajeria"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 2,
+    "n_catalogo": 1,
+    "n_sugeridas": 1,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

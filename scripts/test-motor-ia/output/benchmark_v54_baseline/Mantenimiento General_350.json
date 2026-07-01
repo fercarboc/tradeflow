@@ -1,0 +1,178 @@
+{
+  "id": 350,
+  "oficio": "Mantenimiento General",
+  "texto": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+  "http_status": 200,
+  "latency_ms": 22834,
+  "raw_response": {
+    "transcript": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume zona de hormigón/cemento. Confirmar estado del suelo (grietas, humedad, antigüedad pintura anterior).",
+          "Líneas de seguridad y señalización requieren medidas exactas y normativa de almacén (anchura líneas, colores según UNE)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura de suelo industrial con líneas de seguridad y señalización. Trabajo de pintura especializada en zona de almacén."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y desengrasante de suelo hormigón",
+          "descripcion": "Limpieza profunda con desengrasante y barredora mecánica de la zona de carga y descarga. Eliminación de polvo, grasa y residuos previo a pintura.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de superficie exacta de zona de carga y descarga. Precio unitario a definir por instalador según m2 reales."
+        },
+        {
+          "concepto": "Imprimación consolidante y adherente",
+          "descripcion": "Aplicación de imprimación consolidante sobre hormigón para mejorar adherencia de pintura de tráfico. Una mano.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar según m2. Rendimiento típico 8-10 m2/litro."
+        },
+        {
+          "concepto": "Pintura de tráfico epoxi o poliuretano para suelo",
+          "descripcion": "Pintura de tráfico de dos componentes (epoxi o poliuretano) resistente a abrasión, químicos y tránsito de carretillas. Dos manos mínimo.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Rendimiento 5-7 m2/litro por mano. Especificar color base (gris, blanco, amarillo)."
+        },
+        {
+          "concepto": "Líneas de seguridad y señalización pintadas",
+          "descripcion": "Pintura de líneas de seguridad (delimitación zona carga/descarga), líneas de dirección de tráfico, zonas de peligro y señalización según normativa UNE. Incluye cintas de enmascarar y aplicación con rodillo o brocha de precisión.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de metros lineales de líneas a pintar. Tarifa típica 2-5€/ml según complejidad y anchura de línea."
+        },
+        {
+          "concepto": "Aplicación de pintura base (mano 1)",
+          "descripcion": "Primera mano de pintura de tráfico con rodillo de pelo corto. Cobertura uniforme y secado entre manos.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 a definir. Tarifa recomendada 32€/h. Rendimiento 5-7 m2/h."
+        },
+        {
+          "concepto": "Aplicación de pintura acabado (mano 2)",
+          "descripcion": "Segunda mano de pintura de tráfico para cobertura completa y acabado uniforme. Incluye secado y curado.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 a definir. Tarifa recomendada 32€/h. Rendimiento 5-7 m2/h."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rodillos, brochas, cintas de enmascarar, trapos, disolvente, EPI (guantes, mascarilla, gafas), cartón protector.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según volumen de trabajo. Estimado 50-150€ para zona pequeña/media."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar superficie exacta en m2 de la zona de carga y descarga.",
+        "Solicitar plano o croquis con líneas de seguridad a pintar (metros lineales).",
+        "Especificar colores de líneas según normativa interna o UNE (amarillo/negro para peligro, blanco para delimitación, etc.).",
+        "Verificar estado actual del suelo: ¿hay pintura anterior a eliminar? ¿Grietas o humedad?",
+        "Confirmar si incluye señalización vertical (carteles) o solo pintura de suelo.",
+        "Presupuestar tiempo de curado (pintura epoxi: 24-48h antes de tránsito)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Líneas de seguridad y señalización pintadas",
+          "oficio": "pintura",
+          "motivo": "Especialidad de pintura de tráfico con líneas de seguridad. Requiere precisión y normativa específica de almacén."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_garaje_o_parking_suelo",
+      "instalacion_de_tarima_o_entarimado_de_madera_elevado_para_escenario_o_zona",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria",
+      "pintado_de_canchas_de_padel_interior",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3663,
+      "tokens_out": 2612
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

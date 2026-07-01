@@ -1,0 +1,222 @@
+{
+  "id": 95,
+  "oficio": "Albañilería",
+  "texto": "Reforma de cocina, quitar azulejos viejos, alicatar de nuevo y cambiar encimera de granito",
+  "http_status": 200,
+  "latency_ms": 20178,
+  "raw_response": {
+    "transcript": "Reforma de cocina, quitar azulejos viejos, alicatar de nuevo y cambiar encimera de granito",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de cocina, quitar azulejos viejos, alicatar de nuevo y cambiar encimera de granito",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Encimera de granito requiere medición exacta y presupuesto de material (precio_unitario=0)",
+          "Demolición de azulejos puede generar residuos; considerar gestión de escombros",
+          "Verificar si la pared está en buen estado antes de alicatar (posibles reparaciones previas)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado de cocina (paredes). Oficio específico para azulejos y cerámicas en cocina."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de encimera de granito (requiere ajuste, nivelación y fijación)."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 30,
+            "max": 40
+          },
+          "motivo": "Retirada y gestión de escombros de azulejos demolidos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición de azulejos existentes",
+          "descripcion": "Retirada completa de alicatado antiguo en paredes de cocina, incluyendo mortero y adhesivo. Preparación de superficie.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de m2 de pared a demoler. Tarifa estimada 15-25€/m2 según dificultad."
+        },
+        {
+          "concepto": "Reparación y nivelación de paredes",
+          "descripcion": "Relleno de huecos, nivelación de superficie y aplicación de mortero de regularización previa al alicatado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende del estado de la pared. Estimado 10-20€/m2."
+        },
+        {
+          "concepto": "Azulejos/cerámica para cocina",
+          "descripcion": "Suministro de azulejos o cerámica para paredes de cocina (cantidad y modelo a definir por cliente).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a elegir. Rango típico 15-60€/m2 según calidad."
+        },
+        {
+          "concepto": "Alicatado de paredes de cocina",
+          "descripcion": "Colocación de azulejos con mortero cola C2 flexible, incluyendo replanteo, crucetas y pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de m2 a alicatar. Tarifa: 32€/m2 (recomendado para suelos_alicatados)."
+        },
+        {
+          "concepto": "Lechada y rejuntado",
+          "descripcion": "Aplicación de lechada epoxi en juntas (muy recomendada en cocinas por resistencia a manchas y humedad).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material lechada epoxi. Estimado 5-15€/m2 según marca."
+        },
+        {
+          "concepto": "Encimera de granito - Suministro",
+          "descripcion": "Suministro de encimera de granito cortada a medida, incluyendo transporte.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de alto valor. Requiere medición exacta (ml o m2). Rango típico 200-600€/ml según espesor y acabado."
+        },
+        {
+          "concepto": "Instalación de encimera de granito",
+          "descripcion": "Colocación, nivelación, fijación y sellado de encimera de granito. Ajuste de encuentros con paredes y electrodomésticos.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere medición de ml de encimera. Tarifa: 45€/ml (carpintería)."
+        },
+        {
+          "concepto": "Retirada y gestión de escombros",
+          "descripcion": "Retirada de azulejos demolidos, mortero y residuos de obra. Transporte a gestor autorizado.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende del volumen de escombros. Estimado 150-400€/jornada o por m3."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica 'alicatado_y_solado_completo_cocina' en catálogo (recomendado para cocinas completas).",
+        "Considerar si la encimera incluye backsplash (salpicadero) o si es solo encimera horizontal.",
+        "Confirmar si el cliente desea lechada epoxi (recomendada en cocinas) o lechada estándar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Demolición de azulejos existentes",
+          "oficio": "suelos_alicatados",
+          "motivo": "Trabajo de demolición previo al alicatado. No encontrado como partida específica en catálogo."
+        },
+        {
+          "concepto": "Reparación y nivelación de paredes",
+          "oficio": "suelos_alicatados",
+          "motivo": "Preparación de superficie. Puede incluirse en partida de alicatado o como partida separada según estado."
+        },
+        {
+          "concepto": "Encimera de granito - Suministro e instalación",
+          "oficio": "carpinteria",
+          "motivo": "Material de alto valor que requiere medición exacta y presupuesto específico del proveedor."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "alicatado_y_solado_completo_cocina",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "sustitucion_banera_por_ducha"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3928,
+      "tokens_out": 2885
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "NO"
+  }
+}

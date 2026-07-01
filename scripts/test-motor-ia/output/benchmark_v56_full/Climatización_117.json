@@ -1,0 +1,157 @@
+{
+  "id": 117,
+  "oficio": "Climatización",
+  "texto": "Instalar termostato inteligente WiFi compatible con caldera existente de gas",
+  "http_status": 200,
+  "latency_ms": 14263,
+  "raw_response": {
+    "transcript": "Instalar termostato inteligente WiFi compatible con caldera existente de gas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar termostato inteligente WiFi compatible con caldera existente de gas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar compatibilidad del termostato WiFi con modelo específico de caldera de gas antes de compra",
+          "Confirmar disponibilidad de neutro en caja de conexión de caldera para alimentación termostato",
+          "Cliente debe tener cobertura WiFi estable en zona de instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de dispositivo eléctrico inteligente, conexión a red eléctrica y configuración"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Termostato inteligente WiFi",
+          "descripcion": "Suministro de termostato inteligente WiFi compatible con caldera de gas, con control remoto por aplicación móvil y programación horaria",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del termostato WiFi a definir por instalador según marca y modelo (rango típico 150-400€)"
+        },
+        {
+          "concepto": "Cable de conexión termostato a caldera",
+          "descripcion": "Suministro e instalación de cable de conexión 2-4 hilos entre termostato y caldera de gas, con conectores compatibles",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar (cable, conectores) - precio a definir según longitud y tipo (rango típico 15-40€)"
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "descripcion": "Tornillos, tacos, bridas, cinta aislante y otros materiales auxiliares para instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material - precio a definir (rango típico 10-25€)"
+        },
+        {
+          "concepto": "Instalación y conexión de termostato inteligente",
+          "descripcion": "Desmontaje de termostato anterior (si existe), instalación de nuevo termostato WiFi en pared, conexión de cables a caldera, verificación de compatibilidad y pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración y programación de termostato WiFi",
+          "descripcion": "Configuración de parámetros de funcionamiento, conexión a red WiFi, descarga de aplicación móvil, programación de horarios de calefacción y pruebas de control remoto",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 125,
+        "iva_porcentaje": 21,
+        "iva": 26.25,
+        "total": 151.25
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo si existe partida específica 'instalacion_termostato_o_cronotermostato_inteligente' con rango 250-3500€/ud que incluya material + mano de obra",
+        "Considerar si cliente requiere adaptador WiFi adicional o hub de control según marca del termostato"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Termostato inteligente WiFi",
+          "oficio": "electricidad",
+          "motivo": "Material específico - precio variable según marca/modelo, requiere revisión instalador"
+        },
+        {
+          "concepto": "Cable de conexión termostato a caldera",
+          "oficio": "electricidad",
+          "motivo": "Material auxiliar - precio variable según longitud y tipo de conexión"
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "oficio": "electricidad",
+          "motivo": "Material auxiliar estándar - precio a definir"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_termostato_programable_caldera",
+      "instalacion_termostato_o_cronotermostato_inteligente",
+      "instalacion_domotica_basica_wifi",
+      "instalacion_caldera_gasoil",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3654,
+      "tokens_out": 1561
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

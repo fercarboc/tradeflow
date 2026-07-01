@@ -1,0 +1,217 @@
+{
+  "id": 52,
+  "oficio": "Carpintería",
+  "texto": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+  "http_status": 200,
+  "latency_ms": 16058,
+  "raw_response": {
+    "transcript": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de puerta de garaje basculante de madera por seccional de aluminio con motorización",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Incluye desmontaje de puerta antigua + suministro nueva + instalación + motorización",
+          "Célula fotoeléctrica de seguridad es OBLIGATORIA en puerta seccional motorizada",
+          "Desbloqueo de emergencia es OBLIGATORIO"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Desmontaje puerta basculante antigua + instalación puerta seccional motorizada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje puerta garaje basculante madera",
+          "descripcion": "Desmontaje completo de puerta basculante de madera, muelles, herrajes y accesorios. Retirada de escombros.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puerta seccional aluminio motorizada",
+          "descripcion": "Puerta seccional de aluminio con acabado anodizado, paneles aislados, guías laterales y superior, muelle de torsión calibrado para peso puerta, motor eléctrico según tipo puerta.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas del hueco (ancho x alto) y acabado aluminio. Rango típico: 800-2500€"
+        },
+        {
+          "concepto": "Motor puerta seccional",
+          "descripcion": "Motor eléctrico para puerta seccional, potencia según peso puerta, con reductor y sistema de finales de carrera.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según potencia motor (0.5-2 kW). Rango: 200-600€"
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad",
+          "descripcion": "Célula fotoeléctrica OBLIGATORIA para puerta motorizada. Detector de presencia en zona de movimiento puerta. Incluye emisor y receptor.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico: 80-200€"
+        },
+        {
+          "concepto": "Mando a distancia y botonera pared",
+          "descripcion": "Mando a distancia inalámbrico (2 unidades) + botonera de pared con botones abrir/cerrar/parada emergencia.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico: 60-150€"
+        },
+        {
+          "concepto": "Sistema desbloqueo emergencia",
+          "descripcion": "Sistema de desbloqueo manual de emergencia OBLIGATORIO. Permite abrir puerta manualmente en caso de fallo eléctrico.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico: 40-100€"
+        },
+        {
+          "concepto": "Instalación puerta seccional motorizada",
+          "descripcion": "Instalación completa: colocación guías, montaje paneles, instalación motor, célula fotoeléctrica, botonera, mando a distancia, pruebas funcionamiento, programación finales de carrera.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable eléctrico y pequeño material",
+          "descripcion": "Cable eléctrico 3x2.5mm para conexión motor, canaleta, conectores, tornillería, silicona, masilla, pequeño material instalación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico: 30-80€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 420,
+        "iva_porcentaje": 21,
+        "iva": 88.2,
+        "total": 508.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar medidas exactas del hueco (ancho x alto) para presupuestar puerta seccional correctamente",
+        "Confirmar si existe toma de corriente cerca del motor o si requiere instalación eléctrica adicional",
+        "Especificar acabado aluminio: anodizado natural, blanco, madera, etc.",
+        "Considerar aislamiento térmico/acústico según necesidades (paneles estándar vs. aislados)",
+        "Sensor borde inferior de seguridad recomendado como partida adicional (30-80€)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Puerta seccional aluminio motorizada",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico según medidas y acabado, requiere presupuesto personalizado"
+        },
+        {
+          "concepto": "Motor puerta seccional",
+          "oficio": "cerrajeria",
+          "motivo": "Componente eléctrico, precio según potencia requerida"
+        },
+        {
+          "concepto": "Célula fotoeléctrica de seguridad",
+          "oficio": "cerrajeria",
+          "motivo": "Componente obligatorio de seguridad en puerta motorizada"
+        },
+        {
+          "concepto": "Mando a distancia y botonera pared",
+          "oficio": "cerrajeria",
+          "motivo": "Accesorios de control, precio según modelo y funcionalidades"
+        },
+        {
+          "concepto": "Sistema desbloqueo emergencia",
+          "oficio": "cerrajeria",
+          "motivo": "Componente obligatorio de seguridad"
+        },
+        {
+          "concepto": "Cable eléctrico y pequeño material",
+          "oficio": "cerrajeria",
+          "motivo": "Materiales auxiliares de instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_motor_puerta_garaje_seccional_o_basculante",
+      "instalacion_puerta_enrollable_seccional_garaje",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_de_puerta_de_garaje_abatible_lateral",
+      "pintado_cancelas_y_portones_metalicos_exterior"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3858,
+      "tokens_out": 2359
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

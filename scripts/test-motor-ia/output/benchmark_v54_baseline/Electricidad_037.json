@@ -1,0 +1,201 @@
+{
+  "id": 37,
+  "oficio": "Electricidad",
+  "texto": "Ampliar potencia contratada de 3.45kW a 5.75kW, trámites y adaptación del cuadro",
+  "http_status": 200,
+  "latency_ms": 15839,
+  "raw_response": {
+    "transcript": "Ampliar potencia contratada de 3.45kW a 5.75kW, trámites y adaptación del cuadro",
+    "quote": {
+      "resumen": {
+        "texto_original": "Ampliar potencia contratada de 3.45kW a 5.75kW, trámites y adaptación del cuadro",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Ampliación de potencia requiere coordinación con distribuidora eléctrica",
+          "Necesario boletín eléctrico y legalización ante distribuidora",
+          "Verificar capacidad de acometida y línea general de alimentación",
+          "Posible necesidad de cambio de fusibles/seccionador en caja de protección"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Ampliación de potencia, adaptación cuadro eléctrico, trámites de legalización"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 50,
+            "max": 75
+          },
+          "motivo": "Trámites ante distribuidora, boletín eléctrico, legalización de ampliación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación de instalación actual y cálculo de ampliación",
+          "descripcion": "Inspección de cuadro eléctrico existente, medición de acometida, línea general de alimentación y capacidad actual. Cálculo de necesidades para ampliación de 3.45kW a 5.75kW (incremento 2.30kW)",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Adaptación/sustitución de fusibles y seccionador en caja de protección",
+          "descripcion": "Cambio de fusibles de la acometida (de 16A a 25A aproximadamente según cálculo) y adaptación de seccionador general si es necesario. Incluye pequeño material (fusibles, bornas, cinta aislante)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de fusibles y seccionador pendiente de cotización según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Instalación de fusibles y seccionador adaptados",
+          "descripcion": "Desmontaje de fusibles antiguos, instalación de nuevos fusibles de mayor capacidad y adaptación de seccionador general. Pruebas de continuidad y funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de acometida y línea general de alimentación",
+          "descripcion": "Inspección de acometida desde caja de protección de la distribuidora, medición de sección de cable de línea general, verificación de capacidad para soportar nueva potencia. Informe técnico",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Boletín eléctrico de ampliación de potencia",
+          "descripcion": "Redacción, firma y tramitación de boletín eléctrico conforme a REBT para ampliación de potencia contratada. Incluye cálculos de protecciones y esquema unifilar actualizado",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de boletín eléctrico pendiente de cotización según complejidad y distribuidora"
+        },
+        {
+          "concepto": "Trámites ante distribuidora eléctrica",
+          "descripcion": "Presentación de solicitud de ampliación de potencia ante distribuidora, seguimiento de expediente, coordinación de inspección técnica de distribuidora, obtención de resolución favorable y actualización de contrato",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de gestión ante distribuidora pendiente de cotización según distribuidora y complejidad"
+        },
+        {
+          "concepto": "Pruebas finales y puesta en servicio",
+          "descripcion": "Medición de aislamiento de la instalación, prueba de diferenciales y magnetotérmicos, verificación de toma de tierra, prueba de funcionamiento con nueva potencia, informe final",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 370,
+        "iva_porcentaje": 21,
+        "iva": 77.7,
+        "total": 447.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la acometida actual (cable de línea general) tiene sección suficiente para 5.75kW. Si es necesario cambiarla, se añadiría partida de 'Sustitución de línea general de alimentación' con coste adicional significativo",
+        "Confirmar con distribuidora si requiere inspección técnica previa (algunos distribuidores lo exigen para ampliaciones >2kW)",
+        "Si el cuadro eléctrico es muy antiguo, considerar revisión completa de protecciones y posible actualización de magnetotérmicos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Adaptación/sustitución de fusibles y seccionador",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Material específico de ampliación de potencia, precio variable según especificaciones"
+        },
+        {
+          "concepto": "Boletín eléctrico de ampliación",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio de tramitación técnica, precio variable según distribuidora"
+        },
+        {
+          "concepto": "Trámites ante distribuidora",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "motivo": "Gestión administrativa de ampliación de potencia, precio variable según distribuidora"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cuadro_electrico_industrial_trifasico",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_cuadro_electrico_piscina",
+      "instalacion_electrica_garaje_comunitario",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3570,
+      "tokens_out": 2281
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

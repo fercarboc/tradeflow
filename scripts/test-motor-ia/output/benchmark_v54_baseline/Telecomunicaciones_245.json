@@ -1,0 +1,188 @@
+{
+  "id": 245,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar sistema de videovigilancia con 4 cámaras IP exterior e interior, grabación en NVR",
+  "http_status": 200,
+  "latency_ms": 15211,
+  "raw_response": {
+    "transcript": "Instalar sistema de videovigilancia con 4 cámaras IP exterior e interior, grabación en NVR",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de videovigilancia con 4 cámaras IP exterior e interior, grabación en NVR",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cartel informativo RGPD OBLIGATORIO en zona exterior vigilada",
+          "Verificar cumplimiento normativa AEPD si uso profesional/comercial",
+          "Revisar días de retención requeridos para ajustar capacidad disco duro"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación sistema CCTV IP con cableado estructurado, NVR y configuración remota"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cámaras IP exterior e interior",
+          "descripcion": "Suministro e instalación de 4 cámaras IP (2 exterior + 2 interior) con resolución mínima 2MP, óptica varifocal, PoE",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cámaras IP según especificaciones técnicas (resolución, marca, funcionalidades IR/zoom)"
+        },
+        {
+          "concepto": "Grabador NVR",
+          "descripcion": "Suministro e instalación de NVR 4 canales PoE integrado, almacenamiento mínimo 2TB, acceso remoto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio NVR según capacidad almacenamiento y funcionalidades (IA, detección movimiento, etc.)"
+        },
+        {
+          "concepto": "Cableado Cat6 y pequeño material",
+          "descripcion": "Suministro e instalación de cable UTP Cat6 para 4 cámaras, conectores RJ45, canaletas, bridas, pequeño material",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación 20ml por cámara (exterior/interior). Precio según calidad cable y accesorios"
+        },
+        {
+          "concepto": "Fuente alimentación PoE",
+          "descripcion": "Suministro e instalación de inyector PoE o switch PoE gestionado para alimentación cámaras IP",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo (inyector simple o switch PoE gestionado)"
+        },
+        {
+          "concepto": "Montaje, orientación y configuración sistema",
+          "descripcion": "Mano de obra: instalación física de cámaras (soportes, orientación), conexionado, configuración NVR, pruebas funcionamiento, acceso remoto móvil",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cartel informativo RGPD",
+          "descripcion": "Suministro e instalación de cartel aviso videovigilancia RGPD (obligatorio en zona exterior)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio cartel según tamaño y material (PVC, aluminio)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Especificar resolución cámaras IP (2MP, 4MP, 5MP) y funcionalidades (IR nocturna, zoom óptico, detección IA)",
+        "Confirmar días de retención requeridos para ajustar capacidad disco duro NVR (30 días mínimo recomendado)",
+        "Considerar UPS/batería respaldo si continuidad crítica",
+        "Verificar si requiere central receptora profesional (normativa según uso comercial/residencial)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cámaras IP exterior e interior",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Especificación técnica de cámaras (resolución, tipo, funcionalidades) requiere validación instalador"
+        },
+        {
+          "concepto": "Grabador NVR",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Capacidad almacenamiento y funcionalidades específicas requieren confirmación"
+        },
+        {
+          "concepto": "Cableado Cat6 y pequeño material",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Metraje estimado (80ml) basado en 4 cámaras. Ajustar según plano real"
+        },
+        {
+          "concepto": "Fuente alimentación PoE",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Tipo de dispositivo PoE (inyector vs switch) requiere confirmación según infraestructura"
+        },
+        {
+          "concepto": "Cartel informativo RGPD",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material y tamaño cartel requieren especificación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_sistema_cctv_videovigilancia",
+      "instalacion_sistema_free_cooling",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "forrado_exterior_fachada_ventilada"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3864,
+      "tokens_out": 2029
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

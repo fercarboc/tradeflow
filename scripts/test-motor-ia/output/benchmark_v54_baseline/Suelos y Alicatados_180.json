@@ -1,0 +1,210 @@
+{
+  "id": 180,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Colocar suelo de baldosa hidráulica en pasillo de vivienda antigua, 8 metros cuadrados, patrón geométrico",
+  "http_status": 200,
+  "latency_ms": 29906,
+  "raw_response": {
+    "transcript": "Colocar suelo de baldosa hidráulica en pasillo de vivienda antigua, 8 metros cuadrados, patrón geométrico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar suelo de baldosa hidráulica en pasillo de vivienda antigua, 8 metros cuadrados, patrón geométrico",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Baldosa hidráulica requiere mortero flexible C2 y lechada epoxi por su porosidad",
+          "Patrón geométrico implica replanteo cuidadoso y cortes precisos",
+          "Vivienda antigua: verificar regularidad del soporte antes de colocación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Solado cerámico interior (baldosa hidráulica clasificada como cerámica especial)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Baldosa hidráulica patrón geométrico",
+          "descripcion": "Suministro de baldosa hidráulica artesanal con patrón geométrico, formato variado según diseño, incluye merma 12% por cortes y ajustes",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8.96,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Baldosa hidráulica: precio muy variable según artesano/importación (40-120€/m2). Instalador debe confirmar proveedor y coste"
+        },
+        {
+          "concepto": "Mortero cola flexible C2 para baldosa hidráulica",
+          "descripcion": "Mortero cola flexible C2 (deformable), espesor 4-6mm, apto para baldosa porosa y viviendas antiguas con movimientos",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8.96,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mortero flexible C2: 3-5€/m2 aproximado. Revisar consumo real según espesor y regularidad soporte"
+        },
+        {
+          "concepto": "Lechada epoxi para baldosa hidráulica",
+          "descripcion": "Lechada epoxi bicomponente, resistente a manchas y humedad, esencial en baldosa porosa hidráulica, junta 3-5mm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8.96,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lechada epoxi: 8-15€/m2. Más cara que cementosa pero obligatoria en hidráulica"
+        },
+        {
+          "concepto": "Junta perimetral silicona + espuma poliuretano",
+          "descripcion": "Junta perimetral 10-12mm con espuma de poliuretano + sellado silicona en encuentro con paredes y pilares (perímetro pasillo ~12ml)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Espuma + silicona: 2-4€/ml. Revisar perímetro real del pasillo"
+        },
+        {
+          "concepto": "Replanteo y cortes patrón geométrico",
+          "descripcion": "Replanteo simétrico del patrón geométrico, marcado de ejes, cortes precisos en baldosa hidráulica (frágil), ajustes en bordes",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 35,
+          "total": 105,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Regularización previa del soporte",
+          "descripcion": "Limpieza, reparación de grietas/irregularidades en solera antigua, nivelación con mortero de regularización si desviación >3mm bajo regla 2m",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 35,
+          "total": 70,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación baldosa hidráulica patrón geométrico",
+          "descripcion": "Colocación de baldosa hidráulica con mortero flexible C2, respetando patrón geométrico, crucetas 3-5mm, presión uniforme, 8 m2",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 40,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado con lechada epoxi",
+          "descripcion": "Rejuntado de juntas con lechada epoxi bicomponente, limpieza de excedentes, curado según especificación fabricante",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 12,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (crucetas, esponjas, trapos, etc.)",
+          "descripcion": "Crucetas separadoras 3-5mm, esponjas, trapos, detergentes, protecciones, herramientas menores",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: 30-50€ estimado. Revisar según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 591,
+        "iva_porcentaje": 21,
+        "iva": 124.11,
+        "total": 715.11
+      },
+      "sugerencias_catalogo": [
+        "Baldosa hidráulica: contactar con proveedores especializados (artesanos, importadores). Precios 40-120€/m2 según calidad y origen",
+        "Mortero C2 flexible: marcas recomendadas Mapei Keraflex, Ceresit CM 16, Ardex X77 (3-5€/m2)",
+        "Lechada epoxi: Mapei Kerapoxy, Ceresit CE 79, Ardex EG (8-15€/m2)",
+        "Vivienda antigua: considerar barrera vapor si pasillo sobre sótano/zona húmeda"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Baldosa hidráulica patrón geométrico",
+          "oficio": "suelos_alicatados",
+          "motivo": "Baldosa hidráulica es variante especial de cerámica, requiere materiales específicos (lechada epoxi, mortero flexible C2)"
+        },
+        {
+          "concepto": "Lechada epoxi para baldosa hidráulica",
+          "oficio": "suelos_alicatados",
+          "motivo": "Lechada epoxi obligatoria en baldosa porosa (no cementosa estándar)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_ceramico_interior_estandar",
+      "solado_ceramico_interior",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_suelo_flotante_sobre_plots_regulables",
+      "solado_ceramico_exterior_terraza"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3914,
+      "tokens_out": 2963
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

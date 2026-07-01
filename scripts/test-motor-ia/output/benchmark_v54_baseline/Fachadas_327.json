@@ -1,0 +1,173 @@
+{
+  "id": 327,
+  "oficio": "Fachadas",
+  "texto": "Reparar desprendimientos de revestimiento en fachada de bloque de viviendas, andamio incluido",
+  "http_status": 200,
+  "latency_ms": 20060,
+  "raw_response": {
+    "transcript": "Reparar desprendimientos de revestimiento en fachada de bloque de viviendas, andamio incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar desprendimientos de revestimiento en fachada de bloque de viviendas, andamio incluido",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: No se especifica la extensión (m²) de la zona afectada. El presupuesto es orientativo hasta que el instalador proporcione mediciones reales.",
+          "CRÍTICO: Se asume bloque de viviendas (plurifamiliar). Verificar si requiere proyecto técnico o coordinación con comunidad.",
+          "CRÍTICO: Andamio incluido pero sin especificar altura ni duración del alquiler. Presupuesto estimado.",
+          "Verificar si hay armaduras oxidadas que requieran tratamiento anticorrosión adicional."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de desprendimientos de revestimiento en fachada. Oficio especializado en envolvente exterior."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo de zona afectada y perímetro suelto",
+          "descripcion": "Retirada completa del revestimiento desprendido y material suelto en perímetro de seguridad. Incluye limpieza y preparación de superficie.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² no especificada. Instalador debe medir zona afectada real. Tarifa: 40-50€/m2 según complejidad."
+        },
+        {
+          "concepto": "Imprimación adherente y tratamiento de armaduras",
+          "descripcion": "Aplicación de imprimación adherente en superficie preparada. Tratamiento anticorrosión si hay armaduras oxidadas visibles.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar según m² real. Incluir anticorrosivo si aplica."
+        },
+        {
+          "concepto": "Mortero de reparación compatible",
+          "descripcion": "Suministro e instalación de mortero de reparación compatible con revestimiento existente. Aplicación manual en capas según espesor original.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de mortero según m² y espesor. Presupuestar material + aplicación."
+        },
+        {
+          "concepto": "Acabado coordinado con revestimiento existente",
+          "descripcion": "Acabado final (pintura, textura o revestimiento) coordinado con el existente para uniformidad visual. Incluye muestras de color si es necesario.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² no especificada. Tarifa: 45€/m2 (fachadas)."
+        },
+        {
+          "concepto": "Andamio metálico (alquiler y montaje)",
+          "descripcion": "Suministro, montaje y desmontaje de andamio metálico certificado para acceso seguro a zona de reparación. Incluye barandillas, plataformas y protecciones.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Duración y altura del andamio no especificadas. Presupuestar según: altura fachada, m² a reparar, días de obra estimados. Rango típico: 150-400€/día."
+        },
+        {
+          "concepto": "Señalización de zona de peligro y protección",
+          "descripcion": "Señalización de zona inferior bajo reparación (vallas, cintas, carteles de peligro). Obligatorio para seguridad de terceros durante toda la obra.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Duración de obra no especificada. Presupuestar señalización diaria: 30-60€/día."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Herramientas menores, cepillos, esponjas, trapos, masillas, cintas de protección, etc.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según duración total de obra: 40-80€/jornada."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "MEDICIÓN URGENTE: Solicitar al cliente/comunidad medición exacta de zona desprendida (m²) y altura de fachada.",
+        "INSPECCIÓN PREVIA: Verificar si hay armaduras de hormigón oxidadas, grietas estructurales o daños mayores que requieran proyecto técnico.",
+        "COORDINACIÓN: Confirmar con comunidad de propietarios fechas, horarios y acceso a andamio.",
+        "MUESTRAS: Obtener muestra de revestimiento/pintura existente para garantizar compatibilidad de acabado.",
+        "PRESUPUESTO DESGLOSADO: Una vez medido, desglosar en: saneo (€/m²) + mortero (€/m²) + acabado (€/m²) + andamio (€/día) + señalización (€/día)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_desprendimiento_de_revestimiento_fachada",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_fachada_ventilada_con_revestimiento_ceramico"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3811,
+      "tokens_out": 2485
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 7,
+    "n_catalogo": 0,
+    "n_sugeridas": 7,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "id": 118,
+  "oficio": "Climatización",
+  "texto": "Carga de gas refrigerante R32 en unidad split que ha perdido gas por vibración",
+  "http_status": 200,
+  "latency_ms": 18136,
+  "raw_response": {
+    "transcript": "Carga de gas refrigerante R32 en unidad split que ha perdido gas por vibración",
+    "quote": {
+      "resumen": {
+        "texto_original": "Carga de gas refrigerante R32 en unidad split que ha perdido gas por vibración",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: Antes de cargar gas DEBE verificarse y repararse la causa de pérdida (vibración). Si no se repara la fuga, el gas volverá a escapar.",
+          "La verificación de pérdida es obligatoria según normativa de refrigerantes."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Carga de refrigerante y servicio de climatización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Verificación de pérdida y localización de fuga",
+          "descripcion": "Localización y evaluación de fuga de refrigerante. Prueba de estanqueidad con nitrógeno a presión. Obligatorio antes de cualquier carga de gas.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación de fuga por vibración",
+          "descripcion": "Reparación de la causa de pérdida: refuerzo de fijación, antivibradores, soldadura de conexiones o sustitución de componentes según diagnóstico. Incluye pequeño material.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "El precio depende del tipo y alcance de la reparación (antivibradores, soldaduras, refuerzos estructurales). Instalador debe estimar tras inspección."
+        },
+        {
+          "concepto": "Nitrógeno para prueba de estanqueidad",
+          "descripcion": "Gas nitrógeno para prueba de presión post-reparación. Verificación de estanqueidad antes de carga de refrigerante.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Revisar precio según proveedor y cantidad necesaria."
+        },
+        {
+          "concepto": "Refrigerante R32",
+          "descripcion": "Carga de gas refrigerante R32 según especificaciones técnicas de la unidad split. Cantidad a determinar según presiones de funcionamiento y ficha técnica del equipo.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CRÍTICO: Cantidad y precio pendiente de revisión. Consultar ficha técnica del split para kg exactos (típicamente 0.6-2.5 kg). Precio: 250-3500€/kg según cantidad y proveedor."
+        },
+        {
+          "concepto": "Mano de obra carga de refrigerante y pruebas finales",
+          "descripcion": "Carga controlada de gas R32, verificación de presiones de funcionamiento, prueba de todos los modos operativos, comprobación de drenaje de condensados.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aceite lubricante (si necesario)",
+          "descripcion": "Aceite refrigerante para compresor si fuera necesario durante la intervención. Material complementario.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional. Incluir solo si diagnóstico lo requiere."
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Refrigerante R32': revisar ficha técnica del split para cantidad exacta en kg. Rango típico 0.6-2.5 kg.",
+        "Partida 'Reparación de fuga por vibración': tras localización, estimar mano de obra según complejidad (simple antivibradores: 1-2h; refuerzo estructural: 2-4h).",
+        "Considera presupuesto separado si también se detecta necesidad de sustitución de componentes (válvulas, conexiones)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación de fuga por vibración",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "motivo": "No existe partida específica en catálogo. Creada por IA según Base Maestra (carga_de_gas_refrigerante_split > partidas_auxiliares: reparacion_fuga_si_localizada)"
+        },
+        {
+          "concepto": "Refrigerante R32",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "motivo": "Partida de material con cantidad pendiente de determinación técnica. Precio según mercado 250-3500€/kg."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "carga_de_gas_refrigerante_split",
+      "instalacion_condensadora_exterior_split_en_cubierta",
+      "instalacion_vrv_o_vrf_sistema_multiple",
+      "instalacion_split_1x1_pared",
+      "mantenimiento_de_sistema_de_climatizacion_split"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

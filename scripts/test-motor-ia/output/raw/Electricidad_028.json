@@ -1,0 +1,265 @@
+{
+  "id": 28,
+  "oficio": "Electricidad",
+  "texto": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+  "http_status": 200,
+  "latency_ms": 21523,
+  "raw_response": {
+    "transcript": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema domotico requiere verificación de cobertura WiFi en toda la vivienda",
+          "Calefacción: confirmar si es caldera existente (solo control) o instalación nueva",
+          "Persianas: confirmar si son motorizadas existentes o requieren sustitución"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación sistema domotico WiFi, control luces, integración calefacción"
+        },
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Motorización y control remoto de persianas"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Integración sistema calefacción con control domotico"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Hub/Controlador domotico WiFi",
+          "descripcion": "Central de control domotico WiFi con compatibilidad asistentes voz (Alexa/Google Home), gestión de escenas y automatizaciones",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del hub domotico a confirmar por instalador según marca/modelo"
+        },
+        {
+          "concepto": "Interruptores inteligentes WiFi para iluminación",
+          "descripcion": "Interruptores inteligentes WiFi para control de luces desde móvil, incluye pequeño material de instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de interruptores a definir según plano de vivienda. Precio unitario a confirmar"
+        },
+        {
+          "concepto": "Instalación interruptores inteligentes y hub domotico",
+          "descripcion": "Mano de obra de instalación de hub central, interruptores inteligentes, cableado y configuración inicial del sistema WiFi",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sensores de temperatura y humedad WiFi",
+          "descripcion": "Sensores inteligentes para monitorización de temperatura en zonas de calefacción, integración con sistema domotico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de sensores a definir según número de zonas. Precio unitario a confirmar"
+        },
+        {
+          "concepto": "Motores tubulares para persianas enrollables",
+          "descripcion": "Motores tubulares WiFi/radiocontrol para motorización de persianas existentes, incluye receptor radiocontrol y mando a distancia",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de persianas a motorizar a definir. Potencia motor según peso lamas. Precio a confirmar"
+        },
+        {
+          "concepto": "Instalación motores persianas y cableado",
+          "descripcion": "Mano de obra de desmontaje de mecanismo manual, instalación motor tubular, cableado electrico, programación finales de carrera y pruebas",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas depende del número de persianas a motorizar (estimado 1.5-2h por persiana)"
+        },
+        {
+          "concepto": "Termostato inteligente WiFi para calefacción",
+          "descripcion": "Termostato inteligente WiFi con control desde móvil, programación horaria, sensor temperatura ambiente, compatible con calderas convencionales",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio termostato inteligente a confirmar. Verificar compatibilidad con caldera existente"
+        },
+        {
+          "concepto": "Instalación termostato inteligente y conexión calefacción",
+          "descripcion": "Mano de obra de instalación termostato, conexión a caldera/sistema calefacción, cableado, configuración app móvil e integración con hub domotico",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración y pruebas sistema domotico completo",
+          "descripcion": "Mano de obra de configuración de escenas (iluminación, persianas, calefacción), pruebas de funcionamiento, integración con asistentes voz, entrega y formación usuario",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material eléctrico (cable, conectores, canaletas)",
+          "descripcion": "Pequeño material: cable electrico, conectores, canaletas, bridas, tornillería, pasta térmica, etc.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado pequeño material a confirmar según alcance real"
+        }
+      ],
+      "calculos": {
+        "subtotal": 470,
+        "iva_porcentaje": 21,
+        "iva": 98.7,
+        "total": 568.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: [instalacion_domotica_basica_wifi] — rango 55-220€/ud para hub + interruptores básicos",
+        "Verificar en catálogo: [instalacion_persiana_enrollable_aluminio_motorizada] — rango 100-550€/ud por persiana motorizada",
+        "Considerar integración con sistema KNX si vivienda requiere mayor complejidad o automatizaciones avanzadas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hub/Controlador domotico WiFi",
+          "oficio": "electricidad",
+          "motivo": "Material domotico específico, requiere precio de mercado"
+        },
+        {
+          "concepto": "Interruptores inteligentes WiFi para iluminación",
+          "oficio": "electricidad",
+          "motivo": "Cantidad y precio a definir según proyecto"
+        },
+        {
+          "concepto": "Sensores de temperatura y humedad WiFi",
+          "oficio": "electricidad",
+          "motivo": "Cantidad y precio a definir según zonas de control"
+        },
+        {
+          "concepto": "Motores tubulares para persianas enrollables",
+          "oficio": "persianas",
+          "motivo": "Cantidad y potencia a definir según persianas existentes"
+        },
+        {
+          "concepto": "Termostato inteligente WiFi para calefacción",
+          "oficio": "climatizacion",
+          "motivo": "Precio a confirmar según marca/modelo y compatibilidad caldera"
+        },
+        {
+          "concepto": "Pequeño material eléctrico (cable, conectores, canaletas)",
+          "oficio": "electricidad",
+          "motivo": "Importe estimado a confirmar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_domotica_basica_wifi",
+      "instalacion_sistema_knx_bus",
+      "instalacion_cuadro_electrico_piscina",
+      "instalacion_persiana_enrollable_aluminio_motorizada",
+      "instalacion_sistema_climatizacion_para_server_room"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3725,
+      "tokens_out": 3246
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

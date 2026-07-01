@@ -1,0 +1,141 @@
+{
+  "id": 231,
+  "oficio": "Energía Solar",
+  "texto": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+  "http_status": 200,
+  "latency_ms": 13404,
+  "raw_response": {
+    "transcript": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar compatibilidad batería con inversor/regulador existente",
+          "Confirmar tensión del sistema (24V, 48V, 400V) antes de suministro",
+          "Revisar espacio disponible para banco de baterías"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de batería en sistema fotovoltaico existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Banco de baterías de acumulación 10kWh",
+          "descripcion": "Suministro de batería de acumulación de 10kWh (tecnología LiFePO4 o similar) compatible con sistema fotovoltaico 3kW existente",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de batería 10kWh pendiente de cotización según tecnología (LiFePO4, AGM, gel) y tensión del sistema"
+        },
+        {
+          "concepto": "Instalación y conexionado banco de baterías",
+          "descripcion": "Mano de obra: desconexión segura sistema existente, posicionamiento banco baterías, conexionado DC con protecciones (fusibles, interruptores), verificación polaridad, pruebas de funcionamiento e integración con inversor/regulador existente",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado DC, protecciones y pequeño material",
+          "descripcion": "Suministro de cable DC (sección según cálculo), fusibles, interruptores DC, conectores, bridas, tubo corrugado, bornes y accesorios de conexión",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos pendiente según sección de cable y tipo de protecciones"
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Mano de obra: verificación de tensión y polaridad, prueba de carga/descarga, sincronización con inversor, calibración parámetros de batería, documentación y entrega de manual de funcionamiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 520,
+        "iva_porcentaje": 21,
+        "iva": 109.2,
+        "total": 629.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el inversor/regulador existente es compatible con batería de 10kWh (revisar entrada de batería en especificaciones técnicas)",
+        "Solicitar especificaciones técnicas de la batería: tecnología (LiFePO4/AGM/Gel), tensión nominal (24V/48V/400V), BMS integrado, garantía",
+        "Considerar si se requiere monitoreo remoto o app de gestión (partida adicional de telecomunicaciones si aplica)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Banco de baterías de acumulación 10kWh",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de acumulación solar; precio variable según tecnología y marca"
+        },
+        {
+          "concepto": "Cableado DC, protecciones y pequeño material",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales eléctricos complementarios; precio pendiente de cálculo de secciones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_riego_por_aspersion",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_de_sistema_de_rociadores_sprinklers"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4192,
+      "tokens_out": 1454
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

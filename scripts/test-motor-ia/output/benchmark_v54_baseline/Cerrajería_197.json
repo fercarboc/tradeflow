@@ -1,0 +1,153 @@
+{
+  "id": 197,
+  "oficio": "Cerrajería",
+  "texto": "Instalar caja fuerte empotrada en pared del dormitorio, resistente al fuego",
+  "http_status": 200,
+  "latency_ms": 13190,
+  "raw_response": {
+    "transcript": "Instalar caja fuerte empotrada en pared del dormitorio, resistente al fuego",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar caja fuerte empotrada en pared del dormitorio, resistente al fuego",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Caja fuerte resistente al fuego: precio unitario pendiente de revisión (modelo y certificación RF específicos)",
+          "Obra de albañilería para empotramiento: requiere confirmación de espesor de pared y tipo de construcción",
+          "Anclaje obligatorio: incluido en presupuesto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de caja fuerte, anclaje y configuración"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra de empotramiento en pared (apertura, remate, rejuntado)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Caja fuerte empotrada resistente al fuego",
+          "descripcion": "Caja fuerte de seguridad empotrable en pared, con certificación resistencia al fuego (RF 30/60 min), cerradura de combinación o electrónica, según especificaciones del cliente",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de caja fuerte RF varía según modelo, tamaño y certificación (rango estimado 400-1200€). Instalador debe confirmar especificaciones exactas"
+        },
+        {
+          "concepto": "Obra de empotramiento en pared",
+          "descripcion": "Apertura de nicho en pared de dormitorio, remate de bordes, rejuntado y acabado con mortero, preparación para instalación de caja fuerte empotrada",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación, anclaje y configuración de caja fuerte",
+          "descripcion": "Posicionamiento en nicho, anclaje a pared con tornillería de seguridad (OBLIGATORIO), nivelación, sellado perimetral, programación de combinación y pruebas de funcionamiento",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería de seguridad, tacos de anclaje, silicona neutra, mortero de remate, selladores, material fungible",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 30-60€. Instalador confirma según accesorios específicos"
+        }
+      ],
+      "calculos": {
+        "subtotal": 500,
+        "iva_porcentaje": 21,
+        "iva": 105,
+        "total": 605
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: tipo de cerradura (combinación mecánica vs. electrónica con batería de respaldo)",
+        "Verificar espesor y tipo de pared (hormigón, ladrillo, pladur) para determinar dificultad de empotramiento",
+        "Solicitar certificado de resistencia al fuego (RF 30, RF 60, RF 90) y norma aplicable (EN 1143-1 o equivalente)",
+        "Programar visita previa para medir espacio disponible y confirmar ubicación exacta en dormitorio"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Caja fuerte empotrada resistente al fuego",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Material específico con certificación RF. Precio variable según modelo y tamaño. Requiere revisión del instalador"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Tornillería de seguridad y selladores específicos para caja fuerte empotrada. Presupuesto estimado pendiente de confirmación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_caja_fuerte_o_arcon_de_seguridad",
+      "instalacion_puerta_corredera_interior",
+      "instalacion_conjunto_bano_suspendido",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "alicatado_con_piedra_natural_o_gres_porcelanico"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3637,
+      "tokens_out": 1580
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

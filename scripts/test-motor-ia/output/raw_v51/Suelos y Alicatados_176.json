@@ -1,0 +1,202 @@
+{
+  "id": 176,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo de cemento pulido en loft industrial, 80 metros cuadrados con sellado protector",
+  "http_status": 200,
+  "latency_ms": 21344,
+  "raw_response": {
+    "transcript": "Instalar suelo de cemento pulido en loft industrial, 80 metros cuadrados con sellado protector",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo de cemento pulido en loft industrial, 80 metros cuadrados con sellado protector",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere inspección previa del soporte (grietas, humedad, nivelación)",
+          "Confirmación de accesibilidad para equipos de fratasado y pulido",
+          "Tiempo de curado crítico: 7 días mínimo antes de tráfico normal"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 60,
+            "max": 95
+          },
+          "motivo": "Instalación de suelo pulido de cemento. Tarifa especializada por complejidad técnica del pulido y acabado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y limpieza de soporte",
+          "descripcion": "Barrido, aspirado y limpieza general de polvo y residuos. Reparación de pequeñas grietas y anomalías. Comprobación de humedad y nivelación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 8,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Hormigón HA-20 o mortero de cemento de reparación",
+          "descripcion": "Suministro de hormigón HA-20 o mortero de cemento para base/reparaciones previas. 80 m² con espesor medio 5-10 cm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 4.8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material debe revisar volumen real según estado de base. Instalador confirma m³ necesarios"
+        },
+        {
+          "concepto": "Fratasado y nivelación de base hormigonada",
+          "descripcion": "Fratasado mecánico con helicóptero (si es posible acceso) o manual de la base hormigonada. Nivelación y acabado liso",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 12,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Curado de hormigón (film o líquido de curado)",
+          "descripcion": "Aplicación de film plástico o líquido de curado para protección de hidratación durante 7 días mínimo",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de film o líquido de curado a revisar según producto elegido"
+        },
+        {
+          "concepto": "Juntas de retracción",
+          "descripcion": "Ejecución de juntas de retracción cada 4-5 metros. Suministro de cintas de retracción y sellado inicial",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material (cinta retracción) y mano de obra de ejecución. Instalador confirma lineal real"
+        },
+        {
+          "concepto": "Pulido y abrillantado de cemento",
+          "descripcion": "Pulido progresivo del cemento con discos de diamante (grano 50→100→200→400). Lijado fino para acabado espejo industrial",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 35,
+          "total": 2800,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador protector de alta resistencia (poliuretano o epoxi)",
+          "descripcion": "Suministro e instalación de sellador poliuretano o epoxi de protección contra tráfico intenso, manchas y humedad. Tráfico industrial",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio sellador especializado a revisar. Típicamente 15-35€/litro según marca y rendimiento (~250-400 ml/m²)"
+        },
+        {
+          "concepto": "Aplicación de sellador (mano de obra)",
+          "descripcion": "Aplicación del sellador protector en 1-2 capas con brocha o rodillo. Secado entre capas según especificaciones",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 8,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Discos de diamante desgastables, lijas, cepillos, paños, protecciones, señalización, bolsas de residuos",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida de consumibles. Instalador estima según consumo real (típicamente 50-150€ total)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 5040,
+        "iva_porcentaje": 21,
+        "iva": 1058.4,
+        "total": 6098.4
+      },
+      "sugerencias_catalogo": [
+        "Considerar si requiere endurecedor superficial de color (si cemento aparente de color o protección extra)",
+        "Evaluar necesidad de base de zahorra compactada si suelo es sobre tierra o existe desnivel importante",
+        "Confirmación de desmontaje previo de elementos (plintos, tuberías, etc.) – no incluido en presupuesto"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Pulido y abrillantado de cemento",
+          "tarifa_recomendada": "35€/m² (incluida en mano de obra de suelos_alicatados)",
+          "motivo": "Especialidad dentro de suelos pulidos; requiere equipo de pulido profesional"
+        },
+        {
+          "nombre": "Sellador protector industrial",
+          "motivo": "Material específico para tráfico industrial. Precio debe revisar tipo (poliuretano monocomponente o bicomponente, epoxi, etc.)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_suelo_de_cemento_portland_bruñido",
+      "instalacion_microcemento_suelo_interior",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "acabado_con_microcemento_suelo_o_pared",
+      "instalacion_pavimento_de_hormigon_impreso_o_decorativo"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 9,
+    "n_catalogo": 0,
+    "n_sugeridas": 9,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

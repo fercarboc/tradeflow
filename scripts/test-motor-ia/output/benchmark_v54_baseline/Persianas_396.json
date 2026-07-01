@@ -1,0 +1,141 @@
+{
+  "id": 396,
+  "oficio": "Persianas",
+  "texto": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+  "http_status": 200,
+  "latency_ms": 18323,
+  "raw_response": {
+    "transcript": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Marquesina plegable: verificar mecanismo de plegado y resistencia al viento en posición abierta",
+          "PVC transparente: confirmar espesor y tratamiento UV para durabilidad",
+          "Acceso a fachada: evaluar necesidad de andamio o plataforma elevadora según altura"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de elemento de protección en fachada/entrada de portal. Incluye trabajos de fijación a estructura existente y acabados en envolvente del edificio."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro marquesina plegable PVC transparente",
+          "descripcion": "Marquesina plegable de PVC transparente con mecanismo de plegado manual o motorizado, estructura de aluminio anodizado, incluye herrajes de fijación y accesorios de montaje. Medidas y especificaciones a confirmar por instalador.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de marquesina plegable PVC varía según dimensiones (ancho 1.5-4m), mecanismo (manual/motorizado) y espesor PVC. Instalador debe confirmar modelo y presupuestar."
+        },
+        {
+          "concepto": "Preparación y fijación a fachada",
+          "descripcion": "Trabajos de preparación de puntos de anclaje en fachada, taladrado, colocación de tacos y tornillería de fijación, nivelación y alineación de marquesina. Incluye pequeño material (tacos, tornillos, silicona neutra).",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y acabado de encuentros",
+          "descripcion": "Sellado con silicona neutra de encuentros entre marquesina y fachada, remates laterales y superiores. Limpieza de restos de obra y acabado final.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acceso a altura con EPI (si aplica)",
+          "descripcion": "Alquiler de plataforma elevadora o andamio móvil para acceso seguro a punto de instalación en altura. Incluye EPI (arnés, casco, cinturón seguridad) según normativa trabajos en altura. A confirmar según altura real de portal.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesidad de plataforma elevadora o andamio depende de altura real. Si altura < 2.5m puede no ser necesario. Instalador confirma acceso y presupuesta alquiler si procede."
+        }
+      ],
+      "calculos": {
+        "subtotal": 202.5,
+        "iva_porcentaje": 21,
+        "iva": 42.53,
+        "total": 245.03
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones exactas de marquesina (ancho, profundidad, altura de instalación)",
+        "Especificar si mecanismo de plegado es manual o motorizado (motorizado incrementa presupuesto material)",
+        "Verificar resistencia al viento en posición abierta y cerrada (cargas de viento según zona geográfica)",
+        "Evaluar si estructura de fachada soporta cargas de fijación (hormigón, ladrillo, etc.)",
+        "Confirmar altura de instalación para determinar necesidad de acceso con plataforma elevadora"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro marquesina plegable PVC transparente",
+          "oficio": "fachadas",
+          "motivo": "Elemento específico de protección solar/lluvia. No existe partida exacta en catálogo base. Precio material a confirmar por instalador según modelo y dimensiones."
+        },
+        {
+          "concepto": "Acceso a altura con EPI (si aplica)",
+          "oficio": "fachadas",
+          "motivo": "Servicio auxiliar de acceso seguro. Necesidad depende de altura real del portal. Presupuesto condicional."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cubremuros_o_sombrerete_de_chimenea",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3925,
+      "tokens_out": 1607
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

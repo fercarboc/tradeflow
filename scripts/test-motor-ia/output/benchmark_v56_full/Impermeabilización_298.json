@@ -1,0 +1,275 @@
+{
+  "id": 298,
+  "oficio": "Impermeabilización",
+  "texto": "Renovar impermeabilización de cubierta plana transitada con sistema de Büttner o similar",
+  "http_status": 200,
+  "latency_ms": 29208,
+  "raw_response": {
+    "transcript": "Renovar impermeabilización de cubierta plana transitada con sistema de Büttner o similar",
+    "quote": {
+      "resumen": {
+        "texto_original": "Renovar impermeabilización de cubierta plana transitada con sistema de Büttner o similar",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema Büttner es cubierta vegetal/drenante modular de alta gama. Requiere revisión de especificaciones técnicas exactas (espesor sustrato, tipo plantas, carga estructural).",
+          "Cubierta transitada implica carga estructural y acabado de calidad. Verificar capacidad portante existente.",
+          "Presupuesto incluye demolición de impermeabilización antigua, preparación, sistema drenante modular, geotextil, sumideros y acabado vegetal/drenante."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Renovación de impermeabilización de cubierta plana. Oficio especializado en sistemas de estanqueidad y drenaje."
+        },
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cubierta plana transitada requiere trabajo en altura y conocimiento de sistemas de cubierta completos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y retirada de impermeabilización antigua",
+          "descripcion": "Desmontaje completo de sistema de impermeabilización existente, retirada de capas de protección, grava, geotextil y lámina antigua. Incluye limpieza de superficie y gestión de residuos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 de cubierta no especificada. Instalador debe indicar superficie total."
+        },
+        {
+          "concepto": "Capa de regularización y limpieza de soporte",
+          "descripcion": "Barrido, limpieza y reparación de grietas menores en soporte de hormigón. Aplicación de imprimación bituminosa para preparación de superficie.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada."
+        },
+        {
+          "concepto": "Suministro e instalación de sistema drenante modular Büttner o similar",
+          "descripcion": "Suministro e instalación de sistema de drenaje modular de alta gama (Büttner o equivalente) con estructura de drenaje, cámara de aire y capacidad de retención de agua. Incluye fijación mecánica y sellado de juntas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sistema modular Büttner variable según especificaciones (espesor, capacidad retención). Instalador debe cotizar con proveedor. Rango estimado: 60-120€/m2."
+        },
+        {
+          "concepto": "Instalación de sistema drenante modular",
+          "descripcion": "Mano de obra de colocación, nivelación, fijación mecánica y sellado de juntas del sistema drenante modular. Incluye control de pendientes hacia sumideros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 18,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada."
+        },
+        {
+          "concepto": "Geotextil de filtración y protección",
+          "descripcion": "Suministro e instalación de geotextil de filtración (200-300 g/m2) sobre sistema drenante para evitar colmatación y proteger la lámina inferior. Solape mínimo 10 cm.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de geotextil: 2-5€/m2. Instalador debe confirmar especificación técnica."
+        },
+        {
+          "concepto": "Instalación de geotextil",
+          "descripcion": "Mano de obra de colocación, extendido y fijación de geotextil de filtración con solapes correctamente sellados.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 3,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada."
+        },
+        {
+          "concepto": "Suministro e instalación de sumideros de cubierta",
+          "descripcion": "Suministro e instalación de sumideros/cazoletas de drenaje conectados a bajantes existentes. Incluye refuerzo de impermeabilización perimetral, rejilla guardahojas y sombrero de protección. Cantidad según superficie (1 cada 25-50 m2).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sumidero: 150-400€/ud según tipo y diámetro. Cantidad depende de superficie total de cubierta."
+        },
+        {
+          "concepto": "Instalación de sumideros y conexiones",
+          "descripcion": "Mano de obra de colocación, conexión a bajantes, refuerzo perimetral de impermeabilización y fijación de rejillas y sombreros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de sumideros no especificada."
+        },
+        {
+          "concepto": "Capa de protección y acabado (grava o geotextil pesado)",
+          "descripcion": "Suministro e instalación de capa de protección final: grava de drenaje (granulometría 16-32 mm) o geotextil pesado (500-600 g/m2) para proteger sistema drenante y permitir tránsito seguro.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de grava: 8-15€/m2 (espesor 5-8 cm). Precio de geotextil pesado: 5-10€/m2. Instalador debe elegir opción."
+        },
+        {
+          "concepto": "Instalación de capa de protección",
+          "descripcion": "Mano de obra de extendido, nivelación y compactación de grava o colocación de geotextil pesado como capa de protección final.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 5,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada."
+        },
+        {
+          "concepto": "Medidas de seguridad en altura y EPI",
+          "descripcion": "Suministro de EPI (arnés, casco, línea de vida), instalación de barandillas de protección temporal, señalización de zona de trabajo y medidas de seguridad en altura según normativa.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de jornadas depende de duración total de obra. Estimación: 1-2 jornadas para cubierta pequeña-mediana."
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza final",
+          "descripcion": "Retirada, transporte y gestión de residuos de demolición (láminas antiguas, grava, escombros). Limpieza final de cubierta y zonas adyacentes.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de gestión de residuos: 3-8€/m2 según volumen y accesibilidad. Instalador debe confirmar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: superficie total de cubierta en m2 (CRÍTICO para calcular cantidad de sumideros y materiales).",
+        "Solicitar especificaciones técnicas del sistema Büttner: espesor de sustrato, tipo de plantas/drenaje, capacidad de retención de agua, carga estructural.",
+        "Verificar estado de bajantes existentes: ¿están en buen estado? ¿Necesitan limpieza o reparación?",
+        "Confirmar si cubierta tiene pendientes formadas o requiere formación de pendientes (no incluida en presupuesto actual).",
+        "Solicitar inspección previa de soporte de hormigón: ¿hay grietas, desperfectos o zonas dañadas que requieran reparación estructural?",
+        "Definir tipo de capa de protección final: ¿grava de drenaje (más económica, requiere mantenimiento) o geotextil pesado (más limpio, mejor para tránsito)?",
+        "Considerar si es necesario desbordadero de emergencia (recomendado si solo hay 1 sumidero).",
+        "Presupuesto incluye trabajo en altura: confirmar disponibilidad de andamios o plataformas de trabajo seguras."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sistema drenante modular Büttner o similar",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Sistema de alta gama específico para cubiertas transitadas. Precio variable según especificaciones técnicas (espesor, capacidad retención). Rango estimado: 60-120€/m2."
+        },
+        {
+          "concepto": "Geotextil de filtración 200-300 g/m2",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material de filtración específico para sistemas drenantes. Precio: 2-5€/m2."
+        },
+        {
+          "concepto": "Capa de protección (grava o geotextil pesado)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Acabado de protección para cubierta transitada. Grava: 8-15€/m2. Geotextil pesado: 5-10€/m2."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_drenaje_cubierta_plana",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "max_tokens",
+      "tokens_in": 4068,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 12,
+    "n_catalogo": 0,
+    "n_sugeridas": 12,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

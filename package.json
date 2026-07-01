@@ -15,7 +15,9 @@
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
     "e2e:headed": "playwright test --headed",
-    "e2e:report": "playwright show-report"
+    "e2e:report": "playwright show-report",
+    "test:motor-ia": "tsx scripts/test-motor-ia/run-tests.ts",
+    "test:motor-ia:resume": "tsx scripts/test-motor-ia/run-tests.ts -- --resume"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.1",

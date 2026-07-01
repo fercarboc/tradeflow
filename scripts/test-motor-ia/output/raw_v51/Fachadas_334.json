@@ -1,0 +1,237 @@
+{
+  "id": 334,
+  "oficio": "Fachadas",
+  "texto": "Restaurar molduras y elementos decorativos de fachada de edificio histórico, mortero de cal",
+  "http_status": 200,
+  "latency_ms": 24786,
+  "raw_response": {
+    "transcript": "Restaurar molduras y elementos decorativos de fachada de edificio histórico, mortero de cal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Restaurar molduras y elementos decorativos de fachada de edificio histórico, mortero de cal",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Edificio histórico/catalogado: verificar necesidad de licencia de patrimonio",
+          "Materiales de restauración (mortero de cal) requieren especificación técnica completa",
+          "Falta precisar extensión (ml, m², unidades de molduras)",
+          "Se recomienda documentación fotográfica previa y análisis de materiales originales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 50,
+            "max": 75
+          },
+          "motivo": "Restauración de elementos históricos y molduras en fachada. Oficio especializado de fachadas según BASE MAESTRA [restauracion_de_estucos_o_molduras_de_fachada_historica]"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Documentación fotográfica previa estado inicial",
+          "descripcion": "Toma de fotografías de molduras y elementos decorativos antes de inicio de restauración, para documentación y control de obra",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa pendiente de revisión instalador. Partida auxiliar recomendada en obra histórica."
+        },
+        {
+          "concepto": "Análisis de materiales y compatibilidad de mortero original",
+          "descripcion": "Análisis técnico del mortero original y especificación de mortero de cal compatible, reversible y técnicamente adecuado para edificio histórico",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio técnico necesario. Tarifa pendiente de revisión."
+        },
+        {
+          "concepto": "Mortero de cal compatible con fábrica histórica",
+          "descripcion": "Suministro de mortero de cal aéreo o hidráulico natural, compatible y reversible con materiales originales, apto para fachada histórica",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado. Cantidad en sacos/m³ a especificar según extensión real. Precio pendiente."
+        },
+        {
+          "concepto": "Limpieza y preparación de molduras y elementos decorativos",
+          "descripcion": "Limpieza delicada de morteros degradados, restos de pintura incompatible y preparación de superficies para nueva aplicación, respetando ornamentación original",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas a ajustar según extensión real (ml o ud de molduras). Tarifa aplicada: 50€/h (oficio fachadas especializado)"
+        },
+        {
+          "concepto": "Restauración de molduras y estucos decorativos con mortero de cal",
+          "descripcion": "Aplicación de mortero de cal en molduras, estucos y elementos decorativos, respetando perfiles originales, técnicas reversibles y compatibilidad histórica",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas a ajustar según extensión y complejidad real. Rango BASE MAESTRA: 15-75€ según complejidad. Tarifa aplicada: 50€/h"
+        },
+        {
+          "concepto": "Moldes y reproductores (si reprodución de elementos singulares)",
+          "descripcion": "Suministro de moldes o matrices si es necesario reproducir elementos decorativos deteriorados o faltantes, conforme a originales",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida condicional. Incluir solo si hay elementos a reproducir. Cantidad y precio pendiente de especificación."
+        },
+        {
+          "concepto": "Imprimación y tratamiento de fijación superficial",
+          "descripcion": "Aplicación de imprimación y/o fijador compatible con cal, para consolidación de bases y adherencia óptima de mortero nuevo",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Precio unitario pendiente de revisión."
+        },
+        {
+          "concepto": "Andamio o plataforma de acceso seguro a fachada",
+          "descripcion": "Instalación de sistemas de acceso seguro (andamio, plataforma elevadora, escalerilla especializada) para trabajos en altura en molduras y elementos decorativos",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Duración y tipo de andamio/acceso a especificar. Precio de alquiler o instalación pendiente."
+        },
+        {
+          "concepto": "Pequeño material y herramientas especializadas",
+          "descripcion": "Brochas finas, espátulas, desengrasantes, trapos, masillas puntuales, pequeño material de precisión para restauración de molduras históricas",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida de aprovisionamiento. Precio a incluir o estimar según especificación."
+        },
+        {
+          "concepto": "Licencia o informe de patrimonio (si aplicable)",
+          "descripcion": "Gestión de trámites administrativos, licencia de patrimonio o informe técnico ante administración local si edificio está catalogado",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "ALERTA CRÍTICA: Verificar con administración local si edificio está catalogado. Partida condicional. Precio pendiente."
+        },
+        {
+          "concepto": "Curado y protección final de molduras restauradas",
+          "descripcion": "Curado controlado de mortero de cal (protección frente a lluvia, heladas, etc.) durante fase de fraguado, según técnicas de restauración histórica",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas. Ajustar según cronograma de obra y estación climática."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1200,
+        "iva_porcentaje": 21,
+        "iva": 252,
+        "total": 1452
+      },
+      "sugerencias_catalogo": [
+        "Consultar BASE MAESTRA [restauracion_de_estucos_o_molduras_de_fachada_historica] para validar estructura de partidas obligatorias y auxiliares",
+        "Rango de precio según BASE MAESTRA: 15-75€ por unidad/ml (precio alcalde según complejidad). Presupuesto actual es estimación de mano de obra base.",
+        "Si extensión es > 10 ml o reforma integral de fachada, considerar presupuesto alzado (pa) con rango: 1000-20000€ según estado y complejidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Documentación fotográfica previa estado inicial",
+          "origen": "sugerida_ia",
+          "motivo": "Partida auxiliar recomendada en BASE MAESTRA para obra histórica"
+        },
+        {
+          "concepto": "Análisis de materiales y compatibilidad de mortero original",
+          "origen": "sugerida_ia",
+          "motivo": "Partida auxiliar recomendada para garantizar compatibilidad técnica en edificios históricos"
+        },
+        {
+          "concepto": "Licencia o informe de patrimonio (si aplicable)",
+          "origen": "sugerida_ia",
+          "motivo": "Partida CRÍTICA: Si edificio está catalogado, licencia de patrimonio puede ser OBLIGATORIA según administración local"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_balaustradas_y_elementos_decorativos_exterior",
+      "restauracion_de_estucos_o_molduras_de_fachada_historica",
+      "rehabilitacion_fachada_de_edificio_historico_o_catalogado",
+      "instalacion_de_columna_seca_en_edificio",
+      "instalacion_iluminacion_exterior_fachada"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 3,
+    "n_sugeridas": 8,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

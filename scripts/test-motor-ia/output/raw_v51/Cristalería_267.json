@@ -1,0 +1,200 @@
+{
+  "id": 267,
+  "oficio": "Cristalería",
+  "texto": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+  "http_status": 200,
+  "latency_ms": 23829,
+  "raw_response": {
+    "transcript": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: Verificar que el marco de madera antigua admite el espesor del DVH (típicamente 24-28mm). Si el rebaje es insuficiente, requiere ampliación de marco o adaptación.",
+          "CRÍTICO: Inspeccionar estado de la madera antes de instalar. Si hay putrefacción o debilidad estructural, requiere reparación previa.",
+          "RECOMENDACIÓN: Tras instalación, aplicar tratamiento protector/barniz a la madera para preservación."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio doble aislante (DVH) en marco existente. Oficio específico de cristalería."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Posible adaptación de marco de madera si el rebaje es insuficiente para el DVH. Reparación/tratamiento de madera antigua."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de vidrio simple existente",
+          "descripcion": "Desmontaje cuidadoso del vidrio simple actual, extracción de masilla/silicona antigua, limpieza del rebaje del marco de madera. Incluye pequeño material (espátula, protecciones).",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifas_recomendadas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección y reparación de rebaje del marco de madera",
+          "descripcion": "Verificación del estado del rebaje existente. Si es necesario, ampliación o regularización para admitir DVH de espesor 24-28mm. Limpieza profunda y tratamiento de hongos/moho si existe.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifas_recomendadas",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende del estado específico del marco. Puede no ser necesaria o requerir más horas."
+        },
+        {
+          "concepto": "Vidrio doble bajo emisivo con argón (DVH 4-16Ar-4)",
+          "descripcion": "Suministro e instalación de vidrio doble aislante con cámara de argón 16mm (composición 4-16Ar-4 o equivalente según cálculo térmico). Reduce conducción térmica ~30% vs aire. Bajo emisivo para mejor aislamiento. Medida exacta según hueco.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medida exacta del hueco. Instalador debe medir y obtener presupuesto del proveedor de vidrio. Rango típico 80-650€/ud."
+        },
+        {
+          "concepto": "Instalación de DVH en marco de madera (fijación con silicona neutra)",
+          "descripcion": "Colocación del vidrio doble en el rebaje del marco. Fijación perimetral con silicona neutra de calidad (ASTM C920 o equivalente). Asiento correcto, estanqueidad completa. Incluye herramientas y pequeño material.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifas_recomendadas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silicona neutra sellado perimetral",
+          "descripcion": "Suministro de silicona neutra de calidad para sellado completo del perímetro entre DVH y marco. Cantidad ajustada a medida del hueco.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico: 15-25€/cartuchos según cantidad de metros lineales. Instalador ajusta cantidad."
+        },
+        {
+          "concepto": "Junquillo/moldura de fijación (si necesario)",
+          "descripcion": "Si el marco requiere junquillo adicional para fijar el DVH o mejorar estética, suministro e instalación. Madera compatible con marco antiguo.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 45,
+          "total": 22.5,
+          "precio_origen": "tarifas_recomendadas",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida opcional. Solo si el estado del marco lo requiere. Puede no ser necesaria."
+        },
+        {
+          "concepto": "Tratamiento protector/barniz en rebaje y moldura de madera",
+          "descripcion": "Aplicación de barniz o lasur exterior de protección UV en la madera del rebaje y moldura afectada por desmontaje. Previene putrefacción futura y alarga vida útil del marco.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifas_recomendadas",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Recomendado pero opcional. Aumenta durabilidad. Instalador decide según estado visible."
+        },
+        {
+          "concepto": "Pequeño material (esponjas, trapos, protecciones, herramientas menores)",
+          "descripcion": "Suministro de consumibles: esponjas, trapos secos, film protector, cinta de carrocero, herramientas menores (espátulas, rasquetas), elementos de seguridad. Incluido en partida de mano de obra pero detallado para claridad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Típicamente 20-40€. Instalador verifica según accesorios específicos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 225,
+        "iva_porcentaje": 21,
+        "iva": 47.25,
+        "total": 272.25
+      },
+      "sugerencias_catalogo": [
+        "Si el marco de madera está muy deteriorado, valorar sustitución de ventana completa (fabricacion_e_instalacion_de_ventana_de_madera) en lugar de solo cambio de vidrio.",
+        "Considerar tratamiento antifúngico/antimoho previo si la madera muestra signos de humedad o hongos.",
+        "El DVH con argón mejora aislamiento. Si hay gran flujo de aire por marcos sueltos, plantear también sellado de juntas perimetrales exteriores con cordón de estanqueidad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inspección y reparación de rebaje del marco de madera",
+          "oficio": "carpinteria",
+          "motivo": "Tarea específica de preparación en marcos antiguos. No está explícitamente en catálogo pero es crítica para el éxito de la instalación."
+        },
+        {
+          "concepto": "Tratamiento protector/barniz en rebaje y moldura de madera",
+          "oficio": "carpinteria",
+          "motivo": "Mantenimiento preventivo de madera antigua tras desmontaje. Recomendado para prolongar vida útil del marco."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_en_puerta_interior",
+      "instalacion_doble_acristalamiento_con_gas_argon",
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "fabricacion_e_instalacion_de_ventana_de_madera",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "id": 130,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+  "http_status": 200,
+  "latency_ms": 16854,
+  "raw_response": {
+    "transcript": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: verificar disponibilidad de andamios/línea de vida",
+          "Pizarra es material delicado: requiere técnica específica para no dañar placas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Limpieza, tratamiento y mantenimiento de cubierta de pizarra. Regla estricta: tejados_cubiertas cubre goteras, limpieza, tratamientos impermeabilizantes y mantenimiento preventivo de cubiertas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza de musgo y liquen en cubierta de pizarra",
+          "descripcion": "Limpieza manual y mecánica suave de musgo, liquen y suciedad acumulada en placas de pizarra, sin dañar el material. Incluye cepillado, raspado controlado y retirada de detritus.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 de cubierta no especificada. Instalador debe indicar superficie total."
+        },
+        {
+          "concepto": "Tratamiento antimusgo y antialgas en pizarra",
+          "descripcion": "Aplicación de producto biocida específico para pizarra (sulfato de hierro, cobre o similar) para eliminar esporas de musgo y algas. Incluye preparación, aplicación uniforme y tiempo de actuación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Producto biocida: precio depende de marca, concentración y cantidad necesaria. Instalador debe especificar producto y coste."
+        },
+        {
+          "concepto": "Aplicación de hidrofugante en cubierta de pizarra",
+          "descripcion": "Aplicación de tratamiento hidrofugante protector en pizarra para mejorar repelencia al agua, reducir absorción de humedad y prevenir futuras colonizaciones de musgo. Incluye limpieza previa, aplicación uniforme y secado.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Hidrofugante específico para pizarra: precio variable según producto (siloxano, acrílico, poliuretano). Instalador debe indicar marca y coste."
+        },
+        {
+          "concepto": "Mano de obra aplicación hidrofugante",
+          "descripcion": "Mano de obra para aplicación uniforme del hidrofugante en toda la superficie de pizarra, incluyendo preparación, aplicación (brocha/pulverización) y control de secado.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Instalador debe indicar superficie total."
+        },
+        {
+          "concepto": "Limpieza de canalones y bajantes",
+          "descripcion": "Limpieza de canalones, sumideros y bajantes de agua de la cubierta para asegurar drenaje correcto y evitar encharcamientos que favorecen musgo.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en altura",
+          "descripcion": "Equipos de protección individual (arnés, línea de vida, casco, guantes, botas antideslizantes) y medidas de seguridad para trabajo en cubierta inclinada de pizarra.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "EPI: si es suministro por instalador, indicar coste. Si es responsabilidad del cliente, marcar como incluido sin coste."
+        }
+      ],
+      "calculos": {
+        "subtotal": 100,
+        "iva_porcentaje": 21,
+        "iva": 21,
+        "total": 121
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Tratamiento biocida para cubiertas' o 'Producto antimusgo pizarra'",
+        "Verificar en catálogo: 'Hidrofugante para pizarra' o 'Protector impermeabilizante pizarra'",
+        "Considerar contrato de mantenimiento preventivo anual para evitar acumulación de musgo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tratamiento antimusgo y antialgas en pizarra",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Producto específico para pizarra no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Aplicación de hidrofugante en cubierta de pizarra",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Hidrofugante específico para pizarra no encontrado en catálogo base"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_consolidacion_de_estructura_de_madera_cubierta",
+      "limpieza_y_mantenimiento_preventivo_de_cubierta",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "tratamiento_de_musgo_y_algas_en_cesped",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4057,
+      "tokens_out": 2170
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

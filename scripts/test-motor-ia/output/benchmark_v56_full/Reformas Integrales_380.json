@@ -1,0 +1,459 @@
+{
+  "id": 380,
+  "oficio": "Reformas Integrales",
+  "texto": "Presupuesto para reforma de casita de campo abandonada, partida por partida con materiales incluidos",
+  "http_status": 200,
+  "latency_ms": 43254,
+  "raw_response": {
+    "transcript": "Presupuesto para reforma de casita de campo abandonada, partida por partida con materiales incluidos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Presupuesto para reforma de casita de campo abandonada, partida por partida con materiales incluidos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "DESCRIPCIÓN INSUFICIENTE: No se especifica alcance, estado actual, superficie, número de estancias, instalaciones existentes ni objetivos de la reforma.",
+          "IMPOSIBLE PRESUPUESTAR SIN INFORMACIÓN: Se requiere visita técnica previa con mediciones, evaluación de estructura, instalaciones y estado general.",
+          "REFORMA INTEGRAL DETECTADA: Casita abandonada implica múltiples oficios (demolición, albañilería, fontanería, electricidad, acabados mínimo).",
+          "RECOMENDACIÓN: Generar presupuesto de PLANIFICACIÓN Y DIAGNÓSTICO como primer paso obligatorio."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral de vivienda abandonada: múltiples oficios simultáneos (demolición, albañilería, fontanería, electricidad, acabados). Requiere coordinación y planificación."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil, reparación estructura, muros, cimientos, posibles grietas en vivienda abandonada."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación/renovación red agua, desagüe, saneamiento en vivienda abandonada."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica nueva o renovación completa, cuadro, circuitos, enchufes, iluminación."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura interior y exterior, preparación de superficies."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado baños, cocina, posibles pavimentos cerámicos."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, ventanas, marcos, posibles reparaciones de estructura de madera."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Gestión y retirada de escombros, residuos de demolición en vivienda abandonada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "VISITA TÉCNICA, MEDICIÓN Y DIAGNÓSTICO COMPLETO",
+          "descripcion": "Visita in situ con medición láser, evaluación estado estructura, cimientos, cubiertas, instalaciones existentes (agua, electricidad, saneamiento), humedades, plagas, accesibilidad. Informe detallado con propuestas de actuación y presupuesto desglosado por partidas. Fotografía estado previo.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 650,
+          "total": 650,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "DEMOLICIÓN Y DESMONTAJE SELECTIVO",
+          "descripcion": "Demolición selectiva de elementos interiores (tabiques no estructurales, revestimientos, pavimentos antiguos), desmontaje de puertas, ventanas, instalaciones obsoletas. Incluye apuntalamiento temporal si necesario. Cantidad estimada según informe de diagnóstico.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 320,
+          "total": 1600,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada sin información de superficie y estado. Revisar tras diagnóstico."
+        },
+        {
+          "concepto": "REPARACIÓN ESTRUCTURA Y OBRA CIVIL",
+          "descripcion": "Reparación de grietas estructurales, consolidación de cimientos si necesario, restitución de muros dañados, reparación de bóvedas o arcos si existen. Incluye mortero de reparación, inyecciones, apuntalamientos.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de reparación desconocidos. Presupuesto pendiente de diagnóstico estructural."
+        },
+        {
+          "concepto": "CUBIERTA Y TEJADO - REPARACIÓN O SUSTITUCIÓN",
+          "descripcion": "Reparación o sustitución de cubierta (tejas, canalones, cumbreras, limahoyas). Incluye inspección de estructura de cubierta, retirada de material antiguo, colocación de nuevo material, remates en zinc/aluminio.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie y estado de cubierta desconocidos. Presupuesto pendiente de medición."
+        },
+        {
+          "concepto": "IMPERMEABILIZACIÓN Y TRATAMIENTO DE HUMEDADES",
+          "descripcion": "Tratamiento de humedades en sótano, muros, cimientos. Incluye drenaje perimetral si necesario, inyecciones de resina, láminas impermeabilizantes, pintura impermeabilizante en zonas críticas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Extensión de humedades desconocida. Presupuesto pendiente de diagnóstico."
+        },
+        {
+          "concepto": "INSTALACIÓN FONTANERÍA COMPLETA",
+          "descripcion": "Renovación completa de red de agua fría y caliente (tuberías PEX o cobre), instalación de termo eléctrico o caldera, grifería monomando en cocina y baños, desagüe y saneamiento con tuberías PVC, sifones, válvulas de corte.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales pendiente. Incluye tuberías, accesorios, grifería, termo/caldera."
+        },
+        {
+          "concepto": "INSTALACIÓN FONTANERÍA - MANO DE OBRA",
+          "descripcion": "Mano de obra para instalación completa de fontanería: tendido de tuberías, conexiones, pruebas de estanqueidad, puesta en marcha.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 4,
+          "precio_unitario": 400,
+          "total": 1600,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Revisar según complejidad de instalación tras diagnóstico."
+        },
+        {
+          "concepto": "INSTALACIÓN ELÉCTRICA COMPLETA",
+          "descripcion": "Renovación completa de instalación eléctrica: cuadro general con ICP, magnetotérmicos, diferenciales, cableado en tubo corrugado (circuitos iluminación, enchufes, cocina, baño), enchufes, interruptores, luminarias LED, toma tierra.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales pendiente. Incluye cuadro, cableado, enchufes, interruptores, luminarias."
+        },
+        {
+          "concepto": "INSTALACIÓN ELÉCTRICA - MANO DE OBRA",
+          "descripcion": "Mano de obra para instalación completa: tendido de cableado, conexiones en cuadro, instalación de enchufes e interruptores, pruebas de continuidad y aislamiento, puesta en marcha.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 400,
+          "total": 2000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Revisar según complejidad y superficie tras diagnóstico."
+        },
+        {
+          "concepto": "ALICATADO BAÑOS Y COCINA",
+          "descripcion": "Alicatado de baños y cocina con baldosas cerámicas o porcelánico. Incluye preparación de soporte, mortero cola, rejuntado, remates en esquinas y encuentros.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie desconocida. Presupuesto pendiente de medición."
+        },
+        {
+          "concepto": "ALICATADO - MANO DE OBRA",
+          "descripcion": "Mano de obra para alicatado: preparación de soporte, colocación de baldosas, rejuntado, limpieza final.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad pendiente de medición."
+        },
+        {
+          "concepto": "PAVIMENTOS - SUELOS",
+          "descripcion": "Colocación de pavimentos (cerámica, gres, porcelánico o laminado según zonas). Incluye preparación de soporte, mortero, adhesivo, rejuntado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie y tipo de pavimento desconocidos. Presupuesto pendiente."
+        },
+        {
+          "concepto": "PAVIMENTOS - MANO DE OBRA",
+          "descripcion": "Mano de obra para colocación de pavimentos: preparación de soporte, colocación, rejuntado, limpieza.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad pendiente de medición."
+        },
+        {
+          "concepto": "PINTURA INTERIOR Y EXTERIOR",
+          "descripcion": "Pintura de paredes y techos interiores (imprimación + 2 manos), pintura exterior de fachada. Incluye preparación de superficies, masillado, lijado.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie desconocida. Presupuesto pendiente de medición."
+        },
+        {
+          "concepto": "PINTURA - MANO DE OBRA",
+          "descripcion": "Mano de obra para pintura: preparación de superficies, imprimación, pintura, acabados.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad pendiente de medición."
+        },
+        {
+          "concepto": "CARPINTERÍA - PUERTAS Y VENTANAS",
+          "descripcion": "Suministro e instalación de puertas interiores (madera o PVC), puertas exteriores (seguridad), ventanas (PVC o aluminio con doble acristalamiento). Incluye marcos, herrajes, sellado.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número y tipo de puertas/ventanas desconocidos. Presupuesto pendiente."
+        },
+        {
+          "concepto": "CARPINTERÍA - MANO DE OBRA",
+          "descripcion": "Mano de obra para instalación de puertas y ventanas: colocación de marcos, ajuste, sellado, instalación de herrajes.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 360,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad pendiente de medición."
+        },
+        {
+          "concepto": "RETIRADA Y GESTIÓN DE RESIDUOS",
+          "descripcion": "Retirada selectiva de escombros, residuos de demolición, embalajes. Transporte a vertedero autorizado o centro de reciclaje. Incluye contenedor si necesario.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen de residuos desconocido. Presupuesto pendiente de diagnóstico."
+        },
+        {
+          "concepto": "PEQUEÑO MATERIAL Y CONSUMIBLES",
+          "descripcion": "Pequeño material: tornillos, tacos, clavos, cinta de carrocero, masilla, adhesivos, selladores, discos de corte, lijas, etc.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado entre 300-800€ según alcance. Revisar tras diagnóstico."
+        },
+        {
+          "concepto": "IMPREVISTOS Y CONTINGENCIAS",
+          "descripcion": "Partida de imprevistos (10-15% del presupuesto) para sorpresas típicas en reformas de viviendas abandonadas: plagas, estructuras ocultas dañadas, instalaciones antiguas complejas, etc.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto pendiente. Se calculará como 12% del subtotal tras diagnóstico."
+        }
+      ],
+      "calculos": {
+        "subtotal": 5850,
+        "iva_porcentaje": 21,
+        "iva": 1228.5,
+        "total": 7078.5
+      },
+      "sugerencias_catalogo": [
+        "CRÍTICO: Este presupuesto es INCOMPLETO y ORIENTATIVO. Solo incluye mano de obra estimada y partidas de diagnóstico. Faltan TODOS los materiales con precios reales.",
+        "PASO 1 OBLIGATORIO: Realizar VISITA TÉCNICA COMPLETA (partida 1: 650€) para obtener diagnóstico detallado, mediciones precisas y evaluación de estado.",
+        "PASO 2: Tras diagnóstico, desglosar cada partida con cantidades reales y precios de materiales específicos.",
+        "MATERIALES PENDIENTES: Tuberías, grifería, termo/caldera, cuadro eléctrico, cableado, enchufes, interruptores, baldosas, pavimentos, pintura, puertas, ventanas, etc. Presupuesto estimado de materiales: 15.000-50.000€ según alcance.",
+        "PLAZO ESTIMADO: 8-16 semanas según complejidad y disponibilidad de oficios.",
+        "RECOMENDACIÓN: Solicitar presupuesto desglosado por capítulos tras diagnóstico: (1) Obra civil, (2) Instalaciones, (3) Acabados, (4) Gestión residuos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "REPARACIÓN ESTRUCTURA Y OBRA CIVIL",
+          "oficio": "albanileria",
+          "motivo": "Vivienda abandonada requiere evaluación y posible reparación de estructura, cimientos, grietas."
+        },
+        {
+          "concepto": "CUBIERTA Y TEJADO - REPARACIÓN O SUSTITUCIÓN",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Vivienda abandonada típicamente presenta problemas de cubierta y goteras."
+        },
+        {
+          "concepto": "IMPERMEABILIZACIÓN Y TRATAMIENTO DE HUMEDADES",
+          "oficio": "impermeabilizacion",
+          "motivo": "Vivienda abandonada suele tener humedades en muros, sótano, cimientos."
+        },
+        {
+          "concepto": "INSTALACIÓN FONTANERÍA COMPLETA",
+          "oficio": "fontaneria",
+          "motivo": "Renovación completa de red de agua y saneamiento en vivienda abandonada."
+        },
+        {
+          "concepto": "INSTALACIÓN ELÉCTRICA COMPLETA",
+          "oficio": "electricidad",
+          "motivo": "Renovación completa de instalación eléctrica en vivienda abandonada."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "planificacion_y_presupuesto_reforma_integral",
+      "diagnostico_y_presupuesto_de_jardin",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "diagnostico_y_presupuesto_suelos_y_alicatados",
+      "diagnostico_y_presupuesto_cerrajeria"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3895,
+      "tokens_out": 6618
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 20,
+    "n_catalogo": 4,
+    "n_sugeridas": 16,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

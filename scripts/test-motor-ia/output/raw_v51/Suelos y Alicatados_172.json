@@ -1,0 +1,205 @@
+{
+  "id": 172,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Cambiar suelo de salón de parquet de madera por gres porcelánico de gran formato 80x80",
+  "http_status": 200,
+  "latency_ms": 22111,
+  "raw_response": {
+    "transcript": "Cambiar suelo de salón de parquet de madera por gres porcelánico de gran formato 80x80",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar suelo de salón de parquet de madera por gres porcelánico de gran formato 80x80",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere medición de m² del salón para cuantificar exactamente",
+          "Verificar estado de la solera/base antes de colocación",
+          "Doble encolado OBLIGATORIO para piezas 80x80 cm",
+          "Considerar gestión de residuos de parquet antiguo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Desmontaje de parquet existente y colocación de gres porcelánico. Tarifa de referencia según BASE MAESTRA para solados."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de parquet de madera existente",
+          "descripcion": "Desmontaje completo del pavimento de parquet, retirada de adhesivo/clavos y gestión de residuos madera",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente de medición en obra. Tarifa recomendada 15-25€/m² según dificultad de adherencia."
+        },
+        {
+          "concepto": "Regularización y preparación de solera",
+          "descripcion": "Limpieza, barrido y masillado de imperfecciones en la base. Verificación planimetría máx 3mm bajo regla 2m.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente de medición. Tarifa estimada 8-15€/m²."
+        },
+        {
+          "concepto": "Baldosa gres porcelánico gran formato 80x80 cm",
+          "descripcion": "Suministro de gres porcelánico rectificado formato 80x80 cm, incluye mermas 5-10%",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según calidad y marca. Rango típico 20-50€/m² material. Cantidad pendiente medición real + mermas."
+        },
+        {
+          "concepto": "Mortero cola C2 flexible S2 para gran formato",
+          "descripcion": "Mortero adhesivo C2 flexible S2 con deformabilidad mejorada para piezas grandes. Doble encolado OBLIGATORIO en 80x80.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en kg (aprox 4-5 kg/m² con doble encolado). Precio material pendiente revisión."
+        },
+        {
+          "concepto": "Colocación de baldosas gres porcelánico con doble encolado",
+          "descripcion": "Colocación en rejilla doble encolada (cara pieza + soporte) con niveladoras/cuñas. Incluye alineación y nivelación.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa base 32€/m² según catálogo. Cantidad en m² pendiente medición. Puede incrementarse por complejidad de formato grande."
+        },
+        {
+          "concepto": "Lechada de junta cementosa o epoxi",
+          "descripcion": "Suministro y aplicación de lechada de junta con junta mínima 1.5mm (rectificado permite 1mm). Limpieza y fratasado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en kg (aprox 1-2 kg/m² según ancho junta). Precio material a confirmar."
+        },
+        {
+          "concepto": "Junta perimetral de dilatación",
+          "descripcion": "Junta perimetral con corcho o espuma elástica en todo el perímetro del salón, pintable o con perfil de remate.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml de perímetro. Precio material pendiente (típico 2-6€/ml según tipo)."
+        },
+        {
+          "concepto": "Cuñas niveladoras/crucetas para piezas grandes",
+          "descripcion": "Suministro de niveladoras y crucetas de precisión para alineación en piezas 80x80 cm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según densidad (típico 4-6 por m²). Precio material pendiente."
+        },
+        {
+          "concepto": "Pequeño material y herramienta",
+          "descripcion": "Esponjas, trapos, protecciones, listones de madera, cinta de carrocero, etc.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 20-50€ según envergadura. Requiere confirmación."
+        }
+      ],
+      "calculos": {
+        "subtotal": 32,
+        "iva_porcentaje": 21,
+        "iva": 6.72,
+        "total": 38.72
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA [solado_gres_porcelanico_interior] rango 25-95€/m² aplicable. Usar para colocación.",
+        "Verificar en catálogo si existe partida específica para 'desmontaje parquet' o agrupar en 'demolición suelo'.",
+        "Confirmar si existe partida 'doble encolado gran formato' en catálogo de adhesivos.",
+        "El presupuesto está INCOMPLETO hasta medir m² reales del salón."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desmontaje y retirada de parquet existente",
+          "oficio": "suelos_alicatados",
+          "motivo": "No existe partida en catálogo para demolición selectiva de parquet. Sugerida por IA."
+        },
+        {
+          "concepto": "Regularización y preparación de solera",
+          "oficio": "suelos_alicatados",
+          "motivo": "Partida complementaria necesaria para asegurar base correcta en cambio de pavimento."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "lijado_y_barnizado_parquet_existente",
+      "solado_gres_porcelanico_interior",
+      "instalacion_solado_de_madera_maciza_flotante_ingenieria_o_click",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "colocacion_parquet_ingenieria_pegado_o_flotante"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 9,
+    "n_catalogo": 0,
+    "n_sugeridas": 9,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

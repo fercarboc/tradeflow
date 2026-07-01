@@ -1,0 +1,428 @@
+{
+  "id": 367,
+  "oficio": "Reformas Integrales",
+  "texto": "Adaptar vivienda para persona con movilidad reducida, baño accesible, rampa y pasamanos",
+  "http_status": 200,
+  "latency_ms": 44185,
+  "raw_response": {
+    "transcript": "Adaptar vivienda para persona con movilidad reducida, baño accesible, rampa y pasamanos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Adaptar vivienda para persona con movilidad reducida, baño accesible, rampa y pasamanos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Obra de adaptación por accesibilidad PMR — verificar si aplican subvenciones IMSERSO, CCAA o fondos NextGenEU",
+          "Proyecto técnico puede ser obligatorio si obra significativa — revisar con cliente",
+          "Normativa: UNE EN 17210 y CTE DB-SUA"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reformas_integrales",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Coordinación integral de obra de adaptación accesibilidad"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 48
+          },
+          "motivo": "Construcción rampa, eliminación escalones, obra civil"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación pasamanos y barras de apoyo"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Adaptación baño: grifería monomando, barras, alcachofas accesibles"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Interruptores y enchufes a altura accesible, iluminación reforzada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico y documentación accesibilidad",
+          "descripcion": "Levantamiento planimétrico, planos de adaptación, cálculo de pendientes rampa, dimensiones zonas giro baño (150cm diámetro mínimo), memoria técnica y certificado cumplimiento UNE EN 17210 y CTE DB-SUA",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto a criterio del instalador según complejidad obra"
+        },
+        {
+          "concepto": "Eliminación de barreras arquitectónicas interiores",
+          "descripcion": "Desmontaje de escalones interiores, nivelación de pavimentos, eliminación de umbrales, preparación de superficies para paso libre mínimo 80cm",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Construcción rampa de acceso (pendiente máx. 8%)",
+          "descripcion": "Rampa en hormigón o madera con baranda de seguridad, pasamanos dual (altura 75-85cm), peldaño final con zona descanso 150cm, pendiente máxima 8%, desagüe en base rampa",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Introducir longitud real de rampa (ml). Tarifa: ~40-50€/ml mano de obra + materiales (hormigón, madera, acero, barandilla)"
+        },
+        {
+          "concepto": "Suministro e instalación pasamanos y barras de apoyo en baño",
+          "descripcion": "Barras de apoyo acero inoxidable AISI 304 (mínimo Ø 32mm), dos en lateral WC (a altura 70-75cm), una en ducha/bañera (70-75cm y 30-40cm), barra vertical en ducha, anclaje a estructura con tacos químicos o mecánicos, sellado impermeable",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 60,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro barras de apoyo inoxidable (material)",
+          "descripcion": "5 barras acero inoxidable AISI 304, Ø 32mm, longitud variable (40cm-80cm), tacos químicos, herrajes, sellador impermeable",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado — aprox. 80-150€/barra según longitud"
+        },
+        {
+          "concepto": "Instalación pasamanos en escalera interior (si la hay)",
+          "descripcion": "Pasamanos acero inoxidable o pintado, altura 75-85cm, soportes cada 120-150cm, anclaje a pared, acabado seguro sin aristas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 60,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Rellenar cantidad en ml si hay escalera interior. Si no aplica, eliminar partida"
+        },
+        {
+          "concepto": "Adaptación baño accesible — fontanería completa",
+          "descripcion": "Cambio de grifería WC a grifo monomando ergonómico, grifo ducha/bañera monomando con alcachofa antiescaldadura termostática (máx 43°C), sifones accesibles, tuberías con aislamiento térmico, purgadores de aire en puntos altos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro grifería y accesorios baño adaptado (material)",
+          "descripcion": "Grifo monomando WC, grifo ducha monomando termostático, alcachofa anticalcárea regulable, accesorios ergonómicos, tuberías multicapa, sellador impermeable",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto grifería y materiales — aprox. 600-1200€ según calidad"
+        },
+        {
+          "concepto": "Remoción WC estándar e instalación WC con altura accesible (43-48cm)",
+          "descripcion": "Desmontaje WC actual, preparación zona, instalación WC con altura accesible (altura asiento 43-48cm según norma), cisternas de doble descarga (3/6L), prueba funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro WC con altura accesible (material)",
+          "descripcion": "WC altura asiento 43-48cm, cisterna doble descarga, instalación silenciosa, tapa duroplast con descenso lento",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "WC accesible — aprox. 250-500€"
+        },
+        {
+          "concepto": "Instalación pavimento antideslizante baño y espacios acceso",
+          "descripcion": "Desmontaje pavimento actual, preparación base, colocación cerámica o piedra porcelana antideslizante (R10 mínimo), rejuntado con mortero hidrófugo, sello impermeable en juntas",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Introducir m² totales a recubrir (baño + acceso rampa)"
+        },
+        {
+          "concepto": "Suministro pavimento antideslizante (material)",
+          "descripcion": "Cerámica o gres porcelánico antideslizante R10 mínimo, mortero hidrófugo, sellador impermeable, lechada",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pavimento — aprox. 15-40€/m² según calidad"
+        },
+        {
+          "concepto": "Adecuación puertas — paso libre mínimo 80cm",
+          "descripcion": "Ampliación hueco o cambio de puerta por modelo pivotante de 80cm paso libre mínimo, sin umbrales, cierre automático suave, manivela ergonómica tipo palanca (accesible para personas con movilidad reducida o artritis)",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Introducir número de puertas a adaptar"
+        },
+        {
+          "concepto": "Suministro puertas y herrajes accesibles (material)",
+          "descripcion": "Puerta pivotante 80cm paso libre, marco reforzado, cierre automático gradual, manivela palanca cromada, bisagras pesadas, guarniciones",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Puerta pivotante accesible — aprox. 400-800€/ud según material"
+        },
+        {
+          "concepto": "Instalación interruptores y enchufes a altura accesible",
+          "descripcion": "Reubicación de interruptores y enchufes a altura 100-120cm (accesible para usuarios en silla de ruedas), instalación en cajas de superficie o caja empotrada ampliada, acabados seguros sin aristas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Introducir cantidad total de puntos a reubicar"
+        },
+        {
+          "concepto": "Suministro interruptores y enchufes accesibles (material)",
+          "descripcion": "Interruptores gran formato de fácil accionamiento, enchufes con protección de contactos, cajas de superficie accesibles, cables",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material eléctrico — aprox. 15-30€ por punto"
+        },
+        {
+          "concepto": "Instalación iluminación reforzada sin sombras",
+          "descripcion": "Colocación adicional de puntos de luz (spots empotrables, apliques), luminarias LED (min. 500 lux en zonas de trabajo, 300 lux áreas generales), sin zonas de sombra, interruptores de fácil accionamiento, regulables en intensidad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro luminarias LED y sistemas iluminación (material)",
+          "descripcion": "Luminarias LED (spots, apliques, downlights), transformadores, cable, reguladores intensidad, accesorios montaje",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema iluminación LED — aprox. 400-800€ según número de puntos"
+        },
+        {
+          "concepto": "Pequeño material, consumibles y ayudas de obra",
+          "descripcion": "Ductería, bridas, tornillería inoxidable, selladores, cinta de obra, protecciones, herramientas fungibles, limpieza diaria, retirada residuos clase I-II",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada pequeño material — estimar 8-12% del subtotal mano de obra"
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "descripcion": "Acopio, transporte y gestión final de residuos de obra (cerámicas rotas, escombros, maderas), según normativa ambiental vigente",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión residuos — aprox. 400-800€ según volumen"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2910,
+        "iva_porcentaje": 21,
+        "iva": 611.1,
+        "total": 3521.1
+      },
+      "sugerencias_catalogo": [
+        "Verificar disponibilidad de subvenciones IMSERSO (Teleasistencia, Adaptación Hogar) o CCAA específicas para adaptación de viviendas PMR",
+        "Solicitar certificado de accesibilidad (UNE EN 17210) al finalizar obra",
+        "Considerar inclusión de domótica para mayor autonomía (controles de luz, puerta automática, sistemas emergencia) — oficio: telecomunicaciones + informatica",
+        "Si la vivienda tiene escalera exterior, agregar partida de barandilla metálica de seguridad cerrajería"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Proyecto técnico y documentación accesibilidad",
+          "oficio": "reformas_integrales",
+          "tipo": "servicio",
+          "motivo": "Obra de adaptación PMR requiere documentación técnica cumplimiento normativas UNE EN 17210 / CTE DB-SUA"
+        },
+        {
+          "partida": "Construcción rampa de acceso (pendiente máx. 8%)",
+          "oficio": "albanileria",
+          "tipo": "mano_obra",
+          "motivo": "Rampa es elemento crítico en adaptación PMR — requiere cálculo pendiente y dimensiones específicas"
+        },
+        {
+          "partida": "Suministro e instalación pasamanos y barras de apoyo en baño",
+          "oficio": "cerrajeria",
+          "tipo": "mano_obra",
+          "motivo": "Barras de apoyo son obligatorias en baño accesible según CTE — anclaje seguro a estructura indispensable"
+        },
+        {
+          "partida": "WC con altura accesible (43-48cm)",
+          "oficio": "fontaneria",
+          "tipo": "material",
+          "motivo": "WC estándar (37-40cm) no es accesible para PMR — altura mínima 43cm según norma"
+        },
+        {
+          "partida": "Pavimento antideslizante baño",
+          "oficio": "albanileria",
+          "tipo": "mano_obra",
+          "motivo": "Baño accesible requiere pavimento R10 mínimo (antideslizante) para seguridad usuario"
+        },
+        {
+          "partida": "Adecuación puertas — paso libre 80cm",
+          "oficio": "carpinteria",
+          "tipo": "mano_obra",
+          "motivo": "CTE DB-SUA establece paso libre mínimo 80cm para viviendas accesibles"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "instalacion_enchufe_exterior_ip44",
+      "reforma_de_vivienda_para_eficiencia_energetica"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 20,
+    "n_catalogo": 9,
+    "n_sugeridas": 11,
+    "oficio_detectado": "reformas_integrales",
+    "coincide_oficio": "SI"
+  }
+}

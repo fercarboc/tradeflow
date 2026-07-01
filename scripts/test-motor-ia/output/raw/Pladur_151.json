@@ -1,0 +1,247 @@
+{
+  "id": 151,
+  "oficio": "Pladur",
+  "texto": "Instalar tablero de pladur hidrófugo verde en baño para sustituir tabique de ladrillo",
+  "http_status": 200,
+  "latency_ms": 19564,
+  "raw_response": {
+    "transcript": "Instalar tablero de pladur hidrófugo verde en baño para sustituir tabique de ladrillo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar tablero de pladur hidrófugo verde en baño para sustituir tabique de ladrillo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume demolición de tabique de ladrillo existente. Confirmar si incluye gestión de residuos.",
+          "Se asume nueva estructura metálica galvanizada (zona húmeda obligatoria).",
+          "Si hay ducha adyacente, se requiere impermeabilizante líquido sobre placa antes de alicatar."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Instalación de tabique pladur hidrófugo en zona húmeda (baño)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición de tabique de ladrillo existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición tabique ladrillo",
+          "descripcion": "Desmontaje y demolición de tabique de ladrillo existente, incluyendo retirada de escombros y limpieza de zona",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Estructura metálica galvanizada tabique pladur",
+          "descripcion": "Perfiles canal y montantes galvanizados (48/70mm) para estructura de tabique pladur hidrófugo en zona húmeda (baño)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: perfiles galvanizados. Precio pendiente de revisión según m2 de tabique"
+        },
+        {
+          "concepto": "Placa yeso hidrófugo verde 15mm",
+          "descripcion": "Placa de yeso laminado hidrófugo verde de 15mm de espesor, ambas caras del tabique",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: placas hidrófugas. Cantidad x2 (ambas caras). Precio pendiente"
+        },
+        {
+          "concepto": "Tornillería inoxidable y galvanizada",
+          "descripcion": "Tornillos inoxidables y galvanizados para fijación de placas a estructura metálica en zona húmeda",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: tornillería. Precio pendiente según m2"
+        },
+        {
+          "concepto": "Cinta papel juntas y pasta hidrófuga",
+          "descripcion": "Cinta de papel para juntas y pasta de juntas hidrófuga para sellado de uniones entre placas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cintas y pastas. Precio pendiente según m2"
+        },
+        {
+          "concepto": "Banda estanca perimetral",
+          "descripcion": "Banda estanca perimetral para sellado de base del tabique contra humedad",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: banda estanca. Precio pendiente según metros lineales"
+        },
+        {
+          "concepto": "Montaje estructura y colocación placas pladur",
+          "descripcion": "Mano de obra: montaje de estructura metálica galvanizada, colocación de placas hidrófugas, fijación y nivelación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento juntas y acabado liso",
+          "descripcion": "Mano de obra: aplicación de cinta, pasta de juntas, lijado y acabado liso para posterior alicatado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 25,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilizante líquido (si ducha adyacente)",
+          "descripcion": "Aplicación de membrana impermeabilizante líquida sobre placa hidrófuga (OPCIONAL: solo si hay ducha o zona de proyección de agua directa)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y mano de obra: impermeabilizante. OPCIONAL según ubicación ducha. Precio pendiente"
+        }
+      ],
+      "calculos": {
+        "subtotal": 380,
+        "iva_porcentaje": 21,
+        "iva": 79.8,
+        "total": 459.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones del tabique (m2) para ajustar cantidades de materiales.",
+        "Verificar si existe ducha o zona de proyección de agua directa para aplicar impermeabilizante líquido obligatorio.",
+        "Considerar si se requiere gestión de residuos de demolición (escombros de ladrillo).",
+        "Revisar si el tabique requiere refuerzo en zonas de fijación de accesorios (toalleros, espejos, etc.)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura metálica galvanizada tabique pladur",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Perfiles galvanizados obligatorios en zona húmeda (baño). Precio material pendiente."
+        },
+        {
+          "concepto": "Placa yeso hidrófugo verde 15mm",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Placa específica hidrófugo verde para baño. Precio material pendiente."
+        },
+        {
+          "concepto": "Tornillería inoxidable y galvanizada",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Tornillería específica para zona húmeda. Precio material pendiente."
+        },
+        {
+          "concepto": "Cinta papel juntas y pasta hidrófuga",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Pasta de juntas hidrófuga específica. Precio material pendiente."
+        },
+        {
+          "concepto": "Banda estanca perimetral",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Banda estanca obligatoria en base de tabique en zona húmeda. Precio material pendiente."
+        },
+        {
+          "concepto": "Impermeabilizante líquido (si ducha adyacente)",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Membrana impermeabilizante opcional según ubicación ducha. Precio pendiente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "instalacion_de_marcos_de_puertas_en_pared_de_pladur",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3884,
+      "tokens_out": 3142
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

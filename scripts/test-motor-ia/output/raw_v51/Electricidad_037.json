@@ -1,0 +1,211 @@
+{
+  "id": 37,
+  "oficio": "Electricidad",
+  "texto": "Ampliar potencia contratada de 3.45kW a 5.75kW, trámites y adaptación del cuadro",
+  "http_status": 200,
+  "latency_ms": 22841,
+  "raw_response": {
+    "transcript": "Ampliar potencia contratada de 3.45kW a 5.75kW, trámites y adaptación del cuadro",
+    "quote": {
+      "resumen": {
+        "texto_original": "Ampliar potencia contratada de 3.45kW a 5.75kW, trámites y adaptación del cuadro",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Aumento de potencia significativo (2.30kW): verificar capacidad de línea general y transformador de la vivienda/edificio",
+          "Trámites con distribuidora: incluir gestión de boletín eléctrico y actualización de contrato",
+          "Adaptación cuadro: probablemente cambio de IGA (Interruptor General Automático) y/o magnetotermicos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Adaptación instalación eléctrica existente, cambio de protecciones y trámites con distribuidora"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y medición de instalación actual",
+          "descripcion": "Revisión de línea general, cuadro eléctrico, toma de tierra y capacidad de cableado existente. Comprobación de viabilidad técnica para ampliación de 3.45kW a 5.75kW",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cambio de Interruptor General Automático (IGA)",
+          "descripcion": "Suministro e instalación de nuevo IGA (Interruptor General Automático) adaptado a 5.75kW. Desmontaje del IGA anterior y conexión de protecciones.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro nuevo Interruptor General Automático (IGA) 25A",
+          "descripcion": "IGA 2 polos 25A (230V monofásico) o 3 polos 25A (400V trifásico) según corresponda",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pendiente de especificación: monofásico vs trifásico y marca del IGA"
+        },
+        {
+          "concepto": "Adaptación y reordenamiento de magnetotérmicos",
+          "descripcion": "Revisión y ajuste de circuitos protegidos existentes. Posible cambio de magnetotérmicos si la capacidad nominal de los actuales es insuficiente para la nueva potencia contratada",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de toma de tierra y medición de resistencia",
+          "descripcion": "Medición con telurómetro de la resistencia de puesta a tierra. Si resulta > 40Ω, será necesario mejorar electrodo o red de toma de tierra",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales de protecciones diferencial y magnetotérmico",
+          "descripcion": "Verificación del correcto funcionamiento del diferencial (botones TEST y reset) y de los magnetotérmicos. Comprobación de selectividad entre protecciones",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de trámites con distribuidora eléctrica",
+          "descripcion": "Solicitud formal de aumento de potencia contratada de 3.45kW a 5.75kW ante distribuidora. Coordinación de inspección de distribuidora si es necesaria. Gestión de boletín eléctrico actualizado",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de gestión administrativa con distribuidora variable según zona y distribuidora. Instalador debe confirmar coste o incluirlo como P.A."
+        },
+        {
+          "concepto": "Boletín Eléctrico y certificación REBT",
+          "descripcion": "Elaboración y firma de boletín eléctrico oficial por instalador autorizado REBT, con identificación de la ampliación de potencia y conformidad con normativa vigente",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste boletín eléctrico variable (50-150€ según colegio profesional y complejidad)"
+        },
+        {
+          "concepto": "Pequeño material y accesorios (bornas, tuercas, tornillos, cinta aislante)",
+          "descripcion": "Consumibles necesarios para conexiones, reapriete de bornas y aseguramiento de conductores en cuadro adaptado",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible, presupuestar según surtidos disponibles (aprox. 15-30€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 325,
+        "iva_porcentaje": 21,
+        "iva": 68.25,
+        "total": 393.25
+      },
+      "sugerencias_catalogo": [
+        "Ampliar búsqueda: [ampliacion_potencia_electrica_vivienda] — crear entrada en catálogo para este tipo de reforma muy frecuente",
+        "Crear entrada específica: [adaptacion_cuadro_electrico_cambio_iga] con partidas estándar de mano de obra y materiales",
+        "Incluir tarifa estándar para 'gestión trámites distribuidora eléctrica' (actualmente 0€, revisar con experiencia de campo)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Gestión de trámites con distribuidora eléctrica",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "motivo": "Ampliación de potencia requiere coordinación y documentación oficial con distribuidora; coste administrativo variable"
+        },
+        {
+          "concepto": "Boletín Eléctrico y certificación REBT",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "motivo": "Documento legal obligatorio para toda reforma de ampliación de potencia; precio no estándar, variable por colegio profesional"
+        },
+        {
+          "concepto": "Suministro nuevo Interruptor General Automático (IGA) 25A",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Material específico cuya especificación (monofásico/trifásico, marca) depende de la instalación existente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cuadro_electrico_industrial_trifasico",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_cuadro_electrico_piscina",
+      "instalacion_electrica_garaje_comunitario",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

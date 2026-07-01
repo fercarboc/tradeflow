@@ -1,0 +1,222 @@
+{
+  "id": 195,
+  "oficio": "Cerrajería",
+  "texto": "Instalación de portero automático con videoportero y apertura a distancia desde el móvil",
+  "http_status": 200,
+  "latency_ms": 23029,
+  "raw_response": {
+    "transcript": "Instalación de portero automático con videoportero y apertura a distancia desde el móvil",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de portero automático con videoportero y apertura a distancia desde el móvil",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema IP con funcionalidad móvil: requiere verificación de conectividad y tipo de instalación (vivienda unifamiliar vs edificio multiviv)",
+          "Apertura a distancia: incluye electroimán o electropestillo, requiere confirmación del tipo de puerta/cancela"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sistema IP con app móvil, cableado Cat6, integración conectividad"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Fuente alimentación, circuito exclusivo, conexión electroimán/electropestillo"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación mecanismo apertura, ajuste de cierre, integración con puerta/cancela"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa exterior videoportero IP con cámara y pulsador",
+          "descripcion": "Placa de calle con cámara IP integrada, pulsador de llamada, micrófono y altavoz para sistema videoportero con conectividad IP y app móvil",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de placa IP con cámara pendiente de confirmación (rango típico 150-400€)"
+        },
+        {
+          "concepto": "Monitor interior videoportero IP con pantalla táctil",
+          "descripcion": "Monitor interior con pantalla táctil a color, conectividad IP, integración app móvil, micrófono y altavoz para comunicación bidireccional",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de monitor IP pendiente de confirmación (rango típico 120-300€)"
+        },
+        {
+          "concepto": "Cableado Cat6 y alimentación placa-monitor",
+          "descripcion": "Cable Cat6 para transmisión datos IP, cable de alimentación 2x1.5mm² en tubo protector, pequeño material (conectores RJ45, regletas, cinta aislante)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cableado estimada en 15ml (típico vivienda unifamiliar). Ajustar según distancia real placa-monitor"
+        },
+        {
+          "concepto": "Fuente alimentación estabilizada 12V/2A para sistema IP",
+          "descripcion": "Fuente de alimentación estabilizada 12V/2A con protección sobretensión, ubicada en interior, para alimentación placa exterior y sistema videoportero IP",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio fuente alimentación pendiente (rango típico 40-80€)"
+        },
+        {
+          "concepto": "Electroimán o electropestillo para apertura a distancia",
+          "descripcion": "Mecanismo de apertura remota (electroimán 12V o electropestillo) integrado en puerta/cancela, controlable desde app móvil y monitor interior",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio electroimán/electropestillo pendiente de confirmación (rango típico 60-150€ según tipo)"
+        },
+        {
+          "concepto": "Instalación y configuración sistema videoportero IP",
+          "descripcion": "Instalación de placa exterior, monitor interior, cableado, fuente alimentación, electroimán. Configuración IP, emparejamiento app móvil, pruebas de funcionamiento y apertura remota",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación mecanismo apertura y ajuste cierre",
+          "descripcion": "Instalación del electroimán/electropestillo en puerta/cancela, conexión eléctrica, ajuste de cierre, pruebas de seguridad y funcionamiento remoto",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo y conexión fuente alimentación",
+          "descripcion": "Instalación de circuito eléctrico exclusivo (cable 2x1.5mm² con protección diferencial), conexión fuente alimentación, toma de corriente dedicada, pruebas de seguridad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 345,
+        "iva_porcentaje": 21,
+        "iva": 72.45,
+        "total": 417.45
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el cliente requiere segunda unidad monitor (ej: vivienda con 2 plantas o edificio multiviv)",
+        "Confirmar tipo de puerta/cancela para seleccionar electroimán vs electropestillo",
+        "Si es edificio multiviv: considerar sistema central con intercomunicación entre viviendas (partida adicional)",
+        "Solicitar confirmación de distancia placa-monitor para ajustar cantidad cableado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Placa exterior videoportero IP con cámara y pulsador",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico sistema IP con app móvil, no en catálogo base"
+        },
+        {
+          "concepto": "Monitor interior videoportero IP con pantalla táctil",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico sistema IP, no en catálogo base"
+        },
+        {
+          "concepto": "Electroimán o electropestillo para apertura a distancia",
+          "oficio": "cerrajeria",
+          "motivo": "Mecanismo específico de apertura remota, requiere confirmación de tipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_videoportero_o_interfono",
+      "instalacion_videoportero_vivienda",
+      "instalacion_de_videoportero_o_intercomunicador",
+      "pintado_locales_comerciales_y_tiendas",
+      "automatizacion_cancela_o_puerta_con_motor"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3682,
+      "tokens_out": 2749
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "id": 154,
+  "oficio": "Pladur",
+  "texto": "Tabique separador de oficina open space con pladur, longitud 8 metros y altura hasta falso techo",
+  "http_status": 200,
+  "latency_ms": 23425,
+  "raw_response": {
+    "transcript": "Tabique separador de oficina open space con pladur, longitud 8 metros y altura hasta falso techo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique separador de oficina open space con pladur, longitud 8 metros y altura hasta falso techo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Altura hasta falso techo no especificada: se asume altura estándar 2.5-3m. Confirmar altura real para validar si requiere arriostramientos.",
+          "Especificación acústica: no indicada. Si requiere aislamiento acústico, incluir lana mineral certificada.",
+          "Acabado superior: no especificado si llega a techo o se deja separación para instalaciones."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Tabique de separación en pladur. Oficio estándar en catálogo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm",
+          "descripcion": "Suministro e instalación de placa de yeso laminado 15mm para tabique separador, ambas caras. Longitud 8m x altura hasta falso techo (~2.5-3m)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 48,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de material: incluye placa 15mm ambas caras (~20m2/UD x 2.5 €/m2 aprox, pero revisar proveedor local)"
+        },
+        {
+          "concepto": "Perfilería metálica (UW-CW 75mm)",
+          "descripcion": "Suministro de perfiles metálicos para estructura de tabique: canal UW-75 (base y coronación) y montantes CW-75, incluyendo arriostramientos horizontales",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 32,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario: incluye perfil canal (16ml) + montantes + arriostramientos (~3-5 €/ml según proveedor)"
+        },
+        {
+          "concepto": "Tornillería y pequeño material",
+          "descripcion": "Tornillos de fijación para placa a estructura, taquillas, tacos y consumibles para tabique de 48m2",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario estimado: 60-120€ por parada completa de 48m2"
+        },
+        {
+          "concepto": "Cinta de juntas y pasta de juntas",
+          "descripcion": "Suministro de cinta de juntas y pasta especial para sellado de juntas y encuentros. Tabique 8m x 3m",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario: ~40-80€ por parada de juntas (8m largo + verticales)"
+        },
+        {
+          "concepto": "Ángulo metálico para esquinas",
+          "descripcion": "Suministro de ángulo metálico para protección de aristas en encuentro con techo y laterales",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 16,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario: ~2-3 €/ml (16ml = perimetral superior + laterales)"
+        },
+        {
+          "concepto": "Banda resiliente aislante acústica",
+          "descripcion": "Suministro de banda resiliente en base de tabique para mejorar aislamiento acústico y vibración. 8 metros",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional pero recomendado en open space: ~8-15€/ml"
+        },
+        {
+          "concepto": "Montaje de estructura y fijación",
+          "descripcion": "Mano de obra: medición, trazado, fijación de perfil canal y montantes, aplomado y nivelación. Tabique 8m x altura 2.5-3m",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de placas de yeso",
+          "descripcion": "Mano de obra: colocación, atornillado y fijación de placas de yeso laminado 15mm ambas caras. 48m2",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 48,
+          "precio_unitario": 12,
+          "total": 576,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa estándar de instalación pladur: 10-15€/m2 según dificultad y altura"
+        },
+        {
+          "concepto": "Tratamiento y acabado de juntas",
+          "descripcion": "Mano de obra: masillado, lija y acabado de todas las juntas y encuentros. Aplicación de cinta y pasta",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 35,
+          "total": 210,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa estándar acabado: 5-7 horas para 48m2 de juntas"
+        },
+        {
+          "concepto": "Pintura y acabado final",
+          "descripcion": "Mano de obra: imprimación + pintura en dos manos, incluyendo esquinas y encuentros. Preparación de superficie",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 48,
+          "precio_unitario": 8,
+          "total": 384,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Tarifa pintura pladur: 6-10€/m2 (dos caras, imprimación + acabado)"
+        },
+        {
+          "concepto": "Pintura y materiales de acabado",
+          "descripcion": "Suministro de imprimación y pintura de acabado (blanco estándar) para 48m2 de pladur",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario: imprimación + pintura para 48m2 (~80-150€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1450,
+        "iva_porcentaje": 21,
+        "iva": 304.5,
+        "total": 1754.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar altura exacta: si supera 3.5m, validar si se requieren arriostramientos adicionales o refuerzo de montantes a sección mayor.",
+        "Especificar requisito acústico: si se requiere aislamiento acústico RA (rw), incluir lana mineral 40-50mm entre montantes (coste +500-800€).",
+        "Definir acabado superior: ¿llega a falso techo (sellado) o se deja separación para instalaciones/cables?",
+        "Si el open space tiene redes eléctricas o de datos, coordinar paso de conduits antes de cerrar con placas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Banda resiliente aislante acústica",
+          "oficio": "pladur_escayola",
+          "motivo": "Material recomendado en separadores de open space para mejorar aislamiento acústico. No es obligatorio pero sí recomendado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_separacion_zona_oficina",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "instalacion_tabique_o_division_de_vidrio_en_oficina",
+      "falso_techo_pladur_con_lucernario_o_claraboya_artificial"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

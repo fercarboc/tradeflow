@@ -1,0 +1,236 @@
+{
+  "id": 127,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Cambio de teja árabe por teja plana de hormigón en tejado de chalet, 120 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 27768,
+  "raw_response": {
+    "transcript": "Cambio de teja árabe por teja plana de hormigón en tejado de chalet, 120 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de teja árabe por teja plana de hormigón en tejado de chalet, 120 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sustitución de cubierta: requiere coordinación de desmontaje y nueva instalación",
+          "Verificar estado de estructura soporte (correas, cerchas) antes de proceder",
+          "Pendiente mínima teja plana: 22-25%; pendiente teja árabe: 30-35%. Si pendiente <25%, puede requerir lámina bajo teja",
+          "Material teja plana de hormigón más pesado que árabe: revisar cálculo estructural"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Sustitución de cubierta de teja, obra de envergadura en tejado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de teja árabe existente",
+          "descripcion": "Desmontaje completo de teja árabe cerámica, mortero de asiento en cumbreras/aleros/limatesas, canalones y bajantes existentes. Carga, transporte y gestión de residuos. Protección de estructura soporte.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 12,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro teja plana de hormigón",
+          "descripcion": "Teja plana de hormigón tipo español o similar, con sistema de encaje/gancho, según pendiente y diseño. Incluye accesorios de fijación.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de teja de hormigón variable según calidad, acabado y proveedor. Instalador debe cotizar: típicamente 15-35€/m2 material"
+        },
+        {
+          "concepto": "Instalación de teja plana de hormigón",
+          "descripcion": "Colocación de teja plana de hormigón con mortero de asiento en cumbreras, aleros y limatesas. Fijación mecánica según CTE en zonas de viento. Lámina bajo teja si pendiente <25% o zona CTE. Mano de obra de instalación y anclaje.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 18,
+          "total": 2160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro mortero de asiento y selladores",
+          "descripcion": "Mortero bastardo M-5 para asiento de cumbreras, aleros y limatesas. Sellador poliuretano para uniones y encuentros.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad mortero y sellador depende de geometría cubiererta. Estimación: 40-60 kg mortero + 10-15 kg sellador por 100m2"
+        },
+        {
+          "concepto": "Suministro e instalación de canalones y bajantes",
+          "descripcion": "Canalón de aluminio anodizado o PVC, con abrazaderas cada 60 cm, uniones y sellado. Bajante nueva si es necesario. Conexión a red pluvial existente.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lineal de canalón y bajante no especificado. Típicamente 1 ml canalón por 2-3 m2 superficie. Presupuestar por ml: 20-45€/ml montado"
+        },
+        {
+          "concepto": "Lámina bajo teja (si procede)",
+          "descripcion": "Lámina sintética transpirable bajo teja para zonas frías o pendientes bajas según CTE. Instalación con grapas y solapamiento 10 cm.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requerida si pendiente <25% o CTE lo exige. Material: 1-3€/m2. Mano obra instalación incluida en partida de instalación. Revisar planos y normativa local"
+        },
+        {
+          "concepto": "EPI línea de vida y protección en altura",
+          "descripcion": "Arnés de seguridad, línea de vida horizontal temporal, anclajes y componentes de protección colectiva para trabajos en cubierta a altura >2m.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Alquiler o compra de línea de vida. Estimación alquiler: 50-150€/día según sistema. Incluir en mano de obra si es renta por jornada"
+        },
+        {
+          "concepto": "Andamio perimetral o plataforma de seguridad",
+          "descripcion": "Andamio metálico perimetral para acceso seguro durante desmontaje e instalación. Montaje, mantenimiento y desmontaje.",
+          "oficio": "cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Duración del trabajo no especificada. Estimación: 8-15 jornadas según acceso y complejidad. Alquiler andamio: 100-200€/día; montaje/desmontaje: 200-400€"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Clavos inoxidables, ganchos de fijación, bandas de plomo o zinc para encuentros, cinta adhesiva de sellado, cola para tejas si sistema lo requiere, trapos, disolventes.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles diversos. Estimación: 2-4€/m2 según sistemas y acabados"
+        },
+        {
+          "concepto": "Remate de cumbreras, limatesas y encuentros especiales",
+          "descripcion": "Cumbreras de hormigón con mortero de asiento y fijación mecánica. Limatesas, encuentros con chimenea (si existe), aleros y ángulos singulares. Mano de obra especializada.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 5,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro cumbreras y piezas especiales de hormigón",
+          "descripcion": "Cumbreras de hormigón, limatesas prefabricadas, piezas de ángulo para encuentros con chimenea, veletas o salidas de ventilación.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número y tipo de cumbreras/limatesas no especificado. Estimación: 10-20€/m2 según elementos especiales presentes"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4200,
+        "iva_porcentaje": 21,
+        "iva": 882,
+        "total": 5082
+      },
+      "sugerencias_catalogo": [
+        "Utilizar catálogo [instalacion_de_cubierta_de_teja_arabe_o_curvada] como referencia de partidas obligatorias para desmontaje",
+        "Aplicar tarifa de [instalacion_de_cubierta_de_teja_arabe_o_curvada] adaptada a teja plana de hormigón (menos pendiente requerida, peso superior)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Teja plana de hormigón",
+          "tipo": "material",
+          "motivo": "Variante específica de teja; material variable según proveedor y calidad"
+        },
+        {
+          "concepto": "Lámina bajo teja (condicionada a CTE y pendiente)",
+          "tipo": "material",
+          "motivo": "Requerimiento normativo que puede o no ser necesario según zona geográfica y pendiente final"
+        },
+        {
+          "concepto": "Andamio perimetral (duración no especificada)",
+          "tipo": "servicio",
+          "motivo": "Necesario para seguridad en altura; coste depende de accesibilidad y duración total de obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cubierta_de_chapa_metalica_o_panel_sandwich",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "instalacion_de_canaleta_o_canalon_de_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 3,
+    "n_sugeridas": 8,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

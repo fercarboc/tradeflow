@@ -1,0 +1,170 @@
+{
+  "id": 278,
+  "oficio": "Cristalería",
+  "texto": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+  "http_status": 200,
+  "latency_ms": 20116,
+  "raw_response": {
+    "transcript": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricar mesa de centro con tapa de cristal templado de 10mm sobre estructura de hierro existente",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas exactas de la tapa de cristal no especificadas — el instalador debe proporcionar patrón o dimensiones precisas antes de encargar el templado",
+          "Estructura de hierro existente: se asume que está en buen estado y no requiere reparación. Si necesita soldadura o tratamiento antioxidante, comunicar al cliente",
+          "Plazo de fabricación del vidrio templado: 5-10 días laborales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio templado de seguridad en mesa. Partida base: [instalacion_vidrio_de_seguridad_templado]"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado 10mm para tapa de mesa",
+          "descripcion": "Suministro de vidrio templado de 10mm de espesor, medidas según patrón/dimensiones a confirmar. Incluye corte, templado en horno industrial, marcado CE según EN 12150, y embalaje para transporte. Vidrio de seguridad templado — NO se puede cortar en obra, medidas exactas OBLIGATORIAS antes de encargar.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas (m2), tipo de vidrio (incoloro/tintado), cantos (pulidos/biselados) y espesor. Instalador debe proporcionar dimensiones y especificar acabado de cantos."
+        },
+        {
+          "concepto": "Cantos pulidos o biselados para seguridad",
+          "descripcion": "Acabado de cantos del vidrio templado: pulido (estándar, seguro) o biselado (acabado premium). Obligatorio para seguridad en mesas de uso. Incluido en precio del vidrio templado si es pulido estándar; biselado requiere coste adicional.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar tipo de acabado: pulido (incluido) o biselado (coste adicional ~20-50€ según perímetro)."
+        },
+        {
+          "concepto": "Instalación de tapa de vidrio templado sobre estructura existente",
+          "descripcion": "Mano de obra de cristalería para instalación de tapa de vidrio templado sobre estructura de hierro existente. Incluye: preparación de superficie de apoyo, colocación de taloneras de silicona o gomas de amortiguación en puntos de apoyo, fijación segura, nivelación, y prueba de estabilidad. No incluye reparación de estructura metálica.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Taloneras de silicona o gomas de amortiguación",
+          "descripcion": "Pequeño material: taloneras de silicona neutra o gomas de amortiguación para apoyo del vidrio templado sobre estructura de hierro. Previene movimiento, ruido y protege el vidrio. Cantidad según número de puntos de apoyo (típicamente 4-6 puntos).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de taloneras: ~3-8€/ud. Cantidad ajustable según número de puntos de apoyo de la estructura."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Consumibles de instalación: silicona neutra (si necesario sellado perimetral), trapos, desengrasante, material de limpieza, embalaje de protección durante transporte e instalación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado: 15-30€. Incluir en presupuesto final."
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "Confirmar medidas exactas de la tapa de cristal (largo × ancho) en metros para calcular precio del vidrio templado.",
+        "Especificar espesor de vidrio: 10mm es estándar para mesas de centro de uso doméstico. Si la mesa es muy grande (>1.5m) o de uso intenso, considerar 12mm.",
+        "Definir acabado de cantos: pulido (estándar, seguro, incluido) o biselado (acabado premium, coste adicional).",
+        "Verificar estado de la estructura de hierro existente: si presenta óxido, corrosión o soldaduras dañadas, será necesario servicio de cerrajería (reparación y tratamiento antioxidante).",
+        "Número de puntos de apoyo de la estructura: confirmar para ajustar cantidad de taloneras de silicona.",
+        "¿Requiere sellado perimetral con silicona? (típicamente no en mesas de centro, pero confirmar con cliente)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado 10mm para tapa de mesa",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida de material con precio pendiente de revisión. Base: [instalacion_vidrio_de_seguridad_templado]. Precio depende de medidas exactas (m2), tipo de vidrio y acabado de cantos."
+        },
+        {
+          "concepto": "Cantos pulidos o biselados para seguridad",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Acabado de cantos del vidrio templado. Pulido incluido en precio base; biselado requiere coste adicional."
+        },
+        {
+          "concepto": "Taloneras de silicona o gomas de amortiguación",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Pequeño material de apoyo. Precio unitario ~3-8€/ud, cantidad según puntos de apoyo."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles de instalación (silicona, trapos, desengrasante, embalaje). Estimado 15-30€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_en_mesa_o_mueble",
+      "fabricacion_e_instalacion_estructura_metalica_escalera",
+      "instalacion_de_pavimento_o_suelo_de_vidrio_o_cristal",
+      "instalacion_vidrio_de_seguridad_templado",
+      "reparacion_y_soldadura_de_estructura_metalica"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3763,
+      "tokens_out": 2531
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "id": 38,
+  "oficio": "Electricidad",
+  "texto": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 18697,
+  "raw_response": {
+    "transcript": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trastero sin instalación eléctrica: requiere obra nueva completa (cableado, cuadro, protecciones)",
+          "Superficie 8 m²: se asume trastero pequeño, típicamente 2-3 enchufes + 1-2 puntos luz",
+          "Falta especificar: número exacto de enchufes, tipo de iluminación (apliques, empotrados, downlights), si hay acceso a cuadro general, si requiere rozas o canaletas",
+          "Presupuesto orientativo: revisar con cliente número exacto de puntos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica nueva en trastero: cableado, enchufes, iluminación, protecciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cableado y canalizaciones",
+          "descripcion": "Suministro e instalación de cable H07V-K 2.5 mm² para enchufes y 1.5 mm² para iluminación. Canaletas o rozas según estado de paredes. Incluye tubo corrugado de protección.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe cotizar cable, tubo y canaletas según configuración real"
+        },
+        {
+          "concepto": "Enchufes Schuko 16A",
+          "descripcion": "Suministro e instalación de 3 enchufes Schuko 16A con toma tierra. Incluye cajas de empotrar, placas y pequeño material (tornillos, teflon).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: enchufes, cajas y accesorios. Revisar cantidad exacta con cliente"
+        },
+        {
+          "concepto": "Instalación enchufes",
+          "descripcion": "Mano de obra: perforación, empotrado de cajas, conexionado y pruebas de 3 enchufes.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 55,
+          "total": 165,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puntos de luz (apliques o downlights)",
+          "descripcion": "Suministro e instalación de 2 puntos de luz LED (apliques o downlights según preferencia). Incluye luminarias, portalámparas, cajas de conexión y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: luminarias y accesorios. Revisar tipo y cantidad con cliente"
+        },
+        {
+          "concepto": "Instalación puntos de luz",
+          "descripcion": "Mano de obra: perforación, fijación de luminarias, conexionado y pruebas de 2 puntos de luz.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protecciones y cuadro de distribución",
+          "descripcion": "Suministro e instalación de interruptor diferencial 30mA, magnetotérmico 16A y cableado de conexión desde cuadro general. Incluye pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: protecciones eléctricas. Revisar si existe cuadro accesible y capacidad disponible"
+        },
+        {
+          "concepto": "Mano de obra: conexionado cuadro y pruebas finales",
+          "descripcion": "Instalación de protecciones en cuadro, conexionado de circuito, pruebas de continuidad, aislamiento y funcionamiento general.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 365,
+        "iva_porcentaje": 21,
+        "iva": 76.65,
+        "total": 441.65
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: número exacto de enchufes (presupuesto asume 3 ud)",
+        "Confirmar con cliente: número exacto de puntos de luz (presupuesto asume 2 ud)",
+        "Confirmar con cliente: tipo de iluminación preferida (apliques, downlights, tubo fluorescente)",
+        "Verificar accesibilidad al cuadro general de la vivienda/edificio",
+        "Verificar si hay rozas existentes o si requiere canaletas de superficie",
+        "Verificar capacidad disponible en cuadro general (amperaje, espacio para nuevas protecciones)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cableado y canalizaciones",
+          "oficio": "electricidad",
+          "motivo": "Obra nueva en trastero sin instalación previa"
+        },
+        {
+          "concepto": "Puntos de luz (apliques o downlights)",
+          "oficio": "electricidad",
+          "motivo": "Tipo de luminaria no especificado por cliente"
+        },
+        {
+          "concepto": "Protecciones y cuadro de distribución",
+          "oficio": "electricidad",
+          "motivo": "Requiere verificación de acceso a cuadro general y capacidad disponible"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_enchufe_nuevo",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_luna_ventana_rota",
+      "instalacion_llave_escuadra"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3630,
+      "tokens_out": 2375
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

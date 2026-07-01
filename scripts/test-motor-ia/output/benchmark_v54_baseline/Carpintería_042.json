@@ -1,0 +1,153 @@
+{
+  "id": 42,
+  "oficio": "Carpintería",
+  "texto": "Cambio de puertas de interior en toda la vivienda, son 6 puertas de 80 centímetros con marcos",
+  "http_status": 200,
+  "latency_ms": 11677,
+  "raw_response": {
+    "transcript": "Cambio de puertas de interior en toda la vivienda, son 6 puertas de 80 centímetros con marcos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de puertas de interior en toda la vivienda, son 6 puertas de 80 centímetros con marcos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye desmontaje de puertas antiguas, suministro de nuevas puertas y marcos, e instalación completa",
+          "Precio de puertas y marcos requiere revisión del instalador según especificaciones (tipo de madera, acabado, herrajes)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Desmontaje, suministro e instalación de puertas de interior con marcos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de 6 puertas antiguas con marcos",
+          "descripcion": "Desmontaje cuidadoso de 6 puertas de interior de 80 cm con marcos existentes, retirada de herrajes y pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de 6 puertas de interior 80 cm con marcos",
+          "descripcion": "Suministro de 6 puertas de interior de 80 cm de ancho con marcos de madera/MDF, bisagras, pomos y herrajes incluidos. Especificaciones a confirmar por instalador (tipo de madera, acabado, calidad de herrajes)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de puertas y marcos variable según especificaciones técnicas (tipo madera, acabado, herrajes). Rango orientativo: 150-400€/ud"
+        },
+        {
+          "concepto": "Instalación de 6 puertas con marcos",
+          "descripcion": "Instalación completa de 6 puertas de interior de 80 cm: colocación de marcos, ajuste de puertas, instalación de bisagras, pomos y herrajes, regulación y pruebas de funcionamiento",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste de puertas, regulación de bisagras y pruebas",
+          "descripcion": "Ajuste fino de todas las puertas, regulación de bisagras para cierre correcto, pruebas de funcionamiento y cierre suave",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Retirada y gestión de puertas antiguas",
+          "descripcion": "Retirada de escombros y puertas antiguas, carga en contenedor o transporte a punto de recogida",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de gestión de residuos variable según volumen y normativa local. Rango orientativo: 50-150€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 630,
+        "iva_porcentaje": 21,
+        "iva": 132.3,
+        "total": 762.3
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de puerta: madera maciza, MDF, tablero aglomerado o composite",
+        "Especificar acabado: natural, lacado, pintado, chapado",
+        "Definir herrajes: bisagras estándar, cierre automático, pomos/manillas específicas",
+        "Considerar si se requiere pintura o tratamiento adicional post-instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de 6 puertas de interior 80 cm con marcos",
+          "oficio": "carpinteria",
+          "motivo": "Material variable según especificaciones del cliente"
+        },
+        {
+          "concepto": "Retirada y gestión de puertas antiguas",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de gestión de residuos variable según normativa local"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_puerta_doble_hoja_interior",
+      "pintado_armarios_empotrados_interiores",
+      "instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra",
+      "pintado_locales_comerciales_y_tiendas"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3675,
+      "tokens_out": 1596
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

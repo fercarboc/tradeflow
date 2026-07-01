@@ -1,0 +1,198 @@
+{
+  "id": 139,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+  "http_status": 200,
+  "latency_ms": 23558,
+  "raw_response": {
+    "transcript": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Claraboya con apertura eléctrica requiere suministro de energía: verificar disponibilidad de línea eléctrica próxima",
+          "Tejado plano: confirmar pendiente mínima 3-5% para autolavado y drenaje",
+          "Vidrio laminado OBLIGATORIO en cubiertas por CTE",
+          "Impermeabilización del encuentro CRÍTICA para evitar goteras",
+          "Medidas in situ OBLIGATORIAS antes de pedir claraboya"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de claraboya en cubierta plana, impermeabilización de encuentro, remates"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica de mecanismo de apertura automática, cuadro de control"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado perimetral, lámina EPDM en encuentro, juntas de dilatación estancas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Claraboya de apertura eléctrica con vidrio laminado",
+          "descripcion": "Suministro de claraboya motorizada con vidrio laminado de seguridad, marco aluminio o acero inoxidable, mecanismo de apertura eléctrica con motor y control remoto/automático, según medidas in situ",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca, modelo, tamaño (medir in situ), tipo de apertura (manual/motorizada) y accesorios. Rango orientativo: 800-2500€/ud"
+        },
+        {
+          "concepto": "Impermeabilización encuentro claraboya con lámina EPDM",
+          "descripcion": "Lámina EPDM de impermeabilización específica para encuentro claraboya-cubierta, collar de impermeabilización, sellado perimetral con silicona sanitaria de calidad, juntas de dilatación estancas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tamaño claraboya y complejidad encuentro. Rango: 150-400€"
+        },
+        {
+          "concepto": "Instalación claraboya en cubierta plana",
+          "descripcion": "Trabajos de instalación: apertura en cubierta, colocación de marco, fijación a estructura, nivelación, sellado perimetral completo, pruebas de estanqueidad",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización y sellado encuentro",
+          "descripcion": "Aplicación de lámina EPDM, sellado con silicona, colocación de collar impermeabilizante, pruebas de estanqueidad con agua",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica mecanismo apertura automática",
+          "descripcion": "Tendido de línea eléctrica desde cuadro próximo a claraboya, instalación de cuadro de control/temporizador, conexión motor apertura, pruebas de funcionamiento, puesta en marcha",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería inox, tacos especiales, silicona sanitaria, cinta de sellado, grapas, bridas, material fungible",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado: 80-150€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 630,
+        "iva_porcentaje": 21,
+        "iva": 132.3,
+        "total": 762.3
+      },
+      "sugerencias_catalogo": [
+        "Confirmar marca y modelo de claraboya motorizada (Velux, Fakro, Roto, etc.) para obtener precio exacto",
+        "Verificar disponibilidad de línea eléctrica a menos de 5m de la claraboya",
+        "Solicitar medidas exactas in situ antes de pedir claraboya (ancho entre pares, largo entre pares)",
+        "Considerar si se requiere sensor de lluvia para cierre automático (incluido en algunos modelos)",
+        "Confirmar si la cubierta plana tiene pendiente mínima 3-5% para autolavado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Claraboya de apertura eléctrica con vidrio laminado",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico motorizado no detallado en catálogo base. Requiere especificación de marca/modelo"
+        },
+        {
+          "concepto": "Impermeabilización encuentro claraboya con lámina EPDM",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico de encuentro claraboya. Precio depende de tamaño y complejidad"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Fungibles específicos para instalación en cubierta"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "instalacion_de_lucernarios_en_cubierta_inclinada",
+      "instalacion_lucernario_o_claraboya_fija",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3781,
+      "tokens_out": 2228
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "id": 323,
+  "oficio": "Fachadas",
+  "texto": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+  "http_status": 200,
+  "latency_ms": 22896,
+  "raw_response": {
+    "transcript": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: Se menciona 'sin dañar la piedra' pero el trabajo es sobre 'ladrillo visto'. Aclarar si hay elementos de piedra en la fachada o si es solo ladrillo.",
+          "Se requiere especificar: superficie total en m², tipo de suciedad/manchas (orgánica, óxido, eflorescencias, hollín), antigüedad del edificio, accesibilidad para andamio."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Limpieza química de fachada de ladrillo visto con equipo de presión. Oficio especializado en revestimientos y envolventes exteriores."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Producto limpiador químico especializado",
+          "descripcion": "Producto limpiador específico según tipo de mancha (desengrasante, anti-eflorescencias, anti-óxido o biocida según diagnóstico). Incluye ficha técnica y compatibilidad con ladrillo visto.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio dependen de: superficie total (m²), tipo de suciedad, concentración del producto. El instalador debe especificar litros necesarios y coste del producto químico seleccionado."
+        },
+        {
+          "concepto": "Aplicación de producto limpiador con equipo de presión controlada",
+          "descripcion": "Aplicación del producto químico con equipo de presión (máximo 80-100 bar para no dañar ladrillo visto), pulverización uniforme, tiempo de actuación según ficha técnica, enjuague abundante con agua a baja presión.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad: especificar superficie total en m². Tarifa: 45€/m² es referencia de BASE MAESTRA para limpieza química de fachada (rango 15-75€/m² según complejidad). Ajustar si hay elementos de piedra o dificultad especial."
+        },
+        {
+          "concepto": "Enjuague final abundante y neutralización",
+          "descripcion": "Enjuague exhaustivo con agua a baja presión para eliminar residuos de producto químico. Si se utilizó producto ácido, aplicación de neutralizante para evitar eflorescencias posteriores.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad: especificar superficie total en m². Incluida en tarifa de aplicación, pero se detalla como fase crítica para evitar daños posteriores."
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler y montaje de andamio tubular o plataforma elevadora para acceso seguro a toda la fachada. Incluye desmontaje al finalizar.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de jornadas y coste dependen de: altura de fachada, superficie, accesibilidad. El instalador debe cotizar alquiler de andamio o presupuestar como partida separada."
+        },
+        {
+          "concepto": "Equipos de protección individual (EPI) y pequeño material",
+          "descripcion": "EPI obligatorio: gafas de protección, guantes nitrilo/neopreno, mascarilla FFP2 (si producto químico volátil), ropa de trabajo, botas antideslizantes. Pequeño material: cepillos, esponjas, trapos, cubetas, mangueras.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estimado 30-50€/jornada según cantidad de operarios y duración. El instalador debe presupuestar según equipo disponible."
+        },
+        {
+          "concepto": "Tratamiento hidrofugo incoloro (opcional)",
+          "descripcion": "Aplicación de hidrofugo incoloro transpirable para proteger el ladrillo visto tras la limpieza. Mejora la durabilidad y evita futuras manchas de humedad. OPCIONAL: solo si cliente lo solicita.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OPCIONAL. Cantidad: 1 litro cubre aprox. 5-8 m² según porosidad del ladrillo. Precio: 15-40€/litro. El instalador decide si incluir y presupuesta cantidad."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "INFORMACIÓN CRÍTICA FALTANTE para completar presupuesto: 1) Superficie total de fachada en m². 2) Tipo de suciedad (orgánica/algas, óxido, eflorescencias, hollín, graffiti). 3) Antigüedad del edificio (¿es histórico? → usar mortero cal, no cemento). 4) ¿Hay elementos de piedra además de ladrillo? (aclarar para seleccionar producto compatible). 5) ¿Incluir hidrofugo final? 6) Altura y accesibilidad (¿necesita andamio? ¿cuántas jornadas?).",
+        "Una vez el instalador proporcione estos datos, se calculará: Cantidad m² × 45€/m² (mano de obra) + coste producto químico + coste andamio + coste EPI/pequeño material + IVA 21%."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Producto limpiador químico especializado",
+          "oficio": "fachadas",
+          "motivo": "Tipo específico de producto depende del diagnóstico de manchas. Se crea como sugerida_ia para que el instalador especifique marca, cantidad y coste."
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "fachadas",
+          "motivo": "Coste variable según altura y duración. Se presupuesta como servicio separado o incluido en jornada de trabajo."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_quimica_de_fachada_con_eflorescencias_o_manchas",
+      "reparacion_y_rejuntado_de_ladrillo_cara_vista",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "revestimiento_de_zocalo_exterior_con_piedra"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3711,
+      "tokens_out": 2680
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

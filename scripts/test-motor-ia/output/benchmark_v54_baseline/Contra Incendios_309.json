@@ -1,0 +1,190 @@
+{
+  "id": 309,
+  "oficio": "Contra Incendios",
+  "texto": "Mantenimiento anual de sistema de detección y alarma contra incendios de hotel de 30 habitaciones",
+  "http_status": 200,
+  "latency_ms": 15556,
+  "raw_response": {
+    "transcript": "Mantenimiento anual de sistema de detección y alarma contra incendios de hotel de 30 habitaciones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento anual de sistema de detección y alarma contra incendios de hotel de 30 habitaciones",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto de mantenimiento anual obligatorio según RD 513/2017",
+          "Debe ser realizado por empresa mantenedora autorizada",
+          "Certificado anual requerido para póliza de seguros y licencia de actividad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de detección y alarma contra incendios - mantenimiento anual obligatorio"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección completa central de incendios y todos los elementos",
+          "descripcion": "Revisión exhaustiva de central de detección e incendios (CIE), verificación de todas las conexiones, estado de batería de respaldo (72h), comprobación de señales de fallo y funcionamiento general del sistema",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de funcionamiento de detectores de humo y pulsadores manuales",
+          "descripcion": "Prueba por muestreo de detectores de humo (ionización/ópticos) en zonas comunes, pasillos y habitaciones. Verificación de respuesta de pulsadores manuales de alarma. Limpieza de lentes de detectores si es necesario",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de funcionamiento de detectores de temperatura",
+          "descripcion": "Verificación de detectores de temperatura en cocina, lavandería y otras zonas de riesgo. Comprobación de respuesta y limpieza de elementos sensibles",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 80,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de sirenas, strobes y señalización acústica/visual",
+          "descripcion": "Verificación de funcionamiento de sirenas y luces estroboscópicas en todas las zonas. Comprobación de audibilidad y visibilidad. Prueba de señalización de emergencia iluminada",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 100,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión de bocas de incendio equipadas (BIEs) y extintores",
+          "descripcion": "Inspección visual de BIEs (accesibilidad, señalización, estado de manguera y válvulas). Verificación de presión y estanqueidad. Revisión de extintores: estado físico, presión, etiquetado y accesibilidad. Recarga de extintores si es necesario",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 140,
+          "total": 140,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de cableado resistente al fuego y alimentación del sistema",
+          "descripcion": "Inspección visual de cableado E30/E90, conexiones y canalizaciones. Comprobación de integridad de aislamiento. Verificación de fuente de alimentación principal y batería de respaldo (72h). Prueba de conmutación automática",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 110,
+          "total": 110,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Emisión de certificado anual de mantenimiento y actualización de libro de mantenimiento",
+          "descripcion": "Generación de certificado oficial de mantenimiento anual según RD 513/2017 y normativa vigente. Documentación completa de todas las pruebas realizadas. Actualización del libro de mantenimiento del hotel. Entrega de copia para póliza de seguros y licencia de actividad",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 80,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Pilas de repuesto para detectores inalámbricos, lubricantes, desengrasantes, materiales de limpieza, etiquetas de revisión y otros consumibles necesarios para el mantenimiento",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a determinar por instalador según consumibles reales utilizados"
+        }
+      ],
+      "calculos": {
+        "subtotal": 780,
+        "iva_porcentaje": 21,
+        "iva": 163.8,
+        "total": 943.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el hotel dispone de rociadores automáticos (sprinklers) - si es así, añadir partida de revisión y prueba de grupo de presión",
+        "Confirmar si existe sistema de extinción automática en cocina o cuarto técnico - requeriría prueba adicional",
+        "Considerar si hay integración con sistema de control de acceso o ascensores - podría requerir prueba de coordinación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "contra_incendios",
+          "motivo": "Material fungible necesario para mantenimiento - precio a determinar por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_de_instalacion_contra_incendios",
+      "mantenimiento_trimestral_de_instalacion_contra_incendios",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_de_instalacion_contra_incendios_en_local"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3918,
+      "tokens_out": 2151
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 7,
+    "n_sugeridas": 1,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

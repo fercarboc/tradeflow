@@ -1,0 +1,46 @@
+{
+  "id": 364,
+  "oficio": "Reformas Integrales",
+  "texto": "Convertir local comercial en vivienda de 60 metros cuadrados con licencia de cambio de uso",
+  "http_status": 200,
+  "latency_ms": 54885,
+  "raw_response": {
+    "transcript": "Convertir local comercial en vivienda de 60 metros cuadrados con licencia de cambio de uso",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "tabique_pladur_en_local_comercial_o_bar",
+      "instalacion_sistema_de_climatizacion_en_local_comercial",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_red_datos_ethernet_cat6_en_vivienda"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

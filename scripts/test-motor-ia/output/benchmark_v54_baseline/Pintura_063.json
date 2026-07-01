@@ -1,0 +1,190 @@
+{
+  "id": 63,
+  "oficio": "Pintura",
+  "texto": "Poner gotelé en el techo del salón y la cocina, reparar manchas de humedad antes de pintar",
+  "http_status": 200,
+  "latency_ms": 20890,
+  "raw_response": {
+    "transcript": "Poner gotelé en el techo del salón y la cocina, reparar manchas de humedad antes de pintar",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner gotelé en el techo del salón y la cocina, reparar manchas de humedad antes de pintar",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Se menciona humedad. Debe identificarse y repararse la CAUSA antes de aplicar gotelé.",
+          "Falta información: superficie en m² de salón y cocina.",
+          "Falta información: estado actual del techo (grietas, desprendimientos, moho visible).",
+          "Recomendación: realizar inspección previa para diagnosticar origen de humedad (goteras, condensación, capilaridad)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Aplicación de gotelé (pintura texturizada) y pintura antimoho en techos."
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Reparación de manchas de humedad en pladur/escayola antes de pintar."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y diagnóstico de humedad en techo",
+          "descripcion": "Inspección visual y diagnóstico de origen de manchas de humedad (goteras, condensación, capilaridad). Identificación de zonas afectadas y recomendaciones de reparación.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador según complejidad del diagnóstico."
+        },
+        {
+          "concepto": "Reparación de manchas de humedad en techo (salón + cocina)",
+          "descripcion": "Saneado de zonas con moho/humedad, aplicación de desinfectante, masilla de reparación en grietas y fisuras, lijado y preparación de superficie. Incluye pequeño material (masilla, lija grano 120-220, esponja, trapos).",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² no especificada. Instalador debe medir superficie real de salón + cocina."
+        },
+        {
+          "concepto": "Desinfectante y limpieza previa (lejía diluida)",
+          "descripcion": "Limpieza y desinfección de zonas con moho/hongos mediante lejía diluida. Incluye aplicación, tiempo de actuación y aclarado.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros a definir según extensión de humedad. Precio material a revisar."
+        },
+        {
+          "concepto": "Imprimación fijadora antimoho",
+          "descripcion": "Aplicación de imprimación fijadora con propiedades antimoho en zonas reparadas. Prepara la superficie para recibir pintura gotelé.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros a definir según m² a imprimacionar. Precio material a revisar."
+        },
+        {
+          "concepto": "Aplicación de pintura gotelé en techo (salón + cocina)",
+          "descripcion": "Aplicación de pintura gotelé (texturizada) en dos manos sobre techo de salón y cocina. Incluye rodillo de pelo largo, extensión, bandeja, cinta carrocero, plástico de protección y pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 10,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² no especificada. Instalador debe medir superficie real de salón + cocina. Precio unitario estimado para gotelé (inferior a pintura plástica estándar)."
+        },
+        {
+          "concepto": "Pintura gotelé (material)",
+          "descripcion": "Suministro de pintura gotelé de calidad (2 manos). Rendimiento aproximado 12-14 m²/litro.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros a calcular según m² finales (m²/12). Precio material a revisar por instalador."
+        },
+        {
+          "concepto": "Protección y limpieza final",
+          "descripcion": "Colocación de cinta carrocero, plástico de protección en muebles y suelo. Limpieza final de la zona tras finalizar trabajos.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador (puede incluirse en mano de obra general o facturarse por separado)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente medición exacta de m² de techo en salón y cocina.",
+        "Realizar inspección previa para identificar causa de humedad (goteras en cubierta, condensación, capilaridad, infiltraciones).",
+        "Si la humedad es activa (goteras), REPARAR PRIMERO la causa antes de aplicar gotelé.",
+        "Considerar pintura antimoho de calidad superior si hay antecedentes de moho recurrente.",
+        "Gotelé es textura que puede ocultar defectos menores pero NO soluciona problemas de humedad estructural."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inspección y diagnóstico de humedad en techo",
+          "oficio": "pladur_escayola",
+          "motivo": "Servicio de diagnóstico previo no incluido en catálogo estándar, pero OBLIGATORIO antes de reparar humedad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_plastica_techo_interior",
+      "reparacion_gotera_o_humedad_en_pladur",
+      "pintado_techo_con_pintura_especial_humedad_o_moho",
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "correccion_de_puentes_termicos_en_cubierta"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3542,
+      "tokens_out": 2644
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

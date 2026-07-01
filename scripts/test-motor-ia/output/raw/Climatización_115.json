@@ -1,0 +1,221 @@
+{
+  "id": 115,
+  "oficio": "Climatización",
+  "texto": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+  "http_status": 200,
+  "latency_ms": 17751,
+  "raw_response": {
+    "transcript": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar que el circuito de agua existente tiene capacidad térmica suficiente para la nueva unidad",
+          "Confirmar disponibilidad de espacio en dormitorio para montaje del fan coil",
+          "Revisar conexión eléctrica disponible para alimentación del ventilador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de unidad terminal de climatización (fan coil) con conexión a sistema de agua existente"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión de tuberías de agua caliente/fría al fan coil, válvulas de corte y equilibrado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Fan coil de pared o suelo para frío/calor",
+          "descripcion": "Unidad terminal fan coil 2 tubos (agua caliente/fría) con capacidad de climatización reversible, incluye filtro de aire y termostato de ambiente",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del fan coil según modelo, potencia (kW) y acabado a definir por instalador"
+        },
+        {
+          "concepto": "Conexión tuberías agua caliente/fría al fan coil",
+          "descripcion": "Tuberías de cobre o multicapa (ida y retorno) desde circuito existente hasta fan coil, incluyendo válvulas de corte, válvula de equilibrado y pequeño material (codos, tes, manguitos)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje de tubería y tipo de material a confirmar según distancia y circuito existente"
+        },
+        {
+          "concepto": "Instalación y conexión fan coil",
+          "descripcion": "Montaje de la unidad fan coil en pared o suelo, conexión de tuberías de agua, purgado del circuito, pruebas de funcionamiento en frío y calor, ajuste de caudal y temperatura",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión y equilibrado de circuito de agua",
+          "descripcion": "Conexión de tuberías al circuito existente, instalación de válvulas de corte y equilibrado, purgado de aire, pruebas de estanqueidad y caudal",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Válvulas de corte y equilibrado",
+          "descripcion": "Válvulas de esfera de corte (entrada/salida agua) y válvula de equilibrado manual para regulación de caudal en fan coil",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de válvulas según diámetro y tipo a confirmar"
+        },
+        {
+          "concepto": "Aislamiento de tuberías agua fría",
+          "descripcion": "Espuma elastómera o lana mineral para aislamiento de tuberías de agua fría (evitar condensación), espesor 20-30 mm",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje de aislamiento a confirmar según recorrido de tuberías"
+        },
+        {
+          "concepto": "Termostato de ambiente para fan coil",
+          "descripcion": "Termostato digital de pared con control de temperatura, selector frío/calor/parada, compatible con fan coil",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del termostato según modelo y funcionalidades a definir"
+        },
+        {
+          "concepto": "Conexión eléctrica del fan coil",
+          "descripcion": "Cableado y conexión eléctrica del ventilador del fan coil a cuadro eléctrico o enchufe disponible, incluyendo pequeño material (cable, conectores, tubo protector)",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 490,
+        "iva_porcentaje": 21,
+        "iva": 102.9,
+        "total": 592.9
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de fan coils disponibles según potencia térmica requerida (típicamente 2-5 kW para dormitorio)",
+        "Verificar compatibilidad del fan coil con el sistema de agua existente (temperatura de impulsión, caudal, presión)",
+        "Considerar si se requiere válvula de tres vías para mezcla de agua en caso de que el circuito no tenga control de temperatura"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Fan coil de pared o suelo para frío/calor",
+          "oficio": "climatizacion",
+          "motivo": "Material específico cuyo precio depende del modelo y potencia seleccionada"
+        },
+        {
+          "concepto": "Conexión tuberías agua caliente/fría al fan coil",
+          "oficio": "fontaneria",
+          "motivo": "Material de tuberías y accesorios cuyo precio depende del metraje y tipo de material"
+        },
+        {
+          "concepto": "Válvulas de corte y equilibrado",
+          "oficio": "fontaneria",
+          "motivo": "Material específico cuyo precio depende del diámetro de conexión"
+        },
+        {
+          "concepto": "Aislamiento de tuberías agua fría",
+          "oficio": "climatizacion",
+          "motivo": "Material de aislamiento cuyo precio depende del metraje de tuberías"
+        },
+        {
+          "concepto": "Termostato de ambiente para fan coil",
+          "oficio": "climatizacion",
+          "motivo": "Material específico cuyo precio depende del modelo y funcionalidades"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "instalacion_sistema_agua_helada_chiller",
+      "reparacion_averia_caldera_gas",
+      "reparacion_grifo_o_griferia_averiada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3740,
+      "tokens_out": 2455
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

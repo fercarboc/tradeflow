@@ -1,0 +1,121 @@
+{
+  "id": 261,
+  "oficio": "Cristalería",
+  "texto": "Cambio de luna de ventana rota, vidrio de seguridad de 4mm en ventana de 80x120 centímetros",
+  "http_status": 200,
+  "latency_ms": 13003,
+  "raw_response": {
+    "transcript": "Cambio de luna de ventana rota, vidrio de seguridad de 4mm en ventana de 80x120 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de luna de ventana rota, vidrio de seguridad de 4mm en ventana de 80x120 centímetros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio de seguridad templado de 4mm especificado. Verificar que cumple CTE DB-SUA según ubicación (baños, puertas, zonas de paso requieren templado obligatorio).",
+          "Medida exacta: 80x120 cm = 0,96 m². Precio unitario debe ajustarse según proveedor de vidrio templado."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Cambio de luna (vidrio) en ventana existente. Oficio cristalería validado en Base Maestra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de vidrio roto con medidas de seguridad",
+          "descripcion": "Desmontaje cuidadoso de luna rota de 80x120 cm. Retirada segura de fragmentos, limpieza de marco y junquillo existente.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Vidrio templado de seguridad 4mm, 80x120 cm",
+          "descripcion": "Luna de vidrio templado de seguridad de 4mm de espesor, medida exacta 80x120 cm (0,96 m²). Marcado CE según EN 12150. Incluye pequeño material (silicona neutra, junquillo si necesario).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado 4mm debe ser confirmado por proveedor según medida exacta 80x120 cm. Rango orientativo: 150-280€ según calidad y proveedor."
+        },
+        {
+          "concepto": "Instalación de luna templada con silicona y junquillo",
+          "descripcion": "Colocación de vidrio templado en marco existente. Aplicación de silicona neutra de fijación, recolocación de junquillo, limpieza final y prueba de estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Vidrio templado de seguridad 4mm' requiere precio de material. Consultar con proveedor de vidrio templado certificado. Plazo típico: 5-10 días si no hay stock.",
+        "Si la ventana está en zona de paso, baño o puerta: vidrio templado es OBLIGATORIO por CTE DB-SUA. Si está en fachada o zona baja: verificar normativa local.",
+        "Considerar si el marco actual admite el espesor del vidrio (típicamente 4-6mm). Marcos antiguos pueden requerir adaptación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado de seguridad 4mm, 80x120 cm",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "razon": "Material específico con medida exacta. Precio pendiente de confirmación por proveedor."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio",
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "cambio_luna_ventana_rota",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_vidrio_laminado_de_seguridad"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3817,
+      "tokens_out": 1286
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 2,
+    "n_sugeridas": 1,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

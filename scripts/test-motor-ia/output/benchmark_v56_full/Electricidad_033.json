@@ -1,0 +1,183 @@
+{
+  "id": 33,
+  "oficio": "Electricidad",
+  "texto": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+  "http_status": 200,
+  "latency_ms": 17251,
+  "raw_response": {
+    "transcript": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación en falso techo de pladur existente. Si es techo de obra vista o escayola, revisar accesibilidad.",
+          "Precio de focos LED y transformadores pendiente de revisión del instalador."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de circuitos eléctricos, conexión de focos LED y pruebas de funcionamiento."
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Apertura de huecos en placa de pladur para empotrables y remates de bordes."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Apertura de huecos en pladur para focos empotrables",
+          "descripcion": "Marcado, corte y apertura de 8 huecos circulares en placa de pladur para alojamiento de focos LED empotrables en baño y cocina. Incluye pequeño material (sierras, brocas, etc.).",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Focos LED empotrables 8W-12W con marco recortable",
+          "descripcion": "Suministro de 8 focos LED empotrables (marco recortable, 8-12W, 4000K-6500K, IP44 mínimo para baño). Incluye aros de fijación y pequeño material de montaje.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de focos LED a definir por instalador según marca, potencia y grado de protección (IP44 recomendado para baño)."
+        },
+        {
+          "concepto": "Instalación de focos LED empotrables",
+          "descripcion": "Colocación de aros empotrables en huecos, fijación de focos, conexión de cables a circuito eléctrico y pruebas de funcionamiento. 8 unidades.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable eléctrico H07V-U 1.5mm² para circuito focos",
+          "descripcion": "Suministro de cable eléctrico H07V-U 1.5mm² (o equivalente) para conexión de 8 focos LED. Longitud estimada según distribución en baño y cocina.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud de cable a definir según plano de distribución. Precio por metro lineal a revisar."
+        },
+        {
+          "concepto": "Transformador LED (si focos requieren)",
+          "descripcion": "Suministro e instalación de transformador LED 12V o 24V (si los focos lo requieren). Incluye caja de derivación y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario solo si focos son 12V/24V. Si son 230V directo, no aplica. Revisar especificación de focos."
+        },
+        {
+          "concepto": "Remates y acabados en pladur alrededor de focos",
+          "descripcion": "Aplicación de cinta de juntas, pasta de juntas y lija en bordes de huecos. Acabado liso para posterior pintura. 8 focos.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 960,
+        "iva_porcentaje": 21,
+        "iva": 201.6,
+        "total": 1161.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar si los focos LED son 230V directo o requieren transformador 12V/24V antes de presupuestar.",
+        "Confirmar grado de protección IP44 mínimo para focos en baño (humedad).",
+        "Considerar temperatura de color: 4000K (blanco neutro) para cocina, 4000-6500K para baño.",
+        "Si el techo no es pladur sino escayola o yeso, el corte puede requerir herramientas especiales y mayor tiempo."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Focos LED empotrables 8W-12W con marco recortable",
+          "oficio": "pladur_escayola",
+          "motivo": "Material específico de focos LED; precio variable según marca y especificaciones."
+        },
+        {
+          "concepto": "Cable eléctrico H07V-U 1.5mm² para circuito focos",
+          "oficio": "electricidad",
+          "motivo": "Material de cableado; longitud y precio a definir según distribución real."
+        },
+        {
+          "concepto": "Transformador LED (si focos requieren)",
+          "oficio": "electricidad",
+          "motivo": "Componente opcional; necesario solo si focos son 12V/24V."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "falso_techo_pladur_con_iluminacion_empotrada",
+      "instalacion_de_techo_o_cubierta_de_madera_interior",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_barra_y_riel_para_cortinas_de_tela",
+      "instalacion_difusores_y_rejillas_climatizacion"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3845,
+      "tokens_out": 2066
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

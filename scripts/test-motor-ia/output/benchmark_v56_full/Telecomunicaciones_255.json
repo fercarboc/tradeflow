@@ -1,0 +1,183 @@
+{
+  "id": 255,
+  "oficio": "Telecomunicaciones",
+  "texto": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+  "http_status": 200,
+  "latency_ms": 19143,
+  "raw_response": {
+    "transcript": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pasar cable coaxial para televisión en todos los dormitorios, 4 tomas nuevas con amplificador",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume vivienda unifamiliar o apartamento con 4 dormitorios. Si es edificio plurifamiliar, revisar si requiere ICT obligatoria (RD 346/2011).",
+          "Amplificador: se presupuesta 1 unidad centralizada. Confirmar ubicación (cuarto técnico, armario, etc.).",
+          "Longitud total de cable coaxial: no especificada. Se presupuesta como partida de mano de obra por toma + material a revisar."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de red de distribución de televisión (TDT/satélite) con cable coaxial, tomas y amplificador."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cable coaxial 75 ohmios para televisión",
+          "descripcion": "Suministro e instalación de cable coaxial RG-6 o equivalente 75Ω para distribución de señal TV en 4 dormitorios. Incluye paso por rozas, canaletas o conductos existentes.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud estimada (80 ml para 4 dormitorios + troncal). Instalador debe confirmar metraje real y precio de cable coaxial de calidad."
+        },
+        {
+          "concepto": "Tomas de usuario para televisión",
+          "descripcion": "Suministro e instalación de 4 tomas de usuario (conectores F hembra) para televisión en dormitorios. Incluye caja de derivación, conector y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de toma de usuario (caja + conector F + pequeño material). Revisar según marca y calidad."
+        },
+        {
+          "concepto": "Amplificador de banda ancha para televisión",
+          "descripcion": "Suministro e instalación de amplificador de mastil o centralizado (1 unidad) para refuerzo de señal TV. Incluye fuente de alimentación, conectores y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de amplificador (rango típico 80-250€ según ganancia y banda). Confirmar especificaciones técnicas (ganancia dB, banda UHF/VHF)."
+        },
+        {
+          "concepto": "Mano de obra: instalación de red de distribución TV",
+          "descripcion": "Mano de obra para apertura de rozas, paso de cable coaxial, instalación de tomas de usuario, conexión de amplificador y pruebas de señal en 4 dormitorios.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Derivadores y conectores coaxiales",
+          "descripcion": "Suministro de derivadores (splitters) de 2 o 4 salidas, conectores F macho/hembra, adaptadores y pequeño material para distribución de señal.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de derivadores según topología de red. Revisar pérdida de señal por derivación."
+        },
+        {
+          "concepto": "Pruebas de señal y medición de nivel",
+          "descripcion": "Medición de nivel de señal en cada toma de usuario con medidor de campo. Ajuste de amplificador si es necesario. Verificación de continuidad y ausencia de interferencias.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 500,
+        "iva_porcentaje": 21,
+        "iva": 105,
+        "total": 605
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'cable_coaxial_75_ohmios' con precios por metro lineal según calidad (RG-6, RG-11, etc.).",
+        "Verificar en catálogo: 'toma_usuario_television' con conectores F y cajas de derivación.",
+        "Verificar en catálogo: 'amplificador_banda_ancha_television' con especificaciones de ganancia (20-30 dB típico).",
+        "Verificar en catálogo: 'derivadores_splitters_coaxiales' de 2, 3 o 4 salidas según topología.",
+        "Si la vivienda es edificio plurifamiliar, considerar si requiere ICT (Infraestructura Común de Telecomunicaciones) según RD 346/2011."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable coaxial 75 ohmios para televisión",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Material de distribución de señal TV. No encontrado en catálogo con especificación de precio por ml."
+        },
+        {
+          "concepto": "Tomas de usuario para televisión",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Conectores y cajas de derivación para tomas de usuario. Requiere precio unitario según marca."
+        },
+        {
+          "concepto": "Amplificador de banda ancha para televisión",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Amplificador centralizado o de mastil. Requiere especificación técnica y precio."
+        },
+        {
+          "concepto": "Derivadores y conectores coaxiales",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "motivo": "Splitters y conectores para distribución. Requiere cantidad y tipo según topología."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "instalacion_linea_electrica_electrodomestico"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3975,
+      "tokens_out": 2201
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

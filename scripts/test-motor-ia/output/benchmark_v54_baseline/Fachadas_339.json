@@ -1,0 +1,219 @@
+{
+  "id": 339,
+  "oficio": "Fachadas",
+  "texto": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+  "http_status": 200,
+  "latency_ms": 21829,
+  "raw_response": {
+    "transcript": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume zona de acceso como fachada exterior. Confirmar si es interior o exterior para seleccionar pintura adecuada.",
+          "Superficie de fachada no especificada: se requiere medición en obra.",
+          "Altura de zócalo de gres no especificada: se asume altura estándar 1,5 m."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de fachada con pintura. Oficio especializado en rehabilitación de envolvente exterior."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Instalación de zócalo de gres (baldosa cerámica/porcelánico). Trabajo de alicatado especializado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de fachada",
+          "descripcion": "Limpieza de superficie, eliminación de suciedad, algas y eflorescencias. Reparación de grietas y pequeños desperfectos previos al pintado.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total de fachada no especificada. Instalador debe medir e introducir cantidad en m2."
+        },
+        {
+          "concepto": "Imprimación consolidante en fachada",
+          "descripcion": "Aplicación de imprimación fijadora y consolidante sobre superficie de fachada (ladrillo, mortero u hormigón). Preparación para pintura final.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: imprimación consolidante. Precio a introducir por instalador según marca y cantidad (rendimiento ~12-15 m2/litro)."
+        },
+        {
+          "concepto": "Pintura de fachada (2 manos)",
+          "descripcion": "Aplicación de pintura mineral transpirable o siloxano en fachada. Dos manos de acabado. Protección contra humedad y UV.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pintura fachada. Precio a introducir por instalador según marca y cantidad (rendimiento ~8-12 m2/litro en dos manos)."
+        },
+        {
+          "concepto": "Mano de obra pintado de fachada",
+          "descripcion": "Aplicación de imprimación y dos manos de pintura en fachada. Incluye preparación, masillado de grietas y acabado.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total de fachada no especificada. Instalador debe medir e introducir cantidad en m2."
+        },
+        {
+          "concepto": "Suministro de gres para zócalo",
+          "descripcion": "Baldosa de gres porcelánico o cerámica para zócalo de acceso. Incluye adhesivo, lechada y pequeño material de colocación.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: gres, adhesivo y lechada. Precio a introducir por instalador según especificación de baldosa (formato, espesor, marca)."
+        },
+        {
+          "concepto": "Instalación de zócalo de gres",
+          "descripcion": "Colocación de baldosa de gres en zócalo de acceso. Incluye preparación de base, adhesivo, rejuntado y acabado. Altura estándar 1,5 m.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de zócalo no especificada. Instalador debe medir perímetro × altura (1,5 m) e introducir cantidad en m2."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Masilla, lijas, trapos, cinta de protección, cubetas, brochas, rodillos, llanas, esponjas y otros consumibles necesarios para la ejecución.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida de pequeño material. Precio estimado 50-150€ según alcance. Instalador introduce importe."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la fachada es de ladrillo visto, mortero, hormigón u otro material para seleccionar imprimación y pintura específica.",
+        "Especificar si el zócalo de gres es interior (zona cubierta) o exterior (expuesto a lluvia) para seleccionar adhesivo y lechada adecuados.",
+        "Medir superficie total de fachada a pintar (m2) y perímetro × altura del zócalo (m2) para completar cantidades.",
+        "Considerar si es necesario andamio o plataforma elevadora según altura de fachada.",
+        "Especificar color y acabado de pintura (mate, satinado, brillante) y tipo de gres (antideslizante recomendado en zona de acceso)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Limpieza y preparación de fachada",
+          "oficio": "fachadas",
+          "motivo": "Trabajo preparatorio previo al pintado. Incluido en proceso estándar de reforma de fachada."
+        },
+        {
+          "concepto": "Imprimación consolidante en fachada",
+          "oficio": "fachadas",
+          "motivo": "Partida obligatoria según Base Maestra para pintado de fachada. Garantiza adherencia y durabilidad."
+        },
+        {
+          "concepto": "Pintura de fachada (2 manos)",
+          "oficio": "fachadas",
+          "motivo": "Material de acabado. Dos manos estándar para protección exterior."
+        },
+        {
+          "concepto": "Mano de obra pintado de fachada",
+          "oficio": "fachadas",
+          "motivo": "Aplicación de imprimación y pintura. Tarifa según especialidad en fachadas (45€/h recomendado)."
+        },
+        {
+          "concepto": "Suministro de gres para zócalo",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material de revestimiento. Precio variable según especificación de baldosa."
+        },
+        {
+          "concepto": "Instalación de zócalo de gres",
+          "oficio": "suelos_alicatados",
+          "motivo": "Mano de obra de alicatado especializado. Tarifa 40€/m2 (incluida en rango de suelos_alicatados)."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "fachadas",
+          "motivo": "Consumibles necesarios para ejecución de obra (masilla, lijas, brochas, rodillos, etc.)."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_y_informe_estado_pinturas_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "pintado_de_fachada_de_ladrillo_visto"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3669,
+      "tokens_out": 3000
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 7,
+    "n_catalogo": 0,
+    "n_sugeridas": 7,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

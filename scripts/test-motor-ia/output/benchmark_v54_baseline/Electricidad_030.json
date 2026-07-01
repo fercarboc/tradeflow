@@ -1,0 +1,208 @@
+{
+  "id": 30,
+  "oficio": "Electricidad",
+  "texto": "Instalación de línea trifásica para cocina industrial de restaurante, potencia de 25kW",
+  "http_status": 200,
+  "latency_ms": 19689,
+  "raw_response": {
+    "transcript": "Instalación de línea trifásica para cocina industrial de restaurante, potencia de 25kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de línea trifásica para cocina industrial de restaurante, potencia de 25kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Potencia 25kW requiere línea trifásica dedicada con cálculo de sección de cable",
+          "Necesario boletín eléctrico para licencia de actividad hostelería",
+          "Verificar acometida general del edificio y capacidad disponible",
+          "Obra civil para canalización/tubería si no existe infraestructura"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica trifásica de potencia para cocina industrial"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Obra civil para canalización/tubería si es necesario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de cuadro eléctrico trifásico 25kW con protecciones",
+          "descripcion": "Cuadro de distribución trifásico con interruptor diferencial, magnetotérmicos por circuito, protección contra sobretensiones, bornes de conexión y pequeño material. Incluye dimensionamiento para cocina industrial.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cuadro trifásico 25kW pendiente de cotización según marca y especificaciones"
+        },
+        {
+          "concepto": "Suministro de cable trifásico 25kW (sección calculada)",
+          "descripcion": "Cable trifásico + neutro + tierra, sección según cálculo de caída de tensión para 25kW. Incluye aislamiento RV-K 0.6/1kV. Longitud a determinar según recorrido desde acometida a cuadro cocina.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud y sección exacta a determinar en obra. Precio por metro lineal pendiente."
+        },
+        {
+          "concepto": "Instalación de línea trifásica 25kW",
+          "descripcion": "Tendido, fijación y conexionado de cable trifásico desde acometida/cuadro general hasta cuadro de cocina. Incluye pruebas de continuidad y aislamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Canalización/tubería para línea trifásica (obra civil)",
+          "descripcion": "Instalación de tubo corrugado, bandeja portacables o canaleta metálica para protección de cable trifásico. Incluye fijaciones y pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud y tipo de canalización a determinar según recorrido y normativa local"
+        },
+        {
+          "concepto": "Instalación de canalización/tubería",
+          "descripcion": "Colocación, fijación y aseguramiento de tubo/bandeja/canaleta. Incluye taladros, anclajes y pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 40,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Boletín eléctrico y certificación",
+          "descripcion": "Redacción, firma y tramitación de boletín eléctrico oficial (REBT) para instalación trifásica 25kW. Obligatorio para licencia de actividad hostelería.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de boletín eléctrico a cotizar (típicamente 150-300€)"
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Medición de tensión trifásica, pruebas de continuidad, aislamiento, diferencial y magnetotérmicos. Verificación de caída de tensión. Puesta en marcha segura.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 660,
+        "iva_porcentaje": 21,
+        "iva": 138.6,
+        "total": 798.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: cuadro eléctrico trifásico 25kW con protecciones diferenciales y magnetotérmicos",
+        "Verificar en catálogo: cable trifásico RV-K 0.6/1kV secciones 6, 10, 16mm² según cálculo",
+        "Verificar en catálogo: tubo corrugado/bandeja portacables para protección de línea",
+        "Verificar en catálogo: boletín eléctrico oficial (REBT) para instalaciones trifásicas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de cuadro eléctrico trifásico 25kW",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Cuadro específico para cocina industrial 25kW no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Suministro de cable trifásico 25kW",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Cable trifásico con sección calculada según potencia y distancia"
+        },
+        {
+          "concepto": "Canalización/tubería para línea trifásica",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Infraestructura de protección de cable según recorrido"
+        },
+        {
+          "concepto": "Boletín eléctrico y certificación",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de tramitación obligatoria para hostelería"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_trampa_grasa_cocina",
+      "instalacion_de_red_inalambrica_para_IoT_industrial",
+      "instalacion_electrica_local_hosteleria",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "instalacion_de_sistema_de_extincion_por_espuma"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3688,
+      "tokens_out": 2715
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

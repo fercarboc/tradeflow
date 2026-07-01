@@ -1,0 +1,185 @@
+{
+  "id": 64,
+  "oficio": "Pintura",
+  "texto": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+  "http_status": 200,
+  "latency_ms": 17617,
+  "raw_response": {
+    "transcript": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar la fachada exterior del edificio, 5 plantas, con pintura impermeabilizante",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Superficie total no especificada en m². Se requiere medición en obra para calcular cantidad exacta de pintura y mano de obra.",
+          "Acceso a fachada (andamio, plataforma elevadora) no detallado. Incluir como partida separada según altura y complejidad.",
+          "Pintura impermeabilizante sugiere trabajo de impermeabilización, no solo pintura decorativa. Verificar si hay humedades previas o si es medida preventiva.",
+          "Permiso municipal puede ser necesario si se requiere andamio en vía pública."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Pintura impermeabilizante en fachada exterior → impermeabilización (prioridad sobre pintura según reglas). Función estanca y protección contra humedades."
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de edificio de 5 plantas. Incluye acceso y acabado de envolvente."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa fachada con agua a presión",
+          "descripcion": "Limpieza de fachada exterior de 5 plantas con agua a presión para eliminar suciedad, algas y polvo previo a la aplicación de pintura impermeabilizante.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 3,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe medirse en obra. Tarifa estimada 3€/m2 para limpieza previa."
+        },
+        {
+          "concepto": "Reparación de fisuras y desperfectos en fachada",
+          "descripcion": "Sellado y reparación de grietas, fisuras y desperfectos en fachada exterior con mortero o masilla antes de aplicar pintura impermeabilizante.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 5,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² y alcance de reparaciones debe evaluarse en obra. Tarifa estimada 5€/m2."
+        },
+        {
+          "concepto": "Imprimación fijadora en fachada",
+          "descripcion": "Aplicación de imprimación fijadora en fachada exterior para preparar el soporte y mejorar la adherencia de la pintura impermeabilizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 4,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe medirse en obra. Tarifa estimada 4€/m2 para imprimación."
+        },
+        {
+          "concepto": "Pintura impermeabilizante exterior (2 manos)",
+          "descripcion": "Aplicación de pintura impermeabilizante de alta calidad en fachada exterior de 5 plantas, 2 manos, para protección contra humedades y agentes atmosféricos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe medirse en obra. Tarifa estimada 12€/m2 para 2 manos de pintura impermeabilizante (6€/m2 por mano)."
+        },
+        {
+          "concepto": "Suministro de pintura impermeabilizante",
+          "descripcion": "Material: pintura impermeabilizante exterior de calidad superior, resistente a UV y agentes atmosféricos, cantidad según superficie a pintar.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros depende de m² totales y rendimiento (aprox. 6-8 m2/litro). Precio unitario debe establecer el instalador según marca y especificaciones."
+        },
+        {
+          "concepto": "Acceso a fachada: andamio o plataforma elevadora",
+          "descripcion": "Montaje, mantenimiento y desmontaje de andamio o alquiler de plataforma elevadora para acceso seguro a fachada de 5 plantas durante trabajos de pintura.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Duración y tipo de acceso (andamio vs. plataforma) debe definirse según altura, superficie y cronograma. Precio debe cotizarse con empresa especializada."
+        },
+        {
+          "concepto": "Pequeño material y protecciones (cintas, plásticos, brochas, rodillos)",
+          "descripcion": "Cinta carrocero, plásticos de protección, brochas, rodillos, cubetas y pequeño material consumible para trabajos de pintura en fachada.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio debe establecer el instalador según cantidad de m² y materiales específicos a utilizar. Estimado 150-300€ para fachada de 5 plantas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición exacta de superficie en m² de la fachada (perímetro × altura útil × 5 plantas).",
+        "Definir tipo de acceso: andamio tradicional (más económico, más tiempo) vs. plataforma elevadora (más rápido, más caro).",
+        "Verificar si hay humedades previas o patologías en fachada que requieran tratamiento adicional antes de pintar.",
+        "Confirmar marca y especificaciones técnicas de pintura impermeabilizante (elasticidad, resistencia UV, transpirabilidad).",
+        "Evaluar necesidad de permiso municipal si andamio ocupa vía pública.",
+        "Considerar protección de elementos adyacentes (ventanas, puertas, elementos metálicos) durante trabajos."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_chimenea_exterior",
+      "pintura_de_medianera_o_pared_ciega_exterior",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "pintura_fachada_exterior_plastica_o_siloxano",
+      "pintado_de_muros_de_piedra_o_mamposteria_exterior"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3744,
+      "tokens_out": 2309
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

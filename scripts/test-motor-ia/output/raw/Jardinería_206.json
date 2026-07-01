@@ -1,0 +1,177 @@
+{
+  "id": 206,
+  "oficio": "Jardinería",
+  "texto": "Siembra de césped natural en zona de 50 metros cuadrados, preparación del terreno y semilla",
+  "http_status": 200,
+  "latency_ms": 13820,
+  "raw_response": {
+    "transcript": "Siembra de césped natural en zona de 50 metros cuadrados, preparación del terreno y semilla",
+    "quote": {
+      "resumen": {
+        "texto_original": "Siembra de césped natural en zona de 50 metros cuadrados, preparación del terreno y semilla",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar época de siembra (óptima: primavera/otoño, NO verano)",
+          "Confirmar tipo de mezcla de semilla según uso final (ornamental, pisoteo, sombra)",
+          "Riego diario post-siembra CRÍTICO durante 2-3 semanas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Siembra de césped natural con preparación de terreno"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación terreno: laboreo, nivelación y rasante",
+          "descripcion": "Laboreo del terreno, nivelación y preparación de rasante para siembra de césped en 50 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 2.5,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aporte de tierra vegetal",
+          "descripcion": "Aporte y distribución de tierra vegetal de calidad para nivelación y mejora de sustrato (estimado 5 cm de espesor)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 2.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar volumen exacto y proveedor local"
+        },
+        {
+          "concepto": "Semilla de césped natural",
+          "descripcion": "Semilla de césped natural según mezcla recomendada (dosis 30-40 g/m² para 50 m²)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe especificar tipo de mezcla (ornamental, pisoteo, sombra) y proveedor"
+        },
+        {
+          "concepto": "Abono de fondo y arranque",
+          "descripcion": "Abono de fondo para siembra y abono de arranque post-siembra",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar tipo y cantidad según análisis de suelo"
+        },
+        {
+          "concepto": "Rastrillado, enterrado de semilla y pequeño material",
+          "descripcion": "Rastrillado para enterrar semilla, compactación ligera y pequeño material (rastrillos, escobas, etc.)",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 1.5,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Riego post-siembra (primeras 2-3 semanas)",
+          "descripcion": "Riego diario post-siembra durante 2-3 semanas hasta germinación y establecimiento inicial del césped",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio: instalador debe acordar con cliente si incluye riego diario o solo asesoramiento. Crítico para éxito de siembra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Considerar enmienda calcárea si análisis de suelo indica pH ácido",
+        "Considerar geotextil antierosión si terreno tiene pendiente >15%",
+        "Considerar rodillo de compactación post-siembra para mejor contacto semilla-suelo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aporte de tierra vegetal",
+          "oficio": "jardineria",
+          "motivo": "Material de aporte, cantidad variable según estado inicial del terreno"
+        },
+        {
+          "concepto": "Semilla de césped natural",
+          "oficio": "jardineria",
+          "motivo": "Material consumible, tipo y proveedor a confirmar por instalador"
+        },
+        {
+          "concepto": "Abono de fondo y arranque",
+          "oficio": "jardineria",
+          "motivo": "Material consumible, cantidad según análisis de suelo"
+        },
+        {
+          "concepto": "Riego post-siembra (primeras 2-3 semanas)",
+          "oficio": "jardineria",
+          "motivo": "Servicio de mantenimiento post-instalación, a acordar con cliente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cesped_natural_por_semilla",
+      "siembra_complementaria_o_resiembra_de_cesped",
+      "instalacion_persiana_veneciana_de_madera_o_bambu",
+      "tabique_pladur_zona_exterior_cubierta_sotillo",
+      "instalacion_ventana_madera_con_vidrio"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3888,
+      "tokens_out": 1772
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

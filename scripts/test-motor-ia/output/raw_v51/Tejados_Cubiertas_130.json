@@ -1,0 +1,202 @@
+{
+  "id": 130,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+  "http_status": 200,
+  "latency_ms": 25302,
+  "raw_response": {
+    "transcript": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+        "tipo_presupuesto": "mantenimiento_preventivo",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye trabajos en altura. Verificar accesibilidad y andamios necesarios.",
+          "Pizarra es material delicado. Evitar presión alta en limpieza para no dañar placas.",
+          "Hidrofugado: especificar si es hidrofugante transpirable (recomendado para pizarra natural)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Trabajos en cubierta: limpieza, tratamiento químico, impermeabilización. Requiere EPI línea vida y acceso seguro."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "EPI y medidas de seguridad en trabajos de altura",
+          "descripcion": "Línea de vida, arnés, casco, guantes y calzado de seguridad para trabajos en cubierta de pizarra",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de EPI y línea vida a revisión del instalador. Puede ser consumible o amortizable según contratación."
+        },
+        {
+          "concepto": "Andamio o escalera con estabilizadores",
+          "descripcion": "Andamio modular perimetral o escalera reforzada con estabilizadores para acceso seguro a cubierta",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de alquiler/instalación andamio a revisión. Varía según extensión cubierta y días necesarios."
+        },
+        {
+          "concepto": "Limpieza de musgo y liquen en cubierta de pizarra",
+          "descripcion": "Eliminación mecánica suave y cuidadosa de musgo y liquen de placas de pizarra (presión baja o manual para no dañar material). Incluye barrido y retirada de restos.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "A confirmar: superficie m2 de cubierta. Tarifa recomendada 35-45€/m2 para pizarra (delicada). Instalador introduce m2 reales y ajusta tarifa."
+        },
+        {
+          "concepto": "Tratamiento antimusgo e insecticida en cubierta",
+          "descripcion": "Aplicación de producto antimosgo (biocida, sulfato de hierro o similar) y tratamiento insecticida preventivo en toda la cubierta de pizarra",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros depende de superficie. Instalador especifica litros necesarios y selecciona producto (sulfato hierro, biocida profesional, etc.). Precio a revisar según producto."
+        },
+        {
+          "concepto": "Aplicación de tratamiento antimusgo",
+          "descripcion": "Mano de obra de aplicación uniforme del producto antimosgo en toda la superficie de pizarra con brocha o pulverizador",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa recomendada 40€/m2 para aplicación químicos en cubierta. A confirmar m2 reales."
+        },
+        {
+          "concepto": "Hidrofugado de cubierta de pizarra",
+          "descripcion": "Producto hidrofugante transpirable (recomendado para pizarra natural) para impermeabilización y protección de placas. Previene infiltraciones y degradación por humedad.",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros depende de porosidad y superficie. Especificar hidrofugante transpirable (no crea película sellante que atrapa humedad en pizarra). Precio a revisar según calidad producto."
+        },
+        {
+          "concepto": "Aplicación de tratamiento hidrofugante",
+          "descripcion": "Mano de obra de aplicación uniforme del hidrofugante en cubierta de pizarra con brocha o pulverizador. Asegurar cobertura completa.",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa recomendada 40€/m2 para aplicación hidrofugante. A confirmar m2 reales."
+        },
+        {
+          "concepto": "Informe de estado y recomendaciones",
+          "descripcion": "Inspección completa de cubierta durante limpieza. Fotografías de estado antes/después. Informe de daños locales, zonas críticas y recomendaciones de mantenimiento futuro.",
+          "oficio": "cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y desplazamientos",
+          "descripcion": "Cepillos, escobillas, trapos, bolsas, costales, herramientas manuales y transporte de residuos",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe a criterio del instalador. Puede oscilar entre 50-200€ según distancia y cantidad residuos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Base Maestra [limpieza_y_mantenimiento_preventivo_de_cubierta]: incluye limpieza detritus, revisión revestimiento, limpieza canalones, informe estado, biocida si musgo, tratamiento hidrofugo. Este presupuesto cubre esas partidas obligatorias.",
+        "Considerar si contrato de mantenimiento anual (1-2 visitas/año) es más rentable que intervención puntual."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Limpieza de musgo y liquen en pizarra",
+          "motivo": "Especialidad de pizarra (diferente a teja cerámica o hormigón). Requiere técnica cuidadosa de presión baja.",
+          "sugerencia": "Crear partida específica 'limpieza_musgo_pizarra_m2' en catálogo con tarifa 35-45€/m2."
+        },
+        {
+          "concepto": "Hidrofugado transpirable para pizarra",
+          "motivo": "Hidrofugantes especiales para pizarra (transpirables) diferente de impermeabilizantes estándar.",
+          "sugerencia": "Crear partida 'hidrofugante_pizarra_transpirable_litro' con referencia a productos compatibles."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_consolidacion_de_estructura_de_madera_cubierta",
+      "limpieza_y_mantenimiento_preventivo_de_cubierta",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "tratamiento_de_musgo_y_algas_en_cesped",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 9,
+    "n_catalogo": 0,
+    "n_sugeridas": 9,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

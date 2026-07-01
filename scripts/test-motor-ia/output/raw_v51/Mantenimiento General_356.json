@@ -1,0 +1,221 @@
+{
+  "id": 356,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar escalera de comunidad, peldaño roto y barandilla floja, informe técnico incluido",
+  "http_status": 200,
+  "latency_ms": 17723,
+  "raw_response": {
+    "transcript": "Reparar escalera de comunidad, peldaño roto y barandilla floja, informe técnico incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar escalera de comunidad, peldaño roto y barandilla floja, informe técnico incluido",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en zona común: verificar seguridad y señalización obligatoria",
+          "Informe técnico ya incluido en presupuesto",
+          "Barandilla floja: verificar si es tornillería o daño estructural"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de peldaño roto (reposición/reconstrucción)"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Revisión y reajuste barandilla (si es madera) o carpintería metálica si es hierro"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Si barandilla es metálica: soldadura, apriete tornillería, tratamiento antioxido"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Informe técnico de escalera",
+          "descripcion": "Diagnóstico y evaluación del estado de peldaño roto y barandilla floja, con recomendaciones de reparación",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "El instalador debe establecer tarifa por informe técnico/diagnostico"
+        },
+        {
+          "concepto": "Desmontaje y saneo de peldaño dañado",
+          "descripcion": "Extracción de peldaño roto, limpieza de restos de mortero y hormigón, preparación del soporte",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de peldaño nuevo",
+          "descripcion": "Peldaño de hormigón/piedra/madera según especificaciones técnicas, colocación con mortero de agarre y acabado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del peldaño según material y dimensiones a determinar por instalador"
+        },
+        {
+          "concepto": "Instalación de peldaño nuevo",
+          "descripcion": "Colocación, nivelación, rejuntado y acabado del peldaño",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación y reajuste de barandilla floja",
+          "descripcion": "Inspección de fijaciones, apriete de tornillería, reajuste de anclajes, verificación de estabilidad y seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento antioxido de barandilla (si es metálica)",
+          "descripcion": "Limpieza, desengrase, imprimación y pintura de protección en puntos de corrosión o exposición",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales de fijación y pequeño material",
+          "descripcion": "Tornillería, anclajes, escuadras, mortero, arena, silicona, disolvente, lija, desengrasante",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales auxiliares: el instalador debe presupuestar según cantidad y tipo"
+        },
+        {
+          "concepto": "Señalización y protección de zona durante trabajos",
+          "descripcion": "Señalización de peligro, vallas de protección, cintas de delimatación en escalera (zona común)",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio obligatorio en zona común: el instalador debe incluir tarifa de señalización/protección"
+        }
+      ],
+      "calculos": {
+        "subtotal": 272,
+        "iva_porcentaje": 21,
+        "iva": 57.12,
+        "total": 329.12
+      },
+      "sugerencias_catalogo": [
+        "Revisar si existe en catálogo: 'Reparación de escalera con sustitución de peldaño' (carpintería/albanilería combinada)",
+        "Considerar si se requiere ensayo de carga o certificado de seguridad de barandilla post-reparación",
+        "Verificar normativa local sobre trabajos en escaleras de comunidad (certificados de seguridad, inspecciones)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Informe técnico de escalera",
+          "oficio": "albanileria",
+          "motivo": "Diagnóstico inicial incluido en presupuesto"
+        },
+        {
+          "concepto": "Suministro de peldaño nuevo",
+          "oficio": "albanileria",
+          "motivo": "Material específico según especificaciones técnicas del informe"
+        },
+        {
+          "concepto": "Materiales auxiliares (tornillería, mortero, silicona, etc.)",
+          "oficio": "albanileria",
+          "motivo": "Pequeño material para fijaciones y acabados"
+        },
+        {
+          "concepto": "Señalización y protección de zona",
+          "oficio": "multiservicio",
+          "motivo": "Obligatorio en zona común de comunidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "reparacion_grifo_o_griferia_averiada",
+      "pintado_pasamanos_y_barandillas_interior",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "reparacion_y_soldadura_de_estructura_metalica"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

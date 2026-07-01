@@ -1,0 +1,159 @@
+{
+  "id": 359,
+  "oficio": "Mantenimiento General",
+  "texto": "Cambio de luminarias de emergencia caducadas en escaleras y pasillos de edificio, 20 unidades",
+  "http_status": 200,
+  "latency_ms": 14507,
+  "raw_response": {
+    "transcript": "Cambio de luminarias de emergencia caducadas en escaleras y pasillos de edificio, 20 unidades",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de luminarias de emergencia caducadas en escaleras y pasillos de edificio, 20 unidades",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Las luminarias de emergencia caducadas deben cumplir normativa de seguridad (RD 486/1997, CTE DB-SI). Verificar que las nuevas unidades sean homologadas y tengan certificado de conformidad.",
+          "Gestión de residuos de luminarias antiguas: pueden contener componentes peligrosos (mercurio en tubos fluorescentes antiguos). Incluir recogida selectiva."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Desmontaje, suministro e instalación de luminarias de emergencia. Trabajo eléctrico de mantenimiento."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Retirada y gestión de luminarias antiguas potencialmente peligrosas (fluorescentes con mercurio)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de luminarias de emergencia caducadas",
+          "descripcion": "Desmontaje cuidadoso de 20 unidades de luminarias de emergencia antiguas en escaleras y pasillos. Desconexión eléctrica segura, retirada de soportes y accesorios.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 12,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de luminarias de emergencia homologadas",
+          "descripcion": "20 unidades de luminarias de emergencia LED homologadas (RD 486/1997, CTE DB-SI), con batería de respaldo, autonomía mínima 3 horas, flujo luminoso 300-500 lm, temperatura color 4000K, con certificado de conformidad.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de luminarias de emergencia LED homologadas a definir por instalador según marca y especificaciones técnicas (rango estimado: 80-180€/ud)."
+        },
+        {
+          "concepto": "Instalación de luminarias de emergencia",
+          "descripcion": "Instalación de 20 unidades de luminarias de emergencia en escaleras y pasillos. Fijación en soportes, conexión eléctrica a circuito de emergencia, prueba de funcionamiento y autonomía de batería.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 15,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Retirada y gestión de residuos de luminarias antiguas",
+          "descripcion": "Recogida selectiva, transporte y gestión de 20 luminarias antiguas (potencialmente con tubos fluorescentes que contienen mercurio). Cumplimiento de normativa de residuos peligrosos (Directiva 2012/19/UE, RoHS).",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y certificación",
+          "descripcion": "Prueba de encendido, verificación de autonomía de batería (mínimo 3 horas), comprobación de iluminación uniforme en escaleras y pasillos, generación de certificado de conformidad y acta de recepción.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 800,
+        "iva_porcentaje": 21,
+        "iva": 168,
+        "total": 968
+      },
+      "sugerencias_catalogo": [
+        "Verificar que las luminarias de emergencia seleccionadas cumplan con RD 486/1997 (Disposiciones mínimas de seguridad y salud en lugares de trabajo) y CTE DB-SI (Seguridad en caso de incendio).",
+        "Considerar luminarias LED con batería integrada de larga duración (10+ años) para reducir mantenimiento futuro.",
+        "Documentar el cambio con fotografías antes/después y certificado de conformidad de las nuevas luminarias para archivo de la comunidad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de luminarias de emergencia homologadas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Material específico de emergencia. Precio a definir por instalador según especificaciones técnicas y homologaciones requeridas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_iluminacion_led_completa",
+      "pintura_reflectante_o_fosforescente_senalizacion",
+      "sustitucion_termo_electrico",
+      "instalacion_plan_de_autoproteccion_y_señalizacion",
+      "instalacion_de_barra_antipánico"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3597,
+      "tokens_out": 1773
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 4,
+    "n_sugeridas": 1,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

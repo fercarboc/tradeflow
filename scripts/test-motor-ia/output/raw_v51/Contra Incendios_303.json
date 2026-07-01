@@ -1,0 +1,246 @@
+{
+  "id": 303,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar rociadores automáticos sprinklers en zona de almacén de 200 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 26619,
+  "raw_response": {
+    "transcript": "Instalar rociadores automáticos sprinklers en zona de almacén de 200 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar rociadores automáticos sprinklers en zona de almacén de 200 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "PROYECTO TÉCNICO OBLIGATORIO según norma UNE EN 12845",
+          "Requiere cálculo hidráulico previo para determinar densidad de aplicación y área de operación según riesgo",
+          "Presión mínima en rociador más desfavorable debe verificarse",
+          "Inspección y prueba hidráulica OBLIGATORIA antes de sellar tuberías",
+          "Sistema requiere revisión trimestral obligatoria post-instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Instalación de sistema sprinklers certificado, oficio especializado en protección contra incendios"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico sistema rociadores",
+          "descripcion": "Diseño y cálculo hidráulico del sistema de sprinklers según UNE EN 12845, densidad aplicación, área operación y verificación presiones mínimas",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Honorarios proyecto técnico a criterio del instalador según complejidad y superficie"
+        },
+        {
+          "concepto": "Red de tuberías según cálculo hidráulico",
+          "descripcion": "Suministro e instalación de tuberías de acero galvanizado o PVC presión para la red de rociadores (aspiración, impulsión y distribución)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje lineal según plano hidráulico. Precio material según diámetro y tipo tubería"
+        },
+        {
+          "concepto": "Cabezas rociadores certificadas",
+          "descripcion": "Suministro e instalación cabezas rociadores certificadas EN 12259, según tipo (pendent, upright, deflector) y temperatura de activación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de rociadores según cálculo hidráulico (típicamente 1 rociador cada 12-20 m² en almacenes). Precio unitario por tipo y temperatura"
+        },
+        {
+          "concepto": "Central de alarma y válvula de control",
+          "descripcion": "Suministro e instalación central de alarma, válvula de retención, válvula de control principal, manómetros y conexiones",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio central y válvula según capacidad del sistema"
+        },
+        {
+          "concepto": "Conexión a red hidraúlica o depósito",
+          "descripcion": "Suministro e instalación de acometida a red municipal o depósito de almacenamiento con verificación de presión y caudal suficiente (mínimo 6-8 bar)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Evaluar disponibilidad red municipal; si insuficiente, incluir estación de bombeo"
+        },
+        {
+          "concepto": "Estación de bombeo (si necesario)",
+          "descripcion": "Suministro e instalación grupo de presión/bombeo dedicado para garantizar presión y caudal mínimo en sistema",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Solo si presión red insuficiente. Precio según potencia bomba (típicamente 1-3 kW)"
+        },
+        {
+          "concepto": "Señalización",
+          "descripcion": "Suministro e instalación señalización rociadores, válvulas y áreas protegidas según norma (carteles, símbolos luminosos)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según punto de instalación y número de zonas"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Abrazaderas, soportes, codos, tes, niples, tapones, manguitos, cinta teflón, pasta selladora, etc.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto global según metraje red y número rociadores"
+        },
+        {
+          "concepto": "Mano de obra: Instalación sistema completo",
+          "descripcion": "Ejecución completa: trazado, rozas, instalación tuberías, montaje rociadores, central de control, válvulas, prueba hidráulica, puesta en marcha y ajustes",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 65,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas según complejidad red hidráulica y número rociadores. Típicamente 40-80 horas para 200 m²"
+        },
+        {
+          "concepto": "Prueba hidráulica y presurización",
+          "descripcion": "Prueba hidráulica a 1.5 veces presión trabajo, verificación estanqueidad, purga aire, desinfección línea, certificación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIA antes de sellar tubería. Precio según duración y complejidad"
+        },
+        {
+          "concepto": "Inspección y mantenimiento post-instalación",
+          "descripcion": "Primera revisión trimestral, limpieza cabezas rociadores, verificación válvulas, reporte de inspección",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Revisión trimestral OBLIGATORIA. Precio mensualizado o por visita"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Existe conexión a red hidráulica con presión suficiente (mín. 6 bar) o requiere depósito + bombeo?",
+        "Realizar estudio de carga: densidad de aplicación según clasificación riesgo (almacén ordinario típicamente 5 mm/min en área operación)",
+        "Verificar acceso para rozas: ¿Obra nueva o reforma? ¿Es posible empotrar tuberías o requiere canales aparentes?",
+        "Número estimado rociadores para 200 m²: 10-16 unidades (densidad 1 rociador cada 12-20 m² según riesgo)",
+        "Metraje estimado red: 150-200 ml tuberías principales + secundarias",
+        "Considerar: ¿Requiere conexión a central de alarma incendios existente? ¿Sistema combinado con detección humo?"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico sistema rociadores",
+          "oficio": "contra_incendios",
+          "motivo": "Honrario especializado en contra incendios"
+        },
+        {
+          "concepto": "Estación de bombeo (si necesario)",
+          "oficio": "contra_incendios",
+          "motivo": "Equipo auxiliar condicionado a presión red"
+        },
+        {
+          "concepto": "Prueba hidráulica y presurización",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio técnico especializado obligatorio"
+        },
+        {
+          "concepto": "Inspección y mantenimiento post-instalación",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio de revisión trimestral obligatoria"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "construccion_de_piscina_de_obra",
+      "instalacion_electrica_exterior_urbanizacion",
+      "instalacion_de_pavimento_de_grava_o_gravilla_decorativa",
+      "instalacion_sistema_hilo_musical_multizona"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 1,
+    "n_sugeridas": 10,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

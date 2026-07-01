@@ -1,0 +1,133 @@
+{
+  "id": 42,
+  "oficio": "Carpintería",
+  "texto": "Cambio de puertas de interior en toda la vivienda, son 6 puertas de 80 centímetros con marcos",
+  "http_status": 200,
+  "latency_ms": 12604,
+  "raw_response": {
+    "transcript": "Cambio de puertas de interior en toda la vivienda, son 6 puertas de 80 centímetros con marcos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de puertas de interior en toda la vivienda, son 6 puertas de 80 centímetros con marcos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume puerta simple hoja (estándar). Confirmar si alguna es doble hoja.",
+          "Precio de puertas pendiente de revisión del instalador según marca/calidad.",
+          "Incluye desmontaje de puertas antiguas, suministro de nuevas puertas con marcos y instalación."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de puertas de interior, desmontaje y colocación de marcos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de 6 puertas antiguas",
+          "descripcion": "Desmontaje de 6 puertas de interior existentes, incluyendo marcos y herrajes. Retirada de escombro.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 30,
+          "total": 180,
+          "precio_origen": "tarifas_recomendadas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de 6 puertas de interior 80 cm con marcos",
+          "descripcion": "6 puertas de interior, 80 cm de ancho, incluyendo marcos completos, bisagras, pomos/manillas y pequeno material de fijación. Modelo y acabado a definir.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de puertas y marcos debe ser proporcionado por el instalador según marca, material (madera/PVC/aluminio) y acabado."
+        },
+        {
+          "concepto": "Instalación de 6 puertas de interior con marcos",
+          "descripcion": "Instalación de 6 puertas de interior en sus marcos, incluyendo: colocación de marcos en hueco, ajuste y nivelación, instalación de bisagras (mínimo 3 por puerta), fijación de pomos/manillas, cierres y ajuste final. Pruebas de funcionamiento.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "tarifas_recomendadas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Masilla, lija y pequeño material de ajuste",
+          "descripcion": "Masilla para juntas entre marco y pared, lijas para ajuste de hojas, cinta carrocero, destornilladores y pequeño material auxiliar.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe a determinar por instalador según consumo real de materiales auxiliares."
+        }
+      ],
+      "calculos": {
+        "subtotal": 540,
+        "iva_porcentaje": 21,
+        "iva": 113.4,
+        "total": 653.4
+      },
+      "sugerencias_catalogo": [
+        "Si las puertas requieren PINTURA posterior (esmalte), adicionar partida: 'Pintado de 6 hojas de puerta interior' (oficio pintura, partida obligatoria esmalte + imprimación + lija).",
+        "Si hay CARPINTERÍA complementaria (zocalos, molduras), usar referencia [instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra].",
+        "Confirmar si alguna puerta es DOBLE HOJA (dormitorio principal, acceso garaje, etc.) — la tarifa de instalación sería mayor."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de 6 puertas de interior 80 cm con marcos",
+          "origen": "sugerida_ia",
+          "motivo": "Especificación de material (marca, tipo, acabado) no está en catálogo. Requiere input del instalador."
+        },
+        {
+          "concepto": "Masilla, lija y pequeño material de ajuste",
+          "origen": "sugerida_ia",
+          "motivo": "Importe variable según consumo real. Instalador define cantidad y precio."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_puerta_doble_hoja_interior",
+      "pintado_armarios_empotrados_interiores",
+      "instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra",
+      "pintado_locales_comerciales_y_tiendas"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

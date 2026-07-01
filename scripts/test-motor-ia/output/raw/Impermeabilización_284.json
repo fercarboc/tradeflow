@@ -1,0 +1,191 @@
+{
+  "id": 284,
+  "oficio": "Impermeabilización",
+  "texto": "Sellar grieta en muro de sótano por donde entra agua en época de lluvias, inyección de resina",
+  "http_status": 200,
+  "latency_ms": 20345,
+  "raw_response": {
+    "transcript": "Sellar grieta en muro de sótano por donde entra agua en época de lluvias, inyección de resina",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sellar grieta en muro de sótano por donde entra agua en época de lluvias, inyección de resina",
+        "tipo_presupuesto": "reparacion",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Grieta activa con filtración de agua: requiere diagnóstico previo de origen (capilaridad, presión hidrostática, asentamiento)",
+          "Inyección de resina es solución estructural: verificar si la grieta es pasiva o activa antes de proceder",
+          "Sótano con agua en época de lluvias: considerar drenaje perimetral y/o impermeabilización exterior complementaria",
+          "Presupuesto incluye solo sellado de grieta; si hay humedad generalizada en sótano, se recomienda diagnóstico de humedades previo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Grieta en muro enterrado con filtración de agua: clasificada como impermeabilización (no albanilería simple). Requiere inyección de resina epoxi y sellado estanco."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y clasificación de grieta activa/pasiva",
+          "descripcion": "Inspección visual, medición con testigos de yeso, evaluación de flujo de agua y origen de la filtración (presión hidrostática, capilaridad, asentamiento)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diagnóstico previo obligatorio para determinar si la grieta es activa (requiere proyecto) o pasiva (sellado directo). Precio a definir por instalador."
+        },
+        {
+          "concepto": "Saneo y preparación de grieta",
+          "descripcion": "Limpieza profunda de grieta con aire comprimido, eliminación de mortero suelto, polvo y residuos. Preparación de superficie para inyección.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inyección de resina epoxi bicomponente",
+          "descripcion": "Suministro e inyección de resina epoxi estructural de baja viscosidad, con sistema de inyectores y válvulas de purga. Incluye material y aplicación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Resina epoxi bicomponente: precio variable según marca y viscosidad (2-8 €/litro aprox.). Instalador debe especificar cantidad exacta según ancho y profundidad de grieta."
+        },
+        {
+          "concepto": "Instalación de inyectores y bombeo de resina",
+          "descripcion": "Colocación de inyectores cada 20-30 cm, bombeo controlado de resina epoxi hasta saturación completa de grieta, purga de aire y cierre de válvulas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado superficial de grieta con mortero hidrofugo",
+          "descripcion": "Aplicación de mortero hidrofugo flexible en superficie de grieta tras curado de resina (24-48h), para protección final y estanqueidad total.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mortero hidrofugo flexible: precio 8-15 €/kg aprox. Cantidad según longitud y ancho de grieta. Instalador ajusta."
+        },
+        {
+          "concepto": "Mano de obra: aplicación mortero hidrofugo y acabado",
+          "descripcion": "Aplicación de mortero hidrofugo con llana, alisado y acabado liso. Protección de zona durante curado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Inyectores, válvulas de purga, mangueras, aire comprimido, guantes, gafas, mascarilla, trapos, disolvente limpieza.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: estimado 30-80 € según complejidad. Instalador revisa."
+        }
+      ],
+      "calculos": {
+        "subtotal": 202.5,
+        "iva_porcentaje": 21,
+        "iva": 42.525,
+        "total": 245.025
+      },
+      "sugerencias_catalogo": [
+        "Considerar diagnóstico previo de humedades en sótano (termografía, higrometría) si hay humedad generalizada más allá de la grieta.",
+        "Si la grieta es activa (movimiento continuo), puede requerir proyecto técnico y soluciones complementarias (drenaje perimetral, impermeabilización exterior).",
+        "Resina epoxi es solución estructural; si la grieta es solo pasiva, considerar alternativa más económica con mortero hidrofugo + sellador elástico.",
+        "Tras sellado, monitorizar con testigos de yeso durante 6 meses para detectar reapertura de grieta."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico y clasificación de grieta activa/pasiva",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Paso previo obligatorio no incluido en catálogo base; crítico para determinar solución final."
+        },
+        {
+          "concepto": "Inyección de resina epoxi bicomponente",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para grietas estructurales; precio variable según marca y viscosidad."
+        },
+        {
+          "concepto": "Sellado superficial de grieta con mortero hidrofugo",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Complemento de inyección; material y cantidad variable según grieta."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_e_informe_de_humedades_y_filtraciones",
+      "reparacion_de_fisuras_y_grietas_en_fachada",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "impermeabilizacion_de_sotano_o_muro_enterrado_por_exterior",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4007,
+      "tokens_out": 2679
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

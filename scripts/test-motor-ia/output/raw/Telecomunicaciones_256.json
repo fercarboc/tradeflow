@@ -1,0 +1,246 @@
+{
+  "id": 256,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+  "http_status": 200,
+  "latency_ms": 25387,
+  "raw_response": {
+    "transcript": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de control de acceso con CCTV integrado: requiere cumplimiento RGPD y notificación AEPD si es empresa",
+          "Apertura remota desde smartphone: verificar compatibilidad con cerradura existente y tipo de accionamiento (eléctrico/electromagnético)",
+          "Se recomienda UPS/batería de respaldo para garantizar funcionamiento en caso de corte eléctrico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema integrado de control de acceso, CCTV y gestión remota por app"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexionado eléctrico de cerradura electromagnética, alimentación de equipos y protecciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cámara IP para videoportero/control acceso",
+          "descripcion": "Cámara IP de alta resolución (2MP mínimo) con visión nocturna, angular 120-160º, compatible con sistema de control remoto y app móvil",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar modelo, resolución y compatibilidad con app"
+        },
+        {
+          "concepto": "Cerradura electromagnética o motor de apertura remota",
+          "descripcion": "Cerradura electromagnética 12V DC o motor de apertura compatible con control remoto y accionamiento desde smartphone",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: verificar compatibilidad con puerta/portal existente y tipo de accionamiento"
+        },
+        {
+          "concepto": "Controlador/módulo de acceso remoto con conectividad WiFi/4G",
+          "descripcion": "Módulo de control de acceso con conectividad WiFi o 4G, compatible con app móvil, gestión de credenciales y registro de accesos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: incluye software de gestión y app; confirmar licencias y actualizaciones"
+        },
+        {
+          "concepto": "Cableado estructurado CAT6 y alimentación",
+          "descripcion": "Cableado CAT6 para conexión cámara IP, cable de alimentación 12V DC para cerradura electromagnética, tuberías y canaletas de protección",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cantidad estimada según distancia portal-cuadro; ajustar según mediciones in situ"
+        },
+        {
+          "concepto": "Fuente de alimentación 12V DC con protecciones",
+          "descripcion": "Fuente de alimentación 12V DC regulada, con protecciones contra cortocircuito y sobretensión para cerradura y equipos auxiliares",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: dimensionar según consumo total de cerradura y equipos"
+        },
+        {
+          "concepto": "UPS/batería de respaldo para continuidad de servicio",
+          "descripcion": "SAI o batería de respaldo 12V para garantizar funcionamiento de cerradura en caso de corte eléctrico (autonomía mínima 4 horas)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: opcional pero recomendado; confirmar autonomía requerida"
+        },
+        {
+          "concepto": "Instalación y configuración del sistema de control de acceso remoto",
+          "descripcion": "Montaje de cámara IP, cerradura electromagnética, módulo de control, conexionado eléctrico, configuración de red WiFi/4G, emparejamiento con app móvil, pruebas de funcionamiento y apertura remota",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexionado eléctrico de cerradura y fuente de alimentación",
+          "descripcion": "Instalación de circuito eléctrico dedicado para cerradura electromagnética, conexión a fuente 12V DC, protecciones y puesta a tierra si aplica",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cartel informativo RGPD y privacidad",
+          "descripcion": "Cartel visible en portal informando sobre presencia de cámara de vigilancia, tratamiento de datos y cumplimiento RGPD",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: obligatorio por RGPD; confirmar diseño y cumplimiento normativo"
+        },
+        {
+          "concepto": "Pequeño material (conectores, tornillería, bridas, cinta aislante)",
+          "descripcion": "Conectores RJ45, tornillería inoxidable, bridas de sujeción, cinta aislante, pasta térmica y otros consumibles para instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cantidad estimada; ajustar según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: modelos de cámaras IP compatibles con control remoto (Hikvision, Dahua, Uniview, etc.)",
+        "Verificar en catálogo: cerraduras electromagnéticas y motores de apertura remota (Assa Abloy, Geze, etc.)",
+        "Verificar en catálogo: módulos de control de acceso con app (Salto, Kaba, Dormakaba, etc.)",
+        "Considerar integración con videoportero existente si lo hay",
+        "Solicitar presupuesto de notificación AEPD si es instalación en comunidad o empresa"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cámara IP para videoportero/control acceso",
+          "oficio": "telecomunicaciones",
+          "motivo": "Sistema de control de acceso remoto con cámara integrada; no existe partida específica en catálogo"
+        },
+        {
+          "concepto": "Cerradura electromagnética o motor de apertura remota",
+          "oficio": "electricidad",
+          "motivo": "Accionamiento remoto desde smartphone; requiere especificación técnica según tipo de puerta"
+        },
+        {
+          "concepto": "Controlador/módulo de acceso remoto con conectividad WiFi/4G",
+          "oficio": "telecomunicaciones",
+          "motivo": "Módulo de control con app móvil; no existe partida específica en catálogo"
+        },
+        {
+          "concepto": "UPS/batería de respaldo para continuidad de servicio",
+          "oficio": "telecomunicaciones",
+          "motivo": "Batería de respaldo para cerradura; recomendado para garantizar funcionamiento en cortes eléctricos"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_control_de_acceso_con_CCTV",
+      "instalacion_electrica_local_nuevo",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_sistema_de_riego_por_aspersion"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3984,
+      "tokens_out": 3309
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 2,
+    "n_sugeridas": 8,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

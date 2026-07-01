@@ -1,0 +1,129 @@
+{
+  "id": 204,
+  "oficio": "Jardinería",
+  "texto": "Mantenimiento mensual de jardín, corte de césped, poda de setos y limpieza de hojas",
+  "http_status": 200,
+  "latency_ms": 10308,
+  "raw_response": {
+    "transcript": "Mantenimiento mensual de jardín, corte de césped, poda de setos y limpieza de hojas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento mensual de jardín, corte de césped, poda de setos y limpieza de hojas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto recurrente mensual: cliente debe confirmar duración del contrato (6, 12 meses...)",
+          "Frecuencia estacional: verano requiere más intensidad que invierno"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Corte de césped, poda de setos, gestión de residuos vegetales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Corte de césped mensual",
+          "descripcion": "Corte y nivelación de césped, retirada de restos vegetales, limpieza general de zona con maquinaria",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe definir m² de zona de corte y fijar precio por visita mensual"
+        },
+        {
+          "concepto": "Poda de setos y arbustos",
+          "descripcion": "Poda de mantenimiento de setos y arbustos, corte a altura uniforme, retirada de restos vegetales",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar ml de seto o número de arbustos y fijar precio por visita"
+        },
+        {
+          "concepto": "Limpieza y recogida de hojas secas",
+          "descripcion": "Retirada de hojas caídas, limpieza general de zona verde, gestión y transporte de residuos vegetales",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluida en corte mensual, pero instalador puede desglosar si zona muy extensa"
+        },
+        {
+          "concepto": "Contrato mantenimiento mensual jardín",
+          "descripcion": "Visita mensual completa: corte de césped + poda de setos + limpieza de hojas. Incluye pequeño material (bolsas, cinta marcaje)",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio final por mes según dimensiones jardín, intensidad trabajo y zona geográfica. Rango referencia: 200-400€/mes"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar duración del contrato (mínimo 6 meses recomendado)",
+        "Ajustar frecuencia estacional: en verano puede requerir 2 visitas/mes, en invierno 1 visita cada 6-8 semanas",
+        "Especificar si incluye poda de árboles de altura media (requeriría tarifa superior y equipo de escalado)",
+        "Aclarar si incluye tratamiento fitosanitario en caso de plagas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Contrato mantenimiento mensual jardín",
+          "oficio": "jardineria",
+          "razon_creacion": "Agrupación de visita mensual completa según BASE MAESTRA [mantenimiento_jardin_y_zonas_verdes_periodico]",
+          "precio_referencia_base": "200-400€/mes"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "poda_de_palmeras",
+      "poda_de_setos_y_arbustos",
+      "mantenimiento_jardin_y_zonas_verdes_periodico",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_anual_caldera_gas"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

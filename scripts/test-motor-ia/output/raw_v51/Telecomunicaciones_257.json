@@ -1,0 +1,187 @@
+{
+  "id": 257,
+  "oficio": "Telecomunicaciones",
+  "texto": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+  "http_status": 200,
+  "latency_ms": 14198,
+  "raw_response": {
+    "transcript": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Configuración de red, segmentación VLAN, políticas de cortafuegos y gestión de acceso remoto"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diseño y documentación de arquitectura de red con segmentación VLAN invitados",
+          "descripcion": "Análisis de infraestructura existente, diseño de VLAN dedicada para invitados, políticas de cortafuegos y aislamiento de tráfico corporativo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de servicio profesional pendiente de confirmación del instalador según complejidad de infraestructura"
+        },
+        {
+          "concepto": "Configuración de VLAN y políticas en switch/cortafuegos",
+          "descripcion": "Creación de VLAN dedicada para red de invitados, etiquetado 802.1Q, políticas de routing y filtrado entre VLAN corporativa e invitados",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de cortafuegos (firewall/UTM) con reglas de segmentación",
+          "descripcion": "Implementación de reglas de cortafuegos para red invitados: bloqueo de acceso a recursos corporativos, permitir solo acceso a Internet, QoS para limitar ancho de banda, filtrado de contenido si procede",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de access point o WiFi para red invitados",
+          "descripcion": "Configuración de SSID separado para invitados, autenticación (contraseña o portal cautivo), aislamiento de cliente a cliente, asociación a VLAN de invitados",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de QoS (Quality of Service) para red invitados",
+          "descripcion": "Limitación de ancho de banda por usuario/VLAN, priorización de tráfico corporativo, protección frente a consumo excesivo de invitados",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de segmentación y validación de políticas",
+          "descripcion": "Verificación de aislamiento VLAN, pruebas de bloqueo de acceso a corporativa, validación de QoS, pruebas de conectividad invitados, generación de informe de seguridad",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documentación y manual de administración de red invitados",
+          "descripcion": "Elaboración de documentación técnica: esquema de red, políticas aplicadas, procedimientos de gestión, manual de usuario para reinicio de invitados",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de documentación pendiente de confirmación (típicamente 200-400€)"
+        },
+        {
+          "concepto": "Sesión de formación/transferencia de conocimiento a personal TI",
+          "descripcion": "Explicación de configuración implementada, gestión de VLAN, políticas de cortafuegos, procedimientos de mantenimiento y cambios futuros",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 700,
+        "iva_porcentaje": 21,
+        "iva": 147,
+        "total": 847
+      },
+      "sugerencias_catalogo": [
+        "Considerar contratación de soporte técnico postventa para ajustes de políticas según necesidades reales de invitados",
+        "Si la empresa no dispone de cortafuegos dedicado, valorar instalación de UTM (All-in-One) con capacidades de VLAN y filtrado avanzado",
+        "Recomendar auditoría anual de segmentación de red para validar efectividad de políticas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diseño y documentación de arquitectura de red con segmentación VLAN invitados",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio profesional de diseño, no cubierto específicamente en catálogo — requiere estimación del instalador"
+        },
+        {
+          "concepto": "Documentación y manual de administración de red invitados",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "motivo": "Entregable de documentación técnica — requiere estimación del instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "configuracion_y_securizacion_de_red_corporativa",
+      "instalacion_armario_metalico_o_taquilla",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_fotovoltaica_en_empresa_o_polígono_industrial"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 6,
+    "n_sugeridas": 2,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

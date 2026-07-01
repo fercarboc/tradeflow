@@ -1,0 +1,153 @@
+{
+  "id": 33,
+  "oficio": "Electricidad",
+  "texto": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+  "http_status": 200,
+  "latency_ms": 13133,
+  "raw_response": {
+    "transcript": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner focos LED empotrables en el techo de baño y cocina, total 8 focos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación en falso techo de pladur existente. Si el techo es de obra, se requiere revisión de dificultad.",
+          "Precio de focos LED no incluido (material suministrado por cliente o a revisar).",
+          "No se incluye circuito eléctrico nuevo; se asume conexión a circuito existente."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Apertura de huecos en placa de pladur para empotrables y refuerzo de aros."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica de focos a circuito existente, pruebas y ajustes."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Apertura de huecos y colocación de aros empotrables en pladur",
+          "descripcion": "Marcado, corte y apertura de 8 huecos circulares en placa de pladur para focos empotrables. Colocación de aros recortables y refuerzo perimetral si es necesario. Incluye pequeño material (tornillería, cinta de juntas, pasta de juntas para remate).",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de aros empotrables recortables para pladur",
+          "descripcion": "8 aros empotrables recortables de aluminio/plástico para focos LED, con sistema de fijación rápida a placa de pladur.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de aros a confirmar por instalador según marca y especificación."
+        },
+        {
+          "concepto": "Conexión eléctrica de 8 focos LED empotrables",
+          "descripcion": "Conexión de 8 focos LED a circuito eléctrico existente. Incluye cableado (si es necesario), conexionado en regleta/conector, pruebas de funcionamiento y ajustes. No incluye circuito nuevo ni interruptor adicional.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de focos LED empotrables",
+          "descripcion": "8 focos LED empotrables (potencia, temperatura color y diámetro a especificar). Incluye driver/transformador si es necesario para LED de baja tensión.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de focos LED a confirmar por instalador según especificación técnica (potencia, marca, temperatura color)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 680,
+        "iva_porcentaje": 21,
+        "iva": 142.8,
+        "total": 822.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el cliente suministra los focos LED o si el instalador debe incluirlos en presupuesto.",
+        "Confirmar que el techo es de pladur. Si es de obra (hormigón, ladrillo), la dificultad aumenta significativamente.",
+        "Considerar si se requiere circuito eléctrico nuevo o derivación de circuito existente.",
+        "Especificar temperatura color (3000K cálida para baño/cocina es recomendable) y potencia (típicamente 5-10W para LED empotrable)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de aros empotrables recortables para pladur",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material complementario no especificado en catálogo base, pero obligatorio para la instalación."
+        },
+        {
+          "concepto": "Suministro de focos LED empotrables",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material principal no especificado en catálogo base. Precio pendiente de revisión según especificación técnica del cliente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "falso_techo_pladur_con_iluminacion_empotrada",
+      "instalacion_de_techo_o_cubierta_de_madera_interior",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_barra_y_riel_para_cortinas_de_tela",
+      "instalacion_difusores_y_rejillas_climatizacion"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3697,
+      "tokens_out": 1675
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "NO"
+  }
+}

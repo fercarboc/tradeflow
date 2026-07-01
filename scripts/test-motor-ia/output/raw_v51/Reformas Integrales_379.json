@@ -1,0 +1,46 @@
+{
+  "id": 379,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+  "http_status": 200,
+  "latency_ms": 49263,
+  "raw_response": {
+    "transcript": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_cocina_completa",
+      "alicatado_y_solado_completo_cocina",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "tabique_pladur_para_ducha_o_plato_de_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "id": 213,
+  "oficio": "Jardinería",
+  "texto": "Instalar pérgola metálica con lonas de sombra en terraza de 4x5 metros, montaje completo",
+  "http_status": 200,
+  "latency_ms": 20599,
+  "raw_response": {
+    "transcript": "Instalar pérgola metálica con lonas de sombra en terraza de 4x5 metros, montaje completo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar pérgola metálica con lonas de sombra en terraza de 4x5 metros, montaje completo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Pérgola metálica: estructura y lonas requieren especificación de materiales (aluminio/acero galvanizado, densidad tela UV)",
+          "Terraza 4x5m (20m²): verificar capacidad portante del forjado y anclajes",
+          "Montaje completo incluye: desmontaje si hay estructura previa, cimentación/anclajes, instalación estructura, colocación lonas, pruebas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Estructura metálica (perfiles, uniones, herrajes) y lonas de sombra se asimilan a carpintería metálica/estructural"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación terraza, anclajes a forjado, mortero de agarre si es necesario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro estructura pérgola metálica 4x5m",
+          "descripcion": "Estructura metálica completa (perfiles aluminio o acero galvanizado, pilares, vigas, uniones, herrajes inox/galvanizados) para pérgola de 4x5 metros",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura metálica depende de especificación (aluminio vs acero, espesor perfiles, acabado). Instalador debe cotizar con proveedor"
+        },
+        {
+          "concepto": "Suministro lonas de sombra UV",
+          "descripcion": "Lonas acrílicas o poliéster tratadas UV, densidad 280-320 g/m², para cubierta pérgola 4x5m (20m²), incluyendo herrajes de fijación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio lona UV varía por calidad y proveedor. Incluir herrajes de tensión y fijación"
+        },
+        {
+          "concepto": "Preparación y anclaje a terraza",
+          "descripcion": "Limpieza terraza, marcado de puntos de anclaje, taladrado forjado, colocación tacos químicos o mecánicos, platinas de anclaje, mortero de agarre",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje estructura pérgola metálica",
+          "descripcion": "Ensamblaje y fijación de pilares, vigas, travesaños, uniones metálicas, alineación y nivelación, fijación a anclajes de terraza",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 360,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación y tensado de lonas",
+          "descripcion": "Instalación de lonas en estructura, fijación mediante herrajes, tensado uniforme, sellado de juntas, prueba de estanqueidad",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería inox, tuercas, arandelas, silicona sanitaria, cinta de sellado, EPI, herramientas consumibles",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según especificación final de estructura y lonas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1400,
+        "iva_porcentaje": 21,
+        "iva": 294,
+        "total": 1694
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la pérgola requiere licencia municipal (obra menor o mayor según normativa local)",
+        "Especificar material estructura: aluminio anodizado (más ligero, menos mantenimiento) vs acero galvanizado (más resistencia, requiere pintura periódica)",
+        "Lonas: confirmar densidad UV (280-320 g/m²), color, y sistema de recogida (manual, motorizado, automático con sensor viento)",
+        "Anclajes: si terraza es sobre forjado de hormigón, usar tacos químicos M12 mínimo; si es sobre losa de piedra/baldosa, reforzar con platinas de distribución",
+        "Mantenimiento: lonas requieren limpieza anual; estructura metálica revisión de herrajes cada 2 años"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro estructura pérgola metálica 4x5m",
+          "oficio": "carpinteria",
+          "motivo": "Material específico no en catálogo base; precio depende de especificación técnica (aluminio vs acero, perfiles, acabado)"
+        },
+        {
+          "concepto": "Suministro lonas de sombra UV",
+          "oficio": "carpinteria",
+          "motivo": "Material específico; precio variable según densidad, color, proveedor"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "carpinteria",
+          "motivo": "Tornillería, sellantes, consumibles; presupuestar según especificación final"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_inodoro",
+      "instalacion_de_sumidero_o_imbornal"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3766,
+      "tokens_out": 2414
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

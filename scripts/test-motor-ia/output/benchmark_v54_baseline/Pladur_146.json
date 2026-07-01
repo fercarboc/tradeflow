@@ -1,0 +1,202 @@
+{
+  "id": 146,
+  "oficio": "Pladur",
+  "texto": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+  "http_status": 200,
+  "latency_ms": 24893,
+  "raw_response": {
+    "transcript": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer nicho empotrado en la pared del salón para televisión, con iluminación indirecta",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Dimensiones del nicho no especificadas: se asume tamaño estándar TV 55-65 pulgadas (~1.5m ancho x 0.9m alto x 0.3m fondo). Revisar con cliente.",
+          "Iluminación indirecta: se incluye suministro de tira LED y conexión eléctrica. Revisar potencia y color de luz con cliente.",
+          "Acabado interior (pintura/papel): no especificado. Se sugiere presupuestar por separado si se requiere."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Construcción de nicho empotrado en pladur con estructura interna y acabados."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de circuito eléctrico para iluminación indirecta LED."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura y placas de yeso para nicho empotrado",
+          "descripcion": "Construcción de nicho empotrado en pared de salón. Incluye: perfiles metálicos (canal y montantes), placas de yeso laminado 15mm a ambos lados, refuerzo interior para baldas/soporte TV, tornillería, cinta de juntas, pasta de juntas, ángulos metálicos en esquinas, pequeño material. Dimensiones estimadas: 1.5m ancho x 0.9m alto x 0.3m fondo. Mano de obra: replanteo, montaje estructura, colocación placas, tratamiento de juntas.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado por nicho. Rango estimado catálogo: 300-2000€/ud según dimensiones y acabados. Instalador debe revisar dimensiones exactas y complejidad (refuerzo para TV, acceso a instalaciones, etc.) y establecer precio final."
+        },
+        {
+          "concepto": "Materiales estructura pladur (perfiles, placas, tornillería, cintas, pastas)",
+          "descripcion": "Suministro de: perfiles metálicos canal 48mm y montantes 48mm, placas de yeso laminado standard 15mm, tornillería pladur, cinta de papel para juntas, pasta de juntas, ángulos metálicos para esquinas, tacos de fijación suelo/techo, pequeño material (espátulas, lijas, etc.).",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales para nicho. Estimación: 150-400€ según dimensiones y acabados. Revisar con proveedor."
+        },
+        {
+          "concepto": "Refuerzo interior para soporte de TV y baldas",
+          "descripcion": "Refuerzo estructural interior del nicho mediante perfiles metálicos adicionales o tablero de madera contrachapada para garantizar carga admisible de TV (estimada 30-50 kg) y posibles baldas. Incluye tornillería de fijación.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de refuerzo. Estimación: 80-200€. Revisar peso de TV y necesidad de baldas adicionales."
+        },
+        {
+          "concepto": "Instalación de tira LED para iluminación indirecta",
+          "descripcion": "Suministro e instalación de tira LED RGB o blanca cálida (5-10 metros estimados) para iluminación indirecta en perímetro interior del nicho. Incluye: adhesión a estructura, conexionado a transformador/controlador, pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tira LED y accesorios eléctricos",
+          "descripcion": "Suministro de tira LED (5-10m según dimensiones nicho), transformador/fuente de alimentación, controlador (si RGB), cable de conexión, conectores, pequeño material eléctrico.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales LED. Estimación: 60-200€ según tipo (RGB/blanca, longitud, calidad). Revisar especificaciones con cliente."
+        },
+        {
+          "concepto": "Circuito eléctrico para iluminación LED",
+          "descripcion": "Instalación de circuito eléctrico desde cuadro/enchufe más cercano hasta nicho. Incluye: cableado (2x1.5mm² o similar), tubo protector si necesario, conexión a transformador LED, pruebas de funcionamiento y seguridad.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y accesorios eléctricos para circuito LED",
+          "descripcion": "Suministro de cable eléctrico (2x1.5mm² o 3x1.5mm² según distancia), tubo corrugado protector, conectores, regletas de conexión, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales eléctricos. Estimación: 30-80€ según distancia y tipo de cableado. Revisar recorrido desde cuadro/enchufe."
+        }
+      ],
+      "calculos": {
+        "subtotal": 175,
+        "iva_porcentaje": 21,
+        "iva": 36.75,
+        "total": 211.75
+      },
+      "sugerencias_catalogo": [
+        "Partida 'nicho_o_estanteria_empotrada_en_pladur' (Base Maestra): rango 300-2000€/ud. Revisar dimensiones exactas del nicho y complejidad de refuerzo.",
+        "Partida 'tabique_pladur_sencillo_72mm' (Base Maestra): si el nicho requiere estructura adicional o tabique de cierre, considerar este referente.",
+        "Iluminación indirecta: especificar tipo de LED (RGB, blanca cálida, potencia), longitud exacta y control (manual, remoto, domótico)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura y placas de yeso para nicho empotrado",
+          "oficio": "pladur_escayola",
+          "motivo": "Nicho empotrado con iluminación: combinación de estructura pladur + refuerzo + LED. Partida agrupada para claridad."
+        },
+        {
+          "concepto": "Refuerzo interior para soporte de TV y baldas",
+          "oficio": "pladur_escayola",
+          "motivo": "Refuerzo estructural específico para carga de TV. Material sugerido por IA."
+        },
+        {
+          "concepto": "Tira LED y accesorios eléctricos",
+          "oficio": "electricidad",
+          "motivo": "Iluminación indirecta LED. Material sugerido por IA, precio pendiente de revisión."
+        },
+        {
+          "concepto": "Cableado y accesorios eléctricos para circuito LED",
+          "oficio": "electricidad",
+          "motivo": "Circuito eléctrico para LED. Material sugerido por IA, precio pendiente de revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_sencillo_72mm",
+      "tabique_ladrillo_hueco_sencillo",
+      "nicho_o_estanteria_empotrada_en_pladur",
+      "apertura_hueco_en_muro_para_puerta_o_ventana",
+      "fabricacion_de_estanterias_y_baldas_a_medida"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3792,
+      "tokens_out": 3231
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

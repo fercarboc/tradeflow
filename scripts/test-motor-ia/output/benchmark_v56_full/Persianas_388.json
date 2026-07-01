@@ -1,0 +1,221 @@
+{
+  "id": 388,
+  "oficio": "Persianas",
+  "texto": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+  "http_status": 200,
+  "latency_ms": 19657,
+  "raw_response": {
+    "transcript": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+    "quote": {
+      "resumen": {
+        "texto_original": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Motorización de porticón existente: requiere evaluación estructural del elemento",
+          "Sistema solar: verificar orientación y sombreado en terraza",
+          "Aplicación smartphone: requiere conectividad WiFi/4G en zona"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Adaptación estructural del porticón de madera para recibir motor"
+        },
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación panel solar y sistema de carga de batería"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Configuración conectividad WiFi y aplicación móvil de control"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Motor motorización porticón madera con batería recargable",
+          "descripcion": "Suministro e instalación motor eléctrico para porticón/puerta corredera madera con batería recargable integrada, capacidad apertura/cierre automático, receptor radiocontrol integrado",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio motor solar motorización porticón pendiente de cotización según marca/modelo y capacidad de carga"
+        },
+        {
+          "concepto": "Panel solar flexible o rígido para carga motor",
+          "descripcion": "Suministro panel solar fotovoltaico (flexible o rígido) 50-100W para carga batería motor, con soporte de fijación ajustable en terraza, orientación óptima sur/sureste",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio panel solar pendiente según potencia y tipo (flexible/rígido)"
+        },
+        {
+          "concepto": "Instalación motor en porticón madera",
+          "descripcion": "Mano de obra: desmontaje parcial porticón si necesario, adaptación estructura madera para recibir motor, fijación motor con herrajes inox, pruebas funcionamiento apertura/cierre",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación panel solar y cableado",
+          "descripcion": "Mano de obra: montaje soporte panel solar en terraza, orientación óptima, cableado conexión panel a motor con conectores estancos, pruebas carga batería",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mando a distancia radiocontrol",
+          "descripcion": "Suministro mando a distancia inalámbrico para control motor porticón, alcance 30-50m, batería incluida",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio mando a distancia pendiente de cotización"
+        },
+        {
+          "concepto": "Configuración aplicación smartphone y conectividad",
+          "descripcion": "Mano de obra: instalación módulo WiFi/4G en motor, configuración aplicación móvil de control, emparejamiento dispositivos, pruebas acceso remoto desde smartphone, documentación usuario",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Módulo conectividad WiFi/4G para motor",
+          "descripcion": "Suministro módulo de conectividad WiFi o 4G integrable en motor, compatible con aplicación móvil, batería propia o alimentación desde batería motor",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio módulo conectividad pendiente según tecnología (WiFi/4G) y compatibilidad"
+        },
+        {
+          "concepto": "Pequeño material y herrajes inox",
+          "descripcion": "Tornillos inox, tuercas, arandelas, conectores estancos, cinta de sellado, silicona exterior, material fungible instalación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pequeño material pendiente de cotización"
+        }
+      ],
+      "calculos": {
+        "subtotal": 365,
+        "iva_porcentaje": 21,
+        "iva": 76.65,
+        "total": 441.65
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_sistema_de_persianas_con_recarga_solar' como referencia de motorización con panel solar",
+        "Consultar disponibilidad de motores solares específicos para puertas/porticones de madera en catálogo de proveedores de automatización"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Motor motorización porticón madera con batería recargable",
+          "oficio": "carpinteria",
+          "motivo": "Motorización específica para porticón de madera no encontrada en catálogo base"
+        },
+        {
+          "concepto": "Panel solar flexible o rígido para carga motor",
+          "oficio": "energia_solar",
+          "motivo": "Panel solar específico para motorización de porticón no encontrado en catálogo"
+        },
+        {
+          "concepto": "Módulo conectividad WiFi/4G para motor",
+          "oficio": "telecomunicaciones",
+          "motivo": "Módulo de conectividad para control remoto por smartphone no encontrado en catálogo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "instalacion_sistema_de_persianas_con_recarga_solar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4003,
+      "tokens_out": 2667
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

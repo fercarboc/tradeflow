@@ -1,0 +1,491 @@
+{
+  "id": 120,
+  "oficio": "Climatización",
+  "texto": "Convertir calefacción por gas a pellets, instalación de caldera de biomasa de 25kW",
+  "http_status": 200,
+  "latency_ms": 42915,
+  "raw_response": {
+    "transcript": "Convertir calefacción por gas a pellets, instalación de caldera de biomasa de 25kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Convertir calefacción por gas a pellets, instalación de caldera de biomasa de 25kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de sistema de calefacción: requiere coordinación multidisciplinar",
+          "Caldera biomasa 25kW: obra civil en sala de calderas, chimenea de humos, silo de combustible",
+          "Obligatorio: Legalización RITE y certificado de instalación por técnico autorizado",
+          "Desmontaje caldera gas: gestión de residuos y purga de circuito",
+          "Presupuesto desagregado: cada partida requiere validación de precios reales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación caldera, circuito hidráulico, tuberías, vaso expansión"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil sala calderas, base caldera, anclajes, acondicionamiento"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito eléctrico caldera, control automático, conexión termostato"
+        },
+        {
+          "oficio": "multiservicio",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 38,
+            "max": 45
+          },
+          "motivo": "Desmontaje caldera gas antigua, gestión residuos, limpieza"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y desmantelamiento caldera gas antigua",
+          "descripcion": "Desmontaje completo de caldera de gas, tuberías de conexión, purga de circuito, aislamiento de retorno a red de gas, pequeño material",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 304,
+          "total": 304,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos peligrosos (caldera gas)",
+          "descripcion": "Transporte, clasificación y tratamiento de residuos de caldera gas antigua (metal, aislamientos, fluidos residuales)",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de gestión de residuos debe validarse con gestor autorizado (150-250€)"
+        },
+        {
+          "concepto": "Obra civil sala de calderas",
+          "descripcion": "Preparación de sala, base de hormigón con pernos de anclaje para caldera biomasa 25kW, acondicionamiento de espacio según normativa",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1.5,
+          "precio_unitario": 320,
+          "total": 480,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación caldera biomasa pellets 25kW",
+          "descripcion": "Caldera de biomasa 25kW marca homologada (Thermofluid, Hargassner, Fröling o similar), instalación con conexión a circuito de calefacción existente, válvulas de seguridad, manómetro y termómetro",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Caldera biomasa 25kW: rango 3500-6500€ según marca y prestaciones (combustión, acumulación, controles)"
+        },
+        {
+          "concepto": "Instalación caldera biomasa en circuito hidráulico",
+          "descripcion": "Conexión entrada/salida al circuito, purgado, llenado con anticongelante, puesta en marcha y pruebas de funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro tuberías de conexión caldera",
+          "descripcion": "Tuberías de acero para conexión caldera biomasa a circuito existente (ida/retorno), aislamiento con espuma elastómera, válvulas de corte y purga",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tuberías acero + aislamiento + válvulas: aprox. 25-35€/ml en material"
+        },
+        {
+          "concepto": "Instalación tuberías y válvulas (mano de obra)",
+          "descripcion": "Montaje y soldadura tuberías de acero, colocación válvulas de seguridad, manómetro, termómetro, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro silo de combustible para pellets (capacidad 200-300kg)",
+          "descripcion": "Silo de almacenamiento de pellets (capacidad según consumo 25kW: 200-300kg), acero galvanizado con tapa de cierre hermético y compuerta de descarga",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Silo pellets 200-300kg: rango 400-800€ según material y prestaciones"
+        },
+        {
+          "concepto": "Instalación silo de pellets",
+          "descripcion": "Colocación silo en posición estable, conexión de tubo de descarga a caldera, instalación sistema de control de nivel, pruebas de alimentación",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema extracción de cenizas",
+          "descripcion": "Instalación depósito colector de cenizas extraíbles periódicamente, sistema de extracción manual o automático según potencia caldera",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema cenizas (manual/automático): rango 200-500€"
+        },
+        {
+          "concepto": "Instalación sistema extracción cenizas",
+          "descripcion": "Montaje depósito cenizas, conexión tuberías de extracción, instalación válvulas de corte, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación chimenea/salida de humos (acero inox doble pared)",
+          "descripcion": "Tubo de humos en acero inoxidable doble pared, diámetro según potencia (25kW → Ø150mm aprox.), aislamiento intermedio, remate de salida con sombrerete antilluvia y antipalomas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tubo acero inox doble pared Ø150: aprox. 80-120€/ml (tubo+accesorios)"
+        },
+        {
+          "concepto": "Instalación chimenea de humos",
+          "descripcion": "Montaje tramo vertical chimenea, anclajes a estructura, remate salida cubierta, sellado con silicona resistente a altas temperaturas, prueba de tiro",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aislamiento chimenea en zonas habitables",
+          "descripcion": "Camisa aislante alrededor tubo humos en pasos por zonas con riesgo (paredes de madera, techos), cumpliendo separación de seguridad mínima 10cm",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Solo si aplica; cantidad estimada según trazado chimenea (si es necesario)"
+        },
+        {
+          "concepto": "Suministro vaso de expansión para circuito biomasa",
+          "descripcion": "Vaso de expansión cerrado, volumen 25-50L según cálculo de expansión, válvula de seguridad, manómetro incorporado",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Vaso expansión 30-50L calidad: rango 150-350€"
+        },
+        {
+          "concepto": "Instalación vaso de expansión",
+          "descripcion": "Montaje vaso expansión en retorno circuito, carga presión inicial, conexión válvula seguridad, purga sistema",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuito eléctrico de control y seguridad caldera",
+          "descripcion": "Instalación cuadro de control con termostatos, sensores, relés de seguridad, conexión a red 230V monofásica, cableado según normativa CEI",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro cuadro de control e interfaz de usuario",
+          "descripcion": "Cuadro de mando con pantalla táctil o display digital, sensores de temperatura (ida/retorno), termostatos, relé de marcha/paro, temporizadores",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cuadro control + sensores: rango 800-1500€"
+        },
+        {
+          "concepto": "Adaptación sistema de radiadores existentes",
+          "descripcion": "Puesta a punto circuito radiadores: purga de aire, equilibrado hidráulico, cebado con anticongelante, prueba funcionamiento con caldera nueva",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tuercas, arandelas, teflon, juntas, silicona)",
+          "descripcion": "Consumibles varios para instalación: teflón, pegamento tuberías, juntas de goma, silicona sanitaria, pernos, arandelas de seguridad",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material estimado: 150-250€"
+        },
+        {
+          "concepto": "Legalización RITE y certificado de instalación",
+          "descripcion": "Inspección técnica competente, redacción de certificado de instalación de caldera biomasa conforme RD 42/2022 (modificación RITE), registro en órgano competente",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Legalización RITE obligatoria: rango 300-600€ (depende comunidad autónoma)"
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Encendido caldera, verificación encendido automático, control presión circuito, temperatura salida, consumo combustible, emisiones, seguridad, entrega de manuales al usuario",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documento de entrega y formación usuario",
+          "descripcion": "Entrega de documentación técnica (manuales, garantía, certificados), explicación funcionamiento, mantenimiento periódico (limpieza cenizas, inspección chimenea), registro del propietario",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": "Incluido en puesta en marcha"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2654,
+        "iva_porcentaje": 21,
+        "iva": 557.34,
+        "total": 3211.34
+      },
+      "sugerencias_catalogo": [
+        "Incluir en catálogo: 'Caldera biomasa pellets 25kW' con rango 3500-6500€",
+        "Incluir: 'Silo almacenamiento pellets 200-300kg' con rango 400-800€",
+        "Incluir: 'Tubo humos acero inox doble pared Ø150mm' con precio/ml 80-120€",
+        "Incluir: 'Vaso expansión 30-50L sistemas calefacción' con rango 150-350€",
+        "Incluir: 'Cuadro control caldera biomasa con sensores' con rango 800-1500€",
+        "Incluir: 'Legalización RITE para caldera biomasa' como servicio 300-600€"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Caldera biomasa pellets 25kW",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "3500-6500€/ud",
+          "requiere_revision": true,
+          "motivo": "Material principal, debe obtener presupuesto fabricante"
+        },
+        {
+          "concepto": "Silo de almacenamiento pellets 200-300kg",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "400-800€/ud",
+          "requiere_revision": true,
+          "motivo": "Accesorio crítico, varía según material y sistema descarga"
+        },
+        {
+          "concepto": "Tuberías acero + aislamiento (conexión caldera)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "25-35€/ml",
+          "requiere_revision": true,
+          "motivo": "Depende trazado real, longitud, diámetros"
+        },
+        {
+          "concepto": "Tubo humos acero inox doble pared Ø150",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "80-120€/ml",
+          "requiere_revision": true,
+          "motivo": "Varía según marca, longitud total, accesorios"
+        },
+        {
+          "concepto": "Vaso expansión 30-50L",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "150-350€/ud",
+          "requiere_revision": true,
+          "motivo": "Depende volumen cálculo expansión exacto"
+        },
+        {
+          "concepto": "Cuadro control + sensores termostatos",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "800-1500€/ud",
+          "requiere_revision": true,
+          "motivo": "Varía según prestaciones (pantalla táctil, integración domótica)"
+        },
+        {
+          "concepto": "Sistema extracción cenizas",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "200-500€/ud",
+          "requiere_revision": true,
+          "motivo": "Manual o automático según modelo caldera"
+        },
+        {
+          "concepto": "Legalización RITE + Certificado instalación",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "rango_precio_estimado": "300-600€/ud",
+          "requiere_revision": true,
+          "motivo": "Varía por comunidad autónoma y complejidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_caldera_biomasa_pellets",
+      "instalacion_estufa_de_pellets",
+      "sustitucion_banera_por_ducha",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "reparacion_averia_caldera_gas"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 23,
+    "n_catalogo": 11,
+    "n_sugeridas": 12,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "id": 24,
+  "oficio": "Electricidad",
+  "texto": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+  "http_status": 200,
+  "latency_ms": 20118,
+  "raw_response": {
+    "transcript": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar potencia contratada de la vivienda (mínimo 7,4 kW monofásico recomendado)",
+          "Confirmar distancia entre cuadro eléctrico y punto de instalación en garaje",
+          "Diferencial tipo A obligatorio según REBT para cargadores EV"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación cargador vehículo eléctrico wallbox modo 3 con protecciones eléctricas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Wallbox cargador modo 3 monofásico 7kW",
+          "descripcion": "Suministro de wallbox/cargador de pared modo 3, potencia 7kW, con conectores y carcasa",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de wallbox 7kW a cargo del instalador (rango mercado: 400-800€)"
+        },
+        {
+          "concepto": "Cable de derivación 6mm² Cu",
+          "descripcion": "Cable de cobre 6mm² (H07V-R o similar) desde cuadro a wallbox, incluye conducción",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metros lineales a confirmar; precio incluye cable y conducción"
+        },
+        {
+          "concepto": "Magnetotérmico 40A para circuito exclusivo wallbox",
+          "descripcion": "Interruptor magnetotérmico monofásico 40A, curva C, para protección circuito cargador",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Protección REBT obligatoria"
+        },
+        {
+          "concepto": "Diferencial tipo A 40A para cargador EV",
+          "descripcion": "Interruptor diferencial tipo A (sensible a corriente continua), 40A, 30mA, obligatorio REBT para cargadores modo 3",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Protección REBT mandatoria para EV (diferencial tipo A, no tipo AC)"
+        },
+        {
+          "concepto": "Cable de puesta a tierra 6mm²",
+          "descripcion": "Cable de cobre desnudo o aislado verde-amarillo 6mm² para conexión a tierra desde cuadro",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Toma de tierra obligatoria"
+        },
+        {
+          "concepto": "Pequeño material (conectores, bridas, etc.)",
+          "descripcion": "Regletas, conectores, bridas, tuercas, tornillería y consumibles para instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 30-50€ por instalación"
+        },
+        {
+          "concepto": "Instalación circuito exclusivo + protecciones + cableado",
+          "descripcion": "Ejecución de circuito electrico exclusivo desde cuadro general a wallbox: colocación de magnetotérmico, diferencial tipo A, derivación de cable 6mm², conexión a tierra, pruebas de continuidad y seguridad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y fijación wallbox en pared",
+          "descripcion": "Anclaje de carcasa wallbox a pared, conexión interna de cables, ajuste de conectores y pruebas de funcionamiento en carga",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rozas y reposición de canalización (si aplicable)",
+          "descripcion": "Picado y cierre de rozas en pared para pasar cable, con mortero de reposición",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Solo si se requiere; se puede usar canaleta o tubo de protección sin rozas"
+        },
+        {
+          "concepto": "Pruebas funcionales y documentación",
+          "descripcion": "Verificación de continuidad de tierra, prueba de carga en vacío, generación de boletín de instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 275,
+        "iva_porcentaje": 21,
+        "iva": 57.75,
+        "total": 332.75
+      },
+      "sugerencias_catalogo": [
+        "Antes de iniciar, solicitar al cliente confirmación de potencia contratada (mínimo 7,4 kW recomendado para wallbox 7kW en monofásico)",
+        "Avisar: diferencial tipo A es mandatorio (no tipo AC estándar)",
+        "Considerar toma de tierra existente o nueva según informe eléctrico",
+        "Si distancia cuadro-garaje > 10m, presupuestar refuerzo cable a 10mm²"
+      ],
+      "partidas_nuevas_detectadas": [
+        "Wallbox cargador modo 3 monofásico 7kW (material)",
+        "Cable de derivación 6mm² Cu (material)",
+        "Magnetotérmico 40A para circuito exclusivo wallbox (material)",
+        "Diferencial tipo A 40A para cargador EV (material)",
+        "Cable de puesta a tierra 6mm² (material)",
+        "Pequeño material (material)"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cargador_de_vehiculo_electrico_en_vivienda",
+      "instalacion_cargador_vehiculo_electrico_wallbox",
+      "instalacion_proteccion_contra_rayos_pararrayo",
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "instalacion_de_pavimento_de_caucho_o_goma"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

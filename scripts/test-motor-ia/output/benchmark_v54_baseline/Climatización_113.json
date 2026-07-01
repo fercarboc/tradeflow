@@ -1,0 +1,52 @@
+{
+  "id": 113,
+  "oficio": "Climatización",
+  "texto": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 28615,
+  "raw_response": {
+    "transcript": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_evaporativo_o_enfriamiento_adiabático",
+      "instalacion_red_electrica_nave_industrial",
+      "instalacion_cuadro_electrico_industrial_trifasico",
+      "instalacion_conexion_maquina_industrial",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "max_tokens",
+      "tokens_in": 3611,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

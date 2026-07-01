@@ -1,0 +1,203 @@
+{
+  "id": 56,
+  "oficio": "Carpintería",
+  "texto": "Montaje de pérgola de madera en terraza de 4x3 metros con vigas y postes de pino tratado",
+  "http_status": 200,
+  "latency_ms": 19642,
+  "raw_response": {
+    "transcript": "Montaje de pérgola de madera en terraza de 4x3 metros con vigas y postes de pino tratado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montaje de pérgola de madera en terraza de 4x3 metros con vigas y postes de pino tratado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar que el pino tratado cumple clase 4 (exterior)",
+          "Confirmar si requiere licencia municipal (por ubicación y superficie)",
+          "Establecer sistema de fijación a terraza (anclaje/cimentación)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación e instalación de estructura de madera (vigas, postes, uniones)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro vigas y postes de pino tratado clase 4",
+          "descripcion": "Vigas y postes de pino tratado clase 4 para pérgola 4x3m (cálculo aproximado: 4 postes 10x10cm, vigas principales 10x20cm)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere dimensionamiento exacto y presupuesto de proveedor de madera"
+        },
+        {
+          "concepto": "Suministro herrajes y uniones metálicas inox/galvanizadas",
+          "descripcion": "Uniones metálicas inox o galvanizadas, ménsulas, escuadras, pernos para fijación de vigas a postes",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere presupuesto de herrería/ferretería según cálculo estructural"
+        },
+        {
+          "concepto": "Suministro material de fijación (tornillos inox, tacos, placas anclaje)",
+          "descripcion": "Tornillos inox grado marino, tacos químicos, platinas o perfiles para fijación de postes a terraza",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere especificación según tipo de fijación (mecánica/química) y terraza"
+        },
+        {
+          "concepto": "Fabricación de pérgola (corte, cepillado, tratamiento de madera)",
+          "descripcion": "Corte a medida, cepillado, ensambles y tratamiento preservante de vigas y postes de pino",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje y fijación de pérgola en terraza",
+          "descripcion": "Posicionamiento de postes, fijación a terraza, ensamble de vigas principales y secundarias, nivelación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado: tratamiento lasur o aceite exterior",
+          "descripcion": "Aplicación de lasur o aceite protector exterior en toda la estructura de madera",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro lasur o aceite exterior protector",
+          "descripcion": "Producto lasur o aceite de protección exterior para madera (cantidad según superficie y cobertura)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere presupuesto de proveedor de productos químicos/pinturas"
+        },
+        {
+          "concepto": "Pequeño material y auxiliares",
+          "descripcion": "Lijas, masilla, trapos, protecciones, elementos auxiliares necesarios para la instalación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe a criterio del instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1530,
+        "iva_porcentaje": 21,
+        "iva": 321.3,
+        "total": 1851.3
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [fabricacion_e_instalacion_de_pergola_de_madera] — precio_alzado 600-6000€/pa según diseño y complejidad",
+        "Verificar si la terraza es piso o jardín: si es jardín, considerar [construccion_de_pergola_o_porche_de_madera_en_jardin] (oficio: jardineria)",
+        "Solicitar cálculo estructural si superficie >10m² o soporte de cubierta adicional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "tipo": "material",
+          "concepto": "Vigas y postes pino tratado clase 4",
+          "oficio": "carpinteria",
+          "motivo": "Material principal de estructura — precio debe validar proveedor local"
+        },
+        {
+          "tipo": "material",
+          "concepto": "Herrajes y uniones metálicas inox/galvanizadas",
+          "oficio": "carpinteria",
+          "motivo": "Elemento obligatorio para uniones — especificación estructural pendiente"
+        },
+        {
+          "tipo": "material",
+          "concepto": "Material de fijación (tornillos, tacos, placas anclaje)",
+          "oficio": "carpinteria",
+          "motivo": "Sistema de anclaje a terraza — tipo depende de sustrato (hormigón, baldosa, etc.)"
+        },
+        {
+          "tipo": "material",
+          "concepto": "Lasur o aceite exterior protector",
+          "oficio": "carpinteria",
+          "motivo": "Acabado obligatorio para durabilidad — presupuesto de proveedor"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_tarima_exterior_madera_o_composite",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

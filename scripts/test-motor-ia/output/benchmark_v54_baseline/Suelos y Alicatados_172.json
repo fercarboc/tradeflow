@@ -1,0 +1,213 @@
+{
+  "id": 172,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Cambiar suelo de salón de parquet de madera por gres porcelánico de gran formato 80x80",
+  "http_status": 200,
+  "latency_ms": 18939,
+  "raw_response": {
+    "transcript": "Cambiar suelo de salón de parquet de madera por gres porcelánico de gran formato 80x80",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar suelo de salón de parquet de madera por gres porcelánico de gran formato 80x80",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de sustitución: requiere desmontaje previo del parquet existente",
+          "Gran formato 80x80 requiere doble encolado obligatorio y cuñas niveladoras",
+          "Verificar estado de la solera/soporte antes de colocación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Desmontaje y retirada de parquet existente"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Colocación de gres porcelánico gran formato con doble encolado"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 30,
+            "max": 40
+          },
+          "motivo": "Gestión y retirada de residuos de parquet"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de parquet existente",
+          "descripcion": "Desmontaje completo del parquet de madera del salón, incluyendo retirada de rodapié, limpieza de adhesivos/clavos residuales y preparación de la solera. Incluye carga y transporte de residuos.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir por el instalador. Tarifa estimada 12€/m2 para desmontaje"
+        },
+        {
+          "concepto": "Regularización y preparación de solera",
+          "descripcion": "Limpieza, barrido y nivelación de la solera existente. Verificación de planitud (máximo 3mm bajo regla de 2m). Aplicación de imprimación si es necesaria.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir. Tarifa estimada para preparación de soporte"
+        },
+        {
+          "concepto": "Baldosa gres porcelánico gran formato 80x80 cm",
+          "descripcion": "Suministro de baldosa gres porcelánico rectificado formato 80x80 cm, calidad premium. Incluye mermas del 5-10%.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador según marca y calidad elegida. Rango típico: 35-80€/m2"
+        },
+        {
+          "concepto": "Mortero cola C2 flexible S2 doble encolado",
+          "descripcion": "Suministro de mortero cola C2 flexible S2 para doble encolado (obligatorio en piezas 80x80). Incluye aplicación en solera y reverso de pieza.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio a definir. Consumo estimado: 8-10 kg/m2 en doble encolado"
+        },
+        {
+          "concepto": "Colocación de gres porcelánico gran formato con doble encolado",
+          "descripcion": "Colocación de baldosa 80x80 cm con doble encolado (obligatorio). Incluye uso de cuñas niveladoras y crucetas para garantizar alineación y nivelación perfecta. Junta mínima 1 mm (rectificado).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir. Tarifa 32€/m2 para colocación con doble encolado y niveladoras"
+        },
+        {
+          "concepto": "Lechada de junta cementosa o epoxi",
+          "descripcion": "Suministro e inyección de lechada de junta (cementosa o epoxi según especificación). Limpieza de juntas y acabado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según tipo de lechada. Consumo estimado: 1-2 kg/m2"
+        },
+        {
+          "concepto": "Junta perimetral y rodapié",
+          "descripcion": "Colocación de junta perimetral de 8-10 mm en todo el perímetro del salón. Suministro e instalación de rodapié (si se incluye) o acabado de junta con silicona.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro a definir por instalador. Tarifa estimada 8€/ml"
+        },
+        {
+          "concepto": "Gestión y retirada de residuos de parquet",
+          "descripcion": "Carga, transporte y gestión de residuos de parquet desmontado. Incluye limpieza final de la obra.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 y precio a definir. Estimado: 3-5€/m2"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar en BASE MAESTRA: [solado_gres_porcelanico_interior] — rango 25-95€/m2 mano de obra",
+        "Doble encolado OBLIGATORIO para piezas 80x80 cm según norma",
+        "Cuñas niveladoras RECOMENDADAS para gran formato",
+        "Junta mínima 1 mm en rectificado, 1.5 mm en no rectificado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Regularización y preparación de solera",
+          "oficio": "suelos_alicatados",
+          "motivo": "Partida auxiliar de preparación de soporte previa a colocación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "lijado_y_barnizado_parquet_existente",
+      "solado_gres_porcelanico_interior",
+      "instalacion_solado_de_madera_maciza_flotante_ingenieria_o_click",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "colocacion_parquet_ingenieria_pegado_o_flotante"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3876,
+      "tokens_out": 2765
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

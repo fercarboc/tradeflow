@@ -1,0 +1,186 @@
+{
+  "id": 153,
+  "oficio": "Pladur",
+  "texto": "Hacer caja de pladur para ocultar tuberías y bajante en baño, acabado listo para azulejos",
+  "http_status": 200,
+  "latency_ms": 18946,
+  "raw_response": {
+    "transcript": "Hacer caja de pladur para ocultar tuberías y bajante en baño, acabado listo para azulejos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer caja de pladur para ocultar tuberías y bajante en baño, acabado listo para azulejos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar dimensiones exactas de la caja (altura, ancho, profundidad) según tuberías a ocultar",
+          "Confirmar si incluye acceso registrable para mantenimiento de bajante",
+          "Especificar acabado: placa estándar o placa hidrofugada (recomendado en baño)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Construcción y acabado de estructura pladur para ocultación de instalaciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado hidrofugada 15mm",
+          "descripcion": "Suministro de placa yeso 15mm resistente a humedad para caja ocultación tuberías en baño",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe confirmar m2 según dimensiones reales de la caja"
+        },
+        {
+          "concepto": "Perfil metálico canal y montante 70mm",
+          "descripcion": "Perfilería metálica galvanizada para estructura base de caja pladur",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe cuantificar ml según perímetro y altura de caja"
+        },
+        {
+          "concepto": "Tornillería y anclajes para pladur",
+          "descripcion": "Tornillos para placa pladur, tacos químicos y pequeño material de fijación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según volumen final de obra"
+        },
+        {
+          "concepto": "Cinta de juntas y pasta de joint",
+          "descripcion": "Cinta de papel y pasta de escayola para sellado y acabado de juntas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumible según cantidad de juntas"
+        },
+        {
+          "concepto": "Ángulo metálico de protección en esquinas",
+          "descripcion": "Ángulo metálico galvanizado para refuerzo y protección de aristas externas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según aristas a proteger"
+        },
+        {
+          "concepto": "Puerta registrable para acceso a tuberías",
+          "descripcion": "Panel registrable o boca de acceso para mantenimiento de bajante e instalaciones interiores",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir solo si se requiere acceso registrable; de lo contrario eliminar"
+        },
+        {
+          "concepto": "Montaje y colocación de estructura pladur",
+          "descripcion": "Mano de obra: instalación de perfilería metálica, colocación de placas, fijación y nivelación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador estima horas según complejidad (altura, accesibilidad, tuberías a respetar)"
+        },
+        {
+          "concepto": "Acabado de juntas y preparación para alicatado",
+          "descripcion": "Mano de obra: encinturado, aplicación de pasta joint, lijado fino (3 pasadas) y limpieza. Superficie lista para adhesivo azulejo",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas según m2 acabados: típicamente 3-5 horas para caja baño pequeña-mediana"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si placa estándar o hidrofugada: en baño se recomienda hidrofugada (resistencia a humedad)",
+        "Definir si caja ciega o con acceso registrable para mantenimiento de bajante",
+        "Especificar medidas interiores mínimas requeridas para paso de tuberías sin compresión",
+        "Considerar aislamiento acústico si se requiere (lana de roca interior)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Caja de pladur para ocultación de tuberías en baño",
+          "oficio": "pladur_escayola",
+          "tipo": "estructura_customizada",
+          "observacion": "Actuación derivada de estructura pladur — implementada como conjunto de partidas componentes (material + mano obra) según partidas obligatorias de construcción pladur"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_arqueta_de_registro",
+      "tabique_pladur_armario_empotrado_nuevo",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "estructura_pladur_para_escalera_interior_nueva"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

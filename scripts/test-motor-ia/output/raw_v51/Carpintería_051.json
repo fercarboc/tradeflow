@@ -1,0 +1,277 @@
+{
+  "id": 51,
+  "oficio": "Carpintería",
+  "texto": "Reparación de escalera de madera, peldaños sueltos y barandilla que se mueve",
+  "http_status": 200,
+  "latency_ms": 24076,
+  "raw_response": {
+    "transcript": "Reparación de escalera de madera, peldaños sueltos y barandilla que se mueve",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de escalera de madera, peldaños sueltos y barandilla que se mueve",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Inspección previa OBLIGATORIA: verificar estado estructural de la escalera y grado de deterioro de madera",
+          "Seguridad: escalera con peldaños sueltos y barandilla inestable presenta RIESGO DE CAÍDA",
+          "Diagnóstico: determinar si requiere refuerzo con placas metálicas, tornillos o desmontaje parcial"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de estructura de madera, peldaños y barandilla de escalera interior"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Refuerzo y estabilización de barandilla metálica si aplica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y diagnóstico de escalera de madera",
+          "descripcion": "Inspección visual y tactil completa: estado estructural, deterioro de madera, movimientos en peldaños y barandilla, identificación de puntos de anclaje defectuosos",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifas_mano_obra",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje y retoque de peldaños sueltos",
+          "descripcion": "Desmontaje parcial de peldaños sueltos (máximo 4-5 ud), limpieza de zona de encaje, eliminación de polvo y restos, retallado si es necesario",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifas_mano_obra",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pegado y encaje de peldaños con adhesivo estructural",
+          "descripcion": "Aplicación de adhesivo de madera (tipo resina epoxi o similar) en zona de encaje, reposicionamiento de peldaños, presión y secado según instrucciones",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Adhesivo estructural para madera: tipo epoxi, poliuretano o similar. Revisar cantidad y especificación según estado de deterioro"
+        },
+        {
+          "concepto": "Clavazón y atornillado de refuerzo en peldaños",
+          "descripcion": "Instalación de tornillos de madera (6-8 tornillos por peldaño afectado) desde zona inferior o lateral para fijar definitivamente peldaños; perforación, roscado e inserción",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifas_mano_obra",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tornillos de madera refuerzo peldaños",
+          "descripcion": "Tornillos de madera acero inox o galvanizado, diámetro 5-6 mm, longitud 50-75 mm, cantidad estimada para refuerzo de 4-5 peldaños (aprox. 30-40 ud)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar diámetro, longitud y cantidad exacta según inspección. Revisar si galvanizado o inox según zona humedad"
+        },
+        {
+          "concepto": "Reparación y estabilización de barandilla suelta",
+          "descripcion": "Inspección de anclajes de barandilla, retoque de tornillería, refuerzo de puntos de fijación a pared/estructura, verificación de horizontalidad y resistencia ante tiro lateral",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifas_mano_obra",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Apriete y sustitución de tornillería barandilla",
+          "descripcion": "Retirada de tornillos sueltos, limpieza de zonas de anclaje, reinstalación con tuercas y arandelas de seguridad, apriete controlado. Incluye reemplazo de tornillos dañados",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "tarifas_mano_obra",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tornillería y arandelas refuerzo barandilla",
+          "descripcion": "Tornillos, tuercas y arandelas metálicas (acero inox o galvanizado) para fijación de barandilla, diámetro 8-10 mm, cantidad estimada 15-20 ud",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar diámetro M8/M10, tipo de tornillo (cabeza hexagonal, socket), material (inox 304 recomendado para interior)"
+        },
+        {
+          "concepto": "Refuerzo estructural con placas metálicas si es necesario",
+          "descripcion": "Instalación de placas de refuerzo metálicas (acero galvanizado o inox) en puntos críticos de barandilla si movimiento es severo; anclaje con tornillería y tuercas",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "A revisar según inspección: si barandilla requiere refuerzo con platinas o escuadras metálicas. Cantidad y especificación pendiente de diagnóstico"
+        },
+        {
+          "concepto": "Sellado y acabado de grietas en peldaños o zonas de anclaje",
+          "descripcion": "Limpieza de grietas pequeñas, aplicación de masilla de madera o cola de madera, lijado fino y acabado con barniz o similar si es necesario",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifas_mano_obra",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Masilla de madera y barniz acabado",
+          "descripcion": "Masilla de madera color natural o a juego, barniz transparente o satinado para acabado y protección, cantidad según grietas detectadas",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar cantidad de masilla (lata 250-500g) y volumen barniz según extensión de grietas detectadas en inspección"
+        },
+        {
+          "concepto": "Pruebas de seguridad y verificación final",
+          "descripcion": "Test de estabilidad de peldaños (carga de prueba), verificación de movimiento de barandilla ante esfuerzo lateral, comprobación de horizontalidad, informe de estado",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifas_mano_obra",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 682.5,
+        "iva_porcentaje": 21,
+        "iva": 143.325,
+        "total": 825.825
+      },
+      "sugerencias_catalogo": [
+        "Si escalera presenta daño severo en estructura, considerar evaluación por ingeniero",
+        "Escalera de madera con movimiento puede indicar problema de humedad o defectos de encaje original",
+        "Si se requiere sustitución completa de peldaños o barandilla, consultar presupuestos separados de carpintería y cerrajería",
+        "Revisar normativa CTE-DB-SUA para altura mínima de barandilla (90 cm uso privado, 100 cm público) durante reparación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Adhesivo estructural para madera",
+          "tipo": "material",
+          "oficio": "carpinteria",
+          "motivo": "Pegado de peldaños sueltos - precio y especificación a revisar por instalador"
+        },
+        {
+          "concepto": "Tornillos de madera refuerzo",
+          "tipo": "material",
+          "oficio": "carpinteria",
+          "motivo": "Fijación adicional peldaños - especificar diámetro, longitud, cantidad exacta"
+        },
+        {
+          "concepto": "Tornillería y arandelas barandilla",
+          "tipo": "material",
+          "oficio": "cerrajeria",
+          "motivo": "Refuerzo de anclajes barandilla - especificar material (inox/galvanizado) y dimensiones"
+        },
+        {
+          "concepto": "Placas metálicas refuerzo barandilla",
+          "tipo": "material",
+          "oficio": "cerrajeria",
+          "motivo": "Refuerzo estructural si barandilla requiere estabilización severa - cantidad y tipo a confirmar tras inspección"
+        },
+        {
+          "concepto": "Masilla de madera y barniz",
+          "tipo": "material",
+          "oficio": "carpinteria",
+          "motivo": "Sellado de grietas y acabado - cantidad según estado de deterioro"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_barandilla_metalica_de_escalera_interior",
+      "pintado_pasamanos_y_barandillas_interior",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "colocacion_peldano_ceramico_o_piedra_en_escalera",
+      "instalacion_escalera_de_cristal_o_peldanos_de_vidrio"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 7,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

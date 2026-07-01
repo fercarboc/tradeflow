@@ -1,0 +1,209 @@
+{
+  "id": 126,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 21260,
+  "raw_response": {
+    "transcript": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Panel sándwich es material de cubierta especializado; se requiere verificación de carga sobre estructura portante",
+          "Inclinación mínima recomendada: 5-10% para evacuación de aguas",
+          "Revisar anclaje/fijación según viento y carga nieve en zona geográfica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Especialidad en construcción/reparación de cubiertas metálicas y composites"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Soporte estructural y acabados de cubierta"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Paneles sándwich para cubierta inclinada",
+          "descripcion": "Suministro de paneles sándwich (poliuretano/lana mineral) espesor 80-100mm, incluye accesorios de fijación y cierre lateral, 20 m²",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado; instalador debe confirmar precio según marca (Kingspan, Isopan, Assan, etc.) y espesor"
+        },
+        {
+          "concepto": "Preparación estructura portante",
+          "descripcion": "Limpieza, nivelación y preparación de vigas/correas de apoyo para recepción de paneles sándwich, incluyendo verificación de cota de inclinación",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 15,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación paneles sándwich con fijación",
+          "descripcion": "Colocación y fijación de paneles sándwich sobre estructura con tornillos autorroscantes y arandelas estancas, incluyendo solapo y alineación en línea",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 28,
+          "total": 560,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Accesorios de cubierta (cumbrera, canalón, ganchos desagüe)",
+          "descripcion": "Suministro e instalación de perfiles de remate (cumbrera, laterales), canalón de recogida de aguas y elementos de fijación acero galvanizado o aluminio",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Accesorios variables según diseño; instalador debe presupuestar según perímetro y detalles constructivos"
+        },
+        {
+          "concepto": "Mano de obra accesorios y remates de cubierta",
+          "descripcion": "Instalación de cumbrera, laterales, canalón de recogida y anclajes de seguridad, incluyendo sellado de juntas con silicona o poliuretano",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 12,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización encuentros y penetraciones",
+          "descripcion": "Sellado de encuentros con fachada, canalones y posibles penetraciones con sellador poliuretano de una componente o cinta de butilo de sellado",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de sellador variable; aproximación 1.5 m/m² de cubierta"
+        },
+        {
+          "concepto": "Medidas de seguridad y EPI en altura",
+          "descripcion": "Línea de vida, arnés de seguridad, andamios o plataformas elevadoras, señalización de obra en altura",
+          "oficio": "cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 80,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, herramientas y desplome",
+          "descripcion": "Tornillos, arandelas, cinta de sellado, mortero, pequeña ferretería, desplome de escombros y limpieza final",
+          "oficio": "cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe variable; estimado 5-15% del material principal"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1260,
+        "iva_porcentaje": 21,
+        "iva": 264.6,
+        "total": 1524.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar con fabricante de paneles sándwich (Kingspan, Isopan, Assan, Eurochem, etc.) especificaciones técnicas y precio",
+        "Incluir en presupuesto estudio de cargas si la estructura portante no ha sido dimensionada para panel sándwich",
+        "Solicitar certificado de inclinación mínima y drenaje de aguas pluviales",
+        "Revisar normativa local sobre protección de bordes y sistemas de prevención de caída en trabajos en altura"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Paneles sándwich para cubierta",
+          "oficio": "cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material especializado no catalogado con precisión; depende de marca, espesor (80-150mm) y núcleo (PUR/PIR/lana mineral)"
+        },
+        {
+          "concepto": "Accesorios de cubierta (cumbrera, canalón, ganchos)",
+          "oficio": "cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Complementarios según diseño; cantidad variable"
+        },
+        {
+          "concepto": "Sellador y pequeño material",
+          "oficio": "cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles de obra; presupuestación del instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "instalacion_de_cubierta_de_policarbonato_o_acrilico",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 8,
+    "n_catalogo": 0,
+    "n_sugeridas": 8,
+    "oficio_detectado": "cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

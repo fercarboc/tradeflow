@@ -1,0 +1,121 @@
+{
+  "id": 381,
+  "oficio": "Persianas",
+  "texto": "Instalar persiana de aluminio de lamas orientables en ventana de salón de 150x120 centímetros",
+  "http_status": 200,
+  "latency_ms": 10597,
+  "raw_response": {
+    "transcript": "Instalar persiana de aluminio de lamas orientables en ventana de salón de 150x120 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar persiana de aluminio de lamas orientables en ventana de salón de 150x120 centímetros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de persiana veneciana de aluminio con lamas orientables, trabajo especializado en persianas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Persiana veneciana aluminio lamas orientables 150x120 cm",
+          "descripcion": "Suministro de persiana veneciana de aluminio con lamas orientables de 25 mm, ancho 150 cm x alto 120 cm, incluyendo cabezal con mecanismo de giro y subida, varilla de control de lamas, cordón de subida y accesorios de fijación",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado según proveedor. Rango estimado 200-350€ según calidad y acabado"
+        },
+        {
+          "concepto": "Fijaciones y soportes cabezal persiana",
+          "descripcion": "Soportes de fijación para cabezal a dintel o pared, tacos, tornillos inox y pequeño material de instalación",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material. Rango estimado 15-25€"
+        },
+        {
+          "concepto": "Instalación persiana veneciana aluminio orientable",
+          "descripcion": "Mano de obra de instalación: fijación de soportes al dintel/pared, colocación de cabezal, montaje de varilla de control, ajuste de mecanismo de giro y subida, pruebas de funcionamiento",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "El presupuesto incluye mano de obra de instalación (2 horas a 45€/h). El instalador debe revisar y completar los precios de materiales (persiana + fijaciones) según su proveedor habitual",
+        "Para ventanas de 150 cm de ancho, la persiana veneciana estándar es suficiente sin refuerzos adicionales",
+        "Confirmar si la fijación es a dintel (superior) o a pared lateral para ajustar soportes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Persiana veneciana aluminio lamas orientables 150x120 cm",
+          "oficio": "persianas",
+          "razon": "Material específico de medida personalizada, requiere cotización del instalador"
+        },
+        {
+          "concepto": "Fijaciones y soportes cabezal persiana",
+          "oficio": "persianas",
+          "razon": "Pequeño material de instalación, requiere cotización"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_celosia_o_lamas_regulables_exteriores",
+      "instalacion_persiana_veneciana_interior_aluminio",
+      "instalacion_persiana_mallorquina_o_librillo",
+      "instalacion_estor_enrollable_interior"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3759,
+      "tokens_out": 1187
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 1,
+    "n_sugeridas": 2,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "id": 116,
+  "oficio": "Climatización",
+  "texto": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+  "http_status": 200,
+  "latency_ms": 12521,
+  "raw_response": {
+    "transcript": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo especializado en gas natural: requiere profesional colegiado y autorizado por distribuidora",
+          "Certificado de instalación debe ser emitido por instalador autorizado según normativa vigente",
+          "Puede incluir mejoras/reparaciones si se detectan deficiencias durante revisión"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Legalización de instalación de gas natural requiere especialización técnica en sistemas de gas. Incluye revisión, diagnóstico y certificación según normativa de seguridad gas (RD 919/2006 y normativa autonómica)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión completa instalación gas natural",
+          "descripcion": "Inspección visual y funcional de toda la instalación de gas natural en vivienda: tuberías, conexiones, reguladores, válvulas de seguridad, estanqueidad, ventilación y evacuación de humos. Verificación de cumplimiento normativa RD 919/2006",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de estanqueidad con detector gas",
+          "descripcion": "Realización de prueba de estanqueidad en toda la red de tuberías de gas natural mediante detector electrónico de fugas. Incluye pequeño material (detector, manómetro si necesario)",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico y documentación",
+          "descripcion": "Elaboración de informe técnico detallado con resultado de inspección, pruebas realizadas, estado de la instalación, deficiencias detectadas (si las hay) y recomendaciones. Documentación para tramitación con distribuidora de gas",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Emisión de certificado de instalación legalizado",
+          "descripcion": "Emisión y firma del certificado de instalación de gas natural según normativa vigente (RD 919/2006). Certificado válido para legalización ante distribuidora y administración. Incluye trámites administrativos básicos de presentación",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del certificado y trámites administrativos debe ser definido por el instalador autorizado según tarifa profesional y complejidad de la instalación"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Pequeño material consumible: cinta teflón, pasta selladora, conectores, abrazaderas, etiquetas identificación, documentación impresa",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a definir según necesidades reales de la instalación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 357.5,
+        "iva_porcentaje": 21,
+        "iva": 75.08,
+        "total": 432.58
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la instalación requiere mejoras/reparaciones: si se detectan deficiencias durante la revisión, añadir partidas de reparación (cambio válvulas, reemplazo tuberías, etc.)",
+        "Confirmar si incluye tramitación completa con distribuidora de gas o solo emisión de certificado",
+        "Considerar si es necesario ajuste de reguladores o purga de aire en sistema"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Emisión de certificado de instalación legalizado",
+          "oficio": "mecanica_especializada",
+          "motivo": "Servicio administrativo-técnico de legalización. Precio variable según tarifa profesional del instalador autorizado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_ventana_madera_con_vidrio",
+      "auditoria_energetica_instalacion_climatizacion",
+      "legalización_instalacion_electrica",
+      "revision_instalacion_electrica_local_comercial",
+      "instalacion_persiana_veneciana_de_madera_o_bambu"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3616,
+      "tokens_out": 1605
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "mecanica_especializada",
+    "coincide_oficio": "NO"
+  }
+}

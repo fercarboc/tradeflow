@@ -1,0 +1,222 @@
+{
+  "id": 237,
+  "oficio": "Energía Solar",
+  "texto": "Instalar farolas solares autónomas en camino de acceso a finca, 6 unidades con sensor de movimiento",
+  "http_status": 200,
+  "latency_ms": 20222,
+  "raw_response": {
+    "transcript": "Instalar farolas solares autónomas en camino de acceso a finca, 6 unidades con sensor de movimiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar farolas solares autónomas en camino de acceso a finca, 6 unidades con sensor de movimiento",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Materiales (farolas solares, sensores) requieren precio de proveedor",
+          "Obra civil (excavación, hormigonado) depende de terreno y profundidad de cimentación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistemas solares fotovoltaicos autónomos (farolas solares)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de sensores de movimiento PIR y conexionado eléctrico"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Excavación, cimentación y hormigonado de bases para farolas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Farolas solares autónomas LED",
+          "descripcion": "Suministro de 6 farolas solares autónomas con panel fotovoltaico integrado, batería de acumulación, LED de alta eficiencia y carcasa resistente a intemperie. Incluye todos los componentes necesarios para funcionamiento independiente.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de farola solar depende de potencia, autonomía y marca. Rango típico: 150-600€/ud"
+        },
+        {
+          "concepto": "Sensores de movimiento PIR para farolas",
+          "descripcion": "Suministro de 6 detectores de movimiento PIR integrados o acoplables a farolas solares. Rango de detección 6-12m, ángulo 120-180°, tiempo de apagado ajustable.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sensor PIR: 30-150€/ud según calidad y compatibilidad"
+        },
+        {
+          "concepto": "Excavación y preparación de bases",
+          "descripcion": "Excavación de 6 hoyos para cimentación de farolas (profundidad aprox. 0,6-0,8m), retirada de tierra y preparación de base compactada.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Hormigonado de cimentaciones",
+          "descripcion": "Hormigón de limpieza y cimentación para 6 bases de farolas. Incluye hormigón H-20, encofrado temporal si necesario, vibrado y acabado.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0.6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Hormigón H-20: aprox. 80-120€/m3 (incluye suministro y puesta en obra)"
+        },
+        {
+          "concepto": "Instalación de farolas solares",
+          "descripcion": "Montaje de 6 farolas solares en sus bases de hormigón. Incluye alineación, fijación, nivelación y comprobación de estabilidad.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de sensores PIR en farolas",
+          "descripcion": "Montaje, conexionado y calibración de 6 sensores de movimiento PIR en farolas. Ajuste de sensibilidad, rango de detección y tiempo de apagado.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Pruebas de carga de baterías, funcionamiento de LEDs, sensores de movimiento y autonomía nocturna. Verificación de orientación solar óptima.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, tacos, bridas, cinta aislante, pasta térmica, selladores y otros accesorios necesarios para la instalación completa.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: aprox. 50-100€ para 6 unidades"
+        }
+      ],
+      "calculos": {
+        "subtotal": 577.5,
+        "iva_porcentaje": 21,
+        "iva": 121.28,
+        "total": 698.78
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de farolas solares LED de marcas especializadas (Philips, Ledvance, Sunforce, etc.)",
+        "Verificar compatibilidad de sensores PIR con modelo de farola elegido",
+        "Considerar farolas con sensor integrado para simplificar instalación",
+        "Solicitar presupuesto de hormigón a proveedor local (varía por región)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Farolas solares autónomas LED",
+          "oficio": "energia_solar",
+          "motivo": "Material específico de sistema solar autónomo, no en catálogo base"
+        },
+        {
+          "concepto": "Sensores de movimiento PIR para farolas",
+          "oficio": "electricidad",
+          "motivo": "Sensor específico acoplable a farolas, variante de detector_movimiento_pir"
+        },
+        {
+          "concepto": "Hormigonado de cimentaciones",
+          "oficio": "albanileria",
+          "motivo": "Material de obra civil, requiere presupuesto de proveedor local"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_detector_movimiento_pir",
+      "instalacion_fotovoltaica_autoconsumo",
+      "construccion_de_camino_o_sendero_en_jardin",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_de_detectores_de_llama"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3816,
+      "tokens_out": 2785
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

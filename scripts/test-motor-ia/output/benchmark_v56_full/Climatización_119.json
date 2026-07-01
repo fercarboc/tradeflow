@@ -1,0 +1,291 @@
+{
+  "id": 119,
+  "oficio": "Climatización",
+  "texto": "Instalar 5 unidades de cassette en local comercial con unidad exterior de 14kW",
+  "http_status": 200,
+  "latency_ms": 24477,
+  "raw_response": {
+    "transcript": "Instalar 5 unidades de cassette en local comercial con unidad exterior de 14kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar 5 unidades de cassette en local comercial con unidad externa de 14kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Verificar cálculo térmico: 5 cassettes con unidad externa 14kW requiere validación de potencia distribuida",
+          "Confirmar ubicación exacta de unidad externa (cubierta, fachada, patio interior)",
+          "Validar disponibilidad de espacio en falso techo para 5 cassettes 600x600mm",
+          "Requiere proyecto técnico si potencia total > 70kW"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema split multi-cassette con unidad externa centralizada"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Circuitos eléctricos exclusivos para unidad externa y cassettes, cuadro de control"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Adaptación de falso techo para alojar 5 cassettes 600x600mm"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación unidad externa 14kW",
+          "descripcion": "Unidad condensadora exterior 14kW, soporte metálico antivibración, anclaje a estructura (cubierta/fachada/patio), pequeño material de fijación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de unidad externa 14kW a confirmar por instalador según marca/modelo"
+        },
+        {
+          "concepto": "Instalación unidad externa 14kW",
+          "descripcion": "Montaje, anclaje, nivelación, conexión preliminar de tuberías y cableado a cassettes",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación 5 cassettes inverter techo",
+          "descripcion": "5 unidades cassette 600x600mm, potencia distribuida según cálculo (aprox. 2.8kW/ud), marco decorativo, tubo desagüe condensados con bomba si necesario",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario cassette a confirmar según potencia individual y marca"
+        },
+        {
+          "concepto": "Instalación 5 cassettes en falso techo",
+          "descripcion": "Montaje de 5 cassettes en huecos de falso techo, anclaje a estructura, conexión tuberías frigoríficas y cableado, pruebas de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 60,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tuberías frigoríficas de interconexión",
+          "descripcion": "Tubo cobre aislado (ida+retorno) desde unidad externa a 5 cassettes, incluyendo ramificaciones, válvulas de corte, pequeño material",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje total de tuberías a confirmar según plano de distribución y ubicación de cassettes"
+        },
+        {
+          "concepto": "Instalación tuberías frigoríficas",
+          "descripcion": "Tendido, fijación, aislamiento térmico, prueba de estanqueidad y carga de gas refrigerante",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuitos eléctricos exclusivos (unidad externa + cassettes)",
+          "descripcion": "Cable RV-K 4x6mm² para unidad externa, cable 3x2.5mm² para cada cassette, protecciones magnetotérmicas, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje de cableado a confirmar según recorrido desde cuadro a unidad externa y cassettes"
+        },
+        {
+          "concepto": "Instalación circuitos eléctricos climatización",
+          "descripcion": "Tendido de cables, conexión en cuadro eléctrico, instalación de magnetotérmicos y diferenciales, pruebas de aislamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 50,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Adaptación falso techo para 5 cassettes",
+          "descripcion": "Apertura/refuerzo de 5 huecos 600x600mm en falso techo, marcos de anclaje, pequeño material",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 35,
+          "total": 140,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tubo desagüe condensados con bomba",
+          "descripcion": "Tubo PVC Ø20mm desde cassettes a punto de desagüe, bomba de condensados si desagüe > 1m altura, válvulas antirretorno",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar si se requiere bomba de condensados según altura de desagüe"
+        },
+        {
+          "concepto": "Instalación sistema desagüe condensados",
+          "descripcion": "Tendido de tubo desagüe, instalación de bomba si necesario, conexión a punto de desagüe",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas, puesta en marcha y documentación",
+          "descripcion": "Pruebas de funcionamiento de 5 cassettes, equilibrado de temperaturas, verificación de presiones, entrega de documentación y garantía",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2010,
+        "iva_porcentaje": 21,
+        "iva": 422.1,
+        "total": 2432.1
+      },
+      "sugerencias_catalogo": [
+        "Validar con cálculo térmico que 5 cassettes de ~2.8kW cada una (total ~14kW) es la distribución correcta",
+        "Confirmar ubicación de unidad externa: cubierta (más común), fachada o patio interior",
+        "Verificar disponibilidad de espacio en falso techo para 5 cassettes sin interferencias con estructura",
+        "Si potencia total supera 70kW, requiere proyecto técnico firmado por ingeniero",
+        "Considerar termostatos de zona o control centralizado para optimizar consumo en local comercial"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación unidad externa 14kW",
+          "origen": "sugerida_ia",
+          "motivo": "Precio de unidad condensadora específica a confirmar por instalador"
+        },
+        {
+          "concepto": "Suministro e instalación 5 cassettes inverter techo",
+          "origen": "sugerida_ia",
+          "motivo": "Precio unitario de cassettes a confirmar según potencia y marca"
+        },
+        {
+          "concepto": "Tuberías frigoríficas de interconexión",
+          "origen": "sugerida_ia",
+          "motivo": "Metraje total a confirmar según plano de distribución"
+        },
+        {
+          "concepto": "Circuitos eléctricos exclusivos (unidad externa + cassettes)",
+          "origen": "sugerida_ia",
+          "motivo": "Metraje de cableado a confirmar según recorrido real"
+        },
+        {
+          "concepto": "Tubo desagüe condensados con bomba",
+          "origen": "sugerida_ia",
+          "motivo": "Necesidad de bomba a confirmar según altura de desagüe"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_iluminacion_comercial_led",
+      "reforma_para_instalar_ascensor_en_edificio_sin_ascensor",
+      "instalacion_electrica_exterior_urbanizacion",
+      "instalacion_sistema_de_expansion_directa_roof_top",
+      "instalacion_split_1x1_cassette_techo"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3756,
+      "tokens_out": 3593
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 7,
+    "n_sugeridas": 5,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

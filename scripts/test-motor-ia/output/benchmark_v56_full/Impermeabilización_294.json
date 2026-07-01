@@ -1,0 +1,208 @@
+{
+  "id": 294,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar depósito de agua de hormigón para riego, limpieza interior y revestimiento epoxy",
+  "http_status": 200,
+  "latency_ms": 22519,
+  "raw_response": {
+    "transcript": "Impermeabilizar depósito de agua de hormigón para riego, limpieza interior y revestimiento epoxy",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar depósito de agua de hormigón para riego, limpieza interior y revestimiento epoxy",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Depósito de agua para riego (no potable): verificar si epoxy es compatible con uso agrícola o si requiere pintura específica para agua no potable",
+          "Volumen/dimensiones del depósito no especificadas: precio estimado por m² de superficie interior. Solicitar medidas para ajustar presupuesto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de depósito con revestimiento epoxy es función de impermeabilización (no pintura general). Incluye preparación, sellado y revestimiento estanco."
+        },
+        {
+          "oficio": "limpieza",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 18,
+            "recomendado": 20,
+            "max": 25
+          },
+          "motivo": "Limpieza interior del depósito antes de impermeabilización es fase previa obligatoria."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y limpieza interior depósito hormigón",
+          "descripcion": "Vaciado completo del depósito, limpieza mecánica de algas, sedimentos y residuos. Preparación de superficie interior para aplicación de revestimiento.",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 20,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas estimada. Ajustar según volumen real del depósito (m³) y grado de suciedad."
+        },
+        {
+          "concepto": "Reparación de grietas y fisuras en hormigón",
+          "descripcion": "Sellado de grietas y fisuras con mortero hidrofugo o resina epoxy inyectada. Preparación de superficies irregulares.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas. Depende del estado del hormigón y número/tamaño de grietas. Solicitar inspección previa."
+        },
+        {
+          "concepto": "Imprimación consolidante y selladora",
+          "descripcion": "Aplicación de imprimación epoxy de penetración profunda para consolidar hormigón y crear base de adherencia para revestimiento final.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² de superficie interior no especificada. Precio material pendiente de cotización según superficie real."
+        },
+        {
+          "concepto": "Revestimiento epoxy de dos componentes",
+          "descripcion": "Aplicación de pintura/revestimiento epoxy de dos componentes (resina + endurecedor) para impermeabilización y protección interior del depósito. Espesor mínimo 2-3 mm.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² de superficie interior no especificada. Precio material (epoxy de calidad) pendiente de cotización. Rango típico: 8-25€/m² según calidad."
+        },
+        {
+          "concepto": "Aplicación revestimiento epoxy interior depósito",
+          "descripcion": "Mano de obra de aplicación de revestimiento epoxy en dos capas (base + acabado) con rodillo o brocha. Incluye mezcla de componentes, aplicación uniforme y curado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² de superficie interior no especificada. Tarifa: 10-15€/m² según accesibilidad y complejidad. Ajustar según medidas reales."
+        },
+        {
+          "concepto": "Sellado de junta suelo-pared con banda hidrofuga",
+          "descripcion": "Colocación de banda hidrofuga flexible en junta perimetral suelo-pared interior para evitar filtraciones en ángulos críticos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro interior del depósito no especificado. Precio material banda hidrofuga: 3-8€/ml. Solicitar medidas."
+        },
+        {
+          "concepto": "Ventilación y secado depósito post-aplicación",
+          "descripcion": "Ventilación forzada del depósito durante y después de aplicación de epoxy para garantizar curado correcto y evitar condensación. Incluye ventilador portátil y tiempo de secado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas para ventilación y control de curado. Ajustar según volumen del depósito y condiciones ambientales."
+        },
+        {
+          "concepto": "EPI y pequeño material (mascarillas, guantes, trapos, disolventes)",
+          "descripcion": "Equipos de protección individual (mascarillas FFP2, guantes nitrilo, gafas), trapos de limpieza, disolventes de limpieza y pequeño material consumible.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 40-80€ según cantidad de material consumible. Pendiente de cotización."
+        }
+      ],
+      "calculos": {
+        "subtotal": 610,
+        "iva_porcentaje": 21,
+        "iva": 128.1,
+        "total": 738.1
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: dimensiones exactas del depósito (largo × ancho × alto en metros) para calcular m² de superficie interior.",
+        "Solicitar: perímetro interior del depósito (para banda hidrofuga en junta suelo-pared).",
+        "Solicitar: estado actual del hormigón (grietas, fisuras, humedad, algas). Realizar inspección previa.",
+        "Confirmar: ¿agua para riego agrícola o riego ornamental? Verificar si epoxy es compatible o si requiere certificación específica.",
+        "Confirmar: ¿depósito tiene tapa/acceso? ¿Ventilación natural o requiere ventilador?",
+        "Presupuesto actual (610€ mano de obra) es ESTIMADO. Materiales (epoxy, banda, imprimación) pendientes de cotización según superficie real."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Revestimiento epoxy de dos componentes",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para impermeabilización de depósitos de agua. No está en catálogo base. Precio variable según marca y calidad (8-25€/m²)."
+        },
+        {
+          "concepto": "Banda hidrofuga para junta suelo-pared",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material complementario para sellado de juntas críticas. Precio: 3-8€/ml."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_de_depositos_agua_potable_interior",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3872,
+      "tokens_out": 3008
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

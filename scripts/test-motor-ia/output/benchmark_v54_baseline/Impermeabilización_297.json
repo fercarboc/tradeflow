@@ -1,0 +1,172 @@
+{
+  "id": 297,
+  "oficio": "Impermeabilización",
+  "texto": "Tratar filtraciones en muro de hormigón de garaje subterráneo con mortero cristalizante",
+  "http_status": 200,
+  "latency_ms": 17576,
+  "raw_response": {
+    "transcript": "Tratar filtraciones en muro de hormigón de garaje subterráneo con mortero cristalizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tratar filtraciones en muro de hormigón de garaje subterráneo con mortero cristalizante",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en sótano/garaje subterráneo: verificar acceso, ventilación y seguridad en obra",
+          "Mortero cristalizante requiere superficie húmeda durante aplicación: coordinar con drenaje o humedad residual",
+          "Revisar si hay filtraciones activas o solo manchas de humedad antigua"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamiento de filtraciones y humedad en hormigón con sistema cristalizante. Oficio especializado en impermeabilización interior."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y preparación de superficie",
+          "descripcion": "Limpieza de eflorescencias, sales y zona deteriorada. Eliminación de pintura o revestimiento suelto. Cepillado y preparación de hormigón para recibir mortero cristalizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 18,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir por el profesional según extensión real de filtraciones"
+        },
+        {
+          "concepto": "Imprimación mineral previa",
+          "descripcion": "Aplicación de imprimación mineral o consolidante para mejorar adherencia del mortero cristalizante al hormigón. Una mano.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio y cantidad (litros/kg) a definir por instalador según superficie"
+        },
+        {
+          "concepto": "Mortero hidrofugo cristalizante",
+          "descripcion": "Aplicación de mortero cristalizante (penetra en poros del hormigón, cristaliza con humedad). Espesor 3-5 mm. Dos manos mínimo para filtraciones activas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio y cantidad (kg/m2) a definir. Típicamente 2-3 kg/m2 por mano."
+        },
+        {
+          "concepto": "Aplicación mortero cristalizante",
+          "descripcion": "Mano de obra: aplicación de mortero cristalizante en dos manos. Incluye espera entre manos y curado inicial.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 22,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir por el profesional"
+        },
+        {
+          "concepto": "Refuerzo de encuentros suelo-pared",
+          "descripcion": "Refuerzo especial en junta suelo-pared con mortero cristalizante reforzado o banda hidrofuga. Punto crítico de filtraciones.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y mano de obra: definir metraje lineal de encuentros y tipo de refuerzo"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual (mascarilla, guantes, gafas), herramientas menores, trapos, cubetas, etc.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado: 50-100€ según duración y complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Si las filtraciones son muy activas o el muro tiene grietas estructurales, considerar complementar con inyección de resinas hidrofobas (perforación + inyección en hiladas) o drenaje exterior si es posible acceder.",
+        "Mortero cristalizante es solución interior. Si hay acceso exterior, impermeabilización por trasdos (lámina bituminosa + drenaje) es más efectiva.",
+        "Después del tratamiento, monitorizar durante 2-3 meses para verificar eficacia antes de revestir o pintar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación mineral previa",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material auxiliar específico para mortero cristalizante"
+        },
+        {
+          "concepto": "Mortero hidrofugo cristalizante",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material principal del tratamiento"
+        },
+        {
+          "concepto": "Refuerzo de encuentros suelo-pared",
+          "oficio": "impermeabilizacion",
+          "motivo": "Partida específica para punto crítico de filtraciones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_sotano_por_interior_con_mortero_hidrofugo",
+      "impermeabilizacion_de_sotano_por_exterior",
+      "trasdosado_pladur_en_edificio_con_humedad_por_capilaridad",
+      "inyeccion_de_resinas_hidrofobas_para_capilaridad",
+      "pintura_sotano_o_zona_bajo_rasante"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3751,
+      "tokens_out": 2207
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

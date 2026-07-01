@@ -1,0 +1,184 @@
+{
+  "id": 262,
+  "oficio": "Cristalería",
+  "texto": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+  "http_status": 200,
+  "latency_ms": 16261,
+  "raw_response": {
+    "transcript": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar mampara de baño de cristal templado de 8mm con perfil de aluminio, ducha de 90x90",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas de ducha 90x90 cm confirmadas. Verificar in situ antes de encargar vidrio templado (no se puede cortar en obra).",
+          "Vidrio templado 8mm es espesor recomendado para mamparas de ducha. Requiere certificado CE EN 12150.",
+          "Silicona neutra sanitaria obligatoria en todos los encuentros con agua."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio templado y mampara de ducha. Oficio especializado en cristalería."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Conexión de columna ducha, verificación de presión y ajustes hidráulicos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado 8mm para mampara ducha 90x90",
+          "descripcion": "Suministro de vidrio templado de 8mm de espesor, medidas 90x90 cm, con certificado CE EN 12150, templado en fábrica. No incluye corte en obra.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado. El instalador debe confirmar proveedor y precio según espesor, medidas exactas y certificación CE."
+        },
+        {
+          "concepto": "Perfil de aluminio para mampara ducha",
+          "descripcion": "Suministro de perfiles de aluminio anodizado (inferior, superior y laterales) para mampara de ducha 90x90 cm, con junta de estanqueidad de goma integrada.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de sistema. Precio depende de proveedor y acabado (anodizado natural, cromado, etc.)."
+        },
+        {
+          "concepto": "Silicona neutra sanitaria para encuentros",
+          "descripcion": "Suministro e instalación de silicona neutra de calidad sanitaria en todos los encuentros de la mampara con pared y suelo. Incluye pequeño material (cartuchos, pistola, etc.).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Incluye aplicación. Precio según cantidad de encuentros y marca."
+        },
+        {
+          "concepto": "Instalación mampara de ducha cristal templado 90x90",
+          "descripcion": "Mano de obra de instalación: nivelación exacta, fijación de perfiles a pared y suelo, colocación de vidrio templado, sellado perimetral completo con silicona, ajuste de herrajes y verificación de estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Columna ducha con grifería",
+          "descripcion": "Suministro de columna de ducha con grifería monomando, excentricas de conexión 1/2\", embellecedores cromados y pequeño material de fijación.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Precio varía según marca, acabado (cromo, acero inox) y funcionalidades (termostática, lluvia, etc.)."
+        },
+        {
+          "concepto": "Instalación columna ducha y ajustes hidráulicos",
+          "descripcion": "Mano de obra: fijación de columna a pared, conexión de excentricas, ajuste de distancia entre tomas, verificación de presión mínima 2 bar, prueba de funcionamiento y ajuste de caudal.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 210,
+        "iva_porcentaje": 21,
+        "iva": 44.1,
+        "total": 254.1
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el cliente si desea barra estabilizadora adicional (recomendada en mamparas grandes o si hay vibración).",
+        "Verificar si la ducha actual tiene tomas de agua a la altura correcta (normalmente 100-120 cm para columna).",
+        "Considerar junta magnética de cierre si se desea mayor estanqueidad.",
+        "Solicitar presupuesto de vidrio templado a proveedor especializado con certificado CE EN 12150 antes de confirmar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado 8mm para mampara ducha 90x90",
+          "oficio": "cristaleria",
+          "motivo": "Material especializado no en catálogo base. Requiere especificación exacta de medidas y certificación."
+        },
+        {
+          "concepto": "Perfil de aluminio para mampara ducha",
+          "oficio": "cristaleria",
+          "motivo": "Sistema de perfiles específico para mampara. Precio depende de proveedor y acabado."
+        },
+        {
+          "concepto": "Columna ducha con grifería",
+          "oficio": "fontaneria",
+          "motivo": "Material. Precio variable según marca y especificaciones técnicas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_mampara_ducha",
+      "instalacion_ventana_madera_con_vidrio",
+      "sustitucion_columna_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3553,
+      "tokens_out": 2104
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

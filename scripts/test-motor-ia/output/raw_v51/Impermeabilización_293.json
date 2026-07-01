@@ -1,0 +1,144 @@
+{
+  "id": 293,
+  "oficio": "Impermeabilización",
+  "texto": "Aplicar hidrofugante en muro de piedra de fachada de edificio histórico, 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 12618,
+  "raw_response": {
+    "transcript": "Aplicar hidrofugante en muro de piedra de fachada de edificio histórico, 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar hidrofugante en muro de piedra de fachada de edificio histórico, 40 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Edificio histórico: verificar normativas de conservación y compatibilidad de productos con piedra",
+          "Muro de piedra requiere limpieza previa exhaustiva antes de aplicar hidrofugante"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Tratamiento hidrofugo en fachada de piedra. Oficio base: impermeabilización/fachadas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa de muro de piedra con cepillo y agua a presión baja",
+          "descripcion": "Limpieza exhaustiva de la superficie de piedra para eliminar suciedad, musgo, óxidos y depósitos sin dañar la piedra. Especialmente importante en edificios históricos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aplicación de hidrofugante siloxánico transpirable en muro de piedra",
+          "descripcion": "Aplicación de hidrofugante siloxánico concentrado o listo para usar, compatible con piedra natural. Producto transpirable que preserva la naturaleza del material. Una o dos manos según porosidad de la piedra.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: incluir hidrofugante siloxánico certificado para piedra natural, cantidad según rendimiento 5-8 m2/litro"
+        },
+        {
+          "concepto": "Mano de obra aplicación hidrofugante con rodillo o pistola baja presión",
+          "descripcion": "Aplicación del hidrofugante mediante rodillo o pistola baja presión. Saturación completa del soporte en una o dos manos según porosidad y tipología de piedra.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 18,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (trapos, esponjas, protecciones, cintas)",
+          "descripcion": "Consumibles auxiliares: trapos de limpieza, esponjas, protecciones de áreas adyacentes, cintas adhesivas, etc.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar: presupuestar en función de necesidades reales del proyecto"
+        },
+        {
+          "concepto": "Andamio o plataforma de seguridad (si aplica por altura)",
+          "descripcion": "Sistema de andamiaje o plataforma elevada para acceso seguro a la zona de trabajo en fachada. A presupuestar si la altura del muro requiere equipo de acceso.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio: revisar altura del muro. Si h > 3m, incluir presupuesto de alquiler/montaje andamio o plataforma elevada"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1040,
+        "iva_porcentaje": 21,
+        "iva": 218.4,
+        "total": 1258.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar disponibilidad de hidrofugante siloxánico certificado para piedra natural en catálogo de proveedores habituales",
+        "En edificios históricos: solicitar certificación de compatibilidad del producto con la piedra y normativas de conservación",
+        "Considerar tratamiento anti-musgo adicional si zona muy húmeda o sombreada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hidrofugante siloxánico transpirable para piedra",
+          "motivo": "Material específico para piedra. Requiere selección de producto certificado y cálculo de cantidad según rendimiento"
+        },
+        {
+          "concepto": "Andamio/plataforma elevada",
+          "motivo": "Condicionado a altura del muro. Pendiente de revisión en obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_muros_de_piedra_o_mamposteria_exterior",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "instalacion_fachada_de_vidrio_o_muro_cortina",
+      "aplicacion_de_hidrofugo_siloxanico_en_fachada_o_muro",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "id": 267,
+  "oficio": "Cristalería",
+  "texto": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+  "http_status": 200,
+  "latency_ms": 17970,
+  "raw_response": {
+    "transcript": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar que los marcos de madera antigua tienen rebaje suficiente para alojar DVH (espesor típico 24-28mm). Si no, puede requerir ampliación de rebaje o premarco.",
+          "Inspeccionar estado de la madera: si hay pudrición o daño estructural, requiere reparación previa.",
+          "Confirmar número de ventanas y medidas exactas para presupuesto final."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio doble aislante (DVH) en ventanas existentes. Oficio especializado en cristalería."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Posible ajuste/ampliación de rebaje en marcos de madera antigua si es necesario para alojar DVH."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de vidrio simple existente",
+          "descripcion": "Desmontaje cuidadoso de vidrios simples de ventanas de madera antigua, extracción de junquillos y masilla antigua.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de vidrio doble aislante (DVH) con argón",
+          "descripcion": "Vidrio doble bajo emisivo con cámara de argón (composición 4-16Ar-4 o similar según cálculo), fijación con silicona neutra en marcos de madera, junquillos de fijación, sellado perimetral.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del DVH depende de medidas exactas de cada ventana, tipo de vidrio (bajo emisivo, control solar, etc.) y espesor de cámara. El instalador debe introducir precio según presupuesto de proveedor de vidrio."
+        },
+        {
+          "concepto": "Instalación de vidrio doble aislante en marcos",
+          "descripcion": "Colocación de DVH en rebaje de marco, fijación con silicona neutra, colocación de junquillos, sellado perimetral exterior con silicona neutra, limpieza y acabado.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles (silicona, junquillos, masilla)",
+          "descripcion": "Silicona neutra, junquillos de madera o PVC, masilla de sellado, trapos, disolvente, material auxiliar para instalación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 30-60€ según número de ventanas. El instalador ajusta según cantidad real."
+        },
+        {
+          "concepto": "Inspección y posible ajuste de rebaje en marco (si necesario)",
+          "descripcion": "Verificación de que el rebaje del marco de madera antigua es suficiente para alojar DVH (espesor 24-28mm). Si es necesario, ampliación controlada del rebaje con herramientas manuales o fresadora. Incluye reparación menor de madera si hay astillas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Partida condicionada: solo se ejecuta si la inspección inicial detecta que el rebaje es insuficiente. Puede no ser necesaria. El instalador confirma tras visita."
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Suministro e instalación de vidrio doble aislante (DVH) con argón' → Referencia: [instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente] de Base Maestra. Precio típico 80-650€/ud según medida y composición.",
+        "Partida 'Inspección y posible ajuste de rebaje' → Referencia: [fabricacion_e_instalacion_de_ventana_de_madera] de Base Maestra. Incluye verificación de compatibilidad de marco antiguo con DVH."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de vidrio doble aislante (DVH) con argón",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de medidas exactas y especificaciones técnicas. Requiere presupuesto de proveedor de vidrio."
+        },
+        {
+          "concepto": "Pequeño material y consumibles (silicona, junquillos, masilla)",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles auxiliares. Importe estimado 30-60€, ajustable según número de ventanas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_en_puerta_interior",
+      "instalacion_doble_acristalamiento_con_gas_argon",
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "fabricacion_e_instalacion_de_ventana_de_madera",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3735,
+      "tokens_out": 2282
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

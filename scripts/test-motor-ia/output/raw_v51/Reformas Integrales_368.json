@@ -1,0 +1,46 @@
+{
+  "id": 368,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+  "http_status": 200,
+  "latency_ms": 56521,
+  "raw_response": {
+    "transcript": "Reforma de local para abrir restaurante, cocina industrial, distribución de sala y servicios",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "aplicacion_pintura_de_pizarra_o_pared_escritura",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

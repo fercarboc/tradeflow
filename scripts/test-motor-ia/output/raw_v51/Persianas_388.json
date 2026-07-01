@@ -1,0 +1,255 @@
+{
+  "id": 388,
+  "oficio": "Persianas",
+  "texto": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+  "http_status": 200,
+  "latency_ms": 26062,
+  "raw_response": {
+    "transcript": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+    "quote": {
+      "resumen": {
+        "texto_original": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Aclarar dimensiones del porticón (ancho/alto) para cálculo de carga del motor",
+          "Verificar orientación de la terraza para dimensionado del panel solar",
+          "Confirmar si el porticón es batiente o corredera",
+          "Validar compatibilidad de la app con motor seleccionado (algunos requieren hub WiFi adicional)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Adaptación e instalación de motor en estructura de madera existente"
+        },
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación y orientación de panel solar, conexiones eléctricas"
+        },
+        {
+          "oficio": "informatica",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Configuración de control remoto y app de smartphone"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro motor tubular 230V con batería solar integrada",
+          "descripcion": "Motor tubular para porticones, 100-150W, con receptor radiocontrol incorporado y batería recargable NiMH o litio, compatible con paneles solares externos",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de carga (Nm de torque) y especificaciones del motor. Rango estimado 250-600€"
+        },
+        {
+          "concepto": "Suministro panel solar flexible o rígido para motor persiana/porticón",
+          "descripcion": "Panel solar monocristalino 20-30W, 12V, con cable de conexión para carga de batería del motor. Incluye soporte de fijación a la estructura",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia y tipo (flexible/rígido). Rango estimado 100-250€"
+        },
+        {
+          "concepto": "Suministro mando a distancia radiocontrol",
+          "descripcion": "Mando inalámbrico radiocontrol 433MHz con botones ascenso/descenso/parada, compatible con receptor del motor",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 30-80€. Incluido frecuentemente en kit motor"
+        },
+        {
+          "concepto": "Suministro módulo WiFi/hub para control por app smartphone",
+          "descripcion": "Receptor WiFi-433MHz o hub domótico (tipo Tuya, Sonoff, etc.) para integrar motor en red local y controlar vía app de smartphone. Incluye instalación en red 2.4GHz",
+          "oficio": "informatica",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 25-120€ según marca y compatibilidad. CRÍTICO: verificar que sea compatible con el motor elegido"
+        },
+        {
+          "concepto": "Desmontaje de operador/cierre manual existente en porticón",
+          "descripcion": "Desinstalación y retirada de bisagras, cerraduras u otros elementos de cierre manual del porticón",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación motor tubular en porticón de madera",
+          "descripcion": "Montaje del motor en el eje superior del porticón, fijación a estructura de madera existente, conexión de brazo motor o cadena de transmisión, ajuste de carreras de apertura/cierre",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 45,
+          "total": 112.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y orientación panel solar en terraza",
+          "descripcion": "Fijación de panel solar en estructura (balconada, pared o soporte independiente), orientación óptima sur/sureste, conexión de cable a motor, pruebas de carga",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración receptor WiFi y emparejamiento con app de smartphone",
+          "descripcion": "Instalación de hub/módulo WiFi en red local, emparejamiento con motor vía radiocontrol, descarga y configuración de app (Tuya, Smart Life, fabricante, etc.), pruebas de apertura/cierre remota",
+          "oficio": "informatica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, herrajes y cableado",
+          "descripcion": "Tornillos, tacos, cables de conexión, arandelas, cinta aislante, y otros consumibles necesarios para la instalación completa",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 30-60€. A criterio del instalador"
+        },
+        {
+          "concepto": "Pruebas funcionales completas y ajustes finales",
+          "descripcion": "Ciclos de apertura/cierre manual y remoto, verificación de seguridad en límites (final de carrera), pruebas de control vía app, instrucciones de uso al cliente",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 422.5,
+        "iva_porcentaje": 21,
+        "iva": 88.725,
+        "total": 511.225
+      },
+      "sugerencias_catalogo": [
+        "Considerar si el motor debe ser tubular (eje del porticón) o de brazos articulados (según tipo de cierre)",
+        "Motorizar un porticón batiente es más complejo que corredera: requiere motor lineal o de brazos, no tubular",
+        "Si no hay electricidad en la terraza, el panel solar 20-30W es OBLIGATORIO. Si la hay, considerar motor 230V con cable directo (más económico) + cargador solar de respaldo",
+        "App de smartphone requiere WiFi estable en terraza: verificar cobertura antes de instalar hub"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Motor tubular/lineal con batería solar integrada",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "rango_precio": "250-600€",
+          "justificacion": "No está en catálogo base. Especificación nueva según tipo de porticón (batiente/corredera)"
+        },
+        {
+          "nombre": "Panel solar para carga de batería motor",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "rango_precio": "100-250€",
+          "justificacion": "Especificación novedosa. Depende de ubicación solar en terraza"
+        },
+        {
+          "nombre": "Módulo WiFi/hub para control remoto app",
+          "oficio": "informatica",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "rango_precio": "25-120€",
+          "justificacion": "CRÍTICO verificar compatibilidad con motor. No existe estándar único en mercado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "instalacion_sistema_de_persianas_con_recarga_solar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

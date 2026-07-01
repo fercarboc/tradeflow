@@ -1,0 +1,267 @@
+{
+  "id": 226,
+  "oficio": "Energía Solar",
+  "texto": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+  "http_status": 200,
+  "latency_ms": 27973,
+  "raw_response": {
+    "transcript": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema fotovoltaico conectado a red (on-grid) para empresa. Requiere estudio de viabilidad técnica y económica previo.",
+          "Consumo 2000 kWh/mes (24.000 kWh/año) requiere instalación de potencia significativa (estimado 5-8 kWp según irradiancia zona).",
+          "Necesario: trámites administrativos, conexión a red, inspección técnica, certificado de instalación.",
+          "Presupuesto incluye estudio previo. Instalación real requiere revisión tras análisis de cubierta, orientación, sombras."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación sistema fotovoltaico on-grid para empresa. Oficio especializado en energías renovables."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión a cuadro general, protecciones, cableado de baja tensión, puesta a tierra."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Trámites administrativos: solicitud conexión distribuidora, inspección técnica, certificado instalación, registro administrativo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estudio previo y análisis de viabilidad",
+          "descripcion": "Estudio técnico-económico: análisis de cubierta, orientación, sombras, irradiancia solar zona, cálculo potencia óptima, simulación producción anual, análisis ROI, propuesta configuración sistema.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estudio previo variable según complejidad. Instalador debe confirmar tarifa de ingeniería."
+        },
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos",
+          "descripcion": "Suministro e instalación de módulos fotovoltaicos monocristalinos de alta eficiencia (400-450Wp). Estimado 6 kWp (15 módulos aprox.) para cubrir consumo 2000 kWh/mes con sobredimensionamiento 20-30% y pérdidas sistema.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio módulos fotovoltaicos variable (200-350€/kWp según marca y eficiencia). Instalador introduce precio real de suministrador."
+        },
+        {
+          "concepto": "Inversor trifásico on-grid",
+          "descripcion": "Suministro e instalación inversor trifásico on-grid (5-8 kW) con monitorización integrada, protecciones anti-isla, comunicación con distribuidora. Incluye cableado DC y protecciones DC.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio inversor trifásico 5-8 kW: 1500-3000€. Instalador confirma modelo y precio."
+        },
+        {
+          "concepto": "Estructura soporte y montaje módulos",
+          "descripcion": "Suministro e instalación estructura aluminio/acero galvanizado para 6 kWp. Incluye anclajes, tornillería, impermeabilización cubierta, orientación óptima según estudio previo.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estructura: 150-250€/kWp según tipo cubierta (plana/inclinada) y accesibilidad. Instalador revisa tras estudio."
+        },
+        {
+          "concepto": "Cableado, protecciones y pequeño material",
+          "descripcion": "Cableado DC (6mm²-10mm²), cableado AC (10mm²-16mm²), diferenciales, magnetotérmicos, fusibles DC, tomas de tierra, conectores MC4, tuberías protección, etiquetado, pequeño material.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 800-1200€ para sistema 6 kWp. Instalador detalla según proyecto."
+        },
+        {
+          "concepto": "Instalación y conexionado sistema fotovoltaico",
+          "descripcion": "Mano de obra: montaje estructura, instalación módulos, conexionado DC, instalación inversor, conexionado AC, puesta a tierra, pruebas funcionales, puesta en marcha.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 65,
+          "total": 2600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión a cuadro general y protecciones AC",
+          "descripcion": "Mano de obra: instalación cuadro de protecciones AC, interruptor general, diferencial, magnetotérmicos, conexión a cuadro existente, puesta a tierra, pruebas aislamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Trámites administrativos y conexión distribuidora",
+          "descripcion": "Gestión: solicitud conexión a distribuidora, inspección técnica oficial, certificado de instalación, registro administrativo, comunicación AEPD si aplica, coordinación con distribuidora.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Trámites: 400-800€ según distribuidora y complejidad. Instalador confirma tarifa gestión."
+        },
+        {
+          "concepto": "Inspección técnica y certificado instalación",
+          "descripcion": "Inspección técnica oficial (organismo notificado), pruebas de funcionamiento, medidas de seguridad, certificado de instalación conforme a RD 1699/2003 y normativa vigente.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Inspección: 300-600€. Instalador coordina con organismo notificado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 3400,
+        "iva_porcentaje": 21,
+        "iva": 714,
+        "total": 4114
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Estudio previo' es crítica: debe incluir análisis de irradiancia solar, cálculo de potencia óptima (estimado 5-8 kWp para 2000 kWh/mes), simulación producción anual, análisis ROI y amortización.",
+        "Consumo 2000 kWh/mes = 24.000 kWh/año. Con irradiancia media España (1200-1400 kWh/kWp/año), se requiere 6-7 kWp instalados (con sobredimensionamiento 20-30% y pérdidas sistema ~15%).",
+        "Sistema on-grid (conectado a red): NO requiere baterías. Inyecta excedentes a red y consume de red en horas sin sol.",
+        "Trámites obligatorios: solicitud conexión distribuidora (2-4 semanas), inspección técnica, certificado instalación, registro administrativo. Incluir en presupuesto.",
+        "Presupuesto PARCIAL: solo mano de obra y servicios. Materiales (módulos, inversor, estructura, cableado) requieren cotización real de proveedores. Instalador debe detallar precios unitarios.",
+        "Recomendación: solicitar presupuesto a 2-3 fabricantes de módulos y inversores para comparar precios y garantías."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estudio previo y análisis de viabilidad",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de ingeniería previo a instalación. Precio variable según complejidad análisis."
+        },
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material. Precio unitario variable (200-350€/kWp). Instalador introduce precio real."
+        },
+        {
+          "concepto": "Inversor trifásico on-grid",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material. Precio variable (1500-3000€ según potencia y marca)."
+        },
+        {
+          "concepto": "Estructura soporte y montaje módulos",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material. Precio variable (150-250€/kWp) según tipo cubierta."
+        },
+        {
+          "concepto": "Cableado, protecciones y pequeño material",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material. Presupuesto estimado 800-1200€ para 6 kWp."
+        },
+        {
+          "concepto": "Trámites administrativos y conexión distribuidora",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de gestión. Precio variable (400-800€) según distribuidora."
+        },
+        {
+          "concepto": "Inspección técnica y certificado instalación",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio obligatorio. Precio variable (300-600€)."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_recuperacion_aguas_pluviales"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3926,
+      "tokens_out": 3972
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

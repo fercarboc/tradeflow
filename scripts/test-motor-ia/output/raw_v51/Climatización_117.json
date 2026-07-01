@@ -1,0 +1,172 @@
+{
+  "id": 117,
+  "oficio": "Climatización",
+  "texto": "Instalar termostato inteligente WiFi compatible con caldera existente de gas",
+  "http_status": 200,
+  "latency_ms": 12861,
+  "raw_response": {
+    "transcript": "Instalar termostato inteligente WiFi compatible con caldera existente de gas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar termostato inteligente WiFi compatible con caldera existente de gas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar compatibilidad del termostato WiFi con la caldera de gas existente antes de proceder",
+          "Confirmar disponibilidad de neutro en la caja de la caldera para alimentación del termostato",
+          "Cliente debe verificar cobertura WiFi en la ubicación del termostato"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica de termostato inteligente, cableado y conexiones"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Configuración y programación del termostato WiFi, compatibilidad con caldera"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Termostato inteligente WiFi",
+          "descripcion": "Suministro de termostato programable WiFi compatible con caldera de gas existente, con control remoto por aplicación móvil",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del termostato debe ser introducido por el instalador según marca y modelo seleccionado (rango típico: 150-400€)"
+        },
+        {
+          "concepto": "Cable de conexión 2-4 hilos",
+          "descripcion": "Cable de conexión entre termostato WiFi y caldera de gas, según especificaciones del fabricante (2, 3 o 4 hilos)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del cable debe ser introducido por el instalador (rango típico: 15-40€)"
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "descripcion": "Pequeño material: regletas, conectores, cinta aislante, tornillería y accesorios de fijación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del pequeño material debe ser introducido por el instalador (rango típico: 20-50€)"
+        },
+        {
+          "concepto": "Instalación y conexión del termostato WiFi",
+          "descripcion": "Montaje del termostato en pared, conexión eléctrica a caldera de gas verificando compatibilidad, verificación de alimentación y neutro disponible",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración y programación del termostato",
+          "descripcion": "Configuración WiFi, conexión a red, creación de cuenta en app móvil, programación de horarios según necesidades del cliente, pruebas de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de compatibilidad con caldera existente",
+          "descripcion": "Análisis técnico de la caldera de gas existente, verificación de compatibilidad con termostato WiFi, revisión de cableado y conexiones, pruebas de integración",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 60,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 165,
+        "iva_porcentaje": 21,
+        "iva": 34.65,
+        "total": 199.65
+      },
+      "sugerencias_catalogo": [
+        "Consultar con cliente sobre marca y modelo de termostato deseado para obtener precio exacto",
+        "Considerar adaptador WiFi adicional si la cobertura de la red es débil en la ubicación de la caldera",
+        "Si se requiere control con asistentes de voz (Alexa, Google Home), añadir partida de integración específica"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Termostato inteligente WiFi",
+          "oficio": "climatizacion",
+          "razon": "Suministro de material inteligente con configuración, requiere especificación exacta de modelo"
+        },
+        {
+          "concepto": "Cable de conexión 2-4 hilos",
+          "oficio": "electricidad",
+          "razon": "Material específico según tipo de caldera, cantidad variable según configuración"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_termostato_programable_caldera",
+      "instalacion_termostato_o_cronotermostato_inteligente",
+      "instalacion_domotica_basica_wifi",
+      "instalacion_caldera_gasoil",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

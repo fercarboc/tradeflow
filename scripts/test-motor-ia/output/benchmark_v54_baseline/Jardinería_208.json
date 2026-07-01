@@ -1,0 +1,192 @@
+{
+  "id": 208,
+  "oficio": "Jardinería",
+  "texto": "Instalar cesped artificial en terraza de 20 metros cuadrados con drenaje y relleno de arena",
+  "http_status": 200,
+  "latency_ms": 22291,
+  "raw_response": {
+    "transcript": "Instalar cesped artificial en terraza de 20 metros cuadrados con drenaje y relleno de arena",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cesped artificial en terraza de 20 metros cuadrados con drenaje y relleno de arena",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Instalación de césped artificial con preparación de base y relleno"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación base compactada (zahorra/grava)",
+          "descripcion": "Preparación y compactación de base con zahorra o grava para nivelación y drenaje en terraza de 20 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 5,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Geotextil base drenante",
+          "descripcion": "Suministro e instalación de geotextil filtro como base drenante en 20 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material geotextil: instalador debe confirmar tipo, gramaje y precio de suministro"
+        },
+        {
+          "concepto": "Rollo de césped artificial",
+          "descripcion": "Suministro e instalación de rollo de césped artificial de calidad media-alta para 20 m² en terraza",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Césped artificial: instalador debe especificar tipo de fibra, altura de pelo, densidad y precio de suministro"
+        },
+        {
+          "concepto": "Adhesivo y cinta de unión de juntas",
+          "descripcion": "Suministro e instalación de adhesivo y cinta de unión para juntas entre rollos de césped artificial en 20 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Adhesivo y cinta: instalador debe confirmar cantidad y precio según tipo de producto"
+        },
+        {
+          "concepto": "Arena de sílice o caucho de relleno",
+          "descripcion": "Suministro e instalación de arena de sílice o caucho de relleno para estabilización y confort del césped artificial en 20 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Relleno: instalador debe especificar tipo (arena sílice o caucho reciclado), cantidad en kg/m² y precio"
+        },
+        {
+          "concepto": "Fijación perimetral y pequeño material",
+          "descripcion": "Fijación perimetral del césped artificial con clavos/grapas, sellado de bordes y pequeño material de instalación",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de drenaje en terraza",
+          "descripcion": "Instalación de sistema de drenaje con capa drenante modular o grava, conexión a sumideros/desagüe existente para evacuación de agua en 20 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 12,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 500,
+        "iva_porcentaje": 21,
+        "iva": 105,
+        "total": 605
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la terraza tiene desagüe/sumidero existente o si requiere nueva acometida de drenaje (partida adicional de albañilería)",
+        "Especificar tipo de césped artificial: fibra monofilamento vs. fibrillada, altura de pelo (25-60mm), densidad (8000-15000 dtex)",
+        "Definir relleno: arena de sílice (más económica, requiere mantenimiento) vs. caucho reciclado (más duradero, mayor coste)",
+        "Considerar bordillo perimetral de contención si la terraza lo requiere (partida adicional de carpintería/albañilería)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Geotextil base drenante",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Material de base drenante, precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Rollo de césped artificial",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Material principal, precio variable según calidad y tipo de fibra"
+        },
+        {
+          "concepto": "Adhesivo y cinta de unión de juntas",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Arena de sílice o caucho de relleno",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Material de relleno, precio variable según tipo y cantidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_drenaje_cubierta_plana",
+      "instalacion_cesped_artificial",
+      "instalacion_de_sumidero_o_imbornal",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3854,
+      "tokens_out": 2015
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

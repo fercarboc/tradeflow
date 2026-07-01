@@ -1,0 +1,170 @@
+{
+  "id": 25,
+  "oficio": "Electricidad",
+  "texto": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+  "http_status": 200,
+  "latency_ms": 12221,
+  "raw_response": {
+    "transcript": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si la instalación requiere nuevos circuitos o ampliación de cuadro eléctrico",
+          "Confirmar potencia del microondas para dimensionar correctamente el circuito dedicado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación de enchufes nuevos y circuito dedicado para electrodoméstico"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Instalación de enchufes nuevos en salón",
+          "descripcion": "Suministro e instalación de 4 enchufes nuevos en salón, incluyendo cajas de empotrar, tornillería, pequeño material y pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cajas de empotrar para enchufes salón",
+          "descripcion": "4 cajas de empotrar estándar para enchufes en pladur/obra",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador"
+        },
+        {
+          "concepto": "Enchufes nuevos salón",
+          "descripcion": "4 enchufes de 16A, 250V, blanco o color a elegir",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador"
+        },
+        {
+          "concepto": "Instalación de enchufe dedicado para microondas en cocina",
+          "descripcion": "Suministro e instalación de enchufe independiente en cocina con circuito dedicado, incluyendo caja de empotrar, tornillería, pequeño material y pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Caja de empotrar para enchufe cocina",
+          "descripcion": "1 caja de empotrar estándar para enchufe en pladur/obra",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador"
+        },
+        {
+          "concepto": "Enchufe dedicado para microondas",
+          "descripcion": "1 enchufe de 16A, 250V, blanco o color a elegir",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador"
+        },
+        {
+          "concepto": "Pequeño material eléctrico (tornillería, cinta aislante, etc.)",
+          "descripcion": "Tornillería inox, cinta aislante, conectores, tuercas y pequeño material para 5 enchufes",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 260,
+        "iva_porcentaje": 21,
+        "iva": 54.6,
+        "total": 314.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar si es necesario ampliar el cuadro eléctrico o crear nuevo circuito para el microondas",
+        "Confirmar la potencia del microondas (típicamente 1000-1500W) para dimensionar correctamente",
+        "Considerar si se requiere canalización nueva o reutilización de conductos existentes",
+        "Solicitar boletín eléctrico si la instalación lo requiere según normativa local"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_electrica_local_hosteleria",
+      "instalacion_mampara_ducha",
+      "instalacion_vidrio_de_seguridad_templado",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3649,
+      "tokens_out": 1680
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

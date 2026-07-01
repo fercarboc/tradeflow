@@ -1,0 +1,127 @@
+{
+  "id": 25,
+  "oficio": "Electricidad",
+  "texto": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+  "http_status": 200,
+  "latency_ms": 10119,
+  "raw_response": {
+    "transcript": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si requiere ampliación de circuito o derivación desde cuadro existente",
+          "Enchufe cocina microondas: confirmar potencia y si necesita circuito independiente dedicado (recomendado 16A mínimo)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de enchufes nuevos, trabajo eléctrico estándar"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Instalación de enchufes nuevos salón",
+          "descripcion": "Suministro e instalación de 4 enchufes nuevos en salón, incluyendo caja de empotrar, mecanismo, placa, tornillería y pequeño material. Conexión a circuito existente o derivación según corresponda.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Enchufes nuevos salón - Materiales",
+          "descripcion": "Cajas de empotrar, mecanismos de enchufe, placas, tornillería inox y pequeño material (cinta aislante, pasta térmica si aplica)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir por instalador según marca y calidad"
+        },
+        {
+          "concepto": "Instalación enchufe cocina para microondas independiente",
+          "descripcion": "Suministro e instalación de 1 enchufe nuevo en cocina con circuito independiente dedicado (16A recomendado), incluyendo caja de empotrar, mecanismo, placa, tornillería y pequeño material. Conexión a cuadro eléctrico o derivación según potencia del electrodoméstico.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Enchufe cocina microondas - Materiales",
+          "descripcion": "Caja de empotrar, mecanismo de enchufe, placa, tornillería inox y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si los enchufes del salón se conectan al mismo circuito o requieren derivaciones independientes",
+        "Para el enchufe de cocina (microondas): verificar potencia del electrodoméstico y si necesita protección diferencial independiente",
+        "Considerar si hay que abrir rozas en pared o si el cableado ya existe en canaleta/tubo"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_electrica_local_hosteleria",
+      "instalacion_mampara_ducha",
+      "instalacion_vidrio_de_seguridad_templado",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3501,
+      "tokens_out": 1250
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

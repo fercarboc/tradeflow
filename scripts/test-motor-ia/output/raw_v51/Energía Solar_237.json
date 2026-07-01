@@ -1,0 +1,264 @@
+{
+  "id": 237,
+  "oficio": "Energía Solar",
+  "texto": "Instalar farolas solares autónomas en camino de acceso a finca, 6 unidades con sensor de movimiento",
+  "http_status": 200,
+  "latency_ms": 20318,
+  "raw_response": {
+    "transcript": "Instalar farolas solares autónomas en camino de acceso a finca, 6 unidades con sensor de movimiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar farolas solares autónomas en camino de acceso a finca, 6 unidades con sensor de movimiento",
+        "tipo_presupuesto": "instalacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar distancia entre farolas y cobertura de sensores de movimiento",
+          "Confirmar tipo de suelo/base para cimentación de postes",
+          "Revisar horario de funcionamiento deseado (anochecer-amanecer o solo movimiento)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistemas fotovoltaicos autónomos"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cableado, sensores de movimiento, conexiones eléctricas"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Cimentación y anclaje de postes"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Replanteo y marcado de 6 puntos de instalación",
+          "descripcion": "Replanteo en camino, nivelación y marcado de puntos de cimentación para 6 farolas",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cimentación y anclaje postes farolas solares",
+          "descripcion": "Excavación, relleno con hormigón y anclaje de 6 postes de farola solar (profundidad ~0.8m, incluye pequeño material)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 40,
+          "total": 240,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Hormigón y material anclaje postes",
+          "descripcion": "Hormigón HM-20, grava, arena y pequeño material para cimentación de 6 postes",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar: hormigón, grava, anclajes metálicos para 6 postes"
+        },
+        {
+          "concepto": "Instalación de 6 farolas solares autónomas",
+          "descripcion": "Montaje de 6 farolas solares LED autónomas con panel fotovoltaico integrado, batería de acumulación, control de dusk-to-dawn, incluye anclaje a poste",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Farolas solares LED autónomas 50-100W",
+          "descripcion": "6 farolas solares LED con panel integrado, batería de acumulación, sensor crepuscular dusk-to-dawn, potencia 50-100W según modelo, autonomía 3-5 noches",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: 6 farolas solares autónomas (80-200€ cada una según especificaciones)"
+        },
+        {
+          "concepto": "Instalación de 6 sensores de movimiento PIR",
+          "descripcion": "Montaje de 6 detectores de movimiento PIR de 120-180° ajustables, alcance 6-12m, tiempo de retraso configurable, con relación a las farolas solares",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Detectores de movimiento PIR para farolas",
+          "descripcion": "6 sensores de movimiento PIR con ángulo de detección 120-180°, alcance 6-12m, potencia máxima según modelo, caja de superficie o empotrada",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: 6 detectores PIR (30-80€ cada uno según marca y especificaciones)"
+        },
+        {
+          "concepto": "Cableado y conexiones eléctricas sensores-farolas",
+          "descripcion": "Cable de conexión entre sensores PIR y farolas solares, canalización de pequeño material, regletas de conexión, protecciones mínimas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable, regletas y pequeño material eléctrico",
+          "descripcion": "Cable de conexión flexible, regletas de bornes, tubos protectores, clips de fijación y pequeño material para interconexión de 6 sensores con farolas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cable, regletas, pequeño material para interconexión"
+        },
+        {
+          "concepto": "Configuración y pruebas funcionales",
+          "descripcion": "Ajuste de sensores de movimiento (ángulo, alcance, tiempo de retraso), pruebas de iluminación nocturna, verificación de autonomía y carga solar",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y acabados",
+          "descripcion": "Limpieza de zona de trabajo, retirada de residuos de obra, acabado de cimientos y pequeños retoques",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1330,
+        "iva_porcentaje": 21,
+        "iva": 279.3,
+        "total": 1609.3
+      },
+      "sugerencias_catalogo": [
+        "Verificar si las farolas solares disponen de sensor PIR integrado; de ser así, se podría simplificar la instalación eliminando sensores externos",
+        "Considerar farolas solares con control WIFI/APP para monitorización remota (costo adicional: 20-50€/ud)",
+        "Si el camino es muy largo (>50m entre puntos), considerar farolas solares de potencia superior (100-150W) o aumento de unidades"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Farolas solares LED autónomas 50-100W",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "precio_sugerido_rango": "80-200€/ud (total 6 ud: 480-1200€)",
+          "motivo": "Material específico, requiere revisión del instalador para seleccionar modelo"
+        },
+        {
+          "concepto": "Detectores de movimiento PIR para farolas",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "precio_sugerido_rango": "30-80€/ud (total 6 ud: 180-480€)",
+          "motivo": "Material específico, requiere verificar compatibilidad con farolas elegidas"
+        },
+        {
+          "concepto": "Hormigón y material anclaje postes",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "precio_sugerido_rango": "30-60€/ud (total 6 ud: 180-360€)",
+          "motivo": "Material de obra, cantidad depende de profundidad excavación y tipo suelo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_detector_movimiento_pir",
+      "instalacion_fotovoltaica_autoconsumo",
+      "construccion_de_camino_o_sendero_en_jardin",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_de_detectores_de_llama"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 7,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

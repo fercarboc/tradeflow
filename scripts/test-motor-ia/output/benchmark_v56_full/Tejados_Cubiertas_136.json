@@ -1,0 +1,428 @@
+{
+  "id": 136,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+  "http_status": 200,
+  "latency_ms": 34694,
+  "raw_response": {
+    "transcript": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cubierta vegetal en azotea comunitaria, sistema de jardinera con riego automático",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra de envergadura en zona común: requiere proyecto técnico y permisos municipales",
+          "Carga estructural de cubierta vegetal: verificar capacidad portante de la losa",
+          "Sistema de riego automático: requiere acometida eléctrica y fontanería",
+          "Impermeabilización crítica: debe garantizar estanqueidad bajo sistema de drenaje"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Construcción de cubierta vegetal, estructura portante, drenaje y sumideros"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Membrana impermeabilizante bajo sistema de drenaje de cubierta vegetal"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Red de riego automático, tuberías, goteros, válvulas y conexiones"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Acometida eléctrica para programador de riego y bomba de circulación"
+        },
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Plantación de especies vegetales, sustrato y mantenimiento inicial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico cubierta vegetal",
+          "descripcion": "Proyecto técnico con cálculo de cargas, impermeabilización, drenaje, riego y especificaciones de plantas. Incluye planos constructivos y memoria técnica.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de proyecto técnico a definir por profesional. Estimado 800-1500€"
+        },
+        {
+          "concepto": "Limpieza y preparación de azotea",
+          "descripcion": "Limpieza completa de la superficie, retirada de escombros, barrido y preparación para impermeabilización",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 20,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización con membrana EPDM",
+          "descripcion": "Colocación de membrana EPDM de 1.5mm bajo sistema de drenaje. Incluye imprimación, sellado de juntas y refuerzo en encuentros. Superficie estimada 150 m²",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Membrana EPDM: 12-25€/m² según espesor y marca. Instalación incluida en mano de obra siguiente"
+        },
+        {
+          "concepto": "Instalación membrana impermeabilizante",
+          "descripcion": "Mano de obra para colocación de membrana EPDM, sellado de juntas, refuerzo en encuentros con paredes y sumideros",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 24,
+          "precio_unitario": 45,
+          "total": 1080,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de drenaje modular con geotextil",
+          "descripcion": "Capa drenante modular (placas drenantes de polietileno) + geotextil filtro. Incluye conexión a sumideros. Superficie 150 m²",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Placas drenantes: 8-18€/m². Geotextil: 1-3€/m². Total estimado 1500-3150€"
+        },
+        {
+          "concepto": "Instalación sistema de drenaje",
+          "descripcion": "Colocación de placas drenantes, geotextil filtro y conexión a sumideros existentes o nuevos",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sumideros y desbordadero de emergencia",
+          "descripcion": "Instalación de 3 sumideros (cazoletas) de 110mm + 1 desbordadero de emergencia. Incluye conexión a bajantes y refuerzo impermeabilizante perimetral",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sumidero: 150-300€/ud. Desbordadero: 200-400€. Total estimado 800-1400€"
+        },
+        {
+          "concepto": "Instalación sumideros y desbordadero",
+          "descripcion": "Mano de obra para colocación de sumideros, conexión a bajantes, refuerzo impermeabilizante perimetral y rejillas guardahojas",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustrato de cultivo para cubierta vegetal",
+          "descripcion": "Sustrato ligero especial para cubiertas verdes (mezcla de compost, perlita, fibra de coco). Espesor 15-20cm. Volumen estimado 22-30 m³",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sustrato cubierta vegetal: 25-50€/m³. Total estimado 625-1250€"
+        },
+        {
+          "concepto": "Transporte e instalación de sustrato",
+          "descripcion": "Transporte de sustrato a azotea, distribución y nivelación. Incluye pequeño material y EPI",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 25,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantas y especies vegetales",
+          "descripcion": "Suministro de plantas adaptadas a cubierta vegetal (sedum, plantas aromáticas, gramíneas). Densidad 8-12 plantas/m². Cantidad estimada 1200-1800 plantas",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Plantas sedum/aromáticas: 0.50-2€/ud según especie. Total estimado 750-3000€"
+        },
+        {
+          "concepto": "Plantación de especies vegetales",
+          "descripcion": "Mano de obra para plantación de 1500 plantas, distribución según diseño, riego inicial y primeros cuidados",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 24,
+          "precio_unitario": 25,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Red de riego automático por goteo",
+          "descripcion": "Tuberías PEX 16mm, ramales de distribución, goteros autocompensantes, válvulas de corte y conexiones. Incluye filtro de agua. Longitud estimada 300ml",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 300,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tubería PEX: 0.80-1.50€/ml. Goteros: 0.30-0.80€/ud. Válvulas: 15-50€. Total estimado 800-1500€"
+        },
+        {
+          "concepto": "Instalación red de riego automático",
+          "descripcion": "Mano de obra para tendido de tuberías, colocación de goteros, válvulas, filtro y conexión a acometida de agua. Pruebas de funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programador de riego automático",
+          "descripcion": "Programador digital con sensor de humedad, temporizador y control de válvulas solenoide. Incluye centralita de control",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Programador riego: 200-600€ según funcionalidades y marca"
+        },
+        {
+          "concepto": "Acometida eléctrica para riego automático",
+          "descripcion": "Instalación de línea eléctrica desde cuadro general a azotea, caja de protección, toma de corriente estanca IP65 para programador y válvulas solenoide",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales eléctricos: cable, caja, toma estanca. Estimado 150-300€"
+        },
+        {
+          "concepto": "Instalación acometida eléctrica",
+          "descripcion": "Mano de obra para tendido de cable, instalación de caja de protección, toma de corriente estanca y conexión de programador. Pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mantenimiento y puesta en marcha",
+          "descripcion": "Pruebas de riego, ajuste de programador, verificación de drenaje, riego inicial de plantas y asesoramiento de mantenimiento",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 25,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 5740,
+        "iva_porcentaje": 21,
+        "iva": 1205.4,
+        "total": 6945.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Membrana EPDM para cubiertas' — rango 12-25€/m²",
+        "Verificar en catálogo: 'Placas drenantes modulares' — rango 8-18€/m²",
+        "Verificar en catálogo: 'Sumidero cazoleta 110mm' — rango 150-300€/ud",
+        "Verificar en catálogo: 'Sustrato cubierta vegetal ligero' — rango 25-50€/m³",
+        "Verificar en catálogo: 'Plantas sedum y aromáticas' — rango 0.50-2€/ud",
+        "Verificar en catálogo: 'Tubería PEX 16mm' — rango 0.80-1.50€/ml",
+        "Verificar en catálogo: 'Programador riego automático digital' — rango 200-600€"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico cubierta vegetal",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio profesional de diseño y cálculo estructural. Estimado 800-1500€"
+        },
+        {
+          "concepto": "Impermeabilización con membrana EPDM",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para cubierta vegetal. Estimado 1800-3750€ (150m² × 12-25€/m²)"
+        },
+        {
+          "concepto": "Sistema de drenaje modular con geotextil",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para drenaje de cubierta vegetal. Estimado 1500-3150€"
+        },
+        {
+          "concepto": "Sumideros y desbordadero de emergencia",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes de drenaje. Estimado 800-1400€"
+        },
+        {
+          "concepto": "Sustrato de cultivo para cubierta vegetal",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico ligero. Estimado 625-1250€ (25m³ × 25-50€/m³)"
+        },
+        {
+          "concepto": "Plantas y especies vegetales",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Suministro de plantas adaptadas a cubierta. Estimado 750-3000€ (1500 ud × 0.50-2€/ud)"
+        },
+        {
+          "concepto": "Red de riego automático por goteo",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema completo de riego. Estimado 800-1500€"
+        },
+        {
+          "concepto": "Programador de riego automático",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo de control. Estimado 200-600€"
+        },
+        {
+          "concepto": "Acometida eléctrica para riego automático",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales eléctricos específicos. Estimado 150-300€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_drenaje_cubierta_plana",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3949,
+      "tokens_out": 5736
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 18,
+    "n_catalogo": 9,
+    "n_sugeridas": 9,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

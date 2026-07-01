@@ -1,0 +1,239 @@
+{
+  "id": 155,
+  "oficio": "Pladur",
+  "texto": "Hacer capialzado de pladur para persiana empotrada en ventana del salón",
+  "http_status": 200,
+  "latency_ms": 20554,
+  "raw_response": {
+    "transcript": "Hacer capialzado de pladur para persiana empotrada en ventana del salón",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer capialzado de pladur para persiana empotrada en ventana del salón",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Confirmar medidas exactas del capialzado (ancho y alto)",
+          "Especificar marca y modelo de la ventana para compatibilidad",
+          "Definir si se incluye pintura final del capialzado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Trabajo de estructura y acabado en pladur para capialzado de persiana empotrada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm para capialzado",
+          "descripcion": "Suministro de placa de yeso laminado de 15mm de espesor para construcción de capialzado reforzado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar cantidad y metros de placa según medidas reales del capialzado"
+        },
+        {
+          "concepto": "Perfiles metálicos (canal y montantes) para capialzado",
+          "descripcion": "Suministro de perfiles de acero galvanizado canal UW y montantes CW para estructura reforzada del capialzado de persiana",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y longitud según medidas del capialzado y refuerzo necesario para persiana empotrada"
+        },
+        {
+          "concepto": "Refuerzo metálico o madera para empotramiento persiana",
+          "descripcion": "Suministro de refuerzo estructural (ángulo metálico o madera reforzada) para soportar carga de persiana empotrada",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especificar tipo y dimensiones del refuerzo según peso y mecanismo de persiana"
+        },
+        {
+          "concepto": "Tornillería para estructura pladur",
+          "descripcion": "Suministro de tornillos de acero para unión de perfiles, placas y refuerzos",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según metros lineales de perfiles y número de fijaciones"
+        },
+        {
+          "concepto": "Cinta de juntas para pladur",
+          "descripcion": "Suministro de cinta de papel reforzada para tratamiento de juntas entre placas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según metros lineales de juntas del capialzado"
+        },
+        {
+          "concepto": "Pasta de juntas para pladur",
+          "descripcion": "Suministro de compuesto de sellado y alisado para tratamiento completo de juntas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según número de pasadas y superficie a tratar"
+        },
+        {
+          "concepto": "Ángulo metálico para esquinas y refuerzos",
+          "descripcion": "Suministro de ángulo de acero galvanizado para protección y refuerzo de esquinas del capialzado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según metros lineales de esquinas y aristas del capialzado"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Arandelas, tacos, selladores, masillas menores y otros consumibles",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar, instalador valorará según alcance final"
+        },
+        {
+          "concepto": "Instalación y montaje de estructura del capialzado",
+          "descripcion": "Montaje de perfiles metálicos, colocación de placas de yeso laminado, instalación de refuerzos y fijación a marco de ventana y obra existente",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 35,
+          "total": 140,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento de juntas y acabado de pladur",
+          "descripcion": "Colocación de cinta de juntas, aplicación de pasta de juntas en múltiples pasadas, lijado y alisado final para acabado uniforme",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 35,
+          "total": 105,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura o imprimación final del capialzado",
+          "descripcion": "Aplicación de imprimación y pintura final para acabado estético del capialzado de pladur",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar si va incluida en el presupuesto o se contratan por separado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 309,
+        "iva_porcentaje": 21,
+        "iva": 64.89,
+        "total": 373.89
+      },
+      "sugerencias_catalogo": [
+        "Consultar actuación BASE MAESTRA: 'tabique_pladur_para_caja_de_persiana_o_capialzado' — rangos de precio 15-50€/ml de mano de obra",
+        "Asegurar que el refuerzo es suficiente para el peso de la persiana empotrada",
+        "Consideraraislamientoauxiliar si el capialzado está en zona de fachada exterior (mejora térmica)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "nombre": "Suministro de placa de yeso laminado 15mm",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para capialzado reforzado — cantidad pendiente de medidas reales"
+        },
+        {
+          "nombre": "Suministro de perfiles metálicos reforzados",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material de estructura — dimensiones según ancho y alto del capialzado"
+        },
+        {
+          "nombre": "Refuerzo estructural para persiana empotrada",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material especializado — tipo y cantidad según mecanismo de persiana"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_persiana_o_estor_en_ventana_de_techo",
+      "tabique_pladur_para_caja_de_persiana_o_capialzado",
+      "instalacion_estor_enrollable_interior",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "estructura_pladur_para_escalera_interior_nueva"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 3,
+    "n_sugeridas": 8,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

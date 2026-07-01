@@ -1,0 +1,297 @@
+{
+  "id": 58,
+  "oficio": "Carpintería",
+  "texto": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+  "http_status": 200,
+  "latency_ms": 35004,
+  "raw_response": {
+    "transcript": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto incluye fabricación personalizada de muebles office (tresillos modulares)",
+          "5 puestos de trabajo completos requieren coordinación eléctrica (enchufes, tomas datos) y climatización",
+          "Materiales y acabados no especificados - requiere revisión de cliente",
+          "No se especifica si incluye reforma eléctrica ni red de datos asociada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Diseño y fabricación de tresillos y módulos office en taller"
+        },
+        {
+          "oficio": "multiservicio",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 38,
+            "max": 45
+          },
+          "motivo": "Montaje e instalación de módulos en oficina, nivelación, anclajes"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de enchufes, tomas de datos y luminarias en puestos de trabajo (recomendado)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diseño y proyecto de tresillos modulares para 5 puestos",
+          "descripcion": "Diseño personalizado de módulos office con 5 puestos de trabajo, distribución funcional, especificación de materiales y acabados",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diseño personalizado - instalador debe cotizar según complejidad, materiales y acabados"
+        },
+        {
+          "concepto": "Fabricación de tresillos y módulos office - 5 puestos",
+          "descripcion": "Fabricación en taller de tresillos modulares (mesas de trabajo conectadas), divisiones, estanterías y módulos funcionales para 5 puestos de trabajo completos. Incluye corte, ensamblaje y acabado en taller",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación: 4-6 jornadas según complejidad. Instalador ajusta según especificaciones finales (materiales, acabados, sistematización)"
+        },
+        {
+          "concepto": "Materiales para fabricación (tableros, perfiles, herrajes, tapajuntas, pegamentos, tornillería)",
+          "descripcion": "Suministro de tableros contrachapados/DM/melamina, perfiles de aluminio o acero, herrajes de calidad, cinta de borde, tornillería, pegamentos, selladores y pequeño material de taller",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto variable según calidad de acabados (económico/estándar/premium). Instalador solicita especificaciones finales del cliente"
+        },
+        {
+          "concepto": "Transporte de módulos fabricados a oficina",
+          "descripcion": "Transporte en vehículo de carga de módulos desde taller a oficina, descarga y acopio en zona de trabajo",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de accesibilidad a oficina, distancia y volumen. Instalador cotiza tras confirmar ubicación y vías de acceso"
+        },
+        {
+          "concepto": "Instalación y montaje de módulos en oficina - 5 puestos",
+          "descripcion": "Desembalaje, posicionamiento, nivelación, anclaje a estructura (suelo y/o pared según diseño), ensamblaje de interconexiones entre módulos, acabado de juntas, verificación de estabilidad",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 38,
+          "total": 114,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación: 2-4 jornadas (304-456€ bruto). Ajustar según acceso, desniveles del suelo, complejidad de anclajes y coordinación con otros oficios"
+        },
+        {
+          "concepto": "Protección y limpieza durante montaje",
+          "descripcion": "Protección de suelos, paredes y puestos adyacentes con cartón y plásticos. Limpieza diaria de zona de trabajo y retirada de escombros de embalajes",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 38,
+          "total": 38,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de enchufes y tomas de datos en puestos de trabajo - 5 unidades",
+          "descripcion": "Instalación de 5 enchufes dobles (o triple según diseño) + 5 tomas de red CAT6/CAT6A por puesto. Cajeado en tableros o conductos, conexionado a regletas/electrificaciones modulares. Incluye pequeño material (cajas estancas, fichas, etiquetado)",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 50,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de regletas electrificadas modularidad office",
+          "descripcion": "5 regletas/electrificaciones modularidad (enchufes + tomas datos integradas) para integrar en estructuras de tresillos o anclar bajo mesas. Conductos y canalización si aplica",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de marca/modelo (regletas estándar 30-80€/u). Instalador especifica tras confirmación de distribuidor eléctrico"
+        },
+        {
+          "concepto": "Integración en red de datos existente - 5 puntos",
+          "descripcion": "Conexión de 5 tomas CAT6 a panel de distribución de datos existente o nuevo, testeo de conectividad, etiquetado y documentación de red",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 50,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere confirmación de infraestructura de red existente. Si no existe, presupuestar canalización y panel adicional"
+        },
+        {
+          "concepto": "Instalación de luminarias en puestos de trabajo - 5 unidades",
+          "descripcion": "Instalación de 5 luminarias de escritorio (LED integrado o bajo repisa) con brazo articulado, anclaje a estructura modular, cajeado eléctrico y conexionado. Cumplimiento mínimo 500 lux en plano de trabajo",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 50,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de luminarias LED para puestos - 5 unidades",
+          "descripcion": "5 luminarias de escritorio LED integrado (brazo articulado, intensidad regulable, color temperatura 4000K, flujo 500-800 lm), conexión a enchufes instalados",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango 80-250€/u según marca/modelo. Instalador cotiza con distribuidor. Si cliente proporciona, restar del presupuesto"
+        },
+        {
+          "concepto": "Prueba de funcionamiento e inspección final",
+          "descripcion": "Verificación de estabilidad estructural (inclinación, anclajes), prueba de todos los enchufes y tomas de datos, medición de iluminación en plano de trabajo, ajuste de alturas de escritorio si aplica ergonomía",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 38,
+          "total": 76,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Formación de usuario y entrega de documentación",
+          "descripcion": "Instrucción al cliente sobre uso de regletas electrificadas, ajustes ergonómicos, acceso a tomas y mantenimiento. Entrega de manual de montaje, planos as-built, fichas de garantía de componentes",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 38,
+          "total": 38,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1016,
+        "iva_porcentaje": 21,
+        "iva": 213.36,
+        "total": 1229.36
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Los tresillos incluyen divisiones acústicas entre puestos? Si sí, añadir partida de absorción sonora (lana mineral, tela fonoabsorbente).",
+        "Verificar si oficina requiere climatización específica por aumento de carga térmica (5 puestos + equipos). Si sí, coordinar con oficio climatizacion para evaluación RITE.",
+        "Considerar ergonomía: ¿Mesas regulables en altura (estáticas o motorizadas)? Aumentaría presupuesto y complejidad eléctrica.",
+        "Definir acabados: ¿Tableros laminados estándar, melamina, madera chapada, o full HPL premium? Impacta materiales 30-60%.",
+        "¿Incluye sillas de trabajo? Si no, notificar al cliente que presupuesto es solo módulos + instalación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diseño y proyecto de tresillos modulares",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de diseño personalizado no está en catálogo estándar. Instalador valora según complejidad (CAD, renderings, iteraciones)."
+        },
+        {
+          "concepto": "Fabricación de tresillos y módulos office",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Fabricación personalizada en taller para configuración específica de 5 puestos. Requiere estimación de jornadas y materiales según planos finales."
+        },
+        {
+          "concepto": "Suministro de regletas electrificadas modularidad",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes eléctricos específicos para office modular. Marca/modelo a confirmar. Presupuesto pendiente de especificaciones técnicas."
+        },
+        {
+          "concepto": "Suministro de luminarias LED para puestos",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Luminarias de escritorio con especificaciones normativas (500 lux, UGR <16). Modelo/marca a confirmar con cliente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "tabique_pladur_separacion_zona_oficina",
+      "reparacion_puntual_o_chapuza_varios_trabajos_menores",
+      "instalacion_de_plataforma_elevadora_para_fachada"
+    ],
+    "kb_score": 1.25,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 7,
+    "n_sugeridas": 6,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

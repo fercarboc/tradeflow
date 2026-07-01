@@ -1,0 +1,225 @@
+{
+  "id": 99,
+  "oficio": "Albañilería",
+  "texto": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+  "http_status": 200,
+  "latency_ms": 18565,
+  "raw_response": {
+    "transcript": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Requiere inspección previa para determinar extensión de baldosas sueltas y estado de la base",
+          "La cantidad de m² de baldosas debe confirmarse en obra",
+          "Inyección de resina: verificar tipo de hueco (adhesivo, nivelación o ambos)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Reparación de baldosas, inyección y sellado"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Sellado de juntas perimetrales y preparación de base"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Levantamiento y retirada de baldosas sueltas",
+          "descripcion": "Extracción cuidadosa de baldosas levantadas, retirada de adhesivo antiguo y limpieza de base",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² a definir en obra"
+        },
+        {
+          "concepto": "Inyección de resina epoxi/poliuretano bajo baldosas",
+          "descripcion": "Inyección de resina de alta resistencia para nivelación y adherencia de baldosas levantadas, con bomba manual o neumática",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario y volumen de resina a confirmar; varía según tipo de hueco y espesor"
+        },
+        {
+          "concepto": "Colocación de baldosas reaprovechadas o nuevas",
+          "descripcion": "Recibido y asentamiento de baldosas con adhesivo C2 flexible, presión uniforme y nivelación",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² a definir en obra"
+        },
+        {
+          "concepto": "Rejuntado de baldosas",
+          "descripcion": "Aplicación de lechada/mortero de junta flexible, limpieza de excedentes y acabado uniforme",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² a definir en obra"
+        },
+        {
+          "concepto": "Sellado de juntas perimetrales con silicona/poliuretano",
+          "descripcion": "Retirada de junta antigua, limpieza profunda, colocación de cordón fondo de junta y sellado con silicona de buena calidad (exterior/flexible)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro del balcón a medir en obra"
+        },
+        {
+          "concepto": "Adhesivo C2 flexible para baldosas",
+          "descripcion": "Pegamento flexible para baldosas cerámicas, apto para exteriores y balcones",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada según m² a sellar; price pending"
+        },
+        {
+          "concepto": "Mortero/lechada flexible para juntas",
+          "descripcion": "Lechada de cemento flexible, resistente al agua, apta para exteriores",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada según m² y ancho de junta; price pending"
+        },
+        {
+          "concepto": "Silicona/poliuretano estructural para juntas perimetrales",
+          "descripcion": "Sellador flexible de calidad superior para exterior, apto para movimiento de estructura",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "tubo",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de tubos según ml de junta; price pending"
+        },
+        {
+          "concepto": "Cordón fondo de junta (espuma polietileno)",
+          "descripcion": "Material de relleno para juntas perimetrales, evita profundidad excesiva de sellador",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según perímetro; price pending"
+        },
+        {
+          "concepto": "Pequeño material (brochas, esponjas, trapos, cintas, protecciones)",
+          "descripcion": "Consumibles para limpieza, aplicación de productos y protección de zonas adyacentes",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado; price pending"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Considerar si las baldosas están reaprovechables o requieren sustitución completa",
+        "Inspeccionar estado de la capa de mortero base: si está completamente deteriorada, puede requerir hormigón de nivelación previa",
+        "Verificar pendientes de desagüe del balcón para evitar acumulación de agua tras las reparaciones",
+        "Si el balcón tiene grietas estructurales, considerar contratación de ingeniero antes de proceder"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inyección de resina epoxi/poliuretano bajo baldosas",
+          "oficio": "suelos_tarimas",
+          "origen": "sugerida_ia",
+          "motivo": "Técnica específica de reparación de balcones no explicitada en catálogo estándar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "reparacion_de_embocadura_de_bajante_en_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "remate_y_acabado_juntas_pladur_para_pintar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "NO"
+  }
+}

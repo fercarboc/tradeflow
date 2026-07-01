@@ -1,0 +1,183 @@
+{
+  "id": 301,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar sistema de detección de incendios en local comercial de 100 metros cuadrados con central y detectores",
+  "http_status": 200,
+  "latency_ms": 13856,
+  "raw_response": {
+    "transcript": "Instalar sistema de detección de incendios en local comercial de 100 metros cuadrados con central y detectores",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de detección de incendios en local comercial de 100 metros cuadrados con central y detectores",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema contra incendios requiere empresa instaladora registrada según normativa RITE e Industria",
+          "Cableado resistente al fuego E30 es OBLIGATORIO",
+          "Batería de respaldo mínimo 72 horas requerida por normativa",
+          "Revisión semestral obligatoria tras instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de detección automática de incendios con central y detectores - oficio especializado contra incendios"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Central de incendios CIE certificada EN 54-2 y EN 54-4",
+          "descripcion": "Central de detección y alarma de incendios certificada, con módulo de supervisión de líneas, alimentación y batería de respaldo mínimo 72 horas",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de central según modelo y certificaciones - instalador debe confirmar"
+        },
+        {
+          "concepto": "Detectores de humo ópticos certificados EN 54-7",
+          "descripcion": "Detectores de humo ópticos para local comercial, cantidad según cálculo de cobertura (aprox. 1 detector cada 60-80 m²). Para 100 m² se estiman 2 unidades",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario detector según modelo y certificación - instalador debe confirmar"
+        },
+        {
+          "concepto": "Pulsadores manuales de alarma de incendios",
+          "descripcion": "Pulsadores manuales certificados EN 54-11, ubicados en recorridos de evacuación. Cantidad: 2 unidades para local de 100 m²",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario pulsador según modelo - instalador debe confirmar"
+        },
+        {
+          "concepto": "Sirenas acústicas y ópticas de alarma",
+          "descripcion": "Sirenas acústicas (mínimo 85 dB) y ópticas (estroboscópicas) para señalización de alarma. Cantidad: 2 unidades",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario sirena según modelo y potencia - instalador debe confirmar"
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 y pequeño material",
+          "descripcion": "Cableado resistente al fuego E30 (OBLIGATORIO según CTE DB-SI), tubería de protección, conectores, regletas, soportes y pequeño material de instalación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal de cableado E30 y accesorios - instalador debe confirmar según proyecto"
+        },
+        {
+          "concepto": "Instalación de sistema de detección de incendios",
+          "descripcion": "Mano de obra: montaje de central, instalación de detectores, pulsadores y sirenas, tendido de cableado, conexionado, pruebas funcionales y puesta en marcha del sistema",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 55,
+          "total": 880,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 880,
+        "iva_porcentaje": 21,
+        "iva": 184.8,
+        "total": 1064.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el local comercial requiere sistema de extinción automática (sprinklers) según CTE DB-SI y uso específico",
+        "Considerar integración con sistema de control de acceso si existe",
+        "Evaluar necesidad de transmisión a central receptora externa para mayor seguridad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central de incendios CIE certificada EN 54-2 y EN 54-4",
+          "oficio": "contra_incendios",
+          "motivo": "Material especializado - precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Detectores de humo ópticos certificados EN 54-7",
+          "oficio": "contra_incendios",
+          "motivo": "Material especializado - precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Pulsadores manuales de alarma de incendios",
+          "oficio": "contra_incendios",
+          "motivo": "Material especializado - precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Sirenas acústicas y ópticas de alarma",
+          "oficio": "contra_incendios",
+          "motivo": "Material especializado - precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 y pequeño material",
+          "oficio": "contra_incendios",
+          "motivo": "Material especializado - precio pendiente de revisión del instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_central_deteccion_y_alarma_incendios",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "mantenimiento_de_instalacion_contra_incendios_en_local",
+      "instalacion_de_sistema_de_rociadores_sprinklers"
+    ],
+    "kb_score": 4.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4069,
+      "tokens_out": 2016
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

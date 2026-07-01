@@ -1,0 +1,272 @@
+{
+  "id": 306,
+  "oficio": "Contra Incendios",
+  "texto": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+  "http_status": 200,
+  "latency_ms": 28057,
+  "raw_response": {
+    "transcript": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye señalización fotoluminiscente + alumbrado de emergencia. Verificar si se requiere Plan de Autoprotección técnico según RD 393/2007 (obligatorio si >500 trabajadores o actividad de riesgo).",
+          "Cantidad de plantas (5) y distribución de luces estimada en 1 luz cada 15m en pasillos + sobre salidas y escaleras. Instalador debe confirmar plano del edificio para ajustar cantidad exacta."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Señalización de emergencia y evacuación + alumbrado de emergencia son sistemas de protección contra incendios según normativa RD 393/2007 y UNE 23035."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de circuitos eléctricos exclusivos para alumbrado de emergencia, conexiones y pequeño material eléctrico."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Plano de evacuación por planta (formato normalizado A3/A2)",
+          "descripcion": "Elaboración e impresión de 5 planos de evacuación (una por planta) en formato normalizado con indicación de recorridos, salidas, equipos de protección y punto de reunión. Incluye plastificación y marco.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de diseño e impresión de planos a definir por instalador según proveedor gráfico."
+        },
+        {
+          "concepto": "Señalización fotoluminiscente de recorridos y salidas de emergencia",
+          "descripcion": "Suministro e instalación de señalización fotoluminiscente normalizada (UNE 23035) en recorridos de evacuación, puertas de salida, escaleras y pasillos. Incluye adhesivos, placas direccionales y señales de salida. Estimado 80-100 señales para edificio de 5 plantas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 90,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de señales fotoluminiscentes a definir por instalador según proveedor y tipo (adhesivas, rígidas, etc.)."
+        },
+        {
+          "concepto": "Instalación de señalización fotoluminiscente",
+          "descripcion": "Mano de obra para colocación de 90 señales fotoluminiscentes en recorridos, salidas, escaleras y pasillos del edificio de 5 plantas. Incluye limpieza de superficies, marcado y fijación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 55,
+          "total": 660,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bloques autónomos de alumbrado de emergencia LED",
+          "descripcion": "Suministro de bloques autónomos de emergencia LED con batería de larga duración (autonomía mínimo 1 hora). Estimado 1 luz cada 15m en pasillos + sobre todas las salidas y escaleras. Aproximadamente 35-40 unidades para edificio de 5 plantas.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 38,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de bloques LED a definir por instalador según marca y especificaciones técnicas (potencia, autonomía, etc.)."
+        },
+        {
+          "concepto": "Instalación de bloques autónomos de emergencia",
+          "descripcion": "Mano de obra para instalación de 38 bloques autónomos de emergencia LED en techos/paredes de pasillos, escaleras y salidas. Incluye fijación, conexión eléctrica y pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 50,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo para alumbrado de emergencia",
+          "descripcion": "Instalación de circuito eléctrico independiente desde cuadro general hasta bloques de emergencia. Incluye cable de sección adecuada, canalización, protecciones diferenciales y magnetotérmicos. Longitud estimada 150-200ml para 5 plantas.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 175,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal de cableado + canalización a definir por instalador según sección y tipo de instalación."
+        },
+        {
+          "concepto": "Instalación de circuito eléctrico de emergencia",
+          "descripcion": "Mano de obra para tendido de cable, instalación de canalización, conexión en cuadro y en bloques de emergencia. Incluye pruebas de continuidad y funcionamiento del circuito.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material eléctrico y de fijación",
+          "descripcion": "Suministro de pequeño material: conectores, regletas, bridas, tacos, tornillos, tuercas, cinta aislante, pasta térmica y otros consumibles necesarios para la instalación completa.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe alzado de pequeño material a definir por instalador según cantidad y tipo de elementos."
+        },
+        {
+          "concepto": "Señalización de ubicación de equipos de protección (extintores, BIE, pulsadores)",
+          "descripcion": "Suministro e instalación de señalización normalizada fotoluminiscente indicando ubicación de extintores, bocas de incendio equipadas (BIE) y pulsadores de alarma. Estimado 15-20 señales para edificio de 5 plantas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de señales específicas de equipos a definir por instalador."
+        },
+        {
+          "concepto": "Instalación de señalización de equipos de protección",
+          "descripcion": "Mano de obra para colocación de 18 señales de ubicación de equipos de protección (extintores, BIE, pulsadores). Incluye limpieza, marcado y fijación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 55,
+          "total": 165,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y certificación",
+          "descripcion": "Pruebas de funcionamiento de todos los bloques de emergencia (carga, autonomía, iluminancia), verificación de circuitos eléctricos, medición de iluminancia en vías de evacuación (mínimo 1 lux) y emisión de certificado de conformidad.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pruebas y certificación a definir por instalador según alcance y equipos de medida necesarios."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2125,
+        "iva_porcentaje": 21,
+        "iva": 446.25,
+        "total": 2571.25
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_alumbrado_emergencia' (rango 55-220€/ud) — puede servir como referencia para precio unitario de bloques LED.",
+        "Verificar en catálogo: 'instalacion_plan_de_autoproteccion_y_señalizacion' (rango 300-2500€/pa) — si se requiere Plan de Autoprotección técnico completo según RD 393/2007.",
+        "Considerar si el edificio requiere Plan de Autoprotección técnico (obligatorio si >500 trabajadores o actividad de riesgo). En ese caso, agregar partida de gestoria/tramites."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plano de evacuación por planta",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio de diseño e impresión de planos normalizados. Precio a definir por instalador."
+        },
+        {
+          "concepto": "Señalización fotoluminiscente de recorridos y salidas",
+          "oficio": "contra_incendios",
+          "motivo": "Material consumible. Precio unitario a definir según proveedor."
+        },
+        {
+          "concepto": "Bloques autónomos de alumbrado de emergencia LED",
+          "oficio": "electricidad",
+          "motivo": "Material. Precio unitario a definir según marca y especificaciones."
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo para alumbrado de emergencia",
+          "oficio": "electricidad",
+          "motivo": "Material (cable + canalización). Precio por metro lineal a definir."
+        },
+        {
+          "concepto": "Pequeño material eléctrico y de fijación",
+          "oficio": "electricidad",
+          "motivo": "Consumibles. Importe alzado a definir."
+        },
+        {
+          "concepto": "Señalización de ubicación de equipos de protección",
+          "oficio": "contra_incendios",
+          "motivo": "Material consumible. Precio unitario a definir."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y certificación",
+          "oficio": "electricidad",
+          "motivo": "Servicio técnico. Precio a definir según alcance."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_VRF_con_recuperacion_de_calor",
+      "instalacion_alumbrado_emergencia",
+      "instalacion_plan_de_autoproteccion_y_señalizacion",
+      "instalacion_vrv_o_vrf_sistema_multiple",
+      "reforma_integral_oficina_o_espacio_de_trabajo"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3970,
+      "tokens_out": 4002
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

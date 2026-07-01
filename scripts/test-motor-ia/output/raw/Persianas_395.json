@@ -1,0 +1,150 @@
+{
+  "id": 395,
+  "oficio": "Persianas",
+  "texto": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+  "http_status": 200,
+  "latency_ms": 11229,
+  "raw_response": {
+    "transcript": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+    "quote": {
+      "resumen": {
+        "texto_original": "Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Integración de persianas motorizadas en sistema domótico, cableado de control, programación y configuración de automatización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulo de control domótico para persianas motorizadas",
+          "descripcion": "Suministro e instalación de módulo/relé domótico compatible con sistema de automatización existente para control de persianas motorizadas (receptor inalámbrico o cableado según sistema)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del módulo domótico depende de marca, protocolo (Z-Wave, Zigbee, WiFi, KNX) y compatibilidad con sistema existente"
+        },
+        {
+          "concepto": "Cableado de control y conexiones",
+          "descripcion": "Suministro e instalación de cableado de control (si aplica), conectores y pequeño material para integración de persianas motorizadas al sistema domótico",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de cableado depende de la instalación existente y distancia a central domótica"
+        },
+        {
+          "concepto": "Instalación y conexión del módulo de control",
+          "descripcion": "Mano de obra para instalación física del módulo de control, conexión eléctrica a persianas motorizadas y a sistema domótico central",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programación horaria y automatización",
+          "descripcion": "Mano de obra para configuración de horarios automáticos, escenas de control, integración en aplicación móvil y pruebas de funcionamiento de persianas motorizadas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Mano de obra para verificación de funcionamiento de persianas en modo manual y automático, validación de horarios programados y entrega de documentación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar protocolo de comunicación del sistema domótico existente (Z-Wave, Zigbee, WiFi, KNX, propietario) para seleccionar módulo compatible",
+        "Verificar si las persianas motorizadas disponen de receptor integrado o requieren módulo externo de control",
+        "Especificar número de persianas a conectar para ajustar cantidad de módulos si es necesario",
+        "Considerar si se requiere acceso remoto (app móvil) o solo control local/horarios"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulo de control domótico para persianas motorizadas",
+          "oficio": "telecomunicaciones",
+          "motivo": "Integración domótica específica de persianas motorizadas existentes"
+        },
+        {
+          "concepto": "Cableado de control y conexiones",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de interconexión entre persianas y sistema domótico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_sistema_free_cooling",
+      "instalacion_sistema_agua_helada_chiller",
+      "instalacion_sistema_de_videovigilancia_CCTV"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4069,
+      "tokens_out": 1508
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

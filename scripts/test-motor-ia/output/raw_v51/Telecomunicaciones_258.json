@@ -1,0 +1,358 @@
+{
+  "id": 258,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar alarma de seguridad con sensores de movimiento y apertura, monitorización 24h",
+  "http_status": 200,
+  "latency_ms": 34849,
+  "raw_response": {
+    "transcript": "Instalar alarma de seguridad con sensores de movimiento y apertura, monitorización 24h",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar alarma de seguridad con sensores de movimiento y apertura, monitorización 24h",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Monitorización 24h es servicio recurrente mensual/anual — debe cotizarse por separado como contrato con central receptora",
+          "Empresa instaladora debe estar REGISTRADA en Ministerio Interior (normativa EN 50131)",
+          "Sensores de apertura: confirmar número de puertas/ventanas a proteger",
+          "Rango recomendado del sistema completo: 600-1500€ según complejidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación central alarma, cableado, alimentación eléctrica, montaje"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Comunicador IP/GSM, conexión central receptora, configuración monitorización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Central de alarma intrusión (sistema de control)",
+          "descripcion": "Central alarma intrusión, normativa EN 50131, con procesador programable, fuente alimentación integrada, batería respaldo",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio central según marca, prestaciones y normativa EN 50131 — rango típico 200-500€"
+        },
+        {
+          "concepto": "Detectores PIR de movimiento",
+          "descripcion": "Sensores movimiento PIR interior, inmunidad mascotas hasta 20kg, angulación 110°, montaje en esquinas o zonas estratégicas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad 4 PIR (estancia principal, cocina, pasillos, dormitorios) — ajustar según distribución real. Precio unitario 40-80€"
+        },
+        {
+          "concepto": "Detectores de apertura (contactos magnéticos)",
+          "descripcion": "Sensores apertura puerta/ventana, contacto magnético, montaje en jambas y marcos, cableado integrado o inalámbrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad 6 contactos (puerta entrada, puertas acceso, ventanas accesibles) — ajustar según plano. Precio unitario 20-40€"
+        },
+        {
+          "concepto": "Sirena interior alarma",
+          "descripcion": "Sirena interior, 100dB mínimo, montaje mural, alimentación desde central, indicador visual LED",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario típico 60-120€"
+        },
+        {
+          "concepto": "Sirena exterior alarma",
+          "descripcion": "Sirena exterior, 110dB mínimo, carcasa IP65, montaje fachada visible, alimentación desde central, con flash luminoso",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIA sirena exterior visible. Precio unitario 80-150€"
+        },
+        {
+          "concepto": "Teclado de control y armado/desarmado",
+          "descripcion": "Teclado mural con pantalla LCD, código PIN y botón pánico, montaje en zona acceso principal",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario 100-200€ según funcionalidades"
+        },
+        {
+          "concepto": "Comunicador IP/GSM para central receptora",
+          "descripcion": "Módulo comunicador IP (Ethernet) o GSM (SIM card), conexión remota central receptora monitorización, notificaciones por SMS/email/app",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIO para monitorización 24h. Precio unitario 150-300€ (incluye SIM GSM si aplica)"
+        },
+        {
+          "concepto": "Cableado y pequeño material instalación alarma",
+          "descripcion": "Cable 2×1.5mm y 4×0.75mm para sensores y sirenas, regleta bornes, bridas, tacos, tornillería, tubo corrugado protección",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado típico 80-150€ según complejidad y longitud cableado"
+        },
+        {
+          "concepto": "Montaje y conexión central alarma",
+          "descripcion": "Instalación central en cuadro o armario técnico, conexionado bornes, programación detectores, pruebas funcionamiento, parametrización",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación sensores PIR (montaje y orientación)",
+          "descripcion": "Montaje de 4 PIR en puntos estratégicos, orientación óptima, fijación a muro/techo, prueba de cobertura",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación sensores de apertura (6 unidades)",
+          "descripcion": "Montaje de 6 contactos magnéticos en jambas y marcos, alineación y prueba apertura/cierre",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Montaje sirenas interior y exterior",
+          "descripcion": "Fijación sirena interior en zona central accesible y sirena exterior en fachada visible, enrasamiento y prueba acústica",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación teclado de control",
+          "descripcion": "Montaje teclado en zona entrada, conexionado a central, programación códigos PIN, prueba de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración comunicador y central receptora",
+          "descripcion": "Instalación módulo comunicador, configuración parámetros conexión (IP/GSM), activación cuenta central receptora, pruebas de transmisión",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas completas y documentación técnica",
+          "descripcion": "Verificación integral sistema (sensores, sirenas, comunicación, tiempos respuesta), prueba de falsa alarma, entrega manual usuario, documentación técnica y contrato",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Contrato monitorización central receptora 24h (ANUAL)",
+          "descripcion": "Servicio monitorización 24/365 por central receptora CRA profesional, respuesta ante alarma, coordinación con fuerzas de seguridad, gestión incidencias",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "SERVICIO RECURRENTE — precio típico 15-40€/mes según central receptora y tipo vivienda/negocio. Contratación separada del material"
+        }
+      ],
+      "calculos": {
+        "subtotal": 675,
+        "iva_porcentaje": 21,
+        "iva": 141.75,
+        "total": 816.75
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA [instalacion_alarma_intrusion]: central_alarma, detectores_pir, contactos_magneticos_puertas, sirena_exterior, teclado_control, pequeno_material — TODAS las partidas obligatorias están incluidas",
+        "BASE MAESTRA [instalacion_de_sistema_de_alarma_intrusion]: comunicador_IP_o_GSM — incluido para monitorización 24h",
+        "Verificar normativa EN 50131 — empresa instaladora debe estar registrada Ministerio Interior",
+        "Cartel informativo RGPD OBLIGATORIO en exterior (si vigilancia cámaras asociadas futura)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central de alarma intrusión",
+          "oficio": "electricidad",
+          "precio_estimado_rango": "200-500€",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Detectores PIR de movimiento (unitarios)",
+          "oficio": "electricidad",
+          "precio_estimado_rango": "40-80€/ud",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Detectores de apertura magnéticos (unitarios)",
+          "oficio": "electricidad",
+          "precio_estimado_rango": "20-40€/ud",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Sirena interior",
+          "oficio": "electricidad",
+          "precio_estimado_rango": "60-120€",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Sirena exterior",
+          "oficio": "electricidad",
+          "precio_estimado_rango": "80-150€",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Teclado control alarma",
+          "oficio": "electricidad",
+          "precio_estimado_rango": "100-200€",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Comunicador IP/GSM",
+          "oficio": "telecomunicaciones",
+          "precio_estimado_rango": "150-300€",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Pequeño material y cableado alarma",
+          "oficio": "electricidad",
+          "precio_estimado_rango": "80-150€ (pa)",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Contrato monitorización 24h anual",
+          "oficio": "telecomunicaciones",
+          "precio_estimado_rango": "15-40€/mes (180-480€/año)",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_alarma_intrusion",
+      "instalacion_reja_fija_en_ventana_o_puerta",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_sistema_de_alarma_intrusion"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 16,
+    "n_catalogo": 7,
+    "n_sugeridas": 9,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

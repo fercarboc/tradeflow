@@ -1,0 +1,389 @@
+{
+  "id": 229,
+  "oficio": "Energía Solar",
+  "texto": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+  "http_status": 200,
+  "latency_ms": 45862,
+  "raw_response": {
+    "transcript": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto híbrido: requiere coordinación entre instalación fotovoltaica + wallbox + sistema de gestión inteligente",
+          "Necesario verificar: potencia contratada actual, compatibilidad vehículo con carga inteligente, orientación y superficie disponible cubierta",
+          "Requiere comunicación a distribuidora por nueva potencia si es necesario",
+          "Precio final depende de: potencia kWp solar, tipo wallbox (7.4/11/22kW), distancia rozas, complejidad instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica + integración con cargador. Tarifa especializada en energías renovables."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito exclusivo wallbox, protecciones REBT, toma de tierra, pequeño material."
+        },
+        {
+          "oficio": "informatica",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Configuración software gestión inteligente de carga, integración con app, monitorización."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Paneles fotovoltaicos (5 kWp estimado)",
+          "descripcion": "Paneles solares monocristalinos de alta eficiencia, 5 kWp total. Cantidad estimada 12-14 paneles de 370-400W. Incluye estructura de soporte aluminio, anclajes y pequeño material.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material importado. El instalador revisa presupuesto de proveedor solar. Rango referencia 150-200€/kWp instalado (paneles + estructura)."
+        },
+        {
+          "concepto": "Inversor fotovoltaico híbrido compatible con gestión de carga",
+          "descripcion": "Inversor híbrido monofásico o trifásico (según potencia contratada), con entrada para wallbox y lógica de gestión inteligente de carga. Capacidad: 5-6 kW. Comunicaciones WiFi/Ethernet integradas.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Equipamiento crítico. Rango 800-2000€ según marca y capacidad. Requiere cotización con proveedor."
+        },
+        {
+          "concepto": "Instalación estructura y paneles fotovoltaicos cubierta",
+          "descripcion": "Montaje de estructura de soporte en cubierta/tejado, fijación de paneles, conexionado en serie/paralelo, paso cables por canaletas. Incluye pruebas básicas de aislamiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado solar DC (cables RV-K 6mm² y 10mm² según tramos)",
+          "descripcion": "Cable solar RV-K rojo/negro, secciones 6mm² y 10mm², desde paneles hasta inversor. Incluye conectores MC4, fusibles DC, pequeño material de protección.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Rango estimado 3-5€/m. Dependiente de distancia real cubierta-inversor."
+        },
+        {
+          "concepto": "Protecciones lado DC (fusibles, magnetotérmicos)",
+          "descripcion": "String de fusibles gPV 20A, magnetotérmicos 2x63A DC, desconectadores DC aislables, DIN-rail en cuadro. Pequeño material.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Kit de protecciones REBT solar. Rango 250-450€. Revisar según configuración final strings."
+        },
+        {
+          "concepto": "Wallbox cargador vehículo eléctrico (11 kW monofásico recomendado)",
+          "descripcion": "Wallbox inteligente 11 kW (3 fases x 16A), compatible con gestión de carga por energía solar. Protocolo comunicación integrado (WiFi/Ethernet). Incluye cable de carga Mode 3 de 5 metros y conector Mennekes.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Wallbox inteligente 11kW. Rango 900-1800€. Requiere cotización directa fabricante (Wallbox, Tesla, Hyundai, etc.)."
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo wallbox desde cuadro principal",
+          "descripcion": "Derivación desde cuadro principal (6mm² si monofásico 7.4kW, 10mm² si 11kW trifásico) hasta ubicación wallbox. Rozas en fachada/muros. Reposición de fábrica. Protecciones: magnetotérmico 40A + diferencial tipo A 30mA dedicado. Toma de tierra.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cable derivación circuito wallbox (10mm² si 11kW, 50 metros estimado)",
+          "descripcion": "Cable H07V-K 10mm² rojo/negro/azul/verde-amarillo, desde cuadro hasta wallbox. Incluye bobina, canaletas, pequeño material fijación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cable eléctrico 10mm². Rango 1.5-2.5€/m. Revisar distancia real cuadro-wallbox."
+        },
+        {
+          "concepto": "Magnetotérmico 40A + Diferencial tipo A 30mA (circuito wallbox)",
+          "descripcion": "Curva C 40A magnetotérmico monofásico (si 11kW trifásico usar 3x16A), + diferencial tipo A 30mA (obligatorio REBT carga EV). DIN-rail en cuadro.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Protecciones REBT obligatorias. Rango 120-200€ (magnetotérmico + diferencial). Revisar según configuración final (monofásica/trifásica)."
+        },
+        {
+          "concepto": "Toma de tierra y pica de tierra para circuito wallbox",
+          "descripcion": "Verificación/mejora pica de tierra existente o instalación nueva (80-100cm). Cable de tierra 6mm² verde-amarillo hasta wallbox. Prueba de continuidad.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Contador bidireccional (si requerido por distribuidora)",
+          "descripcion": "Sustitución contador actual por modelo bidireccional (inyección-consumo) para fotovoltaica con vertido a red. Incluye trámites básicos gestión con distribuidora. Instalación en cuadro o según indicaciones distribuidora.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Equipo suministrado por distribuidora en muchos casos. Rango si cliente costea: 150-300€. Revisar con distribuidora local."
+        },
+        {
+          "concepto": "Protecciones lado AC (magnetotérmico + diferencial inversor)",
+          "descripcion": "Magnetotérmico 3x40A o 3x63A según potencia inversor, + diferencial tipo AC 30mA para lado AC fotovoltaico (antes de contador bidireccional). DIN-rail en cuadro principal.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Protecciones lado AC REBT fotovoltaica. Rango 120-250€. Revisar según potencia inversor."
+        },
+        {
+          "concepto": "Instalación inversor fotovoltaico e interconexiones AC/DC",
+          "descripcion": "Montaje inversor en cuadro o pared (armario interior). Conexionado lado DC (protecciones-inversor), lado AC (inversor-contador-cuadro principal). Pruebas de aislamiento DC. Pequeño material (regletas, etiquetado, tuercas).",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y conexión wallbox",
+          "descripcion": "Montaje físico wallbox en pared/pedestal. Conexionado cable de alimentación. Pruebas básicas (continuidad, aislamiento). Verificación funcionamiento carga.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración software gestión inteligente de carga (integración solar-wallbox)",
+          "descripcion": "Programación lógica de carga inteligente en inversor/gestor: carga automática cuando hay excedente solar, limitación potencia según generación real, control horarios tarifas, integración app móvil, monitorización consumo/generación en tiempo real.",
+          "oficio": "informatica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material eléctrico (fusibles, regletas, tuercas, etiquetas, canaletas, bridas)",
+          "descripcion": "Consumibles varios para instalación eléctrica: fusibles auxiliares, regletas de cobre, tuercas latón, etiquetado, canaletas PVC, bridas nylon, cinta aislante, vainas termorretráctiles.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote pequeño material. Rango 80-150€ estimado."
+        },
+        {
+          "concepto": "Pruebas finales, puesta en marcha y certificación",
+          "descripcion": "Pruebas de aislamiento lado DC y AC, secuencial de encendido, carga de batería vehículo al 100%, verificación inyección a red, emisión de certificado de instalación eléctrica (CONE), orientaciones al usuario.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión trámites administrativos con distribuidora (notificación nueva instalación fotovoltaica)",
+          "descripcion": "Coordinación con distribuidora: notificación instalación FV, solicitud cambio contador si aplica, resolución impuesto sobre electricidad (si corresponde), asesoramiento sobre vertido de excedentes y tarifa discriminatoria.",
+          "oficio": "informatica",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo. Rango estimado 150-300€ si instalador lo gestiona. A veces lo cubre cliente directamente con distribuidora."
+        }
+      ],
+      "calculos": {
+        "subtotal": 905,
+        "iva_porcentaje": 21,
+        "iva": 190.05,
+        "total": 1095.05
+      },
+      "sugerencias_catalogo": [
+        "Ampliar presupuesto de 'paneles fotovoltaicos' con especificación de potencia kWp (rango típico 3-6 kWp para cargar vehículo eléctrico) y número de paneles exacto.",
+        "Confirmar potencia wallbox: 7.4 kW (monofásico 32A) vs 11 kW (trifásico) vs 22 kW (trifásico industrial). Afecta cableado y protecciones.",
+        "Validar compatibilidad vehículo con carga inteligente (modelo y año). No todos soportan comunicación bidireccional con cargador.",
+        "Revisar orientación y espacios disponibles en cubierta para paneles: pérdidas por sombra máximo 10%. Inclinación óptima 25-35° para España.",
+        "Comunicar con distribuidora ANTES de inicio obras para confirmar: aumento potencia contratada si necesario, capacidad conexión fotovoltaica, requisitos contador bidireccional, bonificación impuesto electricidad.",
+        "Considerar añadir batería de acumulación (5-10 kWh) si cliente desea independencia de red o tarifas con discriminación horaria nocturna muy económica."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Paneles fotovoltaicos (5 kWp estimado)",
+          "razon": "Material importado, sin catálogo previo. Valor depende proveedor solar."
+        },
+        {
+          "partida": "Inversor fotovoltaico híbrido compatible con gestión de carga",
+          "razon": "Equipamiento especializado. Clave en proyecto. Requiere cotización específica marca/modelo."
+        },
+        {
+          "partida": "Cableado solar DC (cables RV-K 6mm² y 10mm²)",
+          "razon": "Material consumible. Cantidad y precio dependiente de distancia real cubierta-inversor."
+        },
+        {
+          "partida": "Protecciones lado DC (fusibles, magnetotérmicos)",
+          "razon": "Kit específico REBT fotovoltaica. Valor según configuración strings paneles."
+        },
+        {
+          "partida": "Wallbox cargador vehículo eléctrico (11 kW)",
+          "razon": "Equipamiento principal. Múltiples opciones marca/modelo. Requiere cotización directa."
+        },
+        {
+          "partida": "Cable derivación circuito wallbox (10mm²)",
+          "razon": "Material consumible. Distancia variable según ubicación garaje-cuadro."
+        },
+        {
+          "partida": "Magnetotérmico 40A + Diferencial tipo A 30mA",
+          "razon": "Protecciones REBT EV. Configuración depende de potencia wallbox (mono/trifásico)."
+        },
+        {
+          "partida": "Contador bidireccional",
+          "razon": "Equipo distribuidora en muchos casos. Si cliente costea, requiere cotización local."
+        },
+        {
+          "partida": "Protecciones lado AC (magnetotérmico + diferencial inversor)",
+          "razon": "Protecciones lado generación REBT. Valor según potencia inversor."
+        },
+        {
+          "partida": "Pequeño material eléctrico",
+          "razon": "Lote consumibles. Rango variable según cantidad material empleado."
+        },
+        {
+          "partida": "Gestión trámites administrativos con distribuidora",
+          "razon": "Servicio de gestión. A veces cliente lo realiza. Si instalador lo cubre, requiere valoración."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cargador_vehiculo_electrico_wallbox",
+      "instalacion_de_cargador_de_vehiculo_electrico_en_vivienda",
+      "integracion_solar_fotovoltaica_en_vehiculo_electrico_V2H_V2G",
+      "instalacion_punto_recarga_bicicleta_electrica",
+      "instalacion_fotovoltaica_autoconsumo"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 18,
+    "n_catalogo": 7,
+    "n_sugeridas": 11,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

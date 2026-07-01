@@ -1,0 +1,187 @@
+{
+  "id": 69,
+  "oficio": "Pintura",
+  "texto": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+  "http_status": 200,
+  "latency_ms": 18905,
+  "raw_response": {
+    "transcript": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Efecto estucoveneciano requiere técnica especializada y mano de obra calificada",
+          "Se recomienda muestra previa en rincón antes de aplicar en toda la pared",
+          "Presupuesto basado en tarifa pintura decorativa; revisar precio del material específico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura decorativa efecto textura (estucoveneciano) requiere tarifa superior a pintura estándar por técnica especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Imprimación base adhesiva pared",
+          "descripcion": "Imprimación fijadora y selladora para garantizar adherencia del estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico estucoveneciano; instalador debe confirmar marca y precio de imprimación"
+        },
+        {
+          "concepto": "Pintura decorativa efecto estucoveneciano",
+          "descripcion": "Pintura de acabado estucoveneciano (monocapa o bicapa según técnica) con pigmentos y aglutinante especializado",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material estucoveneciano; revisar marca, rendimiento y coste por m2"
+        },
+        {
+          "concepto": "Aplicación pintura decorativa efecto estucoveneciano",
+          "descripcion": "Mano de obra especializada: preparación pared, aplicación con llanas y técnicas de texturizado, alisado y acabado. Incluye técnica de espátula y pulido final",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 12,
+          "total": 144,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lijas de varias granulometrías",
+          "descripcion": "Lijas grano 150, 220, 400 para pulido y acabado final del estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material; confirmar cantidad de lijas necesarias"
+        },
+        {
+          "concepto": "Herramientas aplicación: llanas metálicas y esponjas",
+          "descripcion": "Set de llanas de distintos tamaños, esponjas naturales y brochas para técnica estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material; revisar si es inversión o suministro incluido en mano de obra"
+        },
+        {
+          "concepto": "Cinta carrocero y protecciones",
+          "descripcion": "Cinta carrocero, plásticos y protecciones para molduras, rodapié y bordes",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material; confirmar cantidades"
+        },
+        {
+          "concepto": "Muestra previa estucoveneciano en rincón",
+          "descripcion": "Aplicación de muestra en rincón de la pared para validación de color, textura y acabado antes de proceder con toda la superficie",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barniz o cera protección final (opcional)",
+          "descripcion": "Barniz de poliuretano o cera natural como protección final del estucoveneciano (opcional según cliente)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional; confirmar si cliente solicita protección final"
+        }
+      ],
+      "calculos": {
+        "subtotal": 208,
+        "iva_porcentaje": 21,
+        "iva": 43.68,
+        "total": 251.68
+      },
+      "sugerencias_catalogo": [
+        "Estucoveneciano es variante de pintura decorativa texturizada. Base de cálculo: 12 m2 × tarifa pintura decorativa especializada (8-12 €/m2 mano de obra + materiales)",
+        "Considerar si cliente requiere protección final con barniz/cera (aumento 2-4 €/m2)",
+        "Muestra previa es OBLIGATORIA antes de aplicar en superficie completa"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Pintura decorativa efecto estucoveneciano",
+          "clasificacion": "variante de pintura_decorativa_efecto_tela_o_textura",
+          "oficio": "pintura",
+          "unidad": "m2",
+          "precio_referencia": "8-14 €/m2 (mano de obra especializada)",
+          "motivo_creacion": "Técnica de estucoveneciano no existe como partida individual en catálogo; se agrupa en familia de pintura decorativa texturizada"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_decorativa_efecto_oxido_o_industrial",
+      "pintura_decorativa_efecto_tela_o_textura",
+      "pintado_paredes_con_efecto_delave_o_degradado",
+      "pintura_y_acabado_paredes_de_pladur_nuevo",
+      "acabado_con_microcemento_suelo_o_pared"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

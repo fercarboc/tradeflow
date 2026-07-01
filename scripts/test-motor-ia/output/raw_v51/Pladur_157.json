@@ -1,0 +1,194 @@
+{
+  "id": 157,
+  "oficio": "Pladur",
+  "texto": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 16518,
+  "raw_response": {
+    "transcript": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar techo registrable de placas en local comercial de 100 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume altura libre suficiente para cuelgue de estructura. Verificar in situ.",
+          "Presupuesto base sin incluir acabados finales (pintura, iluminación). Confirmar si están incluidos.",
+          "Necesario presupuesto de demolición/desmontaje de techo anterior si existe."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Instalación de techo registrable (falso techo) - oficio de escayola/pladur"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura de cuelgue para techo registrable",
+          "descripcion": "Perfiles metálicos principales y secundarios (T24, perfiles maestras), varillas roscadas, horquillas y fijación a estructura existente para sustentación de placas registrables",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de estructura metálica - precio a revisar según proveedor y tipo de perfilería"
+        },
+        {
+          "concepto": "Placas registrables minerales 60x60",
+          "descripcion": "Placas de techo registrable minerales estándar (antihumedad, fonoabsorbentes), formato 60x60 cm, incluidas las necesarias para 100 m2",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 278,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de placas minerales registrables - revisar marca y tipo (estándar/ignífuga)"
+        },
+        {
+          "concepto": "Aislamiento acústico/térmico para techo registrable",
+          "descripcion": "Lana de roca o fibra de vidrio para colocación sobre estructura de cuelgue, mejora acústica y térmica",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Espesor y tipo de aislamiento a definir según requerimientos acústicos"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, tuercas, arandelas, clips de sujeción de placas, cinta de cierre de juntas, adhesivos, silicona, materiales auxiliares de montaje",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Valoración de accesorios y pequeño material estimada, ajustar según cantidad real"
+        },
+        {
+          "concepto": "Mano de obra: montaje de estructura de cuelgue",
+          "descripcion": "Replanteo, fijación de varillas roscadas y perfiles maestros a estructura existente, nivelación y preparación para colocación de placas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 8,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: colocación de placas registrables",
+          "descripcion": "Encaje y asiento de placas en estructura de soporte, nivelación y acabado de juntas de placas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 12,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: colocación de aislamiento",
+          "descripcion": "Despliegue, corte y fijación de lana de roca sobre estructura metálica de cuelgue",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 5,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: acabados y retoques finales",
+          "descripcion": "Sellado de juntas, retoque de transiciones, limpieza y preparación para pintado (si aplica)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 3,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2800,
+        "iva_porcentaje": 21,
+        "iva": 588,
+        "total": 3388
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el local tiene actividad que requiera placas ignífugas (clasificación de fuego RF 120 o superior). En caso afirmativo, las placas deben ser certificadas y el presupuesto aumentará significativamente.",
+        "Verificar normativa local sobre sistemas de extinción/sprinklers que pudiera afectar al diseño del falso techo.",
+        "Considerar si se requiere alumbrado empotrado en las placas (luminarias de 60x60) - esto implicaría partidas adicionales de electricidad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura de cuelgue para techo registrable",
+          "oficio": "pladur_escayola",
+          "motivo": "Material de soporte - no tiene precio en catálogo base"
+        },
+        {
+          "concepto": "Placas registrables minerales 60x60",
+          "oficio": "pladur_escayola",
+          "motivo": "Material de acabado - precio variable según marca y especificaciones"
+        },
+        {
+          "concepto": "Aislamiento acústico/térmico para techo registrable",
+          "oficio": "pladur_escayola",
+          "motivo": "Material de aislamiento - precio a definir según especificación técnica"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "falso_techo_pladur_en_local_con_normativa_incendios",
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "instalacion_de_sistema_de_megafonia_y_hilo_musical",
+      "instalacion_iluminacion_comercial_led",
+      "instalacion_red_electrica_local_comercial"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "id": 164,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Pulir y abrillantar suelo de terrazo antiguo en piso, 60 metros cuadrados con sellado final",
+  "http_status": 200,
+  "latency_ms": 12858,
+  "raw_response": {
+    "transcript": "Pulir y abrillantar suelo de terrazo antiguo en piso, 60 metros cuadrados con sellado final",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pulir y abrillantar suelo de terrazo antiguo en piso, 60 metros cuadrados con sellado final",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Restauración y pulido de terrazo existente según Base Maestra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lijado progresivo terrazo con máquina pulidora y discos diamante",
+          "descripcion": "Lijado mecánico progresivo de terrazo antiguo con máquina pulidora profesional, discos diamante grano 100-200 (inicial) hasta grano 400-800 (final) para obtener acabado brillante. Incluye aspiración y limpieza continua.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 32,
+          "total": 1920,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Discos y lijas diamante grano progresivo",
+          "descripcion": "Juego completo de discos diamante y lijas de grano progresivo (100, 200, 400, 800) para pulido de 60 m² de terrazo. Material consumible.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Instalador debe indicar presupuesto según proveedor y cantidad exacta de discos necesarios"
+        },
+        {
+          "concepto": "Cristalizador o sellador final para terrazo",
+          "descripcion": "Aplicación de cristalizador o sellador protector final para terrazo pulido, proporciona brillo duradero y protección contra manchas. Acabado brillante.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 12,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Producto cristalizador o sellador protector",
+          "descripcion": "Cristalizador o sellador polimérico de protección final para terrazo pulido. Producto químico de aplicación superficial.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Instalador debe especificar litros necesarios y producto seleccionado (rendimiento típico: 4-8 m²/litro)"
+        },
+        {
+          "concepto": "Aspiración, limpieza y preparación de superficie",
+          "descripcion": "Limpieza exhaustiva previa, aspiración entre fases de lijado, y limpieza final después de pulido y antes de cristalizador. Incluido en proceso de restauración.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 5,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2940,
+        "iva_porcentaje": 21,
+        "iva": 617.4,
+        "total": 3557.4
+      },
+      "sugerencias_catalogo": [
+        "Si el terrazo tiene fisuras o desperfectos previos, incluir partida de 'Reparación de fisuras o desperfectos en terrazo' antes del lijado (masilla/mastic específico para terrazo)",
+        "Si hay zonas con lechada poros visible tras pulido, considerar lechada de poros específica antes del sellador final",
+        "El tiempo de curado del cristalizador es crítico: 24-48h sin tráfico antes de uso normal"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Discos y lijas diamante grano progresivo",
+          "motivo": "Material consumible específico, precio pendiente de revisión instalador"
+        },
+        {
+          "concepto": "Producto cristalizador o sellador protector",
+          "motivo": "Material químico consumible, necesita especificación de litros y marca"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "restauracion_y_pulido_terrazo_o_marmol_existente",
+      "pintado_suelo_resinas_decorativas",
+      "instalacion_suelo_epoxi_o_resina_decorativa",
+      "instalacion_suelo_industrial_de_terrazo_o_granito_in_situ",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

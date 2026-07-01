@@ -1,0 +1,240 @@
+{
+  "id": 167,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Alicatar piscina con gresite azul, vaciado y colocación en paredes y fondo, 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 22924,
+  "raw_response": {
+    "transcript": "Alicatar piscina con gresite azul, vaciado y colocación en paredes y fondo, 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Alicatar piscina con gresite azul, vaciado y colocación en paredes y fondo, 40 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume vaciado previo de piscina completado. Confirmar si incluye drenaje y limpieza de vaso.",
+          "Superficie 40 m² es considerable: verificar si incluye revestimiento previo existente o solo gresite final.",
+          "Precio mortero y lechada específicos para piscina (resistentes a cloro y inmersión) requiere confirmación de marcas/proveedores."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Revestimiento de piscina con gresite incluye impermeabilización certificada y adherencia."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado piscina y preparación vaso",
+          "descripcion": "Drenaje completo de agua, limpieza y deshollinado del vaso, preparación de superficies (paredes y fondo) para aplicación de revestimiento.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación adherente sobre hormigón",
+          "descripcion": "Aplicación de imprimador/adhesivo de imprimación en superficies de hormigón (paredes y fondo piscina) para garantizar adherencia óptima del gresite.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente de confirmación (marca y cobertura). Típicamente 2-5€/m²."
+        },
+        {
+          "concepto": "Mortero cola certificado inmersión C2S2",
+          "descripcion": "Mortero adhesivo de clase C2S2 certificado para inmersión, resistente a cloro y humedad permanente. Aplicación en capa homogénea sobre vaso.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material pendiente. Mortero certificado inmersión típicamente 8-15€/m² (bolsas 25kg rinden ~1.5-2 m²/kg)."
+        },
+        {
+          "concepto": "Gresite azul (colocación)",
+          "descripcion": "Colocación de gresite azul de 20x20 mm (o similar) sobre paredes y fondo de piscina. Incluye replanteo, asentamiento en mortero y ajuste.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 25,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gresite azul (suministro)",
+          "descripcion": "Suministro de gresite azul de primera calidad, densidad mínima 2500 kg/m³, resistencia a cloro y rayos UV. Incluye mermas 10%.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 44,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio gresite azul pendiente de confirmación. Rango típico 15-35€/m² según calidad y proveedor."
+        },
+        {
+          "concepto": "Lechada específica para piscina resistente a cloro",
+          "descripcion": "Lechada epoxi o Portland reforzada, resistente a cloro y con propiedades fungicidas. Rejuntado de juntas entre gresite con ancho 2-3 mm.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio lechada resistente cloro pendiente. Típicamente 3-8€/m² (bolsa 5kg rinde ~10-15 m²)."
+        },
+        {
+          "concepto": "Refuerzo en encuentros y desagües",
+          "descripcion": "Refuerzo de encuentros (aristas, esquinas, sumidero, boquillas de impulsión/retorno) con sellado reforzado y malla de fibra de vidrio.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material refuerzo (malla, sellador especial). Estimado 30-80€ por piscina de 40 m²."
+        },
+        {
+          "concepto": "Mano de obra refuerzo encuentros y desagües",
+          "descripcion": "Aplicación de refuerzos, sellados y protecciones en zonas críticas (encuentros, desagües, tuberías).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual (guantes, mascarilla, gafas), herramientas manuales (esponjas, espátulas, crucetas, nivel), cubetas y accesorios.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 40-80€ según necesidades. Incluye crucetas, esponjas, herramientas consumibles."
+        },
+        {
+          "concepto": "Curado y espera de fragüe (7 días)",
+          "descripcion": "Tiempo de curado mínimo 7 días antes de llenar piscina. Mantención del vaso protegido de lluvia y contaminación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": "Tiempo de espera sin costo adicional si obra se ejecuta en continuidad."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1440,
+        "iva_porcentaje": 21,
+        "iva": 302.4,
+        "total": 1742.4
+      },
+      "sugerencias_catalogo": [
+        "Confirmación: ¿El vaso ya está construido y solo falta alicatar? ¿O incluye trabajos previos de impermeabilización del hormigón?",
+        "Espesor y tipo de gresite: especificar mm y densidad (densidad mínima recomendada 2500 kg/m³ para piscina).",
+        "Mortero y lechada: solicitar presupuesto específico de marcas certificadas para piscina (no utilizar mortero estándar).",
+        "Acceso y condiciones: vaciado de piscina conlleva riesgo de fuga. Verificar estado de estructura y drenaje.",
+        "Tiempo ejecución estimado: 5-8 días laborales (40 m² requiere equipo mínimo 2 operarios o 1 operario durante 8-10 jornadas)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero cola certificado inmersión C2S2",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Gresite azul (suministro)",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Lechada específica para piscina resistente a cloro",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Refuerzo en encuentros y desagües",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_piscina_con_gresite_o_ceramica",
+      "construccion_de_piscina_de_obra",
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "PRECIO_INVALIDO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO",
+    "error_detalle": "Partida de catálogo con precio 0 o nulo"
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "id": 352,
+  "oficio": "Mantenimiento General",
+  "texto": "Instalar dispensadores de jabón y papel en aseos de empresa, mantenimiento de consumibles",
+  "http_status": 200,
+  "latency_ms": 13914,
+  "raw_response": {
+    "transcript": "Instalar dispensadores de jabón y papel en aseos de empresa, mantenimiento de consumibles",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar dispensadores de jabón y papel en aseos de empresa, mantenimiento de consumibles",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye tanto instalación inicial como mantenimiento recurrente de consumibles",
+          "Se recomienda separar: instalación puntual vs. contrato de mantenimiento mensual/trimestral"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Instalación de dispensadores + mantenimiento recurrente de consumibles en aseos corporativos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Instalación dispensadores jabón automático",
+          "descripcion": "Suministro e instalación de dispensadores de jabón automáticos (sensor infrarrojo) en aseos de empresa. Incluye fijación a pared, conexión eléctrica y pruebas de funcionamiento",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de dispensadores a confirmar según número de aseos y puntos de instalación"
+        },
+        {
+          "concepto": "Dispensadores jabón automático (material)",
+          "descripcion": "Dispensadores de jabón automáticos con sensor infrarrojo, carcasa ABS resistente, capacidad 700ml, incluye batería",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario a definir por instalador según marca y modelo seleccionado (rango típico: 45-120€/ud)"
+        },
+        {
+          "concepto": "Instalación dispensadores papel higiénico",
+          "descripcion": "Suministro e instalación de dispensadores de papel higiénico (rollo o interfold) en aseos. Incluye fijación a pared y ajuste de mecanismo",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de dispensadores a confirmar según número de cabinas/aseos"
+        },
+        {
+          "concepto": "Dispensadores papel higiénico (material)",
+          "descripcion": "Dispensadores de papel higiénico en rollo o interfold, acero inoxidable o ABS, capacidad estándar",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario a definir por instalador según tipo (rollo/interfold) y material (rango típico: 25-80€/ud)"
+        },
+        {
+          "concepto": "Mantenimiento mensual consumibles (jabón + papel)",
+          "descripcion": "Servicio de mantenimiento recurrente mensual: reposición de cartuchos de jabón, rollos de papel higiénico, limpieza de dispensadores y verificación de funcionamiento",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio mensual a definir según número de dispensadores, frecuencia de uso y volumen de consumibles (rango típico: 40-100€/mes)"
+        },
+        {
+          "concepto": "Pequeño material (tornillería, tacos, sellador)",
+          "descripcion": "Tornillería, tacos de fijación, sellador sanitario y otros pequeños materiales necesarios para la instalación",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "pendiente_revision",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador (rango típico: 15-30€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 160,
+        "iva_porcentaje": 21,
+        "iva": 33.6,
+        "total": 193.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar número exacto de dispensadores de jabón y papel según plano de aseos",
+        "Especificar si los dispensadores deben ser automáticos (sensor) o manuales",
+        "Definir si el mantenimiento de consumibles es incluido en el presupuesto o será un servicio recurrente separado",
+        "Considerar contrato de mantenimiento trimestral o semestral si la empresa tiene alto volumen de usuarios",
+        "Verificar si hay toma eléctrica disponible para dispensadores automáticos o si requiere instalación de punto"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Dispensadores jabón automático",
+          "oficio": "mantenimiento_general",
+          "motivo": "Producto específico de higiene corporativa no catalogado en Base Maestra"
+        },
+        {
+          "concepto": "Dispensadores papel higiénico",
+          "oficio": "mantenimiento_general",
+          "motivo": "Producto específico de higiene corporativa no catalogado en Base Maestra"
+        },
+        {
+          "concepto": "Mantenimiento mensual consumibles",
+          "oficio": "mantenimiento_general",
+          "motivo": "Servicio recurrente de reposición y mantenimiento de dispensadores"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_interruptor_averiado",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_llave_escuadra",
+      "construccion_de_camino_o_sendero_en_jardin"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3644,
+      "tokens_out": 1911
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

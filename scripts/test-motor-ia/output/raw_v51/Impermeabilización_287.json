@@ -1,0 +1,272 @@
+{
+  "id": 287,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+  "http_status": 200,
+  "latency_ms": 29068,
+  "raw_response": {
+    "transcript": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Balcón con filtración activa: es crítico hacer diagnóstico previo de la causa (baldosas flotadas sin impermeabilización, juntas deterioradas, falta de pendiente hacia drenaje)",
+          "Se recomienda levantar baldosas, reparar soporte, aplicar impermeabilizante, recolocar con mortero impermeable y rejuntar con lechada flexible",
+          "Requiere control de pendientes mínimo 2% hacia desagüe o canaletas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Oficio especializado en impermeabilización de superficies."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Rejuntado, asentamiento de baldosas y acabados."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de baldosas flotadas del balcón",
+          "descripcion": "Levantamiento cuidadoso de baldosas cerámicas o gres flotadas, sin dañar estructura soporte. Incluye apilado temporal y retirada de escombros.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe proporcionar superficie en m2 y estimar horas/m2 según dificultad."
+        },
+        {
+          "concepto": "Reparación y nivelación del soporte de balcón",
+          "descripcion": "Saneo de mortero antiguo, limpieza de polvo, retirada de restos de pegamento, reparación de zonas deterioradas con mortero de reparación, comprobación de pendiente mínima 2% hacia drenaje.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie en m2. Horas según estado del soporte."
+        },
+        {
+          "concepto": "Imprimación y aplicación de impermeabilizante cementoso o polímero",
+          "descripcion": "Imprimación consolidante del soporte. Aplicación de impermeabilizante elástico (mortero hidrofugo polimérico o resina acrílica) en una o dos manos según porosidad. Cubre grietas y asegura sellado total.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie en m2. Seleccionar producto (cristalizante, polimérico o resina). Cantidad: rendimiento aprox. 1-2 kg/m2."
+        },
+        {
+          "concepto": "Aplicación de impermeabilizante en capas",
+          "descripcion": "Mano de obra especializada: aplicación con brocha, rodillo o proyección del impermeabilizante en 1-2 capas, asegurando saturación de soporte.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador estima horas según m2 y tipo de aplicación (rendimiento aprox. 8-12 m2/h)."
+        },
+        {
+          "concepto": "Mortero de agarre mejorado impermeabilizado para baldosas",
+          "descripcion": "Mortero cola thixotrópico con aditivo hidrofugo para asentar baldosas flotadas. Sustitución de las baldosas originales con pegamento impermeabilizante.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie en m2. Rendimiento: aprox. 3-4 kg/m2. Seleccionar marca y cantidad."
+        },
+        {
+          "concepto": "Colocación de baldosas flotadas reaprovechadas o nuevas",
+          "descripcion": "Recolocación de baldosas originales (si están en buen estado) o sustitución por nuevas gres/cerámica. Asentamiento con mortero impermeabilizado, asegurar planeidad y estabilidad.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie en m2. Rendimiento: 4-6 m2/h según formato y dificultad."
+        },
+        {
+          "concepto": "Lechada flexible de rejuntado impermeabilizada",
+          "descripcion": "Material de rejuntado con aditivo hidrofugo o lechada polimérica flexible. Rejuntado completo de juntas entre baldosas. Mínimo ancho junta: 3-5 mm.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie en m2. Cantidad según formato baldosas y ancho junta. Aprox. 1-2 kg/m2."
+        },
+        {
+          "concepto": "Rejuntado e impermeabilización de juntas",
+          "descripcion": "Mano de obra: limpieza de juntas, aplicación y alisado de lechada flexible, acabado limpio. Incluye sellado superior de juntas con silicona flexible si es necesario.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie en m2. Rendimiento: 6-8 m2/h."
+        },
+        {
+          "concepto": "Sellado perimetral con silicona flexible de balcón",
+          "descripcion": "Sellado de juntas perimetrales entre baldosas y paramento (pared, barandilla, drenaje). Silicona poliuretano o acrílica flexible de grado exterior. Garantiza impermeabilidad total del perímetro.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metros lineales del perímetro a sellar. Cantidad: aprox. 1 cartucho cada 10 ml."
+        },
+        {
+          "concepto": "Aplicación de sellado perimetral",
+          "descripcion": "Mano de obra especializada: aplicación con pistola de cartucho de silicona/poliuretano en juntas perimetrales con acabado liso y profesional.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Referencia: 8€/ml. Instalador valida según complejidad del perímetro."
+        },
+        {
+          "concepto": "Prueba de estanqueidad (prueba de agua)",
+          "descripcion": "Control final: ensayo de retención de agua en el balcón mediante aporte de agua y verificación de ausencia de filtraciones en piso inferior. Incluye inspección visual y correcciones menores si procede.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Media jornada de control y prueba. Ajustar según tiempo real."
+        },
+        {
+          "concepto": "Pequeño material (espátulas, cepillos, esponjas, trapos, etc.)",
+          "descripcion": "Material fungible: herramientas menores, consumibles de limpieza y acabado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar pequeño material: aprox. 30-50€ en total."
+        }
+      ],
+      "calculos": {
+        "subtotal": 45,
+        "iva_porcentaje": 21,
+        "iva": 9.45,
+        "total": 54.45
+      },
+      "sugerencias_catalogo": [
+        "Confirmar en catálogo: impermeabilizantes cementosos certificados (cristalizante o polimérico) para balcones.",
+        "Confirmar mortero cola hidrofugo específico para balcones con flotantes.",
+        "Confirmar lechada de rejuntado flexible certificada para uso exterior.",
+        "Confirmar silicona poliuretano de grado exterior (DIN 18545 o similar)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Retirada de baldosas flotadas del balcón",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo específico de deconstrucción. No se encontró en catálogo. Crear partida con oficio albanileria."
+        },
+        {
+          "concepto": "Reparación y nivelación del soporte de balcón",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo preparatorio especializado. No se encontró en catálogo. Crear partida con oficio albanileria."
+        },
+        {
+          "concepto": "Impermeabilizante cementoso o polimérico para balcones",
+          "origen": "sugerida_ia",
+          "motivo": "Material especializado. Requiere selección técnica del instalador (cristalizante vs. polimérico)."
+        },
+        {
+          "concepto": "Mortero cola impermeabilizado para baldosas flotadas",
+          "origen": "sugerida_ia",
+          "motivo": "Material especializado. No encontrado en catálogo. Requiere especificación de marca y cantidad."
+        },
+        {
+          "concepto": "Lechada flexible de rejuntado impermeabilizada",
+          "origen": "sugerida_ia",
+          "motivo": "Material especializado para balcones. Requiere selección de lechada acrílica, polimérica o poliuretano."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_de_encuentro_fachada_cubierta"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 3,
+    "n_sugeridas": 9,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

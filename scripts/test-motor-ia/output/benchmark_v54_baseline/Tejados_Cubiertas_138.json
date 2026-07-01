@@ -1,0 +1,163 @@
+{
+  "id": 138,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Cambio de canalón redondo de uralita por canalón cuadrado de PVC de 125mm",
+  "http_status": 200,
+  "latency_ms": 19443,
+  "raw_response": {
+    "transcript": "Cambio de canalón redondo de uralita por canalón cuadrado de PVC de 125mm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de canalón redondo de uralita por canalón cuadrado de PVC de 125mm",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Gestión de residuos de uralita (amianto potencial) — requiere protocolo específico y gestor autorizado",
+          "Verificar anclajes y soportes compatibles con nuevo canalón cuadrado PVC 125mm"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sustitución de canalón — trabajo de cubierta/drenaje. Incluye desmontaje, suministro e instalación de canalón."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje canalón redondo uralita",
+          "descripcion": "Desmontaje completo del canalón redondo de uralita existente, incluyendo soportes y anclajes. Preparación de zona para nueva instalación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml no especificada. Instalador debe indicar longitud total del canalón a sustituir."
+        },
+        {
+          "concepto": "Canalón cuadrado PVC 125mm",
+          "descripcion": "Suministro de canalón cuadrado de PVC de 125mm, incluyendo piezas de conexión, codos, empalmes y remates según necesidad.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado. Instalador debe indicar longitud total y accesorios necesarios (codos, empalmes, remates)."
+        },
+        {
+          "concepto": "Soportes y anclajes canalón PVC 125mm",
+          "descripcion": "Suministro e instalación de soportes metálicos (acero galvanizado o aluminio) y anclajes para fijación del nuevo canalón cuadrado PVC 125mm a la estructura existente.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de soportes depende de longitud total. Instalador debe especificar cantidad (típicamente 1 soporte cada 60-80cm)."
+        },
+        {
+          "concepto": "Instalación canalón cuadrado PVC 125mm",
+          "descripcion": "Instalación completa del nuevo canalón cuadrado PVC 125mm, incluyendo fijación de soportes, conexión de piezas, sellado de empalmes y verificación de pendiente y drenaje.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de tejados_cubiertas aplicada. Cantidad en ml debe ser especificada por instalador."
+        },
+        {
+          "concepto": "Gestión de residuos uralita (amianto potencial)",
+          "descripcion": "Recogida, embalaje y transporte de residuos de canalón de uralita a gestor autorizado. Cumplimiento de normativa de amianto (RD 396/2006).",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio especializado de gestión de residuos con amianto. Precio variable según cantidad y gestor autorizado en zona."
+        },
+        {
+          "concepto": "Pequeño material y sellados",
+          "descripcion": "Silicona sanitaria, masilla, tornillería, tacos de fijación y otros materiales auxiliares para la instalación completa.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado según longitud total del canalón. Instalador debe revisar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe protocolo de desmontaje de amianto en la zona — puede requerir empresa especializada certificada.",
+        "Confirmar longitud total del canalón a sustituir (en metros lineales).",
+        "Especificar número de soportes necesarios (típicamente 1 cada 60-80cm para canalón cuadrado 125mm).",
+        "Indicar si se requieren accesorios especiales: codos, empalmes, remates en esquinas, bajantes de conexión.",
+        "Revisar pendiente mínima recomendada: 0,5-1% hacia punto de desagüe."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Gestión de residuos uralita (amianto potencial)",
+          "oficio": "gestion_residuos",
+          "motivo": "Sustitución de material potencialmente contaminante — requiere gestor autorizado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "sustitucion_termo_electrico",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_radiador",
+      "instalacion_iluminacion_led_completa",
+      "cambio_inodoro"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3508,
+      "tokens_out": 2166
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

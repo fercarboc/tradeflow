@@ -1,0 +1,227 @@
+{
+  "id": 68,
+  "oficio": "Pintura",
+  "texto": "Quitar papel pintado antiguo, enyesar y pintar las paredes del dormitorio principal",
+  "http_status": 200,
+  "latency_ms": 20903,
+  "raw_response": {
+    "transcript": "Quitar papel pintado antiguo, enyesar y pintar las paredes del dormitorio principal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Quitar papel pintado antiguo, enyesar y pintar las paredes del dormitorio principal",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Superficie total no especificada. Se requiere medición en m² para cálculo final.",
+          "Estado del yeso/pared no detallado. Precio puede variar según desperfectos."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 4,
+            "recomendado": 32,
+            "max": 16
+          },
+          "motivo": "Trabajo integrado en Base Maestra [pintado_paredes_habitacion_con_papel_pintado_retirado]. Incluye preparación laboriosa."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de papel pintado antiguo",
+          "descripcion": "Eliminación y retiro de papel pintado antiguo de paredes, incluyendo raspado de restos de cola y capa residual",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 4,
+          "total": 4,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad debe ajustarse según superficie real medida. Precio base para 1 m²."
+        },
+        {
+          "concepto": "Eliminación de restos de cola y prepración superficial",
+          "descripcion": "Eliminación de restos de adhesivo, limpieza de superficie y consolidación de base para recibir enyesado",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Decapante/disolvente y pequeño material. Instalador debe revisar costos reales."
+        },
+        {
+          "concepto": "Enyesado y reparación de paredes",
+          "descripcion": "Aplicación de masilla fina y enyesado para reparación de desperfectos, grietas y nivelación de superficie antes de pintar",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 6,
+          "total": 6,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Basado en rango de preparación (4-16€/m2). Cantidad debe ajustarse a superficie real. Precio puede aumentar si hay muchos desperfectos."
+        },
+        {
+          "concepto": "Masilla y productos de reparación",
+          "descripcion": "Masilla pasta fina, masilla de yeso y compuestos de reparación para alisar superficies dañadas",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles. Instalador debe presupuestar según cantidad y calidad requerida."
+        },
+        {
+          "concepto": "Lijado de superficie",
+          "descripcion": "Lijado de paredes con lijas de grano 150-220 para obtener superficie lisa lista para imprimación y pintura",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 3,
+          "total": 3,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad debe ajustarse a superficie real medida en m²."
+        },
+        {
+          "concepto": "Lijas y abrasivos",
+          "descripcion": "Lijas grano 120, 150 y 220 para preparación y acabado",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material consumible. Instalador valora cantidad según estado."
+        },
+        {
+          "concepto": "Imprimación fijadora",
+          "descripcion": "Aplicación de imprimación fijadora de cola residual e imprimación consolidante para asegurar adherencia de pintura",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 3,
+          "total": 3,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad debe ajustarse a superficie real."
+        },
+        {
+          "concepto": "Imprimación (producto)",
+          "descripcion": "Imprimación fijadora y consolidante",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Rendimiento típico 8-10 m²/litro. Instalador presupuesta según cantidad real."
+        },
+        {
+          "concepto": "Pintura plástica de acabado (2 manos)",
+          "descripcion": "Aplicación de dos manos de pintura plástica de calidad en paredes de dormitorio principal, incluyendo rodillo, brocha y técnica de acabado",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 5,
+          "total": 5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio base 5€/m² para 2 manos. Cantidad debe ser la superficie real en m²."
+        },
+        {
+          "concepto": "Pintura plástica (producto)",
+          "descripcion": "Pintura plástica de interior, acabado mate o satinado, calidad estándar",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Rendimiento típico 10-12 m²/litro (2 manos). Instalador presupuesta según marca y m² finales."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Rodillo, pincel, espátula, rasqueta, mascarilla, trapos, cintas de protección y otros consumibles menores",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gasto pequeño material. Estimación aproximada 2-3% del presupuesto total."
+        }
+      ],
+      "calculos": {
+        "subtotal": 21,
+        "iva_porcentaje": 21,
+        "iva": 4.41,
+        "total": 25.41
+      },
+      "sugerencias_catalogo": [
+        "Referencia Base Maestra: [pintado_paredes_habitacion_con_papel_pintado_retirado]. Este presupuesto sigue la estructura obligatoria.",
+        "El precio final depende de la MEDICIÓN REAL en m² del dormitorio principal.",
+        "Recomendación: Aplicar los precios unitarios (€/m²) mostrados por cada partida multiplicados por los m² totales de las paredes.",
+        "Ejemplo para 20 m²: Retirada (4€/m²=80€) + Enyesado (6€/m²=120€) + Lijado (3€/m²=60€) + Imprimación (3€/m²=60€) + Pintura (5€/m²=100€) = 420€ + materiales (estimado 40-80€) = 460-500€ + IVA 21%."
+      ],
+      "partidas_nuevas_detectadas": [
+        "Eliminación de restos de cola (sugerida_ia)",
+        "Masilla y productos de reparación (sugerida_ia)",
+        "Lijas y abrasivos (sugerida_ia)",
+        "Imprimación (sugerida_ia)",
+        "Pintura plástica producto (sugerida_ia)",
+        "Pequeño material y herramientas (sugerida_ia)"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_paredes_habitacion_con_papel_pintado_retirado",
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "pintado_de_sotanos_y_aparcamientos_comunitarios",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "pintado_de_foso_de_ascensor"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

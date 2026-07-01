@@ -1,0 +1,292 @@
+{
+  "id": 344,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+  "http_status": 200,
+  "latency_ms": 23872,
+  "raw_response": {
+    "transcript": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar varios desperfectos en piso de alquiler: grifo roto, persiana caída y bisagra de puerta",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto múltiple oficio: requiere presencia en vivienda para acceso a todas las áreas",
+          "Piso de alquiler: verificar responsabilidad del inquilino vs. propietario antes de actuar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación grifo roto - catalogado como [reparacion_grifo_o_griferia_averiada]"
+        },
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Persiana caída - requiere diagnóstico de causa (lamas, cinta, mecanismo enrollador)"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación bisagra de puerta - pequeña carpintería/cerrajería menor"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y reparación grifo roto",
+          "descripcion": "Inspección avería, desmontaje parcial si es necesario, evaluación de reparabilidad vs. sustitución",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo nuevo o repuesto de junta/cartucho",
+          "descripcion": "Material según diagnóstico: grifo completo (150-300€) o solo repuesto junta (15-45€). Precio pendiente de verificación en obra",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Definir en obra si es reparación (junta/cartucho) o sustitución (grifo completo)"
+        },
+        {
+          "concepto": "Instalación grifo y pruebas estanqueidad",
+          "descripcion": "Montaje del componente reparado o nuevo, pruebas de caudal y ausencia de fugas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material fontanería (teflón, silicona, llave de paso si aplica)",
+          "descripcion": "Cinta de teflón, silicona sanitaria, llave de paso si requiere lubricación o sustitución menor",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de consumibles a verificar en obra"
+        },
+        {
+          "concepto": "Diagnóstico persiana caída",
+          "descripcion": "Inspección de causa: lamas rotas, cinta enrolladora rota, guías dañadas, mecanismo enrollador averiado. Evaluación de reparabilidad",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación o sustitución componentes persiana (lamas, cinta, guías, mecanismo)",
+          "descripcion": "Material y mano de obra según diagnóstico: lamas aluminio (40-160€), cinta enrolladora (100-550€), guías (20-80€), recogedor (15-50€)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Definir en obra qué componente(s) requieren sustitución tras diagnóstico"
+        },
+        {
+          "concepto": "Instalación componentes persiana y pruebas funcionamiento",
+          "descripcion": "Montaje de componentes reparados/nuevos, accionamiento manual/motorizado, enrollado y desenrollado completo sin fricción",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material persianas (muelle, tope, lubricante, espárragos)",
+          "descripcion": "Consumibles menores: espárragos, muelle de reposición si aplica, lubricante silicona, topes inferiores",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidades a verificar según reparación específica"
+        },
+        {
+          "concepto": "Reparación bisagra de puerta",
+          "descripcion": "Diagnóstico: bisagra desajustada, aflojada, rota o desplomada. Reajuste, lubricación o sustitución según estado",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bisagra nueva si necesario",
+          "descripcion": "Bisagra de acero o latón según tipo puerta: interior (15-35€), exterior o pesada (25-80€). Precio pendiente de verificación en obra",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Definir número de bisagras y tipo (simple vs. 3D) tras inspección"
+        },
+        {
+          "concepto": "Instalación bisagra(s) y ajuste de puerta",
+          "descripcion": "Sustitución y fijación de bisagra nueva, ajuste plomo y presión, cierre suave sin arrastres, prueba de herrería",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material carpintería (tornillos, arandelas, lubricante, lejía limpieza)",
+          "descripcion": "Tornillos acero inoxidable, arandelas, lubricante silicona, lejía si hay óxido en bisagra",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidades consumibles a verificar en obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 252.5,
+        "iva_porcentaje": 21,
+        "iva": 53.025,
+        "total": 305.525
+      },
+      "sugerencias_catalogo": [
+        "Catálogo [reparacion_grifo_o_griferia_averiada] aplicado: diagnóstico 50€ + material pendiente + instalación 50€",
+        "Catálogo [sustitucion_lamas_persiana_enrollable_aluminio] y [reparacion_cinta_enrolladora_persiana] consideradas: material variable según diagnóstico",
+        "Reparación bisagra: catálogo general carpintería menor aplicado (45€/ud + material variable)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Grifo nuevo o repuesto de junta/cartucho",
+          "razon": "Material con precio variable según diagnóstico (reparación vs. sustitución)",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Pequeño material fontanería",
+          "razon": "Consumibles menores no cuantificables sin inspección",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Reparación o sustitución componentes persiana",
+          "razon": "Material variable: lamas, cinta, guías, mecanismo según diagnóstico",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Pequeño material persianas",
+          "razon": "Consumibles menores no cuantificables sin inspección específica",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Bisagra nueva si necesario",
+          "razon": "Material variable: tipo bisagra y cantidad según estado puerta",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Pequeño material carpintería",
+          "razon": "Consumibles menores no cuantificables sin inspección",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_grifo_o_griferia_averiada",
+      "reparacion_y_soldadura_de_estructura_metalica",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reparacion_cinta_enrolladora_persiana",
+      "reparacion_de_fisuras_y_grietas_en_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "id": 51,
+  "oficio": "Carpintería",
+  "texto": "Reparación de escalera de madera, peldaños sueltos y barandilla que se mueve",
+  "http_status": 200,
+  "latency_ms": 15137,
+  "raw_response": {
+    "transcript": "Reparación de escalera de madera, peldaños sueltos y barandilla que se mueve",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de escalera de madera, peldaños sueltos y barandilla que se mueve",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de reparación puntual en escalera: requiere inspección previa para evaluar estado estructural de peldaños y anclajes de barandilla",
+          "Si hay daño estructural en la escalera (grietas, pudrición), puede requerir refuerzo adicional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de peldaños de madera sueltos: reajuste, refuerzo y fijación"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Reparación de barandilla metálica suelta: reajuste de anclajes y soldadura si aplica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Reparación y reajuste de peldaños sueltos",
+          "descripcion": "Desmontaje parcial de peldaños sueltos, limpieza de uniones, refuerzo con tornillería inox o cola de madera, reinstalación y fijación segura. Incluye pequeño material (tornillos, tacos, cola).",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales reparación peldaños (tornillería, cola, tacos)",
+          "descripcion": "Tornillos inox, cola de madera, tacos de expansión, masilla de madera si aplica",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar cantidad y tipo de tornillería, cola y tacos según estado real de peldaños"
+        },
+        {
+          "concepto": "Reparación y reajuste de barandilla metálica suelta",
+          "descripcion": "Inspección de anclajes, reajuste de tornillería, refuerzo de puntos de fijación a escalera y pared. Incluye revisión de soldaduras si existen y pequeño material.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 60,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales reparación barandilla (tornillería, tacos, sellado)",
+          "descripcion": "Tornillos inox, tacos químicos o de expansión, sellado de anclajes, masilla de relleno si aplica",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar tipo y cantidad de anclajes, tacos y sellado según material de soporte (hormigón, ladrillo, madera)"
+        },
+        {
+          "concepto": "Soldadura de refuerzo en barandilla (si aplica)",
+          "descripcion": "Soldadura puntual de uniones o grietas en barandilla metálica si se detectan durante inspección. Incluye limpieza y acabado.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 60,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Partida opcional: solo si se detecta necesidad de soldadura durante inspección. Cantidad a determinar en obra."
+        },
+        {
+          "concepto": "Inspección y pruebas de seguridad finales",
+          "descripcion": "Verificación de estabilidad de peldaños, resistencia de barandilla, comprobación de anclajes y pruebas de carga. Documentación de conformidad.",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe establecer tarifa de inspección y pruebas según protocolo de seguridad aplicable"
+        }
+      ],
+      "calculos": {
+        "subtotal": 285,
+        "iva_porcentaje": 21,
+        "iva": 59.85,
+        "total": 344.85
+      },
+      "sugerencias_catalogo": [
+        "Considerar si la barandilla es metálica (cerrajería) o madera (carpintería) para ajustar presupuesto",
+        "Si hay daño estructural en peldaños (pudrición, grietas profundas), puede requerir sustitución completa de peldaños en lugar de reparación",
+        "Verificar si la escalera requiere refuerzo estructural adicional (vigas, soportes) según CTE DB SUA"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Materiales reparación peldaños (tornillería, cola, tacos)",
+          "oficio": "carpinteria",
+          "motivo": "Material específico según estado real de peldaños"
+        },
+        {
+          "concepto": "Materiales reparación barandilla (tornillería, tacos, sellado)",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico según tipo de soporte y anclajes"
+        },
+        {
+          "concepto": "Soldadura de refuerzo en barandilla (si aplica)",
+          "oficio": "cerrajeria",
+          "motivo": "Partida opcional condicionada a inspección en obra"
+        },
+        {
+          "concepto": "Inspección y pruebas de seguridad finales",
+          "oficio": "carpinteria",
+          "motivo": "Servicio de verificación y documentación de conformidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_barandilla_metalica_de_escalera_interior",
+      "pintado_pasamanos_y_barandillas_interior",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "colocacion_peldano_ceramico_o_piedra_en_escalera",
+      "instalacion_escalera_de_cristal_o_peldanos_de_vidrio"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4007,
+      "tokens_out": 2068
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

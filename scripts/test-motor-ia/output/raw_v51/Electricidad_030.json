@@ -1,0 +1,295 @@
+{
+  "id": 30,
+  "oficio": "Electricidad",
+  "texto": "Instalación de línea trifásica para cocina industrial de restaurante, potencia de 25kW",
+  "http_status": 200,
+  "latency_ms": 33001,
+  "raw_response": {
+    "transcript": "Instalación de línea trifásica para cocina industrial de restaurante, potencia de 25kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de línea trifásica para cocina industrial de restaurante, potencia de 25kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto basado en descripción técnica. Requiere inspección in situ para confirmación de recorrido, estado de acometida, necesidad de refuerzo de enlace y cálculo exacto de caída de tensión.",
+          "Obra civil (rotura/excavación) estimada. Ajustar según realidad del terreno.",
+          "Boletín eléctrico OBLIGATORIO para licencia hostelería.",
+          "Potencia 25kW requiere verificación de disponibilidad en acometida general."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación eléctrica trifásica de potencia. Base maestra: instalacion_electrica_local_hosteleria"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cuadro de distribución trifásico 25kW",
+          "descripcion": "Cuadro eléctrico trifásico preparado para cocina industrial, con protecciones diferenciales y magnetotérmicos calibrados para 25kW, seccionador general, embarrado de cobre.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico. Instalador debe cotizar según marca, certificaciones y accesorios."
+        },
+        {
+          "concepto": "Línea trifásica de acometida 25kW",
+          "descripcion": "Suministro e instalación de cable trifásico Cu 25mm² (3x25+16 TT) desde cuadro general a cuadro cocina, longitud estimada 50ml, protección en tubo corrugado, incluye conexionado y etiquetado.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cable y accesorios a tarificar por instalador. Longitud estimada; ajustar según plano del local."
+        },
+        {
+          "concepto": "Instalación de línea trifásica y conexionado",
+          "descripcion": "Tendido de cable trifásico en tubo corrugado, conexión en cuadro general, conexión en cuadro cocina, pruebas de continuidad y aislamiento, etiquetado de circuitos.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuitos monofásicos para equipos cocina",
+          "descripcion": "Instalación de circuitos independientes (enchufes y conexiones directas) para equipos cocina: freidoras, hornos, vitro, campana extractora. Cable Cu 4-6mm², magnetotérmicos individuales, cajetines y regletas de conexión.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número y tipo de circuitos según equipamiento real. Presupuesto estimado en 8 circuitos; ajustar en visita."
+        },
+        {
+          "concepto": "Montaje y conexión de circuitos equipos cocina",
+          "descripcion": "Tendido de cables para circuitos, instalación de cajetines, conexionado de enchufes y elementos, pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de iluminación profesional",
+          "descripcion": "Instalación de circuito de iluminación LED profesional para cocina, incluye luminarias de superficie/empotradas, protección IP54 mínimo, interruptores, cableado Cu 1,5-2,5mm².",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material según superficie cocina y número de luminarias. A cotizar por instalador."
+        },
+        {
+          "concepto": "Montaje sistema iluminación",
+          "descripcion": "Instalación de luminarias, conexionado de circuito iluminación, pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de extracción de humos",
+          "descripcion": "Circuito independiente trifásico/monofásico para campana extractora profesional, cable Cu 2,5-4mm², magnetotérmico, conexión directa o enchufe industrial.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material según potencia y tipo campana. Cotizar con ventilador."
+        },
+        {
+          "concepto": "Instalación circuito extracción",
+          "descripcion": "Conexionado de campana extractora, tendido de cables, montaje de magnetotérmico en cuadro, pruebas.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alumbrado de emergencia y señalización",
+          "descripcion": "Instalación de luminarias de emergencia autónomas, señalización de salidas, circuito de recarga de baterías, cumplimiento normativa RD 486/1997.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Según superficie cocina y normativa hostelería local. Estimar 3-5 puntos de emergencia."
+        },
+        {
+          "concepto": "Montaje alumbrado emergencia",
+          "descripcion": "Instalación de puntos de emergencia, conexionado de circuito, pruebas de funcionamiento y autonomía.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Obra civil: rotura y canalizaciones",
+          "descripcion": "Rotura de pavimento/paredes para paso de tuberías y canales, retirada de escombros, canalizaciones en tubo corrugado reforzado, revestimiento de protección.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 40,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación. Ajustar según accesibilidad real y tipo de recorrido (aéreo/soterrado)."
+        },
+        {
+          "concepto": "Boletín eléctrico y tramitación",
+          "descripcion": "Redacción, firma y tramitación de boletín eléctrico oficial (Colegio Profesional), necesario para licencia de hostelería. Incluye verificaciones de seguridad y conformidad con REBT.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio obligatorio. Tarificar según colegio profesional local (típicamente 150-300€)."
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Pruebas de continuidad, aislamiento, toma de tierra, medida de resistencia, funcionamiento de todos los circuitos, prueba bajo carga con equipos cocina.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "descripcion": "Tubería corrugada, cajetines de derivación, regletas de conexión, bornes de latón, tornillería inox, cinta aislante, etiquetas, pasta térmica, silicona, pequeño material fungible.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida global de pequeño material. Estimar 10-15% del coste de materiales principales."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1440,
+        "iva_porcentaje": 21,
+        "iva": 302.4,
+        "total": 1742.4
+      },
+      "sugerencias_catalogo": [
+        "Base maestra aplicada: [instalacion_electrica_local_hosteleria] — validar dimensionamiento de cuadro y circuitos con verificación de potencia disponible en acometida general.",
+        "Considerar incorporación de diferencial-interruptor automático clase S de 30mA para cocina (exigido por REBT en locales con elevado riesgo).",
+        "Verificar si potencia de 25kW requiere refuerzo de enlace desde caja general; si así, presupuestar obra civil adicional.",
+        "Caída de tensión: calcular para línea trifásica 25kW-50ml (debe ser <3% en baja tensión)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Circuitos monofásicos para equipos cocina",
+          "motivo": "Desglose específico de equipamiento hostelería (freidoras, hornos, vitro). No existe partida específica en catálogo; partida sugerida."
+        },
+        {
+          "concepto": "Sistema de iluminación profesional",
+          "motivo": "Iluminación especializada para cocina industrial IP54+. Partida sugerida_ia."
+        },
+        {
+          "concepto": "Sistema de extracción de humos",
+          "motivo": "Circuito dedicado para campana extractora. Partida sugerida_ia (complementaria a mano_obra catalogada)."
+        },
+        {
+          "concepto": "Boletín eléctrico y tramitación",
+          "motivo": "Servicio administrativo obligatorio en hostelería. Partida sugerida_ia con precio pendiente de revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_trampa_grasa_cocina",
+      "instalacion_de_red_inalambrica_para_IoT_industrial",
+      "instalacion_electrica_local_hosteleria",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "instalacion_de_sistema_de_extincion_por_espuma"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 15,
+    "n_catalogo": 7,
+    "n_sugeridas": 8,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

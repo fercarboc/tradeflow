@@ -1,0 +1,414 @@
+{
+  "id": 377,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+  "http_status": 200,
+  "latency_ms": 39948,
+  "raw_response": {
+    "transcript": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto sin dimensiones exactas (m², unidades). El instalador debe confirmar superficies y especificaciones técnicas.",
+          "Cocina y baño modernizados: especificar si incluye electrodomésticos, muebles, grifería, sanitarios.",
+          "Suelo laminado: confirmar m² totales y tipo de laminado (grosor, acabado)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación suelo laminado (sustitución o nuevo)"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura general vivienda"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación paredes, obras menores cocina/baño"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Modernización baño (grifería, sanitarios, instalación agua caliente)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Revisión instalación eléctrica, nuevos puntos cocina/baño"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas interiores y muebles de cocina si aplica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada suelo existente",
+          "descripcion": "Extracción, embalaje y retirada escombros de suelo deteriorado (parquet, baldosa o laminado antiguo)",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar m² totales de superficie a reformar"
+        },
+        {
+          "concepto": "Preparación base suelo (nivelación/lijado/imprimación)",
+          "descripcion": "Reparación de irregularidades, lijado y aplicación de primario para recepción laminado",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 6,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Depende del estado actual de la base"
+        },
+        {
+          "concepto": "Suministro e instalación suelo laminado",
+          "descripcion": "Laminado de calidad media-alta (8mm, clase 32-33) con instalación flotante, juntas silicona, rodapié",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material laminado variable (18-40€/m2). El instalador define tipo y precio unitario"
+        },
+        {
+          "concepto": "Preparación paredes para pintura",
+          "descripcion": "Limpieza, reparación grietas, masillado, lijado y imprimación en cocina, baño y áreas comunes",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 5,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar m² de superficie de paredes a pintar"
+        },
+        {
+          "concepto": "Pintura completa vivienda (paredes y techos)",
+          "descripcion": "Pintura plástica interior estándar, acabado mate, 2 manos. Incluye cocina, baño y áreas comunes",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 6,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar m² totales. Precio puede variar según accesibilidad y número de manos"
+        },
+        {
+          "concepto": "Pintura (material)",
+          "descripcion": "Pintura plástica interior de calidad, rodillos, brochas, cintas y plásticos de protección",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estimado 1.5-3€/m2 según tipo. Instalador ajusta según especificación"
+        },
+        {
+          "concepto": "Modernización baño: Desmontaje sanitarios e instalación nuevos",
+          "descripcion": "Extracción inodoro, lavabo, bañera o plato ducha. Acoples tuberías. Instalación nuevos sanitarios modernos (incluye grifería)",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 200,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio es orientativo (100-250€ según complejidad conexiones)"
+        },
+        {
+          "concepto": "Suministro sanitarios baño modernizados",
+          "descripcion": "Inodoro suspendido o de cerámica, lavabo/tocador, grifería monomando cromada, accesorios baño (jabonera, toallero)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sanitarios 200-600€/ud. Instalador especifica marcas y precios reales"
+        },
+        {
+          "concepto": "Modernización baño: Alicatado paredes y suelo",
+          "descripcion": "Desmontaje alicatado antiguo. Preparación. Alicatado azulejo 20x25cm paredes y baldosa suelo. Lechada epoxi en juntas. Rodapié",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Rango 25-50€/m2 según complejidad. Confirmar m² baño"
+        },
+        {
+          "concepto": "Azulejos y baldosas baño (material)",
+          "descripcion": "Azulejo cerámico 20x25cm pared, baldosa suelo, mortero cola C2, lechada epoxi, perfiles aluminio, crucetas, silicona",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material azulejos 8-25€/m2. Instalador define especificación y precio"
+        },
+        {
+          "concepto": "Modernización cocina: Desmontaje muebles e instalación nuevos",
+          "descripcion": "Extracción muebles cocina antiguos. Preparación pared. Instalación muebles base y altos. Nivelación y fijación a estructura",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 250,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Orientativo (200-350€ según lineales). Confirmar desarrollo lineal cocina"
+        },
+        {
+          "concepto": "Suministro muebles cocina modernizados",
+          "descripcion": "Muebles base y altos (melamina o aglomerado), encimera estratificada o dekton, tornillería, herrajes, patas regulables",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cocina 1.500-5.000€ según lineales y calidad. Instalador cotiza con proveedor"
+        },
+        {
+          "concepto": "Alicatado cocina: Paredes y salpicadero",
+          "descripcion": "Azulejo 20x20cm en pared cocina (zona salpicadero mínimo 60cm altura). Mortero C2, lechada epoxi. Junta silicona encuentros",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar m² de pared a alicatar en cocina"
+        },
+        {
+          "concepto": "Azulejos cocina (material)",
+          "descripcion": "Azulejo cerámico 20x20cm, mortero cola C2, lechada epoxi, perfiles aluminio, crucetas, silicona",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Azulejos cocina 8-20€/m2. Instalador especifica tipo y precio"
+        },
+        {
+          "concepto": "Instalación puntos eléctricos cocina y baño (nuevos/ampliación)",
+          "descripcion": "Nuevos enchufes (16A), interruptores, puntos iluminación baño (con temporizador si corresponde), campana extractora",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar número de puntos nuevos. Precio 40-60€/punto"
+        },
+        {
+          "concepto": "Material eléctrico (cable, tubo, enchufes, interruptores)",
+          "descripcion": "Cable H07V-U 2.5mm2, tubo protección, enchufes 16A Schuko, interruptores simples/dobles, mecanismos, cajas empalme",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material variable. Instalador cotiza según necesidades reales"
+        },
+        {
+          "concepto": "Revisión instalación eléctrica general",
+          "descripcion": "Inspección cuadro eléctrico, revisión líneas principales, cambio diferenciales si necesario, etiquetado, pruebas seguridad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza profunda post-reforma",
+          "descripcion": "Barrido, retirada polvo obra, limpieza cristales, desinfección superficies. Vivienda lista para entrada",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de m² total. Rango 100-200€/jornada"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Clavos, tornillos, bisagras, manillas, siliconas, masilla, lija, trapos, detergentes, bolsas escombro, embalaje",
+          "oficio": "reformas_integrales",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 200,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 150-300€ según alcance reforma. Ajustar por supervición"
+        }
+      ],
+      "calculos": {
+        "subtotal": 900,
+        "iva_porcentaje": 21,
+        "iva": 189,
+        "total": 1089
+      },
+      "sugerencias_catalogo": [
+        "Incorporar partida 'Certificado Eficiencia Energética' si el piso se alquila o vende (obligatorio). Tarifa ~200-300€.",
+        "Considerar si reforma incluye electrodomésticos (frigorífico, horno, placa, lavavajillas) → cotizar aparte o incluir en cocina.",
+        "Si hay escaleras interiores o cambios de nivel significativos, revisar necesidad de adaptación accesibilidad.",
+        "Para piso de alquiler: priorizar acabados resistentes y de mantenimiento bajo (colores neutros, materiales lavables)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación suelo laminado",
+          "motivo": "Laminado variable según clase/grosor. Material requiere revisión precios reales del instalador",
+          "tarifa_sugerida": "18-40€/m2 material + 6€/m2 instalación"
+        },
+        {
+          "concepto": "Suministro sanitarios baño",
+          "motivo": "Amplio rango según marcas/modelos. Requiere especificación cliente",
+          "tarifa_sugerida": "200-600€/sanitario según calidad"
+        },
+        {
+          "concepto": "Suministro muebles cocina",
+          "motivo": "Precio depende lineales y acabados. Cotización con fabricante",
+          "tarifa_sugerida": "1.500-5.000€ cocina completa según desarrollo"
+        },
+        {
+          "concepto": "Azulejos y baldosas (baño y cocina)",
+          "motivo": "Variabilidad según marca/modelo. Requiere especificación técnica",
+          "tarifa_sugerida": "8-25€/m2 según tipo cerámico"
+        },
+        {
+          "concepto": "Material eléctrico",
+          "motivo": "Depende de número de puntos exactos. Cotizar según proyecto",
+          "tarifa_sugerida": "Variable según ampliación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_vivienda_para_arrendar_o_vender",
+      "reforma_integral_piso_turistico_o_apartamento",
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "instalacion_de_suelo_metalico_tramex_o_rejilla",
+      "alicatado_y_solado_completo_cocina"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 19,
+    "n_catalogo": 12,
+    "n_sugeridas": 7,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "NO"
+  }
+}

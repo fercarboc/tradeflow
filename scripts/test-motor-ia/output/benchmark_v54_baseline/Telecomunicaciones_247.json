@@ -1,0 +1,176 @@
+{
+  "id": 247,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+  "http_status": 200,
+  "latency_ms": 14172,
+  "raw_response": {
+    "transcript": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere confirmación de marca/modelo de antena parabólica y receptor",
+          "Verificar orientación y disponibilidad de satélite en ubicación exacta",
+          "Confirmar tipo de cableado (RG6 o RG11) según distancia de instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de antena parabólica para recepción satelital, cableado y derivadores"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Antena parabólica para satélite",
+          "descripcion": "Suministro de antena parabólica (80-120 cm) con soporte de acero galvanizado, LNB (Low Noise Block) de banda Ku o C según satélite, y accesorios de fijación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca, tamaño y tipo de LNB (Ku/C). Rango estimado: 150-600€"
+        },
+        {
+          "concepto": "Receptor satélite digital",
+          "descripcion": "Suministro de receptor satélite digital (DVB-S2) con salidas HDMI y RF, compatible con dos salidas simultáneas o con distribuidor",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca y funcionalidades. Rango estimado: 80-300€"
+        },
+        {
+          "concepto": "Cableado coaxial y accesorios",
+          "descripcion": "Suministro de cable coaxial RG6 o RG11 (según distancia), conectores F, derivadores/splitters de 2 salidas, bridas y pequeño material de instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de cable y longitud real. Estimado: 2-4€/ml + accesorios 40-80€"
+        },
+        {
+          "concepto": "Instalación de antena parabólica y orientación",
+          "descripcion": "Montaje de antena parabólica en soporte, fijación segura, orientación correcta hacia satélite, prueba de señal y ajuste fino de recepción",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de receptor y cableado",
+          "descripcion": "Conexión de receptor satélite, instalación de cableado coaxial, derivadores para dos salidas, conexiones HDMI/RF, pruebas de funcionamiento en ambas salidas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de señal y configuración",
+          "descripcion": "Medición de nivel de señal, optimización de orientación, configuración de receptor, prueba de ambas salidas, entrega de documentación y recomendaciones de mantenimiento",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Confirmar satélite objetivo (Astra 19.2E, Hispasat, etc.) para seleccionar LNB correcto",
+        "Especificar si las dos salidas son para dos televisores independientes o para distribución en cascada",
+        "Considerar protección contra rayos si instalación en zona de tormenta frecuente",
+        "Verificar acceso seguro a punto de instalación (tejado, mástil, etc.)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Antena parabólica para satélite",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "razon": "Material específico de satélite no detallado en catálogo base. Requiere especificación de marca/modelo"
+        },
+        {
+          "concepto": "Receptor satélite digital",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "razon": "Equipo específico no detallado en catálogo base. Requiere especificación de marca/modelo"
+        },
+        {
+          "concepto": "Cableado coaxial y accesorios",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "razon": "Material de distribución específico. Requiere confirmación de longitud real y tipo de cable"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3853,
+      "tokens_out": 1901
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

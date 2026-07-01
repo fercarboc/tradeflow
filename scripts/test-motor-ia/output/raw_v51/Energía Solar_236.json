@@ -1,0 +1,204 @@
+{
+  "id": 236,
+  "oficio": "Energía Solar",
+  "texto": "Monitorizar producción de instalación fotovoltaica con aplicación y alertas de fallo",
+  "http_status": 200,
+  "latency_ms": 25144,
+  "raw_response": {
+    "transcript": "Monitorizar producción de instalación fotovoltaica con aplicación y alertas de fallo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Monitorizar producción de instalación fotovoltaica con aplicación y alertas de fallo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación fotovoltaica existente. Verificar modelo de inversor para compatibilidad con datalogger/módulo comunicación.",
+          "Precio de material (datalogger, sensor, plataforma cloud) pendiente de revisión según marca inversor.",
+          "Las alertas automáticas dependen de la plataforma cloud del fabricante del inversor."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de monitoreo solar online con datalogger, WiFi/LAN, plataforma cloud y sensores de irradiación. Oficio validado en Base Maestra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación instalación fotovoltaica existente",
+          "descripcion": "Inspección visual, revisión datos inversor, verificación compatibilidad con módulo comunicación y sensores.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Datalogger o módulo comunicación según inversor",
+          "descripcion": "Dispositivo de comunicación específico para el modelo de inversor instalado (WiFi, LAN o 4G integrado o adicional). Incluye cable de conexión.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca/modelo inversor (típicamente 150-600€). Instalador debe confirmar compatibilidad y coste."
+        },
+        {
+          "concepto": "Sensor de irradiación para monitoreo avanzado",
+          "descripcion": "Piranómetro o sensor de irradiancia para detectar variaciones en producción esperada vs. real. Permite diagnóstico de sombreados, suciedad o fallos módulos.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio opcional (típicamente 100-400€). Requiere confirmación si cliente desea detección automática de anomalías radiación."
+        },
+        {
+          "concepto": "Conexión WiFi o LAN a plataforma cloud del fabricante",
+          "descripcion": "Configuración de conectividad del datalogger (WiFi, Ethernet o 4G según disponibilidad). Registro en plataforma online del inversor o distribuidor.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plataforma cloud y licencia de monitoreo online",
+          "descripcion": "Acceso a portal/aplicación cloud del fabricante inversor para visualización en tiempo real, historiales, alertas automáticas de fallo producción, desconexiones y errores. Incluye primeros 12 meses.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Muchos inversores incluyen plataforma gratis; otros requieren suscripción (30-150€/año). Confirmar con marca inversor."
+        },
+        {
+          "concepto": "Configuración alertas automáticas por correo/SMS/app",
+          "descripcion": "Parametrización de notificaciones de fallo (producción ≈0, desconexión, error inversor, baja irradiancia). Prueba de alertas y validación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tornilería, conexiones, protectores, etc.)",
+          "descripcion": "Materiales auxiliares para montaje sensor, cableado datalogger, conectores IP67, bridas, tubería protección, etc.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida orientativa (típicamente 30-80€). Instalador ajusta según necesidades obra."
+        },
+        {
+          "concepto": "Pruebas finales y entrega de accesos",
+          "descripcion": "Validación de conexión plataforma, recepción y lectura de primeros datos en tiempo real, verificación alertas, entrega credenciales y tutorial usuario.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 357.5,
+        "iva_porcentaje": 21,
+        "iva": 75.075,
+        "total": 432.575
+      },
+      "sugerencias_catalogo": [
+        "Si el cliente desea integración con sistema domótico (control luces, climatización según producción solar): añadir partida 'Gestor energético e integración domótica' (oficio: informatica/energia_solar, 2-4h @ 60€/h).",
+        "Si la instalación no tiene sensor de irradiación: considerar su instalación (mejora significativamente diagnóstico de anomalías).",
+        "Algunos fabricantes (Fronius, SMA, Huawei) incluyen monitoreo básico gratuito; otros (Growatt, Solis) ofrecen premium con más funcionalidades por suscripción anual.",
+        "Alertas de fallo dependen del inversor: modelos antiguos pueden tener limitaciones. Verificar antes de prometer alertas SMS/email automáticas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Datalogger o módulo comunicación según inversor",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según marca/modelo inversor. Precio variable."
+        },
+        {
+          "concepto": "Sensor de irradiación para monitoreo avanzado",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Componente opcional pero altamente recomendado. Precio variable."
+        },
+        {
+          "concepto": "Plataforma cloud y licencia de monitoreo online",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Suscripción software. Muchos inversores incluyen gratis; otros requieren pago anual."
+        },
+        {
+          "concepto": "Pequeño material (tornilería, conexiones, protectores, etc.)",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Partida orientativa de materiales auxiliares."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_averia_instalacion_fotovoltaica_baja_produccion",
+      "instalacion_de_sistema_de_monitoreo_solar_online",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

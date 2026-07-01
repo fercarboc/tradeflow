@@ -1,0 +1,118 @@
+{
+  "id": 53,
+  "oficio": "Carpintería",
+  "texto": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+  "http_status": 200,
+  "latency_ms": 16339,
+  "raw_response": {
+    "transcript": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se especifica metraje lineal total del piso",
+          "No se especifica tipo de madera (maciza, chapada, MDF pintado)",
+          "No se especifica altura total de zócalo (solo se menciona rodapié 10cm)",
+          "Precio de material pendiente de revisión instalador",
+          "Se recomienda solicitar plano o medición in situ"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación de zócalos, molduras y rodapié de madera"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro zócalo y moldura madera",
+          "descripcion": "Suministro de zócalo y moldura de madera para colocación en todo el piso. Incluye rodapié de 10 cm. Tipo y calidad pendiente de especificación (maciza/chapada/MDF pintado)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sin especificar metraje lineal total ni tipo de madera. El instalador debe confirmar medidas en plano/in situ y establecer precio según material elegido (rango típico: 8-35€/ml según tipo)"
+        },
+        {
+          "concepto": "Colocación de zócalo y rodapié de madera",
+          "descripcion": "Instalación de zócalo y moldura de madera de 10 cm de altura en todo el perímetro del piso. Incluye: fijación a paramento, aplomado, nivelación, ajuste en esquinas, sellado de juntas con silicona o masilla, pequeño material (tornillos, tacos, masilla, lija)",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa horaria aplicada. Se recomienda medir metraje lineal total en plano: perimeter_piso_ml × precio_unitario (típicamente 6-12€/ml de mano de obra en instalación de rodapié estándar)"
+        },
+        {
+          "concepto": "Pequeño material instalación zócalo",
+          "descripcion": "Tornillos inox, tacos nylon/madera, masilla acrílica, silicona neutra, lija 150-220, cinta carrocero, plástico protección, mano de obra preparación y acabado",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote pequeño material consumible. Estimación típica 40-80€ según metraje lineal total"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: plano con medidas del piso o medición perimetral en ml",
+        "Confirmar tipo de madera: maciza (roble, haya, pino), chapada o MDF pintado",
+        "Especificar si incluye instalación en esquinas interiores/exteriores",
+        "Aclarar si el zócalo incluye moldura superior o es rodapié simple de 10cm",
+        "Considerar si hay desmontaje de rodapié anterior (en ese caso, agregar partida desmontaje)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro zócalo y moldura madera",
+          "oficio": "carpinteria",
+          "motivo": "Material sin precio definido en catálogo. Requiere especificación de tipo madera y metraje lineal total"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_esmalte_carpinteria_madera_interior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "instalacion_persiana_mallorquina_o_librillo",
+      "instalacion_persiana_veneciana_de_madera_o_bambu",
+      "fabricacion_e_instalacion_puerta_exterior_madera"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 1,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

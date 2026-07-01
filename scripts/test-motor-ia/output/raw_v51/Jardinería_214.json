@@ -1,0 +1,120 @@
+{
+  "id": 214,
+  "oficio": "Jardinería",
+  "texto": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 10893,
+  "raw_response": {
+    "transcript": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto basado en superficie. Instalador debe verificar densidad de maleza y accesibilidad para afinar horas reales."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Limpieza, desbroce y retirada de maleza son tareas de jardinería estándar."
+        },
+        {
+          "oficio": "limpieza",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 18,
+            "recomendado": 20,
+            "max": 28
+          },
+          "motivo": "Tareas de limpieza general y retirada de escombros vegetales."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desbroce y limpieza de maleza",
+          "descripcion": "Desbroce completo de maleza, hierba silvestre y vegetación invasora mediante desbrozadora y herramientas manuales en parcela abandonada de 500 m².",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0.5,
+          "total": 250,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario estimado a 0.5€/m² (12.5 horas a 20€/h). Instalador debe ajustar según densidad real de maleza y accesibilidad del terreno."
+        },
+        {
+          "concepto": "Retirada y acopio de escombros vegetales",
+          "descripcion": "Recogida, acopio y retirada de ramas, troncos, maleza cortada y escombros vegetales resultantes de la limpieza. Incluye transporte a gestor autorizado o punto de vertido.",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 20,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación 4 horas para acopio y retirada en 500 m². Puede variar según volumen total de escombros."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Bolsas, sacos, herramientas consumibles, combustible desbrozadora, EPIs (guantes, mascarilla, gafas protección).",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Instalador estima según necesidades reales (típicamente 20-50€)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 330,
+        "iva_porcentaje": 21,
+        "iva": 69.3,
+        "total": 399.3
+      },
+      "sugerencias_catalogo": [
+        "Si hay árboles a talar o poda mayor, considerar especialista en poda y tala.",
+        "Si hay tocones, valorar extracción con maquinaria pesada (presupuesto separado).",
+        "Si requiere nivelación o preparación de terreno posterior, añadir partida de preparación/nivelación con albañilería."
+      ],
+      "partidas_nuevas_detectadas": [
+        "Desbroce y limpieza de maleza (sugerida_ia)",
+        "Pequeño material y consumibles (sugerida_ia)"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "presupuesto_e_informe_inicial_instalacion_contra_incendios",
+      "reparacion_de_piscina_con_filtraciones",
+      "instalacion_bomba_de_calor_para_piscina",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 1,
+    "n_sugeridas": 2,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

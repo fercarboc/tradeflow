@@ -1,0 +1,250 @@
+{
+  "id": 115,
+  "oficio": "Climatización",
+  "texto": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+  "http_status": 200,
+  "latency_ms": 21532,
+  "raw_response": {
+    "transcript": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume circuito de agua (calefacción/refrigeración) ya instalado y funcional",
+          "No incluye proyecto técnico ni cálculo de potencia térmica (validar con cliente)",
+          "Verificar disponibilidad de punto de drenaje para condensación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación de unidad terminal de climatización (fan coil) conectada a circuito hidronico existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro fan coil según especificación técnica",
+          "descripcion": "Fan coil de pared o conducto para agua fría/caliente, según dimensiones dormitorio y caudal de aire requerido",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de modelo, capacidad (kW) y acabado. Rango típico 400-1500€"
+        },
+        {
+          "concepto": "Instalación y fijación fan coil",
+          "descripcion": "Fijación a pared o techo, nivelación, conexión mecánica estructural",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión a circuito de agua existente (impulsión y retorno)",
+          "descripcion": "Acometidas flexibles, válvulas de aislamiento, conexión a puntos del circuito existente",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro accesorios conexión hidráulica",
+          "descripcion": "Válvulas de aislamiento, válvulas de equilibrado, accesorios latón, tuberías flexibles, codos, reducciones",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de diámetros y complejidad conexión. Rango típico 80-250€"
+        },
+        {
+          "concepto": "Instalación drenaje condensación",
+          "descripcion": "Tubería drenaje PVC, sifón, pendiente adecuada hacia punto de desagüe existente",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro tubería drenaje y accesorios",
+          "descripcion": "Tubería PVC drenaje, sifón, codos, conexiones hacia sumidero o punto desagüe",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de distancia y tipo drenaje. Rango típico 40-120€"
+        },
+        {
+          "concepto": "Conexión eléctrica alimentación fan coil",
+          "descripcion": "Cableado desde cuadro eléctrico, enchufable o conexión directa con protecciones, termostato o control de velocidad",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro cableado, toma y protecciones eléctricas",
+          "descripcion": "Cable H07V, enchufable, interruptor diferencial o magnetotérmico, pequeño material eléctrico",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia y distancia. Rango típico 60-180€"
+        },
+        {
+          "concepto": "Pruebas funcionamiento, presurización y equilibrado",
+          "descripcion": "Llenado circuito con agua/anticongelante, purgado aire, pruebas presión, prueba funcionamiento frío-calor, equilibrado caudales",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro fluido frigorífico y anticongelante (si aplica)",
+          "descripcion": "Agua + inhibidor corrosión, o mezcla agua-glicol según especificaciones circuito existente",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen depende de tuberías existentes. Precio típico 3-8€/litro"
+        },
+        {
+          "concepto": "Pequeño material, consumibles y accesorios",
+          "descripcion": "Silicona, cinta PTFE, bridas, tacos, tirafondos, masa térmica, etc.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado típico 30-80€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 450,
+        "iva_porcentaje": 21,
+        "iva": 94.5,
+        "total": 544.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo si existe partida específica 'instalación fan coil en circuito agua existente' para unificar mano de obra",
+        "Considerar incluir 'válvulas de aislamiento y equilibrado' como partida estándar en sistema agua-aire"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "denominacion": "Suministro fan coil según especificación",
+          "oficio": "climatizacion",
+          "rango_precio_estimado": "400-1500€",
+          "motivo": "Material clave cuyo precio depende de capacidad térmica y modelo"
+        },
+        {
+          "denominacion": "Suministro accesorios conexión hidráulica",
+          "oficio": "climatizacion",
+          "rango_precio_estimado": "80-250€",
+          "motivo": "Válvulas, tuberías flexibles y accesorios específicos"
+        },
+        {
+          "denominacion": "Suministro tubería drenaje y accesorios",
+          "oficio": "climatizacion",
+          "rango_precio_estimado": "40-120€",
+          "motivo": "Drenaje de condensación"
+        },
+        {
+          "denominacion": "Suministro cableado y protecciones eléctricas",
+          "oficio": "climatizacion",
+          "rango_precio_estimado": "60-180€",
+          "motivo": "Alimentación eléctrica fan coil"
+        },
+        {
+          "denominacion": "Suministro fluido frigorífico/anticongelante",
+          "oficio": "climatizacion",
+          "rango_precio_estimado": "6-16€ (2L)",
+          "motivo": "Reposición o complemento para llenar circuito"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "instalacion_sistema_agua_helada_chiller",
+      "reparacion_averia_caldera_gas",
+      "reparacion_grifo_o_griferia_averiada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

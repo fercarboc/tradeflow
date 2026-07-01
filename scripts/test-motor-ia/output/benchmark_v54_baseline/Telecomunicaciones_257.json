@@ -1,0 +1,138 @@
+{
+  "id": 257,
+  "oficio": "Telecomunicaciones",
+  "texto": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+  "http_status": 200,
+  "latency_ms": 10573,
+  "raw_response": {
+    "transcript": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Configuración de red corporativa, segmentación VLAN, políticas de cortafuegos y gestión de acceso remoto"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Configuración de VLAN para red de invitados",
+          "descripcion": "Creación y configuración de VLAN dedicada para invitados con aislamiento de tráfico respecto a red corporativa. Incluye asignación de puertos, etiquetado 802.1Q y políticas de enrutamiento.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de cortafuegos y políticas de segmentación",
+          "descripcion": "Configuración de reglas de firewall UTM para aislar tráfico entre VLAN corporativa e invitados. Incluye filtrado de contenido, inspección de tráfico y bloqueo de acceso a recursos críticos.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de WiFi separado para invitados",
+          "descripcion": "Creación de SSID independiente para red WiFi de invitados con autenticación por contraseña, aislamiento de clientes y limitación de ancho de banda. Vinculación a VLAN de invitados.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 250,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de segmentación y validación de políticas",
+          "descripcion": "Verificación de aislamiento de tráfico entre VLANs, pruebas de acceso a recursos corporativos desde red de invitados, validación de reglas de firewall y documentación de configuración.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Backup de configuración y documentación técnica",
+          "descripcion": "Realización de copia de seguridad de configuración de switches, firewall y puntos de acceso. Generación de documentación técnica con esquema de VLANs, políticas de firewall y procedimientos de acceso.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1200,
+        "iva_porcentaje": 21,
+        "iva": 252,
+        "total": 1452
+      },
+      "sugerencias_catalogo": [
+        "Considerar contratación de servicio de monitorización continua de red de invitados para detectar intentos de acceso no autorizado",
+        "Evaluar implementación de portal cautivo (captive portal) para autenticación de invitados con registro de acceso",
+        "Revisar políticas de QoS para garantizar que tráfico de invitados no afecte a servicios críticos corporativos"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "configuracion_y_securizacion_de_red_corporativa",
+      "instalacion_armario_metalico_o_taquilla",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_fotovoltaica_en_empresa_o_polígono_industrial"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3995,
+      "tokens_out": 1354
+    }
+  },
+  "classification": {
+    "category": "OK_CATALOGO",
+    "n_partidas": 5,
+    "n_catalogo": 5,
+    "n_sugeridas": 0,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

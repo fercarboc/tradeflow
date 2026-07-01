@@ -1,0 +1,228 @@
+{
+  "id": 372,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de baño de minusválidos para adecuación a normativa, ducha nivel suelo y barra de apoyo",
+  "http_status": 200,
+  "latency_ms": 24882,
+  "raw_response": {
+    "transcript": "Reforma de baño de minusválidos para adecuación a normativa, ducha nivel suelo y barra de apoyo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de baño de minusválidos para adecuación a normativa, ducha nivel suelo y barra de apoyo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de baño: múltiples oficios (albanilería, fontanería, electricidad, cerrajería). Requiere coordinación.",
+          "Ducha nivel suelo: implica demolición, impermeabilización, pendiente y drenaje. Crítico.",
+          "Normativa accesibilidad: verificar CTE DB SUA (espacios, alturas, barras). Requiere revisión técnica.",
+          "Presupuesto agrupado en capítulos por complejidad."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma baño con ≥3 oficios simultáneos: demolición, fontanería, impermeabilización, cerrajería (barras), acabados."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición, regularización suelo, pendiente ducha, revestimientos."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación desagüe ducha nivel suelo, sifón, tuberías."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización zona ducha nivel suelo (crítica para evitar humedades)."
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Instalación barras de apoyo (acero inoxidable, anclajes estructurales)."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Iluminación, enchufes, extractor de humedad (si aplica)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "descripcion": "Demolición de revestimientos, pavimento y elementos existentes. Regularización y nivelación de soporte. Creación de pendiente para desagüe ducha nivel suelo. Preparación estructural para anclajes de barras.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de jornadas depende de tamaño baño y estado actual. Incluye: demolición, regularización m2, pendiente, preparación anclajes."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (fontanería, impermeabilización, electricidad)",
+          "descripcion": "Instalación desagüe ducha nivel suelo con sifón y pendiente. Impermeabilización completa zona ducha (lámina EPDM o poliurea + sellados). Instalación tuberías agua fría/caliente. Extractor de humedad. Iluminación y enchufes accesibles.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye fontanería + impermeabilización + electricidad básica. Requiere coordinación entre oficios."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (revestimientos, pavimento, barras de apoyo)",
+          "descripcion": "Alicatado paredes baño (material antideslizante en zona ducha). Pavimento antideslizante nivel suelo. Instalación barras de apoyo acero inoxidable (mínimo 2 barras: lateral ducha + pared frontal). Pintura y detalles finales.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 480,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye alicatado, pavimento, barras de apoyo. Cantidad de jornadas según m2 y complejidad de anclajes."
+        },
+        {
+          "concepto": "CAP.4 – Materiales, suministros y gestión",
+          "descripcion": "Suministro: lámina impermeabilizante EPDM/poliurea, baldosas antideslizantes, barras acero inoxidable Ø32mm (mínimo 2 ud), tuberías, sifón, mortero, adhesivos, silicona, pequeño material. Gestión residuos demolición.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales pendiente de revisión. Estimado: 1500–3500€ según calidad y tamaño baño. Incluye: lámina impermeabilizante (200–400€), baldosas antideslizantes (300–600€), barras acero inox (200–400€), tuberías/sifón (150–300€), adhesivos/mortero/silicona (100–200€), gestión residuos (200–400€)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2720,
+        "iva_porcentaje": 21,
+        "iva": 571.2,
+        "total": 3291.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar normativa CTE DB SUA (Seguridad de Utilización y Accesibilidad): espacios de maniobra (≥1.5m diámetro), altura barras (0.75–0.85m), pendiente ducha (1–2%), radio giro silla ruedas.",
+        "Ducha nivel suelo: considerar plato ducha extraplano o solución sin barrera. Impermeabilización CRÍTICA: usar lámina EPDM de 1.5mm mínimo + sellados en juntas.",
+        "Barras de apoyo: acero inoxidable AISI 304, Ø32mm, anclajes cada 30cm máximo. Mínimo 2 barras: 1 lateral (entrada ducha) + 1 frontal (pared opuesta).",
+        "Pavimento: baldosa antideslizante R11 mínimo (coeficiente fricción ≥0.40 en mojado).",
+        "Extractor de humedad: obligatorio para evitar condensación y moho. Mínimo 100 m³/h.",
+        "Iluminación: mínimo 300 lux, interruptores accesibles (altura 0.75–1.20m)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lámina impermeabilizante EPDM o poliurea",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "precio_unitario": 0,
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo": "Material crítico para ducha nivel suelo. Precio pendiente: 15–35€/m2 según tipo y espesor."
+        },
+        {
+          "concepto": "Baldosa antideslizante para ducha",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "precio_unitario": 0,
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo": "Pavimento y revestimiento ducha. Precio pendiente: 20–50€/m2 según calidad."
+        },
+        {
+          "concepto": "Barras de apoyo acero inoxidable Ø32mm",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "precio_unitario": 0,
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo": "Mínimo 2 barras (lateral + frontal). Precio pendiente: 80–150€/ud según longitud (0.6–1.2m)."
+        },
+        {
+          "concepto": "Sifón y tuberías desagüe ducha nivel suelo",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "precio_unitario": 0,
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo": "Sifón especial para ducha nivel suelo + tuberías. Precio pendiente: 150–300€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "regularizacion_y_nivelacion_de_soporte",
+      "regularizacion_y_nivelacion_soporte_para_pavimento",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "impermeabilizacion_junta_suelo_pared_en_ducha_o_bano",
+      "diagnostico_y_presupuesto_suelos_y_alicatados"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3783,
+      "tokens_out": 3306
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

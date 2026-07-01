@@ -1,0 +1,185 @@
+{
+  "id": 55,
+  "oficio": "Carpintería",
+  "texto": "Instalación de suelo de parquet laminado de 12mm en dormitorio principal de 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 18637,
+  "raw_response": {
+    "transcript": "Instalación de suelo de parquet laminado de 12mm en dormitorio principal de 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de suelo de parquet laminado de 12mm en dormitorio principal de 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar estado del soporte (debe estar plano, máx 3mm bajo regla de 2m)",
+          "Aclimatación del parquet 48-72h en obra OBLIGATORIA antes de instalación",
+          "Confirmar si incluye rodapié o umbral de transición"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Instalación de pavimento: parquet laminado flotante. Oficio de referencia en Base Maestra para este tipo de trabajos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Parquet laminado 12mm",
+          "descripcion": "Suministro de parquet laminado de 12mm de espesor, calidad estándar, para 20 m² (incluye mermas 5-10%)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 21,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión del instalador según marca y calidad elegida"
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "descripcion": "Lámina aislante de espuma de polietileno con barrera de vapor integrada, 2mm espesor, para suelo flotante (20 m² + 10% mermas)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 22,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de aislamiento pendiente de confirmación"
+        },
+        {
+          "concepto": "Junta perimetral 10-12mm",
+          "descripcion": "Junta perimetral de espuma de 10-12mm en todo el perímetro de la estancia (OBLIGATORIA)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Calcular perímetro exacto de la estancia; precio de material pendiente"
+        },
+        {
+          "concepto": "Pequeño material (cuñas, esquineros, silicona, clavos, etc.)",
+          "descripcion": "Suministro de cuñas de espaciación, esquineros de protección, silicona neutra, clavos y material auxiliar para instalación",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material pendiente de confirmación"
+        },
+        {
+          "concepto": "Instalación parquet laminado flotante",
+          "descripcion": "Mano de obra: preparación del soporte, colocación de lámina aislante, aclimatación 48-72h del material, colocación del parquet en sistema flotante (click), instalación de junta perimetral y acabados",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 45,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rodapié de parquet o MDF (opcional)",
+          "descripcion": "Suministro e instalación de rodapié de madera o MDF, altura 8-10cm, acabado a juego con parquet (si está incluido en el presupuesto)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "PENDIENTE DE CONFIRMACIÓN: ¿Se incluye rodapié? Si sí, calcular perímetro exacto y confirmar material/precio"
+        },
+        {
+          "concepto": "Umbral de transición (si aplica)",
+          "descripcion": "Suministro e instalación de umbral de aluminio o madera para transición a otras estancias (si está incluido)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "PENDIENTE DE CONFIRMACIÓN: ¿Hay puertas de acceso a otras estancias? Si sí, calcular ml exactos"
+        }
+      ],
+      "calculos": {
+        "subtotal": 900,
+        "iva_porcentaje": 21,
+        "iva": 189,
+        "total": 1089
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo si existe partida específica 'colocacion_parquet_flotante_o_tarima_laminada' con desglose detallado de materiales",
+        "Solicitar presupuesto de materiales (parquet laminado, lámina aislante, junta, rodapié) a distribuidores",
+        "Confirmar con el cliente: incluye rodapié y/o umbral de transición"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Parquet laminado 12mm",
+          "tipo": "material",
+          "motivo": "Suministro de producto específico, requiere precio de mercado"
+        },
+        {
+          "partida": "Lámina aislante espuma polietileno",
+          "tipo": "material",
+          "motivo": "Suministro de material auxiliar obligatorio"
+        },
+        {
+          "partida": "Junta perimetral 10-12mm",
+          "tipo": "material",
+          "motivo": "Material obligatorio según Base Maestra, precio a confirmar"
+        },
+        {
+          "partida": "Pequeño material",
+          "tipo": "material",
+          "motivo": "Conjunto de accesorios e insumos auxiliares"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "colocacion_parquet_flotante_o_tarima_laminada",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_de_suelo_de_corcho_interior",
+      "instalacion_de_suelo_de_bambu_interior",
+      "instalacion_solado_de_madera_maciza_flotante_ingenieria_o_click"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "NO"
+  }
+}

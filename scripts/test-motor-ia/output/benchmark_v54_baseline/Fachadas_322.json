@@ -1,0 +1,52 @@
+{
+  "id": 322,
+  "oficio": "Fachadas",
+  "texto": "Instalar sistema de aislamiento por el exterior SATE en edificio de 5 plantas para mejorar eficiencia",
+  "http_status": 200,
+  "latency_ms": 29960,
+  "raw_response": {
+    "transcript": "Instalar sistema de aislamiento por el exterior SATE en edificio de 5 plantas para mejorar eficiencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_SATE_aislamiento_exterior_fachada",
+      "reforma_de_vivienda_para_eficiencia_energetica",
+      "instalacion_sistema_sate_aislamiento_exterior",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_de_sistema_de_alarma_intrusion"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "max_tokens",
+      "tokens_in": 4117,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "VACIO",
+    "n_partidas": 0,
+    "n_catalogo": 0,
+    "n_sugeridas": 0,
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

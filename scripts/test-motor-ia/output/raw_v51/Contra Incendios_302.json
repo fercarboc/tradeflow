@@ -1,0 +1,160 @@
+{
+  "id": 302,
+  "oficio": "Contra Incendios",
+  "texto": "Suministro e instalación de extintores homologados en naves industriales, revisión anual incluida",
+  "http_status": 200,
+  "latency_ms": 17847,
+  "raw_response": {
+    "transcript": "Suministro e instalación de extintores homologados en naves industriales, revisión anual incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Suministro e instalación de extintores homologados en naves industriales, revisión anual incluida",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: No se especifica cantidad de extintores ni capacidades. El presupuesto requiere parámetros clave (número de unidades, tipo: polvo/CO2/espuma, capacidad en kg).",
+          "CRÍTICO: Falta especificar si incluye retimbrado (obligatorio cada 5 años según RD 513/2017).",
+          "INFORMACIÓN: El presupuesto agrupa suministro + instalación + revisión anual. Se recomienda desglose por años si es contrato multianual."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Suministro, instalación y mantenimiento de extintores (actividad de servicio técnico certificado)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Extintor homologado (suministro)",
+          "descripcion": "Suministro de extintor homologado según normativa CTE DB-SI y REBT. Tipo y capacidad a definir por cliente (polvo ABC 6kg, CO2, espuma, etc.).",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del extintor depende de tipo (polvo/CO2/espuma), capacidad (6kg/12kg/50kg) y homologación. Instalador debe indicar cantidad exacta y modelo."
+        },
+        {
+          "concepto": "Instalación de extintor homologado",
+          "descripcion": "Instalación, fijación a pared, señalización y revisión visual inicial. Incluye pequeño material (tacos, tornillos, señal).",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión anual extintor homologado",
+          "descripcion": "Revisión visual y funcional anual del extintor, verificación de presión, etiqueta de fecha, estado general. Conforme a RD 513/2017 y normativa CTE DB-SI. Incluye pequeño material y registro en libro de mantenimiento.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recarga/sustitución de carga extintor (si necesario)",
+          "descripcion": "Recarga de extintor o sustitución de carga si inspección anual lo requiere. A aplicar solo si procede.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo y capacidad extintor. A presupuestar si inspección detecta necesidad de recarga (aprox. 30-150€/ud)."
+        },
+        {
+          "concepto": "Retimbrado extintor (cada 5 años, si aplica)",
+          "descripcion": "Retimbrado de cilindro extintor según RD 513/2017 (obligatorio cada 5 años). Desmontaje, inspección a presión, remarcado y reinstalación. Solo aplicable cuando se cumpla plazo.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestable solo cuando se cumpla plazo retimbrado (aprox. 80-200€/ud). A incluir si cliente requiere servicio integral con retimbrado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "PARÁMETRO CLAVE FALTANTE: Especificar cantidad total de extintores a instalar y revisar (ej: 5 unidades).",
+        "PARÁMETRO CLAVE FALTANTE: Indicar tipo y capacidad de extintores (polvo ABC 6kg, CO2 2kg, espuma 9L, etc.).",
+        "PARÁMETRO CLAVE FALTANTE: Aclarar si revisión anual es por 1 año, contrato plurianual (3-5 años) u única visita.",
+        "NORMATIVA: Revisar RD 513/2017 para cumplimiento obligatorio de inspecciones y retimbrado.",
+        "RECOMENDACIÓN: Incluir certificado de mantenimiento anual (obligatorio para póliza y cumplimiento normativo).",
+        "RECOMENDACIÓN: Proporcionar informe detallado de estado de cada extintor al cliente tras revisión."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Extintor homologado (suministro)",
+          "oficio": "mantenimiento_general",
+          "motivo": "Tipo y capacidad variable; precio a definir según especificaciones del cliente.",
+          "precio_referencia_minimo": "80€ (polvo 6kg)",
+          "precio_referencia_maximo": "600€ (CO2 10kg o espuma grandes)",
+          "requiere_detalle": true
+        },
+        {
+          "concepto": "Recarga/sustitución de carga extintor",
+          "oficio": "mantenimiento_general",
+          "motivo": "Costo variable según necesidad detectada en revisión anual.",
+          "precio_referencia": "30-150€/ud"
+        },
+        {
+          "concepto": "Retimbrado extintor (cada 5 años)",
+          "oficio": "mantenimiento_general",
+          "motivo": "Servicio especializado certificado, obligatorio según normativa.",
+          "precio_referencia": "80-200€/ud"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_persianas_y_toldos",
+      "mantenimiento_anual_de_instalacion_contra_incendios",
+      "revision_y_recarga_de_extintores",
+      "mantenimiento_anual_caldera_gas",
+      "instalacion_persiana_enrollable_aluminio_manual"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "NO"
+  }
+}

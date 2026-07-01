@@ -1,0 +1,157 @@
+{
+  "id": 123,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar canalones nuevos de aluminio lacado en toda la vivienda, longitud total 30 metros",
+  "http_status": 200,
+  "latency_ms": 13836,
+  "raw_response": {
+    "transcript": "Instalar canalones nuevos de aluminio lacado en toda la vivienda, longitud total 30 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar canalones nuevos de aluminio lacado en toda la vivienda, longitud total 30 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume canalón de aluminio lacado estándar. Confirmar sección (K, media caña) y diámetro según pluviometría de zona.",
+          "Precio de material (canalón, abrazaderas, sellado) pendiente de revisión del instalador.",
+          "Se incluye bajante nueva estimada en 10 ml. Ajustar si existe red de bajantes existente."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de canalones en fachada. Oficio fachadas según reglas de prioridad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Canalón de aluminio lacado",
+          "descripcion": "Suministro e instalación de canalón de aluminio lacado, sección media caña, 30 ml. Incluye material, cortes, uniones y sellado.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material (canalón aluminio lacado) debe ser confirmado por instalador según sección y proveedor."
+        },
+        {
+          "concepto": "Abrazaderas de fijación canalón",
+          "descripcion": "Abrazaderas de aluminio para fijación de canalón cada 50-60 cm. Incluye tornillería y anclajes a estructura.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de abrazaderas y tornillería debe ser confirmado por instalador."
+        },
+        {
+          "concepto": "Sellado y uniones canalón",
+          "descripcion": "Sellado de uniones del canalón con silicona neutra de calidad. Incluye material y aplicación.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sellado (silicona, material auxiliar) debe ser confirmado por instalador."
+        },
+        {
+          "concepto": "Bajante nueva de aluminio lacado",
+          "descripcion": "Suministro e instalación de bajante nueva de aluminio lacado, longitud estimada 10 ml. Incluye codos, abrazaderas y conexión a red pluvial.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de bajante y accesorios debe ser confirmado. Ajustar longitud si existe red existente."
+        },
+        {
+          "concepto": "Mano de obra instalación canalones y bajante",
+          "descripcion": "Instalación de canalones (30 ml) y bajante nueva (10 ml). Incluye fijación, nivelación, sellado y prueba de desagüe.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, tacos, grapas, cinta de teflón, masilla, y otros accesorios menores para instalación completa.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material debe ser confirmado por instalador."
+        }
+      ],
+      "calculos": {
+        "subtotal": 720,
+        "iva_porcentaje": 21,
+        "iva": 151.2,
+        "total": 871.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar sección del canalón (media caña, K, etc.) según pluviometría de la zona y superficie de cubierta a drenar.",
+        "Verificar si existen bajantes existentes. Si es así, reducir longitud de bajante nueva y ajustar presupuesto.",
+        "Considerar malla antihojas si la vivienda está en zona arbolada.",
+        "Asegurar pendiente mínima de 0,5% hacia bajante para correcto desagüe."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "instalacion_radiadores_aluminio_o_acero",
+      "instalacion_ventana_corredera_aluminio_con_vidrio",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_de_canaleta_o_canalon_de_fachada"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3864,
+      "tokens_out": 1675
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

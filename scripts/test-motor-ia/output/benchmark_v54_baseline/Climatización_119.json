@@ -1,0 +1,331 @@
+{
+  "id": 119,
+  "oficio": "Climatización",
+  "texto": "Instalar 5 unidades de cassette en local comercial con unidad exterior de 14kW",
+  "http_status": 200,
+  "latency_ms": 28347,
+  "raw_response": {
+    "transcript": "Instalar 5 unidades de cassette en local comercial con unidad exterior de 14kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar 5 unidades de cassette en local comercial con unidad externa de 14kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto de climatización compleja: 5 cassettes + unidad exterior 14kW requiere cálculo termotécnico previo",
+          "Verificar disponibilidad de espacio en falso techo para 5 cassettes de 600x600mm",
+          "Coordinar obra civil: zanjas para tuberías frigoríficas, desagües condensados y cableado eléctrico",
+          "Requiere circuito eléctrico exclusivo de potencia adecuada (revisar acometida disponible)",
+          "Presupuesto orientativo: revisar precios de materiales (cassettes, tuberías, gas) con proveedores"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de climatización multi-split cassette con unidad exterior centralizada"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Circuito eléctrico exclusivo para unidad exterior 14kW y conexiones de cassettes"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil: apertura de zanjas para tuberías frigoríficas y desagües, remates"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro unidad exterior 14kW inverter",
+          "descripcion": "Unidad condensadora exterior 14kW, compresor inverter, ventilador axial, válvulas, conexiones frigoríficas preparadas para 5 cassettes",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de unidad exterior 14kW a confirmar con proveedor (rango estimado 2500-4500€)"
+        },
+        {
+          "concepto": "Suministro 5 unidades cassette techo inverter",
+          "descripcion": "5 x Cassette de techo 600x600mm, potencia individual 2.5-3kW, inverter, filtros lavables, conexiones frigoríficas y eléctricas",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario cassette a confirmar (rango estimado 800-1500€/ud, total 4000-7500€)"
+        },
+        {
+          "concepto": "Tuberías frigoríficas cobre aisladas",
+          "descripcion": "Tuberías de cobre 1/4\"-3/8\" aisladas con espuma elastómera, conexión unidad exterior a 5 cassettes, incluye accesorios y válvulas de corte",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje estimado según distribución local; precio ~15-25€/ml (total 2250-3750€)"
+        },
+        {
+          "concepto": "Tuberías desagüe condensados PVC",
+          "descripcion": "Tuberías PVC Ø32mm para evacuación de condensados desde 5 cassettes, incluye sifones y conexiones",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje estimado; precio ~3-6€/ml (total 240-480€)"
+        },
+        {
+          "concepto": "Gas refrigerante R32 carga inicial",
+          "descripcion": "Gas refrigerante R32 para carga inicial del sistema 14kW, incluye válvulas de carga y manómetros",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada según potencia; precio ~25-35€/kg (total 200-280€)"
+        },
+        {
+          "concepto": "Instalación unidad exterior: anclaje, nivelación y conexiones",
+          "descripcion": "Colocación unidad exterior en cubierta/pared, anclaje antivibración, conexión frigorífica a cassettes, pruebas de estanqueidad",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación 5 cassettes techo: apertura falso techo, anclaje y conexiones",
+          "descripcion": "Apertura de 5 huecos 600x600mm en falso techo, anclaje de cassettes, conexión frigorífica y eléctrica, marcos decorativos",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado eléctrico circuito exclusivo unidad exterior 14kW",
+          "descripcion": "Cable RV-K 4x6mm² desde cuadro a unidad exterior, protección tubo corrugado, conexión a magnetotérmico diferencial 32A, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje estimado; precio ~8-12€/ml (total 480-720€)"
+        },
+        {
+          "concepto": "Cableado eléctrico conexiones cassettes",
+          "descripcion": "Cable flexible 2x1.5mm² para conexión de 5 cassettes a unidad exterior, incluye conectores y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje estimado; precio ~2-4€/ml (total 200-400€)"
+        },
+        {
+          "concepto": "Instalación circuito eléctrico: cableado, protecciones y conexiones",
+          "descripcion": "Tendido de cable RV-K, instalación magnetotérmico diferencial 32A, conexión a cuadro general, pruebas de continuidad y aislamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Obra civil: zanjas para tuberías frigoríficas y desagües",
+          "descripcion": "Apertura de zanjas en suelo/paredes para paso de tuberías frigoríficas y desagüe, remates con mortero, profundidad ~10-15cm",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 40,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Carga de gas refrigerante y pruebas de funcionamiento",
+          "descripcion": "Carga de gas R32 en sistema, pruebas de estanqueidad con manómetros, verificación de presiones, prueba de funcionamiento de 5 cassettes y unidad exterior",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios climatización",
+          "descripcion": "Válvulas de corte, sifones, conectores, aislamiento, cinta de teflón, abrazaderas, tornillería, etc.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 300-500€ según accesorios finales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2460,
+        "iva_porcentaje": 21,
+        "iva": 516.6,
+        "total": 2976.6,
+        "nota": "SUBTOTAL SOLO MANO DE OBRA CONFIRMADA. Materiales pendientes de revisión y confirmación de precios por instalador. Presupuesto total estimado (incluyendo materiales): 11000-18000€ (requiere revisión completa)"
+      },
+      "sugerencias_catalogo": [
+        "Solicitar cálculo termotécnico previo para verificar potencias individuales de cassettes y distribución de carga",
+        "Confirmar disponibilidad de espacio en falso techo: 5 cassettes de 600x600mm requieren distribución equilibrada",
+        "Verificar acometida eléctrica disponible: circuito de 14kW requiere protección mínima 32A en 400V trifásico",
+        "Considerar bomba de condensados si desagüe natural no es viable desde algún cassette",
+        "Presupuestar control de zona (termostatos independientes para cada cassette o control centralizado)",
+        "Incluir contrato de mantenimiento anual (limpieza filtros, revisión gas, etc.)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro unidad exterior 14kW inverter",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "razon": "Material específico de climatización, precio variable según marca/modelo"
+        },
+        {
+          "concepto": "Suministro 5 unidades cassette techo inverter",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "razon": "Material específico, cantidad múltiple, precio variable"
+        },
+        {
+          "concepto": "Tuberías frigoríficas cobre aisladas",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "razon": "Material específico, metraje variable según distribución local"
+        },
+        {
+          "concepto": "Tuberías desagüe condensados PVC",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "razon": "Material específico, metraje variable"
+        },
+        {
+          "concepto": "Gas refrigerante R32 carga inicial",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "razon": "Material específico, cantidad variable según sistema"
+        },
+        {
+          "concepto": "Cableado eléctrico circuito exclusivo unidad exterior 14kW",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "razon": "Material específico, metraje variable según ubicación"
+        },
+        {
+          "concepto": "Cableado eléctrico conexiones cassettes",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "razon": "Material específico, metraje variable"
+        },
+        {
+          "concepto": "Pequeño material y accesorios climatización",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "razon": "Conjunto de accesorios, precio estimado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_iluminacion_comercial_led",
+      "reforma_para_instalar_ascensor_en_edificio_sin_ascensor",
+      "instalacion_electrica_exterior_urbanizacion",
+      "instalacion_sistema_de_expansion_directa_roof_top",
+      "instalacion_split_1x1_cassette_techo"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "max_tokens",
+      "tokens_in": 3608,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 5,
+    "n_sugeridas": 8,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

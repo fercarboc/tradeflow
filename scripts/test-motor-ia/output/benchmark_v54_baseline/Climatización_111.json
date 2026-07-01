@@ -1,0 +1,262 @@
+{
+  "id": 111,
+  "oficio": "Climatización",
+  "texto": "Instalar bomba de calor aire-agua para sustitución de calefacción eléctrica por radiadores de agua",
+  "http_status": 200,
+  "latency_ms": 29178,
+  "raw_response": {
+    "transcript": "Instalar bomba de calor aire-agua para sustitución de calefacción eléctrica por radiadores de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar bomba de calor aire-agua para sustitución de calefacción eléctrica por radiadores de agua",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo de climatización complejo: requiere cálculo térmico previo de la vivienda para dimensionar correctamente la bomba de calor",
+          "Sustitución de sistema: implica desmontaje de calefacción eléctrica existente",
+          "Red hidráulica: necesita evaluación in situ de trazado de tuberías y compatibilidad con radiadores existentes",
+          "Permisos: posible necesidad de autorización municipal según potencia y zona"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación bomba de calor aire-agua, sistema de climatización principal"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Red hidráulica, conexiones agua, radiadores, válvulas, aislamiento tuberías"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Desmontaje calefacción eléctrica, circuito exclusivo bomba de calor, conexionado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje calefacción eléctrica existente",
+          "descripcion": "Desconexión, desmontaje y retirada de sistema de calefacción eléctrica (radiadores eléctricos, termostatos, cableado asociado). Gestión de residuos incluida.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de extensión del sistema existente y complejidad de desmontaje. Instalador debe estimar horas reales."
+        },
+        {
+          "concepto": "Unidad exterior bomba de calor aire-agua",
+          "descripcion": "Suministro e instalación de unidad exterior de bomba de calor aire-agua con potencia a determinar según cálculo térmico. Incluye base de apoyo, anclajes, conexiones frigoríficas y eléctricas.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio varía según potencia (kW): 800-3500€. Requiere cálculo térmico previo para dimensionamiento."
+        },
+        {
+          "concepto": "Depósito acumulador ACS (agua caliente sanitaria)",
+          "descripcion": "Suministro e instalación de depósito acumulador de agua caliente sanitaria integrado o independiente, con aislamiento térmico. Capacidad según consumo diario estimado.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de capacidad (200-500L): 400-1200€. Instalador debe confirmar necesidad y volumen."
+        },
+        {
+          "concepto": "Red hidráulica (tuberías, válvulas, aislamiento)",
+          "descripcion": "Suministro e instalación de red de tuberías de cobre o multicapa para conexión bomba de calor-radiadores. Incluye: válvulas de corte, válvulas de regulación, vaso de expansión, aislamiento de tuberías, purgadores, manómetros y pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales a determinar in situ. Precio aproximado 15-35€/ml según diámetro y material. Instalador debe medir trazado real."
+        },
+        {
+          "concepto": "Instalación red hidráulica y conexiones",
+          "descripcion": "Mano de obra para tendido de tuberías, conexiones a radiadores existentes, instalación de válvulas, vaso de expansión, purgadores, pruebas de estanqueidad y llenado del circuito.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación inicial 2 jornadas. Puede variar según complejidad del trazado y número de radiadores a conectar."
+        },
+        {
+          "concepto": "Bomba de circulación",
+          "descripcion": "Suministro e instalación de bomba de circulación de agua para circuito de calefacción. Incluye válvulas de retención y pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 200-600€ según caudal y presión. Instalador debe seleccionar según cálculo hidráulico."
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo bomba de calor",
+          "descripcion": "Instalación de línea eléctrica independiente desde cuadro general a unidad exterior e interior de bomba de calor. Incluye: cable de sección adecuada, protecciones (magnetotérmico, diferencial), toma de tierra, pequeño material y conexionado.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (típicamente 6-16A) y distancia: 300-800€. Instalador debe dimensionar según especificaciones técnicas de la bomba."
+        },
+        {
+          "concepto": "Instalación circuito eléctrico",
+          "descripcion": "Mano de obra para tendido de cable, instalación de protecciones en cuadro, conexionado de unidad exterior e interior, pruebas de funcionamiento y puesta en marcha.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación inicial 1 jornada. Puede aumentar si distancia a cuadro es considerable o instalación es compleja."
+        },
+        {
+          "concepto": "Termostato/Controlador de bomba de calor",
+          "descripcion": "Suministro e instalación de termostato inteligente o controlador de bomba de calor con sensor de temperatura ambiente. Permite regulación automática de temperatura de consigna.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 150-400€. Instalador debe seleccionar según compatibilidad con modelo de bomba de calor."
+        },
+        {
+          "concepto": "Cálculo térmico y dimensionamiento",
+          "descripcion": "Realización de cálculo térmico de la vivienda para determinar potencia necesaria de bomba de calor. Incluye análisis de pérdidas térmicas, carga de calefacción y ACS, y recomendaciones de dimensionamiento.",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 200-400€. CRÍTICO: debe realizarse antes de compra de equipos. Instalador debe presupuestar este servicio (propio o subcontratado a ingeniero)."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Pruebas de estanqueidad del circuito hidráulico, purga de aire, carga de refrigerante (si aplica), calibración de termostato, verificación de funcionamiento en modo calefacción y ACS, y entrega de documentación técnica.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 210,
+        "iva_porcentaje": 21,
+        "iva": 44.1,
+        "total": 254.1
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [instalacion_aerotermia_bomba_calor_aire_agua] para validar partidas obligatorias y rangos de precio",
+        "Partidas obligatorias según catálogo: unidad exterior, depósito acumulador ACS, red hidráulica, bomba circulación, vaso expansión, válvulas corte/regulación, termostato, aislamiento hidráulico, pequeño material",
+        "Partidas auxiliares a considerar: suelo radiante (si se desea mejorar confort), fancoils (si hay estancias sin radiadores), kit conexión caldera existente (si sistema es híbrido)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desmontaje calefacción eléctrica existente",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo de sustitución: requiere desmontaje previo del sistema antiguo"
+        },
+        {
+          "concepto": "Cálculo térmico y dimensionamiento",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio crítico previo a instalación: determina potencia y configuración del sistema"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_generacion_fotovoltaica_bombeo",
+      "instalacion_aerotermia_para_acs_solar_hibrido",
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_suelo_radiante_agua",
+      "instalacion_aerotermia_bomba_calor_aire_agua"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3667,
+      "tokens_out": 3871
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 3,
+    "n_sugeridas": 8,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "id": 394,
+  "oficio": "Persianas",
+  "texto": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+  "http_status": 200,
+  "latency_ms": 18396,
+  "raw_response": {
+    "transcript": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Toldo corredero de gran formato (12 m²) en zona común: verificar licencia municipal y normativa de comunidad de vecinos",
+          "Estructura aluminio en patio compartido: confirmar anclajes y carga estructural con arquitecto técnico si es necesario"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de toldo corredero, estructura aluminio, tela acrílica. Oficio especializado en sistemas de sombreamiento y protección solar."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Toldo corredero estructura aluminio 4x3m",
+          "descripcion": "Suministro de toldo corredero con estructura de aluminio anodizado, sistema de deslizamiento sobre raíles, tela acrílica tratada UV de alta resistencia, mecanismo de bloqueo en posiciones intermedias. Medidas: 4 metros de ancho x 3 metros de vuelo.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de gran formato (12 m²). Precio variable según marca, calidad de tela acrílica y sistema de raíles. Rango estimado: 1.200-2.800€. Instalador debe confirmar especificaciones técnicas y presupuesto del proveedor."
+        },
+        {
+          "concepto": "Preparación y fijación estructura toldo",
+          "descripcion": "Trabajos previos: medición y replanteo, preparación de puntos de anclaje en pared/estructura, taladrado, colocación de tacos y tornillería de fijación, nivelación de raíles, ajuste de tolerancias.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y montaje toldo corredero",
+          "descripcion": "Montaje de estructura aluminio, colocación de tela acrílica en raíles, instalación de mecanismo de deslizamiento, pruebas de funcionamiento, ajuste de tensión y bloqueos, verificación de movimiento suave en toda la carrera.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 45,
+          "total": 225,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tacos, tornillería, arandelas, silicona neutra, cinta de sellado, lubricante para raíles, material de protección durante instalación.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material estimado: 80-150€. Incluye consumibles y accesorios de fijación. Revisar según proveedor."
+        },
+        {
+          "concepto": "Sensor de viento (opcional)",
+          "descripcion": "Suministro e instalación de sensor de viento con receptor inalámbrico para parada automática del toldo en caso de ráfagas. Recomendado para zonas expuestas o patios con corrientes de aire.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sensor de viento: 150-300€ (opcional). Instalación: 1 hora a 45€/h. Recomendado para seguridad en patio de vecinos con exposición al viento."
+        }
+      ],
+      "calculos": {
+        "subtotal": 405,
+        "iva_porcentaje": 21,
+        "iva": 85.05,
+        "total": 490.05
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo de proveedores especializados en toldos correderos profesionales (Sunprotect, Markilux, Weinor, Corradi) para obtener presupuesto de estructura + tela acrílica 4x3m.",
+        "Consultar normativa de comunidad de vecinos: algunos reglamentos requieren aprobación de junta para instalaciones en zonas comunes.",
+        "Considerar licencia municipal si el patio tiene acceso a vía pública o es zona común regulada.",
+        "Sensor de viento altamente recomendado para patios compartidos con tránsito de personas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Toldo corredero estructura aluminio 4x3m",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Material de gran formato no especificado en catálogo base. Requiere presupuesto de proveedor especializado."
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Consumibles y tornillería de fijación. Precio estimado a revisar."
+        },
+        {
+          "concepto": "Sensor de viento (opcional)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Accesorio de seguridad recomendado para zona común. Precio y instalación a confirmar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_faldones_o_cenefas_para_toldo",
+      "instalacion_toldo_para_escenario_o_cubierta_de_eventos",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_estor_enrollable_interior",
+      "instalacion_toldo_terraza_bar_o_restaurante"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3922,
+      "tokens_out": 2224
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

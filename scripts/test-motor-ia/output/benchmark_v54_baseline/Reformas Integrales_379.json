@@ -1,0 +1,235 @@
+{
+  "id": 379,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+  "http_status": 200,
+  "latency_ms": 24723,
+  "raw_response": {
+    "transcript": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma integral de farmacia con nueva distribución de mostrador, almacén y zona de espera",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: múltiples oficios simultáneos (albanilería, electricidad, fontanería, carpintería, pintura). Requiere coordinación de oficios.",
+          "Proyecto y licencia de actividad comercial recomendados antes de ejecución.",
+          "Iluminación comercial debe cumplir normativa UNE EN 12464 (mínimo 500 lux en zona de mostrador).",
+          "Accesibilidad PMR obligatoria según CTE DB SUA.",
+          "Gestión de residuos de demolición incluida."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral con ≥3 oficios simultáneos: demolición, obra civil, instalaciones (electricidad, fontanería), carpintería, acabados (pintura, suelos)."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición selectiva, tabiquería nueva, reposición de paramentos."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa, iluminación comercial, circuitos mostrador y almacén, boletín eléctrico."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de agua fría/caliente, desagüe zona mostrador (lavamanos, dispensador agua), conexiones almacén."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Mostrador nuevo, puertas interiores, divisiones almacén, revestimientos madera/melamina."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura paramentos interiores, acabados zona espera y mostrador."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 45
+          },
+          "motivo": "Solado nuevo en zona mostrador, almacén y espera (baldosa cerámica/porcelánico)."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión y transporte de residuos de demolición selectiva."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "descripcion": "Demolición selectiva de tabiquería existente, mostrador antiguo, revestimientos y solado. Reposición de paramentos, nuevas divisiones para almacén y zona espera. Rozas para instalaciones. Gestión de residuos.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado según superficie farmacia (típicamente 40-80 m²). Instalador debe revisar: demolición selectiva, tabiquería nueva, rozas, reposición. Rango orientativo: 3.500-8.000€ según complejidad y superficie."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización)",
+          "descripcion": "Instalación eléctrica completa con cuadro nuevo, cableado, mecanismos, iluminación comercial (500 lux mostrador), circuitos independientes mostrador/almacén/espera. Fontanería: agua fría/caliente, desagüe mostrador (lavamanos, dispensador), conexiones almacén. Boletín eléctrico. Pequeño material.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado. Incluye: cuadro eléctrico nuevo, cableado completo, mecanismos, iluminación LED comercial (500 lux), fontanería agua fría/caliente, desagüe, boletín. Rango orientativo: 4.000-9.000€ según superficie y complejidad instalaciones."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (carpintería, pintura, suelos)",
+          "descripcion": "Mostrador nuevo (madera/melamina), puertas interiores almacén y zona espera, divisiones, revestimientos. Pintura paramentos interiores (2 manos). Solado nuevo en mostrador, almacén y espera (baldosa cerámica/porcelánico, mortero, lechada, rodapié). Pequeño material.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado. Incluye: mostrador nuevo, puertas, divisiones, pintura, solado completo. Rango orientativo: 5.000-12.000€ según calidades materiales y superficie (40-80 m²)."
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos, permisos y coordinación",
+          "descripcion": "Gestión y transporte de residuos de demolición selectiva. Coordinación de oficios. Documentación técnica (boletín eléctrico, memoria técnica). Pequeño material y herramientas.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado. Incluye: gestión residuos, transporte, documentación técnica, coordinación. Rango orientativo: 800-2.000€ según volumen residuos y complejidad coordinación."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar presupuesto desglosado por capítulos: demolición, instalaciones, acabados, gestión residuos.",
+        "Coordinar con electricista, fontanero, albañil y carpintero ANTES de iniciar obra.",
+        "Iluminación comercial: especificar LED 500 lux mínimo en mostrador, UGR <16, temperatura color 4000K recomendada.",
+        "Fontanería: considerar grifo monomando mostrador con desagüe, dispensador agua fría/caliente si se solicita.",
+        "Mostrador: definir material (madera maciza, melamina, laminado), dimensiones, altura (típicamente 1,10 m), almacenaje integrado.",
+        "Suelos: baldosa cerámica/porcelánico antideslizante en mostrador (recomendado), lechada epoxi para higiene.",
+        "Accesibilidad: garantizar paso mínimo 1,20 m entre mostrador y zona espera, mostrador con altura accesible (0,75-0,85 m).",
+        "Licencia de actividad: verificar si requiere licencia municipal para farmacia (típicamente sí).",
+        "Boletín eléctrico: obligatorio tras reforma eléctrica completa."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mostrador farmacia nuevo",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "motivo": "Elemento específico de farmacia. Requiere especificación: material, dimensiones, almacenaje integrado, acabado."
+        },
+        {
+          "concepto": "Iluminación comercial LED 500 lux",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "motivo": "Normativa comercial UNE EN 12464. Especificar: potencia, temperatura color, UGR."
+        },
+        {
+          "concepto": "Grifo mostrador con desagüe",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "motivo": "Elemento típico farmacia. Especificar: tipo (monomando, sensor), acabado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_cocina_completa",
+      "alicatado_y_solado_completo_cocina",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "tabique_pladur_para_ducha_o_plato_de_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3857,
+      "tokens_out": 3436
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

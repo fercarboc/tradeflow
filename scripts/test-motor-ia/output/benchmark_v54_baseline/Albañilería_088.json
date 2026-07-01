@@ -1,0 +1,170 @@
+{
+  "id": 88,
+  "oficio": "Albañilería",
+  "texto": "Hacer solera de hormigón en garaje de 25 metros cuadrados, preparación del terreno y mallazo",
+  "http_status": 200,
+  "latency_ms": 12204,
+  "raw_response": {
+    "transcript": "Hacer solera de hormigón en garaje de 25 metros cuadrados, preparación del terreno y mallazo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer solera de hormigón en garaje de 25 metros cuadrados, preparación del terreno y mallazo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Solera en garaje: verificar espesor mínimo 15cm según CTE y cargas previstas",
+          "Mallazo incluido: confirmar diámetro y separación según proyecto estructural"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Solera de hormigón en masa con preparación de terreno y armado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Capa de zahorra compactada base",
+          "descripcion": "Preparación del terreno: extendido, compactación y nivelación de zahorra como base de solera",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 8,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lámina de polietileno barrera de vapor",
+          "descripcion": "Colocación de lámina de polietileno 0.2mm como barrera de vapor sobre zahorra",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar precio de lámina polietileno 0.2mm"
+        },
+        {
+          "concepto": "Mallazo armado 15x15 cm",
+          "descripcion": "Colocación de mallazo armado Ø6mm luz 15x15cm como refuerzo de solera",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar precio de mallazo Ø6 luz 15x15"
+        },
+        {
+          "concepto": "Hormigón HA-20 solera garaje",
+          "descripcion": "Suministro y vertido de hormigón HA-20 espesor 15cm en solera de garaje (25m2 = 3.75m3)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 3.75,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe indicar precio de hormigón HA-20 entregado y vertido"
+        },
+        {
+          "concepto": "Juntas de retracción",
+          "descripcion": "Ejecución de juntas de retracción cada 4-5 metros lineales en solera (aprox. 12ml)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 5,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fratasado y acabado superficial",
+          "descripcion": "Fratasado, alisado y acabado superficial de solera de hormigón",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 6,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Pequeño material, herramientas, desencofrado y limpieza de obra",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada: instalador estima pequeño material y herramientas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 410,
+        "iva_porcentaje": 21,
+        "iva": 86.1,
+        "total": 496.1
+      },
+      "sugerencias_catalogo": [
+        "Verificar espesor de solera: 15cm mínimo en garaje según CTE DB-SE-C",
+        "Confirmar tipo de mallazo: Ø6mm luz 15x15cm es estándar, pero puede variar según cargas",
+        "Considerar encofrado perimetral si no existe muro de contención",
+        "Tiempo de curado: no cargar la solera hasta 28 días después del hormigonado"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "solera_de_hormigon_en_masa",
+      "construccion_de_piscina_de_obra",
+      "reforma_de_garaje_o_trastero_para_uso_habitual",
+      "losa_de_hormigon_armado_suelo_tecnico",
+      "impermeabilizacion_de_escalera_o_rampa_exterior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4113,
+      "tokens_out": 1692
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

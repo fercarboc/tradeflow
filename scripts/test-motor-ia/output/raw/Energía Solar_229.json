@@ -1,0 +1,244 @@
+{
+  "id": 229,
+  "oficio": "Energía Solar",
+  "texto": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+  "http_status": 200,
+  "latency_ms": 27232,
+  "raw_response": {
+    "transcript": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto requiere confirmación de: potencia contratada actual, tipo de vivienda (unifamiliar/piso), ubicación panel solar, compatibilidad vehículo con carga inteligente, distancia cuadro a punto de carga",
+          "Instalación fotovoltaica no incluida — se presupuesta solo cargador integrado con sistema solar existente o a suministrar por cliente",
+          "Gestión inteligente requiere software/hardware adicional — precio pendiente de revisión según marca/modelo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación cargador vehículo eléctrico integrado con energía solar + gestión inteligente"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito exclusivo, protecciones REBT, cableado, toma de tierra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Wallbox cargador vehículo eléctrico 7.4 kW monofásico o 11 kW trifásico",
+          "descripcion": "Suministro e instalación de wallbox/cargador Mode 3 según potencia disponible y tipo de conexión (monofásica/trifásica). Incluye carcasa, conectores, protecciones integradas.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio wallbox varía 800-2500€ según potencia (7.4kW vs 11kW) y marca. Instalador debe confirmar modelo y potencia contratada."
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo desde cuadro general",
+          "descripcion": "Derivación de circuito independiente desde cuadro general hasta punto de carga. Incluye cable H07V-K 6mm² (7.4kW) o 10mm² (11kW), tubería protectora, conexionado en cuadro.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste depende de distancia cuadro-punto carga y sección cable. Rango estimado 150-400€ material."
+        },
+        {
+          "concepto": "Protecciones eléctricas REBT (magnetotérmico + diferencial tipo A)",
+          "descripcion": "Instalación de magnetotérmico 40A (7.4kW) o 63A (11kW) + diferencial tipo A 40A/30mA en cuadro. Obligatorio para carga vehículo eléctrico según REBT.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Magnetotérmico + diferencial tipo A: ~80-150€ conjunto. Tipo A es obligatorio para VE."
+        },
+        {
+          "concepto": "Toma de tierra y puesta a tierra",
+          "descripcion": "Verificación, mejora o instalación de sistema de puesta a tierra según REBT. Incluye cable de tierra, conexión a electrodo si necesario.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Si existe toma tierra: 50-100€. Si requiere electrodo nuevo: 200-400€."
+        },
+        {
+          "concepto": "Mano de obra: instalación circuito eléctrico y protecciones",
+          "descripcion": "Trabajos de electricidad: rozas, tendido cable, conexionado en cuadro, pruebas de continuidad y aislamiento. Incluye reposición de rozas.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: instalación wallbox y conexión a circuito",
+          "descripcion": "Montaje de wallbox en pared, conexión a circuito eléctrico, pruebas de funcionamiento básico, verificación de comunicación con vehículo.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de gestión inteligente de carga solar",
+          "descripcion": "Suministro e instalación de controlador/software de carga inteligente que optimiza carga del vehículo con excedentes fotovoltaicos. Incluye configuración, conexión a inversor solar y wallbox, app de monitorización.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Controlador inteligente V2H/carga solar: 400-1200€ según marca (SMA, Fronius, Huawei, etc.). Requiere compatibilidad con inversor existente."
+        },
+        {
+          "concepto": "Mano de obra: configuración sistema gestión inteligente",
+          "descripcion": "Programación y configuración del controlador de carga inteligente, integración con inversor solar, calibración de parámetros, pruebas de funcionamiento en modo solar.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Conectores, terminales, bridas, cinta aislante, pasta térmica, tornillería, etiquetado, documentación técnica.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material estimado: 50-100€"
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en servicio",
+          "descripcion": "Pruebas de aislamiento, continuidad, funcionamiento de protecciones, carga en modo solar, verificación de comunicación vehículo-wallbox, entrega de documentación y manual de uso.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 920,
+        "iva_porcentaje": 21,
+        "iva": 193.2,
+        "total": 1113.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si cliente dispone de instalación fotovoltaica existente o si debe suministrarse. Si es nueva, presupuestar por separado como [instalacion_fotovoltaica_autoconsumo].",
+        "Verificar potencia contratada actual — si es <7.4kW monofásico, puede requerir ampliación de potencia (gestionar con distribuidora, coste adicional 200-600€).",
+        "Confirmar tipo de vehículo y compatibilidad con carga inteligente solar (no todos los VE soportan modulación de potencia).",
+        "Si distancia cuadro-punto carga > 20m, aumentar sección cable a 10mm² (coste +100-150€).",
+        "Gestión inteligente requiere inversor solar compatible — si inversor existente no tiene puerto de comunicación, puede requerir sustitución (coste adicional 800-2000€)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Wallbox cargador vehículo eléctrico",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Precio variable según potencia y marca — instalador debe introducir modelo y coste real."
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo desde cuadro",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Coste depende de distancia y sección cable — requiere medición en obra."
+        },
+        {
+          "concepto": "Sistema de gestión inteligente de carga solar",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Controlador inteligente V2H/solar — precio varía 400-1200€ según marca y compatibilidad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cargador_vehiculo_electrico_wallbox",
+      "instalacion_de_cargador_de_vehiculo_electrico_en_vivienda",
+      "integracion_solar_fotovoltaica_en_vehiculo_electrico_V2H_V2G",
+      "instalacion_punto_recarga_bicicleta_electrica",
+      "instalacion_fotovoltaica_autoconsumo"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3837,
+      "tokens_out": 3544
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

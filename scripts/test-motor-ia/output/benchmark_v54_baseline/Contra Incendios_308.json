@@ -1,0 +1,233 @@
+{
+  "id": 308,
+  "oficio": "Contra Incendios",
+  "texto": "Plan de emergencia y simulacro de evacuación para empresa de 50 trabajadores, documentación legal",
+  "http_status": 200,
+  "latency_ms": 25812,
+  "raw_response": {
+    "transcript": "Plan de emergencia y simulacro de evacuación para empresa de 50 trabajadores, documentación legal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Plan de emergencia y simulacro de evacuación para empresa de 50 trabajadores, documentación legal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio de consultoría y gestión administrativa. Requiere profesional especializado en prevención de riesgos laborales (PRL) y normativa RD 393/2007.",
+          "El simulacro debe coordinarse con la empresa y puede requerir cierre parcial de actividad.",
+          "La documentación legal debe cumplir RD 393/2007 (Plan de Autoprotección) y normativa autonómica."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 70
+          },
+          "motivo": "Plan de emergencia, evacuación y documentación legal de protección contra incendios. RD 393/2007 obliga plan autoprotección en empresas con riesgo."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Tramitación y asesoramiento legal en normativa de prevención de riesgos laborales y autoprotección empresarial."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación inicial y diagnóstico de riesgos",
+          "descripcion": "Visita a empresa, análisis de instalaciones, identificación de riesgos de incendio, evaluación de vías de evacuación, puntos de reunión, accesibilidad para personas con movilidad reducida. Incluye toma de medidas, fotografías y documentación del estado actual.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por profesional según complejidad de instalaciones y superficie de empresa (estimado 300-600€)"
+        },
+        {
+          "concepto": "Redacción Plan de Autoprotección técnico (RD 393/2007)",
+          "descripcion": "Elaboración de documentación legal completa: identificación de riesgos potenciales, medidas preventivas, procedimientos de actuación, organización de emergencia, asignación de responsables, planos de evacuación normalizados por planta, señalización de equipos de protección, instrucciones de actuación. Documento técnico conforme a normativa.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "documento",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por profesional según complejidad (estimado 800-1500€ para empresa 50 trabajadores)"
+        },
+        {
+          "concepto": "Diseño e impresión de planos de evacuación normalizados",
+          "descripcion": "Elaboración de planos de evacuación por planta en formato A3/A2 conforme a normas ISO 3864 y RD 393/2007. Incluye: recorridos de evacuación, salidas de emergencia, puntos de reunión, ubicación de equipos (extintores, BIE, pulsadores), señalización fotoluminiscente, leyenda normalizada. Impresión en material resistente (papel 200g o laminado).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "plano",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por profesional según número de plantas (estimado 200-400€)"
+        },
+        {
+          "concepto": "Señalización fotoluminiscente de recorridos y equipos",
+          "descripcion": "Suministro e instalación de señalización normalizada fotoluminiscente: flechas direccionales en recorridos de evacuación, señales de salida de emergencia, ubicación de extintores, BIE, pulsadores de alarma, puntos de reunión. Material: vinilo fotoluminiscente autoadhesivo o placas rígidas según superficie. Incluye limpieza y preparación de superficies.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio a definir por profesional según superficie de empresa y número de señales (estimado 300-800€ material + instalación)"
+        },
+        {
+          "concepto": "Planificación y coordinación del simulacro de evacuación",
+          "descripcion": "Diseño del escenario de simulacro, coordinación con empresa, establecimiento de cronograma, definición de roles de observadores, preparación de hojas de registro, instrucciones a participantes. Incluye reunión previa con responsables de emergencia de la empresa.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por profesional (estimado 400-700€)"
+        },
+        {
+          "concepto": "Ejecución del simulacro de evacuación (50 trabajadores)",
+          "descripcion": "Realización práctica del simulacro: activación de alarma, evacuación controlada, cronometraje, observación de comportamientos, registro de incidencias, verificación de puntos de reunión, conteo de personas. Incluye presencia de coordinador y observadores durante toda la ejecución (estimado 1-2 horas).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico post-simulacro y recomendaciones",
+          "descripcion": "Análisis de resultados del simulacro: tiempos de evacuación, comportamientos observados, deficiencias detectadas, propuestas de mejora, recomendaciones de formación adicional. Documento técnico con fotografías y datos cuantitativos. Presentación a responsables de la empresa.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "informe",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por profesional (estimado 300-500€)"
+        },
+        {
+          "concepto": "Formación básica en procedimientos de emergencia (opcional)",
+          "descripcion": "Sesión de formación dirigida a responsables de emergencia y personal clave: procedimientos de actuación, uso de equipos de protección (extintores, BIE), primeros auxilios básicos, comunicación de emergencia. Duración: 2-3 horas. Incluye material didáctico y certificado de asistencia.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "sesion",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por profesional (estimado 400-800€). OPCIONAL: incluir solo si cliente lo solicita."
+        }
+      ],
+      "calculos": {
+        "subtotal": 110,
+        "iva_porcentaje": 21,
+        "iva": 23.1,
+        "total": 133.1
+      },
+      "sugerencias_catalogo": [
+        "La mayoría de partidas requieren revisión de precios por el instalador/consultor especializado en PRL.",
+        "Presupuesto orientativo TOTAL estimado (sin revisión): 3.500€ - 6.500€ según complejidad de instalaciones y alcance de formación.",
+        "Recomendación: incluir cláusula de revisión de precios en oferta final, desglosando cada servicio.",
+        "Verificar si la empresa requiere Plan de Autoprotección técnico completo (RD 393/2007) o solo plan básico según actividad y número de trabajadores."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Evaluación inicial y diagnóstico de riesgos",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de consultoría especializada no catalogado. Requiere profesional PRL."
+        },
+        {
+          "concepto": "Redacción Plan de Autoprotección técnico (RD 393/2007)",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio legal/administrativo especializado. Requiere conocimiento normativo RD 393/2007."
+        },
+        {
+          "concepto": "Diseño e impresión de planos de evacuación normalizados",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio técnico de diseño gráfico y documentación normalizada."
+        },
+        {
+          "concepto": "Planificación y coordinación del simulacro de evacuación",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de coordinación y gestión de simulacro."
+        },
+        {
+          "concepto": "Informe técnico post-simulacro y recomendaciones",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de análisis y asesoramiento técnico post-ejecución."
+        },
+        {
+          "concepto": "Formación básica en procedimientos de emergencia (opcional)",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de formación especializada en PRL. OPCIONAL."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "replanteo_y_trazado_de_obra",
+      "planificacion_y_presupuesto_reforma_integral",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_plan_de_autoproteccion_y_señalizacion",
+      "impermeabilizacion_de_cubierta_verde_con_lamina_antirraiz"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3823,
+      "tokens_out": 3580
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

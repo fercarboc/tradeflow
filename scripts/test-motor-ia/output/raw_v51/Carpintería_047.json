@@ -1,0 +1,176 @@
+{
+  "id": 47,
+  "oficio": "Carpintería",
+  "texto": "Cambio de ventanas de madera antiguas por PVC con doble acristalamiento en toda la vivienda, 8 ventanas",
+  "http_status": 200,
+  "latency_ms": 19131,
+  "raw_response": {
+    "transcript": "Cambio de ventanas de madera antiguas por PVC con doble acristalamiento en toda la vivienda, 8 ventanas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de ventanas de madera antiguas por PVC con doble acristalamiento en toda la vivienda, 8 ventanas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto de sustitución completa de carpintería. Verificar medidas exactas de cada ventana.",
+          "Incluye desmontaje de ventanas antiguas, suministro de nuevas ventanas PVC y instalación con sellado.",
+          "Considerar posibles obras de albañilería si los premarcos requieren ajuste (incluido con tarifa estimada)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Desmontaje e instalación de ventanas de PVC. Oficio principal de carpintería."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Sellado y rejuntado de marcos en caso de necesario ajuste de premarcos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de ventanas de madera antiguas",
+          "descripcion": "Desmontaje cuidadoso de 8 ventanas de madera antiguas, incluyendo marcos, herrajes y vidrios. Retirada selectiva de material para aprovechamiento o reciclaje.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de ventanas PVC con doble acristalamiento",
+          "descripcion": "8 ventanas de PVC con doble acristalamiento aislante (bajo emisivo), perfiles reforzados, herrajes de seguridad, medidas según vano existente. Incluye envío y descarga.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de ventanas PVC varía según medida exacta, tipo de acristalamiento y accesorios. Instalar debe indicar precio unitario por ventana (rango orientativo: 250-500€/ud según tamaño)."
+        },
+        {
+          "concepto": "Instalación de ventanas PVC con doble acristalamiento",
+          "descripcion": "Instalación de 8 ventanas PVC con fijación a premarco, calzos de nivelación, sellado perimetral con espuma PU y silicona neutra, comprobación de apertura y cierre, ajuste de herrajes.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y acabado perimetral de marcos",
+          "descripcion": "Sellado perimetral exterior con silicona neutra de alta durabilidad, aplicación de masilla acrílica en juntas interiores, limpieza final y protección visual.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 25,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material de sellado y accesorios",
+          "descripcion": "Silicona neutra de fijación (cartuchos), espuma PU de relleno, masilla acrílica, cintas de carrocero, plástico de protección, calzos de nivelación, pequeño material fungible.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye consumibles de sellado. Instalar estima precio según calidad de materiales (rango: 40-80€/ventana en material de consumo)."
+        },
+        {
+          "concepto": "Retirada y gestión de escombros",
+          "descripcion": "Retirada de ventanas antiguas desmontadas, protección de suelos y muebles, limpieza diaria de obra, clasificación y transporte de residuos.",
+          "oficio": "multiservicio",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 960,
+        "iva_porcentaje": 21,
+        "iva": 201.6,
+        "total": 1161.6
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medidas exactas de cada vano (ancho × alto en cm) para cotización precisa de ventanas PVC.",
+        "Confirmar si hay premarcos existentes en buen estado o si requieren sustitución/reparación.",
+        "Especificar características de vidrio: bajo emisivo (aislamiento térmico mejorado), acústico (si está en zona ruidosa), o simplemente doble aislante estándar.",
+        "Considerar la orientación (norte/sur) para optimizar tipo de vidrio y permeabilidad solar.",
+        "Verificar si la vivienda requiere permisos municipales (reforma de fachada). En algunos municipios es obligatorio comunicar cambio de ventanas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de ventanas PVC con doble acristalamiento",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "razon_creacion": "Material de carpintería de gran valor. Precio varía significativamente por medida y especificaciones. Instalar debe cotizar directamente con proveedor."
+        },
+        {
+          "concepto": "Material de sellado y accesorios",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "razon_creacion": "Consumibles necesarios para la instalación. Precio agrupado por unidad de ventana para simplificar presupuesto."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_ventanas_de_madera_exterior",
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_vidrio_en_puerta_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

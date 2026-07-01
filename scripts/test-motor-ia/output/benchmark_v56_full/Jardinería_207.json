@@ -1,0 +1,198 @@
+{
+  "id": 207,
+  "oficio": "Jardinería",
+  "texto": "Talar árbol peligroso próximo a la vivienda, pino de 10 metros de altura, gestión de residuos",
+  "http_status": 200,
+  "latency_ms": 15458,
+  "raw_response": {
+    "transcript": "Talar árbol peligroso próximo a la vivienda, pino de 10 metros de altura, gestión de residuos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Talar árbol peligroso próximo a la vivienda, pino de 10 metros de altura, gestión de residuos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si el árbol está catalogado o en vía pública (requiere licencia municipal)",
+          "Confirmar acceso y espacio de caída disponible",
+          "Empresa especializada con seguro de responsabilidad civil obligatorio"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Tala de árbol, trabajo especializado en jardinería"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 50
+          },
+          "motivo": "Gestión y retirada de residuos vegetales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación previa de riesgo y dirección de caída",
+          "descripcion": "Inspección técnica del árbol, evaluación de riesgos, planificación de caída segura, EPI completo (casco, arnés, pantalón anticorte, botas)",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 200,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tala dirigida pino 10 metros con motosierra",
+          "descripcion": "Tala de pino de 10 metros de altura próximo a vivienda, corte dirigido en trozos manejables, uso de cuerdas y técnicas de seguridad, equipo motosierra profesional",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 250,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Astillado y troceado de restos vegetales",
+          "descripcion": "Astilladora de restos de tronco y ramas, reducción de volumen para transporte, clasificación de material reutilizable",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Extracción y retirada de tronco principal",
+          "descripcion": "Extracción del tronco principal (estimado 2-3 toneladas), carga en vehículo, transporte a gestor autorizado",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de peso real, distancia a gestor y tarifa de vertedero. Instalador debe confirmar."
+        },
+        {
+          "concepto": "Gestión de residuos vegetales a gestor autorizado",
+          "descripcion": "Transporte y gestión de restos vegetales (ramas, hojas, astillas) a gestor autorizado con documentación de trazabilidad",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen estimado en 8 m³ (pino 10m). Precio según tarifa local de gestor. Requiere confirmación."
+        },
+        {
+          "concepto": "Destocado y relleno de hoyo",
+          "descripcion": "Extracción de tocón y raíces principales, relleno de hoyo con tierra vegetal compactada",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 180,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Licencia municipal (si aplica)",
+          "descripcion": "Gestión de trámites y licencia municipal para tala de árbol (si está catalogado o en vía pública)",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Verificar si árbol requiere licencia. Precio según ayuntamiento (0-300€ típicamente)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1030,
+        "iva_porcentaje": 21,
+        "iva": 216.3,
+        "total": 1246.3
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente si árbol está catalogado o en vía pública → requiere licencia municipal",
+        "Solicitar presupuesto a gestor autorizado de residuos vegetales (transporte + vertedero)",
+        "Verificar acceso con vehículos pesados para extracción de tronco",
+        "Empresa debe tener seguro de responsabilidad civil y certificación en trabajos en altura"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Extracción y retirada de tronco principal",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de transporte y gestión específico, precio variable según peso y distancia"
+        },
+        {
+          "concepto": "Gestión de residuos vegetales a gestor autorizado",
+          "oficio": "gestion_residuos",
+          "motivo": "Volumen y tarifa de gestor local variable, requiere confirmación"
+        },
+        {
+          "concepto": "Licencia municipal (si aplica)",
+          "oficio": "gestoria_tramites",
+          "motivo": "Trámite administrativo, precio según ayuntamiento"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "construccion_de_piscina_de_obra",
+      "tala_y_extraccion_de_arbol",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_llave_escuadra"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4073,
+      "tokens_out": 2078
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

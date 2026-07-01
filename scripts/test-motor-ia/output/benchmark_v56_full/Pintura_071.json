@@ -1,0 +1,152 @@
+{
+  "id": 71,
+  "oficio": "Pintura",
+  "texto": "Aplicar tratamiento antigraffiti en la fachada del local, 20 metros cuadrados de pared",
+  "http_status": 200,
+  "latency_ms": 12214,
+  "raw_response": {
+    "transcript": "Aplicar tratamiento antigraffiti en la fachada del local, 20 metros cuadrados de pared",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar tratamiento antigraffiti en la fachada del local, 20 metros cuadrados de pared",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Tratamiento antigraffiti en fachada exterior. Oficio especializado en revestimientos y protecciones de envolvente exterior."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa de fachada",
+          "descripcion": "Limpieza y preparación de la superficie antes de aplicar el tratamiento antigraffiti. Incluye eliminación de suciedad, polvo y contaminantes.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 5,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recubrimiento antigraffiti sacrificial",
+          "descripcion": "Aplicación de pintura antigraffiti de tipo sacrificial (se retira junto con el graffiti). Protección permanente que permite limpiar sin dañar la fachada. Incluye material y aplicación.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del producto antigraffiti a definir por instalador según marca y especificaciones técnicas. Rango estimado: 30-60€/m2 en material."
+        },
+        {
+          "concepto": "Aplicación pintura antigraffiti (2 manos)",
+          "descripcion": "Aplicación de dos manos de recubrimiento antigraffiti con rodillo o pistola de baja presión. Incluye saturación completa de la superficie.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 15,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Montaje y desmontaje de andamio o plataforma de trabajo para acceso seguro a la fachada de 20 m2.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "descripcion": "Rodillos, brochas, trapos, disolventes, guantes, mascarillas y otros consumibles necesarios para la aplicación del tratamiento antigraffiti.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a definir. Estimado: 40-80€ según cantidad de consumibles."
+        }
+      ],
+      "calculos": {
+        "subtotal": 550,
+        "iva_porcentaje": 21,
+        "iva": 115.5,
+        "total": 665.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de antigraffiti: sacrificial (se retira con el graffiti) o permanente (permite limpieza sin retirar recubrimiento). El sacrificial requiere reaplicación periódica.",
+        "Verificar estado actual de la fachada: si hay graffiti existente, añadir partida de eliminación previa con hidrolimpiadora.",
+        "Considerar segunda mano si el soporte es muy poroso (ladrillo, hormigón sin sellar).",
+        "Presupuesto de andamio puede variar según altura y accesibilidad. Solicitar presupuesto específico si es necesario alquiler."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Recubrimiento antigraffiti sacrificial",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Material especializado cuyo precio depende de marca y especificaciones técnicas del producto."
+        },
+        {
+          "concepto": "Pequeño material y EPI",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Consumibles varios cuyo importe debe ser definido por el instalador según cantidad y tipos específicos."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_pintura_antigraffiti_en_fachada",
+      "aplicacion_hidrofugo_incoloro_fachada",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "tratamiento_pintura_grafitis_eliminacion",
+      "apertura_hueco_en_muro_para_puerta_o_ventana"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3763,
+      "tokens_out": 1562
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

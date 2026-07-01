@@ -1,0 +1,164 @@
+{
+  "id": 77,
+  "oficio": "Pintura",
+  "texto": "Aplicar tratamiento hidrófugo en muros de piedra de fachada, 50 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14269,
+  "raw_response": {
+    "transcript": "Aplicar tratamiento hidrófugo en muros de piedra de fachada, 50 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar tratamiento hidrófugo en muros de piedra de fachada, 50 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Tratamiento hidrófugo en fachada de piedra natural — oficio fachadas según reglas de prioridad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Hidrofugo siloxano para piedra natural",
+          "descripcion": "Suministro de hidrofugo siloxano incoloro, específico para piedra natural, rendimiento 5-8 m²/litro según porosidad",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 7,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material hidrofugo — instalador debe confirmar marca, tipo (siloxano/silicona) y cantidad según porosidad real de la piedra"
+        },
+        {
+          "concepto": "Aplicación hidrofugo en fachada de piedra",
+          "descripcion": "Mano de obra para aplicación de hidrofugo con rodillo o pistola de baja presión, dos manos saturando soporte, 50 m²",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 15,
+          "total": 750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler/montaje de andamio o plataforma de trabajo para acceso seguro a fachada de 50 m²",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Andamio — instalador debe confirmar altura, tipo de andamio y coste según accesibilidad real de la fachada"
+        },
+        {
+          "concepto": "Limpieza previa de fachada",
+          "descripcion": "Limpieza y preparación de superficie de piedra (eliminación de suciedad, algas, musgo) previa a aplicación de hidrofugo",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 8,
+          "total": 400,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Limpieza previa — tarifa estimada; revisar según grado de suciedad y método (cepillo, agua a presión baja, etc.)"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Brochas, rodillos, trapos, protecciones, cinta de enmascarar, EPP (guantes, gafas, mascarilla)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material — instalador debe estimar coste según cantidad y tipo de herramientas necesarias"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1150,
+        "iva_porcentaje": 21,
+        "iva": 241.5,
+        "total": 1391.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de piedra (arenisca, caliza, granito, etc.) para seleccionar hidrofugo específico",
+        "Verificar porosidad de la piedra — afecta a rendimiento del producto y número de manos necesarias",
+        "Considerar si la fachada requiere limpieza previa intensiva (presencia de algas, musgo, suciedad acumulada)",
+        "Evaluar accesibilidad — altura, inclinación, obstáculos — para presupuestar andamio/plataforma"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hidrofugo siloxano para piedra natural",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Material específico — requiere revisión de marca y cantidad según porosidad real"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar — coste variable según altura y tipo de acceso"
+        },
+        {
+          "concepto": "Limpieza previa de fachada",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "motivo": "Tarifa estimada — revisar según grado de suciedad"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Consumibles — instalador debe estimar coste real"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "alicatado_con_piedra_natural_o_gres_porcelanico",
+      "forrado_exterior_fachada_ventilada",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "instalacion_descalcificador"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3853,
+      "tokens_out": 1720
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

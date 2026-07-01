@@ -1,0 +1,166 @@
+{
+  "id": 69,
+  "oficio": "Pintura",
+  "texto": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+  "http_status": 200,
+  "latency_ms": 17994,
+  "raw_response": {
+    "transcript": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Efecto estucoveneciano requiere técnica especializada y mano de obra cualificada",
+          "Se recomienda muestra previa de color y textura antes de ejecutar el trabajo completo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura decorativa con efecto estucoveneciano - técnica especializada de pintura decorativa"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Imprimación fijadora base",
+          "descripcion": "Imprimación acrílica fijadora para preparación de superficie antes de aplicación de estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado - instalador debe confirmar marca y precio"
+        },
+        {
+          "concepto": "Pintura estucoveneciano decorativa",
+          "descripcion": "Pintura decorativa con efecto estucoveneciano (acabado marmóreo/veteado) - producto bicomponente o monocomponente según especificación",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado de alto rendimiento - precio variable según marca y calidad"
+        },
+        {
+          "concepto": "Sellador/Protector final poliuretano",
+          "descripcion": "Sellador poliuretano o epoxi de acabado para protección y durabilidad del efecto estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Protección especializada - precio según especificación técnica"
+        },
+        {
+          "concepto": "Herramientas y pequeño material",
+          "descripcion": "Llanas metálicas, esponjas, brochas especiales, cinta carrocero, trapos, masilla fina para juntas y pequeño material consumible",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles y herramientas - estimación a confirmar por instalador"
+        },
+        {
+          "concepto": "Mano de obra - Aplicación estucoveneciano",
+          "descripcion": "Preparación de superficie, imprimación, aplicación de capas de estucoveneciano con técnica especializada (mínimo 2-3 capas), alisado y acabado final. Incluye técnica de veteado/marmóreo característico del efecto",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 12,
+          "total": 144,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Muestra previa de color y textura",
+          "descripcion": "Realización de muestra en papel o en rincón discreto de la pared para aprobación del cliente antes de ejecutar trabajo completo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 176,
+        "iva_porcentaje": 21,
+        "iva": 36.96,
+        "total": 212.96
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente si desea muestra previa (recomendado para efectos decorativos especializados)",
+        "Verificar estado de la pared: debe estar limpia, seca y sin fisuras para óptimo resultado",
+        "Considerar protección de muebles y suelo durante aplicación de estucoveneciano"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura estucoveneciano decorativa",
+          "oficio": "pintura",
+          "motivo": "Efecto decorativo especializado - variante de pintura decorativa con textura marmórea/veteada"
+        },
+        {
+          "concepto": "Sellador/Protector final poliuretano",
+          "oficio": "pintura",
+          "motivo": "Protección especializada para acabados decorativos de alto valor estético"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_decorativa_efecto_oxido_o_industrial",
+      "pintura_decorativa_efecto_tela_o_textura",
+      "pintado_paredes_con_efecto_delave_o_degradado",
+      "pintura_y_acabado_paredes_de_pladur_nuevo",
+      "acabado_con_microcemento_suelo_o_pared"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3551,
+      "tokens_out": 1680
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

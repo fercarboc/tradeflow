@@ -1,0 +1,152 @@
+{
+  "id": 153,
+  "oficio": "Pladur",
+  "texto": "Hacer caja de pladur para ocultar tuberías y bajante en baño, acabado listo para azulejos",
+  "http_status": 200,
+  "latency_ms": 11473,
+  "raw_response": {
+    "transcript": "Hacer caja de pladur para ocultar tuberías y bajante en baño, acabado listo para azulejos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer caja de pladur para ocultar tuberías y bajante en baño, acabado listo para azulejos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Construcción de caja de pladur para ocultación de instalaciones en baño"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm para caja ocultación",
+          "descripcion": "Suministro de placa de yeso laminado de 15mm de espesor para revestimiento de caja de tuberías y bajante en baño",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar superficie total de placa necesaria (m2)"
+        },
+        {
+          "concepto": "Perfiles metálicos (canal y montante) para estructura caja",
+          "descripcion": "Suministro de perfiles de acero galvanizado canal UW y montante CW para armazón de caja de pladur",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar peso total de perfiles (kg) según dimensiones de caja"
+        },
+        {
+          "concepto": "Tornillería y fijación para pladur",
+          "descripcion": "Tornillos autorroscantes para pladur, tacos y pequeño material de fijación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a determinar según cantidad de tornillos y accesorios"
+        },
+        {
+          "concepto": "Cinta de juntas y pasta de juntas",
+          "descripcion": "Cinta de papel perforada y pasta de juntas para sellado y acabado de juntas entre placas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a determinar según longitud total de juntas"
+        },
+        {
+          "concepto": "Ángulo metálico para esquinas y aristas",
+          "descripcion": "Ángulo metálico galvanizado para protección y acabado de esquinas y aristas de la caja",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar metros lineales de ángulo necesario"
+        },
+        {
+          "concepto": "Montaje y acabado de caja de pladur",
+          "descripcion": "Mano de obra: construcción de estructura metálica, colocación de placas de yeso, sellado de juntas, lijado y preparación para alicatado. Acabado listo para recibir azulejos",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar horas totales de trabajo según complejidad y dimensiones de caja"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la caja requiere refuerzo adicional en zonas de paso o con tuberías de gran diámetro",
+        "Confirmar si se incluye imprimación antes del alicatado o si lo realiza el alicatador",
+        "Considerar si hay acceso a válvulas o llaves de paso que requieran puerta de registro"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_arqueta_de_registro",
+      "tabique_pladur_armario_empotrado_nuevo",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "estructura_pladur_para_escalera_interior_nueva"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3808,
+      "tokens_out": 1549
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

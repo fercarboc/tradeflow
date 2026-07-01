@@ -1,0 +1,267 @@
+{
+  "id": 245,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar sistema de videovigilancia con 4 cámaras IP exterior e interior, grabación en NVR",
+  "http_status": 200,
+  "latency_ms": 25449,
+  "raw_response": {
+    "transcript": "Instalar sistema de videovigilancia con 4 cámaras IP exterior e interior, grabación en NVR",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de videovigilancia con 4 cámaras IP exterior e interior, grabación en NVR",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cartel informativo RGPD obligatorio en exterior (normativa de protección de datos)",
+          "Verificar si es uso profesional para notificación AEPD",
+          "Almacenamiento: revisar días de retención requeridos para ajustar disco duro"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema CCTV con cámaras IP, NVR y cableado estructurado"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexiones eléctricas, fuente de alimentación, tomas de corriente para sistema"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de cámaras IP",
+          "descripcion": "4 cámaras IP (exterior e interior) con resolución mínima 2MP, óptica varifocal, visión nocturna, montaje y orientación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe introducir precio de cámaras IP según marca y modelo (rango típico 150-400€/ud)"
+        },
+        {
+          "concepto": "Grabador NVR",
+          "descripcion": "Grabador de red (NVR) compatible con cámaras IP, capacidad mínima para 4 canales, soporta grabación H.264/H.265",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio según capacidad y marca (rango típico 300-800€)"
+        },
+        {
+          "concepto": "Disco duro almacenamiento NVR",
+          "descripcion": "Disco duro 3.5\" especializado en vigilancia (WD Purple o equivalente), capacidad según días retención (mín. 30 días)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: revisar capacidad requerida en TB (1-4TB típico, precio 80-200€)"
+        },
+        {
+          "concepto": "Cableado UTP Cat.6 instalación",
+          "descripcion": "Cable UTP Categoría 6 para cámaras IP, bandejas, guías y fijaciones en interiores y exteriores",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: metros lineales estimados según layout. Precio unitario 0,40-0,80€/ml (revisar recorrido real)"
+        },
+        {
+          "concepto": "Fuente de alimentación y PoE",
+          "descripcion": "Inyectores PoE o fuente de alimentación redundante para cámaras IP y NVR, protección contra sobretensiones",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio según tipo y potencia (rango 100-300€)"
+        },
+        {
+          "concepto": "Montaje, conexionado y configuración cámaras IP",
+          "descripcion": "Montaje físico de 4 cámaras, conexión de cableado, configuración IP, pruebas de video y enfoque",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y configuración NVR",
+          "descripcion": "Instalación del grabador NVR, integración con cámaras, configuración de almacenamiento, acceso remoto e interfaz",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación cableado estructurado Cat.6",
+          "descripcion": "Tendido, fijación y terminación de cable UTP Cat.6 en bandejas, conductos y conectores RJ45",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 50,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexiones eléctricas alimentación sistema",
+          "descripcion": "Preparación de tomas de corriente, instalación de fuente de alimentación, conexión a tierra y protecciones",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Verificación de grabación, calidad de video, almacenamiento, pruebas de acceso remoto, documentación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, bridas, tuercas, pasta térmica)",
+          "descripcion": "Conectores RJ45, bridas de sujeción, pasta térmica, tuercas, arandelas, soportes ajustables",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: presupuestar entre 30-80€ según cantidad y tipo"
+        },
+        {
+          "concepto": "Cartel informativo RGPD videovigilancia",
+          "descripcion": "Cartel informativo de zona vigilada con normativa RGPD (obligatorio en entrada y zonas exteriores)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cartel/s obligatorios por normativa de protección de datos (10-30€/ud)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1000,
+        "iva_porcentaje": 21,
+        "iva": 210,
+        "total": 1210
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si se requiere acceso remoto mediante app móvil (incluir partida de configuración si aplica)",
+        "Considerar UPS/batería de respaldo si continuidad 24/7 es crítica",
+        "Verificar si las cámaras son PoE integrado o requieren inyectores separados",
+        "Confirmar instalación de almacenamiento en NAS o disco duro local según arquitectura de red"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro cámaras IP",
+          "oficio": "telecomunicaciones",
+          "razon": "Material específico de sistema CCTV IP moderno, requiere especificación técnica del cliente"
+        },
+        {
+          "concepto": "Suministro NVR",
+          "oficio": "telecomunicaciones",
+          "razon": "Equipo de grabación especializado, precio depende de marca, capacidad y funcionalidades"
+        },
+        {
+          "concepto": "Suministro disco duro vigilancia",
+          "oficio": "telecomunicaciones",
+          "razon": "Almacenamiento optimizado para grabación continua, variabilidad de capacidad (1-4TB)"
+        },
+        {
+          "concepto": "Cartel RGPD obligatorio",
+          "oficio": "telecomunicaciones",
+          "razon": "Requisito legal de protección de datos que debe incluirse en presupuesto"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_sistema_cctv_videovigilancia",
+      "instalacion_sistema_free_cooling",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "forrado_exterior_fachada_ventilada"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 5,
+    "n_sugeridas": 7,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "id": 351,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+  "http_status": 200,
+  "latency_ms": 18033,
+  "raw_response": {
+    "transcript": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye dos actuaciones distintas: reparación de baches (hormigón) + sellado de juntas de dilatación (fachada/estructura). Se han agrupado en partidas por tipo de trabajo.",
+          "Precios de materiales requieren revisión según cantidad exacta de m2 de baches y ml de juntas a sellar.",
+          "Se recomienda inspección previa para determinar extensión real del daño y tipo de sellador necesario."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de baches en hormigón de parking (saneo, imprimación, mortero reparación, fratasado)"
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado de juntas de dilatación en estructura/pavimento (retirada material antiguo, fondo de junta, sellador poliuretano)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Reparación de baches en hormigón - Saneo y preparación",
+          "descripcion": "Saneo de zona afectada por baches, retirada de hormigón suelto/deteriorado, corte de perímetro en recto, limpieza y preparación de soporte",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 de baches a reparar debe confirmarse en obra. Precio unitario es tarifa recomendada por m2."
+        },
+        {
+          "concepto": "Reparación de baches - Imprimación adherente epoxídica",
+          "descripcion": "Aplicación de imprimación epoxídica de dos componentes sobre hormigón saneado para garantizar adherencia del mortero de reparación",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material obligatorio. Precio pendiente de revisión según cantidad y marca seleccionada (aprox. 8-15€/m2)"
+        },
+        {
+          "concepto": "Reparación de baches - Mortero de reparación hormigón",
+          "descripcion": "Mortero de reparación estructural o epoxi, aplicación y fratasado para igualar nivel y acabado con pavimento existente",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material obligatorio. Precio pendiente según tipo (mortero cemento aprox. 15-25€/m2, epoxi 30-50€/m2)"
+        },
+        {
+          "concepto": "Reparación de baches - Mano de obra fratasado y acabado",
+          "descripcion": "Fratasado, alisado y acabado final del mortero de reparación para igualar con pavimento existente",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa recomendada. Cantidad de m2 a confirmar en obra."
+        },
+        {
+          "concepto": "Sellado de juntas de dilatación - Retirada de material antiguo",
+          "descripcion": "Retirada completa de sellador antiguo, limpieza de restos y preparación de junta para nuevo sellado",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa recomendada por ml. Longitud total de juntas a sellar debe confirmarse en obra."
+        },
+        {
+          "concepto": "Sellado de juntas - Fondo de junta y sellador poliuretano",
+          "descripcion": "Colocación de fondo de junta (espuma polietileno) y aplicación de sellador poliuretano de buena calidad para exterior, flexible y resistente a movimientos",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material obligatorio. Precio pendiente según longitud y anchura de junta (aprox. 8-20€/ml incluyendo fondo y sellador)"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (ambas actuaciones)",
+          "descripcion": "Consumibles, herramientas menores, limpieza y gestión de residuos generados en reparación de baches y sellado de juntas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar. Precio estimado 50-150€ según extensión de trabajo."
+        }
+      ],
+      "calculos": {
+        "subtotal": 125,
+        "iva_porcentaje": 21,
+        "iva": 26.25,
+        "total": 151.25
+      },
+      "sugerencias_catalogo": [
+        "Confirmar en obra: número y extensión de baches (m2), longitud total de juntas de dilatación (ml) y anchura de juntas.",
+        "Inspección previa recomendada para evaluar si hay problemas de impermeabilización bajo el pavimento (especialmente si hay filtraciones en plantas inferiores).",
+        "Para baches grandes (>0,5 m2) considerar armado con malla de fibra de vidrio en la reparación.",
+        "Sellador poliuretano recomendado para juntas de dilatación en parking (resistencia a tráfico y movimientos térmicos).",
+        "Tiempo de curado: esperar mínimo 24-48h antes de permitir tráfico en zona reparada."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación adherente epoxídica",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material obligatorio en reparación de hormigón según Base Maestra, no tiene precio unitario en catálogo."
+        },
+        {
+          "concepto": "Mortero de reparación hormigón",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material obligatorio en reparación de baches, precio variable según tipo (cemento vs. epoxi)."
+        },
+        {
+          "concepto": "Fondo de junta y sellador poliuretano",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Material obligatorio en sellado de juntas de dilatación, precio variable según longitud y anchura."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_reposicion_de_pavimento_exterior_deteriorado",
+      "reparacion_de_pavimento_de_hormigon_con_baches",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3703,
+      "tokens_out": 2438
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

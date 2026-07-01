@@ -1,0 +1,188 @@
+{
+  "id": 56,
+  "oficio": "Carpintería",
+  "texto": "Montaje de pérgola de madera en terraza de 4x3 metros con vigas y postes de pino tratado",
+  "http_status": 200,
+  "latency_ms": 14459,
+  "raw_response": {
+    "transcript": "Montaje de pérgola de madera en terraza de 4x3 metros con vigas y postes de pino tratado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montaje de pérgola de madera en terraza de 4x3 metros con vigas y postes de pino tratado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Pérgola en terraza: verificar carga máxima permitida y normativa local",
+          "Pino tratado clase 4: requiere mantenimiento cada 2-3 años con aceite/lasur",
+          "Licencia municipal: puede ser requerida según municipio (obra menor o mayor)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de estructura de madera (vigas, postes, uniones)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vigas y postes de pino tratado clase 4",
+          "descripcion": "Suministro de vigas principales (4m) y postes de pino tratado clase 4 para pérgola 4x3m. Incluye cortes y preparación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a precio de mercado local. Estimado 800-1200€ según calidad y grosor de vigas"
+        },
+        {
+          "concepto": "Uniones metálicas inoxidables o galvanizadas",
+          "descripcion": "Herrajes de acero inoxidable o galvanizado para uniones de vigas-postes y refuerzos estructurales. Incluye pernos, escuadras y placas de anclaje",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Herrajes a precio de mercado. Estimado 200-400€ según cantidad y tipo"
+        },
+        {
+          "concepto": "Fijación de postes a suelo (platinas o empotrado)",
+          "descripcion": "Anclaje de 4 postes a terraza mediante platinas de acero inoxidable, tacos químicos o empotrado en hormigón. Incluye material de fijación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Platinas/tacos a precio de mercado. Estimado 60-100€/ud"
+        },
+        {
+          "concepto": "Tratamiento antioxido de herrajes",
+          "descripcion": "Aplicación de tratamiento antioxidante y protector en todas las uniones metálicas para garantizar durabilidad en exterior",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Producto químico protector. Estimado 80-150€"
+        },
+        {
+          "concepto": "Acabado lasur o aceite exterior en madera",
+          "descripcion": "Aplicación de lasur o aceite protector en todas las superficies de madera (vigas, postes, uniones). Mínimo 2 manos",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Producto acabado exterior. Estimado 150-250€ (incluye 2 manos)"
+        },
+        {
+          "concepto": "Montaje y ensamblaje de pérgola",
+          "descripcion": "Mano de obra: ensamblaje de estructura, colocación de vigas, fijación de postes, ajuste de uniones, nivelación y aplomado. Incluye pequeño material (tornillos, tacos, etc.)",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 720,
+        "iva_porcentaje": 21,
+        "iva": 151.2,
+        "total": 871.2
+      },
+      "sugerencias_catalogo": [
+        "Si la pérgola incluye cubierta (tela, policarbonato o lamas): añadir partida de cubierta (200-1500€ según material)",
+        "Si se desea iluminación integrada: añadir partida de electricidad (instalación de puntos de luz)",
+        "Si hay plantas trepadoras: considerar sistema de riego o soporte adicional",
+        "Verificar con ayuntamiento si requiere licencia municipal (obra menor o mayor según dimensiones)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vigas y postes de pino tratado clase 4",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de mercado local, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Uniones metálicas inoxidables o galvanizadas",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Herrajes específicos, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Fijación de postes a suelo (platinas o empotrado)",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de anclaje, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Tratamiento antioxido de herrajes",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Producto protector, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Acabado lasur o aceite exterior en madera",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Producto acabado, precio pendiente de revisión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_tarima_exterior_madera_o_composite",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3876,
+      "tokens_out": 2059
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

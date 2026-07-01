@@ -1,0 +1,139 @@
+{
+  "id": 193,
+  "oficio": "Cerrajería",
+  "texto": "Instalar cierra puertas neumático en puerta de entrada de edificio de apartamentos",
+  "http_status": 200,
+  "latency_ms": 13479,
+  "raw_response": {
+    "transcript": "Instalar cierra puertas neumático en puerta de entrada de edificio de apartamentos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cierra puertas neumático en puerta de entrada de edificio de apartamentos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume puerta de entrada estándar (80-90 cm ancho). Confirmar peso y dimensiones exactas de la puerta para seleccionar tamaño correcto del cierrapuertas (EN 1-6).",
+          "Cierrapuertas neumático: verificar si es de brazo articulado o deslizante según espacio disponible.",
+          "Confirmar si la puerta es cortafuego (RF) — en tal caso, el cierrapuertas es OBLIGATORIO por normativa."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de cierrapuertas hidráulico/neumático en puerta de acceso. Oficio especializado en herrajes y mecanismos de cierre."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cierrapuertas neumático",
+          "descripcion": "Suministro de cierrapuertas neumático de calidad estándar, tamaño según peso y anchura de puerta (EN 1-6), con brazo articulado o deslizante según configuración de la puerta de entrada.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe confirmar marca, modelo y tamaño (EN 1-6) según peso real de la puerta y establecer precio de suministro."
+        },
+        {
+          "concepto": "Plantilla de instalación y pequeño material",
+          "descripcion": "Plantilla de instalación, tornillería, tacos, masilla de ajuste y pequeño material necesario para la fijación del cierrapuertas al marco y hoja de puerta.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar: el instalador valida cantidad y tipo según tipo de puerta (madera, metal, aluminio)."
+        },
+        {
+          "concepto": "Instalación de cierrapuertas neumático",
+          "descripcion": "Mano de obra: desmontaje de herrajes existentes si aplica, marcado de puntos de fijación, taladrado, fijación del cierrapuertas al marco superior y brazo articulado a la hoja, regulación de velocidad de cierre y apertura, pruebas de funcionamiento.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Regulación de velocidad de cierre",
+          "descripcion": "Ajuste fino de los tornillos de regulación de velocidad de cierre y apertura del cierrapuertas para garantizar funcionamiento correcto y seguro según normativa de puertas de acceso a edificios.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 60,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la puerta de entrada es cortafuego (RF-30, RF-60, RF-90) — en tal caso, el cierrapuertas es OBLIGATORIO por normativa de seguridad.",
+        "Solicitar al cliente: peso aproximado de la puerta, anchura del hueco, tipo de marco (madera, metal, aluminio) y espacio disponible para brazo articulado o deslizante.",
+        "Considerar retenedor de puerta abierta si el edificio requiere mantener la puerta abierta en horarios de tránsito intenso (opcional, partida adicional)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cierrapuertas neumático",
+          "oficio": "cerrajeria",
+          "motivo": "Material de suministro. Precio pendiente de revisión según marca, modelo y tamaño EN 1-6."
+        },
+        {
+          "concepto": "Plantilla de instalación y pequeño material",
+          "oficio": "cerrajeria",
+          "motivo": "Material auxiliar. Precio pendiente de revisión según tipo de puerta y marco."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_doble_hoja_interior",
+      "instalacion_de_cierrapuertas_hidraulico",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra",
+      "instalacion_puerta_metalica_exterior_o_de_acceso"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3682,
+      "tokens_out": 1556
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

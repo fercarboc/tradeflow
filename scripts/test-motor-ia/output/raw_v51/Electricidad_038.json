@@ -1,0 +1,274 @@
+{
+  "id": 38,
+  "oficio": "Electricidad",
+  "texto": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 26604,
+  "raw_response": {
+    "transcript": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trastero sin instalación eléctrica previa: requiere obra civil (rozas/canaletas) y nuevo circuito desde cuadro",
+          "Verificar accesibilidad a cuadro eléctrico y capacidad de acometida general",
+          "Aplicar normativa CTE DB-SB (seguridad en caso de incendio) para espacios anexos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Instalación eléctrica nueva: cableado, enchufes, puntos de luz, circuitos, protecciones"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil: rozas en paredes, reposición de paredes, preparación para canaletas/tubos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Obra civil: rozas en paredes y reposición",
+          "descripcion": "Ejecución de rozas en paredes para paso de cableado eléctrico, incluyendo corte, picado, reposición con mortero y posterior acabado. Superficie aproximada 8 m². Incluye pequeño material.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 20,
+          "total": 160,
+          "precio_origen": "tarifas_recomendadas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tuberías, canaletas y pequeño material",
+          "descripcion": "Tubería corrugada (diámetro M20-M25), canaletas de PVC o canaletas de aluminio, bridas, cajas de derivación, conectores, tornillos y pequeño material de fijación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales (tuberías, canaletas, cajas) pendiente de revisión por instalador según características exactas del trastero"
+        },
+        {
+          "concepto": "Circuito eléctrico nuevo: cableado desde cuadro",
+          "descripcion": "Cableado H07V-K (sección mínima 2,5 mm² para enchufes, 1,5 mm² para luz), desde cuadro general hasta puntos de consumo. Instalación en tuberías/canaletas. Incluye conexión en cuadro con interruptor diferencial (30 mA) y magnetotérmico de protección.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje exacto de cableado y sección pendiente de revisión por instalador según distancia cuadro-trastero y número de circuitos"
+        },
+        {
+          "concepto": "Enchufes Schuko 16A",
+          "descripcion": "Instalación de enchufes Schuko 16A (tipo europeo), con base de enchufe, caja de empotrar y placa. Cantidad a definir según necesidades del trastero.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de enchufes no especificado; pendiente confirmación con cliente"
+        },
+        {
+          "concepto": "Mano de obra: instalación enchufes y derivaciones",
+          "descripcion": "Instalación de cajas de empotrar, montaje de enchufes Schuko, conexión de cableado y cierre de placas. Incluye pruebas de continuidad y verificación de toma de tierra.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de enchufes pendiente de confirmación con cliente para calcular total"
+        },
+        {
+          "concepto": "Puntos de luz (luminarias)",
+          "descripcion": "Luminarias LED de techo (apliques o empotradas), completas con portalámparas y lámpara LED. Cantidad según necesidades de iluminación del trastero (aproximadamente 1-2 puntos por superficie).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de puntos de luz no especificado; pendiente confirmación según iluminación requerida"
+        },
+        {
+          "concepto": "Mano de obra: instalación de puntos de luz",
+          "descripcion": "Instalación de cajas de derivación, conexión de cableado de fase/neutro/tierra, montaje de luminarias, instalación de interruptores. Incluye pruebas funcionales.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de puntos de luz pendiente de confirmación para calcular total"
+        },
+        {
+          "concepto": "Interruptores simples (conmutadores)",
+          "descripcion": "Interruptores simples 10A, con caja de empotrar, placa de acabado. Para control de iluminación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de interruptores pendiente de confirmación según necesidades del cliente"
+        },
+        {
+          "concepto": "Mano de obra: instalación de interruptores",
+          "descripcion": "Instalación de cajas de empotrar, conexión de cableado, montaje de mecanismo y placa. Incluye pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de interruptores pendiente de confirmación"
+        },
+        {
+          "concepto": "Mano de obra: conexión en cuadro eléctrico",
+          "descripcion": "Apertura de cuadro, instalación de interruptor diferencial 30mA (tipo AC o A según cargas) y magnetotérmico de protección. Conexión de conductores con etiquetado. Incluye pruebas de funcionamiento y seguridad.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifas_recomendadas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Diferenciales e interruptores magnetotérmicos",
+          "descripcion": "Interruptor diferencial 30mA (clase AC, 25A mínimo) e interruptor magnetotérmico de protección (C16 o C20 según circuito). Para protección general del circuito del trastero.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de diferenciales y magnetotérmicos pendiente de revisión por instalador"
+        },
+        {
+          "concepto": "Pruebas, mediciones y puesta en servicio",
+          "descripcion": "Medición de resistencia de toma de tierra, pruebas de continuidad en conductores, verificación de correcto funcionamiento de diferenciales, medición de aislamiento. Certificación de la instalación conforme a normativa.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "tarifas_recomendadas",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 335,
+        "iva_porcentaje": 21,
+        "iva": 70.35,
+        "total": 405.35
+      },
+      "sugerencias_catalogo": [
+        "Confirmar número exacto de enchufes Schuko (mínimo recomendado: 3-4 en trastero de 8 m²)",
+        "Definir número y tipo de puntos de luz (mínimo 1, recomendado 2 para 8 m²)",
+        "Especificar número de interruptores de control de luz",
+        "Verificar ubicación exacta del cuadro eléctrico y metraje aproximado de cableado",
+        "Confirmar si el trastero tiene toma de tierra existente o requiere instalación de toma de tierra independiente",
+        "Evaluar necesidad de luminarias de emergencia o señalización según uso del trastero"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tuberías, canaletas y pequeño material",
+          "oficio": "electricidad",
+          "razon": "Material específico de canalización; precio variable según tipo de canaleta (aluminio vs PVC) y metraje"
+        },
+        {
+          "concepto": "Circuito eléctrico nuevo: cableado desde cuadro",
+          "oficio": "electricidad",
+          "razon": "Cableado H07V-K con metraje variable; requiere confirmación de distancia cuadro-trastero"
+        },
+        {
+          "concepto": "Puntos de luz (luminarias)",
+          "oficio": "electricidad",
+          "razon": "Luminarias LED; precio variable según tipo (aplique vs empotrada) y marca"
+        },
+        {
+          "concepto": "Enchufes Schuko 16A",
+          "oficio": "electricidad",
+          "razon": "Cantidad variable; requiere confirmación con cliente sobre necesidades reales"
+        },
+        {
+          "concepto": "Interruptores simples (conmutadores)",
+          "oficio": "electricidad",
+          "razon": "Cantidad variable según número de puntos de luz"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_enchufe_nuevo",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_luna_ventana_rota",
+      "instalacion_llave_escuadra"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

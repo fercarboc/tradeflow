@@ -1,0 +1,205 @@
+{
+  "id": 96,
+  "oficio": "Albañilería",
+  "texto": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+  "http_status": 200,
+  "latency_ms": 21756,
+  "raw_response": {
+    "transcript": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cerramiento de terraza de 15 metros cuadrados con ventanas de aluminio",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume sistema de cortinas/ventanas deslizantes de aluminio. Confirmar si es plegable, corredera o fija.",
+          "Incluye vidrio templado 8mm según normativa de seguridad.",
+          "Licencia municipal: verificar si cerramiento requiere licencia según normativa local."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de cerramiento con ventanas/cortinas de aluminio. Oficio de persianas cubre cerramientos de terrazas con sistemas deslizantes/plegables."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Preparación de estructura base, fijación a forjado, sellado perimetral y pequeños trabajos de obra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Paneles vidrio templado 8mm para cerramiento",
+          "descripcion": "Suministro de paneles de vidrio templado 8mm de seguridad para cerramiento de terraza. Cantidad según superficie 15m2.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de vidrio templado a confirmar por instalador según proveedor y espesor. Rango típico: 80-150€/m2."
+        },
+        {
+          "concepto": "Perfilería de aluminio para cerramiento",
+          "descripcion": "Suministro de perfiles aluminio (montantes, travesaños, cantoneras, guías superior e inferior) para cerramiento de 15m2. Incluye herrajes de acero inoxidable para deslizamiento o plegado.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfilería aluminio + herrajes a confirmar. Rango típico: 60-120€/m2."
+        },
+        {
+          "concepto": "Herrajes de acero inoxidable (pernos, bisagras, topes, cierres)",
+          "descripcion": "Suministro de herrajes especiales: bisagras/pivotes, cierres magnéticos o pestillos, topes, guías inferiores reforzadas, anclajes a estructura.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Herrajes a especificar según sistema (corredera, plegable, etc.). Rango: 40-80€/m2."
+        },
+        {
+          "concepto": "Preparación y fijación a estructura existente",
+          "descripcion": "Desmontaje de barandilla o cerramientos antiguos si existen. Limpieza y preparación de forjado. Fijación de perfiles mediante platinas y anclajes a estructura con taladros y fijaciones químicas si es necesario.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 40,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de paneles y herrajes",
+          "descripcion": "Colocación de paneles de vidrio en guías/perfiles. Montaje e instalación de herrajes, bisagras, cierres y topes. Ajuste de deslizamiento y funcionamiento correcto. Pruebas de apertura/cierre.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado perimetral con silicona y masilla",
+          "descripcion": "Sellado completo del perímetro del cerramiento con silicona de exteriores (poliuretano o híbrida). Eliminación de rebabas y acabado limpio.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Silicona, masilla, tornillería, tuercas, arandelas, anclajes, tacos, espuma expansiva, limpiadores especializados.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: estimado 15-30€/m2. A confirmar por instalador."
+        },
+        {
+          "concepto": "Limpieza final y entrega",
+          "descripcion": "Limpieza de cristales, perfiles y zona de trabajo. Retirada de escombros y materiales de embalaje. Instrucción de uso.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1265,
+        "iva_porcentaje": 21,
+        "iva": 265.65,
+        "total": 1530.65
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de sistema: cortinas deslizantes (correderas), plegables tipo acordeón, o ventanas abatibles.",
+        "Especificar espesor vidrio: 8mm estándar (hasta 2m altura), 10mm si altura > 2m o zona de viento.",
+        "Solicitar certificado de templado y seguridad del vidrio.",
+        "Verificar si licencia municipal es necesaria (cerramiento puede considerarse ampliación).",
+        "Considerar malla mosquitera si se desea ventilación natural.",
+        "Presupuestar proyecto técnico si superficie es superior a 20m2."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado 8mm para cerramiento",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Material específico del cerramiento. Expandido a partir de 'cortinas de cristal' en Base Maestra."
+        },
+        {
+          "concepto": "Perfilería aluminio + herrajes cerramiento",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Sistema de aluminio para cerramiento. Referencia Base Maestra: instalacion_cerramiento_de_terraza_con_cortinas_de_cristal."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cerramiento_de_terraza_con_sistema_plegable",
+      "instalacion_cerramiento_de_terraza_con_cortinas_de_cristal",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "construccion_de_piscina_de_obra"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "NO"
+  }
+}

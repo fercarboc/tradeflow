@@ -1,0 +1,146 @@
+{
+  "id": 384,
+  "oficio": "Persianas",
+  "texto": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+  "http_status": 200,
+  "latency_ms": 17713,
+  "raw_response": {
+    "transcript": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Toldos motorizados: verificar disponibilidad de corriente eléctrica en zona de instalación",
+          "Cofre embellecedor: confirmar medidas y material (aluminio anodizado recomendado para exterior)",
+          "Terraza de bar: verificar resistencia de estructura soporte y permisos municipales si aplica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de toldos motorizados con cofre embellecedor"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Conexión eléctrica de motores de toldos y cuadro de control"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro toldo motorizado 3x2m con cofre embellecedor",
+          "descripcion": "4 toldos de brazos extensibles motorizados, tela acrílica tratada UV, estructura aluminio, cofre embellecedor, motor eléctrico 230V, mando a distancia. Medidas: 3 metros de ancho x 2 metros de vuelo",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material motorizado con cofre: instalador debe confirmar proveedor, especificaciones técnicas (motor, mando, cofre) y precio unitario. Rango orientativo: 600-1200€/ud según calidad y marca"
+        },
+        {
+          "concepto": "Instalación toldos motorizados con cofre embellecedor",
+          "descripcion": "Instalación de 4 toldos motorizados: fijación de cabezal a estructura soporte, anclaje de brazos, nivelación, pruebas de funcionamiento motor, ajuste de finales de carrera",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica motores toldos y cuadro de control",
+          "descripcion": "Tendido de cableado eléctrico (4x2,5mm² mínimo) desde cuadro general a zona de toldos, instalación de cuadro de control con interruptores/pulsadores, conexión de 4 motores, pruebas de funcionamiento, cumplimiento normativa ITC-BT",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro material eléctrico (cableado, cuadro, protecciones)",
+          "descripcion": "Cableado 4x2,5mm² (metros según distancia), cuadro de control con interruptores magnetotérmicos, pulsadores/interruptores, conectores estancos IP65, pequeño material (tuercas, bridas, cinta aislante)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material eléctrico: instalador debe confirmar distancia desde cuadro general a toldos, tipo de cuadro de control (simple/programable), y presupuestar cableado y protecciones. Rango orientativo: 300-600€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1120,
+        "iva_porcentaje": 21,
+        "iva": 235.2,
+        "total": 1355.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_toldo_de_brazos_extensibles_motorizado' (variante motorizada del toldo manual estándar)",
+        "Considerar: sistema de control centralizado si hay más de 4 toldos (domótica/automatización)",
+        "Recomendar: mantenimiento anual de tela y mecanismos (limpieza, lubricación de brazos)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Toldo motorizado 3x2m con cofre embellecedor",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Variante motorizada del toldo estándar. Base Maestra incluye toldo manual (100-550€/ud). Versión motorizada con cofre requiere presupuestación específica del instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_lampara_parasol_o_sombrilla_de_brazo",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3768,
+      "tokens_out": 2053
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

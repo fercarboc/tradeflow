@@ -1,0 +1,309 @@
+{
+  "id": 312,
+  "oficio": "Contra Incendios",
+  "texto": "Legalizar instalación contra incendios en local que va a abrir como bar con cocina",
+  "http_status": 200,
+  "latency_ms": 41584,
+  "raw_response": {
+    "transcript": "Legalizar instalación contra incendios en local que va a abrir como bar con cocina",
+    "quote": {
+      "resumen": {
+        "texto_original": "Legalizar instalación contra incendios en local que va a abrir como bar con cocina",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "NORMATIVA CRÍTICA: CTE DB-SI obligatorio para hostelería. Requiere empresa autorizada y registrada",
+          "ACTIVIDAD ESPECIAL: Bar con cocina implica zona de riesgo (fuego, humo, calor). Detectores de temperatura OBLIGATORIOS en cocina",
+          "PERMISO/LICENCIA: Verificar si el local necesita licencia de actividad o modificación de uso antes de instalación",
+          "INSPECCIÓN PREVIA RECOMENDADA: Antes de presupuestar, evaluar estado actual de red eléctrica, estructura y accesibilidad",
+          "EMPRESA CERTIFICADA OBLIGATORIA: Solo instalador registrado en normativa contra incendios puede ejecutar y legalizar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Legalización de sistema contra incendios en local de hostelería con cocina. Oficio especializado del catálogo Base Maestra"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de central de detección automática de incendios y cableado resistente al fuego E30/E90"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obras menores: pasos de tuberías, nivelación de trazas, pegado de armarios BIE"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica, inspección y análisis normativo",
+          "descripcion": "Evaluación inicial del local: medidas, estructura, ubicación de cocina, accesibilidad, análisis de normativa CTE DB-SI y RD 513/2017, comparativa con instalación existente si la hay, propuesta de opciones con presupuesto desglosado. Informe técnico con recomendaciones de obligatoriedad según uso, superficie y carga de fuego",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 180,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Red hidráulica contra incendios (columna seca o húmeda)",
+          "descripcion": "Instalación de red de tuberías acero galvanizado o CPVC según normativa CTE DB-SI. Incluye: válvulas de seccionamiento por planta/zona, manómetros de control, toma siamesa exterior certificada, señalización de columna seca o húmeda, pintura roja normalizada de identificación, pequeño material. A precio alzado según geometría del edificio",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado. Instalador debe definir según planos, altura del edificio, zonas y accesibilidad. Rango orientativo 300-2500€"
+        },
+        {
+          "concepto": "Instalación de Bocas de Incendio Equipadas (BIE 25mm)",
+          "descripcion": "Armarios BIE 25mm certificados UNE 23403, mangueras de 25mm con devanadera semi-rígida, lanza boquilla, válvula de cierre, conexión a red de agua contra incendios, señalización normalizada, pequeño material. Cantidad según CTE: 1 BIE por cada ~750 m² de superficie (requisito típico para hostelería)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio pendiente de confirmación. Rango 60-650€/ud según tipo de armario (empotrado/superficie) y longitud de manguera"
+        },
+        {
+          "concepto": "Central de detección automática de incendios (CIE)",
+          "descripcion": "Central de Incendios CIE certificada EN 54-2, cableado resistente al fuego E30 obligatorio, batería de respaldo 72h, alimentación 230V, pequeño material",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de equipamiento a definir. Rango orientativo 200-1500€ precio alzado sistema completo"
+        },
+        {
+          "concepto": "Detectores de humo (iónización u óptico)",
+          "descripcion": "Detectores de humo certificados EN 54-7, distribución según zonas del local. Incluye cableado resistente al fuego E30, instalación y conexión a central CIE",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad a definir según plano. Típico: 1 detector cada 40-60 m² de superficie cubierta. Rango 50-150€/ud incluido instalación"
+        },
+        {
+          "concepto": "Detectores de temperatura (zona de cocina)",
+          "descripcion": "Detectores de temperatura diferencial o termovelocimétricos certificados EN 54-5, obligatorios en cocina según CTE DB-SI para zona de riesgo de incendio. Cableado E30, conexión a central CIE",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mínimo 1 en cocina. Rango 80-200€/ud incluido instalación"
+        },
+        {
+          "concepto": "Pulsadores manuales de alarma",
+          "descripcion": "Pulsadores manuales certificados EN 54-11, ubicados en rutas de evacuación y salidas, conexión a central CIE. Incluye cableado E30 y señalización normalizada",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según CTE: típico 1 por cada 500 m² y en rutas de evacuación. Rango 30-80€/ud incluido instalación"
+        },
+        {
+          "concepto": "Sirenas y señales ópticas (strobes)",
+          "descripcion": "Sirenas acústicas y luces estroboscópicas certificadas EN 54-3, distribución según normativa de accesibilidad y visibilidad. Conexión a central CIE mediante cableado resistente al fuego E30",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según superficie y zonas. Típico mínimo 2-4 ud (entrada, cocina, salidas). Rango 60-150€/ud incluido instalación"
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 (instalación)",
+          "descripcion": "Cableado de cobre con aislamiento resistente al fuego categoría E30 (homologación europea), obligatorio en sistemas contra incendios según CTE DB-SI y UNE 23007. Incluye bandejas, canales, pasos de tuberías e instalación completa",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje total a definir según plano. Rango 8-15€/ml incluido instalación"
+        },
+        {
+          "concepto": "Obras civiles y pasos de tuberías",
+          "descripcion": "Realizacion de trazas, apertura de pasos para tuberías contra incendios, pegado de armarios BIE en paredes, nivelación de superficies, sellado de penetraciones. Pequeño material incluido",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación 2 jornadas (8h × 40€/h). Ajustar según complejidad real del local y estado de paredes/estructura"
+        },
+        {
+          "concepto": "Señalización normalizada (contra incendios)",
+          "descripcion": "Señales de seguridad certificadas ISO 7010: localización de BIEs, salidas de emergencia, rutas de evacuación, ubicación de central, detectores, pulsadores. Incluye carteles, pictogramas luminiscentes, pintura roja de tuberías",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según número de señales. Rango orientativo 100-400€"
+        },
+        {
+          "concepto": "Certificación, informes y documentación técnica",
+          "descripcion": "Generación de documentación técnica completa: certificados de conformidad de equipos (CIE, detectores, BIEs), certificado de instalación conforme a CTE DB-SI y UNE 23007, expediente técnico para legalización ante administración, informe de mantenimiento inicial",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado. Rango 150-400€ para legalización administrativa completa"
+        },
+        {
+          "concepto": "Plan de mantenimiento y revisiones obligatorias (primer año)",
+          "descripcion": "Plan anual de revisiones según normativa: revisión trimestral de BIEs (4 revisiones × año), revisión semestral de central y detectores (2 revisiones × año), prueba de funcionamiento anual. Documentación de revisiones para legalización y seguros",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "año",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado contrato de mantenimiento. Rango 200-600€/año según número de elementos"
+        }
+      ],
+      "calculos": {
+        "subtotal": 820,
+        "iva_porcentaje": 21,
+        "iva": 172.2,
+        "total": 992.2
+      },
+      "sugerencias_catalogo": [
+        "CRÍTICO: Validar con Administración Municipal si el local necesita licencia de actividad (bar con cocina) o certificado de compatibilidad de usos ANTES de iniciar obras",
+        "Solicitar informe de Bomberos/Protección Civil para verificar cumplimiento CTE DB-SI en edificio existente",
+        "Considerar si es necesario instalar EXTINCIÓN AUTOMÁTICA en cocina (sprinklers o AAFCI) según evaluación de riesgo",
+        "Verificar si la energía eléctrica actual soporta carga de central de incendios + elementos detectores. Posible reforma eléctrica necesaria",
+        "Bar con cocina = cocina profesional → riesgo alto. Inspección post-instalación OBLIGATORIA antes de apertura",
+        "Tiempo estimado de ejecución: 3-5 días laborales según complejidad y tamaño del local",
+        "EMPRESA CERTIFICADA: Solo instalador con acreditación en sistemas contra incendios puede ejecutar y firmar certificado de instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Red hidráulica contra incendios (columna seca o húmeda)",
+          "motivo": "Obligatoria en hostelería. Oficio contra_incendios del catálogo. Precio alzado pendiente de dimensiones"
+        },
+        {
+          "concepto": "Instalación de Bocas de Incendio Equipadas (BIE 25mm)",
+          "motivo": "Obligatoria en hostelería según CTE DB-SI. Oficio contra_incendios del catálogo. Cantidad y precio a definir"
+        },
+        {
+          "concepto": "Central de detección automática de incendios (CIE)",
+          "motivo": "Sistema crítico para legalización. Oficio telecomunicaciones. Equipo especializado de normativa"
+        },
+        {
+          "concepto": "Detectores de humo (iónización u óptico)",
+          "motivo": "Obligatorios en sistema automático. Cantidad según superficie. Oficio telecomunicaciones"
+        },
+        {
+          "concepto": "Detectores de temperatura (zona de cocina)",
+          "motivo": "OBLIGATORIOS en cocina de bar según CTE DB-SI zona de riesgo. Oficio telecomunicaciones"
+        },
+        {
+          "concepto": "Pulsadores manuales de alarma",
+          "motivo": "Obligatorios según normativa. Oficio telecomunicaciones. Cantidad según rutas de evacuación"
+        },
+        {
+          "concepto": "Sirenas y señales ópticas (strobes)",
+          "motivo": "Obligatorias para alerta audible/visual. Oficio telecomunicaciones. Cantidad según normativa de accesibilidad"
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 (instalación)",
+          "motivo": "OBLIGATORIO en sistemas contra incendios. Oficio telecomunicaciones. Cantidad según plano"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "presupuesto_e_informe_inicial_instalacion_contra_incendios",
+      "instalacion_de_red_hidraulica_contra_incendios_en_edificio",
+      "instalacion_bocas_de_incendio_equipadas_BIE_25mm",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 1,
+    "n_sugeridas": 12,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "id": 144,
+  "oficio": "Pladur",
+  "texto": "Tabique de pladur entre cocina y salón con ventana fija de cristal de 60x60 centímetros",
+  "http_status": 200,
+  "latency_ms": 19762,
+  "raw_response": {
+    "transcript": "Tabique de pladur entre cocina y salón con ventana fija de cristal de 60x60 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique de pladur entre cocina y salón con ventana fija de cristal de 60x60 centímetros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Ventana fija de cristal: se presupuesta solo el hueco y refuerzo estructural. El suministro del cristal/marco requiere especificación del instalador (espesor, tipo de cristal, marco aluminio/PVC).",
+          "Se asume tabique estándar sin especificación de altura ni longitud total: el instalador debe confirmar m² de tabique.",
+          "Zona entre cocina-salón: se recomienda placa hidrofuga en lado cocina por proximidad a zona húmeda."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Tabique de pladur con hueco para ventana fija. Oficio principal según Base Maestra [tabique_pladur_con_ventana_de_paso_o_barra_americana]."
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Suministro e instalación de ventana fija de cristal 60x60 cm. Requiere especificación de marco y tipo de cristal."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15 mm (tabique)",
+          "descripcion": "Suministro de placa de yeso laminado estándar 15 mm para tabique divisorio cocina-salón. Cantidad a confirmar según m² total de tabique.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² de tabique no especificada. Instalador debe confirmar altura y longitud total del tabique."
+        },
+        {
+          "concepto": "Perfiles metálicos (canal y montante) para tabique",
+          "descripcion": "Suministro de perfiles de acero galvanizado: canal 48/70 mm y montantes 48/70 mm para estructura del tabique.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de perfilería depende de dimensiones totales del tabique. A confirmar por instalador."
+        },
+        {
+          "concepto": "Refuerzo perimetral hueco ventana (perfil doble montante)",
+          "descripcion": "Refuerzo estructural alrededor del hueco de ventana 60x60 cm con perfil doble montante y dintel metálico. Obligatorio para huecos en tabique pladur.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Suministro de refuerzo: dintel metálico, perfil doble montante, angulares. Precio a confirmar según especificaciones técnicas."
+        },
+        {
+          "concepto": "Cinta de juntas, pasta de juntas y pequeño material",
+          "descripcion": "Cinta de papel/fibra de vidrio, pasta de juntas, tornillería inox, angulares metálicos para esquinas y pequeño material de montaje.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada. Precio a confirmar según m² total de tabique y complejidad del hueco."
+        },
+        {
+          "concepto": "Montaje y acabado de tabique pladur con hueco ventana",
+          "descripcion": "Mano de obra: montaje de estructura metálica, colocación de placas de yeso, refuerzo del hueco, cintado y pasado de juntas, acabado liso para pintura. Incluye preparación del hueco para ventana fija.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² a confirmar. Tarifa recomendada 35 €/m² según Base Maestra. Precio total = m² × 35."
+        },
+        {
+          "concepto": "Ventana fija de cristal 60x60 cm (marco + cristal)",
+          "descripcion": "Suministro e instalación de ventana fija de cristal 60x60 cm. Incluye marco (aluminio/PVC a especificar), cristal (espesor y tipo a confirmar), sellado perimetral con silicona y fijación al tabique pladur.",
+          "oficio": "cristaleria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de: tipo de marco (aluminio/PVC), espesor de cristal (4/6/8 mm), tipo de cristal (templado/laminado), acabados. Instalador debe especificar y cotizar."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones totales del tabique (altura y longitud) para calcular m² exactos.",
+        "Especificar si la placa de yeso debe ser hidrofuga (verde) en el lado cocina, dado que está adyacente a zona húmeda.",
+        "Detallar características de la ventana fija: marco (aluminio anodizado, PVC blanco, etc.), espesor de cristal (4/6/8 mm), tipo (templado, laminado, control solar), color de marco.",
+        "Considerar si se requiere aislamiento acústico adicional entre cocina y salón (lana de roca en cámara del tabique).",
+        "Confirmar si el acabado será pintura estándar o especial (cocina requiere pintura lavable)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_hueco_pasaplatos_o_ventana_interior",
+      "tabique_pladur_con_ventana_de_paso_o_barra_americana",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "reparacion_fisura_en_tabique_pladur"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3734,
+      "tokens_out": 2529
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

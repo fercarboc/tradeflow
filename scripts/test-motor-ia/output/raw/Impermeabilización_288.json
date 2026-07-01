@@ -1,0 +1,203 @@
+{
+  "id": 288,
+  "oficio": "Impermeabilización",
+  "texto": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+  "http_status": 200,
+  "latency_ms": 21466,
+  "raw_response": {
+    "transcript": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de drenaje perimetral en jardín para evacuar aguas pluviales, longitud 20 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Drenaje perimetral: requiere confirmación de profundidad de zanja, diámetro de tubería y tipo de grava/geotextil",
+          "Se asume drenaje superficial/subsuperficial estándar; si es drenaje profundo o con bomba, revisar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Excavación, preparación de terreno y plantación/acabados de jardín"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sistema de drenaje para evacuación de aguas pluviales y control de humedad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Excavación zanja drenaje perimetral",
+          "descripcion": "Excavación manual/mecánica de zanja para sistema de drenaje perimetral, profundidad 0,6-0,8 m, ancho 0,4 m, longitud 20 m",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal de excavación; ajustar según accesibilidad y tipo de terreno (arcilla, piedra, etc.)"
+        },
+        {
+          "concepto": "Tubería drenaje perforada PVC/HDPE",
+          "descripcion": "Suministro tubería drenaje perforada Ø 100 mm (o Ø 80 mm según caudal), longitud 20 m, incluye accesorios de conexión",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: tubería perforada PVC/HDPE Ø 100 mm aprox. 12-18 €/ml; instalador confirma diámetro y especificación"
+        },
+        {
+          "concepto": "Geotextil y grava drenante",
+          "descripcion": "Suministro geotextil (150-200 g/m²) y grava drenante (árido 16-32 mm) para relleno de zanja, cantidad aprox. 8 m³",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: geotextil + grava drenante aprox. 25-40 €/m³; confirmar volumen exacto según profundidad y ancho zanja"
+        },
+        {
+          "concepto": "Instalación tubería drenaje y relleno",
+          "descripcion": "Colocación tubería perforada en zanja, tendido geotextil, relleno con grava drenante, compactación y acabado, longitud 20 m",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 12,
+          "total": 240,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal de instalación; incluye colocación tubería, geotextil, relleno y compactación"
+        },
+        {
+          "concepto": "Arqueta de registro y sumidero",
+          "descripcion": "Suministro e instalación arqueta de registro (0,6×0,6 m) con sumidero y rejilla, conexión a tubería drenaje",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: arqueta prefabricada aprox. 80-150 €/ud; instalador confirma tipo y cantidad según diseño"
+        },
+        {
+          "concepto": "Instalación arqueta y conexión final",
+          "descripcion": "Excavación, colocación arqueta de registro, conexión tubería drenaje, sellado y acabado",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra instalación arqueta; tarifa impermeabilización 45 €/h, estimado 1 hora"
+        },
+        {
+          "concepto": "Restitución terreno y acabado jardín",
+          "descripcion": "Relleno y compactación de terreno sobre zanja, nivelación, siembra de césped o acabado vegetal, longitud 20 m",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 6,
+          "total": 120,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal de restitución y acabado; ajustar según tipo de acabado (césped, plantas, etc.)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 565,
+        "iva_porcentaje": 21,
+        "iva": 118.65,
+        "total": 683.65
+      },
+      "sugerencias_catalogo": [
+        "Confirmar profundidad de zanja (típicamente 0,6-0,8 m para drenaje subsuperficial)",
+        "Especificar diámetro tubería: Ø 80 mm (caudal bajo), Ø 100 mm (estándar), Ø 125 mm (caudal alto)",
+        "Verificar destino final del drenaje: pozo de infiltración, sumidero, red de saneamiento o evacuación a calle",
+        "Si hay riesgo de inundación o terreno muy arcilloso, considerar bomba de drenaje sumergible",
+        "Geotextil obligatorio para evitar colmatación de grava con finos del terreno"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Excavación zanja drenaje perimetral",
+          "oficio": "jardineria",
+          "motivo": "Trabajo específico de preparación de terreno para drenaje"
+        },
+        {
+          "concepto": "Tubería drenaje perforada PVC/HDPE",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material de drenaje; requiere especificación de diámetro y cantidad"
+        },
+        {
+          "concepto": "Geotextil y grava drenante",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material de relleno y filtración; requiere cálculo de volumen exacto"
+        },
+        {
+          "concepto": "Arqueta de registro y sumidero",
+          "oficio": "impermeabilizacion",
+          "motivo": "Elemento de control y acceso al sistema de drenaje"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_sistema_de_riego_por_aspersion",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_alarma_perimetral_o_antirrobo_basica"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4051,
+      "tokens_out": 2748
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 7,
+    "n_catalogo": 0,
+    "n_sugeridas": 7,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "id": 371,
+  "oficio": "Reformas Integrales",
+  "texto": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 25920,
+  "raw_response": {
+    "transcript": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA MAYOR: Requiere proyecto técnico y licencia municipal obligatoria",
+          "ESTRUCTURA: Verificación de capacidad portante del garaje existente ANTES de iniciar obra",
+          "CÁLCULO DE CARGAS: Necesario estudio de ingeniería para nueva planta sobre estructura existente",
+          "SEGURIDAD ESTRUCTURAL: Posible refuerzo de vigas/pilares del garaje",
+          "INSTALACIONES: Reposición de electricidad, fontanería, climatización en nueva planta",
+          "ACCESO: Verificar escalera/ascensor de comunicación entre plantas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Obra mayor con múltiples oficios simultáneos: estructura, albañilería, instalaciones, acabados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Construcción de nueva planta, forjado, muros, tabiques"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa nueva planta"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Red de agua fría, ACS, desagües nueva planta"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Calefacción, refrigeración nueva planta"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Acabados de pintura en nueva planta"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Alicatado baños/cocina nueva planta"
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Colocación de suelos/tarimas nueva planta"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, ventanas, armarios nueva planta"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Gestión de escombros y residuos de construcción"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – PROYECTO TÉCNICO Y GESTIÓN ADMINISTRATIVA",
+          "descripcion": "Proyecto técnico de estructura (cálculo de cargas, refuerzo garaje si necesario), proyecto de instalaciones, licencia de obra mayor, visados colegios profesionales, coordinación de seguridad y salud",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 3000-6000€ según complejidad estructura. Instalador debe revisar con ingeniero y gestoría"
+        },
+        {
+          "concepto": "CAP.2 – ESTRUCTURA Y OBRA CIVIL (40 m²)",
+          "descripcion": "Verificación y refuerzo estructura garaje existente, construcción forjado nuevo (hormigón armado o viguetas+bovedilla), muros de carga/cerramiento, tabiques interiores, escalera/ascensor de comunicación, impermeabilización cubierta inferior si aplica",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 400-800€/m² (16000-32000€ total) según tipo forjado, refuerzo estructura, complejidad. Incluye materiales + mano obra albañilería"
+        },
+        {
+          "concepto": "CAP.3 – INSTALACIONES (Electricidad, Fontanería, Climatización)",
+          "descripcion": "Cuadro eléctrico secundario nueva planta, cableado completo (circuitos iluminación, enchufes, cocina, baño), mecanismos, toma tierra; red agua fría, ACS (termo o conexión caldera), desagües, sifones; radiadores/fancoils o splits climatización, tuberías refrigerante, termostatos, purgadores",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 6000-12000€ (electricidad 2000-4000€, fontanería 2000-4000€, climatización 2000-4000€). Incluye materiales + mano obra instaladores"
+        },
+        {
+          "concepto": "CAP.4 – ACABADOS (Pintura, Suelos, Carpintería, Alicatados)",
+          "descripcion": "Pintura paredes/techos (40 m²), alicatado baño/cocina (estimado 15 m²), suelos tarima/laminado (25 m²), puertas interiores (4 ud), ventanas (3 ud), armarios empotrados si aplica, pequeño material",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 4000-8000€ (pintura 1200€, alicatado 2000-3000€, suelos 1500-2000€, carpintería 1000-2000€). Incluye materiales + mano obra"
+        },
+        {
+          "concepto": "CAP.5 – GESTIÓN DE RESIDUOS Y LIMPIEZA FINAL",
+          "descripcion": "Retirada y gestión de escombros, residuos construcción, limpieza final obra, transporte a vertedero autorizado",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 1500-3000€ según volumen escombros y distancia vertedero"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "OBRA MAYOR COMPLEJA: Se recomienda desglose detallado por capítulos. Cada capítulo requiere presupuesto específico del instalador/constructor",
+        "ESTRUCTURA: Solicitar informe de ingeniero sobre capacidad portante garaje ANTES de presupuestar",
+        "PROYECTO TÉCNICO: Obligatorio. Incluir cálculo de cargas, refuerzo si necesario, planos de instalaciones",
+        "LICENCIA MUNICIPAL: Obra mayor requiere licencia. Gestoría recomendada",
+        "PLAZO ESTIMADO: 4-6 meses según complejidad y permisos",
+        "PRESUPUESTO TOTAL ESTIMADO: 30000-60000€ (sin proyecto ni licencia). Varía según refuerzo estructura y acabados"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico estructura y cálculo cargas",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Obligatorio en obra mayor. No está en catálogo base"
+        },
+        {
+          "concepto": "Licencia obra mayor y gestión administrativa",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de gestoría/tramitación. No está en catálogo base"
+        },
+        {
+          "concepto": "Refuerzo estructura garaje existente",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Depende de verificación previa. Puede incluir refuerzo vigas/pilares"
+        },
+        {
+          "concepto": "Forjado nuevo 40 m²",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Construcción nueva planta. Precio varía según tipo (hormigón, viguetas, etc.)"
+        },
+        {
+          "concepto": "Escalera/ascensor comunicación entre plantas",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Elemento crítico. Presupuesto separado recomendado (2000-8000€)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "ampliacion_y_redistribucion_de_espacios_en_vivienda",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "impermeabilizacion_techos_de_semisotano_o_losa_de_planta_baja"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3825,
+      "tokens_out": 3702
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 5,
+    "n_catalogo": 0,
+    "n_sugeridas": 5,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

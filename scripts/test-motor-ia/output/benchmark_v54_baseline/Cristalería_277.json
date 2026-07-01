@@ -1,0 +1,163 @@
+{
+  "id": 277,
+  "oficio": "Cristalería",
+  "texto": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+  "http_status": 200,
+  "latency_ms": 18438,
+  "raw_response": {
+    "transcript": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Panel de vidrio lacado: requiere especificación de dimensiones exactas (ancho × alto) para cálculo de precio",
+          "Vidrio lacado debe ser templado por seguridad en zona de cocina con fuego",
+          "Instalación requiere fijación mecánica o adhesiva estructural según sistema elegido"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de panel de vidrio templado lacado. Oficio cristalería por tratamiento y fijación de vidrio especializado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Panel de vidrio templado lacado blanco",
+          "descripcion": "Suministro de panel de vidrio templado lacado en blanco, espesor 6-8mm, medidas a determinar por el cliente. Incluye marcado CE y certificado de templado. Lacado en blanco mate o brillo según especificación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones exactas (ancho × alto en cm). Rango estimado: 150-400€ según tamaño. El instalador debe especificar medidas y confirmar precio con proveedor de vidrio templado lacado."
+        },
+        {
+          "concepto": "Silicona estructural neutra o adhesivo para vidrio",
+          "descripcion": "Silicona neutra de alta resistencia o adhesivo estructural para fijación del panel de vidrio al revestimiento de pared. Incluye pequeño material (cartuchos, boquillas, etc.).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 15-30€. Depende del sistema de fijación elegido (adhesivo vs. herrajes mecánicos)."
+        },
+        {
+          "concepto": "Herrajes de fijación mecánica (si aplica)",
+          "descripcion": "Herrajes de acero inoxidable o aluminio para fijación mecánica del panel (escuadras, soportes, tornillos de seguridad). Alternativa a adhesivo puro para mayor seguridad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 20-50€. Opcional si se elige fijación adhesiva pura. Recomendado para mayor durabilidad en zona de cocina con cambios térmicos."
+        },
+        {
+          "concepto": "Preparación de superficie y limpieza",
+          "descripcion": "Limpieza y preparación de la pared donde irá el panel (desengrasante, lijado ligero si es necesario, secado). Incluye protección de zona de trabajo.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y fijación del panel de vidrio lacado",
+          "descripcion": "Colocación del panel de vidrio templado lacado en posición, aplicación de adhesivo estructural o fijación mecánica con herrajes, nivelación, presionado y curado. Incluye retirada de protecciones y limpieza final.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente dimensiones exactas del panel (ancho × alto en cm) para obtener presupuesto de vidrio templado lacado.",
+        "Confirmar si el panel debe ser lacado mate o brillo.",
+        "Decidir entre fijación adhesiva pura (más limpia) o mecánica con herrajes (más segura en zona térmica).",
+        "Verificar que la pared está en buen estado y es apta para adhesivo estructural (no papel pintado, no pintura descascarada).",
+        "Plazo de fabricación del vidrio templado lacado: 5-10 días laborales desde confirmación de medidas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Panel de vidrio templado lacado blanco",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Producto especializado de cristalería. Precio variable según dimensiones. Requiere especificación exacta de medidas."
+        },
+        {
+          "concepto": "Silicona estructural neutra o adhesivo para vidrio",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Material de fijación. Precio estimado 15-30€."
+        },
+        {
+          "concepto": "Herrajes de fijación mecánica (si aplica)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "motivo": "Componente opcional de seguridad. Precio estimado 20-50€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio",
+      "instalacion_de_rodapie_de_madera_o_MDF",
+      "instalacion_rodapie_madera_mdf_o_pvc",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3674,
+      "tokens_out": 2227
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

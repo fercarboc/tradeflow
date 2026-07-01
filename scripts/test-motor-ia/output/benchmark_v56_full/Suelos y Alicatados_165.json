@@ -1,0 +1,175 @@
+{
+  "id": 165,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+  "http_status": 200,
+  "latency_ms": 19022,
+  "raw_response": {
+    "transcript": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Instalación de suelo vinílico LVT (laminado/vinílico). Clasificado en suelos_tarimas según catálogo (parquet, tarima flotante, laminado, vinílico)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de suelo vinílico LVT",
+          "descripcion": "Suministro de láminas vinílicas LVT (Luxury Vinyl Tile) de calidad comercial para oficina, 120 m². Incluye material base, adhesivo o sistema click según especificación.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material vinílico LVT a definir por instalador según marca, espesor y calidad seleccionada (rango típico 15-45€/m²)."
+        },
+        {
+          "concepto": "Lámina aislante/barrera vapor",
+          "descripcion": "Lámina aislante de espuma o barrera vapor bajo suelo vinílico LVT, 120 m². Mejora aislamiento acústico y térmico, evita humedad.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina aislante a definir (rango típico 2-8€/m²)."
+        },
+        {
+          "concepto": "Preparación y nivelación de base",
+          "descripcion": "Limpieza, reparación de irregularidades y nivelación de solera/pavimento existente. Máximo desviación 3 mm bajo regla de 2 m. Incluye pequeño material (cinta, masilla, etc.).",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 8,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de suelo vinílico LVT",
+          "descripcion": "Colocación de láminas vinílicas LVT (sistema click flotante o pegado según especificación). Incluye cortes, ajustes perimetrales y acabados.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 32,
+          "total": 3840,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta perimetral y sellado",
+          "descripcion": "Colocación de junta perimetral de 8-10 mm en todo el perímetro de la oficina (aprox. 50-60 ml). Sellador silicona o poliuretano si es necesario.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 55,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de junta perimetral y sellador a definir (rango típico 2-5€/ml)."
+        },
+        {
+          "concepto": "Rodapié vinílico o de acabado",
+          "descripcion": "Suministro e instalación de rodapié compatible con suelo LVT (vinílico, PVC o madera según especificación), perímetro aproximado 55 ml.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 55,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de rodapié a definir según material (rango típico 5-15€/ml material + 5€/ml instalación)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 4800,
+        "iva_porcentaje": 21,
+        "iva": 1008,
+        "total": 5808
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de instalación: sistema click flotante (más rápido, reversible) o pegado (más estable, recomendado en oficinas con tráfico alto).",
+        "Especificar marca y espesor del vinílico LVT (típicamente 2-5 mm, con o sin núcleo rígido).",
+        "Definir tipo de rodapié: vinílico a juego, PVC, madera natural o laminado.",
+        "Considerar tiempo de aclimatación: 48-72 horas del material en la oficina antes de instalar.",
+        "Incluir mermas: +5-10% sobre los 120 m² para cortes y ajustes."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de suelo vinílico LVT",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material específico LVT; precio variable según marca y especificación."
+        },
+        {
+          "concepto": "Lámina aislante/barrera vapor",
+          "oficio": "suelos_tarimas",
+          "motivo": "Complemento obligatorio para suelos flotantes; precio a definir."
+        },
+        {
+          "concepto": "Junta perimetral y sellado",
+          "oficio": "suelos_tarimas",
+          "motivo": "Acabado perimetral; precio a definir según material."
+        },
+        {
+          "concepto": "Rodapié vinílico o de acabado",
+          "oficio": "suelos_tarimas",
+          "motivo": "Acabado final; precio a definir según tipo seleccionado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_de_suelo_de_corcho_interior",
+      "instalacion_suelo_radiante_hidraulico",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_de_suelo_radiante_en_reforma"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3883,
+      "tokens_out": 2361
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "id": 99,
+  "oficio": "Albañilería",
+  "texto": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+  "http_status": 200,
+  "latency_ms": 17594,
+  "raw_response": {
+    "transcript": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+        "tipo_presupuesto": "reparacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume balcón de tamaño medio (~15-20 m²). Confirmar superficie exacta.",
+          "Inyección de resina requiere diagnóstico previo de humedades/despegues.",
+          "Sellado perimetral: confirmar si incluye junta de dilatación estructural."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Reparación de baldosas sueltas, inyección y rejuntado en balcón."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado de juntas perimetrales para evitar filtraciones de agua en balcón."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Levantamiento y retirada de baldosas sueltas",
+          "descripcion": "Desmontaje cuidadoso de baldosas despegadas, retirada de mortero antiguo y limpieza de base.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 18,
+          "total": 324,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inyección de resina epoxi en base de baldosas",
+          "descripcion": "Inyección de resina epoxi de dos componentes para adherencia y estabilización de baldosas. Incluye material y aplicación.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de resina epoxi y aplicación pendiente de confirmación del instalador. Típicamente 15-35€/m² según calidad."
+        },
+        {
+          "concepto": "Colocación y nivelación de baldosas reparadas",
+          "descripcion": "Recolocación de baldosas con adhesivo cementoso, nivelación y ajuste. Incluye pequeño material (cuñas, espaciadores).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 22,
+          "total": 396,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado de baldosas reparadas",
+          "descripcion": "Aplicación de lechada de cemento o mortero flexible en juntas entre baldosas. Limpieza y acabado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 16,
+          "total": 288,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de junta perimetral con silicona o poliuretano",
+          "descripcion": "Retirada de material antiguo en junta perimetral del balcón, colocación de fondo de junta y sellador flexible de buena calidad (exterior). Incluye limpieza y acabado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 28,
+          "precio_unitario": 18,
+          "total": 504,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material sellador perimetral (silicona/poliuretano + fondo de junta)",
+          "descripcion": "Sellador poliuretano o silicona de calidad exterior, fondo de junta espuma polietileno. Cantidad estimada según perímetro.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 28,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sellador y fondo de junta pendiente. Típicamente 3-8€/ml según calidad del producto."
+        },
+        {
+          "concepto": "Limpieza final y protección de balcón",
+          "descripcion": "Limpieza exhaustiva de polvo, restos de mortero y residuos. Protección temporal si es necesario.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1576,
+        "iva_porcentaje": 21,
+        "iva": 331,
+        "total": 1907
+      },
+      "sugerencias_catalogo": [
+        "Confirmar superficie exacta del balcón (se ha estimado 18 m²).",
+        "Especificar perímetro de junta perimetral (se ha estimado 28 ml para balcón ~15-20 m²).",
+        "Solicitar presupuesto de resina epoxi (marca, tipo, rendimiento).",
+        "Solicitar presupuesto de sellador perimetral (silicona vs. poliuretano, marca, calidad).",
+        "Evaluar si hay humedades previas que requieran tratamiento adicional de impermeabilización."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inyección de resina epoxi en base de baldosas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Técnica específica de reparación de baldosas sueltas. No existe partida exacta en catálogo base."
+        },
+        {
+          "concepto": "Material sellador perimetral (silicona/poliuretano + fondo de junta)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Componentes de sellado perimetral. Precio pendiente de confirmación del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "reparacion_de_embocadura_de_bajante_en_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "remate_y_acabado_juntas_pladur_para_pintar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3786,
+      "tokens_out": 2372
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "NO"
+  }
+}

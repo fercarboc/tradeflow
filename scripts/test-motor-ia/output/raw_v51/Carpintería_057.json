@@ -1,0 +1,222 @@
+{
+  "id": 57,
+  "oficio": "Carpintería",
+  "texto": "Cambio de marco de puerta exterior que está podrido por la lluvia, madera de iroko",
+  "http_status": 200,
+  "latency_ms": 22521,
+  "raw_response": {
+    "transcript": "Cambio de marco de puerta exterior que está podrido por la lluvia, madera de iroko",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de marco de puerta exterior que está podrido por la lluvia, madera de iroko",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Deterioro por humedad detectado: verificar causa de infiltración antes de instalar nuevo marco",
+          "Madera de iroko: material premium, precio sujeto a disponibilidad y mercado",
+          "Inspeccionar jambas y premarco embebido para daño por podredumbre"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sustitución de marco de puerta exterior de madera"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Reparación/sellado de marco deteriorado por humedad (diagnóstico y sellado posterior)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico de causa de deterioro y daño estructural",
+          "descripcion": "Inspección y diagnóstico de la podredumbre del marco, identificación de causa (infiltración, drenaje, etc.) y evaluación del daño en jambas y premarco",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje de marco de puerta exterior deteriorado",
+          "descripcion": "Desmontaje completo del marco de puerta podrido incluyendo bisagras, cerraduras y elementos de fijación. Retirada selectiva de madera deteriorada",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Marco de puerta exterior de madera iroko maciza",
+          "descripcion": "Suministro de marco de puerta exterior fabricado en madera de iroko (madera noble tropical de alta durabilidad y resistencia a humedad), con junta de estanqueidad integrada, listo para instalar. Incluye ajuste a medidas del hueco",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de marco iroko variable según dimensiones, proveedor y acabado. Instalador debe cotizar con carpintería o proveedor de marcos"
+        },
+        {
+          "concepto": "Imprimación anticorrosión y tratamiento preservante madera",
+          "descripcion": "Aplicación de imprimación anticorrosión en elementos metálicos (bisagras, cerraduras) y tratamiento preservante en madera de iroko para prevenir futuros ataques de hongos y humedad",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de protección específicos: imprimación metálica + preservante madera. Revisar cantidad según superficie"
+        },
+        {
+          "concepto": "Instalación y fijación de nuevo marco de puerta exterior",
+          "descripcion": "Colocación, aplomado y nivelación del nuevo marco en el hueco, fijación mecánica con tornillos inox en jambas, asiento perfecto en dintel, sellado perimetral con silicona neutra de alta durabilidad",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación y sellado de jambas y premarco afectados por humedad",
+          "descripcion": "Tratamiento de zonas de jamba y premarco con daño por podredumbre leve: eliminación selectiva, aplicación de preservante, relleno con mortero de reparación estructural si es necesario y sellado final",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material: tornillería inox, selladores, cinta de estanqueidad",
+          "descripcion": "Suministro de tornillos inox, silicona neutra, cinta de estanqueidad, arandelas y pequeño material de fijación y sellado",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material a cotizar según cantidad específica necesaria"
+        },
+        {
+          "concepto": "Acabado: barniz o esmalte exterior UV en iroko",
+          "descripcion": "Aplicación de barniz marino o esmalte exterior con filtro UV en el nuevo marco de iroko para protección exterior de larga duración, dos manos con lija intermedia",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barniz o esmalte exterior UV para marco iroko",
+          "descripcion": "Suministro de barniz marino de alta durabilidad o esmalte exterior con protección UV para acabado del marco de iroko, cantidad según superficie",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de barniz/esmalte exterior UV a revisar según marca y especificaciones"
+        }
+      ],
+      "calculos": {
+        "subtotal": 546,
+        "iva_porcentaje": 21,
+        "iva": 114.66,
+        "total": 660.66
+      },
+      "sugerencias_catalogo": [
+        "Considerar inspección de drenajes y canaletas si el deterioro es extenso: causa frecuente de podredumbre en marcos",
+        "Madera de iroko: excelente resistencia natural a humedad y podredumbre, reduce necesidad de tratamientos frecuentes",
+        "Revisar si la hoja de puerta también requiere sustitución: si está afectada, presupuestar juntas para eficiencia"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Marco de puerta exterior de madera iroko maciza",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Material premium específico no genérico en catálogo: iroko es madera noble con precio variable"
+        },
+        {
+          "concepto": "Imprimación anticorrosión y tratamiento preservante madera",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "motivo": "Tratamientos preventivos específicos para protección por humedad: requiere especificación de productos"
+        },
+        {
+          "concepto": "Barniz o esmalte exterior UV para marco iroko",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Acabado de protección exterior específico para madera noble: marca y tipo de barniz/esmalte a definir"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "pintado_de_ventanas_de_madera_exterior",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "pintado_de_puerta_de_entrada_o_exterior_madera"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "id": 382,
+  "oficio": "Persianas",
+  "texto": "Motorizar 6 persianas de PVC existentes con motores Somfy y mando a distancia central",
+  "http_status": 200,
+  "latency_ms": 14393,
+  "raw_response": {
+    "transcript": "Motorizar 6 persianas de PVC existentes con motores Somfy y mando a distancia central",
+    "quote": {
+      "resumen": {
+        "texto_original": "Motorizar 6 persianas de PVC existentes con motores Somfy y mando a distancia central",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Precio de motores Somfy y mando central requiere confirmación del instalador",
+          "Se asume instalación en persianas existentes sin obras de albañilería"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Motorización de persianas enrollables existentes con motor tubular y sistema de control"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Motores tubulares Somfy para persianas",
+          "descripcion": "Suministro de 6 motores tubulares Somfy (modelo a confirmar según par y peso de lamas PVC)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de motor Somfy varía según modelo y par (típicamente 150-400€/ud). Instalador debe confirmar especificación técnica y precio"
+        },
+        {
+          "concepto": "Mando a distancia central Somfy",
+          "descripcion": "Suministro de mando a distancia centralizado Somfy para control de 6 persianas (receptor radiocontrol integrado o adicional según sistema)",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mando central Somfy varía según modelo (típicamente 80-250€). Confirmar compatibilidad con motores seleccionados"
+        },
+        {
+          "concepto": "Cableado eléctrico y conexiones",
+          "descripcion": "Suministro de cable eléctrico (2x1.5mm² o similar), conectores, regletas de bornes y pequeño material para conexión de 6 motores a circuito eléctrico",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 50-150€ según longitud de cableado y complejidad de instalación. Requiere medición en obra"
+        },
+        {
+          "concepto": "Instalación de motores en persianas existentes",
+          "descripcion": "Desmontaje de tubo enrollador existente, instalación de motor tubular Somfy, reajuste de finales de carrera, pruebas de funcionamiento en 6 persianas",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado e instalación eléctrica",
+          "descripcion": "Tendido de cable eléctrico desde cuadro o toma de corriente, conexión de motores, instalación de receptor radiocontrol, pruebas de funcionamiento del sistema centralizado",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Programación y pruebas del mando centralizado",
+          "descripcion": "Emparejamiento de mando a distancia con receptores de motores, programación de secuencias si aplica, pruebas de funcionamiento sincronizado de las 6 persianas",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 810,
+        "iva_porcentaje": 21,
+        "iva": 170.1,
+        "total": 980.1
+      },
+      "sugerencias_catalogo": [
+        "Confirmar modelo exacto de motor Somfy (ej: Somfy Oximo, Glydea, etc.) según par necesario y peso de lamas PVC",
+        "Verificar si existe circuito eléctrico dedicado o si requiere nueva línea desde cuadro",
+        "Considerar si el mando central es radiocontrol simple o si integra domótica (WiFi, app móvil)",
+        "Evaluar si las persianas requieren nuevos finales de carrera o si los existentes son compatibles"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Motores tubulares Somfy para persianas",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de marca Somfy. Precio variable según modelo y especificaciones técnicas"
+        },
+        {
+          "concepto": "Mando a distancia central Somfy",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de control centralizado. Precio variable según funcionalidades (radiocontrol, WiFi, integración domótica)"
+        },
+        {
+          "concepto": "Cableado eléctrico y conexiones",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material auxiliar. Precio depende de longitud de tendido y complejidad de la instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cuadro_y_sistemas_de_control_para_automatismos",
+      "automatizacion_cancela_o_puerta_con_motor",
+      "instalacion_persiana_enrollable_aluminio_motorizada",
+      "instalacion_sistema_knx_bus",
+      "mantenimiento_de_instalacion_contra_incendios_en_local"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3708,
+      "tokens_out": 1889
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

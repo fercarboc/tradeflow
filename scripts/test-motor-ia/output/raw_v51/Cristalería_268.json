@@ -1,0 +1,194 @@
+{
+  "id": 268,
+  "oficio": "Cristalería",
+  "texto": "Instalar puerta de vidrio templado sin marco con herrajes de acero inoxidable para despacho",
+  "http_status": 200,
+  "latency_ms": 21261,
+  "raw_response": {
+    "transcript": "Instalar puerta de vidrio templado sin marco con herrajes de acero inoxidable para despacho",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar puerta de vidrio templado sin marco con herrajes de acero inoxidable para despacho",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas exactas de la puerta NO proporcionadas — CRÍTICO para fabricación vidrio templado",
+          "Espesor vidrio NO especificado — se asume 10mm (recomendado puertas)",
+          "Tipo cierre/cerradura NO mencionado — revisar con cliente",
+          "Plazo fabricación vidrio: 5-10 días laboral (NO incluido en presupuesto de mano de obra)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación puerta vidrio templado frameless — oficio especializado cristalería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro vidrio templado 10mm (frameless)",
+          "descripcion": "Vidrio templado templado 10mm, medida exacta según hueco, marcado CE EN 12150, fabricación especializada frameless. REQUIERE MEDIDAS EXACTAS DEL INSTALADOR",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas (alto x ancho), espesor y certificación. Instalador debe obtener cotización fabricante o proveedor vidrio."
+        },
+        {
+          "concepto": "Herrajes bisagras acero inoxidable AISI 316",
+          "descripcion": "Bisagras acero inoxidable AISI 316 (o 304), sistema frameless, juego completo para puerta vidrio 10mm, fijación superior e inferior",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio varía con marca (Hettich, Blum, etc.) y tipo bisagra. Revisar catálogo proveedor herrajes."
+        },
+        {
+          "concepto": "Cierre automático/amortiguador acero inoxidable",
+          "descripcion": "Cierre automático o amortiguador de cierre regulable, acero inoxidable, para puerta frameless vidrio templado",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de modelo y fabricante. Recomendado para despacho (cierre suave)."
+        },
+        {
+          "concepto": "Cerradura/tirador acero inoxidable",
+          "descripcion": "Cerradura de vidrio o tirador/tirador de acero inoxidable AISI 316, según tipo de cierre requerido (con llave, magnética, simple)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio varía mucho según seguridad (cerradura simple vs. cerradura con llave). Confirmar con cliente."
+        },
+        {
+          "concepto": "Pequeño material (tacos, tornillería, silicona, etc.)",
+          "descripcion": "Tacos de fijación, tornillería acero inoxidable, silicona neutra para sellado, cinta de espuma, lijas, etc.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado global. Revisar según volumen real de obra."
+        },
+        {
+          "concepto": "Instalación puerta vidrio templado frameless",
+          "descripcion": "Mano de obra: fijación bisagras suelo y techo (o lateral), ajuste de herrajes, pruebas de funcionamiento, sellado con silicona en encuentros si precisa, limpieza. No incluye desmontaje previo (si aplica, adicional).",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Transporte y descarga vidrio templado",
+          "descripcion": "Transporte vidrio templado desde fabricante/almacén a obra, descarga, protección durante acarreo. Puede subcontratar con proveedor o incluir en logística.",
+          "oficio": "cristaleria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste depende de distancia y volumen. Verificar con proveedor vidrio o transportista."
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "CRÍTICO: Solicitar al cliente medidas exactas (alto × ancho × espesor deseado) ANTES de presupuestar. El vidrio templado no se puede cortar en obra.",
+        "Confirmar tipo de ambiente (despacho cerrado, con tráfico frecuente, etc.) para definir espesor: 8mm estándar, 10mm recomendado puertas con movimiento.",
+        "Especificar si necesita cerradura con llave, magnética, o simple tirador.",
+        "Considerar tira antichoque o pegatina de seguridad en borde inferior (visibilidad de puerta).",
+        "Plazo: solicitar cotización a fabricante de vidrio templado (5-10 días laborales típico).",
+        "Considerar si es sustitución de puerta anterior (requeriría desmontaje previo — adicionar partida de desmantelamiento)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Suministro vidrio templado 10mm (frameless)",
+          "razon": "Material especializado, precio dependiente de medidas exactas",
+          "sugerencia": "Obtener presupuesto de proveedor de vidrio templado certificado"
+        },
+        {
+          "partida": "Herrajes bisagras acero inoxidable AISI 316",
+          "razon": "Componente crítico frameless, precios muy variables por marca",
+          "sugerencia": "Consultar catálogo Hettich, Blum o distribuidor herrajes"
+        },
+        {
+          "partida": "Cierre automático/amortiguador acero inoxidable",
+          "razon": "Accesorio opcional pero recomendado en despacho",
+          "sugerencia": "Confirmar con cliente si es obligatorio"
+        },
+        {
+          "partida": "Cerradura/tirador acero inoxidable",
+          "razon": "Elemento de seguridad/acceso, precio varía mucho",
+          "sugerencia": "Definir nivel de seguridad con cliente"
+        },
+        {
+          "partida": "Transporte y descarga vidrio templado",
+          "razon": "Logística especializada vidrio",
+          "sugerencia": "Verificar si corre a cargo fabricante o instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_marcos_de_puertas_en_pared_de_pladur",
+      "instalacion_puerta_de_cristal_templado_frameless",
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario"
+    ],
+    "kb_score": 3.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

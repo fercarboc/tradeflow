@@ -1,0 +1,188 @@
+{
+  "id": 135,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+  "http_status": 200,
+  "latency_ms": 20903,
+  "raw_response": {
+    "transcript": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Se requiere inspección previa de la terraza para determinar número exacto de sumideros necesarios",
+          "Necesario evaluar estado de la red de saneamiento existente y capacidad de drenaje",
+          "Revisar si hay impermeabilización previa y estado de la cubierta plana",
+          "Cantidad de sumideros a determinar según superficie de terraza y pluviometría local"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de sumideros en cubierta plana (terraza). Según reglas de oficio, sumideros en cubierta plana → tejados_cubiertas (no albanilería)"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Refuerzo de impermeabilización perimetral de sumideros y posible tratamiento de humedades en terraza embalsada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Sumideros sifónicos nuevos con cazoleta",
+          "descripcion": "Suministro e instalación de sumideros sifónicos (cazoleta) con diámetro según caudal de drenaje, incluyendo rejilla guardahojas y sombrero de protección. Cantidad a determinar según superficie de terraza (referencia: 1 sumidero cada 25-50 m²)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario del sumidero sifónico a determinar por instalador según marca, diámetro y especificaciones técnicas. Cantidad provisional (2 ud) - revisar según superficie real de terraza"
+        },
+        {
+          "concepto": "Instalación de sumideros sifónicos en cubierta plana",
+          "descripcion": "Mano de obra para instalación de sumideros sifónicos: apertura de orificio en cubierta, colocación de cazoleta, conexión a bajante existente o nueva, refuerzo de impermeabilización perimetral, colocación de rejilla y sombrero guardahojas. Incluye pequeño material y EPI",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa horaria aplicada. Revisar tiempo real según accesibilidad, profundidad de conexión a bajante y complejidad de refuerzo impermeabilizante"
+        },
+        {
+          "concepto": "Refuerzo de impermeabilización perimetral de sumideros",
+          "descripcion": "Aplicación de lámina impermeabilizante (EPDM, TPO o PVC) o proyección de poliurea alrededor de cada sumidero para evitar filtraciones. Sellado de juntas de dilatación con función estanca. Tratamiento de humedades en zona embalsada",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material impermeabilizante (lámina o proyección) a determinar según tipo, superficie perimetral y marca seleccionada"
+        },
+        {
+          "concepto": "Mano de obra impermeabilización perimetral sumideros",
+          "descripcion": "Aplicación de impermeabilizante perimetral alrededor de sumideros, sellado de juntas y tratamiento de zonas con humedad. Incluye preparación de superficie, limpieza y acabado",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas (3h) para impermeabilización de 2 sumideros. Revisar según superficie real de terraza y grado de humedad existente"
+        },
+        {
+          "concepto": "Conexión a red de saneamiento existente",
+          "descripcion": "Conexión de sumideros a bajante existente o nueva acometida a red de saneamiento. Incluye tuberías de conexión, codos, uniones y pequeño material. Si no hay red próxima, se presupuestará acometida como partida separada",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de conexión a determinar según distancia a bajante, tipo de tubería (PVC, cobre) y complejidad de la acometida"
+        },
+        {
+          "concepto": "Mano de obra conexión a red saneamiento",
+          "descripcion": "Instalación de tuberías de conexión desde sumideros a bajante o red de saneamiento. Incluye cortes, uniones, fijaciones y pruebas de funcionamiento",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas estimadas (2h) para conexión. Revisar según longitud real de tuberías y accesibilidad a red existente"
+        }
+      ],
+      "calculos": {
+        "subtotal": 335,
+        "iva_porcentaje": 21,
+        "iva": 70.35,
+        "total": 405.35
+      },
+      "sugerencias_catalogo": [
+        "Consultar BASE MAESTRA: [instalacion_de_sumidero_o_cazoleta_en_cubierta_plana] - partidas_obligatorias incluyen cazoleta, conexión a bajante, refuerzo impermeabilización perimetral, rejilla guardahojas",
+        "Rango de precio referencia: 80-650€/ud según tipo y diámetro de sumidero",
+        "Regla crítica: 1 sumidero cada 25-50 m² de cubierta plana como referencia",
+        "Desbordadero de emergencia recomendado si solo hay 1-2 sumideros por riesgo de obstrucción"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sumideros sifónicos nuevos con cazoleta",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de sumidero sifónico - precio a determinar por instalador"
+        },
+        {
+          "concepto": "Refuerzo de impermeabilización perimetral de sumideros",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material impermeabilizante (lámina o proyección) - precio a determinar según tipo y superficie"
+        },
+        {
+          "concepto": "Conexión a red de saneamiento existente",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Tuberías y accesorios de conexión - precio a determinar según distancia y tipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_de_sumidero_o_imbornal",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_electrica_pergola_terraza"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3745,
+      "tokens_out": 2748
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

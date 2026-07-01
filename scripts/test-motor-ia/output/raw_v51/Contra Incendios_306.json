@@ -1,0 +1,295 @@
+{
+  "id": 306,
+  "oficio": "Contra Incendios",
+  "texto": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+  "http_status": 200,
+  "latency_ms": 30934,
+  "raw_response": {
+    "transcript": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto basado en edificio de oficinas de 5 plantas. Revisar planta baja, plantas intermedias y azotea para determinar exactamente número de pasillos, escaleras y salidas",
+          "Se asume estructura estándar: 4 plantas + planta baja. Ajustar cantidades si distribución es diferente",
+          "Normativa aplicable: RD 485/1997 (señalización seguridad), RD 393/2007 (autoprotección), UNE 23034:2011"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de bloques de emergencia LED y circuitos de alimentación"
+        },
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Diseño e instalación de plan de autoprotección y señalización normalizada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Planos de evacuación por planta (formato A3 normalizado, fotoluminiscente)",
+          "descripcion": "Elaboración e impresión de 5 planos de evacuación (1 por planta + planta baja), formato A3 mínimo, con simbología normalizada conforme RD 485/1997, impresos en material fotoluminiscente adhesivo o enmarcados",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de diseño e impresión de planos fotoluminiscentes: revisar proveedor señalización"
+        },
+        {
+          "concepto": "Bloques de emergencia LED con autonomía ≥1h",
+          "descripcion": "Bloques autónomos de emergencia LED de 8-12W, autonomía mínima 1 hora, para pasillos, escaleras y salidas. 1 cada 15 m en pasillos + 1 sobre escaleras + 1 sobre salidas de emergencia. Total estimado para 5 plantas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: bloques de emergencia LED. Revisar cantidad exacta según plano y distancia entre salidas"
+        },
+        {
+          "concepto": "Instalación de bloques de emergencia LED",
+          "descripcion": "Instalación de bloques autónomos (empotrado o superficie), conexión eléctrica con cable C5, pequeño material (bridas, cajas de derivación), pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Señalización fotoluminiscente de recorridos de evacuación y salidas",
+          "descripcion": "Señales fotoluminiscentes normalizadas (RD 485/1997) para marcar recorridos de evacuación, salidas de emergencia y vías seguras. Incluye flechas direccionales, pictogramas normalizados, material adhesivo de alta visibilidad. Total para 5 plantas",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: señales fotoluminiscentes. Revisar cantidad según metros lineales de recorridos en cada planta"
+        },
+        {
+          "concepto": "Instalación de señalización fotoluminiscente en recorridos",
+          "descripcion": "Colocación y fijación de señales fotoluminiscentes en paredes y pasillos, limpieza de superficies, alineación según normativa, prueba de visibilidad",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Señalización de ubicación de equipos (extintores, BIE, pulsadores)",
+          "descripcion": "Señales normalizadas fotoluminiscentes para localización de extintores, BIE (bocas de incendio equipadas), pulsadores de alarma y puntos de encuentro. Total para 5 plantas",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: señales de equipos de protección. Revisar cantidad según inventario de extintores y BIE"
+        },
+        {
+          "concepto": "Instalación de señalización de equipos de protección",
+          "descripcion": "Colocación de señales encima o junto a extintores, BIE, pulsadores de alarma. Incluye preparación de soportes, fijación mecánica, alineación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instrucciones de actuación en caso de incendio",
+          "descripcion": "Elaboración e impresión de carteles con instrucciones de actuación conforme RD 485/1997: qué hacer ante fuego, dónde ir, teléfonos de emergencia (112, bomberos). 1 cartela por cada 200 m² aproximadamente + puntos estratégicos (entrada principal, escaleras)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: impresión de carteles informativos. Ajustar según superficie total del edificio"
+        },
+        {
+          "concepto": "Instalación de carteles de instrucciones",
+          "descripcion": "Colocación de carteles en lugares visibles y accesibles (entrada, escaleras, pasillos principales). Incluye fijación mecánica segura",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material de fijación y consumibles",
+          "descripcion": "Bridas, tornillos, tacos, cajas de derivación, cinta aislante, adhesivos de montaje, material de limpieza para preparación de superficies",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de fijación estimado. Revisar según cantidad final de bloques y señales instaladas"
+        },
+        {
+          "concepto": "Cable de conexión H07V-U (1,5 mm²) para bloques de emergencia",
+          "descripcion": "Cable de cobre H07V-U 1,5 mm² para alimentación de bloques de emergencia desde circuito de emergencia. Estimación 150-200 ml según distribución de plantas",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 180,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cable de emergencia. Revisar metraje exacto según plano de distribución vertical y horizontal"
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo de emergencia (PIA + cableado)",
+          "descripcion": "Instalación de circuito independiente en cuadro eléctrico con PIA 20A, protección diferencial, para alimentación en emergencia de todos los bloques. Incluye tubo protector, pletina de distribución y acometidas a bloques",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento de la instalación",
+          "descripcion": "Prueba de autonomía de todos los bloques de emergencia (desconexión de red, verificación luz ≥5 lux durante 1h), verificación de señalización visible en condiciones de oscuridad, revisión de documentación conforme normativa",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documento de cumplimiento normativo y protocolo de mantenimiento",
+          "descripcion": "Elaboración de certificado de conformidad (RD 485/1997), lista de chequeo de señalización, protocolo de pruebas mensuales de bloques de emergencia (autonomía), protocolo de inspección anual de señalización",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de documentación. Revisar si se incluye en el presupuesto o es trabajo adicional"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2390,
+        "iva_porcentaje": 21,
+        "iva": 502,
+        "total": 2892
+      },
+      "sugerencias_catalogo": [
+        "Ampliar catálogo con partida específica: 'Bloques de emergencia LED autonomía 1h' con rango 55-120€/ud según potencia y marca",
+        "Crear partida estándar: 'Señales fotoluminiscentes normalizadas RD 485/1997' con rango 8-25€/ud según tamaño",
+        "Incluir servicio: 'Certificado de conformidad señalización emergencia' como partida de servicio técnico"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Bloques de emergencia LED con autonomía ≥1h",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "rango_precio_sugerido": "55-120€/ud",
+          "motivo": "Componente crítico de iluminación de emergencia. Variable según marca, potencia (8-12W) y tecnología"
+        },
+        {
+          "concepto": "Señalización fotoluminiscente normalizada (RD 485/1997)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "rango_precio_sugerido": "8-25€/ud",
+          "motivo": "Material normalizado. Precio varía por tamaño y acabado (adhesivo vs. marco)"
+        },
+        {
+          "concepto": "Cable de emergencia H07V-U 1,5 mm²",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "rango_precio_sugerido": "0.30-0.55€/ml",
+          "motivo": "Cableado específico para circuitos de emergencia según normativa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_VRF_con_recuperacion_de_calor",
+      "instalacion_alumbrado_emergencia",
+      "instalacion_plan_de_autoproteccion_y_señalizacion",
+      "instalacion_vrv_o_vrf_sistema_multiple",
+      "reforma_integral_oficina_o_espacio_de_trabajo"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 14,
+    "n_catalogo": 6,
+    "n_sugeridas": 8,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

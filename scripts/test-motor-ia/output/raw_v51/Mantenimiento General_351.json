@@ -1,0 +1,238 @@
+{
+  "id": 351,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+  "http_status": 200,
+  "latency_ms": 22886,
+  "raw_response": {
+    "transcript": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume parking de hormigón. Confirmar si es hormigón o asfalto.",
+          "Número de baches y metros lineales de juntas no especificados: usuario debe detallar cantidad.",
+          "Presupuesto estructurado para UNIDAD de reparación: ajustar cantidades según diagnosis."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de hormigón, bacheo y sellado de juntas. Oficios base: saneado, revestimiento, impermeabilización."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y preparación de zona de bache",
+          "descripcion": "Saneo de hormigón deteriorado, eliminación de material suelto, limpieza con aire comprimido y cepillado de polvo en zona de reparación",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 25,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación adherente epoxídica para hormigón",
+          "descripcion": "Aplicación de imprimación epoxídica bicomponente sobre zona saneada para asegurar adherencia del mortero de reparación",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material epoxídico. Instalador revisa precio según marca y cantidad (aprox. 0.5-1 kg/m2)"
+        },
+        {
+          "concepto": "Mortero de reparación de hormigón",
+          "descripcion": "Mortero de reparación estructural o epoxi de altas prestaciones, aplicado y fratasado en zona de bache",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de reparación. Precio variable: mortero convencional vs. epoxi especializado. Aprox. 20-40 kg/m2"
+        },
+        {
+          "concepto": "Fratasado y acabado de reparación de hormigón",
+          "descripcion": "Fratasado, pulido y acabado de la zona reparada hasta igualar nivel y rugosidad con hormigón existente",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 30,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles (bacheo)",
+          "descripcion": "Andamios/apuntalamientos menores, cintas de enmascarar, trapos, disolventes y consumibles diversos para bacheo",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles menores. Presupuestar sobre base de 3-5% de mano de obra directa"
+        },
+        {
+          "concepto": "Retirada de sellador antiguo en juntas de dilatación",
+          "descripcion": "Extracción mecánica y química de sellador antiguo, residuos, suciedad y materia orgánica en juntas de dilatación",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 12,
+          "total": 12,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fondo de junta en espuma de polietileno",
+          "descripcion": "Colocación de espuma de polietileno de compresión controlada en junta para limitar profundidad del sellador y evitar triple contacto",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Presupuestar según ancho de junta (0.5-2€/ml típico)"
+        },
+        {
+          "concepto": "Sellador poliuretano de calidad para juntas de dilatación",
+          "descripcion": "Aplicación de sellador poliuretano monocomponente o bicomponente de buena calidad, resistente a tráfico y movimientos, en juntas de dilatación de parking",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material premium. Precio según marca y especificación (típico 3-8€/ml instalado)"
+        },
+        {
+          "concepto": "Aplicación y regularización de sellador en juntas",
+          "descripcion": "Aplicación de sellador con pistola, alisado, regularización y limpieza de rebosaderos en juntas de dilatación",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 8,
+          "total": 8,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza final y curado de zona de reparación",
+          "descripcion": "Limpieza exhaustiva de polvo, restos de material y escombros. Control de curado y protección de zona hasta fragüe completo",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 15,
+          "total": 15,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "Confirmar número de baches (m²) a reparar: partida actual es UNITARIA (1 m²). Multiplicar por cantidad real.",
+        "Confirmar metros lineales (ml) de juntas de dilatación a sellar: partida actual es UNITARIA (1 ml). Multiplicar por cantidad real.",
+        "Si parking es de asfalto, cambiar oficio a 'asfaltado' y revisar partidas (sellador asfáltico vs. poliuretano).",
+        "Si hay daño estructural (grietas, socavaciones), añadir partida de armado o refuerzo."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación adherente epoxídica para hormigón",
+          "origen": "sugerida_ia",
+          "tipo_partida": "material",
+          "motivo": "Requisito Base Maestra para bacheo de hormigón"
+        },
+        {
+          "concepto": "Mortero de reparación de hormigón",
+          "origen": "sugerida_ia",
+          "tipo_partida": "material",
+          "motivo": "Requisito Base Maestra para bacheo de hormigón"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (bacheo)",
+          "origen": "sugerida_ia",
+          "tipo_partida": "material",
+          "motivo": "Requisito Base Maestra para bacheo de hormigón"
+        },
+        {
+          "concepto": "Fondo de junta en espuma de polietileno",
+          "origen": "sugerida_ia",
+          "tipo_partida": "material",
+          "motivo": "Requisito Base Maestra para sellado de juntas de dilatación"
+        },
+        {
+          "concepto": "Sellador poliuretano de calidad para juntas de dilatación",
+          "origen": "sugerida_ia",
+          "tipo_partida": "material",
+          "motivo": "Requisito Base Maestra para sellado de juntas de dilatación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_reposicion_de_pavimento_exterior_deteriorado",
+      "reparacion_de_pavimento_de_hormigon_con_baches",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "id": 60,
+  "oficio": "Carpintería",
+  "texto": "Montaje de estructura de madera para tejado de porche, vigas de pino y tablones",
+  "http_status": 200,
+  "latency_ms": 19678,
+  "raw_response": {
+    "transcript": "Montaje de estructura de madera para tejado de porche, vigas de pino y tablones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montaje de estructura de madera para tejado de porche, vigas de pino y tablones",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Estructura de madera en porche: verificar carga, vientos y normativa local",
+          "Madera de pino: requiere tratamiento preservante y mantenimiento periódico",
+          "Especificar clase de madera (C18, C24) y tratamiento (clase de durabilidad)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Montaje de estructura de madera, vigas y tablones para tejado de porche"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de vigas de pino tratado para estructura",
+          "descripcion": "Vigas de pino clase C18 mínimo, tratamiento preservante clase 3.1 (exterior sin contacto tierra), dimensiones según proyecto",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de sección, longitud y cantidad de vigas. Instalador debe especificar dimensiones exactas (ej: 8x20cm, 10x25cm, etc.)"
+        },
+        {
+          "concepto": "Suministro de tablones de pino tratado para cubierta",
+          "descripcion": "Tablones de pino clase C18, tratamiento preservante clase 3.1, espesor 3-5cm, ancho según proyecto",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de cantidad total (m³ o m²). Especificar metraje lineal o superficie"
+        },
+        {
+          "concepto": "Herrajes metálicos de unión (escuadras, pletinas, pasadores)",
+          "descripcion": "Herrajes acero galvanizado para uniones de vigas y tablones, tornillos inox, pernos, tuercas",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de herrajes dependen de número de uniones y cargas. Estimación: 200-800€"
+        },
+        {
+          "concepto": "Montaje de estructura de madera (vigas y tablones)",
+          "descripcion": "Colocación, nivelación, fijación y ensamblaje de vigas de pino y tablones. Incluye: replanteo, cortes, ensambles, fijación con herrajes, comprobación de escuadra y nivel",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas depende de complejidad, número de vigas, altura y accesibilidad. Estimación inicial: 20-40 horas según tamaño porche"
+        },
+        {
+          "concepto": "Tratamiento preservante e insecticida en zona de uniones",
+          "descripcion": "Aplicación de tratamiento preventivo contra insectos xilófagos y hongos en zonas de unión y cortes expuestos",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de superficie a tratar. Estimación: 150-400€"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Clavos, tornillos, arandelas, masilla de madera, lijas, disolventes, trapos, etc.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación: 100-250€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Especificar dimensiones exactas de vigas (sección en cm) y longitud total",
+        "Indicar superficie total de tablones (m²) o volumen (m³)",
+        "Confirmar clase de madera (C18 mínimo recomendado para exterior)",
+        "Definir tipo de tratamiento: clase 3.1 (exterior sin contacto tierra) o clase 4 (exterior con contacto tierra)",
+        "Estimar número de horas de montaje según complejidad y altura del porche",
+        "Considerar si se requiere proyecto técnico o cálculo de cargas",
+        "Indicar si incluye andamiaje o medidas de seguridad en altura"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de vigas de pino tratado",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de dimensiones y cantidad exactas"
+        },
+        {
+          "concepto": "Suministro de tablones de pino tratado",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de metraje y espesor"
+        },
+        {
+          "concepto": "Herrajes metálicos de unión",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Componente variable según número de uniones y cargas estructurales"
+        },
+        {
+          "concepto": "Tratamiento preservante e insecticida",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Tratamiento preventivo obligatorio para madera de pino en exterior"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "reparacion_y_consolidacion_de_estructura_de_madera_cubierta",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "instalacion_ventana_madera_con_vidrio"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3815,
+      "tokens_out": 2270
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

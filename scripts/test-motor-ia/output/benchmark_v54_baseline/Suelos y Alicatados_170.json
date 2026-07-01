@@ -1,0 +1,176 @@
+{
+  "id": 170,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+  "http_status": 200,
+  "latency_ms": 15572,
+  "raw_response": {
+    "transcript": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo radiante eléctrico en baño de 6 metros cuadrados con termostato programable",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Suelo radiante eléctrico: verificar potencia total (6 m² × 100-150 W/m² = 600-900 W). Si supera 3 kW, requiere circuito exclusivo.",
+          "Termostato programable: confirmar modelo y compatibilidad con manta/cable seleccionado.",
+          "Tiempo de espera: no usar suelo hasta 24-48h después de instalación (según mortero)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema eléctrico de calefacción por suelo radiante, cableado y termostato."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro cable/manta calefactora suelo radiante eléctrico",
+          "descripcion": "Cable calefactor o manta eléctrica para suelo radiante, 6 m², potencia 100-150 W/m² (600-900 W total). Incluye pequeño material de fijación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del cable/manta calefactora a definir por instalador según marca y especificaciones técnicas."
+        },
+        {
+          "concepto": "Instalación cable/manta calefactora suelo radiante",
+          "descripcion": "Colocación, fijación y distribución del cable/manta calefactora en suelo radiante. Incluye tendido según separación de fabricante, fijación a base y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 15,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro termostato programable con sonda de suelo",
+          "descripcion": "Termostato digital programable con sensor de temperatura de suelo, compatible con sistema eléctrico de suelo radiante. Incluye sonda de suelo.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del termostato programable a definir por instalador según modelo y funcionalidades."
+        },
+        {
+          "concepto": "Instalación termostato programable y conexión eléctrica",
+          "descripcion": "Instalación del termostato programable en pared, conexión de sonda de suelo, cableado de control y pruebas de funcionamiento. Incluye pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro mortero nivelador conductor (si aplica)",
+          "descripcion": "Mortero autonivelante o nivelador conductor para cubrición de cable/manta calefactora. Espesor 3-5 cm según especificaciones técnicas.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del mortero nivelador a definir por instalador. Cantidad en m³ a calcular según espesor final."
+        },
+        {
+          "concepto": "Aplicación mortero nivelador y acabado",
+          "descripcion": "Extendido, nivelación y acabado de mortero sobre cable/manta calefactora. Incluye herramientas y pequeño material. Tiempo de espera: 24-48h antes de uso.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 12,
+          "total": 72,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 262,
+        "iva_porcentaje": 21,
+        "iva": 55.02,
+        "total": 317.02
+      },
+      "sugerencias_catalogo": [
+        "Verificar potencia total del sistema: 6 m² × 100-150 W/m² = 600-900 W. Si el proyecto requiere >3 kW, será necesario circuito eléctrico exclusivo con protección diferencial.",
+        "Confirmar compatibilidad del termostato programable con el cable/manta seleccionado (algunos fabricantes requieren modelos específicos).",
+        "Considerar si el baño requiere aislamiento térmico bajo el suelo radiante para optimizar eficiencia energética.",
+        "Recordar al cliente: no usar suelo radiante hasta 24-48 horas después de la instalación del mortero (tiempo de fraguado mínimo)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro cable/manta calefactora suelo radiante eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Material específico de suelo radiante eléctrico. Precio a definir por instalador según marca, potencia y especificaciones."
+        },
+        {
+          "concepto": "Suministro termostato programable con sonda de suelo",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Componente de control específico. Precio a definir por instalador según modelo y funcionalidades (programación semanal, control remoto, etc.)."
+        },
+        {
+          "concepto": "Suministro mortero nivelador conductor (si aplica)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Material de cubrición específico para suelo radiante eléctrico. Precio a definir por instalador según cantidad en m³ y tipo de mortero."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_suelo_radiante_agua",
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_suelo_radiante_hidraulico",
+      "instalacion_de_suelo_radiante_en_reforma",
+      "instalacion_suelo_radiante_electrico"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3562,
+      "tokens_out": 2052
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

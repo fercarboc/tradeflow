@@ -1,0 +1,187 @@
+{
+  "id": 160,
+  "oficio": "Pladur",
+  "texto": "Tabique de doble placa de pladur con lana de roca para separar sala de reuniones en oficina",
+  "http_status": 200,
+  "latency_ms": 20609,
+  "raw_response": {
+    "transcript": "Tabique de doble placa de pladur con lana de roca para separar sala de reuniones en oficina",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique de doble placa de pladur con lana de roca para separar sala de reuniones en oficina",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume tabique que llega a techo. Confirmar altura y si requiere refuerzo superior.",
+          "Lana de roca incluida para aislamiento acústico. Confirmar espesor (50mm o 70mm).",
+          "Precio de mano de obra basado en tarifa recomendada. Ajustar según complejidad de acceso y acabados."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 65
+          },
+          "motivo": "Tabique de pladur doble placa con lana de roca. Oficio especializado en sistemas de placas de yeso laminado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm doble cara",
+          "descripcion": "Suministro e instalación de placa de yeso laminado estándar 15mm, dos placas por cada cara del tabique para alta resistencia",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. El instalador debe indicar superficie total (m2) y confirmar precio de placa doble cara."
+        },
+        {
+          "concepto": "Perfil canal 70mm acero galvanizado",
+          "descripcion": "Suministro e instalación de perfil canal 70mm en acero galvanizado para base y coronación del tabique",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad en metros lineales según perímetro. Precio a confirmar por instalador."
+        },
+        {
+          "concepto": "Perfil montante 70mm acero galvanizado",
+          "descripcion": "Suministro e instalación de perfil montante 70mm en acero galvanizado, separación cada 400mm",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad en metros lineales según altura y separación. Precio a confirmar."
+        },
+        {
+          "concepto": "Lana de roca 70mm densidad media",
+          "descripcion": "Suministro e instalación de lana de roca 70mm para aislamiento acústico entre montantes",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad en m2 según superficie neta. Confirmar espesor (50mm o 70mm) y densidad."
+        },
+        {
+          "concepto": "Tornillería, cinta de juntas y pasta de juntas",
+          "descripcion": "Suministro de tornillos pladur, cinta papel de juntas, pasta de juntas y pequeño material para acabado de juntas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad proporcional a superficie. Precio a confirmar por instalador."
+        },
+        {
+          "concepto": "Ángulo metálico esquinas y pequeño material",
+          "descripcion": "Suministro e instalación de ángulo metálico para protección de esquinas y pequeño material de fijación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad en metros lineales según esquinas. Precio a confirmar."
+        },
+        {
+          "concepto": "Montaje estructura y colocación placas",
+          "descripcion": "Mano de obra: montaje de estructura metálica (canales y montantes), colocación de lana de roca e instalación de placas de yeso laminado doble cara",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra. Tarifa recomendada 35€/m2 para tabique doble placa con lana. Cantidad en m2 según superficie neta. Ajustar si acceso difícil o altura excepcional."
+        },
+        {
+          "concepto": "Acabado de juntas (lijado y pintura base)",
+          "descripcion": "Mano de obra: acabado de juntas con pasta, lijado y aplicación de pintura base para posterior acabado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra. Tarifa estimada 8€/m2 para acabado de juntas. Cantidad en m2. Confirmar si incluye pintura final o solo base."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el profesional la superficie total en m2 del tabique (largo × altura).",
+        "Especificar si el tabique llega a techo o es parcial (altura específica).",
+        "Indicar si requiere refuerzo superior o anclaje a estructura existente.",
+        "Confirmar espesor de lana de roca: 50mm (estándar) o 70mm (mayor aislamiento acústico).",
+        "Aclarar si el acabado incluye pintura final o solo base para posterior pintura por otro oficio.",
+        "Considerar si hay pasos de instalaciones (electricidad, fontanería) que requieran sellado especial."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_separacion_zona_oficina",
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_cortafuego_RF60_o_RF120",
+      "tabique_pladur_doble_placa_alta_resistencia"
+    ],
+    "kb_score": 4.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3919,
+      "tokens_out": 2570
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

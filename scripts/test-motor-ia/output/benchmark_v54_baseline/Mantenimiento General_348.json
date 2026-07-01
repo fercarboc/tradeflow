@@ -1,0 +1,220 @@
+{
+  "id": 348,
+  "oficio": "Mantenimiento General",
+  "texto": "Mantenimiento preventivo de instalaciones de hotel, revisión de fontanería, electricidad y clima",
+  "http_status": 200,
+  "latency_ms": 21209,
+  "raw_response": {
+    "transcript": "Mantenimiento preventivo de instalaciones de hotel, revisión de fontanería, electricidad y clima",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento preventivo de instalaciones de hotel, revisión de fontanería, electricidad y clima",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto de mantenimiento preventivo en instalación compleja (hotel). Requiere definir: número de habitaciones, potencia instalada, extensión de red fontanería, frecuencia de visitas, alcance exacto de revisiones.",
+          "Precio unitario de mano de obra estimado. El instalador debe confirmar tarifa horaria y horas totales según complejidad del hotel.",
+          "Materiales y pequeño material: precio pendiente de revisión según hallazgos en inspección."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Mantenimiento preventivo combinado de 3+ instalaciones (fontanería, electricidad, climatización) en edificio complejo. Aplica 'mantenimiento_general' como oficio principal coordinador."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Revisión de instalación fontanería (tuberías, grifería, válvulas, desagües)."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Revisión de cuadro eléctrico, diferenciales, magnetotérmicos, toma tierra, iluminación emergencia."
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Revisión de instalación de climatización (filtros, baterías, presiones, caudales, equipos seguridad)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y mantenimiento preventivo instalación eléctrica",
+          "descripcion": "Inspección cuadro eléctrico, prueba diferenciales y magnetotérmicos, medición toma tierra, revisión iluminación emergencia, informe de resultados. Incluye pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado según complejidad hotel. Confirmar horas reales y tarifa horaria (50€/h recomendado)."
+        },
+        {
+          "concepto": "Pequeño material y componentes eléctricos (revisión)",
+          "descripcion": "Fusibles, conectores, pasta térmica, cinta aislante, y otros materiales consumibles detectados en inspección.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de revisión según hallazgos en inspección. Estimado 50-200€."
+        },
+        {
+          "concepto": "Revisión y mantenimiento preventivo instalación fontanería",
+          "descripcion": "Inspección tuberías, grifería, válvulas, desagües, presiones, fugas. Prueba funcionamiento general. Informe de estado. Incluye pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado según complejidad hotel. Confirmar horas reales y tarifa horaria (50€/h recomendado)."
+        },
+        {
+          "concepto": "Pequeño material y componentes fontanería (revisión)",
+          "descripcion": "Teflón, juntas, arandelas, y otros materiales consumibles detectados en inspección.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de revisión según hallazgos en inspección. Estimado 30-150€."
+        },
+        {
+          "concepto": "Revisión y mantenimiento preventivo instalación climatización",
+          "descripcion": "Visitas periódicas según RITE, limpieza filtros y baterías, verificación presiones y caudales, verificación equipos seguridad, registro intervenciones. Incluye pequeño material.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 180,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado según complejidad hotel. Confirmar horas reales y tarifa horaria (60€/h recomendado). Frecuencia según RITE y potencia instalada."
+        },
+        {
+          "concepto": "Pequeño material y componentes climatización (revisión)",
+          "descripcion": "Filtros, lubricantes, refrigerante (si aplica), y otros materiales consumibles detectados en inspección.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de revisión según hallazgos en inspección. Estimado 100-400€ (filtros, refrigerante, etc.)."
+        },
+        {
+          "concepto": "Informe técnico de mantenimiento preventivo",
+          "descripcion": "Documento consolidado con resultados de inspecciones de fontanería, electricidad y climatización. Recomendaciones de acciones correctivas. Registro de intervenciones.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 100,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado. Confirmar si incluye fotografías, planos o análisis adicionales."
+        }
+      ],
+      "calculos": {
+        "subtotal": 580,
+        "iva_porcentaje": 21,
+        "iva": 121.8,
+        "total": 701.8
+      },
+      "sugerencias_catalogo": [
+        "Definir FRECUENCIA de mantenimiento: ¿visita única o contrato anual con visitas periódicas? Si es contrato anual, aplicar tarifa de 'mantenimiento_instalacion_grande_contrato_anual' (800-8000€/año según potencia y complejidad).",
+        "Especificar ALCANCE: número de habitaciones, potencia climatización instalada (kW), extensión red fontanería (ml), número de cuadros eléctricos.",
+        "Considerar ANÁLISIS ADICIONALES: termografía en cuadro eléctrico, análisis combustión si hay caldera, verificación refrigerante si hay equipos de frío.",
+        "Incluir DOCUMENTACIÓN: boletín eléctrico si se detectan deficiencias, certificado de mantenimiento climatización según RITE."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material y componentes eléctricos (revisión)",
+          "oficio": "electricidad",
+          "motivo": "Material consumible variable según inspección. Precio pendiente."
+        },
+        {
+          "concepto": "Pequeño material y componentes fontanería (revisión)",
+          "oficio": "fontaneria",
+          "motivo": "Material consumible variable según inspección. Precio pendiente."
+        },
+        {
+          "concepto": "Pequeño material y componentes climatización (revisión)",
+          "oficio": "climatizacion",
+          "motivo": "Material consumible variable según inspección. Precio pendiente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_persianas_y_toldos",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "mantenimiento_instalacion_grande_contrato_anual",
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3630,
+      "tokens_out": 2890
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

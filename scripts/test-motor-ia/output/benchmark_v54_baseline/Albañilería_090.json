@@ -1,0 +1,228 @@
+{
+  "id": 90,
+  "oficio": "Albañilería",
+  "texto": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+  "http_status": 200,
+  "latency_ms": 19957,
+  "raw_response": {
+    "transcript": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Chimenea exterior: requiere acceso seguro y EPI línea de vida",
+          "Impermeabilización de remate: crítica para evitar filtraciones",
+          "Revisar conducto: puede requerir deshollinador especializado si está activa"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación y rejuntado de ladrillo en chimenea exterior (revestimiento fachada)"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de remate de chimenea (encuentro con cubierta/fachada)"
+        },
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Revisión y limpieza de conducto de chimenea (deshollinado)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y limpieza de zona afectada en chimenea",
+          "descripcion": "Limpieza, retirada de mortero degradado y preparación de superficie en chimenea exterior para rejuntado",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado de ladrillo en chimenea exterior",
+          "descripcion": "Rejuntado completo de ladrillo con mortero de cemento-cal, incluye limpieza de juntas y acabado",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero de rejuntado para chimenea",
+          "descripcion": "Mortero de cemento-cal para rejuntado de ladrillo (estimado 20-30 kg)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar cantidad y tipo de mortero según estado actual"
+        },
+        {
+          "concepto": "Impermeabilización de remate de chimenea",
+          "descripcion": "Aplicación de lámina de plomo/zinc o membrana líquida en encuentro chimenea-cubierta/fachada, sellado flexible superior, incluye EPI línea de vida",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lámina de plomo o membrana impermeabilizante para remate",
+          "descripcion": "Lámina de plomo conformada o membrana líquida impermeabilizante para encuentro chimenea (estimado 2-3 m²)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 2.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar tipo (plomo/membrana) y cantidad según geometría remate"
+        },
+        {
+          "concepto": "Sellado flexible superior y pequeño material impermeabilización",
+          "descripcion": "Sellado con silicona/poliuretano flexible en juntas superiores, EPI línea de vida, pequeño material (cinta, imprimación, etc.)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y limpieza de conducto de chimenea",
+          "descripcion": "Deshollinado, inspección visual de conducto, limpieza de depósitos y verificación de estanqueidad",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas especializadas (deshollinado)",
+          "descripcion": "Cepillos deshollinadores, varillas, escobillones, EPI respiratorio si necesario",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar necesidad de herramientas especializadas y EPI"
+        }
+      ],
+      "calculos": {
+        "subtotal": 535,
+        "iva_porcentaje": 21,
+        "iva": 112.35,
+        "total": 647.35
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [reparacion_de_encuentro_de_chimenea_con_cubierta] — incluye partidas obligatorias de saneo, lámina plomo/zinc, sellado flexible, EPI línea de vida",
+        "Consultar Base Maestra: [impermeabilizacion_de_chimenea_y_encuentro_con_cubierta] — solución integral con lámina conformada",
+        "Si chimenea activa (en uso): deshollinado anual recomendado; si inactiva: revisar cierre superior para evitar entrada agua/pájaros"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero de rejuntado para chimenea",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico no en catálogo; instalador debe presupuestar según cantidad y tipo"
+        },
+        {
+          "concepto": "Lámina de plomo o membrana impermeabilizante para remate",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico no en catálogo; instalador debe presupuestar según tipo y m² reales"
+        },
+        {
+          "concepto": "Pequeño material y herramientas especializadas (deshollinado)",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Herramientas y consumibles de deshollinado; instalador debe confirmar necesidad y coste"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "tabique_pladur_para_sepultar_conductos_climatizacion",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3800,
+      "tokens_out": 2466
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

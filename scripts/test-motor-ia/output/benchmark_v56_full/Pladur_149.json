@@ -1,0 +1,269 @@
+{
+  "id": 149,
+  "oficio": "Pladur",
+  "texto": "Hacer armario de pladur empotrado bajo la escalera con puerta abatible y estantes internos",
+  "http_status": 200,
+  "latency_ms": 19235,
+  "raw_response": {
+    "transcript": "Hacer armario de pladur empotrado bajo la escalera con puerta abatible y estantes internos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer armario de pladur empotrado bajo la escalera con puerta abatible y estantes internos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Construcción de tabique/armario en pladur con estructura metálica y acabados"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación e instalación de puerta abatible y estantes internos"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Acabado y pintura de superficies de pladur"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura metálica perfiles y montantes pladur",
+          "descripcion": "Perfiles canal y montantes acero galvanizado 70mm para armazón armario empotrado bajo escalera, incluye tornillería y pequeño material",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar según dimensiones exactas del hueco bajo escalera"
+        },
+        {
+          "concepto": "Placa de yeso laminado 15mm",
+          "descripcion": "Placa de yeso laminado estándar 15mm para revestimiento de estructura metálica, incluye cinta de juntas, pasta de juntas y ángulo metálico",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad a calcular según superficie total del armario (ancho × alto × profundidad)"
+        },
+        {
+          "concepto": "Montaje estructura y colocación placas pladur",
+          "descripcion": "Mano de obra para montaje de estructura metálica, colocación de placas de yeso, cinta y pasta de juntas, ángulos y pequeño material",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo interior madera para barras y baldas",
+          "descripcion": "Madera de refuerzo interior (tablero o listones) para anclaje de barras de colgar y soportes de estantes internos",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar según número y tipo de estantes"
+        },
+        {
+          "concepto": "Puerta abatible armario",
+          "descripcion": "Hoja de puerta abatible para armario empotrado, incluye marco, bisagras de calidad, amortiguadores de cierre suave y herraje completo",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según medidas exactas del hueco, tipo de acabado (melanina, lacado, etc.) y material"
+        },
+        {
+          "concepto": "Instalación puerta abatible y herraje",
+          "descripcion": "Mano de obra para instalación de puerta abatible, colocación de bisagras, amortiguadores, ajuste y regulación de cierre",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Estantes internos armario",
+          "descripcion": "Baldas/estantes internos de tablero melanina o madera, incluye soportes metálicos y herraje de fijación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y dimensiones a definir según necesidades de almacenaje del cliente"
+        },
+        {
+          "concepto": "Colocación estantes y accesorios internos",
+          "descripcion": "Mano de obra para instalación de estantes, soportes, herraje de fijación y ajuste de nivelación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación y pintura superficies pladur",
+          "descripcion": "Imprimación, lija de juntas, masilla si es necesario, y pintura acrílica mate o satinada en dos manos de todas las superficies de pladur",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de pintura a calcular según superficie total a pintar"
+        },
+        {
+          "concepto": "Mano de obra pintura y acabados",
+          "descripcion": "Mano de obra para imprimación, lijado de juntas, masilla, pintura en dos manos y acabado final de todas las superficies de pladur",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 32,
+          "total": 128,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 633,
+        "iva_porcentaje": 21,
+        "iva": 132.93,
+        "total": 765.93
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medidas exactas del hueco bajo la escalera (ancho, alto, profundidad) para calcular cantidad de placas de pladur y materiales",
+        "Definir número y distribución de estantes internos para presupuestar baldas y soportes",
+        "Especificar acabado de puerta (melanina, lacado, espejo, etc.) para ajustar precio",
+        "Considerar si la puerta requiere espejo integrado (opción muy común en armarios bajo escalera)",
+        "Confirmar color de pintura final para presupuestar correctamente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura metálica perfiles y montantes pladur",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según dimensiones del hueco"
+        },
+        {
+          "concepto": "Placa de yeso laminado 15mm",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad variable según superficie"
+        },
+        {
+          "concepto": "Refuerzo interior madera para barras y baldas",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material de refuerzo según configuración interna"
+        },
+        {
+          "concepto": "Puerta abatible armario",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Precio variable según medidas y acabado"
+        },
+        {
+          "concepto": "Estantes internos armario",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad y dimensiones a definir"
+        },
+        {
+          "concepto": "Preparación y pintura superficies pladur",
+          "oficio": "pintura",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad de pintura según superficie total"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_armario_empotrado_a_medida",
+      "tabique_pladur_armario_empotrado_nuevo",
+      "pintado_armarios_empotrados_interiores",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3939,
+      "tokens_out": 2891
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

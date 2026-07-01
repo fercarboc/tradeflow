@@ -1,0 +1,230 @@
+{
+  "id": 315,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar extractor de humos en cocina de restaurante con conducto al exterior y registro antiretorno",
+  "http_status": 200,
+  "latency_ms": 24628,
+  "raw_response": {
+    "transcript": "Instalar extractor de humos en cocina de restaurante con conducto al exterior y registro antiretorno",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar extractor de humos en cocina de restaurante con conducto al exterior y registro antiretorno",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CONTEXTO HOSTELERÍA: Cocina de restaurante. Verificar si requiere sistema de extinción automática (normativa local + aseguradoras).",
+          "CONDUCTO EXTERIOR: Requiere obra civil si no existe salida. Presupuestar según acceso a tejado/fachada.",
+          "REGISTRO ANTIRETORNO: Componente obligatorio incluido en partidas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación ventilador/extractor con conducto. Oficio principal: climatización."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica del extractor a circuito existente o nuevo."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil: apertura salida exterior, sellados, anclajes si es necesario."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Extractor de humos cocina restaurante",
+          "descripcion": "Extractor centrifugo/motor EC para cocina profesional. Caudal mínimo 600-1000 m³/h según dimensiones cocina. Ruido ≤55 dB(A). Incluye motor, carcasa y bridas de conexión.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador define modelo, caudal y presupuesta según marca/especificación técnica."
+        },
+        {
+          "concepto": "Tubo evacuación conducto exterior",
+          "descripcion": "Tubo rígido aluminio o acero galvanizado ∅150-200mm según caudal, recorrido desde extractor a salida exterior. Incluye codos, derivaciones y soportes.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador cuantifica metros lineales según plano/acceso a exterior. Incluye codos y soportes."
+        },
+        {
+          "concepto": "Rejilla exterior antiretorno",
+          "descripcion": "Rejilla con registro antiretorno (damper pasivo) en salida exterior. Evita retorno de aire, insectos, lluvia. Material aluminio o acero inoxidable. ∅150-200mm según tubo.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material componente obligatorio. Presupuestar según diámetro y acabado."
+        },
+        {
+          "concepto": "Instalación extractor + conducto + antiretorno",
+          "descripcion": "Mano de obra: montaje extractor en pared/techo, fijación, alineación. Ensamble tubo conducción, codos, bridas. Instalación rejilla exterior con antiretorno. Pruebas funcionales y sellados.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica extractor",
+          "descripcion": "Instalación circuito eléctrico: empalme a cuadro existente o nuevo diferencial 30mA, cable rigido 3x2.5mm² o según potencia. Interruptor marcha/paro. Pequeño material (conectores, abrazaderas, tubo corrugado).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material componentes eléctricos. Instalador presupuesta según potencia extractor y distancia a cuadro."
+        },
+        {
+          "concepto": "Mano de obra conexión eléctrica",
+          "descripcion": "Instalación y conexión circuito eléctrico: tirada cable, conexión en cuadro con diferencial, instalación interruptor, empalmes, pruebas y puesta en marcha.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Obra civil salida exterior",
+          "descripcion": "Apertura/ampliación salida en pared/tejado para conducto. Anclajes, sellados con espuma/silicona, revestimiento si es necesario. Trabajo adaptado al tipo de construcción (ladrillo, hormigón, etc).",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obra civil variable. Presupuestar según accesibilidad, tipo construcción y necesidad de refuerzo estructural."
+        },
+        {
+          "concepto": "Mano de obra obra civil exterior",
+          "descripcion": "Apertura salida, anclajes, sellados y terminación. Limpieza escombros.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 40,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 670,
+        "iva_porcentaje": 21,
+        "iva": 140.7,
+        "total": 810.7
+      },
+      "sugerencias_catalogo": [
+        "Base Maestra [instalacion_ventilador_extractor_bano_o_cocina]: incluye caudal mínimo cocina 50 l/s, tapa antiretorno obligatoria, circuito eléctrico, pequeño material. APLICABLE: 600-1000 m³/h ≈ 167-278 l/s para cocina restaurante (intensa). Extractor debe cumplir CTE DB HS3.",
+        "ALERTA NORMATIVA: Cocina industrial/restaurante puede requerir sistema de extinción automática (UNE 23-110, Ansul R102 o equivalente) por normativa hostelería + aseguradora. Presupuestar separadamente si aplicable."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Extractor de humos cocina restaurante",
+          "origen": "sugerida_ia",
+          "motivo": "Especificidad restaurante: requiere caudal 600-1000 m³/h (cocina intensa). Modelo exacto a elegir por instalador.",
+          "necesita_precio": true
+        },
+        {
+          "concepto": "Tubo evacuación conducto exterior",
+          "origen": "sugerida_ia",
+          "motivo": "Longitud variable según salida exterior. Instalador cuantifica metros lineales y especifica diámetro (150-200mm).",
+          "necesita_precio": true
+        },
+        {
+          "concepto": "Rejilla exterior antiretorno",
+          "origen": "sugerida_ia",
+          "motivo": "Componente obligatorio (Base Maestra). Presupuestar según diámetro y material (aluminio/inox).",
+          "necesita_precio": true
+        },
+        {
+          "concepto": "Conexión eléctrica extractor",
+          "origen": "sugerida_ia",
+          "motivo": "Material variado (cable, diferencial, interruptor, conectores). Presupuestar según potencia y distancia.",
+          "necesita_precio": true
+        },
+        {
+          "concepto": "Obra civil salida exterior",
+          "origen": "sugerida_ia",
+          "motivo": "Variable según acceso, tipo construcción y refuerzos necesarios.",
+          "necesita_precio": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_campana_extractora_cocina",
+      "instalacion_trampa_grasa_cocina",
+      "instalacion_extractor_bano_cocina",
+      "instalacion_ventilador_extractor_bano_o_cocina",
+      "instalacion_de_sistema_de_extincion_en_cocina_industrial"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

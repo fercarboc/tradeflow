@@ -1,0 +1,178 @@
+{
+  "id": 48,
+  "oficio": "Carpintería",
+  "texto": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+  "http_status": 200,
+  "latency_ms": 14001,
+  "raw_response": {
+    "transcript": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar grosor de capa útil mínimo 3-4mm antes de lijar",
+          "Proteger y avisar a vecinos por polvo considerable durante lijado",
+          "Aclimatación de materiales 48-72h en obra si es necesario"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Lijado y barnizado de parquet existente es trabajo de carpintería especializada en suelos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lijado progresivo de parquet existente",
+          "descripcion": "Lijado de parquet de pino con lijadora de banda y lijadora de rincón. Tres pasadas con granulometría progresiva (grano 40, 80, 120, 220). Masilla de madera para juntas y golpes tras primera pasada. Limpieza de polvo entre pasadas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 18,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de lija grano progresivo",
+          "descripcion": "Lija de grano progresivo (40, 60, 80, 100, 120, 220) para lijadora de banda y rincón. Cantidad según consumo estimado para 30 m2.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Instalador debe revisar cantidad y precio según proveedor"
+        },
+        {
+          "concepto": "Suministro de masilla de madera para juntas",
+          "descripcion": "Masilla de madera para relleno de juntas y golpes entre lamas tras primera pasada de lijado. Tono a juego con pino.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Instalador debe revisar cantidad y precio según proveedor"
+        },
+        {
+          "concepto": "Barnizado con barniz al agua (2-3 manos)",
+          "descripcion": "Aplicación de barniz al agua poliuretano de dos a tres manos sobre parquet lijado. Lijado ligero entre manos con grano 220. Rendimiento aproximado 12-15 m2/litro.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 12,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de barniz al agua poliuretano",
+          "descripcion": "Barniz al agua poliuretano de alta calidad para parquet interior. Cantidad estimada 2-3 litros para 30 m2 (rendimiento 12-15 m2/litro). Acabado satinado o mate según preferencia.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 2.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Instalador debe revisar marca, calidad y precio según proveedor"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Brochas, rodillos, trapos, mascarillas, cinta carrocero, papel de protección, disolvente de limpieza y otros consumibles necesarios para el trabajo.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles. Instalador debe revisar cantidad y precio según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 900,
+        "iva_porcentaje": 21,
+        "iva": 189,
+        "total": 1089
+      },
+      "sugerencias_catalogo": [
+        "Verificar que el parquet tiene grosor de capa útil mínimo 3-4mm antes de iniciar lijado",
+        "Considerar aclimatación de 48-72h si hay cambios de humedad en la vivienda",
+        "Avisar a vecinos por polvo considerable durante las 2-3 jornadas de lijado",
+        "Barniz al agua es recomendable para interiores: menor olor, secado rápido, acabado duradero"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de lija grano progresivo",
+          "oficio": "carpinteria",
+          "motivo": "Material consumible específico para lijado progresivo"
+        },
+        {
+          "concepto": "Suministro de masilla de madera para juntas",
+          "oficio": "carpinteria",
+          "motivo": "Material consumible específico para relleno de juntas"
+        },
+        {
+          "concepto": "Suministro de barniz al agua poliuretano",
+          "oficio": "carpinteria",
+          "motivo": "Material principal. Precio variable según marca y calidad"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "carpinteria",
+          "motivo": "Consumibles varios necesarios para ejecución del trabajo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "lijado_y_barnizado_de_parquet_existente",
+      "barnizado_madera_interior_muebles_o_pavimento",
+      "lijado_y_barnizado_parquet_existente",
+      "pintado_de_puerta_de_entrada_o_exterior_madera",
+      "instalacion_tarima_flotante_o_parquet_click"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3943,
+      "tokens_out": 1942
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

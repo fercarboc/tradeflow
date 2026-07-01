@@ -1,0 +1,229 @@
+{
+  "id": 28,
+  "oficio": "Electricidad",
+  "texto": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+  "http_status": 200,
+  "latency_ms": 15821,
+  "raw_response": {
+    "transcript": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de domótica básica en vivienda, control de persianas, luces y calefacción desde móvil",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema domotico requiere revision de cobertura WiFi en toda la vivienda",
+          "Calefacción: verificar si es caldera existente o nueva instalación",
+          "Persianas: confirmar si son nuevas o motorización de existentes"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación sistema domotico WiFi, interruptores inteligentes, cableado y cuadro"
+        },
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Motorización y control remoto de persianas"
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Integración sistema calefacción en domótica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Hub/Controlador WiFi domotico",
+          "descripcion": "Controlador central WiFi para gestión de sistema domotico desde aplicación móvil, compatible con asistentes voz",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del hub/controlador a definir por instalador según marca y capacidad"
+        },
+        {
+          "concepto": "Interruptores inteligentes WiFi para iluminación",
+          "descripcion": "Interruptores WiFi para control remoto de luces desde móvil, incluye pequeño material y fijaciones",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario interruptores inteligentes a definir (cantidad estimada, ajustar según vivienda)"
+        },
+        {
+          "concepto": "Instalación interruptores inteligentes y cableado",
+          "descripcion": "Mano de obra para instalación de 8 interruptores inteligentes, verificación de neutro en cajas, conexionado y pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sensor/Actuador para control calefacción",
+          "descripcion": "Sensor inteligente y actuador para integración calefacción/caldera en sistema domotico, control temperatura desde móvil",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio sensor/actuador calefacción a definir según tipo de caldera y sistema"
+        },
+        {
+          "concepto": "Instalación y configuración control calefacción",
+          "descripcion": "Mano de obra para instalación sensor/actuador calefacción, conexionado a caldera, integración en app móvil y pruebas de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Motor tubular para persianas enrollables",
+          "descripcion": "Motor tubular para motorización de persianas, incluye receptor radiocontrol y mando a distancia integrable en app",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio motor tubular a definir según par necesario y ancho de persianas (cantidad estimada: 3 persianas)"
+        },
+        {
+          "concepto": "Instalación motores persianas y cableado",
+          "descripcion": "Mano de obra para instalación de 3 motores tubulares en persianas, cableado eléctrico, programación finales de carrera y pruebas",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 45,
+          "total": 225,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración app móvil y pruebas sistema completo",
+          "descripcion": "Mano de obra para configuración de aplicación móvil, integración de todos los dispositivos (luces, persianas, calefacción), pruebas de funcionamiento remoto y formación usuario",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 755,
+        "iva_porcentaje": 21,
+        "iva": 158.55,
+        "total": 913.55
+      },
+      "sugerencias_catalogo": [
+        "Verificar cobertura WiFi en toda la vivienda antes de instalar; considerar repetidor WiFi si hay zonas débiles",
+        "Confirmar compatibilidad de interruptores inteligentes con hub seleccionado",
+        "Para calefacción: si es caldera de gas, verificar que el sensor/actuador sea compatible con el modelo específico",
+        "Considerar integración con asistentes voz (Alexa, Google Home) para mayor funcionalidad",
+        "Las persianas deben tener neutro disponible en cajas de control para motores"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hub/Controlador WiFi domotico",
+          "oficio": "electricidad",
+          "motivo": "Material específico de sistema domotico, requiere precio de mercado"
+        },
+        {
+          "concepto": "Interruptores inteligentes WiFi para iluminación",
+          "oficio": "electricidad",
+          "motivo": "Material específico, precio variable según marca y modelo"
+        },
+        {
+          "concepto": "Sensor/Actuador para control calefacción",
+          "oficio": "climatizacion",
+          "motivo": "Material específico de integración domotica, precio a definir según tipo de caldera"
+        },
+        {
+          "concepto": "Motor tubular para persianas enrollables",
+          "oficio": "persianas",
+          "motivo": "Material específico, precio variable según par y características"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_domotica_basica_wifi",
+      "instalacion_sistema_knx_bus",
+      "instalacion_cuadro_electrico_piscina",
+      "instalacion_persiana_enrollable_aluminio_motorizada",
+      "instalacion_sistema_climatizacion_para_server_room"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3577,
+      "tokens_out": 2386
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

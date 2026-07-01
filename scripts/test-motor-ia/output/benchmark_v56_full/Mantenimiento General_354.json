@@ -1,0 +1,180 @@
+{
+  "id": 354,
+  "oficio": "Mantenimiento General",
+  "texto": "Revisión y mantenimiento de grupo electrógeno de emergencia, prueba de carga y cambio de aceite",
+  "http_status": 200,
+  "latency_ms": 14349,
+  "raw_response": {
+    "transcript": "Revisión y mantenimiento de grupo electrógeno de emergencia, prueba de carga y cambio de aceite",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y mantenimiento de grupo electrógeno de emergencia, prueba de carga y cambio de aceite",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Grupo electrógeno: requiere profesional especializado en mecanica_especializada",
+          "Prueba de carga: debe realizarse bajo carga real o banco de pruebas",
+          "Cambio de aceite: incluir especificación de tipo y cantidad según modelo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 85
+          },
+          "motivo": "Mantenimiento de grupo electrógeno requiere especialización en motores diésel/gasolina y sistemas de emergencia"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión visual y funcional grupo electrógeno",
+          "descripcion": "Inspección completa del grupo electrógeno: estado general, corrosión, fugas, conexiones eléctricas, estado batería de arranque, filtros de aire y combustible",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cambio de aceite motor grupo electrógeno",
+          "descripcion": "Drenaje de aceite usado, limpieza cárter, sustitución filtro aceite, llenado con aceite nuevo según especificación fabricante",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aceite motor grupo electrógeno",
+          "descripcion": "Aceite mineral o sintético según especificación fabricante (cantidad variable según modelo: típicamente 4-8 litros)",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del aceite según marca y especificación (SAE 15W-40, 10W-30, etc.) a confirmar por instalador"
+        },
+        {
+          "concepto": "Filtro aceite grupo electrógeno",
+          "descripcion": "Filtro de aceite de reemplazo según modelo específico del grupo electrógeno",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del filtro según modelo específico a confirmar"
+        },
+        {
+          "concepto": "Prueba de carga grupo electrógeno",
+          "descripcion": "Arranque del grupo, verificación de voltaje y frecuencia en vacío, prueba bajo carga (mínimo 50% potencia nominal durante 15-20 minutos), medición de parámetros eléctricos, registro de datos",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión sistema eléctrico y batería grupo electrógeno",
+          "descripcion": "Verificación conexiones eléctricas, estado batería de arranque, carga batería, revisión alternador, prueba sistema de arranque automático si lo tiene",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe técnico y documentación mantenimiento",
+          "descripcion": "Elaboración de informe de revisión, registro de parámetros medidos, recomendaciones de mantenimiento futuro, documentación para archivo de mantenimiento preventivo",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en tarifa de mano de obra o a valorar según complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 357.5,
+        "iva_porcentaje": 21,
+        "iva": 75.08,
+        "total": 432.58
+      },
+      "sugerencias_catalogo": [
+        "Confirmar modelo exacto del grupo electrógeno para especificar tipo y cantidad de aceite",
+        "Verificar si el grupo tiene sistema de arranque automático (requiere prueba adicional)",
+        "Considerar contrato de mantenimiento anual si es equipo crítico de emergencia",
+        "Revisar normativa local sobre pruebas periódicas obligatorias de grupos electrógenos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aceite motor grupo electrógeno",
+          "razon": "Material consumible, precio variable según especificación y marca"
+        },
+        {
+          "concepto": "Filtro aceite grupo electrógeno",
+          "razon": "Material de reemplazo, precio variable según modelo específico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_preventivo_de_grupo_de_presion",
+      "revision_y_prueba_de_sistema_de_alarma",
+      "revision_y_recarga_de_extintores",
+      "mantenimiento_anual_persianas_y_toldos",
+      "revision_y_recarga_sistema_refrigerante_instalacion_grande"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3746,
+      "tokens_out": 1907
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mecanica_especializada",
+    "coincide_oficio": "NO"
+  }
+}

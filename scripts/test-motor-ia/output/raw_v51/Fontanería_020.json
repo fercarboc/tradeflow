@@ -1,0 +1,174 @@
+{
+  "id": 20,
+  "oficio": "Fontanería",
+  "texto": "Instalación de grifo de jardín exterior con toma de agua y llave de corte independiente",
+  "http_status": 200,
+  "latency_ms": 13882,
+  "raw_response": {
+    "transcript": "Instalación de grifo de jardín exterior con toma de agua y llave de corte independiente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de grifo de jardín exterior con toma de agua y llave de corte independiente",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto contiene partidas de material con precio_unitario=0. El instalador debe revisar y completar precios.",
+          "Se recomienda incluir protección antihelada si la zona es propensa a heladas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de grifo exterior y sistema de distribución de agua potable."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Grifo de jardín antihelada exterior",
+          "descripcion": "Grifo antihelada de latón cromado con toma de agua exterior de 1/2\" para jardín.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del material debe ser completado por el instalador según proveedor y modelo."
+        },
+        {
+          "concepto": "Llave de corte/esfera interior independiente",
+          "descripcion": "Llave esfera de 3/4\" con racores de latón para corte independiente de la toma de agua exterior.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del material debe ser completado por el instalador según proveedor y especificaciones."
+        },
+        {
+          "concepto": "Tubería multicapa exterior (distribución agua)",
+          "descripcion": "Red de tubería PEX multicapa de 16 mm para distribución de agua desde la llave de corte al grifo exterior, incluye aislamiento térmico.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales no especificada en la solicitud. Instalador debe medir y establecer el precio de la tubería."
+        },
+        {
+          "concepto": "Racores, uniones y accesorios de fontanería",
+          "descripcion": "Conjunto de racores de latón, uniones, adaptadores y pequeño material para conexión de grifo, llave de corte y tubería.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de kit de accesorios debe ser completado por el instalador."
+        },
+        {
+          "concepto": "Instalación de grifo exterior y llave de corte",
+          "descripcion": "Mano de obra: apertura de rozas, conexión de tubería, instalación de llave de corte interior, montaje de grifo exterior, sellado de conexiones y pruebas de funcionamiento. Incluye desmontaje previo si existe grifo anterior.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 50,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protección antihelada de tubería exterior (opcional)",
+          "descripcion": "Envolvimento de espuma aislante o cinta térmica para protección de tubería exterior contra heladas invernales.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obra recomendada si zona con heladas. Cantidad (ml) debe ser definida según trazado de tubería. Precio pendiente de revisión."
+        }
+      ],
+      "calculos": {
+        "subtotal": 125,
+        "iva_porcentaje": 21,
+        "iva": 26.25,
+        "total": 151.25
+      },
+      "sugerencias_catalogo": [
+        "Consultar el movimiento de obra [instalacion_grifo_exterior_jardin] para validar criterios de instalación segura.",
+        "Confirmar con el cliente si requiere protección antihelada permanente (obligatorio en zonas de clima frío).",
+        "Verificar longitud exacta de tubería necesaria antes de presupuestar materiales."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Grifo de jardín antihelada exterior",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "razon": "Material específico que requiere precio de proveedor."
+        },
+        {
+          "concepto": "Llave de corte/esfera interior independiente",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "razon": "Material específico que requiere precio de proveedor."
+        },
+        {
+          "concepto": "Tubería multicapa exterior (distribución agua)",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "razon": "Material lineal. Cantidad no especificada; requiere medición en sitio."
+        },
+        {
+          "concepto": "Protección antihelada de tubería exterior (opcional)",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "razon": "Material de protección opcional según climatología."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_grifo_exterior_jardin",
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_llave_general_vivienda",
+      "instalacion_sistema_deteccion_fugas",
+      "impermeabilizacion_de_zocalo_exterior_de_edificio"
+    ],
+    "kb_score": 3,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

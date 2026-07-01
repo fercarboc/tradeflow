@@ -1,0 +1,162 @@
+{
+  "id": 26,
+  "oficio": "Electricidad",
+  "texto": "Instalación de sistema de iluminación LED en toda la vivienda, 12 puntos de luz con reguladores de intensidad",
+  "http_status": 200,
+  "latency_ms": 13857,
+  "raw_response": {
+    "transcript": "Instalación de sistema de iluminación LED en toda la vivienda, 12 puntos de luz con reguladores de intensidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de sistema de iluminación LED en toda la vivienda, 12 puntos de luz con reguladores de intensidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Precio de luminarias LED y reguladores pendiente de confirmación del instalador",
+          "Verificar si requiere obra adicional (rozas, cajas) según estado actual de la vivienda"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica de luminarias y reguladores de intensidad (dimmers)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro luminarias LED",
+          "descripcion": "12 luminarias LED de calidad (potencia variable según tipo: empotradas, suspensión o apliques). Incluye fuente de alimentación LED de eficiencia máxima.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "El instalador debe confirmar marca, tipo (empotrada/superficie/suspensión), potencia (W) y precio unitario"
+        },
+        {
+          "concepto": "Suministro reguladores de intensidad (dimmers) LED",
+          "descripcion": "12 reguladores de intensidad (dimmers) compatibles con luminarias LED. Tipo empotrable o de pulsador según instalación existente.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Confirmar tipo de regulador (empotrable, pulsador, compatible marca luminarias), marca y precio unitario"
+        },
+        {
+          "concepto": "Desmontaje luminarias existentes",
+          "descripcion": "Desmontaje de 12 puntos de luz existentes. Desconexión segura, retirada de estructuras y desmantelamiento de mecanismos.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación luminarias LED y reguladores",
+          "descripcion": "Instalación de 12 luminarias LED con sus reguladores de intensidad. Conexión eléctrica, fijación a estructura, verificación de funcionamiento y regulación de parámetros.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "descripcion": "Regleta de conexión, bridas, cinta aislante, tacos y tornillos, conectores rápidos, pasacables. Material auxiliar para instalación completa.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar coste según accesibilidad de puntos de luz y extensión de obra"
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en servicio",
+          "descripcion": "Verificación de funcionamiento de las 12 luminarias LED, prueba de reguladores de intensidad en todo el rango, comprobación de seguridad eléctrica, entrega de instrucciones de uso.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 350,
+        "iva_porcentaje": 21,
+        "iva": 73.5,
+        "total": 423.5
+      },
+      "sugerencias_catalogo": [
+        "Consultar si hay necesidad de obra complementaria (rozas, cajas de mecanismo nuevas, cableado adicional)",
+        "Confirmar si la regulación de intensidad es por dimmers empotrados o por control remoto/centralizado",
+        "Verificar compatibilidad de reguladores con el tipo específico de luminarias LED a instalar (algunos reguladores no funcionan con ciertos LEDs)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro luminarias LED",
+          "motivo": "Material específico cuyo coste depende de marca, modelo y especificaciones técnicas"
+        },
+        {
+          "concepto": "Suministro reguladores de intensidad (dimmers) LED",
+          "motivo": "Material específico cuyo coste depende de tipo, marca y compatibilidad"
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "motivo": "Materiales auxiliares variables según accesibilidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_sistema_free_cooling",
+      "instalacion_sistema_agua_helada_chiller",
+      "instalacion_de_sistema_de_alarma_intrusion"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

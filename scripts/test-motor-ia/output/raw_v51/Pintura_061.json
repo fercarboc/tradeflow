@@ -1,0 +1,132 @@
+{
+  "id": 61,
+  "oficio": "Pintura",
+  "texto": "Pintar el salón y el comedor, unos 40 metros cuadrados de superficie, dos manos de pintura blanca mate",
+  "http_status": 200,
+  "latency_ms": 9618,
+  "raw_response": {
+    "transcript": "Pintar el salón y el comedor, unos 40 metros cuadrados de superficie, dos manos de pintura blanca mate",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar el salón y el comedor, unos 40 metros cuadrados de superficie, dos manos de pintura blanca mate",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura de interiores en paredes y techo, trabajo estándar"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Imprimación fijadora paredes y techo",
+          "descripcion": "Imprimación fijadora para superficies interiores, salón y comedor",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según marca y calidad"
+        },
+        {
+          "concepto": "Pintura plástica mate blanca interior",
+          "descripcion": "Pintura plástica mate blanca interior, dos manos, 40 m²",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 7,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según marca y calidad. Cálculo: 40 m² ÷ 12 m²/litro × 2 manos = 6,67 litros, redondeado a 7 litros"
+        },
+        {
+          "concepto": "Cinta carrocero y plástico de protección",
+          "descripcion": "Cinta carrocero y plástico de protección para paredes, suelos y muebles",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de consumibles a definir por instalador"
+        },
+        {
+          "concepto": "Rodillo pelo corto, bandeja y pequeño material",
+          "descripcion": "Rodillo de pelo corto, bandeja de pintura y pequeño material (pinceles, brochas)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de herramientas y consumibles a definir por instalador"
+        },
+        {
+          "concepto": "Mano de obra pintura salón y comedor",
+          "descripcion": "Preparación, imprimación, aplicación dos manos pintura blanca mate en paredes y techo, 40 m²",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 320,
+        "iva_porcentaje": 21,
+        "iva": 67.2,
+        "total": 387.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar si hay grietas o desperfectos en paredes que requieran masilla de repaso previo",
+        "Confirmar si se incluye limpieza previa y preparación de superficies",
+        "Considerar si hay molduras, rodapiés o elementos que requieran protección especial"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "pintura_plastica_paredes_interiores",
+      "pintura_plastica_techo_interior",
+      "pintado_pasamanos_y_barandillas_interior",
+      "remate_y_acabado_juntas_pladur_para_pintar",
+      "pintado_de_medianeras_o_paredes_ciegas"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

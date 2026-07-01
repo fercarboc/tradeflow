@@ -1,0 +1,177 @@
+{
+  "id": 394,
+  "oficio": "Persianas",
+  "texto": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+  "http_status": 200,
+  "latency_ms": 20032,
+  "raw_response": {
+    "transcript": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Toldo corredero de grandes dimensiones (12 m²). Verificar capacidad de carga del soporte y anclajes al suelo/estructura.",
+          "Trabajo en zona común (patio de vecinos): confirmar licencia/permisos municipales y acuerdo de comunidad.",
+          "Sensor de viento RECOMENDADO para seguridad en espacios comunitarios."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de toldo corredero con estructura aluminio y tela acrílica. Oficio especializado en sistemas de sombreamiento y protección solar."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro toldo corredero estructura aluminio 4x3m",
+          "descripcion": "Toldo corredero profesional de 4x3 metros (12 m²) con estructura de aluminio anodizado, sistema de deslizamiento sobre raíles, mecanismo de bloqueo en posiciones intermedias. Incluye herrajes de fijación.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de toldo corredero 4x3m. Precio variable según marca, calidad de aluminio y sistema de deslizamiento. Instalador debe confirmar presupuesto del proveedor."
+        },
+        {
+          "concepto": "Suministro tela acrílica tratada UV 4x3m",
+          "descripcion": "Tela acrílica de alta resistencia UV y repelente al agua, 4x3 metros (12 m²), tratamiento anti-moho, color a elegir. Incluye confección e instalación en estructura.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tela acrílica confeccionada 12 m². Precio variable según proveedor y calidad. Confirmar coste de confección e instalación en estructura."
+        },
+        {
+          "concepto": "Instalación toldo corredero 4x3m",
+          "descripcion": "Montaje de estructura aluminio sobre soporte existente o anclajes nuevos. Fijación de raíles, instalación de tela, prueba de funcionamiento del sistema de deslizamiento y bloqueo. Incluye ajustes y verificación de seguridad.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Anclajes y fijación a estructura patio",
+          "descripcion": "Anclajes químicos o mecánicos para fijación de toldo a estructura existente (hormigón, acero o mampostería). Incluye tacos, tornillos, arandelas y pequeño material de fijación. Refuerzo estructural si es necesario.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Anclajes y fijación. Cantidad y tipo dependen del estado del soporte existente. Instalador debe evaluar in situ y presupuestar."
+        },
+        {
+          "concepto": "Sensor de viento automático (opcional recomendado)",
+          "descripcion": "Sensor de viento con célula fotoeléctrica para recogida automática del toldo ante rachas superiores a 40 km/h. Incluye instalación eléctrica básica y prueba de funcionamiento.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sensor de viento opcional. Altamente recomendado en espacios comunitarios por seguridad. Precio y compatibilidad con sistema a confirmar."
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillos, tuercas, arandelas, silicona, cinta de teflón, bridas, masilla de fijación y otros accesorios necesarios para la instalación completa.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material. Presupuestar según necesidades reales de la instalación."
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Consultar con proveedor de toldos profesionales para presupuesto de estructura aluminio 4x3m con sistema corredero.",
+        "Solicitar presupuesto de tela acrílica confeccionada (12 m²) con tratamiento UV y repelencia al agua.",
+        "Evaluar necesidad de refuerzo estructural en puntos de anclaje según estado del patio.",
+        "Considerar motor eléctrico si se desea recogida automática (no solo sensor de viento).",
+        "Confirmar permisos/licencias municipales para instalación en zona común de comunidad de vecinos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Toldo corredero estructura aluminio 4x3m",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Toldo corredero de grandes dimensiones. Estructura especializada no detallada en catálogo base. Presupuestar con proveedor."
+        },
+        {
+          "concepto": "Tela acrílica confeccionada 12 m²",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Tela acrílica confeccionada a medida. Precio variable según proveedor y acabados."
+        },
+        {
+          "concepto": "Sensor de viento automático",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Accesorio de seguridad recomendado para espacios comunitarios. Presupuestar según compatibilidad con sistema."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_faldones_o_cenefas_para_toldo",
+      "instalacion_toldo_para_escenario_o_cubierta_de_eventos",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_estor_enrollable_interior",
+      "instalacion_toldo_terraza_bar_o_restaurante"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3774,
+      "tokens_out": 2503
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

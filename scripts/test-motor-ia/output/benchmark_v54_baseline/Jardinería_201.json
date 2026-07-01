@@ -1,0 +1,134 @@
+{
+  "id": 201,
+  "oficio": "Jardinería",
+  "texto": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+  "http_status": 200,
+  "latency_ms": 9395,
+  "raw_response": {
+    "transcript": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de jardinería especializada en árboles frutales",
+          "Incluye gestión de restos vegetales",
+          "Se recomienda especificar época de poda (mejor en invierno para frutales)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Poda de árboles frutales y limpieza de restos vegetales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Poda de naranjos",
+          "descripcion": "Poda de formación y mantenimiento de 4 naranjos, eliminación de ramas secas, enfermas o mal orientadas, corte de chupones y rebrotes",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 80,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Poda de olivos",
+          "descripcion": "Poda de mantenimiento de 2 olivos, eliminación de ramas secas y enfermas, aclareo de copa para mejorar aireación y producción",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 100,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recogida y gestión de restos vegetales",
+          "descripcion": "Recogida, acopio y gestión de ramas y restos de poda de los 6 árboles, incluyendo transporte a gestor autorizado o compostaje",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "h",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Uso de herramientas (sierra, podadora, tijeras), EPI (guantes, gafas de protección), bolsas y pequeño material consumible",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material consumible a determinar por profesional según cantidad y tipo de herramientas utilizadas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 595,
+        "iva_porcentaje": 21,
+        "iva": 124.95,
+        "total": 719.95
+      },
+      "sugerencias_catalogo": [
+        "Considerar desinfección de herramientas si hay sospecha de enfermedades fúngicas en los árboles",
+        "Recomendar al cliente poda en invierno (diciembre-febrero) para árboles frutales",
+        "Si los árboles están muy altos o requieren elevadora, solicitar presupuesto adicional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "jardineria",
+          "motivo": "Material consumible de poda, requiere especificación de cantidad y tipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "poda_de_palmeras",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores",
+      "pintado_paredes_habitacion_con_papel_pintado_retirado",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3758,
+      "tokens_out": 1236
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

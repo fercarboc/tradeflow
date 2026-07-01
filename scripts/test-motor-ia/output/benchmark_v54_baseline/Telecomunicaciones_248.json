@@ -1,0 +1,169 @@
+{
+  "id": 248,
+  "oficio": "Telecomunicaciones",
+  "texto": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+  "http_status": 200,
+  "latency_ms": 13627,
+  "raw_response": {
+    "transcript": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar distancia total de cable desde router a rosetas más lejana (máximo 100m sin repetidor)",
+          "Confirmar si las rozas ya existen o requieren apertura de muros",
+          "Especificar tipo de cable: UTP Cat6 recomendado para mejor rendimiento"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación de tomas de red RJ45 y cableado estructurado"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Cableado de red, conexión a router, certificación de línea"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tomas RJ45 Cat6 empotradas",
+          "descripcion": "Suministro e instalación de 3 rosetas/tomas RJ45 Cat6 con cajas de empotrar y pequeño material (tornillos, tacos)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tomas RJ45 Cat6 y cajas a confirmar por instalador (rango típico 15-35€/ud)"
+        },
+        {
+          "concepto": "Cable UTP Cat6 para distribución",
+          "descripcion": "Suministro de cable UTP Cat6 para conectar 3 rosetas desde router del salón. Incluye metros necesarios según layout (estimado 60-80ml)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 70,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje exacto y precio de cable Cat6 a confirmar (rango típico 0.40-0.80€/ml)"
+        },
+        {
+          "concepto": "Instalación de rosetas RJ45 y tendido de cable",
+          "descripcion": "Mano de obra: apertura de rozas (si necesario), instalación de cajas, colocación de tomas RJ45, tendido y fijación de cable UTP Cat6 desde router a las 3 rosetas, reposición de rozas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Certificación y pruebas de red",
+          "descripcion": "Mano de obra: medición de señal, certificación de cada toma con tester Cat6, pruebas de conectividad y velocidad en las 3 rosetas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Bridas, cinta aislante, conectores, tacos, tornillos y otros accesorios menores para la instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 20-40€ a confirmar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 275,
+        "iva_porcentaje": 21,
+        "iva": 57.75,
+        "total": 332.75
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el router del salón dispone de puertos Ethernet suficientes (3 conexiones) o si requiere switch adicional",
+        "Considerar canaleta o tubo protector si el cable discurre por zonas de paso o expuesto",
+        "Verificar compatibilidad de las rosetas con el tipo de caja de empotrar existente (profundidad, diámetro)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tomas RJ45 Cat6 empotradas",
+          "oficio": "electricidad",
+          "motivo": "Especificación de rosetas Cat6 con cajas empotradas"
+        },
+        {
+          "concepto": "Cable UTP Cat6 para distribución",
+          "oficio": "telecomunicaciones",
+          "motivo": "Cableado estructurado de red de datos"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "electricidad",
+          "motivo": "Accesorios menores de instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toma_red_ethernet_cat6",
+      "instalacion_cocina_gas",
+      "instalacion_toma_tierra_nueva",
+      "instalacion_toma_television_coaxial",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3472,
+      "tokens_out": 1719
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

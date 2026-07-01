@@ -1,0 +1,165 @@
+{
+  "id": 47,
+  "oficio": "Carpintería",
+  "texto": "Cambio de ventanas de madera antiguas por PVC con doble acristalamiento en toda la vivienda, 8 ventanas",
+  "http_status": 200,
+  "latency_ms": 15218,
+  "raw_response": {
+    "transcript": "Cambio de ventanas de madera antiguas por PVC con doble acristalamiento en toda la vivienda, 8 ventanas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de ventanas de madera antiguas por PVC con doble acristalamiento en toda la vivienda, 8 ventanas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de sustitución: incluye desmontaje de ventanas antiguas, suministro de nuevas unidades PVC y instalación completa",
+          "Se asume acristalamiento doble estándar (4+6+4 o similar) con bajo emisivo",
+          "Precio de ventanas PVC a revisar según medidas exactas y prestaciones (permeabilidad, aislamiento acústico)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Desmontaje de ventanas de madera antiguas e instalación de nuevas ventanas PVC"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Suministro e instalación de vidrio doble aislante en ventanas PVC"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de ventanas de madera antiguas",
+          "descripcion": "Desmontaje cuidadoso de 8 ventanas de madera antiguas, incluyendo marcos, hojas y herrajes. Preparación de huecos para nueva instalación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de ventanas PVC con doble acristalamiento",
+          "descripcion": "8 ventanas de PVC con perfiles reforzados, doble acristalamiento bajo emisivo (4+6+4 mm), herrajes de calidad, sellado con silicona neutra. Medidas a confirmar según huecos existentes.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de ventanas PVC con doble acristalamiento varía según medidas exactas, prestaciones de aislamiento acústico y térmico, y acabados. Rango orientativo: 250-600€/ud según tamaño."
+        },
+        {
+          "concepto": "Instalación de ventanas PVC con doble acristalamiento",
+          "descripcion": "Instalación de 8 ventanas PVC en huecos existentes, fijación a premarco o directa a obra, sellado perimetral con silicona neutra, ajuste de herrajes, prueba de funcionamiento y estanqueidad.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y acabado perimetral",
+          "descripcion": "Sellado de juntas perimetrales con silicona neutra de calidad, retirada de protecciones, limpieza de vidrios y marcos, acabado estético de encuentros con fachada o interior.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Silicona neutra, cinta de carrocero, espuma de poliuretano, trapos, disolvente, protecciones plásticas, material de fijación (tacos, tornillos), junquillo si necesario.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles y pequeño material. Estimado: 80-150€ para 8 ventanas."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1080,
+        "iva_porcentaje": 21,
+        "iva": 226.8,
+        "total": 1306.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar medidas exactas de cada ventana (ancho x alto) para presupuestar correctamente el suministro de ventanas PVC",
+        "Especificar si se requiere aislamiento acústico reforzado (vidrio laminado) o prestaciones térmicas mejoradas (triple acristalamiento)",
+        "Verificar estado de premarcos y huecos: si hay daño en obra, puede requerir reparación adicional de albañilería",
+        "Considerar si se necesita retirada de residuos de ventanas antiguas (madera, vidrio) como servicio adicional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de ventanas PVC con doble acristalamiento",
+          "oficio": "cristaleria",
+          "motivo": "Material específico cuyo precio depende de medidas y prestaciones exactas del cliente"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "carpinteria",
+          "motivo": "Lote de consumibles para instalación de 8 ventanas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_ventanas_de_madera_exterior",
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_vidrio_en_puerta_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3829,
+      "tokens_out": 1822
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

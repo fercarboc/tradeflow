@@ -1,0 +1,313 @@
+{
+  "id": 228,
+  "oficio": "Energía Solar",
+  "texto": "Instalación de placas solares en cubierta plana de edificio de apartamentos, 10 unidades en comunidad",
+  "http_status": 200,
+  "latency_ms": 36470,
+  "raw_response": {
+    "transcript": "Instalación de placas solares en cubierta plana de edificio de apartamentos, 10 unidades en comunidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de placas solares en cubierta plana de edificio de apartamentos, 10 unidades en comunidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Falta especificar potencia en kWp de las 10 placas solares",
+          "CRÍTICO: Se asume instalación fotovoltaica en comunidad de propietarios - requiere aprobación comunitaria OBLIGATORIA",
+          "CRÍTICO: Falta información sobre sistema de reparto de energía entre vecinos",
+          "CRÍTICO: Falta confirmación de estructura de cubierta (¿lastrada o anclada?)",
+          "Revisar: Capacidad de carga de la cubierta plana antes de instalación",
+          "Revisar: Distancia entre filas para evitar autosombras",
+          "Revisar: Inclinación óptima (30-35° recomendado)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica en cubierta. Tarifa especializada en energía solar."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cableado, protecciones y conexiones eléctricas del sistema."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Aprobación de comunidad de propietarios",
+          "descripcion": "Gestión, asesoramiento legal y tramitación de aprobación en asamblea de comunidad para instalación fotovoltaica compartida",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIA en instalación comunitaria. Instalador debe completar tarifa de gestión/asesoramiento."
+        },
+        {
+          "concepto": "Proyecto técnico fotovoltaico para comunidad",
+          "descripcion": "Elaboración de proyecto técnico con cálculos de potencia, estudio de viabilidad, cálculo de carga sobre cubierta, sistema de reparto de energía entre vecinos",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio en instalación comunitaria. Incluye estudio de capacidad de cubierta, sombras, inclinación óptima."
+        },
+        {
+          "concepto": "Estructura de aluminio inclinada para 10 placas solares en cubierta plana",
+          "descripcion": "Suministro e instalación de estructura de aluminio lastrada o anclada para 10 módulos fotovoltaicos en cubierta plana con inclinación óptima 30-35°. Incluye ballast/lastre de hormigón o anclajes según diseño. Peso aproximado 30-50 kg/m². Cálculo de carga estructural OBLIGATORIO.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo de estructura + ballast/lastre depende de sistema (lastrado o anclado) y especificaciones de cubierta. Instalador introduce precio de proveedor."
+        },
+        {
+          "concepto": "Impermeabilización de perforaciones en cubierta",
+          "descripcion": "Sellos y sistema impermeabilizante para perforaciones si se elige sistema anclado. Incluye fondo de junta elastómero, sistema de sellado superior, protección contra filtraciones",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario solo si sistema anclado. Si es lastrado (sin perforaciones) puede eliminarse. Revisar diseño final."
+        },
+        {
+          "concepto": "Módulos fotovoltaicos, 10 unidades",
+          "descripcion": "Suministro de 10 placas solares fotovoltaicas. Potencia total a definir en kWp (típicamente 3-5 kWp por vivienda en comunidades pequeñas). Incluye marcos, cajas de conexión, certificados y documentación técnica",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario según kWp (típico 800-2600€/kWp). FALTA CONFIRMAR: potencia total en kWp de las 10 placas. Instalador introduce precio según especificación técnica."
+        },
+        {
+          "concepto": "Inversor y cuadros de protección fotovoltaicos",
+          "descripcion": "Suministro e instalación de inversor trifásico (o monofásico según potencia) dimensionado para comunidad. Incluye cuadro de protecciones, interruptores de corriente continua, fusibles CC, magnetotérmicos AC, diferenciales, protecciones contra sobrevoltaje",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia total en kWp. Típicamente 2000-8000€ según rango. Instalador introduce tarifa."
+        },
+        {
+          "concepto": "Cableado, tuberías y protecciones del sistema fotovoltaico",
+          "descripcion": "Suministro de cable solar (CC y AC), tubería de protección, cajetines, regleta de distribución, conectores MC4, etiquetado de seguridad, puesta a tierra de estructura metálica",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 500-1500€ según longitud de tramos y número de conexiones. Instalador ajusta según proyecto."
+        },
+        {
+          "concepto": "Sistema de medición y reparto de energía entre vecinos",
+          "descripcion": "Suministro e instalación de medidores individuales para cada vivienda o accionista, sistema SCADA/gestión de reparto de energía generada. Incluye contadores inteligentes, configuración software de reparto según cuota de participación, conectividad (Ethernet/WiFi), dashboards de visualización",
+          "oficio": "informatica",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "CRÍTICO en instalación comunitaria. Precio típico 3000-8000€. Instalador revisa especificación de número de usuarios y plataforma elegida."
+        },
+        {
+          "concepto": "Instalación de estructura y módulos solares en cubierta",
+          "descripcion": "Mano de obra para montaje de estructura metálica, instalación de 10 placas solares sobre estructura, fijaciones, nivelación, pruebas preliminares de estabilidad. Trabajos en altura con EPI obligatorio.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 65,
+          "total": 1300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de inversor, cuadros y conexiones eléctricas",
+          "descripcion": "Mano de obra para ubicación e instalación de inversor en sala técnica/cuarto de contadores, conexionado de protecciones, cables CC y AC, puesta a tierra, pruebas eléctricas preliminares",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 50,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de sistema de medición y configuración SCADA",
+          "descripcion": "Mano de obra para instalación de medidores en centralización de contadores, cableado de comunicaciones, configuración del software de gestión de reparto, parametrización de cuotas de participación, pruebas de funcionamiento",
+          "oficio": "informatica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 60,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Legalización ante distribuidora de energía",
+          "descripcion": "Gestión de tramitación y legalización de la instalación ante la distribuidora eléctrica. Incluye solicitud de conexión, inspección técnica de la distribuidora, actualización de contratos con todos los suministros implicados, documentación de sincronismo con red, pruebas de funcionamiento con distribuidora",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIO. Típicamente 800-2000€ según complejidad de tramitación. Instalador introduce tarifa de gestoría/trámites."
+        },
+        {
+          "concepto": "Certificaciones, informes técnicos y EPI",
+          "descripcion": "Certificado de instalación, informe de seguridad de instalación eléctrica, documentación RITE (si aplica), EPI para trabajos en altura (arnés, línea de vida, cascos), pequeño material de instalación (soportes, tacos, tornilería)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 300-800€. Incluye documentación técnica obligatoria y EPI reutilizable."
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en servicio",
+          "descripcion": "Pruebas de aislamiento de instalación, verificación de conexiones, prueba de funcionamiento en vacío, sincronismo con red, calibración de medidores, test de funcionamiento con carga, generación de informe final",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Formación a usuarios y entrega de documentación",
+          "descripcion": "Sesión de formación a junta directiva y usuarios sobre funcionamiento del sistema, consulta de datos en aplicación móvil/web, mantenimiento básico, procedimientos de seguridad",
+          "oficio": "informatica",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 3080,
+        "iva_porcentaje": 21,
+        "iva": 646.8,
+        "total": 3726.8
+      },
+      "sugerencias_catalogo": [
+        "Base Maestra: [instalacion_fotovoltaica_en_comunidad_de_propietarios] — rango precio 800-2600€/kWp. Potencia total no especificada: se asume entre 3-10 kWp. Revisar con cliente.",
+        "Base Maestra: [instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada] — estructura lastrada recomendada para evitar perforaciones en cubierta plana.",
+        "Partidas obligatorias según norma: aprobacion_comunidad (OBLIGATORIA), proyecto_tecnico (OBLIGATORIA), modulos_fotovoltaicos, inversor_y_cuadros, cableado_y_protecciones, sistema_reparto_energia_entre_vecinos_medidores_individuales, legalizado_distribuidora, EPI, pequeño_material.",
+        "NOTA: Solo aparecen MANO DE OBRA con precio (subtotal 3080€). TODOS los MATERIALES y SERVICIOS están con precio=0 y requiere_revision=true. El instalador DEBE completar precios de suministros según cotizaciones reales de proveedores."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Aprobación de comunidad de propietarios",
+          "oficio": "energia_solar",
+          "motivo": "Obligatoria en instalación comunitaria. No existe tarifa de referencia en catálogo. Instalador introduce precio de gestoría/asesoramiento."
+        },
+        {
+          "partida": "Proyecto técnico fotovoltaico para comunidad",
+          "oficio": "energia_solar",
+          "motivo": "Obligatoria en instalación comunitaria. Incluye cálculo de viabilidad, estudio de cubierta, dimensionamiento de inversor, sistema de reparto."
+        },
+        {
+          "partida": "Sistema de medición y reparto de energía entre vecinos",
+          "oficio": "informatica",
+          "motivo": "Específica de instalación comunitaria fotovoltaica. Sistema SCADA, medidores inteligentes, software de reparto. Tarifa técnica según plataforma elegida."
+        },
+        {
+          "partida": "Legalización ante distribuidora de energía",
+          "oficio": "energia_solar",
+          "motivo": "Servicio administrativo obligatorio. Tramitación e inspección ante distribuidora. Tarifa según complejidad (típicamente 800-2000€)."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_fotovoltaica_en_comunidad_de_propietarios",
+      "reforma_de_cubierta_de_edificio_comunitario",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 15,
+    "n_catalogo": 5,
+    "n_sugeridas": 10,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

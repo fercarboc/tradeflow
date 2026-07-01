@@ -1,0 +1,135 @@
+{
+  "id": 4,
+  "oficio": "Fontanería",
+  "texto": "Instalación de termo eléctrico de 80 litros con conexiones de agua y desagüe",
+  "http_status": 200,
+  "latency_ms": 14488,
+  "raw_response": {
+    "transcript": "Instalación de termo eléctrico de 80 litros con conexiones de agua y desagüe",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de termo eléctrico de 80 litros con conexiones de agua y desagüe",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de acumulador ACS (termoacumulador eléctrico) con conexiones hidráulicas de agua fría, caliente y desagüe"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro termoacumulador eléctrico 80 litros",
+          "descripcion": "Termo eléctrico de 80 litros con resistencia eléctrica integrada, aislamiento térmico, ánodo de magnesio y accesorios básicos",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipo a definir por instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Instalación termoacumulador eléctrico con conexiones",
+          "descripcion": "Instalación completa: montaje del equipo, conexión agua fría, conexión agua caliente, conexión desagüe de seguridad, latiguillos, válvula de seguridad, pequeño material (teflón, abrazaderas, etc.)",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 50,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión circuito eléctrico exclusivo termo",
+          "descripcion": "Instalación de circuito eléctrico independiente con interruptor diferencial, magnetotérmico 16A y cableado hasta el termoacumulador (incluye pequeño material)",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, magnetotérmico, diferencial)",
+          "descripcion": "Cable H07V-U 2x2.5mm², magnetotérmico 16A, interruptor diferencial 30mA, tubo corrugado, cajas de derivación y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos a definir según longitud de cableado y especificaciones finales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el cliente requiere válvula de seguridad adicional (normalmente incluida en el equipo)",
+        "Confirmar si existe toma de corriente próxima o si requiere cableado desde cuadro eléctrico",
+        "Considerar si es necesario desmontar termo anterior (no incluido en presupuesto actual)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro termoacumulador eléctrico 80 litros",
+          "origen": "sugerida_ia",
+          "motivo": "Material cuyo precio varía significativamente según marca y especificaciones; requiere revisión del instalador"
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, magnetotérmico, diferencial)",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales cuyo precio depende de longitud de cableado y especificaciones técnicas finales"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_aerotermia_para_acs_solar_hibrido",
+      "instalacion_acumulador_acs_solar",
+      "instalacion_acs_solar_termica",
+      "instalacion_suelo_radiante_hidraulico",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3638,
+      "tokens_out": 1351
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

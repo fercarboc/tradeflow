@@ -1,0 +1,201 @@
+{
+  "id": 5,
+  "oficio": "Fontanería",
+  "texto": "Sustitución de calentador de gas de paso de 11 litros por uno nuevo de 14 litros, incluyendo mano de obra y materiales",
+  "http_status": 200,
+  "latency_ms": 20180,
+  "raw_response": {
+    "transcript": "Sustitución de calentador de gas de paso de 11 litros por uno nuevo de 14 litros, incluyendo mano de obra y materiales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sustitución de calentador de gas de paso de 11 litros por uno nuevo de 14 litros, incluyendo mano de obra y materiales",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar que la salida de humos existente es compatible con el nuevo equipo de 14L",
+          "Confirmar presión de gas disponible en la acometida (mínimo 20 mbar para instantáneos)",
+          "Revisar si se requiere adaptación de tubería de gas (diámetro según caudal)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de calentador instantáneo de gas, conexiones agua fría/caliente, gas y evacuación de humos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada y gestión de residuos calentador antiguo",
+          "descripcion": "Desmontaje completo del calentador de gas de paso de 11L, desconexión de tuberías agua/gas/humos, retirada y gestión de residuos del aparato",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Calentador instantáneo de gas de paso 14L",
+          "descripcion": "Suministro de calentador de gas instantáneo de 14 litros/minuto, nuevo, homologado según normativa vigente",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipo a confirmar por instalador (rango típico 250-450€ según marca/modelo)"
+        },
+        {
+          "concepto": "Latiguillos de agua (entrada/salida) 3/4\"",
+          "descripcion": "Suministro e instalación de latiguillos flexibles de agua fría y caliente, 3/4\", homologados, con tuercas de conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario a confirmar (típico 8-15€/ud)"
+        },
+        {
+          "concepto": "Latiguillo de gas homologado 3/8\"",
+          "descripcion": "Suministro e instalación de latiguillo flexible de gas natural/butano, 3/8\", homologado según normativa, con tuercas de conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario a confirmar (típico 12-25€/ud)"
+        },
+        {
+          "concepto": "Kit de evacuación de humos (tubo flexible + codos)",
+          "descripcion": "Suministro de kit completo para evacuación de humos: tubo flexible aluminio Ø80-100mm, codos, bridas y pequeño material de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar según longitud y complejidad (típico 40-80€)"
+        },
+        {
+          "concepto": "Instalación del calentador y conexiones",
+          "descripcion": "Instalación del nuevo calentador en soporte existente, conexión de tuberías agua fría/caliente, gas y evacuación de humos, pruebas de estanqueidad y funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Teflón, pasta de fontanero, abrazaderas, tornillería, selladores y otros accesorios necesarios para la instalación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar (típico 15-30€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 175,
+        "iva_porcentaje": 21,
+        "iva": 36.75,
+        "total": 211.75
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo si existe partida específica 'Instalación calentador gas instantáneo' con rango de precios 85-400€/ud",
+        "Considerar si la salida de humos requiere obra de adaptación (albañilería) → partida adicional si es necesario",
+        "Si se requiere legalización/inspección técnica → añadir partida de gestión de trámites"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Calentador instantáneo de gas 14L",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Material específico del equipo, precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Latiguillos de agua 3/4\"",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Accesorios de conexión, precio pendiente"
+        },
+        {
+          "concepto": "Latiguillo de gas homologado 3/8\"",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Accesorios de conexión, precio pendiente"
+        },
+        {
+          "concepto": "Kit de evacuación de humos",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Accesorios de evacuación, precio pendiente"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Consumibles varios, precio pendiente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_calentador_gas_instantaneo",
+      "instalacion_aerotermia_para_acs_solar_hibrido",
+      "sustitucion_termo_electrico",
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3660,
+      "tokens_out": 2569
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

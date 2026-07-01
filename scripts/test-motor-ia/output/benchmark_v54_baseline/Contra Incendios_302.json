@@ -1,0 +1,168 @@
+{
+  "id": 302,
+  "oficio": "Contra Incendios",
+  "texto": "Suministro e instalación de extintores homologados en naves industriales, revisión anual incluida",
+  "http_status": 200,
+  "latency_ms": 18157,
+  "raw_response": {
+    "transcript": "Suministro e instalación de extintores homologados en naves industriales, revisión anual incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Suministro e instalación de extintores homologados en naves industriales, revisión anual incluida",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Cantidad de extintores no especificada — se requiere número exacto de unidades",
+          "Tipo y capacidad de extintores no definidos (polvo ABC, CO2, espuma, etc.) — afecta precio material",
+          "Ubicación exacta en naves no detallada — puede requerir acceso especial o andamios",
+          "Revisión anual: se incluye 1 año o es contrato recurrente anual indefinido — aclarar alcance"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Extintores homologados son equipos de protección contra incendios. Suministro, instalación y revisión anual son competencia de contra_incendios (RD 513/2017)"
+        },
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 38,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Revisión anual de extintores puede gestionarse como mantenimiento general, pero se prioriza contra_incendios por normativa"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de extintores homologados",
+          "descripcion": "Extintores homologados según normativa (tipo, capacidad y cantidad a definir por instalador). Incluye certificación CE y documentación técnica.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de extintores no especificada. Tipo (polvo ABC, CO2, espuma, agua) y capacidad (1kg, 2kg, 6kg, 25kg, etc.) no definidos. Instalador debe indicar: número exacto de unidades y especificaciones técnicas."
+        },
+        {
+          "concepto": "Instalación de extintores en naves industriales",
+          "descripcion": "Colocación, fijación y señalización de extintores en ubicaciones estratégicas según normativa CTE DB-SI. Incluye soportes, anclajes y señalización reflectante.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de extintores a instalar no especificada. Tiempo de instalación depende de: número de unidades, altura de colocación, accesibilidad en naves (andamios, plataformas elevadas). Instalador debe confirmar cantidad y condiciones de acceso."
+        },
+        {
+          "concepto": "Revisión anual de extintores (1.ª visita)",
+          "descripcion": "Inspección visual y funcional de todos los extintores, verificación de presión, comprobación de mecanismos de disparo, etiquetado de revisión y pequeño material. Emitir certificado de mantenimiento según RD 513/2017.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de extintores a revisar no especificada. Precio de revisión anual depende del número total de unidades. Rango típico: 45–300€/ud según complejidad. Instalador debe indicar cantidad y si incluye recarga de agentes extintores."
+        },
+        {
+          "concepto": "Recarga de agentes extintores (si necesario)",
+          "descripcion": "Recarga de polvo, CO2, espuma o agua en extintores que lo requieran tras revisión anual. Incluye retimbrado si procede (cada 5 años según normativa).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de extintores a recargar desconocida. Precio varía según tipo de agente y capacidad. Instalador debe especificar cuántos extintores requieren recarga y tipo de agente."
+        },
+        {
+          "concepto": "Señalización y documentación de extintores",
+          "descripcion": "Colocación de señales reflectantes de localización de extintores, etiquetas de revisión, libro de mantenimiento y certificados anuales de cumplimiento normativo.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según número de extintores y extensión de naves. Incluye señalización, documentación y certificados anuales obligatorios."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: número exacto de extintores a instalar",
+        "Solicitar al cliente: tipo y capacidad de cada extintor (polvo ABC 1kg, CO2 2kg, espuma 6kg, etc.)",
+        "Solicitar al cliente: ubicaciones exactas en naves (altura, accesibilidad, necesidad de andamios)",
+        "Aclarar si 'revisión anual incluida' significa: (a) 1 visita de revisión en el año 1, o (b) contrato anual recurrente indefinido",
+        "Confirmar si la recarga de agentes está incluida en el precio de revisión o es adicional",
+        "Verificar si se requiere retimbrado (cada 5 años según normativa) y en qué año se realiza"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de extintores homologados",
+          "oficio": "contra_incendios",
+          "motivo": "Material específico cuyo precio depende de tipo, capacidad y cantidad — requiere especificación del instalador"
+        },
+        {
+          "concepto": "Recarga de agentes extintores",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio de recarga de polvo, CO2, espuma o agua — precio variable según tipo y cantidad de extintores"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_persianas_y_toldos",
+      "mantenimiento_anual_de_instalacion_contra_incendios",
+      "revision_y_recarga_de_extintores",
+      "mantenimiento_anual_caldera_gas",
+      "instalacion_persiana_enrollable_aluminio_manual"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3741,
+      "tokens_out": 2399
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 5,
+    "n_catalogo": 0,
+    "n_sugeridas": 5,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

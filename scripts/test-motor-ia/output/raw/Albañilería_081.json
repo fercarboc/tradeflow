@@ -1,0 +1,192 @@
+{
+  "id": 81,
+  "oficio": "Albañilería",
+  "texto": "Quiero tirar un tabique para unir la cocina con el salón, aproximadamente 3 metros de largo",
+  "http_status": 200,
+  "latency_ms": 20769,
+  "raw_response": {
+    "transcript": "Quiero tirar un tabique para unir la cocina con el salón, aproximadamente 3 metros de largo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Quiero tirar un tabique para unir la cocina con el salón, aproximadamente 3 metros de largo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Demolición de tabique requiere verificación estructural previa. Si es tabique de carga, necesita proyecto técnico y refuerzo estructural (viga metálica o hormigón).",
+          "Se asume tabique no estructural (pladur, ladrillo hueco). Si es de carga, el presupuesto cambia radicalmente.",
+          "Retirada de instalaciones (electricidad, fontanería, gas) dentro del tabique debe verificarse in situ.",
+          "Gestión de residuos incluida en demolición."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición de tabique, retirada de escombros y limpieza de zona."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Desconexión y retirada de instalaciones eléctricas dentro del tabique (enchufes, interruptores, cableado)."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Desconexión y retirada de tuberías de agua/desagüe si existen dentro del tabique."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición tabique (pladur, ladrillo hueco o mixto)",
+          "descripcion": "Desmontaje y demolición completa de tabique de aproximadamente 3 metros de largo. Incluye retirada de placas, perfiles metálicos, ladrillo u otros materiales. Limpieza y retirada de escombros de la zona.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desconexión instalación eléctrica en tabique",
+          "descripcion": "Localización, desconexión segura y retirada de cableado eléctrico, enchufes, interruptores y cajas de derivación dentro del tabique. Incluye aislamiento de circuitos y etiquetado.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas depende de complejidad de instalación eléctrica dentro del tabique. Verificar in situ."
+        },
+        {
+          "concepto": "Desconexión instalación de fontanería en tabique",
+          "descripcion": "Localización, desconexión segura y retirada de tuberías de agua fría, agua caliente y desagüe dentro del tabique. Cierre de válvulas y aislamiento de circuitos.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas depende de si hay tuberías en el tabique. Verificar in situ."
+        },
+        {
+          "concepto": "Gestión y transporte de residuos de demolición",
+          "descripcion": "Carga, transporte y gestión de escombros y residuos de demolición del tabique (pladur, ladrillo, perfiles metálicos, cableado, tuberías). Incluye contenedor o viajes a vertedero.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 1.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de volumen real de escombros y tarifa local de gestión. Estimado 1.5 m³ para tabique de 3m. Instalador debe revisar."
+        },
+        {
+          "concepto": "Limpieza y preparación de zona tras demolición",
+          "descripcion": "Barrido, limpieza profunda de polvo y residuos. Preparación de superficies (paredes, techo, suelo) para posterior acabado o integración de espacios.",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 20,
+          "total": 20,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación estructural y dictamen técnico (si tabique es de carga)",
+          "descripcion": "Inspección técnica para determinar si el tabique es de carga o no. Si es de carga, se requiere proyecto de refuerzo estructural (viga metálica, hormigón armado, etc.). Este presupuesto NO incluye el refuerzo; solo la verificación.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIO antes de demolición. Precio depende de profesional (arquitecto, ingeniero). Estimado 300-600€. Si tabique es de carga, añadir partida de refuerzo estructural (coste significativo)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 315,
+        "iva_porcentaje": 21,
+        "iva": 66.15,
+        "total": 381.15
+      },
+      "sugerencias_catalogo": [
+        "Antes de proceder: SOLICITAR INFORME ESTRUCTURAL. Si el tabique es de carga, se necesita proyecto técnico y refuerzo con viga metálica o hormigón (coste adicional 1500-5000€ según luz y cargas).",
+        "Verificar planos del edificio o consultar con constructor/promotor sobre naturaleza del tabique.",
+        "Si hay tuberías de gas, solicitar desconexión a empresa suministradora (no incluido en presupuesto).",
+        "Considerar revestimiento de paredes/techo tras demolición (pintura, pladur, alicatado) para integración visual de espacios.",
+        "Revisar normativa local sobre permisos de obra menor o reforma."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Gestión y transporte de residuos de demolición",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de gestión de escombros. Precio variable según volumen y tarifa local."
+        },
+        {
+          "concepto": "Verificación estructural y dictamen técnico",
+          "oficio": "reforma_integral",
+          "motivo": "Servicio técnico previo obligatorio. Precio pendiente de profesional contratado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "instalacion_electrica_local_hosteleria"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3872,
+      "tokens_out": 2694
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

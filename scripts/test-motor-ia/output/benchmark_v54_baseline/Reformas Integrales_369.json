@@ -1,0 +1,244 @@
+{
+  "id": 369,
+  "oficio": "Reformas Integrales",
+  "texto": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+  "http_status": 200,
+  "latency_ms": 25187,
+  "raw_response": {
+    "transcript": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitación de casa rural antigua de piedra, nueva instalación, aislamiento y acabados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "REFORMA INTEGRAL detectada: 4+ oficios simultáneos (albanilería, fontanería, electricidad, aislamiento, acabados)",
+          "Casa antigua de piedra: REVISAR ESTRUCTURA antes de presupuestar (obligatorio según Base Maestra)",
+          "Aislamiento en piedra: prioridad CTE, requiere solución específica (SATE o cámara ventilada recomendado)",
+          "Instalaciones obsoletas: fontanería y electricidad deben ser completamente nuevas",
+          "Presupuesto estimado: 25.000-75.000€ (precio alzado según complejidad y superficie)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: múltiples oficios simultáneos (albanilería, fontanería, electricidad, aislamiento, acabados)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición selectiva, reparación de muros de piedra, revestimientos"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Nueva instalación de fontanería completa (tuberías, grifería, sanitarios)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Nueva instalación eléctrica completa (cableado, cuadro, enchufes, iluminación)"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Aislamiento e impermeabilización de muros de piedra (humedad típica en casas antiguas)"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Acabados: pintura interior y exterior"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado de baños y cocina (acabados)"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión de escombros y residuos de demolición (obligatorio en reforma integral)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición, obra civil y estructura",
+          "descripcion": "Revisión estado estructural, demolición selectiva de tabiques y revestimientos obsoletos, reparación de muros de piedra, retirada de instalaciones antiguas, limpieza y preparación de superficies",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 12000,
+          "total": 12000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado según Base Maestra. Requiere inspección previa de estructura (obligatorio en casas antiguas de piedra). Incluye: revisión estructural, demolición selectiva, reparación muros, retirada instalaciones obsoletas. Instalador debe ajustar según superficie real y estado de la estructura."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (fontanería, electricidad, climatización)",
+          "descripcion": "Nueva instalación de fontanería completa (tuberías PEX/cobre, grifería, sanitarios baño/cocina), nueva instalación eléctrica (cableado, cuadro general, enchufes, iluminación, tomas especiales), sistema de calefacción/ACS (caldera condensación o aerotermia según zona)",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 18000,
+          "total": 18000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado. Incluye: fontanería nueva completa, electricidad nueva completa, sistema calefacción/ACS. Materiales (tuberías, cableado, sanitarios, grifería, caldera) requieren presupuesto específico. Instalador debe desglosar según superficie, número de baños/cocinas y tipo de calefacción elegida."
+        },
+        {
+          "concepto": "CAP.3 – Aislamiento, impermeabilización y acabados",
+          "descripcion": "Aislamiento de muros de piedra (SATE o cámara ventilada recomendado), impermeabilización de fachada y cubierta, alicatado baño/cocina, pintura interior y exterior, revestimientos finales",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 15000,
+          "total": 15000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado. Incluye: aislamiento SATE o cámara ventilada (crítico en piedra para evitar humedades), impermeabilización fachada/cubierta, alicatado baño/cocina, pintura interior/exterior. Materiales (placas aislantes, mortero, azulejos, pintura) requieren presupuesto específico. Instalador debe ajustar según superficie total y tipo de aislamiento elegido."
+        },
+        {
+          "concepto": "CAP.4 – Gestión de residuos, permisos y pequeño material",
+          "descripcion": "Retirada y gestión de escombros, residuos de demolición, pequeño material (tornillería, adhesivos, selladores, herramientas consumibles), tramitación de permisos municipales si aplica",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 3000,
+          "total": 3000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado para gestión de residuos y pequeño material. Incluye: retirada escombros, contenedor, pequeño material, tramitación permisos. Instalador debe confirmar volumen de escombros y si requiere licencia municipal."
+        }
+      ],
+      "calculos": {
+        "subtotal": 48000,
+        "iva_porcentaje": 21,
+        "iva": 10080,
+        "total": 58080
+      },
+      "sugerencias_catalogo": [
+        "Antes de presupuestar: REVISAR ESTRUCTURA (obligatorio en casas antiguas de piedra según Base Maestra)",
+        "Aislamiento en piedra: priorizar SATE (Sistema de Aislamiento Térmico por el Exterior) o cámara ventilada para evitar condensaciones y humedades",
+        "Fontanería: especificar si red pública o pozo/depósito (si pozo, incluir análisis de agua)",
+        "Saneamiento: especificar si red pública o fosa séptica (si fosa, incluir proyecto según normativa)",
+        "Calefacción: considerar aerotermia (bomba calor) para eficiencia energética, o caldera condensación",
+        "Certificado energético: obligatorio antes y después de reforma para acreditar mejora (CTE DB-HE)",
+        "Ayudas disponibles: NextGenEU, IDAE, CCAA para rehabilitación de viviendas antiguas",
+        "Superficie estimada: solicitar al cliente para ajustar precios alzados",
+        "Número de baños/cocinas: confirmar para desglose de fontanería y alicatado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Revisión estado estructural casa antigua",
+          "oficio": "reforma_integral",
+          "motivo": "Obligatorio en casas antiguas de piedra antes de presupuestar (Base Maestra)"
+        },
+        {
+          "concepto": "Aislamiento SATE o cámara ventilada en muros de piedra",
+          "oficio": "impermeabilizacion",
+          "motivo": "Solución específica para piedra, evita humedades y condensaciones"
+        },
+        {
+          "concepto": "Impermeabilización de fachada y cubierta",
+          "oficio": "impermeabilizacion",
+          "motivo": "Crítico en casas antiguas con problemas de humedad"
+        },
+        {
+          "concepto": "Nueva instalación fontanería completa",
+          "oficio": "fontaneria",
+          "motivo": "Instalaciones obsoletas en casa antigua, requiere renovación total"
+        },
+        {
+          "concepto": "Nueva instalación eléctrica completa",
+          "oficio": "electricidad",
+          "motivo": "Instalaciones obsoletas en casa antigua, requiere renovación total"
+        },
+        {
+          "concepto": "Sistema calefacción/ACS (caldera o aerotermia)",
+          "oficio": "reforma_integral",
+          "motivo": "Necesario en casa rural antigua, especificar tipo según zona climática"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_segunda_residencia_o_casa_campo",
+      "cambio_de_cerradura_completa",
+      "reforma_de_vivienda_para_eficiencia_energetica",
+      "reforma_para_instalar_piscina_en_vivienda_unifamiliar",
+      "diseno_y_creacion_jardin_nuevo_desde_cero"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3953,
+      "tokens_out": 3536
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

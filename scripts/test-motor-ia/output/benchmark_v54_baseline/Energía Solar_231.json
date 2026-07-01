@@ -1,0 +1,160 @@
+{
+  "id": 231,
+  "oficio": "Energía Solar",
+  "texto": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+  "http_status": 200,
+  "latency_ms": 13639,
+  "raw_response": {
+    "transcript": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar batería de acumulación de 10kWh para sistema fotovoltaico existente de 3kW",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar compatibilidad batería con inversor/regulador existente",
+          "Confirmar tensión del sistema (48V, 24V, 12V) antes de suministro",
+          "Revisar espacio disponible para banco de baterías (dimensiones físicas)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de componentes de sistema fotovoltaico (batería de acumulación)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro batería de acumulación LiFePO4 10kWh",
+          "descripcion": "Banco de baterías de acumulación 10kWh (LiFePO4 o tecnología equivalente) con BMS integrado, compatible con sistema fotovoltaico 3kW existente",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de batería 10kWh variable según tecnología (LiFePO4, iones litio, plomo-ácido). Instalador debe confirmar especificaciones técnicas y proveedor"
+        },
+        {
+          "concepto": "Cableado DC y protecciones para batería",
+          "descripcion": "Cableado DC de sección adecuada (según tensión sistema), fusibles, interruptores DC, conectores y pequeño material de conexión batería-inversor",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud de cableado, sección y tipo de protecciones. Requiere medición en obra"
+        },
+        {
+          "concepto": "Instalación y conexionado batería de acumulación",
+          "descripcion": "Montaje del banco de baterías, conexionado DC a inversor/regulador existente, configuración de parámetros de carga/descarga, pruebas de funcionamiento y puesta en marcha",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de compatibilidad e integración con sistema existente",
+          "descripcion": "Inspección del inversor/regulador existente, verificación de tensión y potencia, pruebas de carga/descarga, ajuste de parámetros de funcionamiento conjunto fotovoltaico-batería",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documentación técnica y puesta en servicio",
+          "descripcion": "Generación de esquema unifilar actualizado, certificado de instalación, manual de operación, registro en sistema de monitoreo si aplica",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según complejidad de documentación y si incluye monitoreo remoto"
+        }
+      ],
+      "calculos": {
+        "subtotal": 585,
+        "iva_porcentaje": 21,
+        "iva": 122.85,
+        "total": 707.85
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tecnología de batería: LiFePO4 (mayor durabilidad, 6000-10000 ciclos), iones litio (4000-6000 ciclos) o plomo-ácido (1000-2000 ciclos)",
+        "Verificar tensión del sistema existente (48V es estándar para 10kWh, pero confirmar)",
+        "Considerar si el inversor actual soporta carga desde batería o requiere inversor híbrido",
+        "Evaluar si se necesita estabilizador de tensión o protecciones adicionales",
+        "Presupuestar mantenimiento periódico (revisión anual recomendada)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro batería de acumulación LiFePO4 10kWh",
+          "oficio": "energia_solar",
+          "motivo": "Material específico de sistema fotovoltaico con acumulación. Precio variable según proveedor y especificaciones técnicas"
+        },
+        {
+          "concepto": "Cableado DC y protecciones para batería",
+          "oficio": "energia_solar",
+          "motivo": "Material de conexión e integración. Precio depende de configuración del sistema existente"
+        },
+        {
+          "concepto": "Documentación técnica y puesta en servicio",
+          "oficio": "energia_solar",
+          "motivo": "Servicio de cierre de instalación con documentación obligatoria"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_riego_por_aspersion",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_de_sistema_de_rociadores_sprinklers"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 4044,
+      "tokens_out": 1760
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "id": 17,
+  "oficio": "Fontanería",
+  "texto": "Reparación urgente de rotura de tubería en la pared del baño principal, hay agua saliendo y hay que actuar hoy",
+  "http_status": 200,
+  "latency_ms": 32147,
+  "raw_response": {
+    "transcript": "Reparación urgente de rotura de tubería en la pared del baño principal, hay agua saliendo y hay que actuar hoy",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación urgente de rotura de tubería en la pared del baño principal, hay agua saliendo y hay que actuar hoy",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "URGENCIA: Fuga activa con agua saliendo. Requiere corte de agua general INMEDIATO.",
+          "Trabajo en pared → probable rotura de alicatado que debe reponerse.",
+          "Acceso a tubería → requiere apertura de pared, inspección visual para diagnosticar extensión del daño.",
+          "Posible daño estructural o moho si la fuga lleva tiempo activa.",
+          "Documentar para seguro del hogar si procede."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación de rotura de tubería de agua. Tarifa de fontanería aplicable."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Probable apertura/cierre de pared y reposición de alicatado tras reparación de tubería."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desplazamiento urgente y corte de agua general",
+          "descripcion": "Desplazamiento urgente del fontanero, localización del contador y cierre de llave de paso general para detener fuga inmediata.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Urgencia. Instalador define tarifa de desplazamiento urgente según horario (puede incluir recargo por fuera de horario). Precio sugerido: 60-120€ según hora."
+        },
+        {
+          "concepto": "Diagnóstico y localización del daño",
+          "descripcion": "Inspección visual de la rotura, verificación de extensión del daño en tubería, evaluación de materiales necesarios y valoración de daños secundarios (alicatado, escayola, estructura).",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Apertura de pared para acceso a tubería",
+          "descripcion": "Rotura controlada de alicatado y/o escayola para acceder a la zona de rotura. Incluye demolición localizada y retirada de escombros.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo estimado pendiente de verificación según tamaño de rotura y accesibilidad. Puede variar entre 1-3 horas."
+        },
+        {
+          "concepto": "Suministro e instalación de tubo multicapa de reparación",
+          "descripcion": "Suministro de tubo PEX/multicapa de calidad, corte de zona dañada (mínimo 50 cm zona afectada + merma 10%), manguito de reparación, abrazaderas y juntas de goma según diámetro detectado.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según diámetro (10/12/15/20 mm) y tipo de material. Estimado: 15-45€/ml. Instalador revisa según diagnóstico real."
+        },
+        {
+          "concepto": "Instalación de reparación de tubería",
+          "descripcion": "Corte limpio de tubería dañada, colocación de manguito de reparación, fijación con abrazaderas, prueba de estanquidad a presión (sin fugas).",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo estimado: 1-2 horas según complejidad. Si hay múltiples roturas o daño extenso, aumentar."
+        },
+        {
+          "concepto": "Prueba de funcionamiento y presurización",
+          "descripcion": "Reapertura de llave general, prueba de circulación de agua, verificación de presión, comprobación de ausencia de fugas en punto reparado. Documento de prueba.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 30,
+          "total": 30,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reposición de alicatado en zona de reparación",
+          "descripcion": "Limpieza de zona, preparación de mortero adhesivo, colocación de azulejos de reemplazo (mínimo zona afectada + perímetro de seguridad), rejuntado y limpieza final.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² estimada a partir del diagnóstico. Típico: 0.5-2 m² en reparación localizada. Precio material + mano de obra: 40-80€/m²."
+        },
+        {
+          "concepto": "Mano de obra reposición de alicatado",
+          "descripcion": "Horas de albañil para demolición de azulejos dañados, preparación de base, colocación nueva y rejuntado.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación: 1.5-3 horas según extensión. Pendiente de diagnóstico in situ."
+        },
+        {
+          "concepto": "Pequeño material (bridas, teflón, masilla, limpiadores)",
+          "descripcion": "Cinta de teflón, bridas de sujeción, masilla de sellado, desengrasante, trapos, etc. Material fungible para completar la reparación.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado: 15-30€. Instalador revisa según uso real."
+        },
+        {
+          "concepto": "Retirada de escombros y limpieza final",
+          "descripcion": "Barrido, recogida de restos de alicatado, escayola y tuberías rotas, carga y retirada a punto de gestión autorizado. Limpieza de zona de trabajo.",
+          "oficio": "multiservicio",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 38,
+          "total": 38,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe de reparación y asesoramiento seguro",
+          "descripcion": "Documentación fotográfica de la avería, informe técnico de causa probable (fatiga, corrosión, defecto de fabricación), recomendaciones de prevención, asesoramiento para comunicar al seguro del hogar si procede.",
+          "oficio": "fontaneria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importante para reclamación a seguro. Sugerido: incluir sin coste adicional o 20-40€ según tarifa."
+        }
+      ],
+      "calculos": {
+        "subtotal": 333,
+        "iva_porcentaje": 21,
+        "iva": 69.93,
+        "total": 402.93
+      },
+      "sugerencias_catalogo": [
+        "Esta reparación es URGENTE. El presupuesto anterior incluye SOLO mano de obra e instalación validadas. Los MATERIALES requieren revisión inmediata por el fontanero in situ.",
+        "Costes variables identificados y pendientes de actualización: tubo multicapa (15-45€/ml), alicatado de reposición (40-80€/m²), pequeño material (15-30€), desplazamiento urgente (60-120€).",
+        "TOTAL ESTIMADO FINAL (con materiales promedio): 500-800€ dependiendo de extensión de daño.",
+        "Recomendar al cliente: aceptar presupuesto base (mano de obra estructurada) + acta de materiales finales tras diagnóstico."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Desplazamiento urgente y corte de agua general",
+          "oficio": "fontaneria",
+          "razon": "Urgencia con agua activa. No hay en Base Maestra, pero es esencial en reparaciones de fugas urgentes."
+        },
+        {
+          "partida": "Reposición de alicatado en zona de reparación",
+          "oficio": "albanileria",
+          "razon": "Necesaria tras rotura de pared para acceso. Agregada como partida material pendiente de cuantificación."
+        },
+        {
+          "partida": "Informe de reparación y asesoramiento seguro",
+          "oficio": "fontaneria",
+          "razon": "Valor agregado para documentación de siniestro. No está en catálogo base pero es estándar en reparaciones urgentes de hogar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_fuga_tuberia",
+      "actuacion_de_urgencia_en_vivienda_o_local",
+      "instalacion_de_extintores_portatiles",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "instalacion_suelo_radiante_hidraulico"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

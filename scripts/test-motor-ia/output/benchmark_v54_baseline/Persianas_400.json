@@ -1,0 +1,219 @@
+{
+  "id": 400,
+  "oficio": "Persianas",
+  "texto": "Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor",
+  "http_status": 200,
+  "latency_ms": 25946,
+  "raw_response": {
+    "transcript": "Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo en fachada de edificio comercial (hotel) — verificar acceso, andamios y permisos municipales",
+          "10 unidades de toldos motorizados — presupuesto considerable, requiere revisión de precios de materiales",
+          "Instalación en altura — evaluar necesidad de andamios o plataformas elevadas",
+          "Toldos con motor — incluir conexión eléctrica y programación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de estructura metálica, anclajes y toldos extensibles en fachada"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica de motores, cableado y cuadro de control para 10 unidades"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro toldos extensibles con cofre y motor",
+          "descripcion": "10 unidades de toldo extensible 2.5m con cofre integrado, motor eléctrico 230V, brazo articulado, tela acrílica resistente UV, anclajes metálicos para fachada",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de toldo motorizado con cofre variable según marca, calidad y tamaño. Rango estimado: 400-800€/ud. El instalador debe confirmar especificaciones técnicas y presupuesto de proveedor"
+        },
+        {
+          "concepto": "Anclajes y fijación a fachada",
+          "descripcion": "Anclajes metálicos reforzados, tacos químicos o mecánicos según tipo de fachada (hormigón/ladrillo), herrajes de sujeción, pequeño material (tornillería, arandelas, tuercas)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo de anclajes y herrajes según tipo de fachada. Estimado: 50-150€/ud. Requiere inspección previa de fachada"
+        },
+        {
+          "concepto": "Instalación mecánica de toldos",
+          "descripcion": "Montaje de estructura, fijación de anclajes a fachada, instalación de brazos articulados, ajuste de mecanismos de extensión/retracción, pruebas de funcionamiento manual y motorizado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 60,
+          "total": 2400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado eléctrico y conexión motores",
+          "descripcion": "Cable H07RN-F 3x2.5mm² desde cuadro a cada toldo, tubo PVC corrugado de protección, cajas de derivación, conectores estancos IP65, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Costo de cableado y accesorios eléctricos. Estimado: 80-150€/ud según longitud de tendido. Requiere medición de distancias en fachada"
+        },
+        {
+          "concepto": "Cuadro de control y mandos",
+          "descripcion": "Cuadro de control centralizado con interruptores/pulsadores para 10 toldos, relés de maniobra, protecciones diferenciales 30mA, toma de tierra, mandos a distancia inalámbricos (opcional), pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cuadro de control para 10 motores. Estimado: 400-800€. Incluir mandos a distancia si se requieren"
+        },
+        {
+          "concepto": "Instalación eléctrica y programación",
+          "descripcion": "Conexión de cableado a cuadro de control, instalación de protecciones diferenciales, programación de finales de carrera, pruebas de funcionamiento de cada toldo, ajuste de velocidades de extensión/retracción",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma elevada (si necesario)",
+          "descripcion": "Alquiler y montaje de andamio modular o plataforma elevada para acceso seguro a fachada durante instalación (altura estimada según piso de hotel)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesidad de andamio PENDIENTE DE CONFIRMACIÓN. Si la fachada requiere acceso en altura, presupuestar alquiler de andamio (típicamente 200-400€/día) o plataforma elevada (300-600€/día). Indicar cantidad de jornadas necesarias"
+        },
+        {
+          "concepto": "Impermeabilización encuentro toldo-fachada",
+          "descripcion": "Sellado con silicona neutra o poliuretano de encuentros entre anclajes y fachada, masilla impermeabilizante en juntas, protección contra infiltraciones de agua",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de sellado e impermeabilización. Estimado: 30-60€/ud. Incluido en mano de obra de instalación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3200,
+        "iva_porcentaje": 21,
+        "iva": 672,
+        "total": 3872
+      },
+      "sugerencias_catalogo": [
+        "Consultar con proveedor de toldos motorizados especificaciones técnicas: potencia motor, velocidad extensión, resistencia viento, garantía",
+        "Solicitar certificado de resistencia estructural de anclajes según normativa de cargas de viento y nieve de la zona",
+        "Evaluar si se requieren mandos a distancia inalámbricos o control centralizado por domótica",
+        "Confirmar si la fachada del hotel permite perforaciones o si requiere anclajes especiales (fachada de vidrio, composite, etc.)",
+        "Presupuestar inspección previa de fachada y estado de estructura de soporte"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro toldos extensibles con cofre y motor",
+          "oficio": "cerrajeria",
+          "motivo": "Producto específico no detallado en catálogo base. Requiere especificación de marca, modelo, potencia motor y características técnicas"
+        },
+        {
+          "concepto": "Anclajes y fijación a fachada",
+          "oficio": "cerrajeria",
+          "motivo": "Material variable según tipo de fachada (hormigón, ladrillo, composite). Requiere inspección previa"
+        },
+        {
+          "concepto": "Cableado eléctrico y conexión motores",
+          "oficio": "electricidad",
+          "motivo": "Cableado específico para 10 motores. Longitud variable según distribución en fachada"
+        },
+        {
+          "concepto": "Cuadro de control y mandos",
+          "oficio": "electricidad",
+          "motivo": "Sistema de control centralizado para múltiples motores. Requiere especificación de funcionalidades (mandos inalámbricos, domótica, etc.)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_motor_puerta_garaje_seccional_o_basculante",
+      "instalacion_alumbrado_exterior_jardin",
+      "instalacion_pantalla_de_proyeccion_motorizada",
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "instalacion_de_toldos_y_marquesinas_metalicas_estructurales"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3717,
+      "tokens_out": 3296
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

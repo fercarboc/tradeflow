@@ -1,0 +1,219 @@
+{
+  "id": 108,
+  "oficio": "Climatización",
+  "texto": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+  "http_status": 200,
+  "latency_ms": 20026,
+  "raw_response": {
+    "transcript": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar 3 splits inverter en salón y dormitorios, conexión con sistema existente y red eléctrica",
+        "tipo_presupuesto": "instalacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar capacidad de la red eléctrica existente para 3 unidades split",
+          "Confirmar si existe unidad exterior (condensadora) o se requiere nueva instalación",
+          "Validar distancia entre unidades interiores y exterior para calcular longitud de tubería refrigerante"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de unidades split inverter con conexión a sistema existente"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Acometida eléctrica e instalación de protecciones y derivaciones para splits"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro unidades split inverter",
+          "descripcion": "3 unidades split aire acondicionado inverter (1 salón + 2 dormitorios), potencia y especificaciones a confirmar",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del material varía según marca, potencia (BTU/kW) y especificaciones técnicas; debe revisar el instalador"
+        },
+        {
+          "concepto": "Instalación unidades split interiores",
+          "descripcion": "Montaje en pared, nivelación, sujeción mecánica y pequeño material (soportes, tornillos, tacos) de 3 unidades interiores",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tubería refrigerante y conexiones",
+          "descripcion": "Suministro e instalación de tubería de cobre aislada (ida y retorno) para conexión de 3 splits a unidad exterior existente, incluyendo codos, válvulas y accesorios",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total a definir según ubicación de unidad exterior y splits; precio por metro lineal a determinar"
+        },
+        {
+          "concepto": "Instalación red refrigerante",
+          "descripcion": "Tendido, sujeción con abrazaderas, aislamiento térmico y prueba de estanqueidad de la red de tubería refrigerante",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado eléctrico para splits",
+          "descripcion": "Suministro e instalación de cable eléctrico trifásico o monofásico (según demanda), conductos, canaletas y pequeño material para derivaciones individuales a 3 splits",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud y sección de cable a definir según potencia total y distancias; precio por metro a determinar"
+        },
+        {
+          "concepto": "Instalación conexiones eléctricas",
+          "descripcion": "Tendido de cableado, instalación de protecciones (diferenciales, magnetotérmicos), derivaciones y conexión de terminales en 3 unidades interiores",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protecciones y automatismos",
+          "descripcion": "Suministro e instalación de diferenciales, magnetotérmicos individuales (si procede) y conectores de seguridad para 3 circuitos de splits",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo y calibre de protecciones según cálculo de carga; precio unitario a revisar"
+        },
+        {
+          "concepto": "Pruebas y puesta en marcha",
+          "descripcion": "Prueba de presión y estanqueidad del sistema refrigerante, vacío (si procede), carga de gas refrigerante, pruebas eléctricas, calibración y funcionamiento de 3 splits",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Bridas, cinta aislante, pasta térmica, tornilería, tacos de fijación, terminales crimpados y consumibles de instalación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada; presupuesto aproximado 30-50€ por conjunto"
+        }
+      ],
+      "calculos": {
+        "subtotal": 690,
+        "iva_porcentaje": 21,
+        "iva": 144.9,
+        "total": 834.9
+      },
+      "sugerencias_catalogo": [
+        "Verificar en BASE MAESTRA la partida [instalacion_sistema_climatizacion_splits] para referencias de precios por unidad",
+        "Consultar norma UNE-EN 378 para instalación de sistemas refrigerantes",
+        "Revisar capacidad de la acometida principal: cargas de 3 splits pueden requerir upgrading de protecciones generales"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tubería refrigerante y conexiones",
+          "oficio": "climatizacion",
+          "razon": "Requiere información de distancias y longitudes exactas entre unidad exterior e interiores"
+        },
+        {
+          "concepto": "Cableado eléctrico para splits",
+          "oficio": "electricidad",
+          "razon": "Sección y longitud determinada por estudio de cargas y trazado de instalación"
+        },
+        {
+          "concepto": "Protecciones y automatismos",
+          "oficio": "electricidad",
+          "razon": "Calibre y tipo dependientes del cálculo de demanda total de potencia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_recuperacion_aguas_pluviales",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_central_de_incendios_deteccion_automatica"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

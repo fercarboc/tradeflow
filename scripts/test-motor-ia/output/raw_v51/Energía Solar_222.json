@@ -1,0 +1,393 @@
+{
+  "id": 222,
+  "oficio": "Energía Solar",
+  "texto": "Presupuesto para instalación solar con baterías de litio para desconectarse de la red eléctrica",
+  "http_status": 200,
+  "latency_ms": 48963,
+  "raw_response": {
+    "transcript": "Presupuesto para instalación solar con baterías de litio para desconectarse de la red eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Presupuesto para instalación solar con baterías de litio para desconectarse de la red eléctrica",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema aislado (off-grid): requiere especificación de consumo diario estimado y autonomía deseada",
+          "Falta información: ubicación geográfica, orientación tejado, superficie disponible, consumo medio diario (kWh/día)",
+          "Falta capacidad de baterías: proponer entre 10-30 kWh según autonomía (3-7 días típico)",
+          "Falta potencia FV: proponer entre 5-15 kWp según zona solar y consumo",
+          "Regulador de carga DC: necesario para sistemas off-grid (no en catálogo, crear partida)",
+          "Inversores: en sistema aislado se requiere inversor cargador puro (diferente a hibrido grid-tie)",
+          "Sistema de protección y monitoreo: crítico en off-grid para evitar sobrecarga de baterías",
+          "Asesoramiento legal: verificar permisos municipales y normativa para desconexión total"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica + sistema de almacenamiento híbrido aislado (off-grid)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cableado de alta capacidad DC/AC, protecciones, cuadro de control, puesta a tierra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estudio y diseño sistema solar aislado off-grid",
+          "descripcion": "Análisis de consumo estimado, cálculo de potencia FV necesaria, capacidad de baterías, autonomía, orientación y ubicación. Incluye informe técnico con esquema eléctrico y lista de materiales.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto sin datos de consumo/ubicación. Instalador debe especificar tarifa de diseño (típico 400-800€). Incluir en propuesta inicial antes de materiales."
+        },
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos",
+          "descripcion": "Paneles solares de alta eficiencia para sistema aislado. Cantidad y potencia (kWp) a determinar según consumo diario y horas de sol en zona. Incluye pequeño material de fijación (tornillería, conectores MC4).",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio pendiente. Típico 150-250€/kWp instalado. Sistema aislado requiere 5-15 kWp según autonomía. El instalador especifica capacidad real tras estudio."
+        },
+        {
+          "concepto": "Baterías de litio LFP (Litio Ferrofosfato) para almacenamiento",
+          "descripcion": "Banco de baterías LFP (más seguras y duraderas que NMC, 6000+ ciclos de vida). Capacidad total en kWh a determinar según autonomía objetivo (típico 10-30 kWh para off-grid residencial). Incluye estructura de montaje, cableado interno, fusibles y protecciones integradas o externas.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWh",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Capacidad y precio pendiente. Rango catalogo 800-2600€/kWh instalado (típico 1200-1800€/kWh en off-grid). Instalador especifica capacidad tras estudio de consumo y autonomía."
+        },
+        {
+          "concepto": "Sistema de gestión de baterías (BMS) y monitoreo",
+          "descripcion": "BMS integrado o externo para control de carga/descarga, protección por sobretensión, baja tensión y temperatura. Sistema SCADA/monitoreo online para supervisión en tiempo real del estado de carga, potencia generada, consumo y autonomía estimada. Incluye panel de visualización o app móvil.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente. BMS + monitoreo típico 800-2000€. Crítico en sistemas aislados para evitar sobrecarga de baterías y optimizar autonomía."
+        },
+        {
+          "concepto": "Regulador de carga MPPT o PWM para paneles fotovoltaicos",
+          "descripcion": "Regulador de carga de alta potencia (MPPT recomendado para mayor eficiencia) que gestiona la carga de baterías desde paneles solares. Protege baterías contra sobrecarga. Capacidad en amperios según potencia FV (típico 60-120A para sistemas 5-15 kWp).",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material no en catálogo. Precio típico 800-2500€ según amperaje. MPPT es 20-30% más eficiente que PWM, recomendado para off-grid."
+        },
+        {
+          "concepto": "Inversor cargador para sistema aislado (off-grid)",
+          "descripcion": "Inversor puro (no hibrido grid-tie) que convierte DC de baterías a AC 230V para cargas domésticas. Potencia en kW a determinar según consumo máximo simultáneo. Incluye cargador integrado para generador diesel/gasolina de apoyo (opcional). Capacidad típica 3-10 kW.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kW",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Potencia y precio pendiente. Rango 1500-5000€ según capacidad (3-10 kW típico). DIFERENTE de inversor grid-tie: debe soportar variabilidad de entrada DC sin red."
+        },
+        {
+          "concepto": "Cableado DC de alta capacidad (paneles a regulador a baterías)",
+          "descripcion": "Cable fotovoltaico DC de sección 10-35 mm² (según corriente total FV) con conectores MC4 de máxima capacidad. Tubería de protección mecánica. Distancia estimada desde paneles a sala técnica: incluir en medición.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud y sección a determinar. Típico 50-200 ml. Precio 5-15€/ml según sección. En off-grid: pérdidas deben ser <3% → cables más gruesos que grid-tie."
+        },
+        {
+          "concepto": "Cableado AC de distribución interior (inversor a cuadro de cargas)",
+          "descripcion": "Cable de poder AC 3x4 mm² o superior desde inversor a cuadro de distribución interior. Incluye protección en tubería. Distancia 5-20 metros típico desde sala técnica a vivienda.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud a medir. Precio 2-8€/ml. Instalador incluye en medición de obra civil."
+        },
+        {
+          "concepto": "Protecciones eléctricas CC (lado fotovoltaico)",
+          "descripcion": "Fusibles DC de 1000V en positivo de paneles, interruptores seccionadores, varistores de protección contra sobretensiones (rayos), pararrayos si ubicación expuesta. Cuadro de protección CC montado en sala técnica.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente. Cuadro CC típico 400-800€. Obligatorio en sistemas fotovoltaicos por normativa ITC-40."
+        },
+        {
+          "concepto": "Protecciones eléctricas AC (lado de consumo)",
+          "descripcion": "Magnetotérmicos, diferenciales, limitadores de sobretensión en cuadro de distribución AC. Interruptor de desconexión general. Puesta a tierra de la instalación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente. Cuadro AC típico 200-500€. Incluye regleta de tierra."
+        },
+        {
+          "concepto": "Instalación estructura de soporte para paneles fotovoltaicos en tejado",
+          "descripcion": "Estructuras de aluminio/acero galvanizado para fijación de paneles en tejado o terraza. Incluye anclajes, tornillería, sellado e impermeabilización. Orientación e inclinación óptimas según ubicación (típico 25-40° en España).",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según kWp total. Precio típico 200-400€/kWp en estructura. A determinar tras estudio de ubicación (tejado/terraza/suelo)."
+        },
+        {
+          "concepto": "Mano de obra: montaje paneles fotovoltaicos en estructura",
+          "descripcion": "Instalación de módulos fotovoltaicos en estructura preformada, conexionado DC con conectores MC4, aplicación de sellantes, verificación de estanqueidad.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 65,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según número de paneles (típico 0.5-1 hora por panel). Sistema 5-15 kWp = 15-30 paneles = 10-25 horas aprox."
+        },
+        {
+          "concepto": "Mano de obra: instalación regulador MPPT y protecciones DC",
+          "descripcion": "Montaje de regulador en cuadro, conexión de cables DC desde paneles, fusibles, varistores y seccionadores. Pruebas de funcionamiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: instalación baterías LFP y BMS",
+          "descripcion": "Montaje de banco de baterías en rack, conexionado en serie/paralelo, instalación de BMS externo si no integrado, cableado de protección, pruebas de equilibrio de celdas y monitoreo.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: instalación inversor cargador off-grid",
+          "descripcion": "Montaje de inversor en cuadro, conexión DC desde baterías, conexión AC a cuadro de cargas, programación de parámetros (voltaje nominal, límites de carga/descarga, modo aislado), pruebas de funcionamiento con cargas.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: instalación cableado DC y AC",
+          "descripcion": "Tendido de cable DC desde paneles a regulador a baterías, tendido de cable AC desde inversor a cuadro de cargas. Fijación en tubería corrugada, etiquetado de fases y protección.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas a estimar según longitud total de cableado (típico 20-30 ml = 4-8 horas aprox)."
+        },
+        {
+          "concepto": "Mano de obra: instalación cuadro de protecciones CC y AC",
+          "descripcion": "Montaje de componentes (magnetotérmicos, diferenciales, interruptores, varistores) en cuadro, conexionado, etiquetado, puesta a tierra con electrodo de cobre, prueba de aislamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: pruebas, puesta en marcha y monitoreo inicial",
+          "descripcion": "Pruebas de continuidad, aislamiento, funcionalidad de regulador y inversor en carga y descarga, sincronización de BMS, verificación de autonomía estimada, calibración de monitoreo, formación básica del usuario en manejo de la instalación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 65,
+          "total": 325,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Asesoramiento legal y gestión normativa",
+          "descripcion": "Asesoramiento sobre regulación local (permisos municipales, normativa de desconexión de red, inspección técnica obligatoria si aplica). Gestión de documentación y tramitación ante administración si es necesario.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio adicional recomendado. Precio típico 300-800€ según complejidad. Obligatorio para off-grid en muchas jurisdicciones."
+        },
+        {
+          "concepto": "Equipo de protección individual (EPI) y pequeño material",
+          "descripcion": "Arnés, casco, guantes, gafas de seguridad para trabajos en altura. Conectores MC4 de repuesto, bridas, etiquetas, cinta métrica, multímetro digital si es necesario.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material típico 150-300€. Incluir en presupuesto."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2195,
+        "iva_porcentaje": 21,
+        "iva": 461,
+        "total": 2656
+      },
+      "sugerencias_catalogo": [
+        {
+          "termino_buscado": "sistema solar aislado off-grid",
+          "sugerencia": "Crear entrada en catálogo: [instalacion_sistema_fotovoltaico_aislado_off_grid] oficio=energia_solar, unidad=kWp/kWh, precio=1800-3200€/kWp+bateria (más caro que grid-tie por componentes específicos: regulador MPPT, inversor puro, BMS robusto)"
+        },
+        {
+          "termino_buscado": "regulador de carga MPPT",
+          "sugerencia": "Crear entrada en catálogo: [regulador_carga_mppt] oficio=energia_solar, unidad=ud, precio=800-2500€ según amperaje (40A=800€, 80A=1500€, 120A=2500€)"
+        },
+        {
+          "termino_buscado": "inversor cargador off-grid",
+          "sugerencia": "Crear entrada en catálogo: [inversor_cargador_aislado] oficio=energia_solar, unidad=kW, precio=400-800€/kW (3 kW=1200€, 5 kW=2000€, 10 kW=5000€). Especificar que es para sistemas aislados, NO grid-tie."
+        },
+        {
+          "termino_buscado": "generador de apoyo (diesel/gasolina)",
+          "sugerencia": "Para sistemas off-grid con autonomía limitada, considerar generador de 5-10 kW como backup. Puede integrarse con cargador de inversor. Precio típico 2000-4000€ + instalación (oficio=mecanica_especializada)."
+        }
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Estudio y diseño sistema solar aislado off-grid",
+          "razon": "Servicio crítico no cubierto en catálogo. Sistema aislado requiere análisis profundo de consumo, autonomía y ubicación antes de seleccionar equipos."
+        },
+        {
+          "partida": "Regulador de carga MPPT o PWM",
+          "razon": "Componente específico de sistemas off-grid. No aparece en catálogo. MPPT es 20-30% más eficiente que PWM en sistemas solares aislados."
+        },
+        {
+          "partida": "Inversor cargador para sistema aislado (off-grid)",
+          "razon": "Diferente a inversor grid-tie. Inversores puros para off-grid no aparecen en catálogo. Debe soportar entrada DC variable sin red externa."
+        },
+        {
+          "partida": "Asesoramiento legal y gestión normativa",
+          "razon": "Desconexión de red implica normativa específica (DNI digital, inspección técnica, declaración de instalación). Muy variable por jurisdicción."
+        }
+      ],
+      "nota_instalador": "PRESUPUESTO INCOMPLETO - REQUIERE INFORMACIÓN PREVIA:\n\n1. CONSUMO DIARIO ESTIMADO (kWh/día): ¿cuánta energía consume la vivienda en promedio? (típico 10-30 kWh/día).\n2. AUTONOMÍA DESEADA (días): ¿cuántos días sin sol desea mantener suministro? (típico 3-7 días).\n3. UBICACIÓN Y ORIENTACIÓN: provincia, tipo de tejado (inclinado/plano), orientación cardinal, sombreados.\n4. CAPACIDAD DE BATERÍAS RECOMENDADA: autonomia_dias × consumo_diario / 0.8 (descarga máx 80%). Ejemplo: 5 días × 20 kWh/día / 0.8 = 125 kWh banco.\n5. POTENCIA FV RECOMENDADA: consumo_diario / horas_sol_medio_zona. En España central ~4 horas/día de sol útil. Ejemplo: 20 kWh / 4 h = 5 kWp MÍNIMO (en realidad 7-10 kWp para garantizar en invierno).\n6. POTENCIA INVERSOR: consumo máximo simultáneo (nevera+horno+bomba agua = típico 3-5 kW).\n7. GENERADOR DE APOYO: ¿incluir diesel/gasolina para días nublados prolongados? (recomendado para mayor seguridad).\n\nUNA VEZ OBTENIDA ESTA INFORMACIÓN, presupuesto se concretará con: cantidades exactas de kWp y kWh, precios unitarios reales de materiales, y horas exactas de instalación. Mano de obra estimada sin información: mínimo 35-45 horas en 4-5 días de trabajo en obra."
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_baterias_de_almacenamiento_solar",
+      "informe_y_presupuesto_sistema_solar",
+      "diagnostico_y_presupuesto_proteccion_solar_edificio",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 20,
+    "n_catalogo": 7,
+    "n_sugeridas": 13,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

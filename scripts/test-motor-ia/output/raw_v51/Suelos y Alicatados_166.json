@@ -1,0 +1,223 @@
+{
+  "id": 166,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner microcemento en suelo de cocina y salón como suelo continuo, 50 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 21327,
+  "raw_response": {
+    "transcript": "Poner microcemento en suelo de cocina y salón como suelo continuo, 50 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner microcemento en suelo de cocina y salón como suelo continuo, 50 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Microcemento en cocina: zona de alto tráfico y posibles salpicaduras. Verificar con cliente impermeabilización adicional si es necesario.",
+          "Suelo continuo de 50 m²: requiere replanteo previo y preparación exhaustiva del soporte.",
+          "Curado crítico: 72h tráfico de pie, 7 días tráfico pesado. Coordinar con cliente."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 95
+          },
+          "motivo": "Instalación de microcemento en suelo interior, oficio especializado en acabados continuos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y limpieza de soporte",
+          "descripcion": "Limpieza exhaustiva, reparación de fisuras, lijado del soporte existente en 50 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 8,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación adherente bicomponente",
+          "descripcion": "Aplicación de imprimación bicomponente especifica para microcemento en 50 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe especificar marca y rendimiento real (aprox. 0.5-0.8 kg/m²)"
+        },
+        {
+          "concepto": "Microcemento bicomponente - aplicación multicapa",
+          "descripcion": "Aplicación de microcemento bicomponente mínimo 3-5 capas en 50 m² para suelo continuo de cocina-salón",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 35,
+          "total": 1750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Microcemento bicomponente - material",
+          "descripcion": "Suministro de microcemento bicomponente (base + resina) para 50 m² con 3-5 capas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador especificar marca, rendimiento (2-4 kg/m²/capa) y cantidad de capas confirmada"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio en encuentros y juntas",
+          "descripcion": "Colocación de malla fibra de vidrio en encuentros con paredes y posibles juntas en 50 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar: especificar ancho de malla y longitud total de encuentros"
+        },
+        {
+          "concepto": "Sellador de poliuretano alta resistencia",
+          "descripcion": "Aplicación de sellador de poliuretano de alta resistencia al tráfico en toda la superficie (50 m²)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 6,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador de poliuretano - material",
+          "descripcion": "Suministro de sellador de poliuretano bicomponente de alta resistencia tráfico y humedad",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: especificar rendimiento (0.5-0.7 kg/m²) y tipo (mate/satinado/brillo)"
+        },
+        {
+          "concepto": "Lijado y acabado final",
+          "descripcion": "Lijado progresivo con diferentes granulometrías y acabado final en 50 m²",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 8,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Llanas metálicas inox, espátulas, rodillos, lijas variadas, plásticos protección, etc.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible: estimado 2-5€/m² según herramientas y cantidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2850,
+        "iva_porcentaje": 21,
+        "iva": 598.5,
+        "total": 3448.5
+      },
+      "sugerencias_catalogo": [
+        "Considerar impermeabilización adicional en cocina si hay riesgo de salpicaduras frecuentes (aunque microcemento + sellador poliuretano proporciona protección)",
+        "Coordinar tiempos de curado: 72h mínimo antes de tráfico de pie, 7 días antes de tráfico pesado",
+        "En cocina-salón continuo: plantear posible junta de dilatación decorativa si superficie >50 m² o cambios de uso"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación adherente bicomponente",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Material constitutivo obligatorio según Base Maestra [instalacion_microcemento_suelo_interior]"
+        },
+        {
+          "concepto": "Microcemento bicomponente - material",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Material constitutivo principal, precio a revisión del instalador según marca y calidad"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio en encuentros y juntas",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Partida auxiliar recomendada en Base Maestra para refuerzo de encuentros"
+        },
+        {
+          "concepto": "Sellador de poliuretano - material",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Material obligatorio según Base Maestra para suelo con tráfico (cocina)"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles especializados para aplicación de microcemento"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_microcemento_suelo_interior",
+      "solado_ceramico_exterior_terraza",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "instalacion_de_perfil_o_junta_de_dilatacion_en_suelo",
+      "acabado_con_microcemento_suelo_o_pared"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

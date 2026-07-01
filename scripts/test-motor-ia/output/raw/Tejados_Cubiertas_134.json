@@ -1,0 +1,176 @@
+{
+  "id": 134,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 13708,
+  "raw_response": {
+    "transcript": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Reparación puntual de gotera: se recomienda diagnóstico previo del origen real de la filtración",
+          "Proyección de poliurea es solución de alto rendimiento; verificar que el estado general de la cubierta no requiera impermeabilización integral"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de gotera en cubierta plana con proyección de poliurea (impermeabilización especializada)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y saneo de zona afectada por gotera",
+          "descripcion": "Inspección visual de la zona de filtración, localización del punto de entrada de agua, limpieza y secado de la superficie afectada, retirada de material deteriorado o suelto",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación y preparación de superficie para proyección de poliurea",
+          "descripcion": "Aplicación de imprimación adherente o promotor de adhesión en la zona de 10 m² para garantizar la correcta fijación de la poliurea",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material imprimación: instalador debe indicar producto específico y precio"
+        },
+        {
+          "concepto": "Proyección de poliurea de dos componentes",
+          "descripcion": "Aplicación mediante proyección de sistema poliurea de dos componentes (A+B) en superficie de 10 m², espesor mínimo 2-3 mm, con propiedades impermeabilizantes y elastoméricas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material poliurea: instalador debe indicar marca, rendimiento (kg/m²) y precio total"
+        },
+        {
+          "concepto": "Mano de obra proyección de poliurea",
+          "descripcion": "Aplicación mediante equipo de proyección de dos componentes, incluyendo preparación de equipos, proyección controlada, acabado uniforme y limpieza de equipos",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de bordes y encuentros de la reparación",
+          "descripcion": "Sellado y refuerzo de los bordes perimetrales de la zona reparada con sellador poliuretano o cinta de refuerzo para evitar infiltraciones laterales",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material sellador/cinta refuerzo: instalador debe indicar producto y precio"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos de protección individual (arnés de seguridad, casco, guantes, gafas, mascarilla), pequeño material de consumo (trapos, disolventes, etc.)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles y EPI: instalador debe estimar coste según equipamiento disponible"
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la proyección de poliurea es la solución más adecuada para el tipo de cubierta (plana, inclinada, material base)",
+        "Considerar si la reparación puntual es suficiente o si el estado general de la cubierta requiere impermeabilización integral",
+        "Documentar fotográficamente el diagnóstico previo y el resultado final de la reparación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación y preparación de superficie para proyección de poliurea",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Proyección de poliurea de dos componentes",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Refuerzo de bordes y encuentros de la reparación",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "reparacion_puntual_de_gotera_en_cubierta_plana",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3918,
+      "tokens_out": 1891
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "id": 87,
+  "oficio": "Albañilería",
+  "texto": "Reparar escalera exterior de hormigón, peldaños desgastados, aplicar mortero y antideslizante",
+  "http_status": 200,
+  "latency_ms": 21792,
+  "raw_response": {
+    "transcript": "Reparar escalera exterior de hormigón, peldaños desgastados, aplicar mortero y antideslizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar escalera exterior de hormigón, peldaños desgastados, aplicar mortero y antideslizante",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda inspeccionar la estructura de hormigón para detectar posibles grietas o erosión bajo los peldaños",
+          "El antideslizante es OBLIGATORIO por CTE DB-SUA en escaleras exteriores"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de peldaños y aplicación de mortero de restitución"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Aplicación de acabado antideslizante y tratamiento impermeabilizante en escalera exterior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y limpieza de peldaños desgastados",
+          "descripcion": "Eliminación de hormigón suelto, polvo y degradación superficial de los peldaños. Preparación de la superficie para recibir mortero de reparación.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe estimar m2 real de peldaños y ajustar tarifa. Rango estimado: 25-40€/m2 según degradación."
+        },
+        {
+          "concepto": "Mortero de reparación y restitución de peldaños",
+          "descripcion": "Suministro e instalación de mortero reparador, flexible y resistente a tracción, apto para escaleras exteriores. Aplicación en capas según profundidad de desgaste.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en kg a determinar según profundidad de desgaste. Precio estimado: 8-15€/kg (mortero especial exterior). Presupuestar mano de obra + material."
+        },
+        {
+          "concepto": "Mano de obra aplicación mortero y nivelación de peldaños",
+          "descripcion": "Aplicación del mortero de reparación, enrasado, nivelación y acabado superficial de todos los peldaños. Se incluye maestras y control de planeidad.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en horas a estimar según número de peldaños y superficie. Rango: 2-8 horas típicamente."
+        },
+        {
+          "concepto": "Imprimación adherente antes de antideslizante",
+          "descripcion": "Aplicación de imprimación de adherencia para asegurar agarre del producto antideslizante sobre mortero nuevo y hormigón.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "l",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada 0.1-0.2 l/m2. Precio: 12-20€/l. Ajustar según m2 total de escalera."
+        },
+        {
+          "concepto": "Pintura antideslizante exterior (OBLIGATORIO CTE DB-SUA)",
+          "descripcion": "Suministro e instalación de pintura o resina antideslizante de dos componentes, apta para escaleras exteriores con tráfico. Grano fino o medio según preferencia. Aplicación en 2 capas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad m2 de huella de peldaños. Precio estimado: 15-35€/m2 (producto + mano obra). Material aislado: 20-30€/l (rendimiento 0.8-1.2 m2/l)."
+        },
+        {
+          "concepto": "Mano de obra aplicación antideslizante",
+          "descripcion": "Preparación, masillado de porosidades, imprimación y aplicación de dos capas de pintura antideslizante. Limpieza entre capas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Estimar según número de peldaños y accesibilidad. Rango: 2-6 horas típicamente (1.5-2 h/m2)."
+        },
+        {
+          "concepto": "Pequeño material y auxiliares",
+          "descripcion": "Brochas, rodillos, cinta de carrocero, esponjas de limpieza, trapos, EPI (guantes, gafas, mascarilla), consumibles varios.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar entre 30-60€ para todo el proyecto (herramientas reutilizables + consumibles)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Considerar inspección previa de grietas o daño estructural bajo los peldaños. Si hay grietas activas, aplicar inyección de resina epoxi antes de mortero.",
+        "Si la escalera tiene canaleta de evacuación de agua, verificar que no esté obstruida para evitar encharcamientos bajo los peldaños.",
+        "Validar pendiente correcta (> 10%) para evacuación de agua de lluvia.",
+        "Considerar sellado de juntas entre peldaños si hay huecos > 5mm para evitar infiltración.",
+        "Antideslizante recomendado: coeficiente de fricción mínimo R10 (clasificación CTE) para exteriores."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Saneo y limpieza de peldaños desgastados",
+          "origen": "sugerida_ia",
+          "motivo": "Actividad preparatoria, incluida en protocolo de reparación de escaleras. No está expresamente en catálogo base pero es obligatoria."
+        },
+        {
+          "concepto": "Mortero de reparación y restitución de peldaños",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para reparación de hormigón desgastado. Cantidad y tipo varían según profundidad de desgaste detectada."
+        },
+        {
+          "concepto": "Pintura antideslizante exterior (OBLIGATORIO CTE DB-SUA)",
+          "origen": "sugerida_ia",
+          "motivo": "Acabado obligatorio por normativa en escaleras exteriores. Material y cantidades a revisar según m2 real de escalera."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "revestimiento_con_mortero_monocapa",
+      "impermeabilizacion_de_escalera_o_rampa_exterior",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_barandilla_metalica_de_escalera_exterior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

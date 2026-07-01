@@ -1,0 +1,174 @@
+{
+  "id": 165,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+  "http_status": 200,
+  "latency_ms": 20526,
+  "raw_response": {
+    "transcript": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere confirmación de estado de la base (nivelación, humedad)",
+          "Se recomienda inspección previa para detectar irregularidades"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Instalación de suelo vinílico LVT (laminado vinílico de lujo) - clasificado como tarima/suelo flotante"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de suelo vinílico LVT",
+          "descripcion": "Suministro e instalación de láminas vinílicas LVT (Luxury Vinyl Tile) en formato click o pegado, incluyendo material, cortes, encajes y acabados. Superficie total: 120 m²",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del material vinílico LVT pendiente de confirmación según marca, espesor y calidad seleccionada (rango típico: 25-80€/m²)"
+        },
+        {
+          "concepto": "Mano de obra instalación suelo vinílico LVT",
+          "descripcion": "Instalación de suelo vinílico LVT: preparación base, colocación de láminas (sistema click o pegado), cortes perimetrales, encajes en puertas y obstáculos, sellado de juntas si aplica",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 32,
+          "total": 3840,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lámina aislante/barrera vapor bajo vinílico",
+          "descripcion": "Suministro e instalación de lámina aislante (espuma EVA, polietileno o similar) como base de apoyo y barrera de humedad para suelo vinílico LVT. Espesor 2-3 mm",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina aislante pendiente (rango típico: 3-8€/m²)"
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "descripcion": "Junta perimetral de dilatación (8-10 mm) en todo el perímetro de la oficina, adhesivos, selladores, cinta de enmascarar y pequeño material de instalación",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de accesorios y pequeño material pendiente (rango típico: 2-5€/m²)"
+        },
+        {
+          "concepto": "Rodapié o zócalo de remate (opcional)",
+          "descripcion": "Suministro e instalación de rodapié/zócalo de remate en vinílico, aluminio o madera según especificación. Perímetro estimado según geometría de oficina",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida opcional - requiere confirmación de perímetro y tipo de rodapié. Precio pendiente (rango típico: 8-25€/ml)"
+        },
+        {
+          "concepto": "Preparación y nivelación de base",
+          "descripcion": "Inspección, limpieza, reparación de irregularidades y nivelación de la base existente. Incluye reparación de grietas, huecos o desniveles superiores a 3 mm bajo regla de 2 metros",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste variable según estado de la base - requiere inspección previa. Puede incluirse en mano de obra general o facturarse aparte si hay trabajos adicionales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3840,
+        "iva_porcentaje": 21,
+        "iva": 806.4,
+        "total": 4646.4
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de vinílico LVT: sistema click (flotante) vs. pegado (adhesivo)",
+        "Especificar marca, espesor (2-4 mm típico) y acabado (mate, satinado, brillante)",
+        "Solicitar presupuesto de materiales: vinílico LVT (25-80€/m²), lámina aislante (3-8€/m²), accesorios (2-5€/m²)",
+        "Inspeccionar base: debe estar plana (máx. 3 mm de desviación bajo regla de 2 m), limpia y seca",
+        "Aclimatación: dejar material 48 horas en obra antes de instalar",
+        "Considerar rodapié/zócalo de remate (opcional pero recomendado para acabado profesional)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de suelo vinílico LVT",
+          "oficio": "suelos_tarimas",
+          "motivo": "Vinílico LVT clasificado como suelo tarima/laminado - material y mano de obra agrupados"
+        },
+        {
+          "concepto": "Lámina aislante/barrera vapor bajo vinílico",
+          "oficio": "suelos_tarimas",
+          "motivo": "Componente obligatorio para instalación correcta de suelo vinílico"
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "oficio": "suelos_tarimas",
+          "motivo": "Accesorios y materiales auxiliares de instalación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_de_suelo_de_corcho_interior",
+      "instalacion_suelo_radiante_hidraulico",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_de_suelo_radiante_en_reforma"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3735,
+      "tokens_out": 2505
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "SI"
+  }
+}

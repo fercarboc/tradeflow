@@ -1,0 +1,155 @@
+{
+  "id": 62,
+  "oficio": "Pintura",
+  "texto": "Pintar toda la vivienda interior, paredes y techos, superficie aproximada de 250 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14752,
+  "raw_response": {
+    "transcript": "Pintar toda la vivienda interior, paredes y techos, superficie aproximada de 250 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar toda la vivienda interior, paredes y techos, superficie aproximada de 250 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto basado en 250 m² estimados. Recomendable verificar medición real en obra.",
+          "Precio unitario de pintura incluye mano de obra. Materiales (pintura, imprimación, masilla) requieren revisión según marca y calidad elegida."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura interior de vivienda completa (paredes y techos)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de superficies",
+          "descripcion": "Limpieza general, reparación de grietas, masillado de juntas y tornillos, lijado grano 120-220 en paredes y techos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 6,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación fijadora",
+          "descripcion": "Aplicación de imprimación fijadora en paredes y techos para fijar polvo y mejorar adherencia de pintura",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 3,
+          "total": 750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura plástica interior - 2 manos",
+          "descripcion": "Aplicación de pintura plástica mate interior, 2 manos, en paredes y techos de vivienda",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 7,
+          "total": 1750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales pintura (pintura plástica, imprimación, masilla, lija)",
+          "descripcion": "Suministro de pintura plástica interior (aprox. 50-60 litros), imprimación fijadora (aprox. 25-30 litros), masilla fina, papel de lija grano 120-220, cinta carrocero, rodillos, pinceles y pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de revisión. Instalador debe indicar marca, calidad y proveedor. Estimación: 8-12€/m² en materiales (2000-3000€ totales)"
+        },
+        {
+          "concepto": "Protección de mobiliario y suelos",
+          "descripcion": "Colocación de plásticos de protección, cartón y cinta de carrocero en mobiliario, suelos y elementos fijos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 1,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza final y retirada de protecciones",
+          "descripcion": "Retirada de plásticos, cartón y cinta de carrocero. Limpieza general de la vivienda tras finalizar trabajos",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 250,
+          "precio_unitario": 1,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 4500,
+        "iva_porcentaje": 21,
+        "iva": 945,
+        "total": 5445
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la vivienda tiene pladur nuevo o superficies especiales (baños, cocina) que requieran pintura epoxi o vinílica resistente a humedad.",
+        "Si hay grietas importantes o desperfectos, considerar partida adicional de reparación de albañilería antes de pintar.",
+        "Presupuesto de materiales (4ª partida) es orientativo. Solicitar presupuesto de pintura y materiales a proveedor habitual."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "pintado_de_nave_industrial_interior",
+      "pintado_de_foso_de_ascensor",
+      "pintura_y_acabado_paredes_de_pladur_nuevo",
+      "pintado_de_sotanos_y_aparcamientos_comunitarios"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3625,
+      "tokens_out": 1829
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 5,
+    "n_sugeridas": 1,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

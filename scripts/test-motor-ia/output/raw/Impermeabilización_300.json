@@ -1,0 +1,154 @@
+{
+  "id": 300,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+  "http_status": 200,
+  "latency_ms": 14058,
+  "raw_response": {
+    "transcript": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en edificio antiguo: verificar accesibilidad y estado previo del canalón",
+          "Pintura bituminosa requiere condiciones climáticas adecuadas (temperatura >5°C, sin lluvia)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Canalones son elementos de cubierta. Impermeabilización de canalones → tejados_cubiertas (no pintura, no impermeabilizacion). Regla estricta: canalones, cumbreras, limahoyas, remates → tejados_cubiertas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación canalón hormigón",
+          "descripcion": "Limpieza mecánica de canalón, retirada de suciedad, musgo, restos vegetales y material suelto. Cepillado y lijado superficial para asegurar adherencia de pintura bituminosa.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación bituminosa canalón",
+          "descripcion": "Aplicación de imprimación bituminosa de adherencia en canalón de hormigón. Preparación de superficie para recibir pintura bituminosa final.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 6,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura bituminosa canalón (2 manos)",
+          "descripcion": "Aplicación de pintura bituminosa de impermeabilización en canalón de hormigón. Dos manos para asegurar cobertura completa y durabilidad. Incluye brocha, rodillo y pequeño material.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 12,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura bituminosa (material)",
+          "descripcion": "Pintura bituminosa de impermeabilización para canalones. Rendimiento aproximado 1-1,5 kg/ml. Cantidad estimada: 50-60 kg para 40 ml con 2 manos.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 55,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material bituminoso pendiente de cotización. Instalador debe introducir precio unitario (€/kg) según marca y calidad elegida."
+        },
+        {
+          "concepto": "Medios auxiliares y acceso (andamio/plataforma)",
+          "descripcion": "Alquiler y montaje de andamio o plataforma de trabajo para acceso seguro a canalones en edificio antiguo. Incluye protecciones y barandillas de seguridad.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio/plataforma depende de altura, duración y proveedor local. Instalador debe cotizar según accesibilidad real del edificio."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1040,
+        "iva_porcentaje": 21,
+        "iva": 218.4,
+        "total": 1258.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'impermeabilizacion_canalones_hormigon' o 'tejados_canalones_bituminosa' para posibles partidas predefinidas con precios cerrados.",
+        "Considerar si el canalón requiere reparación previa de grietas o fisuras (partida adicional de albañilería).",
+        "En edificios antiguos, evaluar si hay desprendimientos de hormigón que requieran consolidación antes de impermeabilizar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura bituminosa (material)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "motivo": "Material específico de impermeabilización. Precio unitario (€/kg) debe ser introducido por el instalador según proveedor y especificación técnica."
+        },
+        {
+          "concepto": "Medios auxiliares y acceso (andamio/plataforma)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar necesario para acceso seguro. Coste variable según altura y duración. Instalador debe cotizar con proveedor de andamios."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_foso_de_ascensor",
+      "pintado_e_impermeabilizacion_de_sotanos_exteriores_trasdos",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "pintura_de_depositos_agua_potable_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3722,
+      "tokens_out": 1746
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "NO"
+  }
+}

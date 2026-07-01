@@ -1,0 +1,191 @@
+{
+  "id": 45,
+  "oficio": "Carpintería",
+  "texto": "Instalación de tarima flotante de madera maciza de roble en salón y dos dormitorios, 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 18497,
+  "raw_response": {
+    "transcript": "Instalación de tarima flotante de madera maciza de roble en salón y dos dormitorios, 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de tarima flotante de madera maciza de roble en salón y dos dormitorios, 60 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Tarima maciza flotante: requiere aclimatación 72h previa en obra",
+          "Junta perimetral 10-12mm OBLIGATORIA en todo el perímetro",
+          "Soporte debe estar plano (máx. desviación 3mm bajo regla 2m)",
+          "Incluir barrera vapor si la instalación es sobre solera en planta baja"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de tarima flotante maciza de madera (roble). Oficio carpintería según Base Maestra [instalacion_tarima_flotante_o_parquet_click]"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 35
+          },
+          "motivo": "Preparación y acabados de suelo (lámina aislante, junta perimetral, pequeño material)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tarima maciza de roble, flotante, aclimatación y suministro",
+          "descripcion": "Suministro de tarima maciza de roble, grado A, espesor 20-22mm, aclimatación 72h en obra previa a instalación. 60 m² con mermas del 5-10%",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 63,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tarima maciza roble a definir por instalador según calidad y proveedor. Incluye mermas 5-10%"
+        },
+        {
+          "concepto": "Lámina aislante con barrera vapor integrada",
+          "descripcion": "Lámina aislante espuma o combinada (espuma + polietileno) con barrera vapor integrada, espesor 2-3mm, para flotante. 60 m² + mermas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 63,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina aislante a definir por instalador según espesor y tipo"
+        },
+        {
+          "concepto": "Junta perimetral 10-12mm",
+          "descripcion": "Junta perimetral de espuma o corcho de 10-12mm en todo el perímetro de las 3 estancias (salón + 2 dormitorios). Estimado 80-100 ml",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 90,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de junta perimetral a definir. Cantidad estimada según perímetro de estancias"
+        },
+        {
+          "concepto": "Pequeño material (cuñas, adhesivos, herramientas)",
+          "descripcion": "Cuñas de nivelación, adhesivos puntuales, herramientas de instalación, trapos, etc.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 50-100€ según necesidades de obra"
+        },
+        {
+          "concepto": "Instalación de tarima flotante maciza",
+          "descripcion": "Colocación de tarima maciza flotante en salón y 2 dormitorios (60 m²). Incluye: nivelación de soporte, colocación de lámina aislante, instalación de tarima con sistema click/encaje, colocación de junta perimetral, ajustes y acabados",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 32,
+          "total": 1920,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rodapié de madera de roble (opcional)",
+          "descripcion": "Suministro e instalación de rodapié de madera de roble, altura 7-10cm, en perímetro de estancias. Estimado 80-100 ml",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 90,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional. Precio de rodapié + instalación a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1920,
+        "iva_porcentaje": 21,
+        "iva": 403.2,
+        "total": 2323.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar que el soporte esté plano (máx. desviación 3mm bajo regla 2m) antes de instalar",
+        "Aclimatación obligatoria 72h de la tarima en la obra antes de colocar",
+        "Junta perimetral 10-12mm es OBLIGATORIA en todo el perímetro para permitir dilatación",
+        "Si la instalación es sobre solera en planta baja, añadir barrera vapor adicional bajo la lámina aislante",
+        "No cargar la tarima hasta 48h después de la instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tarima maciza de roble, flotante",
+          "oficio": "carpinteria",
+          "motivo": "Material específico de roble macizo flotante. Precio a definir por instalador según calidad y proveedor"
+        },
+        {
+          "concepto": "Lámina aislante con barrera vapor integrada",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material de base para flotante. Precio a definir según espesor y tipo"
+        },
+        {
+          "concepto": "Junta perimetral 10-12mm",
+          "oficio": "carpinteria",
+          "motivo": "Material obligatorio. Precio a definir por instalador"
+        },
+        {
+          "concepto": "Rodapié de madera de roble",
+          "oficio": "carpinteria",
+          "motivo": "Acabado opcional. Precio a definir si se incluye"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_solado_de_madera_maciza_flotante_ingenieria_o_click",
+      "colocacion_parquet_ingenieria_pegado_o_flotante",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_suelo_vinilico_o_lvt_click",
+      "instalacion_tarima_maciza_pegada"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3839,
+      "tokens_out": 2595
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

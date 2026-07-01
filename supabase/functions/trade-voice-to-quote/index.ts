@@ -72,12 +72,19 @@ Si la descripción tiene contenido, SIEMPRE generas al menos 1 partida. Si no en
 LÍMITE DE PARTIDAS según complejidad — OBLIGATORIO:
 • Trabajo simple (1 oficio, 1-2 acciones): máximo 6 partidas.
 • Trabajo medio (1-2 oficios, 3-5 acciones): máximo 10 partidas.
-• Reforma integral (3+ oficios simultáneos): NO listes partidas individuales. Genera CAPÍTULOS agrupados (máximo 4 partidas total):
-  Cap.1 – Demolición y obra civil → 1 partida con importe estimado
-  Cap.2 – Instalaciones (electricidad, fontanería, clima) → 1 partida con importe estimado
-  Cap.3 – Acabados (pintura, suelos, carpintería, pladur) → 1 partida con importe estimado
-  Cap.4 – Otros (gestión residuos, permisos, etc.) → 1 partida si aplica
-  Cada capítulo: requiere_revision: true, precio orientativo estimado. MÁXIMO 4 partidas.
+• Reforma integral (3+ oficios simultáneos) — dos modos según alcance:
+  CASO 1 — Reforma mediana (piso, local, oficina, garaje, baño completo, cocina completa):
+    Genera máximo 12 partidas técnicas individuales: demolición, fontanería, electricidad,
+    alicatado, pintura, carpintería, pladur, pavimentos, etc. NO uses capítulos.
+    Las partidas deben ser específicas y técnicas para poder enlazar con el catálogo.
+  CASO 2 — Gran obra (chalet completo, edificio entero, obra nueva, rehabilitación integral
+    de edificio completo, ampliación estructural con nueva planta): usa CAPÍTULOS agrupados
+    (máximo 4 partidas):
+    Cap.1 – Demolición y obra civil → 1 partida con importe estimado
+    Cap.2 – Instalaciones (electricidad, fontanería, clima) → 1 partida
+    Cap.3 – Acabados (pintura, suelos, carpintería, pladur) → 1 partida
+    Cap.4 – Otros (gestión residuos, permisos, etc.) → 1 partida si aplica
+    Cada capítulo: requiere_revision: true, precio orientativo estimado. MÁXIMO 4 partidas.
 
 PROCESO (en orden):
 1. Extrae oficio, actuaciones y parámetros clave (unidades, litros, m², kW...).
@@ -541,7 +548,7 @@ Deno.serve(async (req: Request) => {
 
     // Detectar complejidad para ajustar max_tokens (M3)
     const isComplexJob =
-      /reforma|rehabil|convert|construir|ampliar|chalet|farmacia|restaurante|local.*vivienda|edificio.*completo|piso.*completo/i.test(transcript)
+      /reforma|rehabil|convert|construir|ampliar|chalet|farmacia|restaurante|local.*vivienda|edificio.*completo|piso.*completo|actualiz|moderniz|adaptar.*vivienda|accesib/i.test(transcript)
       || (transcript.match(/[,;]/g) ?? []).length > 4;
 
     // ── Generar presupuesto con IA ───────────────────────────────────────────
@@ -649,7 +656,7 @@ Deno.serve(async (req: Request) => {
         kb_score: kbScore,
         web_search_used: webSearchUsed,
         _meta: {
-          prompt_version: 'v54',
+          prompt_version: 'v56',
           stop_reason: claudeData.stop_reason ?? 'end_turn',
           tokens_in:  claudeData.usage?.input_tokens  ?? 0,
           tokens_out: claudeData.usage?.output_tokens ?? 0,

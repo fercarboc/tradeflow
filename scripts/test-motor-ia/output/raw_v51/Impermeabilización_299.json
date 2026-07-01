@@ -1,0 +1,165 @@
+{
+  "id": 299,
+  "oficio": "Impermeabilización",
+  "texto": "Reparar junta de encuentro entre cubierta y pared donde entra agua con mortero elástico",
+  "http_status": 200,
+  "latency_ms": 21794,
+  "raw_response": {
+    "transcript": "Reparar junta de encuentro entre cubierta y pared donde entra agua con mortero elástico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar junta de encuentro entre cubierta y pared donde entra agua con mortero elástico",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "ALERTA TÉCNICA: El profesional propone 'mortero elástico' para esta junta. Según normas de impermeabilización, esta junta CRÍTICA (encuentro cubierta-pared con entrada de agua) REQUIERE silicona flexible fungicida o membrana impermeabilizante, NO mortero. El mortero elástico es insuficiente para junta activa con movimientos. Se presupuesta con solución correcta (silicona neutra fungicida flexible) pero REQUIERE APROBACIÓN del instalador."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación de junta de encuentro cubierta-pared con filtración de agua. Oficio especializado en impermeabilización."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada completa de silicona vieja, mortero deteriorado y restos en junta encuentro cubierta-pared",
+          "descripcion": "Limpieza manual exhaustiva de la junta de encuentro, retirando completamente silicona antigua, restos de mortero, musgo y suciedad acumulada. Preparación de superficie para nueva impermeabilización.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "catalogo_impermeabilizacion",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml a definir por profesional. Tarifa referencia: 20-30€/ml en mano de obra. Incluir en presupuesto final."
+        },
+        {
+          "concepto": "Limpieza y desinfección de la zona de trabajo",
+          "descripcion": "Desinfección de la junta y superficie adyacente para eliminar hongos, algas y bacterias. Imprimación si necesaria.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "catalogo_impermeabilizacion",
+          "requiere_revision": true,
+          "motivo_revision": "Incluida en tarifa global. Cantidad en ml a definir."
+        },
+        {
+          "concepto": "Suministro e instalación de silicona neutra fungicida flexible para junta encuentro cubierta-pared",
+          "descripcion": "Silicona FLEXIBLE de curado neutro con propiedades fungicidas. Capacidad de movimiento superior al mortero rígido. Adherencia a hormigón, mortero y otros materiales. Imprescindible para junta activa con filtración de agua.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Precio pendiente. Referencia: silicona neutro-fungicida 12-18€/cartucho (10ml). Cantidad en ml del encuentro a definir."
+        },
+        {
+          "concepto": "Aplicación de masking tape en líneas paralelas para junta limpia y uniforme",
+          "descripcion": "Cinta de pintor profesional en ambos lados de la junta para delimitar líneas rectas y evitar suciedad en superficie.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "catalogo_impermeabilizacion",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible. Precio estimado: 0,50-1€/ml (rollos 50m a 8-15€). Cantidad: doble ml de junta."
+        },
+        {
+          "concepto": "Pequeño material, herramientas y EPIs (pistola silicona, espátula, guantes, mascarilla)",
+          "descripcion": "Herramientas menores, equipos de protección personal y consumibles para aplicación y acabado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "catalogo_impermeabilizacion",
+          "requiere_revision": true,
+          "motivo_revision": "Lote material + EPI. Estimado: 15-25€ por intervención."
+        },
+        {
+          "concepto": "Mano de obra: aplicación de silicona flexible en junta encuentro cubierta-pared",
+          "descripcion": "Sellado profesional de la junta con silicona flexible, asegurando penetración completa, evitando bolsas de aire y dejando superficie uniforme. Tiempo de curado: 24h.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa base 50€/h. Ajustar según longitud real de junta y accesibilidad. Referencia: 20-30€/ml incluido mano de obra."
+        }
+      ],
+      "calculos": {
+        "subtotal": 50,
+        "iva_porcentaje": 21,
+        "iva": 10.5,
+        "total": 60.5
+      },
+      "sugerencias_catalogo": [
+        "IMPORTANTE: Según BASE MAESTRA [impermeabilizacion_junta_suelo_pared_en_ducha_o_bano], esta junta activa (entrada de agua documentada) requiere SILICONA NEUTRA FUNGICIDA FLEXIBLE, NO mortero rígido. El mortero elástico propuesto es insuficiente para junta con movimientos.",
+        "Rango de precio validado en catálogo: 20-85€/ml (mano de obra + material).",
+        "Partidas obligatorias completadas: retirada silicona vieja, limpieza, silicona fungicida flexible, masking tape, pequeño material.",
+        "Tiempo de curado: 24 HORAS antes de exponer a agua.",
+        "Si junta tiene más de 3-4 años sin mantenimiento o muestra grietas activas: considerar banda impermeabilizante adicional bajo silicona para refuerzo."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro silicona neutra fungicida flexible",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material especificado para esta aplicación crítica. Precio a definir por instalador según marca y cantidad de ml necesarios."
+        },
+        {
+          "concepto": "Suministro masking tape profesional",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Consumible fungible. Precio a definir según cantidad."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_junta_suelo_pared_en_ducha_o_bano",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "reparacion_grifo_o_griferia_averiada",
+      "impermeabilizacion_de_encuentro_fachada_cubierta",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 1,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "id": 39,
+  "oficio": "Electricidad",
+  "texto": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+  "http_status": 200,
+  "latency_ms": 13941,
+  "raw_response": {
+    "transcript": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material SAI (2kVA) requiere revisión de precio por parte del instalador",
+          "Configuración y software de gestión pendiente de especificar si está incluido"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de sistemas de protección eléctrica y continuidad de equipos informáticos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "SAI 2kVA con autonomía 30 minutos",
+          "descripcion": "Suministro de SAI/UPS de 2000 VA (2 kVA) con batería de 30 minutos de autonomía, tipo double conversion (online) para máxima protección de servidor empresarial",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe validar marca, modelo y precio comercial actual"
+        },
+        {
+          "concepto": "Instalación y conexionado SAI",
+          "descripcion": "Desembalaje, posicionamiento, conexionado de entrada de corriente, salida a servidor, configuración de umbrales de apagado automático, cableado y protecciones eléctricas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Software de gestión y apagado automático",
+          "descripcion": "Instalación de software de monitorización, gestión de alertas y apagado controlado automático del servidor en caso de fallo prolongado de corriente",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio: revisar si está incluido en SAI o requiere instalación adicional"
+        },
+        {
+          "concepto": "Cableado, conectores y pequeño material",
+          "descripcion": "Suministro de cables de entrada/salida, conectores IEC, regletas de protección, tornillería y pequeño material de fijación e instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: accesorios incluidos en kit estándar o por encargo"
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y validación",
+          "descripcion": "Prueba de carga, verificación de autonomía, prueba de conmutación ante fallo de red, validación de comunicaciones con servidor y documentación de resultados",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el SAI incluye cable de alimentación y conectores estándar o si requieren suministro adicional",
+        "Confirmar si software de gestión está incluido en la compra del SAI o si es licencia adicional",
+        "Considerar si se requiere contrato de mantenimiento anual (incluida revisión y sustitución de baterías cada 3-5 años)"
+      ],
+      "partidas_nuevas_detectadas": [
+        "SAI 2kVA con autonomía 30 minutos",
+        "Software de gestión y apagado automático",
+        "Cableado, conectores y pequeño material"
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_rack_o_armario_de_telecomunicaciones",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

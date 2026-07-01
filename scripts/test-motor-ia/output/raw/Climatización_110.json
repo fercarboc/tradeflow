@@ -1,0 +1,228 @@
+{
+  "id": 110,
+  "oficio": "Climatización",
+  "texto": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+  "http_status": 200,
+  "latency_ms": 22585,
+  "raw_response": {
+    "transcript": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye obra civil (perforación/paso conducto). Coordinar con estructura del edificio.",
+          "Extractor industrial requiere conexión eléctrica trifásica si potencia > 3 kW. Verificar disponibilidad.",
+          "Sistema de extracción debe cumplir normativa hostelería (caudal mínimo según m³ cocina)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de extracción/ventilación industrial para cocina"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión eléctrica del extractor industrial y circuito dedicado"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil: perforación de muros/fachada para paso de conducto"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro extractor industrial cocina",
+          "descripcion": "Extractor centrífugo industrial para cocina de restaurante, potencia según caudal requerido (estimado 2000-4000 m³/h), motor trifásico o monofásico según disponibilidad eléctrica",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (kW), marca y especificaciones técnicas. Instalador debe confirmar caudal necesario según m³ cocina y tipo de cocción."
+        },
+        {
+          "concepto": "Suministro conducto de ventilación",
+          "descripcion": "Conducto galvanizado o aluminio aislado térmicamente, diámetro según caudal (típico 200-315 mm), incluyendo codos, reducciones y accesorios hasta salida exterior",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a definir según trazado real. Precio unitario según diámetro y material (galvanizado ~15-25€/ml, aislado ~25-40€/ml)."
+        },
+        {
+          "concepto": "Suministro rejilla/toma de aire exterior",
+          "descripcion": "Rejilla antiretorno con malla mosquitera y compuerta de cierre automático para salida exterior del conducto",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según diámetro y material (acero inox recomendado en hostelería): 80-250€/ud"
+        },
+        {
+          "concepto": "Instalación extractor industrial",
+          "descripcion": "Montaje del extractor en cubierta o pared, fijación estructural, conexión de conducto de salida, pruebas de funcionamiento y equilibrado de caudal",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación conducto de ventilación",
+          "descripcion": "Montaje de conducto desde extractor hasta salida exterior, incluyendo soportes, abrazaderas, codos y accesorios. Sellado de juntas con masilla aislante",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica extractor industrial",
+          "descripcion": "Circuito eléctrico dedicado desde cuadro general, cable de potencia (3x2.5 o 4x2.5 según potencia), interruptor diferencial, magnetotérmico y conexión a motor. Incluye boletin eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro material eléctrico (cable, magnetotérmico, diferencial)",
+          "descripcion": "Cable de potencia, interruptor magnetotérmico, interruptor diferencial, pequeño material y boletin eléctrico para circuito extractor",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según sección cable y potencia motor. Estimado 150-400€ incluyendo boletin."
+        },
+        {
+          "concepto": "Obra civil: perforación y paso de conducto",
+          "descripcion": "Perforación de muros/fachada para paso del conducto de ventilación, incluyendo sellado con espuma poliuretano y remate exterior. Diámetro según conducto (200-315 mm)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 870,
+        "iva_porcentaje": 21,
+        "iva": 182.7,
+        "total": 1052.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Extractor industrial cocina restaurante' con especificaciones de potencia (kW) y caudal (m³/h)",
+        "Verificar en catálogo: 'Conducto galvanizado aislado' con rangos de diámetro (200, 250, 315 mm)",
+        "Verificar en catálogo: 'Rejilla antiretorno exterior' con opciones de material (acero galvanizado, inox)",
+        "Considerar partida adicional si se requiere: 'Campana extractora cocina' (si no existe ya en cocina)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro extractor industrial cocina",
+          "oficio": "climatizacion",
+          "motivo": "Elemento específico de hostelería. Requiere especificación de potencia y caudal por instalador."
+        },
+        {
+          "concepto": "Suministro conducto de ventilación",
+          "oficio": "climatizacion",
+          "motivo": "Material de obra civil/instalación. Cantidad variable según trazado real del edificio."
+        },
+        {
+          "concepto": "Suministro rejilla/toma de aire exterior",
+          "oficio": "climatizacion",
+          "motivo": "Accesorio específico de ventilación industrial. Precio variable según diámetro y material."
+        },
+        {
+          "concepto": "Suministro material eléctrico (cable, magnetotérmico, diferencial)",
+          "oficio": "electricidad",
+          "motivo": "Componentes eléctricos. Precio depende de sección cable y potencia motor."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_extincion_en_cocina_industrial",
+      "instalacion_trampa_grasa_cocina",
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_de_sistema_de_extincion_por_espuma",
+      "instalacion_electrica_local_hosteleria"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3843,
+      "tokens_out": 2935
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,430 @@
+{
+  "id": 375,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de cocina semi-abierta al salón, derribo de tabique, nueva cocina en U con isla central",
+  "http_status": 200,
+  "latency_ms": 34702,
+  "raw_response": {
+    "transcript": "Reforma de cocina semi-abierta al salón, derribo de tabique, nueva cocina en U con isla central",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de cocina semi-abierta al salón, derribo de tabique, nueva cocina en U con isla central",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Derribo de tabique requiere verificación de carga estructural y permisos municipales",
+          "Reforma integral con 4+ oficios: albanilería, fontanería, electricidad, carpintería, acabados",
+          "Presupuesto estimado: requiere confirmación de dimensiones, materiales y electrodomésticos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral con múltiples oficios simultáneos: demolición, obra civil, fontanería, electricidad, carpintería, acabados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Derribo de tabique, reposición de solera, preparación de suelo"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación fontanería cocina: fregadero, lavavajillas, toma agua fría/caliente"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Circuitos cocina REBT: vitrocerámica, horno, lavavajillas, frigorífico, iluminación, enchufes"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Muebles cocina en U con isla, encimera, puertas, tiradores"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado frente cocina, solado nuevo cocina y zona abierta al salón"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura paredes y techo tras reforma"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Derribo de tabique divisorio",
+          "descripcion": "Derribo completo de tabique de separación cocina-salón, incluyendo retirada de escombros y preparación de zona",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Verificar si tabique es carga o no; si es carga requiere viga de refuerzo (presupuesto adicional)"
+        },
+        {
+          "concepto": "Suministro e instalación viga de refuerzo (si aplica)",
+          "descripcion": "Viga metálica o hormigón para refuerzo estructural tras derribo de tabique de carga",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de viga y luz a cubrir; requiere cálculo estructural previo"
+        },
+        {
+          "concepto": "Reposición de solera y nivelación",
+          "descripcion": "Preparación de base, hormigón de limpieza y nivelación para nueva cocina",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 40,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación fontanería cocina completa",
+          "descripcion": "Tuberías multicapa, llaves paso, sifón fregadero, toma lavavajillas, desagüe completo con prueba de presión",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 250,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales fontanería (tuberías, racores, válvulas)",
+          "descripcion": "Tubo multicapa, llaves paso, racores, sifón, latiguillos, pequeño material fontanería",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud de tuberías y calidad de materiales; instalador debe presupuestar"
+        },
+        {
+          "concepto": "Instalación eléctrica cocina según REBT",
+          "descripcion": "Circuitos independientes: vitrocerámica (6mm²), horno (4mm²), lavavajillas (2.5mm²), frigorífico (2.5mm²), iluminación, enchufes cocina, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 280,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, enchufes, interruptores, pequeño material)",
+          "descripcion": "Cable 6mm², 4mm², 2.5mm², enchufes, interruptores, diferenciales, pequeño material eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud de circuitos y cantidad de puntos; instalador debe presupuestar"
+        },
+        {
+          "concepto": "Muebles cocina en U con isla central",
+          "descripcion": "Suministro e instalación muebles cocina en U con isla central, incluyendo puertas, tiradores y accesorios",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio muy variable según marca, materiales y dimensiones (rango típico 3000-8000€); requiere presupuesto fabricante"
+        },
+        {
+          "concepto": "Instalación muebles cocina",
+          "descripcion": "Montaje, nivelación y fijación muebles cocina en U e isla central",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 360,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Encimera (suministro e instalación)",
+          "descripcion": "Encimera cocina (granito, cuarzo, laminado u otro material), cortes para fregadero y electrodomésticos",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de material y longitud; instalador debe medir y presupuestar (rango típico 150-400€/ml)"
+        },
+        {
+          "concepto": "Alicatado frente cocina",
+          "descripcion": "Azulejo o cerámica frente cocina, mortero cola C2 flexible, lechada epoxi en juntas, perfiles aluminio, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 32,
+          "total": 256,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales alicatado frente cocina",
+          "descripcion": "Azulejo/cerámica, mortero cola C2 flexible, lechada epoxi, perfiles aluminio, crucetas, silicona, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de calidad de azulejo; rango típico 15-40€/m2 en materiales"
+        },
+        {
+          "concepto": "Solado nuevo cocina y zona abierta",
+          "descripcion": "Baldosa o porcelánico suelo cocina y zona abierta al salón, mortero cola, lechada epoxi, rodapié, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 32,
+          "total": 576,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales solado (baldosa, mortero, lechada, rodapié)",
+          "descripcion": "Baldosa/porcelánico, mortero cola C2 flexible, lechada epoxi, rodapié, perfiles, crucetas, silicona, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de calidad de baldosa; rango típico 20-60€/m2 en materiales"
+        },
+        {
+          "concepto": "Pintura paredes y techo",
+          "descripcion": "Preparación de paredes, imprimación, pintura plástica 2 manos paredes y techo cocina y zona abierta",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 6,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales pintura (pintura, imprimación, pequeño material)",
+          "descripcion": "Pintura plástica, imprimación, masilla, lija, pequeño material pintura",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de calidad de pintura; rango típico 2-5€/m2 en materiales"
+        },
+        {
+          "concepto": "Extractor o campana extractora",
+          "descripcion": "Suministro e instalación extractor o campana extractora con conducto al exterior",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo y potencia; rango típico 300-1500€ (material + instalación)"
+        },
+        {
+          "concepto": "Electrodomésticos (si incluidos)",
+          "descripcion": "Suministro e instalación electrodomésticos: horno, vitrocerámica, lavavajillas, frigorífico (si aplica)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio muy variable según marcas y modelos; requiere confirmación de qué electrodomésticos incluye el cliente"
+        },
+        {
+          "concepto": "Gestión de residuos y escombros",
+          "descripcion": "Retirada, transporte y gestión de escombros y residuos de demolición y reforma",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 150,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 4813,
+        "iva_porcentaje": 21,
+        "iva": 1010.73,
+        "total": 5823.73
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si tabique es de carga: si lo es, presupuestar viga de refuerzo estructural (acero o hormigón)",
+        "Solicitar presupuesto de muebles cocina a fabricante (rango estimado 3000-8000€ según calidad)",
+        "Confirmar tipo y material de encimera (granito, cuarzo, laminado): rango 150-400€/ml",
+        "Especificar marca y modelo de electrodomésticos para presupuesto exacto",
+        "Considerar si se incluye extractor/campana: rango 300-1500€",
+        "Medir exactamente longitudes de tuberías y circuitos eléctricos para presupuesto preciso",
+        "Solicitar presupuesto de baldosa/azulejo: rango 15-60€/m2 según calidad",
+        "Verificar permisos municipales para derribo de tabique (puede requerir proyecto técnico)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación viga de refuerzo (si aplica)",
+          "oficio": "albanileria",
+          "motivo": "Derribo de tabique de carga requiere refuerzo estructural"
+        },
+        {
+          "concepto": "Muebles cocina en U con isla central",
+          "oficio": "carpinteria",
+          "motivo": "Elemento personalizado, precio variable según fabricante y materiales"
+        },
+        {
+          "concepto": "Encimera (suministro e instalación)",
+          "oficio": "carpinteria",
+          "motivo": "Material y precio depende de tipo elegido por cliente"
+        },
+        {
+          "concepto": "Electrodomésticos (si incluidos)",
+          "oficio": "carpinteria",
+          "motivo": "Precio muy variable, requiere confirmación de qué incluye el presupuesto"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_cocina_completa",
+      "alicatado_y_solado_completo_cocina",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_cocina_completa_fontaneria",
+      "instalacion_electrica_cocina_completa"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3769,
+      "tokens_out": 5641
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 19,
+    "n_catalogo": 9,
+    "n_sugeridas": 10,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

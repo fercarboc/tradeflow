@@ -1,0 +1,195 @@
+{
+  "id": 362,
+  "oficio": "Reformas Integrales",
+  "texto": "Reformar cocina completa con nueva distribución, encimera de cuarzo, electrodomésticos y fontanería",
+  "http_status": 200,
+  "latency_ms": 20117,
+  "raw_response": {
+    "transcript": "Reformar cocina completa con nueva distribución, encimera de cuarzo, electrodomésticos y fontanería",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reformar cocina completa con nueva distribución, encimera de cuarzo, electrodomésticos y fontanería",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de cocina: requiere coordinación fontanero + electricista + instalador gas (si aplica)",
+          "Encimera de cuarzo: precio material pendiente de revisión (proveedor/medidas)",
+          "Electrodomésticos: especificar marcas/modelos para presupuesto exacto",
+          "Nueva distribución: puede implicar rozas, reposición y obra civil adicional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma cocina completa: ≥3 oficios simultáneos (fontanería, electricidad, carpintería, acabados)"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación fontanería cocina: fregadero, lavavajillas, tomas agua"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación eléctrica cocina REBT: circuitos vitrocerámica, horno, lavavajillas, iluminación"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Muebles cocina, encimera, remates"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 35
+          },
+          "motivo": "Alicatado frente cocina y solado nuevo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "descripcion": "Desmontaje cocina existente, demolición muebles, retirada electrodomésticos antiguos, rozas para nueva distribución fontanería y electricidad, reposición de paredes, limpieza y gestión residuos",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de jornadas según tamaño cocina y complejidad de obra civil. Instalador debe revisar y ajustar"
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (fontanería, electricidad, gas si aplica)",
+          "descripcion": "Instalación fontanería completa: tuberías multicapa, llaves paso, sifón fregadero, tomas lavavajillas y lavadora, desagüe. Instalación eléctrica REBT: circuito vitrocerámica 6mm², circuito horno 4mm², circuito lavavajillas 2.5mm², circuito frigorífico 2.5mm², circuito iluminación, enchufes cocina, pequeño material. Instalación gas (si vitrocerámica/cocina gas)",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coordinación fontanero + electricista + instalador gas. Estimación de jornadas según complejidad instalaciones"
+        },
+        {
+          "concepto": "CAP.3 – Acabados (muebles, encimera, alicatado, solado, electrodomésticos)",
+          "descripcion": "Instalación muebles cocina nueva distribución, encimera de cuarzo (medidas y proveedor a confirmar), alicatado frente cocina, solado nuevo, instalación electrodomésticos (vitrocerámica/cocina, horno, lavavajillas, frigorífico, campana extractora), remates y pequeño material",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalación muebles, encimera, alicatado, solado y electrodomésticos. Estimación de jornadas según cantidad y complejidad"
+        },
+        {
+          "concepto": "CAP.4 – Materiales y suministros (muebles, encimera, electrodomésticos, materiales obra)",
+          "descripcion": "Muebles cocina (módulos base y colgantes según nueva distribución), encimera de cuarzo, electrodomésticos (vitrocerámica/cocina, horno, lavavajillas, frigorífico, campana extractora), materiales fontanería (tuberías, llaves, racores, sifón), materiales electricidad (cable, enchufes, pequeño material), materiales alicatado y solado (baldosas, adhesivo, lechada), pequeño material obra",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales pendiente: especificar marcas/modelos muebles, proveedor encimera cuarzo, marcas electrodomésticos, dimensiones cocina, tipo baldosas/solado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo [reforma_integral_cocina_completa]: precio alzado 8000-90000€ según calidades y dimensiones",
+        "Consultar catálogo [instalacion_electrica_cocina_completa]: 55-220€/ud para circuitos mínimos REBT",
+        "Consultar catálogo [instalacion_fontaneria_cocina_completa]: 85-400€/ud para fontanería completa fregadero, lavavajillas, desagüe",
+        "Encimera de cuarzo: solicitar presupuesto a proveedor (material + instalación). Rango orientativo: 400-1200€ según m² y proveedor"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Encimera de cuarzo",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "precio_unitario": 0,
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo": "Material de encimera: precio depende de proveedor, espesor, acabado y medidas exactas de cocina"
+        },
+        {
+          "concepto": "Electrodomésticos (vitrocerámica/cocina, horno, lavavajillas, frigorífico, campana)",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "precio_unitario": 0,
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo": "Especificar marcas, modelos y características de cada electrodoméstico para presupuesto exacto"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_cocina_completa",
+      "instalacion_electrica_cocina_completa",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_cocina_completa_fontaneria",
+      "recalificacion_instalacion_fontaneria_comunidad"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3516,
+      "tokens_out": 2809
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

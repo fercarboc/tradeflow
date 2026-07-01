@@ -1,0 +1,196 @@
+{
+  "id": 168,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Reparar baldosas sueltas y rotas en terraza exterior, ajuste y rejuntado, 8 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 13818,
+  "raw_response": {
+    "transcript": "Reparar baldosas sueltas y rotas en terraza exterior, ajuste y rejuntado, 8 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar baldosas sueltas y rotas en terraza exterior, ajuste y rejuntado, 8 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar estado del soporte base antes de reponer baldosas",
+          "Confirmar si la terraza está sobre espacio habitable (requeriría impermeabilización previa)",
+          "Revisar si hay problemas de humedad o filtraciones"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Reparación de baldosas cerámicas en terraza exterior, ajuste y rejuntado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Baldosa exterior antideslizante R11 (reposición)",
+          "descripcion": "Baldosas cerámicas/porcelánico exterior antideslizante R11 mínimo, igual o similar a las existentes, para reposición de piezas rotas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8.8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de baldosa a confirmar por instalador según tipo y marca elegida (incluye merma 10%)"
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior flexible",
+          "descripcion": "Mortero cola flexible C2S2 para fijación de baldosas en terraza exterior, aplicación en capa de 5-8mm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mortero a confirmar (aprox. 5kg/m2)"
+        },
+        {
+          "concepto": "Lechada junta exterior flexible",
+          "descripcion": "Lechada de junta flexible para exterior, resistente a cambios térmicos y humedad, aplicación en juntas de 3-5mm",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lechada a confirmar (aprox. 2kg/m2)"
+        },
+        {
+          "concepto": "Junta de dilatación perimetral y en campo",
+          "descripcion": "Junta de dilatación perimetral y en campo cada 3-4m con perfil de PVC o aluminio, para absorber movimientos térmicos",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfil de dilatación a confirmar"
+        },
+        {
+          "concepto": "Retirada de baldosas sueltas y rotas",
+          "descripcion": "Desmontaje y retirada de baldosas deterioradas, limpieza de mortero viejo y preparación del soporte",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de baldosas y rejuntado",
+          "descripcion": "Colocación de baldosas con mortero cola, nivelación, ajuste y rejuntado con lechada flexible en juntas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 32,
+          "total": 256,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Crucetas, esponjas, trapos, desengrasante, EPI y herramientas menores para la ejecución",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe a confirmar (estimado 30-50€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 352,
+        "iva_porcentaje": 21,
+        "iva": 73.92,
+        "total": 425.92
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: baldosa exterior antideslizante R11 (marca/modelo específico)",
+        "Verificar en catálogo: mortero cola C2S2 exterior flexible (marca/referencia)",
+        "Verificar en catálogo: lechada junta exterior flexible (marca/referencia)",
+        "Verificar en catálogo: perfil junta dilatación PVC/aluminio"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Baldosa exterior antideslizante R11 (reposición)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material específico para terraza exterior, requiere especificación de marca/modelo"
+        },
+        {
+          "concepto": "Mortero cola C2S2 exterior flexible",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material específico para exterior, requiere especificación de marca"
+        },
+        {
+          "concepto": "Lechada junta exterior flexible",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material específico para exterior, requiere especificación de marca"
+        },
+        {
+          "concepto": "Junta de dilatación perimetral y en campo",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Elemento obligatorio en terraza exterior según CTE"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_reposicion_de_pavimento_exterior_deteriorado",
+      "solado_exterior_terraza_o_patio",
+      "solado_ceramico_exterior_terraza",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "sustitucion_lamas_persiana_enrollable_aluminio"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3840,
+      "tokens_out": 2088
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

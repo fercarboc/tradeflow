@@ -1,0 +1,272 @@
+{
+  "id": 211,
+  "oficio": "Jardinería",
+  "texto": "Crear zona de huerto urbano en terraza, con cajas de madera, sustrato y plantas de temporada",
+  "http_status": 200,
+  "latency_ms": 26945,
+  "raw_response": {
+    "transcript": "Crear zona de huerto urbano en terraza, con cajas de madera, sustrato y plantas de temporada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Crear zona de huerto urbano en terraza, con cajas de madera, sustrato y plantas de temporada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume terraza preparada y con acceso a agua. Confirmar disponibilidad de toma de agua y drenaje.",
+          "Plantas de temporada: especificar cuáles (tomates, lechugas, hierbas aromáticas, etc.) para ajustar cantidad y precio.",
+          "Cajas de madera: dimensiones y cantidad no especificadas. Se presupuesta como 'a determinar' con origen sugerida_ia.",
+          "Sistema de riego: se incluye riego por goteo básico. Si se requiere automatización, será partida adicional."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Creación de huerto urbano, preparación, plantación y sistema de riego"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Construcción/montaje de cajas de madera para el huerto"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diseño y planificación del huerto urbano en terraza",
+          "descripcion": "Croquis/plano de distribución de cajas, acceso a agua, orientación solar y rotación de cultivos",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de asesoramiento y diseño. Instalador debe establecer tarifa (típicamente 50-100€ o incluido en mano de obra)"
+        },
+        {
+          "concepto": "Cajas de madera para huerto urbano",
+          "descripcion": "Cajas de madera tratada (medidas a especificar: alto/ancho/largo). Incluye madera, tornillería inox y tratamiento",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cajas y dimensiones no especificadas. Precio unitario por caja (típicamente 80-200€/caja según tamaño)"
+        },
+        {
+          "concepto": "Montaje y nivelación de cajas de madera",
+          "descripcion": "Colocación, nivel, anclaje a terraza si necesario, sellado de uniones",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Geotextil anti-malas hierbas",
+          "descripcion": "Malla geotextil para forrar el interior de cajas, evitar maleza desde abajo",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "A especificar según superficie total de cajas (típicamente 3-5€/m²)"
+        },
+        {
+          "concepto": "Sustrato y tierra de cultivo para huerto",
+          "descripcion": "Sustrato específico para horticultura (mezcla tierra, turba y perlita). A granel o sacos según necesidad",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen según cajas. Tipicamente 150-250€/m³ sustrato horticultura"
+        },
+        {
+          "concepto": "Aporte de tierra y preparación de sustrato",
+          "descripcion": "Distribución, mezcla y nivelación de sustrato en cajas",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sistema de riego por goteo",
+          "descripcion": "Instalación de riego por goteo básico: tubo principal, goteros, programador timer manual (opcional automático)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema básico por goteo típicamente 150-400€. Si incluye automatización, hasta 600€"
+        },
+        {
+          "concepto": "Montaje del sistema de riego",
+          "descripcion": "Instalación de tuberías, goteros, conexión a toma de agua, pruebas de funcionamiento",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantas de temporada y aromáticas",
+          "descripcion": "Suministro de plantas vivas de temporada (tomates, lechugas, hierbas aromáticas, etc.). Cantidades a especificar",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Especies y cantidad no definidas. Plantas hortícolas típicamente 2-8€/ud"
+        },
+        {
+          "concepto": "Plantación de plantas y preparación inicial",
+          "descripcion": "Plantación de semillas o plantones, marco de plantación, riego inicial",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios de huerto",
+          "descripcion": "Etiquetas de plantas, fichas de cultivo, herramientas manuales pequeñas, ataduras, tutores si necesario",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida auxiliar pequeña. Típicamente 30-80€"
+        },
+        {
+          "concepto": "Asesoramiento y formación básica de mantenimiento",
+          "descripcion": "Orientaciones sobre riegos, plagas comunes, rotación de cultivos, nutrientes",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio complementario. Típicamente 1-2 horas (25-50€) o incluido en presupuesto"
+        }
+      ],
+      "calculos": {
+        "subtotal": 355,
+        "iva_porcentaje": 21,
+        "iva": 74.55,
+        "total": 429.55
+      },
+      "sugerencias_catalogo": [
+        "BASE MAESTRA: 'creacion_de_huerto_urbano_o_familiar' — aplicada como referencia. Precio alzado típico 8-50€/m² de huerto.",
+        "Sistema de riego recomendado: riego por goteo con fertirrigación para máxima eficiencia.",
+        "Geotextil anti-malas hierbas altamente recomendado en terrazas para evitar contaminación.",
+        "Sustrato específico HORTÍCOLA, no tierra de jardín convencional, para mejor drenaje y nutrientes."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "partida": "Cajas de madera para huerto urbano",
+          "razon": "No existe en catálogo con especificaciones de terraza. Cantidad y dimensiones variables.",
+          "oficio_asignado": "carpinteria",
+          "recomendacion": "Especificar número de cajas, dimensiones (altura×ancho×largo) y si incluyen fondo desmontable"
+        },
+        {
+          "partida": "Sustrato y tierra de cultivo para huerto",
+          "razon": "Material volumétrico. Cantidad dependiente del volumen total de cajas.",
+          "oficio_asignado": "jardineria",
+          "recomendacion": "Calcular volumen en m³ de cajas (L×A×H de cada caja). Sustrato hortícola de calidad: 180-250€/m³"
+        },
+        {
+          "partida": "Sistema de riego por goteo",
+          "razon": "Material y instalación modulable. Presupuesto base incluye sistema básico sin automatización.",
+          "oficio_asignado": "jardineria",
+          "recomendacion": "Si requiere automatización (programador, electroválvula), incrementar presupuesto 200-300€"
+        },
+        {
+          "partida": "Plantas de temporada y aromáticas",
+          "razon": "Material vivo, cantidad no especificada. Varía según espacio y preferencias.",
+          "oficio_asignado": "jardineria",
+          "recomendacion": "Definir con cliente: tomates, lechugas, hierbas aromáticas (albahaca, perejil), fresas, etc. Presupuesto variable 50-200€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "creacion_de_huerto_urbano_o_familiar",
+      "diseno_y_creacion_jardin_nuevo_desde_cero",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "tabique_pladur_zona_exterior_cubierta_sotillo",
+      "tratamiento_fitosanitario_plagas_y_enfermedades"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 4,
+    "n_sugeridas": 8,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

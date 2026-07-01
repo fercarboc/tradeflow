@@ -1,0 +1,195 @@
+{
+  "id": 173,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Alicatar ducha de 90x90 con azulejo de metro de ancho y mampara abatible de 6mm",
+  "http_status": 200,
+  "latency_ms": 21309,
+  "raw_response": {
+    "transcript": "Alicatar ducha de 90x90 con azulejo de metro de ancho y mampara abatible de 6mm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Alicatar ducha de 90x90 con azulejo de metro de ancho y mampara abatible de 6mm",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas ducha 90x90 cm interpretadas como plato estándar. Verificar in situ dimensiones exactas de paredes y suelo.",
+          "Azulejo 'metro de ancho' = 100x100 cm. Confirmar formato exacto y cantidad total de piezas.",
+          "Mampara abatible 6mm: vidrio templado. Confirmar medida exacta de abertura y tipo de bisagras (180°, 90°, etc.)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 22,
+            "recomendado": 35,
+            "max": 110
+          },
+          "motivo": "Alicatado de paredes y suelo de ducha. Incluye preparación, impermeabilización, colocación de azulejos y lechada."
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 80,
+            "recomendado": 250,
+            "max": 650
+          },
+          "motivo": "Instalación mampara abatible de vidrio templado 6mm con bisagras y herrajes."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 15,
+            "recomendado": 45,
+            "max": 70
+          },
+          "motivo": "Impermeabilización previa de zona de ducha con membrana líquida antes de alicatar (obligatoria)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Impermeabilización zona ducha con membrana líquida elastomérica",
+          "descripcion": "Imprimación adherente + membrana líquida elastomérica 2 manos + refuerzo cinta en rincones y encuentros. Extensión mínimo 20 cm fuera zona mojada. Ducha 90x90 cm aprox. 2 m² de paredes + 0,81 m² suelo = 2,81 m² total. Incluye curado 24-48h antes de alicatar.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 2.81,
+          "precio_unitario": 45,
+          "total": 126.45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro membrana impermeabilizante líquida + refuerzos",
+          "descripcion": "Membrana elastomérica 2 manos (aprox. 2 kg para 2,81 m²) + cinta refuerzo rincones + imprimación. Material sin aplicación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según marca y cantidad exacta."
+        },
+        {
+          "concepto": "Alicatado paredes ducha con azulejo 100x100 cm",
+          "descripcion": "Colocación azulejo formato 100x100 cm en paredes ducha 90x90 cm. Incluye replanteo centrado, mortero cola C2S2 flexible, lechada flexible, perfiles aluminio esquinas, junta silicona perimetral. Aprox. 2 m² de pared. Mano de obra.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 2,
+          "precio_unitario": 35,
+          "total": 70,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alicatado suelo ducha antideslizante R11",
+          "descripcion": "Colocación baldosa antideslizante R11 en suelo ducha 90x90 cm (0,81 m²). Incluye mortero cola C2S2 flexible, lechada flexible, junta silicona encuentro suelo-pared. Mano de obra.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0.81,
+          "precio_unitario": 35,
+          "total": 28.35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro azulejos, mortero, lechada y perfiles",
+          "descripcion": "Azulejo 100x100 cm (aprox. 3 piezas paredes + roturas) + baldosa antideslizante suelo (aprox. 1 pieza + roturas) + mortero cola C2S2 flexible (5 kg) + lechada flexible (2 kg) + perfil aluminio esquinas (2 ml) + silicona sanitaria (1 cartucho) + pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir por instalador según marca, cantidad exacta de piezas y acabado elegido."
+        },
+        {
+          "concepto": "Instalación mampara abatible vidrio templado 6mm",
+          "descripcion": "Mampara abatible de vidrio templado 6mm para ducha 90x90 cm. Incluye bisagras inox, herrajes cierre, perfiles aluminio o inox, silicona en encuentros, fijación a paredes. Medida exacta a confirmar in situ. Mano de obra.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 250,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro mampara abatible vidrio templado 6mm + herrajes",
+          "descripcion": "Mampara abatible vidrio templado 6mm (medida a confirmar in situ, aprox. 90x200 cm) + bisagras inox 180° + perfiles aluminio/inox + silicona sanitaria + tornillería inox + pequeño material.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mampara a definir por instalador según medida exacta, tipo de vidrio y acabado de herrajes."
+        }
+      ],
+      "calculos": {
+        "subtotal": 474.8,
+        "iva_porcentaje": 21,
+        "iva": 99.71,
+        "total": 574.51
+      },
+      "sugerencias_catalogo": [
+        "Verificar in situ las dimensiones exactas de la ducha (ancho, alto, profundidad) antes de pedir materiales.",
+        "Confirmar formato exacto del azulejo: si es 100x100 cm, calcular cantidad total de piezas incluyendo roturas (10-15%).",
+        "Medir abertura exacta para mampara abatible: ancho, alto, profundidad de nicho. Tipo de bisagras (180°, 90°, etc.).",
+        "Impermeabilización OBLIGATORIA antes de alicatar. Dejar curar 24-48h según fabricante.",
+        "Baldosa suelo DEBE ser antideslizante R11 mínimo por seguridad.",
+        "Junta silicona en encuentro suelo-pared (no lechada) para flexibilidad y estanqueidad."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_mampara_de_ducha_corredera",
+      "instalacion_mampara_ducha",
+      "tabique_pladur_para_ducha_o_plato_de_ducha",
+      "impermeabilizacion_zona_ducha_con_membrana_liquida",
+      "alicatado_y_solado_de_bano_completo"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3737,
+      "tokens_out": 2892
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

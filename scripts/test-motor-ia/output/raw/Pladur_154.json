@@ -1,0 +1,156 @@
+{
+  "id": 154,
+  "oficio": "Pladur",
+  "texto": "Tabique separador de oficina open space con pladur, longitud 8 metros y altura hasta falso techo",
+  "http_status": 200,
+  "latency_ms": 18932,
+  "raw_response": {
+    "transcript": "Tabique separador de oficina open space con pladur, longitud 8 metros y altura hasta falso techo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique separador de oficina open space con pladur, longitud 8 metros y altura hasta falso techo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Altura hasta falso techo no especificada numéricamente. Se asume altura estándar 2.5-3m. Revisar altura real en obra.",
+          "Especificación acústica no indicada. Si requiere aislamiento acústico, añadir lana mineral y/o doble placa."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Tabique divisorio con pladur en oficina. Oficio especializado en sistemas de placas de yeso laminado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm para tabique divisorio",
+          "descripcion": "Suministro e instalación de placa de yeso laminado de 15mm de espesor para ambas caras del tabique. Longitud 8m, altura hasta falso techo (aprox. 2.5-3m). Superficie total aprox. 40-48 m2.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 44,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pladur. Instalador debe confirmar precio de suministro según proveedor y especificación (15mm, ambas caras)."
+        },
+        {
+          "concepto": "Perfilería metálica (canales y montantes) para tabique pladur",
+          "descripcion": "Suministro de perfiles de acero galvanizado: canales UW 70mm (superior e inferior) y montantes CW 70mm cada 60cm. Longitud total 8m, altura 2.5-3m. Incluye arriostramientos horizontales.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 48,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perfilería metálica. Instalador debe confirmar precio según proveedor y cantidad exacta de montantes."
+        },
+        {
+          "concepto": "Tornillería, cinta de juntas y pasta de juntas",
+          "descripcion": "Tornillos autorroscantes 25mm para fijación de placas, cinta de papel para juntas, pasta de juntas (masilla) para sellado y acabado de juntas. Cantidad estimada para 44 m2 de placa.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y consumibles. Instalador debe confirmar cantidad y precio total de tornillería, cinta y pasta."
+        },
+        {
+          "concepto": "Ángulos metálicos para esquinas y remates",
+          "descripcion": "Ángulos metálicos galvanizados para protección y acabado de esquinas y aristas del tabique. Longitud total aprox. 16ml (perímetro de esquinas).",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 16,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Ángulos de remate. Instalador debe confirmar precio por ml."
+        },
+        {
+          "concepto": "Montaje y fijación de estructura metálica",
+          "descripcion": "Mano de obra para replanteo, fijación de canales a suelo y techo, colocación de montantes cada 60cm, arriostramientos horizontales, y fijación de estructura a elementos existentes. Longitud 8m, altura 2.5-3m.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de placas de yeso y acabado de juntas",
+          "descripcion": "Mano de obra para colocación de placas de yeso laminado en ambas caras (44 m2), fijación con tornillos, aplicación de cinta de juntas, masillado y lijado de juntas para acabado liso. Incluye 2-3 pasadas de masilla según norma.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 35,
+          "total": 420,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 700,
+        "iva_porcentaje": 21,
+        "iva": 147,
+        "total": 847
+      },
+      "sugerencias_catalogo": [
+        "Si el tabique requiere aislamiento acústico (privacidad en open space), añadir partida de lana mineral de roca 40-50mm entre montantes (aprox. 20 €/m2).",
+        "Si se requiere doble placa por ambas caras (mayor aislamiento acústico), aumentar cantidad de placas y mano de obra.",
+        "Confirmar altura exacta del falso techo en obra para ajustar cantidad de perfilería y placas.",
+        "Si hay paso de instalaciones (electricidad, datos), coordinar con electricista antes de cerrar tabique."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_separacion_zona_oficina",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "instalacion_tabique_o_division_de_vidrio_en_oficina",
+      "falso_techo_pladur_con_lucernario_o_claraboya_artificial"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 4031,
+      "tokens_out": 2269
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

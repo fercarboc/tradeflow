@@ -1,0 +1,157 @@
+{
+  "id": 182,
+  "oficio": "Cerrajería",
+  "texto": "Instalación de puerta acorazada en acceso principal de la vivienda, blindaje nivel 4",
+  "http_status": 200,
+  "latency_ms": 12894,
+  "raw_response": {
+    "transcript": "Instalación de puerta acorazada en acceso principal de la vivienda, blindaje nivel 4",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de puerta acorazada en acceso principal de la vivienda, blindaje nivel 4",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Puerta acorazada clase 4: precio material muy variable según fabricante y especificaciones de seguridad",
+          "Requiere medición exacta del hueco y verificación de estructura de jambas",
+          "Demolición de marco existente incluida en presupuesto",
+          "Instalación requiere fijación a estructura portante, no solo revestimiento"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de puerta acorazada con cerradura multibloqueo y ajuste de seguridad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Puerta acorazada clase 4 con marco reforzado",
+          "descripcion": "Suministro de puerta acorazada blindaje nivel 4 (clase de seguridad 4), incluyendo hoja de acero reforzado, marco metálico reforzado con junta de estanqueidad, cerradura multibloqueo integrada y herrajes de seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material muy variable según fabricante (rango estimado 1200-3500€). Instalador debe confirmar especificaciones exactas y presupuesto del proveedor"
+        },
+        {
+          "concepto": "Demolición de marco y puerta existente",
+          "descripcion": "Desmontaje y retirada de puerta y marco existente, incluyendo pequeño material y limpieza de hueco",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y fijación de puerta acorazada",
+          "descripcion": "Instalación de puerta acorazada en marco reforzado, fijación a estructura portante con tornillería de seguridad, aplomado y nivelación, ajuste de bisagras y cierre, verificación de funcionamiento de cerraduras multibloqueo",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado perimetral y reposición de acabados",
+          "descripcion": "Sellado perimetral con masilla de poliuretano o silicona, reposición de jambas y revestimiento, tapajuntas o molduras de acabado, pintura o acabado según existente",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y tornillería de seguridad",
+          "descripcion": "Tornillería inoxidable de seguridad, masilla, silicona, selladores, materiales auxiliares para instalación y acabado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 80-150€. Instalador debe confirmar según especificaciones finales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar con proveedor de puertas acorazadas: especificaciones exactas de clase 4, certificaciones (UNE EN 1627-1630), tiempo de entrega",
+        "Confirmar medidas exactas del hueco y estado de jambas antes de presupuestar",
+        "Considerar si requiere refuerzo estructural de jambas (obra de albañilería adicional)",
+        "Solicitar certificado de instalación y garantía de la puerta acorazada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Puerta acorazada clase 4 con marco reforzado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Material específico de seguridad, precio variable según fabricante y especificaciones"
+        },
+        {
+          "concepto": "Pequeño material y tornillería de seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Materiales auxiliares específicos para instalación de puerta acorazada"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "instalacion_control_acceso_rfid",
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "instalacion_de_garitas_o_cabinas_de_control",
+      "instalacion_puerta_acorazada"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3882,
+      "tokens_out": 1669
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

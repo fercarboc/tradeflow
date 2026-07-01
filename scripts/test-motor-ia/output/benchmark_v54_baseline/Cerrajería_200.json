@@ -1,0 +1,116 @@
+{
+  "id": 200,
+  "oficio": "Cerrajería",
+  "texto": "Reparar maneta de puerta interior que se ha caído, cambio de maneta y roseta",
+  "http_status": 200,
+  "latency_ms": 7419,
+  "raw_response": {
+    "transcript": "Reparar maneta de puerta interior que se ha caído, cambio de maneta y roseta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar maneta de puerta interior que se ha caído, cambio de maneta y roseta",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Cambio de maneta y roseta de puerta interior. Trabajo de cerrajería especializada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de maneta y roseta antigua",
+          "descripcion": "Desmontaje cuidadoso de maneta y roseta dañadas de puerta interior",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de maneta y roseta nueva",
+          "descripcion": "Maneta y roseta de puerta interior (acero inoxidable o aluminio, según especificación del cliente)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según modelo y acabado elegido (rango típico: 15-80€)"
+        },
+        {
+          "concepto": "Instalación de maneta y roseta nueva",
+          "descripcion": "Montaje de maneta y roseta en puerta interior, ajuste y prueba de funcionamiento",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 120,
+        "iva_porcentaje": 21,
+        "iva": 25.2,
+        "total": 145.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de maneta (pomo, palanca, tirador) y acabado (acero inoxidable, aluminio, cromado, etc.)",
+        "Verificar si la puerta requiere ajuste adicional tras el cambio",
+        "Considerar cambio de cerradura si está dañada también"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de maneta y roseta nueva",
+          "oficio": "cerrajeria",
+          "motivo": "Material cuyo precio depende del modelo y acabado seleccionado por el cliente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra",
+      "pintado_armarios_empotrados_interiores",
+      "pintura_esmalte_carpinteria_madera_interior",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3680,
+      "tokens_out": 944
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 2,
+    "n_sugeridas": 1,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "id": 326,
+  "oficio": "Fachadas",
+  "texto": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+  "http_status": 200,
+  "latency_ms": 18833,
+  "raw_response": {
+    "transcript": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Superficie total no especificada en m². Instalador debe medir y confirmar.",
+          "Acceso a 4 plantas requiere andamio o plataforma elevadora: presupuestar por separado o incluir en mano de obra.",
+          "Pintura siloxánica impermeabilizante: confirmar marca, especificación técnica y rendimiento real.",
+          "Reparación de grietas/fisuras previas no incluida: evaluar estado de fachada."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Pintura exterior de fachada de edificio. Oficio 'fachadas' por revestimiento exterior y altura/complejidad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa fachada con agua a presión",
+          "descripcion": "Limpieza de suciedad, algas y depósitos en fachada exterior de 4 plantas antes de pintar.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total no especificada. Instalador debe medir fachada neta (sin huecos) y confirmar cantidad en m²."
+        },
+        {
+          "concepto": "Imprimación fijadora exterior",
+          "descripcion": "Imprimación fijadora para fachada exterior, preparación de soporte antes de pintura siloxánica.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros depende de m² de fachada y rendimiento. Instalador confirma superficie y especificación técnica."
+        },
+        {
+          "concepto": "Pintura siloxánica impermeabilizante exterior",
+          "descripcion": "Pintura siloxánica impermeabilizante de alta calidad para fachada exterior, 2 manos mínimo. Protección contra humedad y agentes atmosféricos.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en litros: rendimiento típico 6-8 m²/litro en 2 manos. Instalador mide fachada y calcula litros necesarios. Precio según marca/especificación."
+        },
+        {
+          "concepto": "Mano de obra: Aplicación pintura siloxánica fachada 4 plantas",
+          "descripcion": "Aplicación de pintura siloxánica impermeabilizante en fachada exterior de 4 plantas. Incluye preparación, masillado de grietas menores, aplicación 2 manos, limpieza final.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total no especificada. Tarifa recomendada: 15-75 €/m² según complejidad, acceso y estado. Instalador mide y aplica tarifa según dificultad de acceso (4 plantas = mayor complejidad)."
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora (4 plantas)",
+          "descripcion": "Alquiler y montaje de andamio modular o plataforma elevadora para acceso seguro a fachada de 4 plantas durante pintado.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de andamio depende de: altura total (4 plantas ≈ 12-16 m), superficie de fachada, duración obra, acceso a vía pública. Instalador solicita presupuesto a empresa especializada. Puede incluirse en mano de obra o facturarse por separado."
+        },
+        {
+          "concepto": "Cinta carrocero, plásticos de protección y pequeño material",
+          "descripcion": "Cinta carrocero, plásticos de protección para ventanas/puertas, trapos, brochas, rodillos, bandejas y pequeño material consumible.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado: 150-300 € según superficie. Instalador confirma cantidad y precio."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: medición exacta de fachada en m² (alto × ancho, restando huecos de ventanas/puertas).",
+        "Evaluar estado actual de fachada: presencia de grietas, fisuras, desperfectos que requieran reparación previa (partida adicional de albañilería).",
+        "Confirmar especificación técnica de pintura siloxánica: marca, clase de resistencia, certificaciones (UNE, EN).",
+        "Presupuestar andamio por separado: contactar con empresa de alquiler para cotización según altura y duración.",
+        "Considerar permiso municipal si andamio ocupa vía pública.",
+        "Rendimiento real de pintura siloxánica: típicamente 6-8 m²/litro en 2 manos. Confirmar con fabricante según soporte."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura siloxánica impermeabilizante exterior",
+          "oficio": "fachadas",
+          "motivo": "Material específico de alta gama. Precio variable según marca y especificación técnica. Requiere revisión del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_fachada_exterior",
+      "pintura_de_medianera_o_pared_ciega_exterior",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "pintura_fachada_exterior_plastica_o_siloxano",
+      "pintado_de_chimenea_exterior"
+    ],
+    "kb_score": 4.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3652,
+      "tokens_out": 2390
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

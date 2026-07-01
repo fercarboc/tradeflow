@@ -1,0 +1,306 @@
+{
+  "id": 221,
+  "oficio": "Energía Solar",
+  "texto": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+  "http_status": 200,
+  "latency_ms": 30362,
+  "raw_response": {
+    "transcript": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Legalización ante distribuidora OBLIGATORIA",
+          "Verificar orientación y sombras en cubierta",
+          "Confirmar disponibilidad de ayudas NextGenEU/IDAE en la CCAA"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema fotovoltaico en cubierta, cableado, protecciones y legalización"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión a cuadro eléctrico, protecciones AC, contador bidireccional"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos 400W",
+          "descripcion": "Suministro de 13 placas solares monocristalinas de 400W cada una (total 5,2 kWp) con certificación MCS/TÜV, garantía 25 años",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 13,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material con precio variable según marca y mercado. Rango orientativo 180-250€/ud a 2024"
+        },
+        {
+          "concepto": "Estructura soporte aluminio para cubierta inclinada",
+          "descripcion": "Estructura de soporte en aluminio anodizado para 13 módulos, sistema de rail, soportes ajustables, pernos y accesorios de montaje, instalación en cubierta inclinada con ángulo 30-35º (orientación sur)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema de soporte con precio variable según estructura. Rango orientativo 800-1.200€"
+        },
+        {
+          "concepto": "Inversor monofásico 5kW",
+          "descripcion": "Inversor de conexión a red, monofásico 230V, potencia nominal 5kW, con relé de protección de frecuencia/tensión, aislamiento galvánico, monitorización integrada, certificación VDE/CE",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Inversor de marca reconocida (Fronius, SMA, Growatt, etc.). Rango orientativo 1.200-1.800€"
+        },
+        {
+          "concepto": "Cableado DC y AC para instalación fotovoltaica",
+          "descripcion": "Cableado DC de 6 mm² (tramos cubierta-inversor), cableado AC de 6 mm² (inversor-cuadro), conectores MC4 certificados, bandejas, pasamuros, elementos de protección mecánica",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de cableado y conectores. Rango orientativo 400-700€"
+        },
+        {
+          "concepto": "Protecciones lado CC (cuadro DC)",
+          "descripcion": "Magnetotérmicos CC 2x16A, descargadores de sobretensión tipo 2 en entrada DC, fusibles de cadena (si aplica), bases de fusibles, bornes de conexión, caja de protección/combinador",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material eléctrico certificado. Rango orientativo 300-500€"
+        },
+        {
+          "concepto": "Protecciones lado CA (cuadro AC)",
+          "descripcion": "Magnetotérmico CA 1x25A, descargador de sobretensión tipo 2 en salida AC, interruptor diferencial 30mA, bornes de conexión, caja de protección",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material eléctrico certificado. Rango orientativo 200-400€"
+        },
+        {
+          "concepto": "Contador bidireccional legalizado",
+          "descripcion": "Suministro e instalación de contador bidireccional homologado por distribuidora (clase 2), con telecomunicación integrada, validación ante organismo competente, boletín de instalación incluido",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Contador + gestión de legalización. Rango orientativo 400-800€"
+        },
+        {
+          "concepto": "Montaje estructura y módulos fotovoltaicos",
+          "descripcion": "Posicionamiento y anclaje de estructura en cubierta, montaje de 13 módulos solares con conectores, alineación, comprobación mecánica",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 65,
+          "total": 1040,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación cableado, cajas y conexiones",
+          "descripcion": "Tendido de cableado DC desde módulos a cuadro, instalación de cajas de protección CC y CA, conexionado de magnetotérmicos y descargadores, pruebas de continuidad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación inversor y protecciones CA",
+          "descripcion": "Posicionamiento e instalación del inversor, conexionado de protecciones AC (magnetotérmico, descargador), test de funcionamiento en modo isla y conexión a red",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Legalización e inscripción ante distribuidora",
+          "descripcion": "Tramitación de solicitud ante distribuidora eléctrica, documentación técnica, boletín de instalación, aceptación de punto de conexión, validación de contador bidireccional, seguimiento expediente",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión de legalización. Rango orientativo 250-500€ o incluido en instalador"
+        },
+        {
+          "concepto": "Pequeño material, EPI y seguridad",
+          "descripcion": "Arnés de seguridad, línea de vida temporal, cascos, guantes, gafas, botiquín, cinta de señalización, elementos de protección laboral, conectores, bridas, silicona, masilla, etc.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar y EPI. Rango orientativo 150-300€"
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Medición de aislamiento DC, test de polaridad, prueba de funcionamiento en isla, verificación de entrada a red, calibración de parámetros, monitorización y documentación de puesta en marcha",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2300,
+        "iva_porcentaje": 21,
+        "iva": 483,
+        "total": 2783
+      },
+      "sugerencias_catalogo": [
+        "Verificar disponibilidad de AYUDAS NextGenEU/IDAE para fotovoltaica en vivienda: pueden cubrir 40-60% del presupuesto. Crear partida adicional de 'Gestión de ayudas' si se desea.",
+        "Si la vivienda presenta sombras parciales significativas (árboles, chimeneas), considerar añadir OPTIMIZADORES de potencia en cada módulo (coste adicional ~100€/ud).",
+        "Sistema de MONITORIZACIÓN online (app + portal web) es recomendable: rango 200-400€ (puede estar incluido en inversor o ser adicional).",
+        "Plazo de ejecución típico: 2-3 días si solo instalación, +5-10 días si incluye legalización."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos 400W",
+          "oficio": "energia_solar",
+          "motivo": "Material fotovoltaico con precio variable según fabricante y mercado"
+        },
+        {
+          "concepto": "Estructura soporte aluminio para cubierta inclinada",
+          "oficio": "energia_solar",
+          "motivo": "Sistema de soporte adaptado a instalación en cubierta"
+        },
+        {
+          "concepto": "Inversor monofásico 5kW",
+          "oficio": "energia_solar",
+          "motivo": "Equipo principal de conversión, precio según marca y modelo"
+        },
+        {
+          "concepto": "Cableado DC y AC para instalación fotovoltaica",
+          "oficio": "energia_solar",
+          "motivo": "Material de conexionado especializado"
+        },
+        {
+          "concepto": "Protecciones lado CC (cuadro DC)",
+          "oficio": "electricidad",
+          "motivo": "Material eléctrico específico para lado DC"
+        },
+        {
+          "concepto": "Protecciones lado CA (cuadro AC)",
+          "oficio": "electricidad",
+          "motivo": "Material eléctrico específico para lado AC"
+        },
+        {
+          "concepto": "Contador bidireccional legalizado",
+          "oficio": "electricidad",
+          "motivo": "Equipo especializado con legalización obligatoria"
+        },
+        {
+          "concepto": "Legalización e inscripción ante distribuidora",
+          "oficio": "energia_solar",
+          "motivo": "Servicio de gestión administrativa obligatoria para autoconsumo"
+        },
+        {
+          "concepto": "Pequeño material, EPI y seguridad",
+          "oficio": "energia_solar",
+          "motivo": "Material auxiliar y de protección laboral"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda",
+      "instalacion_fotovoltaica_autoconsumo",
+      "instalacion_solar_termica_para_ACS",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "solicitud_y_gestion_de_ayudas_para_energia_solar"
+    ],
+    "kb_score": 5,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 4,
+    "n_sugeridas": 9,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

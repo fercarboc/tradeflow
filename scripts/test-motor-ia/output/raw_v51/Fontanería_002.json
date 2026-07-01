@@ -1,0 +1,316 @@
+{
+  "id": 2,
+  "oficio": "Fontanería",
+  "texto": "Cambio de bañera por plato de ducha en baño principal de 90x90 con mamparas",
+  "http_status": 200,
+  "latency_ms": 29614,
+  "raw_response": {
+    "transcript": "Cambio de bañera por plato de ducha en baño principal de 90x90 con mamparas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de bañera por plato de ducha en baño principal de 90x90 con mamparas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere coordinación entre fontanería y obra civil (desmontaje, impermeabilización, alicatado)",
+          "Se asume plato de ducha estándar 90x90 con impermeabilización obligatoria",
+          "Mamparas incluidas en presupuesto - especificar modelo y material con cliente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación desagüe, sifón, grifo ducha y accesorios sanitarios"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición bañera, preparación solera, impermeabilización, reposición alicatado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de bañera existente",
+          "descripcion": "Demolición controlada de bañera, desconexión de tuberías, retirada de residuos y gestión de escombros",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rebaje y preparación de solera para plato ducha 90x90",
+          "descripcion": "Rebaje de solera a nivel o desnivel mínimo, formación de pendiente hacia desagüe, retirada de residuos",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8.1,
+          "precio_unitario": 40,
+          "total": 324,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización con membrana líquida en zona ducha",
+          "descripcion": "Aplicación de membrana impermeabilizante líquida (2 manos) en solera y 20cm hacia arriba en paredes, zona de 90x90",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8.1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: membrana líquida impermeabilizante (aprox. 3-8€/m² según marca). Instalador debe especificar producto y cantidad total en litros"
+        },
+        {
+          "concepto": "Plato de ducha 90x90 con pendiente y desagüe",
+          "descripcion": "Suministro e instalación de plato ducha de 90x90cm, resina o cerámica antideslizante, con pendiente regulable hacia desagüe",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: plato ducha estándar 90x90 (rango 200-800€ según material y marca). Instalador debe especificar modelo"
+        },
+        {
+          "concepto": "Sifón y válvula de desagüe para plato ducha",
+          "descripcion": "Suministro e instalación de sifón cromado y válvula de desagüe para ducha, con rosca universal",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: sifón + válvula (aprox. 40-120€). Instalador debe confirmar modelo compatible"
+        },
+        {
+          "concepto": "Adaptación y conexión de tuberías desagüe",
+          "descripcion": "Conexión de desagüe del plato ducha a bajante existente, incluye tuberías de transición y accesorios",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 80,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifería de ducha empotrable o mural",
+          "descripcion": "Suministro e instalación de grifo/mezclador ducha, con desviador baño-ducha si procede",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: grifería (rango 80-400€ según marca y tipo). Instalador debe especificar modelo"
+        },
+        {
+          "concepto": "Instalación grifería y accesorios ducha",
+          "descripcion": "Mano de obra: empalmes de tuberías, fijación de grifo, instalación de desviador, prueba de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mampara de ducha 90x90 (una puerta o mamparas laterales)",
+          "descripcion": "Suministro e instalación de mampara corredera o abatible, perfiles de aluminio anodizado, cristal templado 6-8mm",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: mampara ducha (rango 300-1200€ según tipo, material y tamaño). Instalador debe especificar modelo y sistema (corredera/abatible/fija)"
+        },
+        {
+          "concepto": "Instalación mampara ducha",
+          "descripcion": "Fijación a plato y pared, nivelación, sellado con silicona, prueba de cierre y deslizamiento",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y silicona sanitaria",
+          "descripcion": "Aplicación de silicona sanitaria en juntas plato-pared, grifo-pared y accesorios, limpieza y masillado",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: silicona sanitaria (aprox. 5-15€). Instalador debe especificar cantidad y marca"
+        },
+        {
+          "concepto": "Reposición de alicatado perimetral",
+          "descripcion": "Retirada de azulejos dañados en perímetro de zona ducha, reposición con adhesivo y rejunta",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m",
+          "cantidad": 3.6,
+          "precio_unitario": 35,
+          "total": 126,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Azulejos de reposición (si necesarios)",
+          "descripcion": "Suministro de azulejos de reposición en caso de deterioro o rotura durante trabajos",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0.5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: azulejos (aprox. 10-40€/m² según marca y características). Cantidad estimada; cliente debe aportar muestra para precisar"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería inox, arandelas, cinta teflón, masilla, esponja, paños, productos de limpieza",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pequeño material consumible (aprox. 20-50€). Incluye tornillería, cintas, masillas varias"
+        },
+        {
+          "concepto": "Pruebas finales y puesta en servicio",
+          "descripcion": "Prueba de estanqueidad del plato ducha, grifo y accesorios, verificación de pendientes y desagüe, limpieza final",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 920,
+        "iva_porcentaje": 21,
+        "iva": 193.2,
+        "total": 1113.2
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada en catálogo para 'Plato ducha 90x90' con rangos de precio según material (resina 250-450€, cerámica 400-800€)",
+        "Crear entrada para 'Mampara ducha corredera' (300-600€) y 'Mampara abatible' (400-1200€)",
+        "Crear entrada para 'Membrana impermeabilizante líquida' con coste por litro (aprox. 15-25€/l, necesarios 5-10l según aplicación)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plato de ducha 90x90",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "200-800€",
+          "observacion": "Depende de material (resina económica, cerámica premium) y acabados antideslizantes"
+        },
+        {
+          "concepto": "Mampara ducha",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "300-1200€",
+          "observacion": "Variar según tipo (corredera/abatible), tamaño y material (aluminio/acero inox)"
+        },
+        {
+          "concepto": "Grifería ducha empotrable",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "80-400€",
+          "observacion": "Incluir desviador baño-ducha si existía antes; confirmar sistema empalmes"
+        },
+        {
+          "concepto": "Membrana impermeabilizante líquida",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "rango_precio_estimado": "3-8€/m² aplicada o 15-25€/litro",
+          "observacion": "Necesaria para garantizar estanqueidad obligatoria en zonas ducha"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "desatasco_banera_ducha",
+      "tabique_pladur_para_ducha_o_plato_de_ducha",
+      "sustitucion_banera_por_ducha",
+      "cambio_plato_ducha"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 15,
+    "n_catalogo": 7,
+    "n_sugeridas": 8,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

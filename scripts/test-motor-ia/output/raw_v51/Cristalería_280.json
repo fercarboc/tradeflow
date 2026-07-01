@@ -1,0 +1,162 @@
+{
+  "id": 280,
+  "oficio": "Cristalería",
+  "texto": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+  "http_status": 200,
+  "latency_ms": 11667,
+  "raw_response": {
+    "transcript": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material (parabrisas) requiere especificación: modelo vehículo, tipo cristal (templado/laminado), accesorios (sensores lluvia/luz)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de cristalería en vehículo industrial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje parabrisas antiguo",
+          "descripcion": "Desmontaje seguro del parabrisas original, extracción de adhesivo y limpieza del marco",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Parabrisas laminado para vehículo industrial",
+          "descripcion": "Parabrisas de seguridad laminado templado, incluye accesorios de montaje (sensores lluvia/luz si aplica según modelo)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de modelo vehículo, tipo cristal y accesorios integrados. Instalador debe especificar"
+        },
+        {
+          "concepto": "Instalación parabrisas nuevo con adhesivo estructural",
+          "descripcion": "Pegado con adhesivo de poliuretano estructural, nivelación, prensado y ajuste de marcos",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Logotipo adhesivo empresa",
+          "descripcion": "Adhesivo decorativo/identificativo con logotipo de empresa para parabrisas o zona frontal visible",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tamaño, material (vinilo/poliéster) y complejidad diseño. Revisar con cliente"
+        },
+        {
+          "concepto": "Colocación logotipo adhesivo",
+          "descripcion": "Aplicación, posicionamiento y acabado del adhesivo decorativo en parabrisas",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 45,
+          "total": 22.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas y ajustes finales",
+          "descripcion": "Verificación de estanqueidad, limpieza exterior e interior, prueba de funcionamiento de accesorios (sensores si aplica)",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 45,
+          "total": 22.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 157.5,
+        "iva_porcentaje": 21,
+        "iva": 33.08,
+        "total": 190.58
+      },
+      "sugerencias_catalogo": [
+        "Confirmar modelo y año del vehículo industrial para especificar parabrisas (templado/laminado, con o sin sensores)",
+        "Especificar ubicación exacta del logotipo (superior central, inferior lateral, ambos lados)",
+        "Confirmar si logotipo incluye diseño personalizado o es estándar empresa",
+        "Considerar si se requiere certificado de instalación para vehículos industriales/comerciales"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Parabrisas laminado para vehículo industrial",
+          "origen": "sugerida_ia",
+          "tipo_partida": "material",
+          "motivo": "Material específico que requiere especificación del modelo de vehículo"
+        },
+        {
+          "concepto": "Logotipo adhesivo empresa",
+          "origen": "sugerida_ia",
+          "tipo_partida": "material",
+          "motivo": "Material personalizado que requiere especificación de diseño y dimensiones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "cambio_inodoro",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial",
+      "instalacion_de_mosquitera_metalica_en_ventana_o_puerta"
+    ],
+    "kb_score": 1,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

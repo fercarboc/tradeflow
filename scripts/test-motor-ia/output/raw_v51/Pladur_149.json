@@ -1,0 +1,278 @@
+{
+  "id": 149,
+  "oficio": "Pladur",
+  "texto": "Hacer armario de pladur empotrado bajo la escalera con puerta abatible y estantes internos",
+  "http_status": 200,
+  "latency_ms": 25597,
+  "raw_response": {
+    "transcript": "Hacer armario de pladur empotrado bajo la escalera con puerta abatible y estantes internos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer armario de pladur empotrado bajo la escalera con puerta abatible y estantes internos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas exactas del hueco bajo escalera no proporcionadas — revisar in situ",
+          "Material de estantes (tablero, cristal, acero) no especificado — confirmar con cliente",
+          "Acabado interior (pintura, papel, natural) no detallado — definir antes de ejecución",
+          "Acceso a la zona bajo escalera: verificar cotas de altura útil"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Estructura tabique pladur, perfiles, placas, juntas"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Puerta abatible madera, estantes internos, herrajes"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Acabado interior si se requiere"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura tabique pladur armario empotrado",
+          "descripcion": "Perfiles metálicos (canal 70 y montantes), placas yeso laminado 15mm, tornillería, cinta y pasta juntas, ángulo metálico. Incluye pequeño material",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas del hueco, espesor placas y cantidad de perfiles"
+        },
+        {
+          "concepto": "Montaje estructura pladur armario empotrado",
+          "descripcion": "Instalación perfiles, corte placas, colocación placas yeso, enrasado juntas con cinta y pasta, colocación ángulos. No incluye acabado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo madera interior para estantes",
+          "descripcion": "Listones madera refuerzo 50x50mm para apoyo de estantes internos, anclaje en estructura pladur",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según número de estantes y longitud de los listones"
+        },
+        {
+          "concepto": "Instalación refuerzo madera y preparación para estantes",
+          "descripcion": "Colocación listones refuerzo anclados en estructura, nivelación, taladrado para soportes estantes",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puerta abatible madera armario empotrado",
+          "descripcion": "Hoja puerta tablero melanina o madera, sistema bisagras, amortiguadores cierre suave, tirador, pequeño material",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según medida exacta puerta, acabado (melanina/pintura/laminado) y sistema herraje"
+        },
+        {
+          "concepto": "Instalación puerta abatible y herrajes",
+          "descripcion": "Colocación bisagras, amortiguadores, tirador, ajuste y regulación cierre suave de la puerta",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Estantes internos armario empotrado",
+          "descripcion": "Tableros estantes (cantidad y medidas a definir), soportes metálicos o escuadras, herraje soporte ajustable",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según número estantes, material (tablero melanina/cristal/acero) y dimensiones"
+        },
+        {
+          "concepto": "Instalación estantes y soportes",
+          "descripcion": "Colocación soportes escuadras en refuerzo madera, nivelación, instalación tableros estantes, ajuste final",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Acabado interior armario (pintura/tapizado)",
+          "descripcion": "Pintura esmalte satinado interior pladur, fondos y laterales. Imprimación, lija, 2 manos esmalte, pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según superficie a pintar (m²), color y tipo acabado elegido"
+        },
+        {
+          "concepto": "Aplicación acabado interior armario",
+          "descripcion": "Imprimación, lijado, aplicación 2 manos esmalte satinado en interior estructura pladur",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 32,
+          "total": 128,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y tornillería",
+          "descripcion": "Tornillos, tornillos autorroscantes, tacos, pasadores, tirador puerta, cinta carrocero, masilla, lijas, material consumible",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio aproximado 30-80€ según envergadura proyecto"
+        }
+      ],
+      "calculos": {
+        "subtotal": 723,
+        "iva_porcentaje": 21,
+        "iva": 151.83,
+        "total": 874.83
+      },
+      "sugerencias_catalogo": [
+        "Confirmar medidas exactas del hueco bajo escalera (ancho, alto, profundidad) antes de suministrar materiales",
+        "Definir número y separación de estantes (3-5 típicos en armarios bajo escalera)",
+        "Especificar material estantes: tablero melanina (económico), tablero lacado (premium), cristal (moderno) o acero (industrial)",
+        "Decidir acabado interior: pintura blanca estándar, color personalizado, papel pintado o naturalmente el pladur blanco",
+        "Verificar accesibilidad: altura útil bajo escalera puede ser limitada — considerar inclinación de puertas abatibles",
+        "Opcional: incorporar tirador de empotrar o tirador barra — influye en presupuesto",
+        "Revisar carga estantes: si uso pesado, reforzar soportes"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "descripcion": "Estructura tabique pladur armario empotrado — Precio depende de medidas exactas del hueco, espesor placas y cantidad de perfiles"
+        },
+        {
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "descripcion": "Refuerzo madera interior para estantes — Precio según número de estantes y longitud de los listones"
+        },
+        {
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "descripcion": "Puerta abatible madera armario empotrado — Precio según medida exacta puerta, acabado (melanina/pintura/laminado) y sistema herraje"
+        },
+        {
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "descripcion": "Estantes internos armario empotrado — Precio según número estantes, material (tablero melanina/cristal/acero) y dimensiones"
+        },
+        {
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "descripcion": "Acabado interior armario (pintura/tapizado) — Precio según superficie a pintar (m²), color y tipo acabado elegido"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "descripcion": "Pequeño material y tornillería — Precio aproximado 30-80€ según envergadura proyecto"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_armario_empotrado_a_medida",
+      "tabique_pladur_armario_empotrado_nuevo",
+      "pintado_armarios_empotrados_interiores",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

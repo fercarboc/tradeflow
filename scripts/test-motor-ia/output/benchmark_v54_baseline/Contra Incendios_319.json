@@ -1,0 +1,154 @@
+{
+  "id": 319,
+  "oficio": "Contra Incendios",
+  "texto": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+  "http_status": 200,
+  "latency_ms": 13582,
+  "raw_response": {
+    "transcript": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Actualizar señalización de evacuación en empresa tras reforma, nuevas rutas de salida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de contra_incendios: verificar cumplimiento normativa CTE DB SI y RD 486/1997",
+          "Requiere coordinación con plan de evacuación de la empresa",
+          "Señalización debe ser visible, fotoluminiscente y conforme a UNE 23034"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Señalización de evacuación es sistema de protección contra incendios. REGLA CRÍTICA: aunque implique instalación de señales (que podrían ser carpintería), el SISTEMA es contraincendios → contra_incendios obligatorio"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje señalización antigua",
+          "descripcion": "Retirada y desinstalación de señalización de evacuación existente, desconexión de alimentación eléctrica si aplica, pequeño material",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 440,
+          "total": 440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro señales de evacuación fotoluminiscentes",
+          "descripcion": "Señales de salida de emergencia, rutas de evacuación, puertas de emergencia y señales direccionales fotoluminiscentes conforme a UNE 23034, según nuevas rutas definidas en reforma",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de señales a definir según plano de nuevas rutas. Precio unitario a establecer por instalador según catálogo de fabricante"
+        },
+        {
+          "concepto": "Instalación señalización de evacuación",
+          "descripcion": "Fijación de señales en paredes y techos, conexión eléctrica de señales iluminadas (si aplica), regulación de altura y visibilidad, pruebas de funcionamiento, pequeño material",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 440,
+          "total": 440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y conexiones eléctricas señalización",
+          "descripcion": "Suministro e instalación de cableado, canalizaciones, cajas de derivación y conexiones para alimentación de señales iluminadas, conforme a REBT",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje de cableado a definir según layout de nuevas rutas. Precio por metro lineal a establecer"
+        },
+        {
+          "concepto": "Pruebas y certificación señalización",
+          "descripcion": "Verificación de visibilidad, funcionamiento de señales iluminadas, medición de luminancia, informe de conformidad con normativa CTE DB SI y UNE 23034, documentación para empresa",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo. Puede incluir informe técnico y certificado de conformidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1030,
+        "iva_porcentaje": 21,
+        "iva": 216.3,
+        "total": 1246.3
+      },
+      "sugerencias_catalogo": [
+        "Verificar con empresa si señales deben ser fotoluminiscentes (recomendado) o solo iluminadas",
+        "Coordinar con responsable de seguridad de la empresa para validar nuevas rutas antes de instalación",
+        "Considerar señalización de puertas de emergencia con barras antipánico si no existen (oficio: cerrajeria)",
+        "Si hay sistemas de alarma o detección de incendios, coordinar con instalador para integración de señalización"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro señales de evacuación fotoluminiscentes",
+          "oficio": "contra_incendios",
+          "motivo": "Material específico de sistema de evacuación, cantidad y tipo variable según reforma"
+        },
+        {
+          "concepto": "Cableado y conexiones eléctricas señalización",
+          "oficio": "contra_incendios",
+          "motivo": "Instalación eléctrica específica para señalización, metraje variable según layout"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_barra_antipánico",
+      "mantenimiento_de_instalacion_electrica_en_local_o_empresa",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "reparacion_o_cambio_guias_persiana"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3767,
+      "tokens_out": 1672
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

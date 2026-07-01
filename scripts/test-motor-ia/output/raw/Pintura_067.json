@@ -1,0 +1,180 @@
+{
+  "id": 67,
+  "oficio": "Pintura",
+  "texto": "Pintar local comercial de 80 metros cuadrados, paredes blancas y suelo epoxy gris",
+  "http_status": 200,
+  "latency_ms": 14020,
+  "raw_response": {
+    "transcript": "Pintar local comercial de 80 metros cuadrados, paredes blancas y suelo epoxy gris",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar local comercial de 80 metros cuadrados, paredes blancas y suelo epoxy gris",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye dos tipos de pintura distintos: pintura plástica (paredes) y epoxi (suelo). Verificar que el cliente desea ambas actuaciones.",
+          "Se asume que los 80 m² se distribuyen entre paredes y suelo. Revisar mediciones en obra."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura de paredes y suelo con epoxi en local comercial. Oficio validado en Base Maestra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Pintura plástica lavable paredes local comercial",
+          "descripcion": "Pintura plástica lavable blanca para paredes de local comercial. Incluye imprimación, dos manos de pintura, cinta carrocero, plástico de protección y pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pintura plástica. Instalador debe indicar precio según marca y calidad seleccionada."
+        },
+        {
+          "concepto": "Mano de obra pintura plástica paredes",
+          "descripcion": "Preparación de superficie, imprimación y aplicación de dos manos de pintura plástica en paredes de local comercial (60 m²).",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 6,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura epoxi bicomponente suelo gris",
+          "descripcion": "Pintura epoxi bicomponente gris para suelo de local comercial. Incluye imprimación consolidante, dos manos de epoxi, rodillo de pelo corto y pequeño material.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material pintura epoxi. Instalador debe indicar precio según marca, acabado (mate/brillo) y si incluye antideslizante."
+        },
+        {
+          "concepto": "Mano de obra pintura epoxi suelo",
+          "descripcion": "Limpieza y desengrasante previo, imprimación consolidante y aplicación de dos manos de pintura epoxi en suelo de local comercial (20 m²).",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 10,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protección y medios auxiliares",
+          "descripcion": "Cinta carrocero, plástico de protección de mobiliario y elementos fijos, señalización de zona en obra, pequeño material y limpieza final.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales auxiliares. Instalador debe estimar según tamaño y complejidad del local."
+        },
+        {
+          "concepto": "Mano de obra preparación y limpieza",
+          "descripcion": "Preparación del local, protección de elementos, limpieza previa de superficies y limpieza final tras finalización de trabajos.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 32,
+          "total": 128,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 688,
+        "iva_porcentaje": 21,
+        "iva": 144.48,
+        "total": 832.48
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Pintura plástica lavable paredes local comercial' → Buscar en catálogo: 'pintura_plastica_lavable_comercial' o 'pintado_locales_comerciales_y_tiendas'",
+        "Partida 'Pintura epoxi bicomponente suelo gris' → Buscar en catálogo: 'pintura_de_suelo_interior_con_epoxi' o 'pintura_epoxi_suelos_comerciales'",
+        "Partida 'Protección y medios auxiliares' → Buscar en catálogo: 'pequeno_material_pintura' o 'materiales_auxiliares_pintura'"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura plástica lavable paredes local comercial",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "motivo": "Material específico para paredes comerciales. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Pintura epoxi bicomponente suelo gris",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "motivo": "Material específico para suelo epoxi. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Protección y medios auxiliares",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "motivo": "Materiales auxiliares de protección. Precio pendiente de revisión del instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_de_suelo_interior_con_epoxi",
+      "pintado_locales_comerciales_y_tiendas",
+      "pintado_de_canchas_de_padel_interior",
+      "instalacion_sistema_de_climatizacion_en_local_comercial",
+      "pintado_de_foso_de_ascensor"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3674,
+      "tokens_out": 1975
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "id": 171,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo de resina epoxi en garaje de 30 metros cuadrados, acabado gris con destellos",
+  "http_status": 200,
+  "latency_ms": 13552,
+  "raw_response": {
+    "transcript": "Poner suelo de resina epoxi en garaje de 30 metros cuadrados, acabado gris con destellos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo de resina epoxi en garaje de 30 metros cuadrados, acabado gris con destellos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere confirmación de estado actual del soporte (humedad, grietas, nivelación)",
+          "Tiempo de curado: 72h mínimo antes de tráfico de vehículos",
+          "Temperatura de aplicación: 10-30°C recomendado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de pavimento de resina epoxi decorativa en garaje"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación soporte: lija mecánica y limpieza",
+          "descripcion": "Lija mecánica del soporte existente para garantizar adherencia, limpieza y eliminación de polvo",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 8,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación epoxi adherente",
+          "descripcion": "Aplicación de imprimación epoxi consolidante para preparar el soporte",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: imprimación epoxi. Instalador debe confirmar marca, rendimiento y precio"
+        },
+        {
+          "concepto": "Sistema epoxi bicomponente gris con destellos",
+          "descripcion": "Aplicación de resina epoxi bicomponente con pigmento gris y destellos decorativos (2-3 capas según espesor)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: resina epoxi bicomponente con pigmentación decorativa. Instalador debe confirmar marca, rendimiento (kg/m2) y precio"
+        },
+        {
+          "concepto": "Aplicación resina epoxi (mano de obra)",
+          "descripcion": "Aplicación de capas de resina epoxi con técnica de rodillo/brocha para acabado uniforme con destellos",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 32,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador poliuretano acabado final",
+          "descripcion": "Aplicación de sellador poliuretano de alto brillo para protección y durabilidad del acabado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: sellador poliuretano. Instalador debe confirmar marca, rendimiento y precio"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rodillos, brochas, trapos, disolventes, cinta de enmascarar, EPP y otros consumibles",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles: estimado 2-5€/m2 según cantidad y calidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1200,
+        "iva_porcentaje": 21,
+        "iva": 252,
+        "total": 1452
+      },
+      "sugerencias_catalogo": [
+        "Confirmar estado del soporte: grietas, humedad (máx. 4%), nivelación",
+        "Especificar tipo de destellos: escamas metálicas, pigmento brillante o efecto 3D",
+        "Considerar capa autonivelante si el soporte tiene irregularidades >3mm",
+        "Establecer fecha de aplicación dentro del rango de temperatura 10-30°C",
+        "Acordar tiempo de curado: 72h mínimo antes de tráfico de vehículos, 7 días para carga pesada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación epoxi adherente",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Material de preparación obligatorio en Base Maestra"
+        },
+        {
+          "concepto": "Sistema epoxi bicomponente gris con destellos",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Material principal con especificación decorativa (destellos)"
+        },
+        {
+          "concepto": "Sellador poliuretano acabado final",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Material de protección obligatorio en Base Maestra"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles auxiliares obligatorios"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial",
+      "instalacion_de_pavimento_de_resina_continua_exterior",
+      "instalacion_suelo_epoxi_o_resina_decorativa",
+      "instalacion_de_pavimento_de_resina_epoxi_con_efecto_metalico",
+      "solera_de_hormigon_en_masa"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v54",
+      "stop_reason": "end_turn",
+      "tokens_in": 3835,
+      "tokens_out": 1914
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

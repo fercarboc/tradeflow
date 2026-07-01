@@ -1,0 +1,258 @@
+{
+  "id": 325,
+  "oficio": "Fachadas",
+  "texto": "Instalar ventilación cruzada en fachada ventilada con paneles de composite de aluminio",
+  "http_status": 200,
+  "latency_ms": 25501,
+  "raw_response": {
+    "transcript": "Instalar ventilación cruzada en fachada ventilada con paneles de composite de aluminio",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar ventilación cruzada en fachada ventilada con paneles de composite de aluminio",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Falta especificar: superficie total (m²), altura de fachada, número de plantas, dimensiones de paneles",
+          "Falta aclarar: ¿ventilación cruzada natural o forzada? ¿extractores/ventiladores?",
+          "Falta definir: tipo de aislante en trasdos, sistema de anclaje (calculado por ingeniero)",
+          "Falta información: ¿incluye proyecto técnico? ¿andamios? ¿remates y cornisas?"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de fachada ventilada con paneles composite — oficio principal"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de extractores/ventiladores si ventilación es forzada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Paneles composite de aluminio para fachada ventilada",
+          "descripcion": "Suministro de paneles composite aluminio-madera o aluminio-mineral, incluye cortes y preparación según proyecto. Cantidad a definir según m² total de fachada.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de paneles composite variable según calidad, acabado y proveedor. Instalador debe introducir precio real y cantidad total m²."
+        },
+        {
+          "concepto": "Estructura soporte aluminio para fachada ventilada",
+          "descripcion": "Perfiles aluminio anodizado (montantes y travesaños) para sujeción de paneles composite. Sistema de anclaje a estructura edificio con cálculo de cargas por viento.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de perfiles y anclajes depende de m² total y altura. Requiere cálculo estructural."
+        },
+        {
+          "concepto": "Anclajes calculados a estructura edificio",
+          "descripcion": "Anclajes metálicos (acero inox o galvanizado) dimensionados para tracción y corte según cálculo de viento. Incluye tacos químicos o mecánicos según tipo de muro.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de anclajes y tipo depende de cálculo estructural. Instalador debe definir cantidad y especificación."
+        },
+        {
+          "concepto": "Cámara de ventilación cruzada (mínimo 2 cm)",
+          "descripcion": "Espacio de aire entre paneles composite y trasdos para circulación de aire natural (ventilación cruzada). Incluye separadores/distanciadores de aluminio cada 60 cm.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye separadores/clips de aluminio. Precio por m² según densidad de fijaciones."
+        },
+        {
+          "concepto": "Aislante térmico en trasdos (si incluido)",
+          "descripcion": "Lana mineral o poliestireno expandido en trasdos de fachada ventilada. Espesor y densidad a definir según proyecto térmico.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Espesor y tipo de aislante a definir. Precio variable según especificación térmica."
+        },
+        {
+          "concepto": "Sellado de juntas entre paneles composite",
+          "descripcion": "Sellado con silicona neutra o poliuretano en juntas abiertas entre paneles. Incluye limpieza, aplicación y acabado.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total de juntas depende de dimensiones de paneles y m² total."
+        },
+        {
+          "concepto": "Instalación de fachada ventilada con paneles composite",
+          "descripcion": "Mano de obra: colocación de estructura soporte, fijación de paneles composite, sellado de juntas, control de planeidad y alineación. Incluye pequeño material (tornillos, tuercas, arandelas).",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa recomendada 45€/m². Cantidad total m² a definir por instalador."
+        },
+        {
+          "concepto": "Andamios o plataformas de trabajo",
+          "descripcion": "Alquiler y montaje de andamios tubulares o plataformas elevadas para acceso seguro a fachada. Incluye desmontaje al final.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamios depende de altura, duración y proveedor local. Instalador debe cotizar."
+        },
+        {
+          "concepto": "Proyecto técnico de fachada ventilada",
+          "descripcion": "Elaboración de proyecto técnico con cálculo de anclajes por viento, detalles constructivos, especificaciones de materiales y planos de ejecución. Obligatorio si altura > planta baja.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de proyecto técnico variable. Obligatorio si altura > planta baja. Instalador define si incluye."
+        },
+        {
+          "concepto": "Extractores o ventiladores para ventilación cruzada forzada (si aplica)",
+          "descripcion": "Suministro e instalación de extractores/ventiladores si la ventilación cruzada es forzada (no solo natural). Incluye conductos, rejillas de entrada/salida y conexión eléctrica.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Solo si ventilación es forzada. Cantidad y potencia a definir según caudal requerido. Instalador aclara si incluye."
+        },
+        {
+          "concepto": "Instalación eléctrica de extractores/ventiladores",
+          "descripcion": "Mano de obra: conexión eléctrica de extractores, instalación de conductos, rejillas y pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Solo si ventilación es forzada. Tarifa 50€/h. Horas a definir según complejidad."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si ventilación es NATURAL (solo cámara de aire) o FORZADA (con extractores/ventiladores)",
+        "Proporcionar superficie total de fachada a revestir (m²)",
+        "Indicar altura de fachada y número de plantas (determina si proyecto técnico es obligatorio)",
+        "Especificar tipo de composite (aluminio-madera, aluminio-mineral, etc.) y acabado (lacado, anodizado)",
+        "Definir espesor de aislante en trasdos (si aplica)",
+        "Aclarar si incluye remates, cornisas, encuentros con ventanas y puertas",
+        "Confirmar si incluye andamios o son por cuenta del cliente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Paneles composite de aluminio para fachada ventilada",
+          "oficio": "fachadas",
+          "motivo": "Material específico de fachada ventilada. Precio variable según proveedor y especificación."
+        },
+        {
+          "concepto": "Cámara de ventilación cruzada (mínimo 2 cm)",
+          "oficio": "fachadas",
+          "motivo": "Sistema de separación y circulación de aire. Requiere especificación de separadores."
+        },
+        {
+          "concepto": "Extractores o ventiladores para ventilación cruzada forzada (si aplica)",
+          "oficio": "electricidad",
+          "motivo": "Componente opcional si ventilación es forzada. Requiere aclaración del cliente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_fachada_ventilada_con_composite_o_panel_metalico",
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v56",
+      "stop_reason": "end_turn",
+      "tokens_in": 3998,
+      "tokens_out": 3575
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 2,
+    "n_sugeridas": 9,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}
