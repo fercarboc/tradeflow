@@ -6,6 +6,7 @@ const ANTHROPIC_API_KEY   = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
 const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const SUPABASE_ANON_KEY    = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
+const TRADE_TEST_KEY       = Deno.env.get('TRADE_TEST_KEY') ?? '';
 const BRAVE_SEARCH_KEY     = Deno.env.get('BRAVE_SEARCH_API_KEY') ?? '';
 
 const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
@@ -63,10 +64,20 @@ async function countQuotesThisMonth(supabase: ReturnType<typeof createClient>, o
 const AI_SYSTEM_PROMPT = `Eres TradeFlow AI. Tu misión es que el instalador SIEMPRE obtenga un presupuesto con partidas. NUNCA devuelves partidas: [].
 
 TARIFAS MANO DE OBRA (€/h recomendado):
-limpieza=20 | jardineria=25 | electricidad=50 | fontaneria=50 | climatizacion=60 | pintura=32 | albanileria=40 | carpinteria=45 | suelos_tarimas=32€/m² | pladur_escayola=35 | cerrajeria=60 | mecanica=55 | mecanica_especializada=65 | informatica=60 | instalador_cctv=50 | persianas=45 | energia_solar=65 | telecomunicaciones=50 | cristaleria=45 | multiservicio=38
+limpieza=20 | jardineria=25 | electricidad=50 | fontaneria=50 | climatizacion=60 | pintura=32 | albanileria=40 | carpinteria=45 | suelos_tarimas=32€/m² | pladur_escayola=35 | cerrajeria=60 | mecanica=55 | mecanica_especializada=65 | informatica=60 | instalador_cctv=50 | persianas=45 | energia_solar=65 | telecomunicaciones=50 | cristaleria=45 | multiservicio=38 | contra_incendios=55 | impermeabilizacion=45 | tejados_cubiertas=50 | fachadas=45 | mantenimiento_general=40 | reforma_integral=45
 
 REGLA CRÍTICA — NUNCA VACÍO:
 Si la descripción tiene contenido, SIEMPRE generas al menos 1 partida. Si no encuentras el trabajo en catálogo, CREAS partidas con origen: "sugerida_ia", precio_unitario: 0, requiere_revision: true. El instalador pone los precios. La IA estructura el trabajo.
+
+LÍMITE DE PARTIDAS según complejidad — OBLIGATORIO:
+• Trabajo simple (1 oficio, 1-2 acciones): máximo 6 partidas.
+• Trabajo medio (1-2 oficios, 3-5 acciones): máximo 10 partidas.
+• Reforma integral (3+ oficios simultáneos): NO listes partidas individuales. Genera CAPÍTULOS agrupados (máximo 4 partidas total):
+  Cap.1 – Demolición y obra civil → 1 partida con importe estimado
+  Cap.2 – Instalaciones (electricidad, fontanería, clima) → 1 partida con importe estimado
+  Cap.3 – Acabados (pintura, suelos, carpintería, pladur) → 1 partida con importe estimado
+  Cap.4 – Otros (gestión residuos, permisos, etc.) → 1 partida si aplica
+  Cada capítulo: requiere_revision: true, precio orientativo estimado. MÁXIMO 4 partidas.
 
 PROCESO (en orden):
 1. Extrae oficio, actuaciones y parámetros clave (unidades, litros, m², kW...).
@@ -75,7 +86,7 @@ PROCESO (en orden):
 4. AGRUPA: NUNCA una partida por unidad. Si son 3 splits → UNA partida "Instalación 3 unidades split" cantidad=3. Si son 10 enchufes → UNA partida cantidad=10.
 5. MANO DE OBRA → precio_unitario = tarifa de la tabla de tarifas. MATERIALES → precio_unitario=0, requiere_revision=true, origen="sugerida_ia".
 6. Para SUSTITUCIÓN ("cambiar X por Y"): genera desmontaje + suministro(precio=0) + instalación. Agrupados.
-7. Para REFORMA: múltiples oficios, cada uno con sus partidas completas.
+7. Para REFORMA: múltiples oficios, cada uno con sus partidas agrupadas. LÍMITE: 12 partidas totales.
 8. calculos.subtotal = suma de todos los totales. iva = subtotal×0.21. total = subtotal+iva.
 
 EXPANSIÓN DE BÚSQUEDA (si el término exacto no está en catálogo):
@@ -86,16 +97,23 @@ Antes de crear partida sugerida, considera sinónimos técnicos del sector:
 - "fontanería completa" = "reforma fontanería", "renovación instalación agua"
 - "wallbox" = "punto de carga vehículo eléctrico", "cargador coche eléctrico"
 
-GUÍA DE OFICIOS POR TIPO DE TRABAJO:
-- Ventanas/puertas/armarios → carpinteria (madera/PVC) o cerrajeria (metal/aluminio)
-- Redes informáticas, cableado estructurado, WiFi → telecomunicaciones + informatica
-- Instalación eléctrica, automatismos, fotovoltaica, wallbox → electricidad o energia_solar
-- Fontanería, baños, cocinas, termos, ACS → fontaneria
-- Pintura, alicatado, obra civil → pintura o albanileria
-- Climatización, splits, aerotermia, bomba calor → climatizacion
-- Suelos, parquet, tarima → suelos_tarimas
-- Sistemas CCTV, alarmas, control acceso → instalador_cctv
-- Vehículos, mecánica → mecanica o mecanica_especializada
+OFICIOS VÁLIDOS — usa EXACTAMENTE estos identificadores en el campo "oficio":
+fontaneria | electricidad | energia_solar | climatizacion | pintura | albanileria | carpinteria | cerrajeria | suelos_alicatados | suelos_tarimas | pladur_escayola | telecomunicaciones | informatica | instalador_cctv | mecanica | mecanica_especializada | jardineria | cristaleria | persianas | limpieza | contra_incendios | impermeabilizacion | tejados_cubiertas | fachadas | mantenimiento_general | reforma_integral | multiservicio | gestion_residuos | gestoria_tramites | cocina_amueblada
+
+REGLAS DE OFICIO — prioridad estricta, SOBREESCRIBEN la intuición general:
+• contra_incendios → SIEMPRE para: detectores humo/CO/gas, rociadores sprinklers, BIE (bocas incendio equipadas), extintores, central alarma incendios, puertas cortafuego RF, señalización evacuación, extractores humos industrial. AUNQUE el elemento sea eléctrico, de agua o metálico: si el SISTEMA es contraincendios → contra_incendios.
+• impermeabilizacion → SIEMPRE para: humedades en sótano/fachada/cubierta/piscina, láminas EPDM/TPO/PVC, proyección poliurea, pintura impermeabilizante en terrazas y cubiertas, juntas de dilatación con función estanca, drenaje de humedad. AUNQUE la solución sea pintura o mortero impermeabilizante → impermeabilizacion (no pintura, no albanileria).
+• tejados_cubiertas → SIEMPRE para: tejas (árabe, plana, pizarra, hormigón), cubiertas planas/inclinadas/transitables, canalones, cumbreras, limahoyas, remates zinc/aluminio, panel sándwich, cubierta vegetal, goteras en tejado, lucernarios y velux. AUNQUE implique impermeabilización de la cubierta o canalones → tejados_cubiertas (no impermeabilizacion, no fachadas, no albanileria).
+• fachadas → para: revestimiento exterior de edificio, aislamiento SATE, mortero monocapa, zócalos exteriores, enfoscado de fachada, rehabilitación de envolvente. Distinto de albañilería interior.
+• mantenimiento_general → para: trabajos de mantenimiento y reparaciones puntuales en comunidad/edificio/vivienda que combinan 2+ oficios distintos SIN reforma mayor (ej: "revisar grifo, cambiar bombilla y ajustar puerta"). Cuando el trabajo se puede describir como "mantenimiento general del edificio/vivienda".
+• reforma_integral → SIEMPRE cuando el trabajo incluye ≥3 oficios de reforma simultáneos (albanileria + fontaneria + electricidad + acabados…). El PRIMER elemento en oficios_detectados DEBE ser "reforma_integral".
+• suelos_alicatados → baldosas, porcelánico, gres, alicatado baño/cocina. suelos_tarimas → parquet, tarima flotante, laminado, vinílico.
+
+GUÍA GENERAL:
+- Ventanas/puertas/armarios → carpinteria (madera/PVC) o cerrajeria (metal/aluminio/acero)
+- Redes informáticas, cableado estructurado, WiFi, fibra, domótica → telecomunicaciones
+- Paneles solares fotovoltaicos, aerotermia → energia_solar | Climatización, splits → climatizacion
+- CCTV, alarmas intrusión, control acceso → instalador_cctv | Vehículos → mecanica
 
 FORMATO DE SALIDA: JSON válido, sin markdown, sin texto fuera del JSON.
 {
@@ -355,8 +373,10 @@ Deno.serve(async (req: Request) => {
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
-  // Anon key → modo demo (sin límites de plan, sin tracking)
-  const isAnonRequest = SUPABASE_ANON_KEY && token === SUPABASE_ANON_KEY;
+  // Anon key, service role key, o test key → modo sin tracking (demo / CI test runner)
+  const isAnonRequest = (SUPABASE_ANON_KEY && token === SUPABASE_ANON_KEY) ||
+                        (SUPABASE_SERVICE_KEY && token === SUPABASE_SERVICE_KEY) ||
+                        (TRADE_TEST_KEY && token === TRADE_TEST_KEY);
 
   let userId: string | null = null;
   if (!isAnonRequest) {
@@ -519,7 +539,12 @@ Deno.serve(async (req: Request) => {
       webSearchUsed = webContext.length > 0;
     }
 
-    // ── Generar presupuesto con IA (Haiku — velocidad máxima ~3-5s) ───────────
+    // Detectar complejidad para ajustar max_tokens (M3)
+    const isComplexJob =
+      /reforma|rehabil|convert|construir|ampliar|chalet|farmacia|restaurante|local.*vivienda|edificio.*completo|piso.*completo/i.test(transcript)
+      || (transcript.match(/[,;]/g) ?? []).length > 4;
+
+    // ── Generar presupuesto con IA ───────────────────────────────────────────
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -529,7 +554,8 @@ Deno.serve(async (req: Request) => {
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 4096,
+        max_tokens: isComplexJob ? 8192 : 4096,
+        temperature: 0,
         system: AI_SYSTEM_PROMPT + kbContext + webContext,
         messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
       }),
@@ -540,20 +566,53 @@ Deno.serve(async (req: Request) => {
       throw new Error(`Claude error ${claudeRes.status}: ${err.slice(0, 200)}`);
     }
 
-    const claudeData = await claudeRes.json() as { content: Array<{ type: string; text?: string }> };
+    const claudeData = await claudeRes.json() as {
+      content: Array<{ type: string; text?: string }>;
+      stop_reason?: string;
+      usage?: { input_tokens: number; output_tokens: number };
+    };
     const allText = claudeData.content.filter(b => b.type === 'text').map(b => b.text ?? '').join('');
+
+    // Diagnóstico: siempre logear stop_reason y tokens para detectar truncado
+    console.log(`[claude] stop_reason=${claudeData.stop_reason} in=${claudeData.usage?.input_tokens} out=${claudeData.usage?.output_tokens} len=${allText.length}`);
+    if (claudeData.stop_reason === 'max_tokens') {
+      console.error('[claude] TRUNCADO — JSON incompleto. Últimos 200 chars:', allText.slice(-200));
+    }
+
+    // Extractor balanceado: busca el primer objeto JSON completo, ignorando texto pre/post
+    function extractFirstJSON(text: string): string | null {
+      let depth = 0;
+      let start = -1;
+      let inString = false;
+      let escape = false;
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        if (escape) { escape = false; continue; }
+        if (ch === '\\' && inString) { escape = true; continue; }
+        if (ch === '"') { inString = !inString; continue; }
+        if (inString) continue;
+        if (ch === '{') {
+          if (start === -1) start = i;
+          depth++;
+        } else if (ch === '}') {
+          depth--;
+          if (depth === 0 && start !== -1) return text.substring(start, i + 1);
+        }
+      }
+      return null;
+    }
 
     let quote: Record<string, unknown>;
     try {
-      const trimmed = allText.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
-      if (trimmed.startsWith('{')) {
-        quote = JSON.parse(trimmed);
-      } else {
-        const jsonMatch = allText.match(/\{[\s\S]*\}/);
-        quote = JSON.parse(jsonMatch?.[0] ?? '{}');
-      }
-    } catch {
-      console.error('[claude] JSON parse failed, sample:', allText.slice(0, 300));
+      // Strip markdown code fences first, then extract balanced JSON
+      const cleaned = allText.replace(/```json?\s*/gi, '').replace(/```/g, '');
+      const jsonStr = extractFirstJSON(cleaned);
+      if (!jsonStr) throw new Error('No JSON object found in response');
+      quote = JSON.parse(jsonStr);
+    } catch (parseErr) {
+      console.error('[claude] JSON parse failed:', String(parseErr).slice(0, 100));
+      console.error('[claude] allText (first 600):', allText.slice(0, 600));
+      console.error('[claude] allText (last 200):', allText.slice(-200));
       quote = { ...EMPTY_QUOTE };
     }
 
@@ -589,6 +648,12 @@ Deno.serve(async (req: Request) => {
         actuacion_ids_matched: kbActuaciones.map(a => a.actuacion_id),
         kb_score: kbScore,
         web_search_used: webSearchUsed,
+        _meta: {
+          prompt_version: 'v54',
+          stop_reason: claudeData.stop_reason ?? 'end_turn',
+          tokens_in:  claudeData.usage?.input_tokens  ?? 0,
+          tokens_out: claudeData.usage?.output_tokens ?? 0,
+        },
       }),
       { headers: { ...cors(req), 'Content-Type': 'application/json' } },
     );
