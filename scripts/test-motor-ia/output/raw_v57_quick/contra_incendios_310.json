@@ -1,0 +1,184 @@
+{
+  "id": 310,
+  "oficio": "contra_incendios",
+  "texto": "Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada",
+  "latency_ms": 20443,
+  "raw_response": {
+    "transcript": "Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Puerta cortafuego RF90 requiere certificación EI90 según CTE DB-SI. Verificar que la puerta suministrada dispone de homologación oficial.",
+          "Cierrapuertas hidráulico es OBLIGATORIO en puertas de emergencia/escalera comunitaria.",
+          "Junta intumescente alrededor del marco es OBLIGATORIA para garantizar estanqueidad al fuego.",
+          "Instalación debe realizarse exactamente según instrucciones de homologación sin modificaciones.",
+          "Se recomienda señalización de emergencia como partida complementaria (no incluida en este presupuesto)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Puerta cortafuego RF90/EI90 es sistema de protección contra incendios. Aunque implica cerrajería, la normativa CTE DB-SI y la naturaleza del elemento (barrera cortafuego certificada) lo clasifica como contra_incendios."
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de ferretería homologada (cierrapuertas, herrajes, barra antipánico si aplica) requiere especialización en cerrajería."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Puerta cortafuego EI90 certificada con marco",
+          "descripcion": "Suministro de puerta cortafuego homologada EI90 (RF90) con marco cortafuego certificado, según proyecto y normativa CTE DB-SI. Incluye hoja, marco y pequeño material de fijación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de puerta cortafuego EI90 homologada varía según fabricante y certificaciones. Rango orientativo: 800-2500€. El instalador debe confirmar modelo, certificación y precio con proveedor."
+        },
+        {
+          "concepto": "Cierrapuertas hidráulico homologado",
+          "descripcion": "Suministro e instalación de cierrapuertas hidráulico de cierre controlado, homologado para puerta cortafuego EI90, con regulación de velocidad y fuerza de cierre según normativa.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cierrapuertas hidráulico homologado para cortafuego: rango 150-400€. Precio depende de marca y capacidad de carga. OBLIGATORIO en puertas de emergencia."
+        },
+        {
+          "concepto": "Junta intumescente perimetral",
+          "descripcion": "Suministro e instalación de junta intumescente alrededor del marco de la puerta cortafuego para garantizar estanqueidad al fuego y humo. Longitud según perímetro del marco.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Junta intumescente: rango 15-35€/ml. Cantidad estimada 5 ml (perímetro típico). OBLIGATORIA para cumplir CTE DB-SI."
+        },
+        {
+          "concepto": "Instalación puerta cortafuego EI90",
+          "descripcion": "Mano de obra de instalación: desmontaje de puerta anterior (si existe), preparación de hueco, colocación de marco cortafuego, instalación de hoja, ajuste de cierrapuertas, regulación de herrajes, pruebas de funcionamiento y cierre correcto.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación junta intumescente y sellado",
+          "descripcion": "Mano de obra: colocación de junta intumescente alrededor del marco, sellado de huecos con mortero ignífugo, limpieza y acabado.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas y verificación de funcionamiento",
+          "descripcion": "Mano de obra: verificación de cierre correcto de la puerta, prueba del cierrapuertas, comprobación de estanqueidad, ajustes finales y documentación de instalación conforme a homologación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 405,
+        "iva_porcentaje": 21,
+        "iva": 85.05,
+        "total": 490.05
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo si existe partida específica 'Puerta cortafuego EI90 con marco homologado' para obtener precio de referencia.",
+        "Consultar con proveedor de cerrajería especializada en sistemas cortafuego para confirmar disponibilidad de cierrapuertas hidráulico homologado.",
+        "Considerar añadir partida de 'Señalización de emergencia/salida' (cartel luminoso o pictograma) como complemento obligatorio en escalera comunitaria."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Puerta cortafuego EI90 certificada con marco",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "motivo": "Material homologado específico para protección contra incendios. No existe en catálogo estándar; requiere especificación técnica y certificación."
+        },
+        {
+          "concepto": "Cierrapuertas hidráulico homologado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "motivo": "Componente obligatorio para puerta cortafuego. Debe ser homologado y compatible con EI90."
+        },
+        {
+          "concepto": "Junta intumescente perimetral",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "motivo": "Material de sellado ignífugo obligatorio en puertas cortafuego. Especificación técnica según norma."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_puerta_cortafuego",
+      "instalacion_de_compuertas_cortafuego_en_conductos_HVAC",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_de_barra_antipánico",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57",
+      "stop_reason": "end_turn",
+      "tokens_in": 4090,
+      "tokens_out": 2635
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "id": 400,
+  "oficio": "persianas",
+  "texto": "Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor",
+  "latency_ms": 26723,
+  "raw_response": {
+    "transcript": "Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo en fachada de edificio comercial (hotel) — verificar acceso, andamios, permisos municipales",
+          "10 unidades de toldos motorizados — requiere cálculo estructural y anclajes certificados",
+          "Materiales (toldos, motores, cofres) con precio_unitario=0 — instalador debe revisar y completar precios"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de toldos metálicos/estructurales en fachada, anclajes, fijaciones"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica de 10 motores, cableado, cuadro de control, protecciones"
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de encuentros toldos-fachada, sellados, protección de anclajes"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro toldo extensible motorizado 2.5m con cofre",
+          "descripcion": "Toldo extensible de 2.5 metros de ancho con cofre integrado, motor eléctrico, tela acrílica resistente UV, estructura aluminio anodizado. Cantidad: 10 unidades",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de toldo motorizado con cofre variable según marca, calidad y especificaciones técnicas. Instalador debe cotizar con proveedores"
+        },
+        {
+          "concepto": "Instalación toldo extensible motorizado 2.5m",
+          "descripcion": "Instalación de 10 toldos: fijación de soportes a fachada, anclaje de estructura, montaje de cofre, conexión de motor, pruebas de funcionamiento. Incluye pequeño material (tornillos, tacos, selladores)",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 60,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Motor eléctrico para toldo extensible 10 unidades",
+          "descripcion": "Motor eléctrico 230V monofásico para accionamiento de toldos extensibles. Potencia según especificaciones técnicas. Cantidad: 10 unidades",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de motor variable según potencia y marca. Instalador debe cotizar"
+        },
+        {
+          "concepto": "Cableado eléctrico y conexión motores toldos",
+          "descripcion": "Cable H07RN-F 3x2.5mm² desde cuadro de control a cada motor (10 unidades), tubo PVC corrugado, cajas de derivación, pequeño material. Longitud estimada 150ml total",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado y accesorios a revisar según longitud real y especificaciones de obra"
+        },
+        {
+          "concepto": "Instalación cableado eléctrico y conexión motores",
+          "descripcion": "Tendido de cable desde cuadro de control a 10 motores, conexión en cajas de derivación, fijación a fachada, pruebas de continuidad y funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cuadro de control y protecciones eléctricas",
+          "descripcion": "Cuadro de control con interruptores magnetotérmicos, diferenciales 30mA, contactores, botonera de mando centralizada para 10 toldos. Incluye instalación en pared",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cuadro de control variable según complejidad y marca. Instalador debe cotizar"
+        },
+        {
+          "concepto": "Instalación cuadro de control y protecciones",
+          "descripcion": "Montaje de cuadro de control en pared, conexión de línea principal, instalación de protecciones (magnetotérmicos, diferenciales), programación de finales de carrera, pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización encuentros toldos-fachada",
+          "descripcion": "Sellado de encuentros entre soportes de toldos y fachada con silicona de poliuretano, masilla impermeabilizante, cinta de butilo. 10 puntos de anclaje",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales impermeabilizantes a revisar según cantidad y especificaciones"
+        },
+        {
+          "concepto": "Instalación impermeabilización encuentros toldos-fachada",
+          "descripcion": "Limpieza de superficies, aplicación de selladores impermeabilizantes en 10 puntos de anclaje, acabado profesional",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cálculo estructural y anclajes certificados",
+          "descripcion": "Cálculo de cargas de viento y nieve según zona climática, diseño de anclajes a fachada, certificado de cálculo estructural para 10 toldos de 2.5m",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de ingeniería/cálculo estructural — precio a cotizar según complejidad y zona"
+        },
+        {
+          "concepto": "Andamio o plataforma elevada para instalación",
+          "descripcion": "Alquiler y montaje de andamio o plataforma elevada para acceso seguro a fachada durante instalación de 10 toldos. Estimado 3 días",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de andamio/plataforma variable según altura y duración. Instalador debe cotizar con empresa de alquiler"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1870,
+        "iva_porcentaje": 21,
+        "iva": 392.7,
+        "total": 2262.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar con proveedor de toldos si incluyen motor integrado o si es suministro separado",
+        "Confirmar tensión de alimentación disponible en fachada del hotel (230V monofásico o trifásico)",
+        "Solicitar certificado de resistencia al viento de los toldos según zona climática",
+        "Considerar sistema de mando a distancia centralizado para los 10 toldos (domótica)",
+        "Verificar si el hotel requiere sistema de cierre automático por viento (anemómetro)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro toldo extensible motorizado 2.5m con cofre",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico no en catálogo base — precio variable según marca y especificaciones"
+        },
+        {
+          "concepto": "Motor eléctrico para toldo extensible",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Componente específico — precio a cotizar según potencia"
+        },
+        {
+          "concepto": "Cableado eléctrico y conexión motores toldos",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material de instalación — precio a revisar según longitud real"
+        },
+        {
+          "concepto": "Cuadro de control y protecciones eléctricas",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo de control específico — precio variable según complejidad"
+        },
+        {
+          "concepto": "Cálculo estructural y anclajes certificados",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de ingeniería — precio a cotizar"
+        },
+        {
+          "concepto": "Andamio o plataforma elevada para instalación",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio auxiliar — precio a cotizar con empresa de alquiler"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_motor_puerta_garaje_seccional_o_basculante",
+      "instalacion_alumbrado_exterior_jardin",
+      "instalacion_pantalla_de_proyeccion_motorizada",
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "instalacion_de_toldos_y_marquesinas_metalicas_estructurales"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57",
+      "stop_reason": "end_turn",
+      "tokens_in": 3996,
+      "tokens_out": 3886
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

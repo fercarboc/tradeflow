@@ -1,0 +1,151 @@
+{
+  "id": 39,
+  "oficio": "electricidad",
+  "texto": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+  "latency_ms": 13322,
+  "raw_response": {
+    "transcript": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Material SAI (precio_unitario=0): el instalador debe introducir el coste del equipo SAI 2kVA seleccionado",
+          "Autonomía 30 minutos es estándar para protección de apagado controlado de servidores"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de SAI/UPS para protección de equipos informáticos en entorno empresarial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "SAI 2kVA (2000VA) con autonomía 30 minutos",
+          "descripcion": "Suministro de SAI/UPS de doble conversión online, potencia 2kVA (2000VA), autonomía mínima 30 minutos, apto para servidor de empresa, incluye baterías internas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe introducir el precio del SAI 2kVA seleccionado (rango orientativo 800-1500€ según marca y características)"
+        },
+        {
+          "concepto": "Instalación y conexionado SAI",
+          "descripcion": "Desembalaje, posicionamiento, conexionado de entrada de red (toma de corriente), conexionado de salida a servidor, verificación de funcionamiento, prueba de autonomía, configuración de parámetros básicos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y protecciones (entrada/salida SAI)",
+          "descripcion": "Cable de alimentación entrada SAI (toma red), cable de salida a servidor, regleta de protección con interruptor diferencial si aplica, pequeño material (conectores, bridas, cinta aislante)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe introducir el coste de cables, conectores y protecciones (rango orientativo 50-150€)"
+        },
+        {
+          "concepto": "Software de gestión y apagado automático",
+          "descripcion": "Instalación de software de monitorización SAI en servidor, configuración de umbral de apagado automático controlado cuando batería alcanza nivel crítico, integración con sistema operativo servidor",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y documentación",
+          "descripcion": "Prueba de carga del SAI, verificación de autonomía real, simulación de fallo de red, comprobación de apagado automático del servidor, generación de informe de instalación y registro de parámetros",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la potencia del SAI (2kVA) es igual o superior a la suma de consumos del servidor + periféricos con margen de seguridad 20%",
+        "Autonomía de 30 minutos es suficiente para apagado controlado de servidor; si se requiere mayor tiempo de funcionamiento, considerar SAI de mayor capacidad de batería",
+        "Las baterías del SAI requieren sustitución cada 3-5 años; incluir en plan de mantenimiento preventivo",
+        "SAI de doble conversión online (recomendado para servidores) proporciona mayor protección contra fluctuaciones de red que SAI de línea interactiva"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "SAI 2kVA (2000VA) con autonomía 30 minutos",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico: el precio depende de marca, modelo y características del SAI seleccionado"
+        },
+        {
+          "concepto": "Cableado y protecciones (entrada/salida SAI)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material auxiliar: el precio depende de longitud de cables, tipo de conectores y protecciones requeridas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_rack_o_armario_de_telecomunicaciones",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57",
+      "stop_reason": "end_turn",
+      "tokens_in": 4229,
+      "tokens_out": 1722
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

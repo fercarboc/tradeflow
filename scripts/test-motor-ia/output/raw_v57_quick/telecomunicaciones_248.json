@@ -1,0 +1,156 @@
+{
+  "id": 248,
+  "oficio": "telecomunicaciones",
+  "texto": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+  "latency_ms": 14925,
+  "raw_response": {
+    "transcript": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Distancia total de cable no especificada. Asumir máximo 100m sin repetidor según norma CAT6.",
+          "Ubicación exacta de rosetas y router no detallada. El instalador debe confirmar longitudes y trazado de rozas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de tomas RJ45 CAT6, cableado estructurado y conexión a router. Oficio telecomunicaciones por excelencia."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tomas RJ45 CAT6 en habitaciones",
+          "descripcion": "Suministro e instalación de 3 tomas RJ45 CAT6 con cajas de empotrar y pequeño material (tornillos, pasta térmica, etc.)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: tomas RJ45 CAT6 + cajas empotrar. Instalador debe indicar precio unitario (típico 15-35€/ud material)."
+        },
+        {
+          "concepto": "Cable UTP CAT6 para distribución",
+          "descripcion": "Suministro de cable UTP CAT6 para conectar 3 habitaciones al router del salón. Longitud total a confirmar por instalador (máximo 100m sin repetidor).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: cable UTP CAT6. Instalador debe indicar metraje total y precio/ml (típico 0.30-0.60€/ml)."
+        },
+        {
+          "concepto": "Instalación de tomas RJ45 y tendido de cable",
+          "descripcion": "Mano de obra: apertura de rozas, instalación de cajas, colocación de tomas RJ45, tendido de cable UTP CAT6 desde habitaciones a router, reposición de rozas.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Certificación y pruebas CAT6",
+          "descripcion": "Medición y certificación de cada toma RJ45 con tester CAT6. Verificación de continuidad y velocidad de transmisión.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 30,
+          "total": 90,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tornillos, bridas, pasta térmica)",
+          "descripcion": "Suministro de pequeño material: tornillos, bridas de sujeción, pasta térmica, cinta aislante, etc.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar. Instalador debe indicar precio (típico 20-40€ por trabajo)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 290,
+        "iva_porcentaje": 21,
+        "iva": 60.9,
+        "total": 350.9
+      },
+      "sugerencias_catalogo": [
+        "Confirmar distancia total de cable: si supera 100m sin repetidor, considerar instalación de switch intermedio o repetidor CAT6.",
+        "Si el router no tiene suficientes puertos Ethernet, valorar instalación de switch de red en salón.",
+        "Considerar canaleta o tubo protector si el cable discurre por zonas de paso o expuesto."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tomas RJ45 CAT6 en habitaciones",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Partida estándar de instalación de red. Material a precio de instalador."
+        },
+        {
+          "concepto": "Cable UTP CAT6 para distribución",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Suministro de cable. Metraje y precio a confirmar por instalador según trazado real."
+        },
+        {
+          "concepto": "Pequeño material (tornillos, bridas, pasta térmica)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material auxiliar. Precio a confirmar por instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toma_red_ethernet_cat6",
+      "instalacion_cocina_gas",
+      "instalacion_toma_tierra_nueva",
+      "instalacion_toma_television_coaxial",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57",
+      "stop_reason": "end_turn",
+      "tokens_in": 3751,
+      "tokens_out": 1716
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

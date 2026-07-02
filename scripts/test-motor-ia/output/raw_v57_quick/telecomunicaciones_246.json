@@ -1,0 +1,158 @@
+{
+  "id": 246,
+  "oficio": "telecomunicaciones",
+  "texto": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+  "latency_ms": 12346,
+  "raw_response": {
+    "transcript": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+    "quote": {
+      "resumen": {
+        "texto_original": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema CCTV existente: revisar estado físico de cámaras, cableado y grabador antes de presupuestar",
+          "Diagnóstico previo recomendado para identificar causa de mal funcionamiento (cámaras, NVR/DVR, almacenamiento, red)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Configuración, diagnóstico y puesta en marcha de sistema CCTV/videovigilancia"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión sistema CCTV existente",
+          "descripcion": "Inspección completa del sistema: estado cámaras, conexiones, cableado, grabador NVR/DVR, almacenamiento, configuración de red y grabación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste y reorientación de cámaras IP/analógicas",
+          "descripcion": "Reposicionamiento, enfoque y ajuste de ángulo de visión de cámaras para optimizar cobertura y calidad de imagen",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración grabador NVR/DVR y parámetros de grabación",
+          "descripcion": "Ajuste de resolución, fotogramas por segundo (fps), bitrate, modo grabación (continua/detección movimiento), calendarios y almacenamiento",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación y limpieza conexiones de red y alimentación",
+          "descripcion": "Revisión de conectores RJ45, PoE, fuentes de alimentación, regletas y cableado; limpieza de contactos si es necesario",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y grabación en todos los modos",
+          "descripcion": "Verificación de grabación continua, detección de movimiento, reproducción de vídeo, acceso remoto (si aplica) y generación de informe de estado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, cables cortos, etiquetas)",
+          "descripcion": "Conectores RJ45, cables de parcheo, bridas, etiquetas identificativas y otros consumibles menores",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador según cantidad y tipo de material necesario"
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Si se detecta fallo en disco duro de grabación: presupuestar sustitución disco duro NAS/SSD",
+        "Si se detecta fallo en fuente de alimentación o PoE: presupuestar sustitución fuente",
+        "Si se detecta degradación de cableado: presupuestar sustitución parcial o total de cableado Cat6/coaxial",
+        "Si el cliente requiere acceso remoto: presupuestar configuración de aplicación móvil y acceso en nube"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material (conectores, cables cortos, etiquetas)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material consumible menor no especificado en catálogo; precio a revisar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_sistema_cctv_videovigilancia",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "instalacion_sistema_de_riego_por_goteo",
+      "puesta_en_marcha_y_ajuste_instalacion_termica"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57",
+      "stop_reason": "end_turn",
+      "tokens_in": 4044,
+      "tokens_out": 1653
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}
