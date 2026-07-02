@@ -1,0 +1,207 @@
+{
+  "id": 91,
+  "oficio": "Albañilería",
+  "texto": "Construir barbacoa de obra en jardín con banco lateral y encimera de granito",
+  "http_status": 200,
+  "latency_ms": 14178,
+  "raw_response": {
+    "transcript": "Construir barbacoa de obra en jardín con banco lateral y encimera de granito",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir barbacoa de obra en jardín con banco lateral y encimera de granito",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Encimera de granito requiere presupuesto de proveedor especializado",
+          "Banco lateral: confirmar si es obra de fábrica o estructura metálica",
+          "Verificar acceso al jardín para acopio de materiales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Construcción barbacoa de obra, banco lateral, cimentación, levantamiento de muros"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización base y encuentros para evitar filtraciones y humedad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cimentación corrida barbacoa",
+          "descripcion": "Excavación, encofrado y hormigonado de cimentación corrida para base de barbacoa. Incluye pequeño material y compactación",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ladrillo refractario zona de fuego",
+          "descripcion": "Suministro e instalación de ladrillo refractario en cámara de combustión y zona de fuego directo. Incluye mortero refractario de alta temperatura",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de ladrillos refractarios según diseño final. Proveedor especializado"
+        },
+        {
+          "concepto": "Ladrillo cerámico exterior barbacoa",
+          "descripcion": "Suministro e instalación de ladrillo cerámico para revestimiento exterior de barbacoa. Mortero convencional M-5",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según dimensiones finales de barbacoa"
+        },
+        {
+          "concepto": "Parrilla metálica y remates",
+          "descripcion": "Suministro e instalación de parrilla metálica de acero inoxidable o hierro fundido. Incluye soportes y pequeño material de fijación",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo y dimensiones de parrilla según diseño"
+        },
+        {
+          "concepto": "Banco lateral de obra",
+          "descripcion": "Construcción de banco lateral adosado a barbacoa. Estructura de ladrillo cerámico, mortero M-5, cimentación y remate superior. Mano de obra incluida",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Encimera de granito",
+          "descripcion": "Suministro e instalación de encimera de granito pulido sobre barbacoa y banco lateral. Incluye cortes, pulido de cantos y sellado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de proveedor de piedra natural. Especificar m² exactos y tipo de granito"
+        },
+        {
+          "concepto": "Impermeabilización base y encuentros",
+          "descripcion": "Aplicación de lámina impermeabilizante o pintura impermeabilizante en base de cimentación y encuentros con terreno. Prevención de filtraciones y humedad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Remate superior y acabados",
+          "descripcion": "Remate superior de barbacoa con mortero impermeabilizado, pequeño material, limpieza y acabado final de obra",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1170,
+        "iva_porcentaje": 21,
+        "iva": 245.7,
+        "total": 1415.7
+      },
+      "sugerencias_catalogo": [
+        "Consultar con proveedor de piedra natural para encimera de granito (presupuesto separado recomendado)",
+        "Confirmar tipo de ladrillo refractario según normativa local y tipo de combustible",
+        "Considerar chimenea de salida de humos si no está incluida en el diseño base",
+        "Verificar si banco lateral es de obra o estructura metálica para ajustar presupuesto"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Ladrillo refractario zona de fuego",
+          "oficio": "albanileria",
+          "motivo": "Material específico para cámara de combustión"
+        },
+        {
+          "concepto": "Encimera de granito",
+          "oficio": "albanileria",
+          "motivo": "Material de acabado premium, requiere proveedor especializado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "construccion_barbacoa_obra",
+      "construccion_escalera_de_obra_hormigon",
+      "construccion_de_jardinera_o_bancal_de_obra",
+      "construccion_chimenea_de_obra_salida_humos",
+      "construccion_de_vallado_de_obra_fabrica"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3935,
+      "tokens_out": 2126
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

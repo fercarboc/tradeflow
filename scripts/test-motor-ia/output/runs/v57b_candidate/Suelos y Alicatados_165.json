@@ -1,0 +1,175 @@
+{
+  "id": 165,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+  "http_status": 200,
+  "latency_ms": 18421,
+  "raw_response": {
+    "transcript": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar suelo vinílico LVT en toda la oficina, 120 metros cuadrados de superficie",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Instalación de suelo vinílico LVT (tarima/pavimento flotante). Tarifa aplicable: 32€/m²"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de suelo vinílico LVT",
+          "descripcion": "Suministro de láminas/planchas vinílicas LVT (Luxury Vinyl Tile) de calidad comercial, incluido transporte a obra. 120 m² con mermas del 5%.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 126,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del material vinílico LVT a definir por instalador según marca y calidad seleccionada"
+        },
+        {
+          "concepto": "Lámina aislante/barrera de humedad",
+          "descripcion": "Lámina aislante de espuma o barrera de vapor para base de suelo vinílico LVT. Espesor 2-3 mm. 120 m² con mermas.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 126,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina aislante a definir por instalador"
+        },
+        {
+          "concepto": "Junta perimetral de dilatación",
+          "descripcion": "Junta perimetral de 10-12 mm en todo el perímetro de la oficina para permitir dilatación del vinílico. Incluye pequeño material (adhesivos, selladores).",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de perímetro a medir en obra. Precio a definir por instalador"
+        },
+        {
+          "concepto": "Preparación y nivelación de base",
+          "descripcion": "Limpieza, barrido y preparación de la base existente. Nivelación de irregularidades (máximo desviación 3 mm bajo regla de 2 m). Reparación de grietas o defectos menores.",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 32,
+          "total": 3840,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de suelo vinílico LVT",
+          "descripcion": "Colocación de láminas/planchas vinílicas LVT mediante sistema click o adhesivo según especificación. Incluye cortes, ajustes perimetrales y acabados. 120 m².",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 32,
+          "total": 3840,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rodapié o transición perimetral",
+          "descripcion": "Suministro e instalación de rodapié o perfiles de transición en perímetro de oficina. Material y acabado a definir (PVC, aluminio o madera según diseño).",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de perímetro y tipo de rodapié a definir en obra"
+        }
+      ],
+      "calculos": {
+        "subtotal": 7680,
+        "iva_porcentaje": 21,
+        "iva": 1612.8,
+        "total": 9292.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la base existente requiere mortero autonivelante o si la nivelación mecánica es suficiente",
+        "Especificar si el vinílico LVT es sistema click (flotante) o pegado con adhesivo",
+        "Definir marca, espesor y calidad del LVT (comercial, residencial, premium)",
+        "Medir perímetro exacto para junta perimetral y rodapié",
+        "Verificar si hay humedad en la base (especialmente si es planta baja o sótano) — puede requerir barrera de vapor adicional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de suelo vinílico LVT",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material específico LVT — precio variable según marca y especificación"
+        },
+        {
+          "concepto": "Lámina aislante/barrera de humedad",
+          "oficio": "suelos_tarimas",
+          "motivo": "Componente obligatorio para suelo vinílico — precio a definir"
+        },
+        {
+          "concepto": "Junta perimetral de dilatación",
+          "oficio": "suelos_tarimas",
+          "motivo": "Elemento crítico para suelo vinílico — cantidad y precio a definir en obra"
+        },
+        {
+          "concepto": "Rodapié o transición perimetral",
+          "oficio": "suelos_tarimas",
+          "motivo": "Acabado perimetral — cantidad y tipo a definir según diseño"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_distribuidor_calefaccion",
+      "instalacion_de_suelo_de_corcho_interior",
+      "instalacion_suelo_radiante_hidraulico",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_de_suelo_radiante_en_reforma"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3883,
+      "tokens_out": 2229
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "SI"
+  }
+}

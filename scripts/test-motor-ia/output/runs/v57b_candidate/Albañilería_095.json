@@ -1,0 +1,283 @@
+{
+  "id": 95,
+  "oficio": "Albañilería",
+  "texto": "Reforma de cocina, quitar azulejos viejos, alicatar de nuevo y cambiar encimera de granito",
+  "http_status": 200,
+  "latency_ms": 24457,
+  "raw_response": {
+    "transcript": "Reforma de cocina, quitar azulejos viejos, alicatar de nuevo y cambiar encimera de granito",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de cocina, quitar azulejos viejos, alicatar de nuevo y cambiar encimera de granito",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Encimera de granito requiere medición exacta y presupuesto de material (precio_unitario=0)",
+          "Verificar si hay obra civil previa (rebajes, nivelación) antes de alicatar",
+          "Coordinar desmontaje de encimera antigua con instalación de nueva"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Alicatado de cocina (paredes y suelo)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Desmontaje de azulejos viejos, preparación de superficies"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de encimera de granito (medidas, ajustes, fijación)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de azulejos viejos cocina",
+          "descripcion": "Demolición y retirada de alicatado existente en paredes y suelo de cocina, incluyendo mortero y adhesivo antiguo",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir por el instalador según mediciones de cocina"
+        },
+        {
+          "concepto": "Preparación y nivelación de superficies",
+          "descripcion": "Limpieza, reparación de grietas, nivelación y preparación de paredes y suelo para nuevo alicatado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir según estado de superficies"
+        },
+        {
+          "concepto": "Azulejo/cerámica pared cocina",
+          "descripcion": "Suministro de azulejo o cerámica para paredes de cocina (calidad, color y modelo a definir)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a especificar por cliente: marca, modelo, precio/m2"
+        },
+        {
+          "concepto": "Baldosa suelo cocina",
+          "descripcion": "Suministro de baldosa o cerámica para suelo de cocina (resistencia, color y modelo a definir)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a especificar por cliente: marca, modelo, precio/m2"
+        },
+        {
+          "concepto": "Mortero cola C2 flexible",
+          "descripcion": "Suministro de mortero cola C2 flexible para fijación de azulejos y baldosas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en kg según m2 totales a alicatar"
+        },
+        {
+          "concepto": "Lechada epoxi juntas cocina",
+          "descripcion": "Suministro de lechada epoxi para juntas (muy recomendada en cocinas por higiene y resistencia a manchas)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en kg según m2 y ancho de junta"
+        },
+        {
+          "concepto": "Alicatado paredes y suelo cocina",
+          "descripcion": "Mano de obra de alicatado: colocación de azulejos en paredes y baldosas en suelo, rejuntado y acabado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 (paredes + suelo) a definir por instalador"
+        },
+        {
+          "concepto": "Perfiles aluminio esquinas y remates",
+          "descripcion": "Suministro e instalación de perfiles de aluminio para esquinas, transiciones y remates",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje lineal según geometría de cocina"
+        },
+        {
+          "concepto": "Junta silicona sanitaria encuentros",
+          "descripcion": "Suministro e instalación de silicona sanitaria en encuentros suelo-pared y otras juntas perimetrales",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje lineal según perímetro de cocina"
+        },
+        {
+          "concepto": "Pequeño material alicatado (crucetas, esponjas, etc.)",
+          "descripcion": "Suministro de crucetas, esponjas, trapos, cinta de carrocero y otros consumibles de alicatado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado según volumen de obra"
+        },
+        {
+          "concepto": "Desmontaje de encimera de granito antigua",
+          "descripcion": "Desmontaje cuidadoso de encimera existente, desconexión de grifería y desagüe, retirada de residuos",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas según complejidad de desmontaje y estado de encimera"
+        },
+        {
+          "concepto": "Encimera de granito nueva",
+          "descripcion": "Suministro de encimera de granito (medidas, color, acabado y espesor a definir por cliente)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material premium: precio muy variable según calidad, color y acabado. Requiere medición exacta y presupuesto de proveedor"
+        },
+        {
+          "concepto": "Instalación de encimera de granito",
+          "descripcion": "Mano de obra de instalación: colocación, nivelación, fijación, sellado perimetral y conexión de grifería y desagüe",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas según complejidad de instalación, número de cortes y acabados"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la cocina incluye muebles base/altos: si es reforma integral de cocina, considerar partida de carpintería de muebles",
+        "Confirmar si la grifería se mantiene o se sustituye (partida fontanería si es nueva)",
+        "Especificar tipo de granito: nacional, importado, acabado pulido/flameado/apomazado (afecta precio significativamente)",
+        "Considerar si hay obra civil previa: rebajes de solera, nivelación de paredes, reparación de humedades"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Encimera de granito nueva",
+          "oficio": "carpinteria",
+          "motivo": "Material premium de alto valor, requiere especificación detallada y presupuesto de proveedor especializado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "alicatado_y_solado_completo_cocina",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "sustitucion_banera_por_ducha"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4076,
+      "tokens_out": 3565
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 5,
+    "n_sugeridas": 8,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "NO"
+  }
+}

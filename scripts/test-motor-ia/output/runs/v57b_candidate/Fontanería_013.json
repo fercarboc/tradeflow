@@ -1,0 +1,198 @@
+{
+  "id": 13,
+  "oficio": "Fontanería",
+  "texto": "Instalación de radiadores de agua caliente en 4 habitaciones con tubería de cobre y válvulas termostáticas",
+  "http_status": 200,
+  "latency_ms": 16971,
+  "raw_response": {
+    "transcript": "Instalación de radiadores de agua caliente en 4 habitaciones con tubería de cobre y válvulas termostáticas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de radiadores de agua caliente en 4 habitaciones con tubería de cobre y válvulas termostáticas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume conexión a caldera/sistema de calefacción existente. Verificar disponibilidad de fuente de calor.",
+          "Tubería de cobre: confirmar diámetros y longitud total de recorrido.",
+          "Válvulas termostáticas: incluidas en cada radiador para control independiente por habitación."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de red de tuberías de cobre, radiadores y válvulas termostáticas. Trabajo de fontanería especializada en calefacción."
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema de calefacción por radiadores. Requiere puesta en marcha, purga de aire y equilibrado del circuito."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro radiadores de agua caliente",
+          "descripcion": "Radiadores de aluminio o acero de 4 elementos para 4 habitaciones (1 radiador por habitación). Incluye válvulas termostáticas integradas.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de radiadores según modelo, potencia térmica y acabado. Instalador debe confirmar especificaciones técnicas (kW, dimensiones, tipo de conexión)."
+        },
+        {
+          "concepto": "Suministro tubería de cobre",
+          "descripcion": "Tubería de cobre tipo L (semidura) para circuito de calefacción. Diámetros según cálculo de caudal (típicamente 16-22 mm). Incluye merma 10%.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total de tubería a confirmar por instalador según plano de distribución. Precio varía por diámetro (16mm ~8-12€/ml, 22mm ~12-18€/ml)."
+        },
+        {
+          "concepto": "Suministro válvulas termostáticas y accesorios",
+          "descripcion": "Válvulas termostáticas de radiador (4 ud), válvulas de corte, purgadores automáticos, manguitos de unión, teflón y pequeño material de fontanería.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lote de accesorios: válvulas termostáticas (4×25-40€), válvulas corte, purgadores, racores. Total estimado 150-250€."
+        },
+        {
+          "concepto": "Instalación de radiadores",
+          "descripcion": "Montaje de 4 radiadores en pared con soportes, conexión a tubería de cobre, instalación de válvulas termostáticas y purgadores. Nivelación y fijación segura.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de tubería de cobre",
+          "descripcion": "Tendido, fijación con abrazaderas, soldadura de uniones (si aplica) o conexión con racores de compresión. Incluye rozas en paredes si es necesario.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puesta en marcha, purga y equilibrado del circuito",
+          "descripcion": "Llenado del circuito, purga de aire en radiadores y colector, equilibrado de caudales, prueba de estanqueidad, ajuste de válvulas termostáticas y verificación de funcionamiento.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza",
+          "descripcion": "Retirada de embalajes, restos de tuberías, limpieza de zona de trabajo.",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 20,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1280,
+        "iva_porcentaje": 21,
+        "iva": 268.8,
+        "total": 1548.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si existe caldera/bomba de calor operativa. Si no, presupuestar fuente de calor por separado.",
+        "Especificar diámetros de tubería de cobre según cálculo de caudal (típicamente 16 mm para ramales, 22 mm para troncales).",
+        "Considerar aislamiento de tuberías en zonas no calefactadas para mejorar eficiencia.",
+        "Válvulas termostáticas: modelo manual o electrónico (este último permite control remoto)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro radiadores de agua caliente",
+          "oficio": "climatizacion",
+          "motivo": "Material específico de calefacción. Precio variable según modelo y potencia térmica."
+        },
+        {
+          "concepto": "Suministro tubería de cobre",
+          "oficio": "fontaneria",
+          "motivo": "Material de fontanería. Precio por ml según diámetro (16-22 mm)."
+        },
+        {
+          "concepto": "Suministro válvulas termostáticas y accesorios",
+          "oficio": "fontaneria",
+          "motivo": "Lote de accesorios de fontanería. Precio total según cantidad y calidad de componentes."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_solar_termica_para_piscina",
+      "instalacion_suelo_radiante_hidraulico",
+      "reparacion_averia_caldera_gas",
+      "sustitucion_tuberia_multicapa",
+      "instalacion_calentador_gas_instantaneo"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3789,
+      "tokens_out": 2258
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

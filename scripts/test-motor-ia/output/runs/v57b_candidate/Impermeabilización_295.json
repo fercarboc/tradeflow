@@ -1,0 +1,160 @@
+{
+  "id": 295,
+  "oficio": "Impermeabilización",
+  "texto": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+  "http_status": 200,
+  "latency_ms": 18406,
+  "raw_response": {
+    "transcript": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sellar todas las juntas de azulejos de terraza descubierta con sellante elástico de poliuretano",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de sellado de juntas en terraza descubierta. Requiere especificar: metros lineales totales de juntas, ancho de junta, estado actual (juntas vacías, sellante deteriorado, etc.)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sellado de juntas con función estanca en terraza descubierta. Impermeabilización es el oficio prioritario para sistemas de estanqueidad en cubiertas/terrazas, aunque implique sellante elástico."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de sellante deteriorado en juntas de azulejos",
+          "descripcion": "Extracción completa del sellante existente (si aplica) en todas las juntas de la terraza con herramientas manuales y/o eléctricas. Limpieza de restos y polvo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 3,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales de juntas a definir por el instalador. Tarifa estimada 3€/ml basada en trabajo de retirada manual."
+        },
+        {
+          "concepto": "Limpieza y preparación de juntas",
+          "descripcion": "Limpieza profunda de juntas con aire comprimido, cepillo y disolvente. Secado completo. Aplicación de fondo de junta (cordón de espuma elastómera) para garantizar correcta aplicación del sellante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 2,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales a definir. Tarifa estimada 2€/ml."
+        },
+        {
+          "concepto": "Fondo de junta elastómero celular",
+          "descripcion": "Cordón de espuma elastómera (BACKER ROD) para juntas de azulejos. Proporciona base elástica y controla la profundidad de aplicación del sellante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a suministrar. Precio pendiente de revisión según diámetro y cantidad de metros lineales."
+        },
+        {
+          "concepto": "Sellante elástico de poliuretano para juntas",
+          "descripcion": "Sellante elástico de poliuretano monocomponente de alta elasticidad para juntas de azulejos en terraza descubierta. Resistencia UV, movimientos térmicos y humedad. Aplicación con pistola de calafateo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a suministrar. Precio pendiente según marca y cantidad (típicamente 300-600ml por cartucho). Rendimiento ~10-15ml por cartucho según ancho de junta."
+        },
+        {
+          "concepto": "Aplicación de sellante elástico en juntas",
+          "descripcion": "Aplicación uniforme del sellante elástico de poliuretano en todas las juntas con pistola de calafateo. Alisado y acabado con herramienta de silicona. Control de excedentes.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 4,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales a definir. Tarifa estimada 4€/ml para aplicación y acabado de sellante."
+        },
+        {
+          "concepto": "Curado y protección de juntas selladas",
+          "descripcion": "Tiempo de curado del sellante (según ficha técnica, típicamente 24-48h). Protección de la zona durante el curado. Limpieza final de excedentes tras curado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluido en el tiempo de aplicación. Puede no requerir jornada adicional si se completa en el mismo día. A criterio del instalador."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Buscar en catálogo: 'impermeabilizacion_de_junta_de_dilatacion_en_cubierta' (referencia: 20-85€/ml) — aunque es para juntas de dilatación estructural, proporciona metodología similar para sellado de juntas.",
+        "Buscar en catálogo: 'impermeabilizacion_terraza_con_pintura_poliuretano' — aunque es para membrana, incluye refuerzo en encuentros y sellado de juntas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sellado de juntas de azulejos con poliuretano en terraza",
+          "oficio": "impermeabilizacion",
+          "tipo": "trabajo_especializado",
+          "motivo": "Trabajo específico de sellado de juntas en terraza descubierta con sellante elástico. No existe partida exacta en catálogo, pero se alinea con impermeabilización de juntas de cubierta."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "impermeabilizacion_cubierta_plana_con_membrana_liquida_poliuretano",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3967,
+      "tokens_out": 2375
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

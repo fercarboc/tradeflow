@@ -1,0 +1,189 @@
+{
+  "id": 332,
+  "oficio": "Fachadas",
+  "texto": "Limpiar grafitis de fachada con producto anti-graffiti y aplicar tratamiento protector",
+  "http_status": 200,
+  "latency_ms": 16640,
+  "raw_response": {
+    "transcript": "Limpiar grafitis de fachada con producto anti-graffiti y aplicar tratamiento protector",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpiar grafitis de fachada con producto anti-graffiti y aplicar tratamiento protector",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere especificar la superficie total en m² de fachada afectada por grafitis",
+          "Confirmar tipo de soporte (hormigón, ladrillo, piedra, etc.) para ajustar rendimiento de productos",
+          "Definir si el tratamiento protector es sacrificial (se retira con el graffiti) o permanente (permite limpieza sin retirar)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Tratamiento de fachada exterior con productos especializados (antigraffiti e hidrofugo)"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Aplicación de productos de protección y acabado en fachada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza de grafitis en fachada con producto quitapintadas",
+          "descripcion": "Eliminación de grafitis mediante producto antigraffiti profesional, hidrolimpiadora, cepillo y EPI. Incluye análisis previo del tipo de pintura y superficie. Mano de obra de limpieza y preparación.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 10,
+          "total": 10,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe ser especificada por el profesional. Precio unitario es referencia (4-16€/m2 según complejidad)"
+        },
+        {
+          "concepto": "Producto quitapintadas antigraffiti profesional",
+          "descripcion": "Producto químico profesional para eliminación de grafitis (disolvente específico, quitapintadas o similar según tipo de pintura). Incluye pequeño material (esponjas, cepillos, trapos).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del producto a definir según marca y tipo (disolvente, quitapintadas, etc.). Cantidad en litros según m² a limpiar"
+        },
+        {
+          "concepto": "Aplicación de tratamiento protector antigraffiti en fachada",
+          "descripcion": "Aplicación de recubrimiento antigraffiti (sacrificial o permanente) mediante rodillo o pistola baja presión. Incluye mano de obra de aplicación, una o dos manos según porosidad del soporte.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 20,
+          "total": 20,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe ser especificada. Precio unitario es referencia (15-75€/m2 según tipo de recubrimiento y complejidad)"
+        },
+        {
+          "concepto": "Recubrimiento antigraffiti sacrificial o permanente",
+          "descripcion": "Producto antigraffiti profesional (sacrificial que se retira con el graffiti, o permanente que permite limpieza sin retirar el recubrimiento). Incluye pequeño material y aplicadores.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del recubrimiento antigraffiti a definir según tipo (sacrificial o permanente) y marca. Cantidad en litros según m² y rendimiento (5-8 m2/litro)"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo en fachada",
+          "descripcion": "Montaje y desmontaje de andamio o plataforma de trabajo para acceso seguro a la fachada durante limpieza y aplicación de tratamientos.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio/plataforma a definir según altura, superficie y duración del trabajo. Puede ser alquiler o montaje propio."
+        },
+        {
+          "concepto": "EPI y pequeño material (guantes, mascarilla, trapos, esponjas)",
+          "descripcion": "Equipos de protección individual (guantes, mascarilla, gafas) y pequeño material consumible (esponjas, cepillos, trapos, disolventes auxiliares).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste estimado de EPI y consumibles a definir según cantidad y duración del trabajo"
+        }
+      ],
+      "calculos": {
+        "subtotal": 30,
+        "iva_porcentaje": 21,
+        "iva": 6.3,
+        "total": 36.3
+      },
+      "sugerencias_catalogo": [
+        "Confirmar superficie total en m² de fachada afectada por grafitis para calcular cantidades exactas de productos y mano de obra",
+        "Especificar tipo de soporte (hormigón, ladrillo, piedra, etc.) para ajustar rendimiento de productos y precio unitario",
+        "Definir si se requiere tratamiento sacrificial (se retira con el graffiti, requiere reaplicación periódica) o permanente (permite limpieza sin retirar, mayor durabilidad)",
+        "Considerar si la fachada requiere limpieza previa (hidrolimpiadora caliente) antes de aplicar tratamientos",
+        "Evaluar necesidad de andamio según altura y accesibilidad de la fachada",
+        "Incluir en presupuesto final: producto quitapintadas, recubrimiento antigraffiti, mano de obra limpieza, mano de obra aplicación, andamio/plataforma, EPI y consumibles"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Producto quitapintadas antigraffiti profesional",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material específico para eliminación de grafitis, requiere precio de mercado"
+        },
+        {
+          "concepto": "Recubrimiento antigraffiti sacrificial o permanente",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "motivo": "Producto protector especializado, requiere precio según tipo y marca"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo en fachada",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar de acceso a fachada, requiere presupuesto según altura y duración"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "aplicacion_pintura_antigraffiti_en_fachada",
+      "tratamiento_pintura_grafitis_eliminacion",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "aplicacion_hidrofugo_incoloro_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3791,
+      "tokens_out": 2321
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

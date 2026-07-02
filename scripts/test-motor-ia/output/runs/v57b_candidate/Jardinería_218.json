@@ -1,0 +1,270 @@
+{
+  "id": 218,
+  "oficio": "Jardinería",
+  "texto": "Diseño y construcción de estanque ornamental con fuente y plantas acuáticas, 4 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 27072,
+  "raw_response": {
+    "transcript": "Diseño y construcción de estanque ornamental con fuente y plantas acuáticas, 4 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Diseño y construcción de estanque ornamental con fuente y plantas acuáticas, 4 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar profundidad del estanque para determinar si requiere vallado de seguridad (CTE DB-SUA si profundidad > 50cm y hay menores)",
+          "Confirmar si el estanque será enterrado o elevado (afecta a excavación e impermeabilización)",
+          "Especificar tipo de plantas acuáticas y si incluye peces (requiere filtro adicional)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Instalación de fuente ornamental, plantación de plantas acuáticas, diseño y construcción de estanque"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica de bomba de recirculación con diferencial y protección obligatoria"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización del estanque (lámina EPDM/PVC o mortero impermeabilizante)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Excavación y preparación del terreno para estanque enterrado",
+          "descripcion": "Excavación de 4 m² a profundidad media de 0,80 m (3,2 m³), retirada de tierra vegetal, nivelación y compactación de base",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m3",
+          "cantidad": 3.2,
+          "precio_unitario": 35,
+          "total": 112,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización del estanque con lámina EPDM",
+          "descripcion": "Suministro e instalación de lámina EPDM de 0,75 mm de espesor, incluyendo geotextil de protección, sellado de juntas y remates perimetrales. Superficie: 4 m² + sobremedida para profundidad (aprox. 6 m² total)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina EPDM y accesorios a confirmar por instalador (aprox. 25-40€/m²)"
+        },
+        {
+          "concepto": "Instalación de lámina impermeabilizante",
+          "descripcion": "Mano de obra de colocación de lámina EPDM, sellado de juntas, remates y prueba de estanqueidad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Bomba de recirculación y fuente ornamental",
+          "descripcion": "Suministro de bomba sumergible 500-1000W con filtro integrado, tuberías de conexión, boquilla de fuente y accesorios de montaje",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de bomba y fuente a confirmar (aprox. 150-400€ según potencia y diseño)"
+        },
+        {
+          "concepto": "Instalación de bomba de recirculación y fuente",
+          "descripcion": "Colocación de bomba sumergible, conexión de tuberías, instalación de boquilla de fuente, prueba de funcionamiento",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica de bomba con diferencial y protección",
+          "descripcion": "Instalación de línea eléctrica dedicada desde cuadro general, diferencial 30mA, interruptor magnetotérmico, toma de corriente estanca IP67 y cableado sumergible. Distancia estimada: 10 ml",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales eléctricos (cable, diferencial, magnetotérmico, toma estanca)",
+          "descripcion": "Suministro de cable H07RN-F 3x2,5 mm², diferencial 30mA, magnetotérmico 16A, toma de corriente estanca IP67, tubo corrugado y accesorios",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos a confirmar (aprox. 80-150€)"
+        },
+        {
+          "concepto": "Plantación de plantas acuáticas",
+          "descripcion": "Suministro e instalación de plantas acuáticas (nenúfares, iris acuáticos, papiros u otras según diseño). Cantidad: 4-6 plantas según especie",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de plantas acuáticas a confirmar (aprox. 20-80€/ud según especie)"
+        },
+        {
+          "concepto": "Instalación de plantas acuáticas en macetas y sustratos",
+          "descripcion": "Colocación de plantas en macetas acuáticas con sustrato específico, distribución en estanque, anclaje y riego de asiento",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Vallado de seguridad (si aplica CTE DB-SUA)",
+          "descripcion": "Instalación de vallado perimetral de seguridad si profundidad > 50cm y hay menores. Altura mínima 1,10 m, malla o barandilla según normativa",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Vallado CONDICIONAL: confirmar profundidad y normativa aplicable. Si procede: aprox. 40-80€/ml"
+        },
+        {
+          "concepto": "Pequeño material y acabados",
+          "descripcion": "Grava decorativa, piedras de borde, mortero, selladores, herramientas menores y materiales auxiliares",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material a confirmar (aprox. 100-200€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 707,
+        "iva_porcentaje": 21,
+        "iva": 148.47,
+        "total": 855.47
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el estanque será ENTERRADO (excavación + impermeabilización) o ELEVADO (estructura + impermeabilización sin excavación). Esto afecta significativamente al presupuesto.",
+        "Especificar PROFUNDIDAD del estanque: si > 50cm y hay menores, VALLADO OBLIGATORIO según CTE DB-SUA (Seguridad frente al riesgo de caída).",
+        "Indicar si el estanque incluirá PECES: si es así, añadir FILTRO BIOLÓGICO (partida adicional aprox. 200-500€) y sistema de oxigenación.",
+        "Detallar TIPO Y CANTIDAD de plantas acuáticas deseadas (nenúfares, iris, papiros, jacinto de agua, etc.) para ajustar presupuesto.",
+        "Considerar ILUMINACIÓN SUMERGIBLE si se desea efecto nocturno (partida adicional aprox. 150-300€).",
+        "Verificar ACCESO A AGUA Y ELECTRICIDAD en la zona del estanque para facilitar instalación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lámina EPDM para impermeabilización",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material específico para estanques ornamentales, no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Bomba de recirculación sumergible con fuente",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "motivo": "Equipo específico para estanques, requiere especificación de potencia y diseño"
+        },
+        {
+          "concepto": "Plantas acuáticas variadas",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "motivo": "Suministro de flora acuática, precio variable según especie y tamaño"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_fuente_o_estanque_ornamental",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "abonado_y_enmienda_de_suelo_del_jardin",
+      "forjado_de_vigueta_y_bovedilla",
+      "tratamiento_fitosanitario_plagas_y_enfermedades"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4057,
+      "tokens_out": 3736
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

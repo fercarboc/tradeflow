@@ -1,0 +1,248 @@
+{
+  "id": 50,
+  "oficio": "Carpintería",
+  "texto": "Instalación de tarima exterior de madera de ipe en terraza de 25 metros cuadrados con estructura",
+  "http_status": 200,
+  "latency_ms": 22985,
+  "raw_response": {
+    "transcript": "Instalación de tarima exterior de madera de ipe en terraza de 25 metros cuadrados con estructura",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de tarima exterior de madera de ipe en terraza de 25 metros cuadrados con estructura",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Madera IPE es tropical, verificar certificación sostenible y tratamiento clase 4",
+          "Estructura incluida: se asume rastreles/vigas de soporte",
+          "Terraza: verificar estado base, drenaje y pendiente existente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de tarima exterior con estructura de soporte"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Preparación base, regularización y nivelación de terraza"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación y regularización de base de terraza",
+          "descripcion": "Limpieza, barrido, nivelación y regularización de la base existente de la terraza. Incluye pequeño material y herramientas.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 8,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rastreles de soporte en madera tratada clase 4",
+          "descripcion": "Suministro e instalación de rastreles de madera tratada clase 4 (50x50 mm aprox.) cada 40-50 cm para estructura de soporte de tarima. Incluye fijación a base existente.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de rastreles y fijación pendiente de cotización del instalador"
+        },
+        {
+          "concepto": "Instalación de rastreles y estructura de soporte",
+          "descripcion": "Colocación, nivelación y fijación de rastreles cada 40-50 cm. Incluye taladrado, fijación mecánica y ajustes de nivel.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 12,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tablas de madera IPE para tarima exterior",
+          "descripcion": "Suministro de tablas de madera IPE (densidad alta, durabilidad natural, clase 4) de 20-25 mm de espesor, cortadas a medida. Incluye pequeño material y accesorios de fijación (tornillos inox o clips ocultos).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de madera IPE variable según proveedor y certificación. Instalador debe cotizar."
+        },
+        {
+          "concepto": "Instalación de tablas de tarima IPE con separación de drenaje",
+          "descripcion": "Colocación de tablas de IPE sobre rastreles con separación de 3-5 mm entre tablas para drenaje y dilatación. Fijación con tornillos de acero inoxidable o clips ocultos. Incluye cortes, ajustes y acabado de bordes.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 18,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento protector y acabado de tarima IPE",
+          "descripcion": "Aplicación de aceite protector o lasur exterior para madera IPE. Protección contra UV, humedad y envejecimiento. Incluye preparación de superficie y 1-2 manos de producto.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de producto protector y aplicación pendiente de cotización"
+        },
+        {
+          "concepto": "Aplicación de tratamiento protector en tarima",
+          "descripcion": "Mano de obra para preparación de superficie, lijado ligero si necesario, y aplicación de aceite o lasur protector en 1-2 manos.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 6,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Remates perimetrales y acabados",
+          "descripcion": "Suministro e instalación de piezas de remate perimetral (molduras, cantoneras o perfiles de cierre) en madera o aluminio. Acabado de bordes y juntas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de remates y perfiles pendiente de cotización"
+        },
+        {
+          "concepto": "Instalación de remates perimetrales",
+          "descripcion": "Colocación y fijación de remates perimetrales. Incluye cortes, ajustes y acabado.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza final y retirada de residuos",
+          "descripcion": "Limpieza de la zona de trabajo, barrido, retirada de restos de madera y material de embalaje. Dejar la terraza lista para uso.",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 160,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1420,
+        "iva_porcentaje": 21,
+        "iva": 298.2,
+        "total": 1718.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_tarima_exterior_madera_tratada_o_composite' (rango 120-650€/m2 según complejidad)",
+        "Considerar geotextil antimalas hierbas si la terraza está sobre tierra o jardín",
+        "IPE es madera tropical de alta densidad: requiere certificación FSC/PEFC recomendada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Rastreles de soporte en madera tratada clase 4",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para estructura de tarima exterior"
+        },
+        {
+          "concepto": "Tablas de madera IPE para tarima exterior",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico: madera IPE tropical, precio variable según proveedor"
+        },
+        {
+          "concepto": "Tratamiento protector y acabado de tarima IPE",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Producto protector específico para madera IPE"
+        },
+        {
+          "concepto": "Remates perimetrales y acabados",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Acabados perimetrales de tarima exterior"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "solado_de_tarima_exterior_de_madera_o_composite",
+      "instalacion_tarima_exterior_madera_o_composite",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_de_pavimento_flotante_sobre_plots"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3994,
+      "tokens_out": 3279
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 6,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

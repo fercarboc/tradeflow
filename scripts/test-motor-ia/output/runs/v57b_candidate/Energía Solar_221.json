@@ -1,0 +1,217 @@
+{
+  "id": 221,
+  "oficio": "Energía Solar",
+  "texto": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+  "http_status": 200,
+  "latency_ms": 19161,
+  "raw_response": {
+    "transcript": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar placas solares fotovoltaicas para autoconsumo en vivienda unifamiliar, potencia 5kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere legalización ante distribuidora de energía (obligatorio para autoconsumo)",
+          "Se recomienda verificar orientación y sombras en cubierta antes de instalación",
+          "Revisar disponibilidad de ayudas NextGenEU/IDAE según comunidad autónoma"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación sistema fotovoltaico autoconsumo vivienda unifamiliar 5kWp"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión a cuadro eléctrico, protecciones, contador bidireccional"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos 5kWp",
+          "descripcion": "Suministro e instalación de paneles fotovoltaicos monocristalinos de alta eficiencia, potencia total 5kWp (aproximadamente 12-13 módulos de 400-420W), incluye estructura soporte aluminio anodizado para cubierta inclinada, tornillería y pequeño material",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de módulos y estructura soporte variable según marca, eficiencia y tipo cubierta. Rango típico 800-1200€/kWp en materiales. Instalador debe revisar y ajustar según proveedor"
+        },
+        {
+          "concepto": "Inversor solar monofásico 5kW",
+          "descripcion": "Suministro e instalación de inversor solar monofásico de 5kW, con protecciones integradas, conexión a red, monitorización básica, incluye cableado de conexión y pequeño material",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio inversor 5kW rango 1200-2000€ según marca y características. Requiere revisión del instalador"
+        },
+        {
+          "concepto": "Cableado DC y AC, protecciones y cuadro de maniobra",
+          "descripcion": "Suministro e instalación de cableado solar RV-K DC (paneles a inversor), cableado AC (inversor a cuadro), protecciones DC (fusibles/magnetotérmicos), protecciones AC, cuadro de maniobra con seccionador, pequeño material y accesorios",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cableado, protecciones y cuadro rango 400-800€ según longitud y configuración. Instalador debe revisar según proyecto"
+        },
+        {
+          "concepto": "Contador bidireccional legalizado",
+          "descripcion": "Suministro e instalación de contador bidireccional homologado para autoconsumo, con certificación de legalización ante distribuidora, incluye conexión a cuadro eléctrico y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Contador bidireccional rango 200-400€. Requiere revisión e instalación por electricista autorizado"
+        },
+        {
+          "concepto": "Mano de obra instalación estructura y módulos fotovoltaicos",
+          "descripcion": "Trabajos de altura en cubierta: colocación estructura soporte, fijación módulos fotovoltaicos, conexionado DC entre paneles, pruebas de continuidad y aislamiento. Incluye EPI trabajos altura, andamios/escaleras de seguridad",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 65,
+          "total": 1040,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra instalación inversor, cableado y protecciones",
+          "descripcion": "Instalación inversor en cuadro eléctrico, conexionado AC, instalación protecciones DC y AC, cuadro de maniobra, pruebas de funcionamiento, puesta en marcha inicial",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra instalación contador bidireccional y legalización",
+          "descripcion": "Instalación contador bidireccional, conexión a cuadro eléctrico, pruebas de funcionamiento, tramitación y legalización ante distribuidora de energía (documentación técnica, solicitud autoconsumo, inspección si requiere)",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas, puesta en marcha y documentación técnica",
+          "descripcion": "Pruebas de aislamiento DC y AC, pruebas de funcionamiento inversor, medición de producción, generación de documentación técnica (esquema unifilar, certificado instalación, manual usuario), entrega de garantías",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2000,
+        "iva_porcentaje": 21,
+        "iva": 420,
+        "total": 2420
+      },
+      "sugerencias_catalogo": [
+        "Considerar sistema de monitorización online (aplicación móvil) para seguimiento de producción: rango 150-400€",
+        "Si hay sombras parciales en cubierta, valorar optimizadores de potencia por panel: rango 100-200€/panel",
+        "Solicitar ayudas disponibles: NextGenEU (hasta 40% del coste), IDAE, o programas autonómicos/municipales",
+        "Retorno de inversión estimado: 5-8 años según zona geográfica y consumo anual"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos 5kWp",
+          "oficio": "energia_solar",
+          "motivo": "Material específico, precio variable según marca y eficiencia"
+        },
+        {
+          "concepto": "Inversor solar monofásico 5kW",
+          "oficio": "energia_solar",
+          "motivo": "Material específico, precio variable según marca y características"
+        },
+        {
+          "concepto": "Cableado DC y AC, protecciones y cuadro de maniobra",
+          "oficio": "electricidad",
+          "motivo": "Material específico, precio variable según longitud y configuración"
+        },
+        {
+          "concepto": "Contador bidireccional legalizado",
+          "oficio": "electricidad",
+          "motivo": "Material específico, requiere homologación y legalización"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda",
+      "instalacion_fotovoltaica_autoconsumo",
+      "instalacion_solar_termica_para_ACS",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "solicitud_y_gestion_de_ayudas_para_energia_solar"
+    ],
+    "kb_score": 5,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4134,
+      "tokens_out": 2613
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

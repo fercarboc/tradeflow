@@ -1,0 +1,200 @@
+{
+  "id": 90,
+  "oficio": "Albañilería",
+  "texto": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+  "http_status": 200,
+  "latency_ms": 14032,
+  "raw_response": {
+    "transcript": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de chimenea exterior, rejuntar ladrillo, impermeabilizar remate y revisar conducto",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Chimenea exterior: verificar acceso seguro y necesidad de andamios/línea de vida",
+          "Rejuntado: confirmar extensión (chimenea completa o solo remate)",
+          "Impermeabilización: si hay encuentro con cubierta, aplicar protocolo específico de encuentro chimenea-tejado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación y rejuntado de chimenea exterior (revestimiento/fachada)"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de remate de chimenea (protección contra humedades)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y limpieza de zona afectada en chimenea",
+          "descripcion": "Limpieza, eliminación de mortero degradado, musgo y suciedad en chimenea exterior",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado de ladrillo en chimenea exterior",
+          "descripcion": "Rejuntado completo de juntas de ladrillo en chimenea, con mortero de cal-cemento o similar",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero de rejuntado para chimenea",
+          "descripcion": "Mortero de cal-cemento o mortero hidrofugo para rejuntado de ladrillo",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar cantidad y tipo de mortero según extensión real"
+        },
+        {
+          "concepto": "Impermeabilización de remate de chimenea",
+          "descripcion": "Aplicación de membrana líquida impermeabilizante o lámina flexible en remate superior de chimenea",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Membrana impermeabilizante para remate chimenea",
+          "descripcion": "Lámina de plomo, zinc, TPO o membrana líquida poliurea para impermeabilización de remate",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: lámina de plomo/zinc es solución más duradera; confirmar tipo y cantidad según dimensiones remate"
+        },
+        {
+          "concepto": "Revisión y limpieza de conducto de chimenea",
+          "descripcion": "Inspección visual del conducto, limpieza de hollín y obstrucciones, verificación de estanqueidad",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y EPI (arnés, línea de vida, cinta, selladores)",
+          "descripcion": "Consumibles: cinta de enmascarar, selladores flexibles, pequeño material, EPI de seguridad en altura",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: pequeño material y EPI; instalador confirma necesidad de andamios/línea de vida según altura y acceso"
+        }
+      ],
+      "calculos": {
+        "subtotal": 382.5,
+        "iva_porcentaje": 21,
+        "iva": 80.325,
+        "total": 462.825
+      },
+      "sugerencias_catalogo": [
+        "Si la chimenea tiene encuentro con cubierta/tejado: aplicar protocolo específico 'reparacion_de_encuentro_de_chimenea_con_cubierta' (lámina de plomo/zinc conformada es solución más duradera)",
+        "Si hay filtraciones activas o humedades en interior: considerar impermeabilización integral con barrera vapor",
+        "Confirmar si chimenea está activa (en uso) o desactivada para determinar tipo de impermeabilizante"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero de rejuntado para chimenea",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Membrana impermeabilizante para remate chimenea",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Pequeño material y EPI (arnés, línea de vida, cinta, selladores)",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "requiere_revision": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "tabique_pladur_para_sepultar_conductos_climatizacion",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3948,
+      "tokens_out": 2054
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

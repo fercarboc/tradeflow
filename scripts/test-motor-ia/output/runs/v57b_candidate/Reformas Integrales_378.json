@@ -1,0 +1,260 @@
+{
+  "id": 378,
+  "oficio": "Reformas Integrales",
+  "texto": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 27052,
+  "raw_response": {
+    "transcript": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir ático nuevo en solar con cubierta inclinada y terraza de 30 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA NUEVA COMPLEJA: Ático nuevo requiere proyecto técnico, cálculos estructurales y permisos municipales",
+          "CUBIERTA INCLINADA: Incluye estructura, impermeabilización y remates obligatorios",
+          "TERRAZA 30m²: Requiere impermeabilización, drenaje y pavimento",
+          "MÚLTIPLES OFICIOS: Obra civil, estructura, cubierta, impermeabilización, instalaciones, acabados",
+          "PRESUPUESTO ESTIMADO: Requiere revisión de proyecto y mediciones en obra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Obra nueva integral: estructura, cubierta, terraza, instalaciones y acabados simultáneos (≥3 oficios)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Estructura, muros, forjados, cimentación"
+        },
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cubierta inclinada nueva, estructura de cubierta, tejas, canalones, remates"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización terraza 30m², encuentros cubierta-peto, drenaje"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica nueva, cuadro, circuitos, iluminación"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación fontanería nueva, ACS, drenaje terraza"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Permisos, licencia obra nueva, proyecto técnico obligatorio"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cap.1 – Obra civil, estructura y cimentación",
+          "descripcion": "Cimentación, estructura de hormigón armado, forjados, muros de carga y tabiquería para ático nuevo de ~30m² de planta útil. Incluye excavación, hormigonado, encofrados, acero, andamios y EPI obligatorios.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Obra nueva requiere proyecto técnico, cálculos estructurales y mediciones en obra. Precio estimado 400-800€/m² según complejidad estructura."
+        },
+        {
+          "concepto": "Cap.2 – Cubierta inclinada nueva",
+          "descripcion": "Estructura de cubierta inclinada (cerchas/vigas), formación de pendientes, barrera de vapor, aislamiento térmico CTE DB-HE, membrana impermeabilizante, tejas cerámicas o de hormigón, canalones, cumbreras, limahoyas, remates zinc/aluminio, sumideros y drenaje. Incluye EPI con línea de vida, andamio perimetral y pequeño material.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cubierta inclinada nueva. Precio estimado 80-150€/m² según pendiente, material teja y complejidad. Incluye estructura, impermeabilización y remates obligatorios."
+        },
+        {
+          "concepto": "Cap.3 – Terraza de 30m² con impermeabilización y drenaje",
+          "descripcion": "Formación de pendientes mínima 1,5%, barrera de vapor, aislamiento térmico, membrana impermeabilizante EPDM/TPO, capa de protección, sumideros y drenaje perimetral, pavimento cerámico o similar, remate de peto con impermeabilización específica, sellado de encuentros. Incluye EPI y pequeño material.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Terraza nueva con impermeabilización completa. Precio estimado 60-120€/m² según acabado y complejidad drenaje."
+        },
+        {
+          "concepto": "Cap.4 – Instalaciones (electricidad, fontanería, climatización)",
+          "descripcion": "Instalación eléctrica nueva (cuadro general, circuitos, iluminación, enchufes, protecciones), instalación fontanería (tuberías ACS/AFS, desagües, sumideros), instalación climatización si aplica (conductos, unidades). Incluye pruebas funcionales, certificados y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalaciones nuevas completas. Precio estimado 3.000-8.000€ según complejidad y equipamiento."
+        },
+        {
+          "concepto": "Cap.5 – Acabados (pintura, pavimentos, carpintería, pladur)",
+          "descripcion": "Pintura interior y exterior, pavimentos interiores (cerámica/parquet), carpintería interior (puertas, armarios), pladur/escayola en techos y particiones, revestimientos. Incluye pequeño material y EPI.",
+          "oficio": "pintura",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Acabados interiores y exteriores. Precio estimado 30-80€/m² según calidad y complejidad."
+        },
+        {
+          "concepto": "Proyecto técnico y gestión de permisos",
+          "descripcion": "Proyecto técnico de ático nuevo (arquitectura, estructura, instalaciones), cálculos CTE, licencia de obra nueva, inspecciones municipales, certificados finales de obra.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIO para obra nueva. Precio estimado 2.000-5.000€ según complejidad y municipio."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar proyecto técnico completo antes de presupuestar: arquitectura, estructura, instalaciones, CTE DB-HE (aislamiento cubierta), CTE DB-SI (seguridad incendios).",
+        "Medición en obra de superficie real de cubierta inclinada (mayor que planta por pendiente).",
+        "Confirmar tipo de cubierta: teja cerámica, teja hormigón, pizarra, panel sándwich, etc.",
+        "Especificar acabado terraza: pavimento cerámico, madera, hormigón pulido, etc.",
+        "Verificar cargas sobre estructura existente si ático se construye sobre edificio existente.",
+        "Incluir andamios, EPI con línea de vida y seguros de obra en presupuesto.",
+        "Gestión de residuos de construcción (RCD) como partida separada si volumen significativo.",
+        "Certificados finales: instalación eléctrica (boletín), fontanería, climatización si aplica."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Obra civil, estructura y cimentación",
+          "oficio": "albanileria",
+          "motivo": "Ático nuevo requiere cimentación y estructura completa"
+        },
+        {
+          "concepto": "Cubierta inclinada nueva",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Cubierta inclinada con tejas, estructura, impermeabilización y remates"
+        },
+        {
+          "concepto": "Terraza con impermeabilización y drenaje",
+          "oficio": "impermeabilizacion",
+          "motivo": "Terraza 30m² requiere impermeabilización completa, drenaje y pavimento"
+        },
+        {
+          "concepto": "Instalaciones completas",
+          "oficio": "electricidad",
+          "motivo": "Electricidad, fontanería y climatización nuevas"
+        },
+        {
+          "concepto": "Acabados interiores y exteriores",
+          "oficio": "pintura",
+          "motivo": "Pintura, pavimentos, carpintería, pladur"
+        },
+        {
+          "concepto": "Proyecto técnico y permisos",
+          "oficio": "gestoria_tramites",
+          "motivo": "Obra nueva requiere proyecto y licencia municipal obligatoria"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "renovacion_tejado_de_teja_ceramica_o_de_hormigon",
+      "impermeabilizacion_peto_o_murete_de_cubierta"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4074,
+      "tokens_out": 3668
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

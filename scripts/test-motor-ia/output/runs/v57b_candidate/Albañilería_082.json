@@ -1,0 +1,180 @@
+{
+  "id": 82,
+  "oficio": "Albañilería",
+  "texto": "Hacer una rozas en la pared para pasar tuberías nuevas de fontanería y tapar después",
+  "http_status": 200,
+  "latency_ms": 17040,
+  "raw_response": {
+    "transcript": "Hacer una rozas en la pared para pasar tuberías nuevas de fontanería y tapar después",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer una rozas en la pared para pasar tuberías nuevas de fontanería y tapar después",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere especificar: longitud total de rozas (ml), altura de ubicación, tipo de muro (ladrillo/hormigón/bloque), espesor del muro, número de tuberías a pasar",
+          "Presupuesto estructurado con partidas estándar; el instalador debe confirmar metraje exacto"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Apertura, cierre y acabado de rozas en muro para instalaciones de fontanería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Apertura de rozas en muro con rozadora",
+          "descripcion": "Apertura de rozas horizontales/verticales en muro con herramienta rozadora para paso de tuberías de fontanería. Incluye corte limpio y preciso del soporte.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 25,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 10 ml; confirmar metraje exacto en obra"
+        },
+        {
+          "concepto": "Limpieza y soplado de rozas",
+          "descripcion": "Limpieza exhaustiva de polvo y escombros de las rozas abiertas. Soplado con aire comprimido para garantizar superficie limpia antes del cierre.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 8,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada; ajustar según metraje real"
+        },
+        {
+          "concepto": "Mortero de cemento para cierre de rozas",
+          "descripcion": "Mortero de cemento M-5 o equivalente para relleno y cierre de rozas. Aplicación manual con llana. Acabado enrasado al nivel del muro.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente de revisión. Estimar ~3-5 kg mortero por 10 ml de roza"
+        },
+        {
+          "concepto": "Tubo corrugado de protección para tuberías",
+          "descripcion": "Tubo corrugado de polietileno para protección de tuberías de fontanería dentro de la roza. Facilita futuras sustituciones y protege contra roces.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente. Confirmar diámetro de tuberías a pasar"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio para refuerzo de cierre",
+          "descripcion": "Malla de fibra de vidrio de 160 g/m² para refuerzo de mortero en cierre de rozas. Previene fisuras por retracción.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: precio pendiente. Aplicar si rozas > 3 mm de ancho"
+        },
+        {
+          "concepto": "Acabado y enrase final de rozas",
+          "descripcion": "Enrase, alisado y acabado final de las rozas cerradas. Preparación de superficie para posterior pintura o acabado decorativo.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 12,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada; ajustar según metraje real"
+        }
+      ],
+      "calculos": {
+        "subtotal": 450,
+        "iva_porcentaje": 21,
+        "iva": 94.5,
+        "total": 544.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el cliente: longitud total de rozas en metros lineales (ml)",
+        "Especificar tipo de muro: ladrillo macizo, ladrillo hueco, bloque de hormigón, hormigón armado",
+        "Indicar espesor del muro y profundidad de roza requerida",
+        "Número y diámetro de tuberías a pasar (PEX, cobre, etc.)",
+        "Ubicación: horizontal, vertical, mixta",
+        "¿Incluye pintura posterior de las rozas? Si sí, añadir partida de pintura"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero de cemento para cierre de rozas",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material de consumo; precio a definir por instalador según cantidad exacta"
+        },
+        {
+          "concepto": "Tubo corrugado de protección para tuberías",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Accesorio de protección; precio a definir según diámetro y cantidad"
+        },
+        {
+          "concepto": "Malla de fibra de vidrio para refuerzo de cierre",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material auxiliar; precio a definir según necesidad de refuerzo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "apertura_hueco_en_muro_para_puerta_o_ventana",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "tabique_pladur_sencillo_72mm"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3904,
+      "tokens_out": 2259
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

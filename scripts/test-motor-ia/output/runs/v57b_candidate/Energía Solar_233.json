@@ -1,0 +1,250 @@
+{
+  "id": 233,
+  "oficio": "Energía Solar",
+  "texto": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+  "http_status": 200,
+  "latency_ms": 28545,
+  "raw_response": {
+    "transcript": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de seguidores solares para optimizar producción de paneles, sistema de 6kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema de seguimiento solar: requiere cálculo estructural y motorización. Presupuesto orientativo, necesita revisión técnica del instalador.",
+          "Incluye: estructura soporte motorizada, controlador de seguimiento, cableado especializado, puesta en marcha y calibración.",
+          "Precio de materiales (estructura, motor, controlador) pendiente de revisión según fabricante y modelo específico."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema fotovoltaico con seguimiento solar (tracker). Requiere especialización en energía solar y electrónica de control."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Preparación de cimentación y base estructural para soporte motorizado de paneles."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura soporte motorizada para seguimiento solar (tracker) 6kW",
+          "descripcion": "Suministro de estructura metálica con sistema de seguimiento en uno o dos ejes (según especificación), incluyendo perfiles de aluminio/acero galvanizado, rodamientos, acoplamientos y herrajes de fijación. Sistema dimensionado para 6kW de potencia instalada.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura motorizada depende de fabricante, tipo de seguimiento (1 eje horizontal, 2 ejes, etc.) y especificaciones técnicas. Rango estimado: 3.000-8.000€ según complejidad."
+        },
+        {
+          "concepto": "Motor y sistema de accionamiento para seguidor solar",
+          "descripcion": "Suministro de motor eléctrico (típicamente 0,5-1,5 kW), reductor de velocidad, sistema de control de posición (sensores, finales de carrera) y cableado de potencia para accionamiento del seguidor.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio motor + accionamiento: 800-2.000€ según potencia y tipo de control (manual, automático, con sensores solares)."
+        },
+        {
+          "concepto": "Controlador de seguimiento solar (tracker controller)",
+          "descripcion": "Suministro de centralita electrónica de control de seguimiento: algoritmo de posicionamiento solar, entrada de sensores (luz, viento, temperatura), salidas de control motor, protecciones eléctricas, interfaz de programación. Incluye cableado de control.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Controlador de seguimiento: 500-1.500€ según sofisticación (algoritmo astronómico, sensores integrados, conectividad IoT)."
+        },
+        {
+          "concepto": "Cimentación y base estructural para soporte motorizado",
+          "descripcion": "Preparación de terreno, excavación, hormigonado de zapatas o losa de cimentación para anclaje de estructura motorizada. Incluye encofrado, hormigón H-25, armadura y nivelación. Dimensionado según cálculo estructural del seguidor.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Hormigón y cimentación: ~150-250€/m3 en obra. Estimado 2 m3 para base de seguidor 6kW. Total material: 300-500€."
+        },
+        {
+          "concepto": "Mano de obra: excavación, encofrado y hormigonado de cimentación",
+          "descripcion": "Trabajos de preparación de terreno, excavación de zapatas, colocación de encofrado, hormigonado, vibrado y desencofrado de base estructural para soporte motorizado.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 40,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: montaje de estructura motorizada y sistema de accionamiento",
+          "descripcion": "Instalación de estructura metálica sobre cimentación, alineación y nivelación, montaje de motor, reductor, sensores, finales de carrera, cableado de potencia y control. Pruebas de movimiento en vacío.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 65,
+          "total": 1300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: instalación de controlador y cableado de control",
+          "descripcion": "Montaje de centralita de control, conexión de sensores (luz, viento, temperatura si aplica), cableado de control hacia motor, programación de algoritmo de seguimiento, calibración de posición inicial y final.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 65,
+          "total": 780,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado especializado DC y AC para seguidor solar",
+          "descripcion": "Suministro de cable de potencia DC (paneles a controlador), cable de potencia AC (motor), cable de control (sensores a centralita), protecciones (fusibles, magnetotérmicos, diferenciales), conectores estancos y canalización.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cableado y protecciones: 400-800€ según longitud de tendido y secciones requeridas."
+        },
+        {
+          "concepto": "Puesta en marcha, calibración y pruebas de funcionamiento del seguidor",
+          "descripcion": "Pruebas de movimiento motorizado en todos los rangos, calibración de sensores solares, verificación de seguridad (parada de emergencia, límites de movimiento), pruebas de seguimiento en condiciones reales, documentación de puesta en marcha.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, EPI y consumibles",
+          "descripcion": "Tornillería, tuercas, arandelas, grasa, lubricantes, cinta de teflón, bridas, conectores, fusibles, pequeño material de instalación, EPI (casco, arnés, guantes, gafas de seguridad).",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y EPI: 150-300€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 3240,
+        "iva_porcentaje": 21,
+        "iva": 680.4,
+        "total": 3920.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar con fabricante del seguidor solar la potencia máxima soportada (6kW = ~15-18 paneles según potencia unitaria).",
+        "Considerar si el seguimiento es de 1 eje (Este-Oeste, más económico) o 2 ejes (Este-Oeste + inclinación, máxima producción pero mayor coste y mantenimiento).",
+        "Incluir en presupuesto final: cálculo estructural (ingeniero), permisos municipales si es instalación en suelo, póliza de responsabilidad civil.",
+        "El seguidor solar incrementa producción 20-40% respecto a estructura fija, pero requiere mantenimiento periódico (limpieza, lubricación, revisión de sensores).",
+        "Presupuesto de mano de obra (3.240€) es SOLO por instalación. Materiales (estructura, motor, controlador, cableado) requieren presupuesto específico del fabricante/proveedor."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura soporte motorizada para seguimiento solar (tracker) 6kW",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de seguimiento solar no está en catálogo base. Requiere especificación técnica del fabricante (tipo de seguimiento, materiales, carga máxima)."
+        },
+        {
+          "concepto": "Motor y sistema de accionamiento para seguidor solar",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Componente especializado de motorización de seguidor. Precio depende de potencia y tipo de control."
+        },
+        {
+          "concepto": "Controlador de seguimiento solar (tracker controller)",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Centralita electrónica de control de seguimiento. Requiere especificación de algoritmo (astronómico, sensores solares, etc.)."
+        },
+        {
+          "concepto": "Cableado especializado DC y AC para seguidor solar",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Cableado de potencia y control específico para seguidor. Precio depende de longitud de tendido y secciones."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_solar_termico_colectivo_para_edificio",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4237,
+      "tokens_out": 3684
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

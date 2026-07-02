@@ -1,0 +1,116 @@
+{
+  "id": 76,
+  "oficio": "Pintura",
+  "texto": "Lijar y lacar puertas de armario empotrado en blanco satinado, 6 puertas de 210x60",
+  "http_status": 200,
+  "latency_ms": 8188,
+  "raw_response": {
+    "transcript": "Lijar y lacar puertas de armario empotrado en blanco satinado, 6 puertas de 210x60",
+    "quote": {
+      "resumen": {
+        "texto_original": "Lijar y lacar puertas de armario empotrado en blanco satinado, 6 puertas de 210x60",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Lijado y lacado de puertas de madera/tablero — trabajo de acabado superficial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lijado de puertas armario empotrado",
+          "descripcion": "Lijado manual y mecánico de 6 puertas (210x60 cm) con lija 150-220 para preparación de superficie antes de lacado",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lacado blanco satinado puertas armario empotrado",
+          "descripcion": "Aplicación de esmalte acrílico blanco satinado en 2 manos sobre 6 puertas (210x60 cm) con imprimación previa, pincel y rodillo",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 55,
+          "total": 330,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material: Lija, imprimación, esmalte blanco satinado y pequeño material",
+          "descripcion": "Lija 150-220, imprimación madera/tablero, esmalte acrílico blanco satinado (aprox. 3-4 litros), cinta carrocero, disolvente, trapos, etc.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir por instalador según marca y cantidad exacta de esmalte"
+        }
+      ],
+      "calculos": {
+        "subtotal": 600,
+        "iva_porcentaje": 21,
+        "iva": 126,
+        "total": 726
+      },
+      "sugerencias_catalogo": [
+        "Verificar si las puertas requieren masilla de madera por golpes o defectos previos (partida adicional si aplica)",
+        "Confirmar si el lacado incluye protección de marcos/cantos o solo caras principales",
+        "Considerar tiempo de secado entre manos (puede afectar cronograma)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Material: Lija, imprimación, esmalte blanco satinado y pequeño material",
+          "oficio": "pintura",
+          "motivo": "Materiales consumibles — precio pendiente de revisión del instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_armario_empotrado_a_medida",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "pintado_armarios_empotrados_interiores",
+      "tabique_pladur_armario_empotrado_nuevo"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3946,
+      "tokens_out": 1036
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 2,
+    "n_sugeridas": 1,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "id": 335,
+  "oficio": "Fachadas",
+  "texto": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+  "http_status": 200,
+  "latency_ms": 17287,
+  "raw_response": {
+    "transcript": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar marquesina de cristal y aluminio en entrada de edificio de oficinas, 3 metros de vuelo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Marquesina de 3m de vuelo requiere cálculo estructural y permisos municipales",
+          "Vidrio de seguridad templado obligatorio en marquesina por normativa",
+          "Anclaje a estructura existente debe verificarse in situ",
+          "Presupuesto requiere revisión de medidas exactas y tipo de vidrio"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de vidrio templado de seguridad en marquesina"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Estructura y marco de aluminio, anclaje y remates"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación de anclajes en fachada y remates de obra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura de aluminio para marquesina 3m vuelo",
+          "descripcion": "Suministro de estructura de aluminio anodizado (perfiles, ménsulas, soportes) para marquesina de 3 metros de vuelo, incluyendo refuerzos internos y preparación para anclaje a fachada",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas, espesor de perfiles, cálculo de carga y tipo de anclaje. Requiere presupuesto de fabricante de estructuras de aluminio"
+        },
+        {
+          "concepto": "Vidrio templado de seguridad para marquesina",
+          "descripcion": "Suministro de vidrio templado de seguridad (espesor 10mm mínimo), medida según estructura, con marcado CE EN 12150, para cubierta de marquesina",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie de vidrio no especificada. Requiere medidas exactas (ancho x profundidad). Precio varía según espesor (10-12mm) y tamaño de piezas"
+        },
+        {
+          "concepto": "Instalación estructura aluminio marquesina",
+          "descripcion": "Montaje de estructura de aluminio, colocación de ménsulas y soportes, anclaje a fachada existente, nivelación y fijación de todos los elementos estructurales",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación anclajes en fachada",
+          "descripcion": "Apertura de puntos de anclaje en fachada existente, limpieza, preparación de superficies, colocación de tacos químicos o mecánicos según tipo de fachada",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 40,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación vidrio templado en marquesina",
+          "descripcion": "Colocación de vidrio templado en estructura, sellado con silicona neutra de alta resistencia, fijación con herrajes de acero inoxidable, pruebas de estanqueidad",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y remates perimetrales",
+          "descripcion": "Sellado de uniones entre estructura y fachada, remates de aluminio en bordes, aplicación de silicona neutra, acabado de juntas de dilatación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (tacos, tornillería, silicona, etc.)",
+          "descripcion": "Tacos químicos/mecánicos, tornillería de acero inoxidable, silicona neutra, masilla, lijas, disolventes y consumibles de instalación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado entre 150-300€ según cantidad de anclajes y materiales. Instalador debe revisar"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1850,
+        "iva_porcentaje": 21,
+        "iva": 388.5,
+        "total": 2238.5
+      },
+      "sugerencias_catalogo": [
+        "Consultar con fabricante de estructuras de aluminio para presupuesto de estructura personalizada (3m vuelo requiere cálculo de cargas)",
+        "Solicitar presupuesto de vidrio templado a proveedor especializado (incluir medidas exactas y espesor mínimo 10mm)",
+        "Verificar normativa local sobre marquesinas (permisos, cálculo estructural, resistencia a viento/nieve)",
+        "Considerar sistema de drenaje de agua en cubierta de marquesina",
+        "Evaluar necesidad de iluminación LED integrada en estructura"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura de aluminio para marquesina 3m vuelo",
+          "oficio": "carpinteria",
+          "motivo": "Estructura personalizada no disponible en catálogo estándar, requiere cálculo y fabricación específica"
+        },
+        {
+          "concepto": "Vidrio templado de seguridad para marquesina",
+          "oficio": "cristaleria",
+          "motivo": "Medidas y especificaciones no definidas, requiere presupuesto de fabricante de vidrio templado"
+        },
+        {
+          "concepto": "Pequeño material (tacos, tornillería, silicona, etc.)",
+          "oficio": "carpinteria",
+          "motivo": "Consumibles y pequeño material con precio pendiente de revisión según cantidad de anclajes"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_canaleta_o_canalon_de_fachada",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_de_videoportero_o_intercomunicador"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3968,
+      "tokens_out": 2354
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "NO"
+  }
+}

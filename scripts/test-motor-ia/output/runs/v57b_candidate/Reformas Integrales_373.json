@@ -1,0 +1,267 @@
+{
+  "id": 373,
+  "oficio": "Reformas Integrales",
+  "texto": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+  "http_status": 200,
+  "latency_ms": 26057,
+  "raw_response": {
+    "transcript": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reformar chalet de 200 metros cuadrados de forma integral, distribución, acabados y eficiencia energética",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "GRAN OBRA DETECTADA: Reforma integral de chalet completo (200 m²). Se aplica MODO CAPÍTULOS (máximo 4 partidas agrupadas).",
+          "Alcance: distribución + acabados + eficiencia energética = múltiples oficios simultáneos (≥3).",
+          "Todas las partidas requieren revisión: precios orientativos estimados. El instalador debe desglosar y ajustar según proyecto técnico.",
+          "Se recomienda proyecto técnico previo para definir: planos distribución, especificaciones instalaciones, materiales acabados, sistemas eficiencia energética."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral chalet: ≥3 oficios simultáneos (obra civil, instalaciones, acabados, eficiencia energética)."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición selectiva, replanteamiento distribución, muros, tabiquería."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica completa nueva distribución, cuadro, circuitos, iluminación."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Red agua fría/caliente, desagües, sanitarios, grifería."
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Sistema climatización eficiente (bomba calor, radiadores, conductos, termostato)."
+        },
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Paneles solares fotovoltaicos y/o térmicos para eficiencia energética."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, ventanas, armarios, divisiones interiores."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura paredes, techos, acabados decorativos."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado baños, cocina, zonas húmedas."
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Tarima flotante, parquet, laminado en zonas secas."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de demolición."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "descripcion": "Demolición selectiva de tabiquería, replanteamiento distribución, muros no estructurales, preparación de espacios, retirada de escombros, pequeño material y herramientas.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 12000,
+          "total": 12000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo estimado para chalet 200 m². Requiere proyecto técnico y medición en obra. Incluye: demolición selectiva, replanteamiento, gestión residuos, pequeño material. Rango típico: 10000-15000€ según complejidad distribución."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización)",
+          "descripcion": "Instalación eléctrica completa (cuadro, circuitos, iluminación, enchufes, interruptores), red agua fría/caliente (tuberías PEX/cobre), desagües, sanitarios, grifería, sistema climatización (bomba calor inverter, radiadores/fan-coils, termostato inteligente, conductos si aplica), pequeño material.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 18000,
+          "total": 18000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo estimado para chalet 200 m². Incluye: electricidad (cuadro, circuitos, iluminación LED, enchufes/interruptores), fontanería (red agua, desagües, sanitarios, grifería monomando), climatización (bomba calor, radiadores, termostato). Rango típico: 15000-22000€ según especificaciones y número de puntos."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (pintura, suelos, carpintería, alicatados)",
+          "descripcion": "Pintura paredes y techos (2 manos), alicatado baños y cocina (baldosa antideslizante, mortero flexible, lechada), suelos tarima flotante/parquet en zonas secas, puertas interiores (madera/PVC), ventanas (aluminio/PVC con doble acristalamiento), armarios empotrados, rodapiés, pequeño material.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 16000,
+          "total": 16000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo estimado para chalet 200 m². Incluye: pintura (paredes, techos), alicatado baños/cocina (~30 m²), suelos tarima (~150 m²), puertas interiores (~8 ud), ventanas (~10 ud), armarios, rodapiés. Rango típico: 14000-20000€ según calidad materiales y acabados."
+        },
+        {
+          "concepto": "CAP.4 – Eficiencia energética y otros",
+          "descripcion": "Paneles solares fotovoltaicos (3-5 kW) con inversor e instalación, aislamiento térmico reforzado en cubierta/fachada si aplica, ventilación mecánica controlada (VMC), domótica básica (termostato inteligente, control iluminación), permisos y licencias de obra, coordinación técnica, pequeño material.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 14000,
+          "total": 14000,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio orientativo estimado para chalet 200 m². Incluye: paneles solares fotovoltaicos (3-5 kW, ~8000-12000€), aislamiento térmico reforzado si necesario, VMC, domótica básica, permisos/licencias, coordinación. Rango típico: 12000-18000€. Nota: Subvenciones PNIEC/CCAA pueden reducir coste final."
+        }
+      ],
+      "calculos": {
+        "subtotal": 60000,
+        "iva_porcentaje": 21,
+        "iva": 12600,
+        "total": 72600
+      },
+      "sugerencias_catalogo": [
+        "Solicitar proyecto técnico completo antes de iniciar obra: planos distribución, especificaciones instalaciones, detalles constructivos, cálculo energético.",
+        "Coordinar con técnico competente para licencia de obra y cumplimiento CTE (Código Técnico de la Edificación).",
+        "Considerar auditoría energética previa para optimizar sistema climatización y paneles solares.",
+        "Desglosar cada capítulo en partidas técnicas específicas una vez confirmado proyecto (ej: Cap.1 → demolición, replanteamiento, gestión residuos; Cap.2 → electricista, fontanero, climatizador; Cap.3 → pintor, alicatador, carpintero, solador; Cap.4 → instalador solar, domótica).",
+        "Presupuesto total estimado: 60000-75000€ (sin IVA). Rango final con IVA: 72600-90750€ según especificaciones finales y materiales seleccionados.",
+        "Posibles subvenciones: PNIEC (Paneles solares), CCAA (Rehabilitación energética), IMSERSO (si aplica accesibilidad)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "CAP.1 – Demolición y obra civil",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de gran obra. Requiere desglose técnico en proyecto."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de gran obra. Requiere desglose técnico en proyecto."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (pintura, suelos, carpintería, alicatados)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de gran obra. Requiere desglose técnico en proyecto."
+        },
+        {
+          "concepto": "CAP.4 – Eficiencia energética y otros",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada de gran obra. Requiere desglose técnico en proyecto."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "alicatado_y_solado_de_bano_completo",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "reforma_integral_atic_o_penthouse"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4201,
+      "tokens_out": 3971
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

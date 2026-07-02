@@ -1,0 +1,165 @@
+{
+  "id": 89,
+  "oficio": "Albañilería",
+  "texto": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+  "http_status": 200,
+  "latency_ms": 18637,
+  "raw_response": {
+    "transcript": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Derribar pared de carga con colocación de viga de acero, proyecto técnico incluido",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA ESTRUCTURAL CRÍTICA: Demolición de muro de carga requiere proyecto técnico obligatorio (incluido en presupuesto)",
+          "Apuntalamiento y apeos obligatorios antes de demolición",
+          "Viga de acero debe ser dimensionada por cálculo estructural",
+          "Requiere supervisión técnica durante ejecución",
+          "Posible necesidad de licencia municipal/visado colegio profesional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición de muro de carga, apuntalamiento, recibido de viga"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Proyecto técnico de demolición y cálculo viga",
+          "descripcion": "Proyecto técnico obligatorio para demolición de muro de carga, cálculo estructural de viga de acero, planos de apuntalamiento y detalles constructivos",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de proyecto técnico a definir por profesional (típicamente 800-2000€ según complejidad)"
+        },
+        {
+          "concepto": "Apuntalamiento y apeos de forjado superior",
+          "descripcion": "Colocación de puntuales metálicos, sopandas, durmientes y tablones de base para apeo de estructura durante demolición. Verificación de puntos de apoyo",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según proyecto técnico (típicamente 600-1500€)"
+        },
+        {
+          "concepto": "Suministro viga de acero",
+          "descripcion": "Viga de acero (IPE, HEB u otro perfil) dimensionada según cálculo estructural, incluyendo transporte a obra",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo y longitud de viga (típicamente 800-3000€)"
+        },
+        {
+          "concepto": "Demolición gradual de muro de carga",
+          "descripcion": "Demolición manual y controlada del muro de carga, por fases, con extracción de escombros y protección de zonas contiguas",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según volumen y accesibilidad (típicamente 1000-3000€)"
+        },
+        {
+          "concepto": "Colocación, anclaje y recibido de viga de acero",
+          "descripcion": "Posicionamiento de viga, placas de asiento, anclajes a pilares/muros existentes, recibido con mortero y acabado de encuentros",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según longitud y complejidad (típicamente 800-2000€)"
+        },
+        {
+          "concepto": "Retirada de escombros y pequeño material",
+          "descripcion": "Contenedor para escombros de demolición, herramientas de corte/extracción, protección de zonas contiguas, limpieza final",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según volumen escombros (típicamente 400-1000€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar con ingeniero técnico o arquitecto para validar proyecto y cálculos estructurales",
+        "Solicitar licencia municipal antes de iniciar obra",
+        "Considerar visado de colegio profesional si es obligatorio en la comunidad",
+        "Coordinar con vecinos por posibles molestias durante demolición"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico de demolición y cálculo viga",
+          "oficio": "albanileria",
+          "motivo": "Servicio profesional de ingeniería/arquitectura, no en catálogo estándar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "demolicion_muro_de_carga_con_viga",
+      "recalce_y_apeo_de_estructura_para_reforma",
+      "desmontaje_tabique_pladur_existente",
+      "demolicion_tabique_interior",
+      "pintado_de_medianeras_o_paredes_ciegas"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3721,
+      "tokens_out": 2058
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

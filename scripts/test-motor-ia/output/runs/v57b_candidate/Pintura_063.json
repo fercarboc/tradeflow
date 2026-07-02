@@ -1,0 +1,209 @@
+{
+  "id": 63,
+  "oficio": "Pintura",
+  "texto": "Poner gotelé en el techo del salón y la cocina, reparar manchas de humedad antes de pintar",
+  "http_status": 200,
+  "latency_ms": 21606,
+  "raw_response": {
+    "transcript": "Poner gotelé en el techo del salón y la cocina, reparar manchas de humedad antes de pintar",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner gotelé en el techo del salón y la cocina, reparar manchas de humedad antes de pintar",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Se detectan manchas de humedad. Antes de aplicar gotelé, DEBE identificarse y repararse la causa (gotera, condensación, infiltración). Pintar sobre humedad activa causará desprendimiento.",
+          "Se asume que las manchas serán reparadas en pladur/escayola si hay daño estructural, o solo limpieza+tratamiento si es superficial.",
+          "Superficie total no especificada. El instalador debe medir techos del salón y cocina para cuantificar m²."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Reparación de humedad en pladur/escayola (manchas, posible daño estructural)"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Aplicación de pintura gotelé (texturizada) en techos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y diagnóstico de manchas de humedad",
+          "descripcion": "Inspección visual de manchas de humedad en techos de salón y cocina. Identificación de origen (gotera, condensación, infiltración). Evaluación del daño en pladur/escayola.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y desinfección de manchas de humedad/moho",
+          "descripcion": "Limpieza con lejía diluida y desinfectante de zonas afectadas por humedad y moho en techos. Preparación de superficie para reparación.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² afectados no especificada. Instalador debe medir zonas con manchas."
+        },
+        {
+          "concepto": "Reparación de pladur dañado por humedad (reemplazo de placas/parches)",
+          "descripcion": "Sustitución de placas de yeso laminado o aplicación de parches en zonas deterioradas por humedad. Incluye tornillería, cinta de juntas y pasta de juntas.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales (placas, tornillería, pasta) pendiente de revisión. Cantidad de m² a reparar no especificada."
+        },
+        {
+          "concepto": "Mano de obra: Reparación de pladur (colocación, lijado, masillado)",
+          "descripcion": "Instalación de placas de yeso, aplicación de cinta y pasta de juntas, lijado y preparación de superficie para pintura.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² a reparar no especificada. Instalador debe medir."
+        },
+        {
+          "concepto": "Imprimación fijadora antimoho",
+          "descripcion": "Aplicación de imprimación fijadora con propiedades antimoho en zonas reparadas, antes de pintura final.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de litros necesarios depende de m² totales. Precio de material pendiente."
+        },
+        {
+          "concepto": "Pintura gotelé (texturizada) en techos - salón y cocina",
+          "descripcion": "Aplicación de pintura gotelé (acabado texturizado) en techos de salón y cocina. Incluye dos manos. Rendimiento aproximado: 10-12 m²/litro.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de litros depende de m² totales de techos. Precio de pintura gotelé pendiente de revisión."
+        },
+        {
+          "concepto": "Mano de obra: Aplicación de pintura gotelé en techos",
+          "descripcion": "Preparación de superficie, aplicación de dos manos de pintura gotelé en techos de salón y cocina. Incluye protección de mobiliario y suelos.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² de techos no especificada. Instalador debe medir salón y cocina."
+        },
+        {
+          "concepto": "Pequeño material y protecciones (cinta carrocero, plástico, mascarilla, etc.)",
+          "descripcion": "Cinta carrocero, plástico de protección, mascarilla respiratoria, bandeja de pintura, rodillo, extensión, pequeño material consumible.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material pendiente de revisión."
+        }
+      ],
+      "calculos": {
+        "subtotal": 35,
+        "iva_porcentaje": 21,
+        "iva": 7.35,
+        "total": 42.35
+      },
+      "sugerencias_catalogo": [
+        "OBLIGATORIO antes de proceder: Realizar diagnóstico de causa de humedad (gotera en cubierta, condensación, infiltración lateral). Si hay gotera activa, debe repararse PRIMERO.",
+        "Si las manchas son solo superficiales (sin daño en pladur): simplificar a limpieza + imprimación + pintura antimoho.",
+        "Si hay daño estructural en pladur: incluir sustitución de placas como se ha detallado.",
+        "Gotelé es pintura texturizada: requiere aplicación con pistola o rodillo especial. Verificar disponibilidad de equipamiento.",
+        "Considerar pintura antimoho/fungicida en lugar de gotelé estándar si la humedad es recurrente.",
+        "Medir EXACTAMENTE m² de techos de salón y cocina para cuantificar todas las partidas."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Limpieza y desinfección de manchas de humedad/moho",
+          "oficio": "pladur_escayola",
+          "motivo": "Partida específica para tratamiento previo de humedad antes de reparación."
+        },
+        {
+          "concepto": "Imprimación fijadora antimoho",
+          "oficio": "pintura",
+          "motivo": "Partida específica para sellado de zonas reparadas con propiedades antimoho."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_plastica_techo_interior",
+      "reparacion_gotera_o_humedad_en_pladur",
+      "pintado_techo_con_pintura_especial_humedad_o_moho",
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "correccion_de_puentes_termicos_en_cubierta"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3690,
+      "tokens_out": 2888
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "NO"
+  }
+}

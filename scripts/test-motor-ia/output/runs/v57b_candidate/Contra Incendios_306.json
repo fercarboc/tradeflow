@@ -1,0 +1,280 @@
+{
+  "id": 306,
+  "oficio": "Contra Incendios",
+  "texto": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+  "http_status": 200,
+  "latency_ms": 25614,
+  "raw_response": {
+    "transcript": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Señalización de emergencia y evacuación en edificio de oficinas de 5 plantas, luces de emergencia",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye señalización fotoluminiscente + bloques autónomos LED. Requiere verificación de planos y normativa RD 393/2007 para plan de autoprotección técnico.",
+          "Cantidad de bloques de emergencia estimada en 25 ud (5 plantas × 5 bloques/planta en pasillos y escaleras). Instalador debe confirmar según plano de evacuación."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Señalización de emergencia y evacuación, bloques autónomos LED, plan de autoprotección. REGLA CRÍTICA: sistema de contraincendios aunque incluya componentes eléctricos."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito eléctrico exclusivo para bloques de emergencia, cableado de conexión y pequeño material eléctrico."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Plano de evacuación normalizado por planta",
+          "descripcion": "Elaboración e impresión de planos de evacuación en formato A3 normalizado (UNE 23034) con indicación de recorridos, salidas de emergencia, ubicación de equipos de protección. 5 plantas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de elaboración de planos según complejidad del edificio. Instalador define tarifa."
+        },
+        {
+          "concepto": "Señalización fotoluminiscente de recorridos y salidas",
+          "descripcion": "Señalización normalizada fotoluminiscente (UNE 23035) en recorridos de evacuación, puertas de salida, escaleras. Incluye adhesivos, placas y pequeño material. 5 plantas, aproximadamente 40-50 señales.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de señales fotoluminiscentes según tipo (flecha, salida, prohibido, etc.). Instalador revisa catálogo de proveedores."
+        },
+        {
+          "concepto": "Señalización ubicación equipos de protección (extintores, BIE, pulsadores)",
+          "descripcion": "Señalización normalizada fotoluminiscente para ubicación de extintores, bocas de incendio equipadas (BIE) y pulsadores de alarma. Incluye placas y adhesivos. Estimado 15-20 señales.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario según tipo de señal y material. Instalador confirma cantidad según inventario de equipos."
+        },
+        {
+          "concepto": "Bloques autónomos de emergencia LED",
+          "descripcion": "Instalación de bloques autónomos de emergencia LED con autonomía mínima 1 hora. Ubicación: pasillos (1 cada 15m), escaleras, salidas. Estimado 25 unidades para 5 plantas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de bloque autónomo LED según marca y especificaciones. Instalador revisa catálogo."
+        },
+        {
+          "concepto": "Instalación de bloques autónomos de emergencia",
+          "descripcion": "Montaje, fijación y conexión de 25 bloques autónomos LED en pasillos, escaleras y salidas. Incluye taladrado, anclajes y pequeño material.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 55,
+          "total": 440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado de conexión bloques emergencia",
+          "descripcion": "Cable de conexión (2×1.5mm² mínimo) desde cuadro eléctrico a bloques autónomos. Incluye canalización, tubo corrugado y pequeño material. Aproximadamente 150-200 ml.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 175,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de cable y canalización según especificaciones técnicas. Instalador revisa presupuesto de materiales."
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo para emergencia",
+          "descripcion": "Instalación de circuito eléctrico independiente desde cuadro general a bloques de emergencia. Incluye interruptor diferencial, magnetotérmico 16A, pequeño material y conexiones.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de componentes eléctricos (diferencial, magnetotérmico, pequeño material). Instalador revisa catálogo."
+        },
+        {
+          "concepto": "Instalación circuito eléctrico emergencia",
+          "descripcion": "Montaje de circuito eléctrico exclusivo: conexión en cuadro, cableado, protecciones y pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación señalización fotoluminiscente",
+          "descripcion": "Montaje de señales fotoluminiscentes en recorridos, salidas y ubicación de equipos. Incluye limpieza de superficies, adhesión y fijación mecánica. 63 señales totales.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 55,
+          "total": 330,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instrucciones de actuación en caso de incendio",
+          "descripcion": "Elaboración e impresión de instrucciones normalizadas de actuación en caso de incendio. Incluye procedimientos de evacuación, puntos de concentración, responsables. 5 copias (una por planta + recepción).",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de elaboración de documentación según complejidad. Instalador define tarifa."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y certificación",
+          "descripcion": "Pruebas de funcionamiento de bloques autónomos (carga, autonomía, iluminación), verificación de señalización y certificación de conformidad con normativa RD 393/2007 y UNE 23034/23035.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 55,
+          "total": 165,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1135,
+        "iva_porcentaje": 21,
+        "iva": 238.35,
+        "total": 1373.35
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: bloques autónomos LED (marca, modelo, precio unitario)",
+        "Verificar en catálogo: señales fotoluminiscentes normalizadas (tipos, precios)",
+        "Verificar en catálogo: cable de emergencia 2×1.5mm² y canalización",
+        "Verificar en catálogo: componentes eléctricos (diferencial, magnetotérmico 16A)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plano de evacuación normalizado por planta",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de elaboración de planos según RD 393/2007. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Señalización fotoluminiscente de recorridos y salidas",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Material normalizado UNE 23035. Precio unitario pendiente de revisión según proveedor."
+        },
+        {
+          "concepto": "Señalización ubicación equipos de protección",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Material normalizado. Precio unitario pendiente de revisión."
+        },
+        {
+          "concepto": "Bloques autónomos de emergencia LED",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Material de seguridad. Precio unitario pendiente de revisión según marca y especificaciones."
+        },
+        {
+          "concepto": "Cableado de conexión bloques emergencia",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material eléctrico. Precio unitario (€/ml) pendiente de revisión."
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo para emergencia",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes eléctricos (diferencial, magnetotérmico, pequeño material). Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Instrucciones de actuación en caso de incendio",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de documentación. Precio pendiente de revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_VRF_con_recuperacion_de_calor",
+      "instalacion_alumbrado_emergencia",
+      "instalacion_plan_de_autoproteccion_y_señalizacion",
+      "instalacion_vrv_o_vrf_sistema_multiple",
+      "reforma_integral_oficina_o_espacio_de_trabajo"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3970,
+      "tokens_out": 3875
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "id": 271,
+  "oficio": "Cristalería",
+  "texto": "Poner vidrio antirrobo en puerta de entrada, vidrio laminado de seguridad con butiral",
+  "http_status": 200,
+  "latency_ms": 11705,
+  "raw_response": {
+    "transcript": "Poner vidrio antirrobo en puerta de entrada, vidrio laminado de seguridad con butiral",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner vidrio antirrobo en puerta de entrada, vidrio laminado de seguridad con butiral",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio laminado de seguridad requiere medidas exactas de la puerta antes de fabricación",
+          "Plazo de fabricación típico: 5-10 días",
+          "Marcado CE obligatorio en vidrio de seguridad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio laminado de seguridad en puerta de entrada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio laminado de seguridad con butiral",
+          "descripcion": "Suministro de vidrio laminado de seguridad (3+3 o superior según medida) con lámina de butiral (PVB) para puerta de entrada. Incluye marcado CE y certificación EN 11012. Medidas a tomar en obra antes de fabricación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas de la puerta, espesor y tipo de laminado (3+3, 3+4, etc.)"
+        },
+        {
+          "concepto": "Silicona estructural o herraje de fijación",
+          "descripcion": "Silicona estructural neutra de alta resistencia o herraje de fijación según tipo de instalación (marco o frameless). Pequeño material de sellado.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo de fijación y cantidad de silicona/herraje necesario"
+        },
+        {
+          "concepto": "Instalación vidrio laminado de seguridad en puerta",
+          "descripcion": "Desmontaje de vidrio anterior (si existe), preparación de marco, colocación de vidrio laminado con silicona estructural o herraje, ajuste, sellado y limpieza. Incluye pruebas de estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Masilla, junquillo, tornillería, cinta de espuma, trapos, disolvente y otros consumibles necesarios para la instalación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado según cantidad de material consumible"
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "Confirmar medidas exactas de la puerta (ancho x alto) antes de solicitar fabricación del vidrio",
+        "Especificar espesor de laminado: 3+3 mm (básico), 3+4 mm (mayor resistencia) o superior según nivel de seguridad requerido",
+        "Verificar si la puerta actual soporta el peso del vidrio laminado (más pesado que vidrio simple)",
+        "Solicitar certificado CE y marcado EN 11012 al fabricante",
+        "Considerar plazo de fabricación (5-10 días) en la planificación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio laminado de seguridad con butiral",
+          "oficio": "cristaleria",
+          "motivo": "Material específico de seguridad, precio variable según medidas y espesor"
+        },
+        {
+          "concepto": "Silicona estructural o herraje de fijación",
+          "oficio": "cristaleria",
+          "motivo": "Accesorio de fijación, precio variable según tipo de instalación"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "cristaleria",
+          "motivo": "Consumibles de instalación, precio a determinar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_vidrio_en_puerta_interior",
+      "instalacion_cerrojo_adicional",
+      "instalacion_reja_fija_en_ventana_o_puerta",
+      "instalacion_vidrio_laminado_de_seguridad"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3822,
+      "tokens_out": 1509
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 1,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

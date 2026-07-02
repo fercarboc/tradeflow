@@ -1,0 +1,263 @@
+{
+  "id": 298,
+  "oficio": "Impermeabilización",
+  "texto": "Renovar impermeabilización de cubierta plana transitada con sistema de Büttner o similar",
+  "http_status": 200,
+  "latency_ms": 25358,
+  "raw_response": {
+    "transcript": "Renovar impermeabilización de cubierta plana transitada con sistema de Büttner o similar",
+    "quote": {
+      "resumen": {
+        "texto_original": "Renovar impermeabilización de cubierta plana transitada con sistema de Büttner o similar",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema Büttner es cubierta vegetal/drenante modular de alta gama. Requiere revisión de especificaciones técnicas exactas del cliente.",
+          "Cubierta transitada implica carga estructural y acabado de calidad. Presupuesto orientativo, requiere medición en obra."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Renovación de impermeabilización de cubierta plana. Oficio especializado en sistemas de estanqueidad."
+        },
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cubierta plana transitada requiere coordinación con trabajos de cubierta (drenaje, sumideros, acabados)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de impermeabilización antigua",
+          "descripcion": "Desmontaje completo de lámina impermeabilizante existente, capa de protección (grava/geotextil), y elementos asociados. Retirada selectiva de residuos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir en obra. Tarifa estimada según complejidad de desmontaje."
+        },
+        {
+          "concepto": "Limpieza y regularización de base",
+          "descripcion": "Limpieza de polvo, restos de adhesivo y regularización de la superficie base. Reparación de grietas o irregularidades menores con mortero de regularización.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir. Incluye pequeño material (cepillos, esponjas)."
+        },
+        {
+          "concepto": "Imprimación bituminosa previa",
+          "descripcion": "Aplicación de imprimación bituminosa sobre base limpia para mejorar adherencia de lámina impermeabilizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Cantidad según m2 de cubierta."
+        },
+        {
+          "concepto": "Suministro e instalación de lámina impermeabilizante Büttner o similar",
+          "descripcion": "Suministro e instalación de sistema modular de drenaje y cubierta transitada tipo Büttner (o equivalente: Optigreen, Bauder, etc.). Incluye lámina drenante, geotextil de filtración, elementos de fijación y sellado de juntas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema Büttner es de alta gama (60-140€/m2 según especificación). Requiere cotización del fabricante y especificación exacta del cliente."
+        },
+        {
+          "concepto": "Instalación de lámina impermeabilizante Büttner o similar",
+          "descripcion": "Mano de obra de instalación del sistema modular: colocación de lámina drenante, geotextil, fijación mecánica, sellado de juntas y solapes, refuerzo en encuentros y sumideros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir. Tarifa incluye complejidad de sistema modular y acabado transitado."
+        },
+        {
+          "concepto": "Refuerzo impermeabilización en encuentros y sumideros",
+          "descripcion": "Refuerzo con lámina adicional y sellado especial en todos los encuentros (paramentos, sumideros, desagües, elementos emergentes). Incluye cinta de sellado y adhesivo específico.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar. Cantidad según perímetro de encuentros y número de sumideros."
+        },
+        {
+          "concepto": "Mano de obra refuerzo encuentros y sumideros",
+          "descripcion": "Instalación de refuerzos en encuentros, sumideros y elementos emergentes. Sellado con cinta y adhesivo específico.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 18,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml a definir según perímetro de encuentros."
+        },
+        {
+          "concepto": "Revisión y reparación de sumideros y desagües",
+          "descripcion": "Inspección de sumideros existentes, limpieza de bajantes, reparación de conexiones y sellado perimetral. Sustitución de rejillas si es necesario.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 120,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de sumideros a definir. Tarifa por unidad."
+        },
+        {
+          "concepto": "Capa de protección y acabado transitado",
+          "descripcion": "Colocación de capa de protección final: geotextil pesado, grava de drenaje o sistema de protección modular según especificación Büttner. Garantiza durabilidad y tránsito seguro.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a presupuestar según especificación final (grava, geotextil o sistema modular)."
+        },
+        {
+          "concepto": "Mano de obra capa de protección y acabado",
+          "descripcion": "Instalación de capa de protección final: extendido de grava, colocación de geotextil o elementos modulares de acabado.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir."
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y drenaje",
+          "descripcion": "Prueba de estanqueidad con agua (anegación parcial) para verificar ausencia de filtraciones. Comprobación de drenaje y evacuación correcta hacia sumideros.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza final",
+          "descripcion": "Retirada selectiva de residuos de demolición, embalajes de materiales nuevos. Limpieza general de la cubierta y zonas adyacentes.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste a presupuestar según volumen de residuos y distancia a vertedero."
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Sistema Büttner es cubierta vegetal/drenante modular de alta gama. Especificar con cliente: ¿Cubierta transitada con acabado vegetal (Büttner Green Roof) o drenante modular (Büttner Drain)?",
+        "Presupuesto orientativo. REQUIERE MEDICIÓN EN OBRA de: superficie total de cubierta (m2), perímetro de encuentros (ml), número y tipo de sumideros, estado de base existente.",
+        "Rango de precios estimado para sistema Büttner completo: 80-140€/m2 (material + mano de obra), según especificación y complejidad.",
+        "Considerar si hay elementos emergentes (chimeneas, antenas, lucernarios) que requieran refuerzos adicionales.",
+        "Verificar acceso a cubierta y disponibilidad de grúa si es necesario para suministro de materiales."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de lámina impermeabilizante Büttner o similar",
+          "oficio": "impermeabilizacion",
+          "motivo": "Sistema modular de cubierta transitada. Requiere cotización específica del fabricante."
+        },
+        {
+          "concepto": "Capa de protección y acabado transitado",
+          "oficio": "impermeabilizacion",
+          "motivo": "Acabado específico para cubierta transitada según sistema Büttner."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_drenaje_cubierta_plana",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4068,
+      "tokens_out": 3680
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 7,
+    "n_sugeridas": 5,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

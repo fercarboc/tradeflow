@@ -1,0 +1,440 @@
+{
+  "id": 377,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+  "http_status": 200,
+  "latency_ms": 28523,
+  "raw_response": {
+    "transcript": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de piso de alquiler para revalorizar, suelo laminado, pintura, cocina y baño modernizados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de vivienda para alquiler: requiere revisión de precios de materiales (cocina y baño modernizados)",
+          "Suelo laminado: cantidad en m² no especificada, se asume presupuesto estimado",
+          "Cocina y baño modernizados: requiere desglose de actuaciones específicas (muebles, electrodomésticos, alicatado, etc.)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma integral de piso: múltiples oficios simultáneos (pintura, suelos, cocina, baño)"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura general de vivienda"
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Instalación suelo laminado"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 30,
+            "max": 35
+          },
+          "motivo": "Alicatado baño y cocina"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación grifería y fontanería baño y cocina"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Revisión e instalación eléctrica, iluminación cocina y baño"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Muebles cocina y baño, puertas si aplica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Pintura general vivienda",
+          "descripcion": "Pintura de paredes y techos en toda la vivienda (preparación, imprimación y acabado)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 6,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 estimada, confirmar superficie real de vivienda"
+        },
+        {
+          "concepto": "Suministro pintura",
+          "descripcion": "Pintura plástica interior, imprimación y acabado (150 m2)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de revisión instalador"
+        },
+        {
+          "concepto": "Instalación suelo laminado",
+          "descripcion": "Colocación suelo laminado flotante con base aislante (zonas comunes y dormitorios)",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 estimada, confirmar superficie real"
+        },
+        {
+          "concepto": "Suministro suelo laminado",
+          "descripcion": "Suelo laminado AC4 resistente, base aislante, perfiles de transición (80 m2)",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de revisión instalador"
+        },
+        {
+          "concepto": "Alicatado baño y cocina",
+          "descripcion": "Alicatado paredes baño y cocina con baldosa cerámica/porcelánico, mortero cola C2 flexible, lechada epoxi",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 30,
+          "total": 1050,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 estimada, confirmar superficie real de baño y cocina"
+        },
+        {
+          "concepto": "Suministro baldosa y materiales alicatado",
+          "descripcion": "Baldosa cerámica/porcelánico, mortero cola C2 flexible, lechada epoxi, perfiles aluminio, silicona (35 m2)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de revisión instalador"
+        },
+        {
+          "concepto": "Solado baño y cocina",
+          "descripcion": "Colocación baldosa suelo baño y cocina con mortero cola C2 flexible y lechada epoxi",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 30,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 estimada, confirmar superficie real"
+        },
+        {
+          "concepto": "Suministro baldosa suelo baño y cocina",
+          "descripcion": "Baldosa suelo cerámica/porcelánico antideslizante, mortero cola C2 flexible, lechada epoxi (15 m2)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales pendiente de revisión instalador"
+        },
+        {
+          "concepto": "Muebles y electrodomésticos cocina",
+          "descripcion": "Muebles cocina modernizados (base y colgantes), encimera, fregadero, grifo, electrodomésticos básicos (placa, horno, frigorífico)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cocina modernizada pendiente de revisión instalador (rango típico 3000-8000€)"
+        },
+        {
+          "concepto": "Instalación cocina",
+          "descripcion": "Montaje muebles cocina, encimera, fregadero, grifo y electrodomésticos",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Muebles y accesorios baño",
+          "descripcion": "Muebles baño modernizados (mueble bajo lavabo, espejo, toallero), grifo, accesorios",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de muebles baño pendiente de revisión instalador (rango típico 800-2500€)"
+        },
+        {
+          "concepto": "Instalación muebles baño",
+          "descripcion": "Montaje mueble lavabo, espejo, toallero y accesorios baño",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fontanería baño y cocina",
+          "descripcion": "Instalación grifería baño (lavabo, ducha/bañera), cocina (fregadero), tuberías de conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro grifería y accesorios fontanería",
+          "descripcion": "Grifo lavabo baño, grifo ducha/bañera, grifo cocina, tuberías, válvulas, accesorios",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de grifería pendiente de revisión instalador (rango típico 400-1200€)"
+        },
+        {
+          "concepto": "Electricidad e iluminación",
+          "descripcion": "Revisión instalación eléctrica, nuevos puntos de luz cocina y baño, enchufes, interruptores",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro material eléctrico",
+          "descripcion": "Luminarias LED cocina y baño, interruptores, enchufes, cable, tuberías, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material eléctrico pendiente de revisión instalador (rango típico 300-800€)"
+        },
+        {
+          "concepto": "Limpieza profunda final",
+          "descripcion": "Limpieza profunda de toda la vivienda tras reforma",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 20,
+          "total": 20,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillos, tacos, adhesivos, cintas, masillas, lijas, brochas, rodillos, protecciones",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material pendiente de revisión instalador (rango típico 200-500€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 5360,
+        "iva_porcentaje": 21,
+        "iva": 1125.6,
+        "total": 6485.6
+      },
+      "sugerencias_catalogo": [
+        "Confirmar superficie total de vivienda (m2) para ajustar partidas de pintura y suelo laminado",
+        "Especificar tipo de cocina: modular, lineal, en L, en U (afecta a precio y tiempo instalación)",
+        "Especificar si baño incluye bañera o ducha (afecta a fontanería y alicatado)",
+        "Considerar si hay que cambiar puertas interiores (carpintería adicional)",
+        "Verificar si hay que hacer demolición/desmontaje de cocina y baño antiguos (partida adicional)",
+        "Considerar si se incluye cambio de sanitarios (inodoro, lavabo, bañera/ducha) o solo grifería",
+        "Presupuesto estimado MANO DE OBRA: 5.360€ | MATERIALES: pendiente revisión (estimado 8.000-15.000€ según calidad) | TOTAL ESTIMADO: 13.000-20.000€"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro pintura",
+          "oficio": "pintura",
+          "motivo": "Material de pintura no especificado en catálogo, requiere precio instalador"
+        },
+        {
+          "concepto": "Suministro suelo laminado",
+          "oficio": "suelos_tarimas",
+          "motivo": "Material suelo laminado no especificado en catálogo, requiere precio instalador"
+        },
+        {
+          "concepto": "Suministro baldosa y materiales alicatado",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material baldosa y alicatado no especificado en catálogo, requiere precio instalador"
+        },
+        {
+          "concepto": "Suministro baldosa suelo baño y cocina",
+          "oficio": "suelos_alicatados",
+          "motivo": "Material baldosa suelo no especificado en catálogo, requiere precio instalador"
+        },
+        {
+          "concepto": "Muebles y electrodomésticos cocina",
+          "oficio": "carpinteria",
+          "motivo": "Cocina modernizada no especificada en catálogo, requiere precio instalador"
+        },
+        {
+          "concepto": "Muebles y accesorios baño",
+          "oficio": "carpinteria",
+          "motivo": "Muebles baño no especificados en catálogo, requiere precio instalador"
+        },
+        {
+          "concepto": "Suministro grifería y accesorios fontanería",
+          "oficio": "fontaneria",
+          "motivo": "Grifería no especificada en catálogo, requiere precio instalador"
+        },
+        {
+          "concepto": "Suministro material eléctrico",
+          "oficio": "electricidad",
+          "motivo": "Material eléctrico no especificado en catálogo, requiere precio instalador"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "reforma_integral",
+          "motivo": "Pequeño material no especificado en catálogo, requiere precio instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_vivienda_para_arrendar_o_vender",
+      "reforma_integral_piso_turistico_o_apartamento",
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "instalacion_de_suelo_metalico_tramex_o_rejilla",
+      "alicatado_y_solado_completo_cocina"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4077,
+      "tokens_out": 5044
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 18,
+    "n_catalogo": 9,
+    "n_sugeridas": 9,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

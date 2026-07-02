@@ -1,0 +1,270 @@
+{
+  "id": 110,
+  "oficio": "Climatización",
+  "texto": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+  "http_status": 200,
+  "latency_ms": 21593,
+  "raw_response": {
+    "transcript": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sistema de ventilación para cocina de restaurante con extractor industrial y conducto al exterior",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye obra civil (perforación/paso conducto). Revisar accesibilidad a fachada.",
+          "Extractor industrial requiere conexión eléctrica trifásica si potencia > 3 kW. Confirmar disponibilidad.",
+          "Conducto debe cumplir normativa de seguridad contra incendios (clase F30 mínimo en cocinas)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de extractor industrial y sistema de ventilación para cocina"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión eléctrica del extractor industrial, circuito dedicado y protecciones"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil: perforación de fachada, paso de conducto, remates y sellados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro extractor industrial para cocina",
+          "descripcion": "Extractor centrífugo industrial para cocina de restaurante, caudal 2000-4000 m³/h, motor trifásico, aislamiento acústico, filtros desmontables",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipo extractor industrial a confirmar por instalador según marca, caudal y especificaciones técnicas"
+        },
+        {
+          "concepto": "Instalación extractor industrial",
+          "descripcion": "Montaje del extractor en cubierta o pared, fijación estructural, conexión a conducto de salida, pruebas de funcionamiento y equilibrado",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro conducto ventilación clase F30",
+          "descripcion": "Conducto de chapa galvanizada o aluminio, aislado acústicamente, clase F30 (resistencia fuego), diámetro 200-400 mm según caudal, incluyendo codos, derivaciones y bridas",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud del conducto y diámetro a confirmar. Precio por metro lineal según especificaciones"
+        },
+        {
+          "concepto": "Instalación conducto ventilación",
+          "descripcion": "Montaje de conducto desde extractor hasta salida exterior, fijación con abrazaderas, sellado de juntas, instalación de rejilla de salida y compuerta cortafuego",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Circuito eléctrico dedicado extractor",
+          "descripcion": "Instalación de circuito eléctrico trifásico (si potencia > 3 kW) o monofásico, desde cuadro general hasta extractor, con protecciones (magnetotérmico, diferencial), cableado 4x6 mm² o superior, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos (cable, protecciones, conectores) a confirmar según longitud y sección"
+        },
+        {
+          "concepto": "Instalación conexión eléctrica extractor",
+          "descripcion": "Tendido de cable desde cuadro eléctrico hasta extractor, instalación de protecciones (magnetotérmico, diferencial), conexión del motor, pruebas de funcionamiento y seguridad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Perforación y paso de conducto en fachada",
+          "descripcion": "Perforación de fachada (ladrillo, hormigón o piedra) para paso del conducto de ventilación, diámetro 200-400 mm, con broca de corona, limpieza de escombros",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Remate y sellado paso conducto",
+          "descripcion": "Sellado perimetral del conducto en fachada con mortero de cemento, espuma poliuretano y silicona, instalación de marco de remate metálico, acabado estético",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales de sellado y remate a confirmar"
+        },
+        {
+          "concepto": "Instalación remate y sellado",
+          "descripcion": "Aplicación de mortero, espuma y silicona en paso de conducto, instalación de marco de remate, acabado y limpieza",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro rejilla de salida y compuerta cortafuego",
+          "descripcion": "Rejilla de aluminio anodizado o acero inoxidable con lamas orientables, compuerta cortafuego automática (clase F30), pequeño material de fijación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de rejilla y compuerta cortafuego a confirmar según especificaciones"
+        },
+        {
+          "concepto": "Instalación rejilla y compuerta",
+          "descripcion": "Montaje de rejilla de salida y compuerta cortafuego en conducto, fijación, pruebas de apertura/cierre automático",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1070,
+        "iva_porcentaje": 21,
+        "iva": 224.7,
+        "total": 1294.7
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de extractores industriales certificados para hostelería (marcas: Sodeca, Cata, Systemair, Trox)",
+        "Verificar normativa local sobre salida de conductos en fachada (distancia a ventanas, altura mínima)",
+        "Considerar instalación de filtros de grasa adicionales si cocina tiene muchos fogones (mejora mantenimiento)",
+        "Revisar si es necesario sistema de control de velocidad variable (ahorro energético)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro extractor industrial para cocina",
+          "oficio": "climatizacion",
+          "motivo": "Equipo específico para cocina industrial, rango estimado 800-3000€ según caudal y marca"
+        },
+        {
+          "concepto": "Suministro conducto ventilación clase F30",
+          "oficio": "climatizacion",
+          "motivo": "Conducto aislado con resistencia fuego, rango estimado 15-40€/ml según diámetro"
+        },
+        {
+          "concepto": "Circuito eléctrico dedicado extractor",
+          "oficio": "electricidad",
+          "motivo": "Materiales eléctricos (cable, protecciones), rango estimado 150-400€ según longitud y potencia"
+        },
+        {
+          "concepto": "Suministro rejilla de salida y compuerta cortafuego",
+          "oficio": "climatizacion",
+          "motivo": "Componentes de seguridad y acabado, rango estimado 200-600€"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_extincion_en_cocina_industrial",
+      "instalacion_trampa_grasa_cocina",
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_de_sistema_de_extincion_por_espuma",
+      "instalacion_electrica_local_hosteleria"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3843,
+      "tokens_out": 3127
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 6,
+    "n_sugeridas": 5,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

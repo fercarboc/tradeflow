@@ -1,0 +1,241 @@
+{
+  "id": 252,
+  "oficio": "Telecomunicaciones",
+  "texto": "Montar rack de telecomunicaciones con patch panel, switch y gestión de cables",
+  "http_status": 200,
+  "latency_ms": 17616,
+  "raw_response": {
+    "transcript": "Montar rack de telecomunicaciones con patch panel, switch y gestión de cables",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montar rack de telecomunicaciones con patch panel, switch y gestión de cables",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume rack estándar 19\" de pared o suelo. Confirmar dimensiones (U necesarias) y tipo de instalación.",
+          "Potencia del switch y necesidad de ventilación activa: revisar especificaciones técnicas.",
+          "Cableado estructurado (Cat6/Cat6A): cantidad de puertos y metros de cable no especificados."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de infraestructura de red, rack, patch panel y switch de telecomunicaciones."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación de rack 19\" de telecomunicaciones",
+          "descripcion": "Rack 19\" estándar (altura a confirmar en U), estructura metálica, fijación a pared o suelo, incluye herrajes y pequeño material de montaje.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del rack según modelo, altura (U) y tipo de instalación (pared/suelo) a confirmar por instalador."
+        },
+        {
+          "concepto": "Instalación y fijación de rack",
+          "descripcion": "Mano de obra para montaje, nivelación, fijación a estructura y verificación de estabilidad.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de patch panel Cat6/Cat6A",
+          "descripcion": "Patch panel 24 o 48 puertos (a confirmar), montaje en rack, etiquetado de puertos, pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del patch panel según número de puertos y categoría (Cat6/Cat6A) a confirmar."
+        },
+        {
+          "concepto": "Suministro e instalación de switch gestionable",
+          "descripcion": "Switch de red gestionable (número de puertos a confirmar), montaje en rack, configuración básica, pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del switch según número de puertos, velocidad (Gigabit/10G) y características de gestión."
+        },
+        {
+          "concepto": "Instalación de switch en rack",
+          "descripcion": "Montaje del switch en rack, conexión a patch panel, pruebas de conectividad básicas.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de organizadores de cables y gestión",
+          "descripcion": "Organizadores horizontales y verticales, canaletas, bridas, etiquetado de cables, pequeño material para gestión de cableado.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de organizadores según cantidad de cables y complejidad de gestión."
+        },
+        {
+          "concepto": "Instalación de organizadores de cables",
+          "descripcion": "Montaje de organizadores horizontales y verticales, enrutamiento y etiquetado de cables en rack.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de regleta PDU de alimentación",
+          "descripcion": "Regleta PDU (Power Distribution Unit) para rack, 8-16 tomas, montaje vertical, pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de PDU según número de tomas y características (monofásica/trifásica)."
+        },
+        {
+          "concepto": "Instalación de regleta PDU",
+          "descripcion": "Montaje de PDU en rack, conexión a fuente de alimentación, verificación de distribución de carga.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y documentación",
+          "descripcion": "Pruebas de conectividad de todos los puertos, verificación de velocidades, documentación de configuración y esquema de cableado.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Confirmar dimensiones del rack (número de U necesarias) para optimizar espacio y crecimiento futuro.",
+        "Especificar número de puertos del patch panel y switch (24, 48 puertos).",
+        "Indicar si se requiere ventilación activa (si hay equipos que generan calor).",
+        "Definir cantidad de metros de cableado estructurado (Cat6/Cat6A) necesarios.",
+        "Considerar SAI (Sistema de Alimentación Ininterrumpida) si se requiere redundancia de energía.",
+        "Especificar si se incluye configuración avanzada del switch (VLAN, spanning tree, etc.)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación de rack 19\" de telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Elemento base del proyecto, requiere especificación de modelo y altura."
+        },
+        {
+          "concepto": "Suministro e instalación de patch panel Cat6/Cat6A",
+          "origen": "sugerida_ia",
+          "motivo": "Componente específico, precio variable según puertos y categoría."
+        },
+        {
+          "concepto": "Suministro e instalación de switch gestionable",
+          "origen": "sugerida_ia",
+          "motivo": "Componente específico, precio variable según especificaciones técnicas."
+        },
+        {
+          "concepto": "Suministro e instalación de organizadores de cables y gestión",
+          "origen": "sugerida_ia",
+          "motivo": "Componente específico, precio variable según complejidad."
+        },
+        {
+          "concepto": "Suministro e instalación de regleta PDU de alimentación",
+          "origen": "sugerida_ia",
+          "motivo": "Componente específico, precio variable según características."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_rack_o_armario_de_telecomunicaciones",
+      "desmontaje_tabique_pladur_existente",
+      "instalacion_sistema_climatizacion_para_server_room",
+      "instalacion_de_red_de_datos_en_hotel_u_hospitality",
+      "instalacion_circuito_exclusivo_cocina"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3923,
+      "tokens_out": 2653
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

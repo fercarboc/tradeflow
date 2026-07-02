@@ -1,0 +1,152 @@
+{
+  "id": 257,
+  "oficio": "Telecomunicaciones",
+  "texto": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+  "http_status": 200,
+  "latency_ms": 9752,
+  "raw_response": {
+    "transcript": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Configurar red separada para invitados en empresa con segmentación VLAN y cortafuegos",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Configuración de red, VLAN, cortafuegos y segmentación de tráfico corporativo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Configuración de VLAN para red de invitados",
+          "descripcion": "Creación y configuración de VLAN separada dedicada a invitados con aislamiento de tráfico respecto a red corporativa",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de políticas de cortafuegos (firewall)",
+          "descripcion": "Definición e implementación de reglas de cortafuegos para segmentar tráfico entre VLAN invitados y red corporativa, con restricciones de acceso a recursos internos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de WiFi separado para invitados",
+          "descripcion": "Creación de SSID independiente para red WiFi de invitados, vinculada a VLAN separada con autenticación y control de ancho de banda",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de QoS y control de ancho de banda",
+          "descripcion": "Implementación de políticas QoS (Quality of Service) para limitar ancho de banda en red de invitados y garantizar prioridad a tráfico corporativo crítico",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de segmentación y validación de aislamiento",
+          "descripcion": "Verificación funcional de aislamiento entre VLAN, pruebas de acceso restringido desde red invitados a recursos corporativos, validación de cortafuegos y documentación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documentación técnica y manual de administración",
+          "descripcion": "Elaboración de documentación de configuración, esquema de VLAN, políticas de cortafuegos y manual de gestión para administrador de red",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 700,
+        "iva_porcentaje": 21,
+        "iva": 147,
+        "total": 847
+      },
+      "sugerencias_catalogo": [
+        "Si la empresa requiere certificación de seguridad (ISO 27001, NIS2), considerar auditoría externa de segmentación de red",
+        "Evaluar si es necesario implementar IDS/IPS (Sistema de Detección/Prevención de Intrusiones) para mayor protección de red corporativa",
+        "Considerar contrato de soporte técnico anual para mantenimiento de políticas y actualizaciones de seguridad"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "configuracion_y_securizacion_de_red_corporativa",
+      "instalacion_armario_metalico_o_taquilla",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_fotovoltaica_en_empresa_o_polígono_industrial"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4143,
+      "tokens_out": 1484
+    }
+  },
+  "classification": {
+    "category": "OK_CATALOGO",
+    "n_partidas": 6,
+    "n_catalogo": 6,
+    "n_sugeridas": 0,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

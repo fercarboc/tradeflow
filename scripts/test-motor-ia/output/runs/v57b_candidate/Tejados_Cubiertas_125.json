@@ -1,0 +1,182 @@
+{
+  "id": 125,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Impermeabilizar terraza plana de 25 metros cuadrados con lámina de EPDM adherida",
+  "http_status": 200,
+  "latency_ms": 12826,
+  "raw_response": {
+    "transcript": "Impermeabilizar terraza plana de 25 metros cuadrados con lámina de EPDM adherida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar terraza plana de 25 metros cuadrados con lámina de EPDM adherida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de cubierta plana con lámina EPDM adherida — oficio especializado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de superficie de terraza",
+          "descripcion": "Limpieza, barrido y preparación de la superficie de terraza plana previa a la impermeabilización",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 3,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lámina EPDM 1.2 mm espesor",
+          "descripcion": "Suministro de lámina de EPDM de 1.2 mm de espesor para impermeabilización de terraza plana",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material EPDM — instalador debe confirmar proveedor, espesor exacto y precio de mercado (rango típico 12-25€/m2)"
+        },
+        {
+          "concepto": "Adhesivo específico EPDM",
+          "descripcion": "Suministro de adhesivo específico para EPDM en zonas de adherencia (encuentros, solapes, bordes)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Adhesivo especializado EPDM — instalador debe confirmar cantidad exacta y precio (rango típico 15-30€/litro)"
+        },
+        {
+          "concepto": "Cinta de sellado para juntas y solapes EPDM",
+          "descripcion": "Suministro de cinta de sellado específica para EPDM en juntas y solapes (mínimo 10 cm de solape)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cinta de sellado EPDM — instalador debe confirmar metraje exacto y precio (rango típico 2-5€/metro)"
+        },
+        {
+          "concepto": "Refuerzo en encuentros con lámina EPDM adicional",
+          "descripcion": "Suministro de lámina EPDM adicional para refuerzo en encuentros, bordes y puntos críticos de la terraza",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lámina de refuerzo — instalador debe confirmar metraje de encuentros y precio unitario"
+        },
+        {
+          "concepto": "Instalación de lámina EPDM adherida",
+          "descripcion": "Colocación, adhesión y fijación de lámina EPDM en terraza plana, incluyendo solapes, sellado de juntas y refuerzos en encuentros",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 45,
+          "total": 1125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y acabado",
+          "descripcion": "Pruebas de estanqueidad de la impermeabilización, inspección de juntas y acabado final",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1290,
+        "iva_porcentaje": 21,
+        "iva": 270.9,
+        "total": 1560.9
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la terraza tiene pendiente mínima del 1.5% para evacuación de agua",
+        "Verificar si existen sumideros o desagües que requieran refuerzo especial",
+        "Considerar si la terraza es transitable — en caso afirmativo, añadir capa de protección (geotextil pesado o baldosas flotantes)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Adhesivo específico EPDM",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material especializado — requiere confirmación de proveedor y precio"
+        },
+        {
+          "concepto": "Cinta de sellado para juntas y solapes EPDM",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material especializado — requiere confirmación de metraje y precio"
+        },
+        {
+          "concepto": "Refuerzo en encuentros con lámina EPDM adicional",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material especializado — requiere confirmación de metraje de encuentros"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM",
+      "impermeabilizacion_de_terraza_invertida_con_XPS",
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4145,
+      "tokens_out": 1937
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

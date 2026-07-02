@@ -1,0 +1,206 @@
+{
+  "id": 10,
+  "oficio": "Fontanería",
+  "texto": "Instalación de sistema de osmosis inversa de 5 etapas bajo el fregadero de la cocina con grifo independiente",
+  "http_status": 200,
+  "latency_ms": 13736,
+  "raw_response": {
+    "transcript": "Instalación de sistema de osmosis inversa de 5 etapas bajo el fregadero de la cocina con grifo independiente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de sistema de osmosis inversa de 5 etapas bajo el fregadero de la cocina con grifo independiente",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar presión mínima de agua de entrada (mínimo 3 bar recomendado)",
+          "Confirmar espacio disponible bajo fregadero para equipo y depósito",
+          "Validar conexión de desagüe disponible"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de sistema de agua, conexiones hidráulicas y grifo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Equipo osmosis inversa 5 etapas",
+          "descripcion": "Suministro de equipo osmosis inversa de 5 etapas completo con membrana, filtros y depósito de almacenamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipo a definir por instalador según marca y modelo"
+        },
+        {
+          "concepto": "Grifo monomando osmosis",
+          "descripcion": "Grifo independiente cromado para agua osmotizada, instalación en encimera",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del grifo a definir por instalador según calidad"
+        },
+        {
+          "concepto": "Tuberías y conexiones (tubería 1/4\", latiguillos flex, válvulas)",
+          "descripcion": "Suministro de tubería de polietileno 1/4\", latiguillos flexibles de 40cm, válvula de corte de alimentación, válvulas de cierre y pequeño material de conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a definir según cantidad y calidad"
+        },
+        {
+          "concepto": "Silicona sanitaria y pequeño material",
+          "descripcion": "Silicona sanitaria, teflón, abrazaderas y pequeño material de instalación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de consumibles a definir"
+        },
+        {
+          "concepto": "Desmontaje de grifo existente",
+          "descripcion": "Desmontaje y retirada de grifo anterior si existe, limpieza de zona de trabajo",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación del sistema osmosis inversa",
+          "descripcion": "Instalación completa del equipo bajo fregadero: conexión de entrada de agua, instalación de filtros, conexión de salida a grifo, conexión de desagüe, pruebas de funcionamiento y ajustes",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de grifo osmosis en encimera",
+          "descripcion": "Perforación de encimera (si es necesario), instalación del grifo independiente, conexión a sistema osmosis, sellado con silicona y pruebas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y calidad de agua",
+          "descripcion": "Pruebas de presión, caudal, estanqueidad y verificación de calidad del agua osmotizada",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de equipos osmosis inversa 5 etapas para obtener precios de suministro",
+        "Consultar catálogo de grifería osmosis para seleccionar modelo y precio",
+        "Consultar catálogo de tuberías y conexiones hidráulicas para materiales complementarios"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Equipo osmosis inversa 5 etapas",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de sistema osmosis, requiere precio de proveedor"
+        },
+        {
+          "concepto": "Grifo monomando osmosis",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Grifo específico para osmosis, requiere precio según modelo"
+        },
+        {
+          "concepto": "Tuberías y conexiones (tubería 1/4\", latiguillos flex, válvulas)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales complementarios, requiere precio según cantidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_osmosis_inversa",
+      "cambio_grifo_cocina",
+      "revision_y_recambio_de_filtros_de_agua_o_osmosis",
+      "desatasco_fregadero",
+      "reparacion_grifo_o_griferia_averiada"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3518,
+      "tokens_out": 2119
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -39,6 +39,8 @@ if (!SUPABASE_URL || !TEST_KEY) {
 const args = process.argv.slice(2);
 const argVal = (key: string, def: number) =>
   Number(args.find(a => a.startsWith(`--${key}=`))?.split('=')[1] ?? def);
+const argStr = (key: string, def: string) =>
+  args.find(a => a.startsWith(`--${key}=`))?.split('=').slice(1).join('=') ?? def;
 const argFlag = (key: string) => args.includes(`--${key}`);
 
 const FROM = argVal('from', 1);
@@ -51,7 +53,10 @@ const RESUME = argFlag('resume'); // skip queries with existing raw files
 // ── Paths ─────────────────────────────────────────────────────────────────────
 
 const OUT_DIR = join(__dir, 'output');
-const RAW_DIR = join(OUT_DIR, 'raw');
+const RAW_DIR_ARG = argStr('out', '');
+const RAW_DIR = RAW_DIR_ARG
+  ? (RAW_DIR_ARG.startsWith('/') || /^[A-Za-z]:/.test(RAW_DIR_ARG) ? RAW_DIR_ARG : join(__dir, RAW_DIR_ARG))
+  : join(OUT_DIR, 'raw');
 const XLSX_PATH = join(OUT_DIR, 'test_results.xlsx');
 const DOCX_PATH = join(OUT_DIR, 'test_summary.docx');
 

@@ -2,7 +2,7 @@
   "id": 24,
   "oficio": "electricidad",
   "texto": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
-  "latency_ms": 21258,
+  "latency_ms": 24369,
   "raw_response": {
     "transcript": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
     "quote": {
@@ -13,7 +13,7 @@
         "alertas": [
           "Verificar potencia contratada actual (mínimo 7,4 kW recomendado para wallbox 7kW)",
           "Confirmar distancia entre cuadro general y punto de instalación en garaje",
-          "Validar tipo de diferencial (Tipo A obligatorio para carga EV según REBT)"
+          "Validar tipo de diferencial (Tipo A obligatorio para carga vehículos eléctricos según REBT)"
         ]
       },
       "oficios_detectados": [
@@ -22,18 +22,29 @@
           "existe_en_catalogo": true,
           "nuevo_oficio": false,
           "tarifa_hora": {
-            "min": 40,
-            "recomendado": 50,
-            "max": 65
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
           },
-          "motivo": "Instalación de wallbox y circuito eléctrico exclusivo con protecciones REBT"
+          "motivo": "Instalación de punto de carga vehículo eléctrico con wallbox integrado en sistema energético"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito eléctrico exclusivo, protecciones REBT, cableado y puesta a tierra"
         }
       ],
       "partidas": [
         {
           "concepto": "Wallbox 7kW monofásico",
-          "descripcion": "Suministro e instalación de wallbox 7kW (32A monofásico) con cable integrado o conector tipo 2, según normativa REBT",
-          "oficio": "electricidad",
+          "descripcion": "Suministro e instalación de wallbox de 7kW, modo 3, con conectores tipo 2 (Mennekes), protección IP54, apto para garaje",
+          "oficio": "energia_solar",
           "tipo_partida": "material",
           "unidad": "ud",
           "cantidad": 1,
@@ -42,11 +53,11 @@
           "precio_origen": "sugerida_ia",
           "origen": "sugerida_ia",
           "requiere_revision": true,
-          "motivo_revision": "Precio del wallbox depende de marca, conectividad (WiFi/inteligente) y funcionalidades. Rango típico: 400-900€"
+          "motivo_revision": "Precio del wallbox según marca y especificaciones técnicas (rango típico 600-1200€)"
         },
         {
-          "concepto": "Cable de derivación 6mm² desde cuadro a wallbox",
-          "descripcion": "Suministro de cable H07Z1-K 6mm² (mínimo para 7,4kW monofásico) en longitud según distancia cuadro-garaje, con manguera protectora",
+          "concepto": "Cable de alimentación 6mm² Cu",
+          "descripcion": "Suministro de cable de cobre 6mm² (mínimo para 7kW monofásico) desde cuadro general hasta wallbox, incluye manguera protectora",
           "oficio": "electricidad",
           "tipo_partida": "material",
           "unidad": "ml",
@@ -56,11 +67,11 @@
           "precio_origen": "sugerida_ia",
           "origen": "sugerida_ia",
           "requiere_revision": true,
-          "motivo_revision": "Cantidad en metros lineales a confirmar según distancia real. Precio aproximado: 2-4€/ml"
+          "motivo_revision": "Cantidad en ml según distancia cuadro-garaje (instalador debe confirmar). Precio típico 2-4€/ml"
         },
         {
           "concepto": "Magnetotérmico 40A monofásico",
-          "descripcion": "Suministro e instalación de interruptor automático magnetotérmico 40A monofásico (curva C) en cuadro general, protección circuito wallbox",
+          "descripcion": "Suministro e instalación de interruptor magnetotérmico 40A monofásico, curva C, para circuito exclusivo wallbox",
           "oficio": "electricidad",
           "tipo_partida": "material",
           "unidad": "ud",
@@ -70,11 +81,11 @@
           "precio_origen": "sugerida_ia",
           "origen": "sugerida_ia",
           "requiere_revision": true,
-          "motivo_revision": "Precio típico: 15-35€"
+          "motivo_revision": "Precio típico 25-50€ según marca"
         },
         {
           "concepto": "Diferencial Tipo A 40A",
-          "descripcion": "Suministro e instalación de interruptor diferencial Tipo A 40A (obligatorio para carga EV según REBT) en cuadro general",
+          "descripcion": "Suministro e instalación de interruptor diferencial Tipo A 40A, 30mA (obligatorio REBT para carga vehículos eléctricos)",
           "oficio": "electricidad",
           "tipo_partida": "material",
           "unidad": "ud",
@@ -84,31 +95,59 @@
           "precio_origen": "sugerida_ia",
           "origen": "sugerida_ia",
           "requiere_revision": true,
-          "motivo_revision": "Precio típico: 25-50€. Tipo A es obligatorio (detecta corrientes continuas de fuga)"
+          "motivo_revision": "Precio típico 40-80€. CRÍTICO: Tipo A es obligatorio (detecta corrientes continuas de fuga)"
         },
         {
-          "concepto": "Toma de tierra y electrodo",
-          "descripcion": "Suministro e instalación de electrodo de puesta a tierra (pica cobre 1m) y cable de tierra 6mm² desde cuadro a electrodo, con arqueta de registro",
+          "concepto": "Conductor de tierra 6mm² Cu",
+          "descripcion": "Suministro de conductor de tierra 6mm² desde cuadro general hasta toma de tierra y wallbox",
           "oficio": "electricidad",
           "tipo_partida": "material",
-          "unidad": "ud",
-          "cantidad": 1,
+          "unidad": "ml",
+          "cantidad": 0,
           "precio_unitario": 0,
           "total": 0,
           "precio_origen": "sugerida_ia",
           "origen": "sugerida_ia",
           "requiere_revision": true,
-          "motivo_revision": "Si ya existe toma de tierra en vivienda, solo conectar. Si no existe, instalar nueva. Precio: 80-200€"
+          "motivo_revision": "Cantidad en ml según distancia. Precio típico 1,5-3€/ml"
         },
         {
-          "concepto": "Mano de obra: Instalación circuito eléctrico y wallbox",
-          "descripcion": "Trabajos de instalación: rozas en pared/suelo para cableado, colocación de tubo protector, conexión en cuadro general (magnetotérmico + diferencial), instalación y fijación wallbox en pared garaje, conexionado final, pruebas de funcionamiento y medición de resistencia de tierra",
+          "concepto": "Instalación circuito eléctrico exclusivo",
+          "descripcion": "Mano de obra: tendido de cable, conexión en cuadro general, instalación de protecciones (magnetotérmico + diferencial), pruebas de continuidad y aislamiento",
           "oficio": "electricidad",
           "tipo_partida": "mano_obra",
           "unidad": "hora",
-          "cantidad": 6,
+          "cantidad": 3,
           "precio_unitario": 50,
-          "total": 300,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación wallbox y conexión",
+          "descripcion": "Mano de obra: fijación de wallbox en pared, conexión de cables, configuración inicial, pruebas de funcionamiento y carga",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Puesta a tierra y medición resistencia",
+          "descripcion": "Mano de obra: verificación/mejora de puesta a tierra, medición de resistencia (debe ser <10Ω), conexión a electrodo existente o instalación de nuevo electrodo si necesario",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
           "precio_origen": "catalogo",
           "origen": "catalogo",
           "requiere_revision": false,
@@ -116,7 +155,7 @@
         },
         {
           "concepto": "Pequeño material y accesorios",
-          "descripcion": "Tornillería, bridas, cinta aislante, pasta térmica, conectores, tuercas, arandelas y otros accesorios menores para completar la instalación",
+          "descripcion": "Bornes, conectores, cinta aislante, tubo corrugado, bridas, tornillería, etiquetado de circuito",
           "oficio": "electricidad",
           "tipo_partida": "material",
           "unidad": "ud",
@@ -126,36 +165,57 @@
           "precio_origen": "sugerida_ia",
           "origen": "sugerida_ia",
           "requiere_revision": true,
-          "motivo_revision": "Precio típico: 20-40€"
+          "motivo_revision": "Precio típico 30-60€"
+        },
+        {
+          "concepto": "Rozas y reposición (si aplica)",
+          "descripcion": "Mano de obra: apertura de rozas en pared/suelo para paso de cable, reposición con mortero (si distancia >2m o paso por zonas vistas)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 40,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad 0 por defecto. Instalador confirma si hay rozas necesarias (típico 1-2 horas si aplica)"
         }
       ],
       "calculos": {
-        "subtotal": 300,
+        "subtotal": 330,
         "iva_porcentaje": 21,
-        "iva": 63,
-        "total": 363
+        "iva": 69.3,
+        "total": 399.3
       },
       "sugerencias_catalogo": [
-        "Confirmar si la vivienda dispone de potencia contratada suficiente (mínimo 7,4 kW). Si es inferior, solicitar ampliación a distribuidora (coste adicional no incluido)",
-        "Validar si existe toma de tierra previa. Si no existe, el coste de instalación de electrodo puede variar según tipo de terreno",
-        "Considerar wallbox con gestión inteligente de carga si hay intención de integrar paneles solares futuros (precio +200-400€)",
-        "Distancia cuadro-garaje crítica: si supera 20m, considerar sección de cable 10mm² (coste +30-50€)"
+        "Verificar en catálogo: 'instalacion_cargador_vehiculo_electrico_wallbox' (oficio=electricidad, precio 55-220€/ud) — puede consolidar parte de las protecciones",
+        "Verificar en catálogo: 'instalacion_de_cargador_de_vehiculo_electrico_en_vivienda' (oficio=energia_solar, precio 300-1800€/ud) — puede englobar todo el proyecto"
       ],
       "partidas_nuevas_detectadas": [
         {
           "concepto": "Wallbox 7kW monofásico",
-          "oficio": "electricidad",
-          "motivo": "Material específico de carga EV, precio variable según marca y funcionalidades"
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "motivo": "Material específico de carga vehículos eléctricos, requiere especificación de marca/modelo y precio"
         },
         {
-          "concepto": "Cable de derivación 6mm² desde cuadro a wallbox",
+          "concepto": "Cable de alimentación 6mm² Cu",
           "oficio": "electricidad",
-          "motivo": "Cantidad en metros lineales variable según distancia real en garaje"
+          "tipo_partida": "material",
+          "motivo": "Cantidad variable según distancia cuadro-garaje, instalador debe medir"
         },
         {
-          "concepto": "Toma de tierra y electrodo",
+          "concepto": "Conductor de tierra 6mm² Cu",
           "oficio": "electricidad",
-          "motivo": "Coste variable si requiere instalación nueva vs. conexión a tierra existente"
+          "tipo_partida": "material",
+          "motivo": "Cantidad variable según distancia, instalador debe medir"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Partida auxiliar con precio estimado a revisar"
         }
       ]
     },
@@ -169,10 +229,10 @@
     "kb_score": 2.8,
     "web_search_used": false,
     "_meta": {
-      "prompt_version": "v57",
+      "prompt_version": "v57b",
       "stop_reason": "end_turn",
-      "tokens_in": 3959,
-      "tokens_out": 2175
+      "tokens_in": 3828,
+      "tokens_out": 3169
     }
   },
   "classification": {

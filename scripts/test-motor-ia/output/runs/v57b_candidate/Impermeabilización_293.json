@@ -1,0 +1,166 @@
+{
+  "id": 293,
+  "oficio": "Impermeabilización",
+  "texto": "Aplicar hidrofugante en muro de piedra de fachada de edificio histórico, 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14186,
+  "raw_response": {
+    "transcript": "Aplicar hidrofugante en muro de piedra de fachada de edificio histórico, 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar hidrofugante en muro de piedra de fachada de edificio histórico, 40 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Edificio histórico: verificar normativa de conservación y compatibilidad del hidrofugante con piedra original",
+          "Superficie de piedra irregular: rendimiento puede ser menor, considerar ajuste de horas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Aplicación de hidrofugante siloxánico en fachada de piedra. Regla estricta: impermeabilizacion para tratamientos hidrofugantes en fachada, aunque implique pintura o protección superficial."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa de muro de piedra",
+          "descripcion": "Limpieza y preparación de superficie de piedra con cepillo de agua a presión moderada para eliminar suciedad, musgo y depósitos sin dañar la piedra histórica",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Hidrofugante siloxánico para piedra histórica",
+          "descripcion": "Suministro de hidrofugante siloxánico concentrado o listo para usar, compatible con piedra natural y edificios históricos. Producto transpirable que no altera el aspecto original",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del hidrofugante siloxánico a definir por instalador según marca y especificación técnica para piedra histórica"
+        },
+        {
+          "concepto": "Aplicación de hidrofugante en muro de piedra (primera mano)",
+          "descripcion": "Aplicación de hidrofugante siloxánico con rodillo o pistola de baja presión en primera mano, saturando la porosidad de la piedra. Rendimiento estimado 6-7 m2/litro en piedra irregular",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 12,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aplicación de hidrofugante en muro de piedra (segunda mano)",
+          "descripcion": "Segunda mano de hidrofugante siloxánico para asegurar saturación completa en piedra porosa e irregular. Necesaria en superficies históricas con porosidad variable",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 10,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler y montaje de andamio o plataforma de acceso seguro para aplicación en fachada de edificio histórico. Incluye desmontaje",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio/plataforma a definir según altura, accesibilidad y duración de obra"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rodillos, brochas, trapos, protecciones, cinta de carrocero, guantes, gafas y otros consumibles para aplicación de hidrofugante",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1200,
+        "iva_porcentaje": 21,
+        "iva": 252,
+        "total": 1452
+      },
+      "sugerencias_catalogo": [
+        "Verificar compatibilidad del hidrofugante siloxánico con la tipología de piedra (caliza, granito, arenisca, etc.) del edificio histórico",
+        "Consultar normativa de conservación del edificio histórico antes de aplicar cualquier tratamiento superficial",
+        "Considerar prueba de aplicación en zona poco visible para validar resultado estético y de penetración"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hidrofugante siloxánico para piedra histórica",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para piedra natural en edificios históricos; precio a definir por instalador"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "impermeabilizacion",
+          "motivo": "Servicio auxiliar de acceso; coste variable según altura y duración"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_muros_de_piedra_o_mamposteria_exterior",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "instalacion_fachada_de_vidrio_o_muro_cortina",
+      "aplicacion_de_hidrofugo_siloxanico_en_fachada_o_muro",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3858,
+      "tokens_out": 1807
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

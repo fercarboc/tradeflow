@@ -1,0 +1,215 @@
+{
+  "id": 144,
+  "oficio": "Pladur",
+  "texto": "Tabique de pladur entre cocina y salón con ventana fija de cristal de 60x60 centímetros",
+  "http_status": 200,
+  "latency_ms": 19800,
+  "raw_response": {
+    "transcript": "Tabique de pladur entre cocina y salón con ventana fija de cristal de 60x60 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique de pladur entre cocina y salón con ventana fija de cristal de 60x60 centímetros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Ventana fija de cristal: se presupuesta solo el marco y cristal. La instalación en el tabique de pladur está incluida en las partidas de pladur.",
+          "Se asume tabique de pladur estándar (no hidrofugo) ya que está entre cocina y salón. Si la cocina tiene alta humedad o zona de lavado, revisar especificación de placa hidrofuga.",
+          "Hueco de 60x60 cm (0,36 m²) requiere refuerzo perimetral con perfil doble y dintel metálico (hueco < 120 cm pero requiere soporte)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Tabique de pladur con hueco para ventana fija"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Suministro e instalación de marco y cristal fijo 60x60 cm"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15 mm (tabique)",
+          "descripcion": "Suministro de placa de yeso laminado estándar 15 mm para tabique divisorio entre cocina y salón",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar superficie total del tabique (m²) y precio de material"
+        },
+        {
+          "concepto": "Perfiles de canal y montantes galvanizados",
+          "descripcion": "Suministro de perfiles de canal 48 mm y montantes 48 mm galvanizados para estructura del tabique",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar metraje lineal total de perfiles y precio"
+        },
+        {
+          "concepto": "Refuerzo perimetral hueco con perfil doble",
+          "descripcion": "Refuerzo perimetral del hueco de ventana (60x60 cm) con perfil montante doble para soporte de marco",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de refuerzo perimetral con perfil doble para hueco 60x60 cm"
+        },
+        {
+          "concepto": "Dintel metálico para hueco ventana",
+          "descripcion": "Dintel metálico reforzado para soporte superior del hueco de ventana 60x60 cm",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de dintel metálico para hueco < 120 cm"
+        },
+        {
+          "concepto": "Tornillería, cinta de juntas y pasta de juntas",
+          "descripcion": "Suministro de tornillería inoxidable, cinta de papel para juntas y pasta de juntas para acabado del tabique",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado de pequeño material y consumibles para tabique"
+        },
+        {
+          "concepto": "Ángulos metálicos y pequeño material",
+          "descripcion": "Ángulos metálicos para esquinas del hueco y pequeño material de fijación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado de ángulos y pequeño material"
+        },
+        {
+          "concepto": "Montaje y fijación de estructura de pladur",
+          "descripcion": "Mano de obra: montaje de estructura de perfiles, colocación de placas de yeso y acabado de juntas del tabique con hueco",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar horas totales de montaje (estructura + placas + juntas)"
+        },
+        {
+          "concepto": "Marco y cristal fijo 60x60 cm",
+          "descripcion": "Suministro de marco de aluminio anodizado y cristal templado fijo 60x60 cm para ventana interior",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de marco + cristal templado 60x60 cm (especificar tipo de marco: aluminio, PVC, etc.)"
+        },
+        {
+          "concepto": "Instalación de ventana fija en tabique",
+          "descripcion": "Mano de obra: colocación, nivelación y fijación de marco de ventana en el hueco del tabique, sellado perimetral",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 45,
+        "iva_porcentaje": 21,
+        "iva": 9.45,
+        "total": 54.45
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'tabique_pladur_con_ventana_de_paso_o_barra_americana' — aunque en este caso es ventana fija, no de paso. Usar como referencia para estructura de refuerzo.",
+        "Verificar en catálogo: 'tabique_pladur_con_hueco_pasaplatos_o_ventana_interior' — aplicable para huecos con refuerzo perimetral.",
+        "Si la cocina tiene zona de lavado o alta humedad, cambiar a 'tabique_pladur_hidrofugo_bano_o_cocina' con placa verde hidrofuga."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Marco y cristal fijo 60x60 cm",
+          "oficio": "cristaleria",
+          "motivo": "Ventana fija de cristal templado — material específico no detallado en base maestra. Requiere especificación de tipo de marco (aluminio, PVC, acero) y espesor de cristal."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_hueco_pasaplatos_o_ventana_interior",
+      "tabique_pladur_con_ventana_de_paso_o_barra_americana",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "reparacion_fisura_en_tabique_pladur"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3882,
+      "tokens_out": 2850
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

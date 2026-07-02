@@ -1,0 +1,186 @@
+{
+  "id": 317,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+  "http_status": 200,
+  "latency_ms": 22069,
+  "raw_response": {
+    "transcript": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar manguera de primera intervención en hospital, punto de agua en cada planta",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA CRÍTICA: Instalación de sistemas contra incendios en hospital. Requiere cumplimiento normativo (RD 513/2017, UNE 23500, certificación profesional). Revisar permisos y coordinación con autoridades sanitarias.",
+          "Falta información: número de plantas, longitud de tuberías, tipo de BIE (45mm o 25mm), presión disponible, conexión a red general.",
+          "Las partidas están estructuradas para revisión técnica del instalador especializado en contra incendios."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de primera intervención (BIE - Boca de Incendio Equipada) es infraestructura contra incendios. Aunque implica fontanería y electricidad, la REGLA CRÍTICA de oficio establece que sistemas contraincendios → contra_incendios siempre."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de tuberías, conexiones y puntos de agua. Soporte técnico a contra_incendios."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro e instalación BIE (Boca Incendio Equipada) 45mm con manguera de primera intervención",
+          "descripcion": "BIE homologada UNE 23500, incluye: cuerpo de latón, válvula de cierre, manómetro, manguera semirrígida 45mm x 30m, lanza bifurcada, soportes de fijación y señalización normativa. Instalación en punto de agua por planta.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de BIE homologada varía según marca y certificación (rango típico 400-800€/ud). El instalador debe cotizar según especificaciones del hospital y normativa aplicable."
+        },
+        {
+          "concepto": "Instalación de puntos de agua y conexión a red general contra incendios",
+          "descripcion": "Preparación de puntos de agua en cada planta: rozas en muros, tuberías de acometida, válvulas de corte, conexión a red general presurizada, pruebas de presión y caudal según UNE 23500.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de horas pendiente: depende del número de plantas, longitud de tuberías, accesibilidad y complejidad de la red. Estimar 8-12h por planta en hospital típico."
+        },
+        {
+          "concepto": "Suministro tuberías y accesorios red contra incendios",
+          "descripcion": "Tuberías de acero galvanizado o cobre, válvulas de corte, codos, tes, bridas, abrazaderas, pequeño material de fijación. Cantidad según longitud total de red a instalar.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total de tuberías no especificada. Rango típico: 50-150€/ml según diámetro y material. Revisar planos de hospital."
+        },
+        {
+          "concepto": "Pruebas de presión, caudal y certificación contra incendios",
+          "descripcion": "Pruebas hidrostáticas a presión de servicio, verificación de caudal mínimo (500 l/min para BIE 45mm), inspección visual, documentación técnica y certificado de conformidad UNE 23500.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de inspección y certificación. Rango: 300-600€ según número de BIE y complejidad. Obligatorio para hospital."
+        },
+        {
+          "concepto": "Señalización y placas normativas contra incendios",
+          "descripcion": "Placas de señalización UNE 23034 (BIE), carteles de prohibición, indicadores de presión, etiquetado de válvulas y tuberías según normativa.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según número de BIE. Rango: 15-30€/placa. Estimar 1 placa por BIE + señalización general."
+        },
+        {
+          "concepto": "Coordinación, permisos y documentación técnica",
+          "descripcion": "Gestión de permisos con autoridades sanitarias, coordinación con sistemas existentes, documentación técnica (planos as-built, manual de mantenimiento, registro de inspecciones), formación básica al personal del hospital.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo y técnico. Rango: 400-800€ según complejidad del hospital y requisitos normativos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Crear entrada en catálogo: [instalacion_bie_primera_intervencion_hospital] oficio=contra_incendios, unidad=ud, rango_precio=400-800€/ud (material) + 8-12h mano_obra por planta.",
+        "Crear entrada: [pruebas_certificacion_contra_incendios] oficio=contra_incendios, unidad=ud, rango_precio=300-600€.",
+        "Crear entrada: [red_tuberias_contra_incendios] oficio=fontaneria, unidad=ml, rango_precio=50-150€/ml según diámetro."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación BIE 45mm con manguera",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema específico de primera intervención en hospital. No existe partida exacta en catálogo base."
+        },
+        {
+          "concepto": "Red de tuberías contra incendios",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Infraestructura de distribución de agua para sistema contraincendios. Requiere especificación técnica detallada."
+        },
+        {
+          "concepto": "Pruebas y certificación contra incendios",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de validación normativa UNE 23500. Obligatorio en instalaciones hospitalarias."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toma_agua_nueva",
+      "instalacion_osmosis_inversa",
+      "sustitucion_desague_lavadora",
+      "instalacion_grifo_exterior_jardin",
+      "instalacion_fontaneria_cocina_completa"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3361,
+      "tokens_out": 2892
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

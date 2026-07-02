@@ -1,0 +1,286 @@
+{
+  "id": 229,
+  "oficio": "Energía Solar",
+  "texto": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+  "http_status": 200,
+  "latency_ms": 28543,
+  "raw_response": {
+    "transcript": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar cargador de coche eléctrico alimentado por energía solar con gestión inteligente de carga",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto requiere confirmación de: potencia contratada actual, tipo de vivienda (unifamiliar/piso), ubicación paneles solares, modelo vehículo (compatibilidad carga inteligente), distancia cuadro a punto carga",
+          "Incluye integración solar + wallbox + gestión inteligente: complejidad alta, requiere coordinación electricista + instalador solar",
+          "Potencia contratada: verificar si es suficiente (típicamente 10-15kW para carga solar + consumo hogar)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación fotovoltaica + integración con cargador vehículo eléctrico + gestión inteligente de carga"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito exclusivo wallbox, protecciones REBT, conexión a cuadro, toma de tierra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Paneles solares fotovoltaicos (autoconsumo)",
+          "descripcion": "Suministro e instalación de paneles fotovoltaicos monocristalinos de alta eficiencia para alimentar cargador vehículo eléctrico. Incluye estructura soporte, anclajes y pequeño material. Potencia a determinar según consumo anual y disponibilidad cubierta.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Potencia en kWp a definir según consumo hogar + carga vehículo. Rango típico 3-6 kWp. Precio material: 120-280€/kWp instalado"
+        },
+        {
+          "concepto": "Inversor solar híbrido compatible con gestión inteligente",
+          "descripcion": "Suministro e instalación de inversor híbrido trifásico o monofásico con capacidad de gestión inteligente de carga (carga diferida, optimización excedentes). Compatible con wallbox y sistema de monitorización.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio inversor híbrido: 1500-3500€ según potencia (3-6 kW). Incluye instalación y configuración básica"
+        },
+        {
+          "concepto": "Wallbox cargador vehículo eléctrico (7.4 kW o 11 kW)",
+          "descripcion": "Suministro e instalación de wallbox monofásico (7.4 kW) o trifásico (11 kW) con conectividad para gestión inteligente. Incluye cable de carga, conectores y pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Wallbox 7.4 kW: 400-800€. Wallbox 11 kW: 600-1200€. A confirmar según potencia contratada y tipo de conexión (monofásica/trifásica)"
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo wallbox (cableado + protecciones)",
+          "descripcion": "Instalación de circuito independiente desde cuadro general a punto de carga. Incluye: cable H07V-K 6 mm² (7.4 kW) o 10 mm² (11 kW), magnetotérmico 40A, diferencial tipo A 40A, toma de tierra, rozas y reposición de paredes si necesario.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado solar (DC) desde paneles a inversor",
+          "descripcion": "Suministro e instalación de cable solar RV-K 6 mm² (o superior según potencia), conectores MC4, protecciones DC (fusibles/seccionadores), canalizaciones y pequeño material. Incluye trazado desde cubierta a inversor.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Distancia cubierta-inversor a confirmar. Estimación: 15-30 ml típico. Precio: 8-15€/ml material + instalación"
+        },
+        {
+          "concepto": "Sistema de gestión inteligente de carga (software + hardware)",
+          "descripcion": "Instalación y configuración de sistema de gestión energética que optimiza carga del vehículo con excedentes solares. Incluye: módulo de control, comunicación wallbox-inversor, app monitorización, configuración de horarios y prioridades de carga.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio sistema gestión inteligente: 400-1000€ (hardware + software + configuración). Algunos wallbox incluyen funcionalidad básica"
+        },
+        {
+          "concepto": "Contador bidireccional (si aplica inyección a red)",
+          "descripcion": "Suministro e instalación de contador bidireccional para medir inyección de excedentes a red (si se solicita compensación). Incluye gestión con distribuidora.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Contador bidireccional: 150-300€. Instalación: 1-2 horas. Verificar si distribuidora lo proporciona o cliente debe adquirirlo"
+        },
+        {
+          "concepto": "Pruebas, puesta en marcha y configuración final",
+          "descripcion": "Pruebas de funcionamiento de instalación solar, wallbox y sistema de gestión inteligente. Verificación de protecciones, aislamiento, toma de tierra. Configuración de parámetros de carga (potencia máxima, horarios, prioridades). Entrega de documentación y manuales.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación estructura soporte paneles (cubierta/suelo)",
+          "descripcion": "Instalación de estructura metálica de soporte para paneles solares. Incluye anclajes, tornillería, impermeabilización de penetraciones en cubierta, y pequeño material. Mano de obra de montaje.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 65,
+          "total": 390,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación paneles solares (conexión DC + anclajes)",
+          "descripcion": "Montaje físico de paneles en estructura, conexión de cables DC, conectores MC4, y verificación de alineación y seguridad. Incluye pequeño material y herramientas especializadas.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 65,
+          "total": 260,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación inversor solar (conexión AC + configuración)",
+          "descripcion": "Montaje de inversor en ubicación interior (garaje/cuarto técnico), conexión a cuadro general, configuración de parámetros de red, sincronización con wallbox y sistema de gestión. Incluye pequeño material.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación wallbox (montaje + conexión eléctrica)",
+          "descripcion": "Montaje de wallbox en pared, conexión a circuito exclusivo, pruebas de funcionamiento, emparejamiento con vehículo y configuración de parámetros de carga inteligente.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1535,
+        "iva_porcentaje": 21,
+        "iva": 322.35,
+        "total": 1857.35
+      },
+      "sugerencias_catalogo": [
+        "Confirmar potencia fotovoltaica necesaria (kWp) según consumo anual hogar + consumo carga vehículo (típicamente 15-20 kWh/100 km)",
+        "Verificar potencia contratada actual: si es <10 kW, solicitar ampliación a distribuidora (coste adicional 300-600€)",
+        "Confirmar tipo de conexión disponible: monofásica (7.4 kW máx) o trifásica (11 kW máx)",
+        "Modelo vehículo: verificar compatibilidad con carga inteligente (no todos los vehículos soportan modulación de potencia)",
+        "Ubicación inversor: preferiblemente interior (garaje/cuarto técnico) para protección y mantenimiento",
+        "Considerar batería de acumulación si se desea carga nocturna con energía solar (coste adicional 3000-8000€)",
+        "Gestión inteligente: algunos wallbox incluyen funcionalidad básica; otros requieren módulo adicional (400-1000€)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Paneles solares fotovoltaicos (autoconsumo)",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Cantidad en kWp a definir por cliente. Rango típico 3-6 kWp. Precio: 120-280€/kWp instalado"
+        },
+        {
+          "concepto": "Inversor solar híbrido compatible con gestión inteligente",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Precio inversor: 1500-3500€ según potencia. Debe ser compatible con wallbox y sistema de gestión"
+        },
+        {
+          "concepto": "Wallbox cargador vehículo eléctrico (7.4 kW o 11 kW)",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Wallbox 7.4 kW: 400-800€. Wallbox 11 kW: 600-1200€. A confirmar según potencia contratada"
+        },
+        {
+          "concepto": "Sistema de gestión inteligente de carga (software + hardware)",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Precio: 400-1000€. Algunos wallbox incluyen funcionalidad básica; otros requieren módulo adicional"
+        },
+        {
+          "concepto": "Contador bidireccional (si aplica inyección a red)",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Contador: 150-300€. Verificar si distribuidora lo proporciona o cliente debe adquirirlo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cargador_vehiculo_electrico_wallbox",
+      "instalacion_de_cargador_de_vehiculo_electrico_en_vivienda",
+      "integracion_solar_fotovoltaica_en_vehiculo_electrico_V2H_V2G",
+      "instalacion_punto_recarga_bicicleta_electrica",
+      "instalacion_fotovoltaica_autoconsumo"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "max_tokens",
+      "tokens_in": 3837,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 6,
+    "n_sugeridas": 6,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

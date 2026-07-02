@@ -1,0 +1,270 @@
+{
+  "id": 371,
+  "oficio": "Reformas Integrales",
+  "texto": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 25543,
+  "raw_response": {
+    "transcript": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Ampliar vivienda con construcción de nueva planta sobre garaje existente, 40 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA MAYOR: Ampliación estructural con nueva planta. Requiere proyecto técnico y licencia de obras mayor obligatoria.",
+          "ESTUDIO ESTRUCTURAL: Verificar capacidad portante del garaje existente para soportar nueva planta.",
+          "CÁLCULO DE FORJADO: Dimensionamiento de estructura de soporte sobre garaje.",
+          "INSTALACIONES: Extensión de electricidad, fontanería, climatización y saneamiento a nueva planta.",
+          "CUMPLIMIENTO NORMATIVO: CTE, código técnico de la edificación, accesibilidad, seguridad contra incendios."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Ampliación estructural con nueva planta: obra civil + estructura + instalaciones + acabados simultáneos (≥3 oficios). CASO 2 - Gran obra."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Obra civil, estructura, muros, forjado, revestimientos."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Extensión instalación eléctrica a nueva planta, cuadro secundario, circuitos, mecanismos."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Extensión red agua fría, agua caliente, saneamiento a nueva planta."
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 70
+          },
+          "motivo": "Extensión sistema climatización/calefacción a nueva planta."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puertas, ventanas, cerramientos, acabados interiores."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura paredes, techos nueva planta."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Alicatado baños, cocina si aplica."
+        },
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pavimentos, tarimas, laminados nueva planta."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión y transporte de residuos de construcción."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Tramitación licencia obras mayor, proyecto técnico, cédula de habitabilidad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cap.1 – Obra civil, estructura y demolición",
+          "descripcion": "Estudio estructural del garaje existente, cálculo de forjado de soporte, demolición selectiva de cubierta garaje si aplica, construcción de estructura (pilares, vigas, forjado) para nueva planta de 40 m², revestimiento exterior, impermeabilización de forjado, pequeño material y EPI.",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según estudio estructural, dimensiones forjado, materiales y complejidad. Rango estimado: 18.000–35.000€ (incluye mano de obra + materiales). Revisar con calculista."
+        },
+        {
+          "concepto": "Cap.2 – Instalaciones (electricidad, fontanería, climatización)",
+          "descripcion": "Extensión instalación eléctrica: cuadro secundario, cableado, circuitos (mínimo 6 circuitos para 40 m²), mecanismos, toma tierra, boletin eléctrico. Extensión fontanería: tuberías agua fría/caliente, saneamiento, desagüe. Extensión climatización: radiadores, tuberías calefacción o splits según sistema existente. Pruebas y puesta en marcha.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según tipo de instalaciones existentes y extensión requerida. Rango estimado: 8.000–15.000€ (mano de obra + materiales). Revisar con instaladores especializados."
+        },
+        {
+          "concepto": "Cap.3 – Acabados (pintura, suelos, carpintería, pladur)",
+          "descripcion": "Tabiquería interior con pladur si aplica, pintura paredes y techos (40 m²), pavimentos (tarima, laminado o baldosa según uso, 40 m²), puertas interiores, ventanas/cerramientos exteriores, molduras, pequeño material.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según acabados elegidos (estándar vs. premium). Rango estimado: 6.000–12.000€ (mano de obra + materiales). Revisar con carpintero y pintor."
+        },
+        {
+          "concepto": "Cap.4 – Gestión de residuos, tramitación y otros",
+          "descripcion": "Gestión y transporte de residuos de construcción, contenedor, licencia de obras mayor, proyecto técnico (si no existe), cédula de habitabilidad nueva planta, inspección técnica, seguros y coordinación de seguridad si aplica.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según volumen residuos y complejidad tramitación. Rango estimado: 2.000–5.000€. Revisar con gestoría y gestor residuos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar presupuesto detallado de ESTUDIO ESTRUCTURAL (cálculo forjado, verificación capacidad portante garaje).",
+        "Presupuesto PROYECTO TÉCNICO (arquitecto/ingeniero) — obligatorio para licencia obras mayor.",
+        "Presupuesto LICENCIA OBRAS MAYOR (gestoría/ayuntamiento).",
+        "Presupuesto INSTALADOR ELECTRICISTA AUTORIZADO (boletín eléctrico obligatorio).",
+        "Presupuesto INSTALADOR FONTANERÍA (extensión agua fría, caliente, saneamiento).",
+        "Presupuesto INSTALADOR CLIMATIZACIÓN (extensión calefacción/refrigeración).",
+        "Presupuesto GESTOR RESIDUOS (contenedor, transporte, gestión).",
+        "Presupuesto CÉDULA DE HABITABILIDAD (nueva planta)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estudio estructural y cálculo forjado",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Ampliación estructural requiere verificación capacidad portante y dimensionamiento forjado. No está en catálogo base."
+        },
+        {
+          "concepto": "Proyecto técnico ampliación",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Obra mayor requiere proyecto técnico. Puede estar incluido en gestión tramitación o ser partida separada."
+        },
+        {
+          "concepto": "Licencia de obras mayor",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Ampliación estructural requiere licencia mayor. Gestión ante ayuntamiento."
+        },
+        {
+          "concepto": "Cédula de habitabilidad nueva planta",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Nueva planta requiere cédula de habitabilidad. Tramitación post-obra."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "ampliacion_y_redistribucion_de_espacios_en_vivienda",
+      "renovacion_de_instalacion_de_calefaccion_en_vivienda",
+      "instalacion_electrica_reforma_integral_vivienda",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "impermeabilizacion_techos_de_semisotano_o_losa_de_planta_baja"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3973,
+      "tokens_out": 3726
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

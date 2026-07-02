@@ -1,0 +1,248 @@
+{
+  "id": 351,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+  "http_status": 200,
+  "latency_ms": 20660,
+  "raw_response": {
+    "transcript": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar suelo de parking comunitario, bacheo de baches y sellado de juntas de dilatación",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye dos actuaciones distintas: reparación de baches (hormigón) + sellado de juntas de dilatación (fachada/estructura). Requiere mediciones en obra: m² de baches, ml de juntas.",
+          "Precio unitario de materiales pendiente de revisión del instalador (origen sugerida_ia)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de pavimento de hormigón con baches en parking"
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado de juntas de dilatación de estructura/fachada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y preparación zona afectada por baches",
+          "descripcion": "Saneo de zona deteriorada, eliminación de hormigón suelto, limpieza y preparación de soporte para reparación",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 1 m² — ajustar según medición real de baches en obra"
+        },
+        {
+          "concepto": "Imprimación adherente epoxídica para hormigón",
+          "descripcion": "Aplicación de imprimación epoxídica de dos componentes para mejorar adherencia del mortero de reparación",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión. Referencia: 8-15€/m² según rendimiento"
+        },
+        {
+          "concepto": "Mortero de reparación de hormigón o epoxi",
+          "descripcion": "Suministro e instalación de mortero de reparación estructural (hormigón o epoxi) para bacheo de baches",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión. Referencia: 25-60€/m² según tipo mortero"
+        },
+        {
+          "concepto": "Fratasado y acabado de reparación de hormigón",
+          "descripcion": "Fratasado, alisado y acabado de la zona reparada para igualar con pavimento existente",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 1 m² — ajustar según medición real"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (reparación baches)",
+          "descripcion": "Consumibles: cepillos, trapos, desengrasante, protecciones, etc. para reparación de baches",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión. Referencia: 15-30€ por reparación"
+        },
+        {
+          "concepto": "Retirada de material antiguo en juntas de dilatación",
+          "descripcion": "Extracción y limpieza de sellador antiguo, restos de material y suciedad en juntas de dilatación",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 1 ml — ajustar según medición real de juntas en obra"
+        },
+        {
+          "concepto": "Fondo de junta (espuma de polietileno)",
+          "descripcion": "Colocación de fondo de junta de espuma de polietileno para limitar profundidad de sellador y mejorar flexibilidad",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión. Referencia: 2-5€/ml según diámetro"
+        },
+        {
+          "concepto": "Sellador poliuretano o silicona de calidad exterior",
+          "descripcion": "Suministro e instalación de sellador flexible (poliuretano o silicona) de buena calidad para juntas de dilatación exteriores",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión. Referencia: 8-20€/ml según tipo y marca"
+        },
+        {
+          "concepto": "Aplicación de sellador en juntas de dilatación",
+          "descripcion": "Mano de obra de aplicación de sellador flexible en juntas de dilatación con herramientas adecuadas",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 1 ml — ajustar según medición real de juntas"
+        },
+        {
+          "concepto": "Pequeño material y consumibles (sellado juntas)",
+          "descripcion": "Consumibles: cinta de protección, disolvente, trapos, guantes, etc. para sellado de juntas",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente de revisión. Referencia: 10-20€ por trabajo"
+        }
+      ],
+      "calculos": {
+        "subtotal": 170,
+        "iva_porcentaje": 21,
+        "iva": 35.7,
+        "total": 205.7
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición en obra de: m² de baches a reparar y ml de juntas de dilatación a sellar",
+        "Verificar tipo de hormigón del parking (resistencia, antigüedad) para seleccionar mortero de reparación adecuado",
+        "Confirmar anchura y profundidad de juntas de dilatación para seleccionar diámetro correcto de fondo de junta y cantidad de sellador",
+        "Considerar si se requiere andamio o plataforma para acceso seguro a juntas elevadas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación adherente epoxídica para hormigón",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de reparación de hormigón, no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Mortero de reparación de hormigón o epoxi",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de reparación de hormigón, requiere especificación técnica en obra"
+        },
+        {
+          "concepto": "Fondo de junta (espuma de polietileno)",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para sellado de juntas de dilatación, no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Sellador poliuretano o silicona de calidad exterior",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para juntas de dilatación, requiere especificación de marca y tipo en obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_reposicion_de_pavimento_exterior_deteriorado",
+      "reparacion_de_pavimento_de_hormigon_con_baches",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3851,
+      "tokens_out": 3215
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

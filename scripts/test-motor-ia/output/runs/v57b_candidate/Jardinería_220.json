@@ -1,0 +1,150 @@
+{
+  "id": 220,
+  "oficio": "Jardinería",
+  "texto": "Plantar fila de árboles para crear pantalla visual entre vivienda y vecinos, 8 cipreses",
+  "http_status": 200,
+  "latency_ms": 11940,
+  "raw_response": {
+    "transcript": "Plantar fila de árboles para crear pantalla visual entre vivienda y vecinos, 8 cipreses",
+    "quote": {
+      "resumen": {
+        "texto_original": "Plantar fila de árboles para crear pantalla visual entre vivienda y vecinos, 8 cipreses",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Plantación de árboles (cipreses) para crear pantalla visual. Trabajo de jardinería especializada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de 8 cipreses para pantalla visual",
+          "descripcion": "Suministro de 8 árboles cipreses de altura y calibre adecuado para crear pantalla visual entre viviendas. Incluye transporte a obra.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de árboles cipreses variable según calibre, altura y vivero. Instalador debe confirmar especificaciones y coste unitario."
+        },
+        {
+          "concepto": "Preparación del terreno y excavación de hoyos",
+          "descripcion": "Preparación del terreno, excavación de 8 hoyos de plantación con dimensiones adecuadas (0,60×0,60×0,60 m), aporte de tierra vegetal y enmienda.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 25,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantación de 8 cipreses",
+          "descripcion": "Plantación de los 8 árboles cipreses, colocación en hoyos, relleno con tierra vegetal, compactación y formación de alcorque.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tutores, ataduras y pequeño material de plantación",
+          "descripcion": "Suministro e instalación de tutores de madera o bambú para 8 árboles, ataduras de goma, acolchado (mulch) para conservación de humedad y pequeño material.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de tutores, ataduras y acolchado variable. Instalador debe presupuestar según calidad y cantidad de material."
+        },
+        {
+          "concepto": "Riego inicial y mantenimiento post-plantación",
+          "descripcion": "Riego abundante post-plantación de los 8 árboles, establecimiento de sistema de riego por goteo o manual, y seguimiento durante 2-4 semanas.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 225,
+        "iva_porcentaje": 21,
+        "iva": 47.25,
+        "total": 272.25
+      },
+      "sugerencias_catalogo": [
+        "Confirmar altura y calibre de los cipreses (típicamente 150-200 cm para pantalla visual rápida).",
+        "Considerar sistema de riego por goteo si la zona es seca o hay restricciones de agua.",
+        "Verificar distancia de plantación: 1,5-2 m entre árboles para pantalla compacta.",
+        "Incluir garantía de reposición si algún árbol no prospera en los primeros meses."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de 8 cipreses para pantalla visual",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico (árboles) con precio variable según vivero y calibre. Requiere revisión del instalador."
+        },
+        {
+          "concepto": "Tutores, ataduras y pequeño material de plantación",
+          "origen": "sugerida_ia",
+          "motivo": "Material complementario de plantación. Precio variable según especificaciones. Requiere revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_pantalla_de_proyeccion_motorizada",
+      "instalacion_de_sistema_audiovisual_en_sala_de_reuniones",
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR",
+      "instalacion_enchufe_exterior_ip44"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4024,
+      "tokens_out": 1539
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

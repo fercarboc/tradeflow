@@ -1,0 +1,225 @@
+{
+  "id": 374,
+  "oficio": "Reformas Integrales",
+  "texto": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+  "http_status": 200,
+  "latency_ms": 20010,
+  "raw_response": {
+    "transcript": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Convertir garaje en habitación de invitados con baño, instalaciones y licencia incluida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de garaje a vivienda: requiere proyecto técnico y licencia municipal",
+          "Incluye múltiples oficios simultáneos (albanilería, fontanería, electricidad, acabados)",
+          "Presupuesto estimado con partidas agrupadas por capítulos; instalador debe revisar precios de materiales",
+          "Verificar normativa local sobre cambio de uso y accesibilidad (CTE DB SUA)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: ≥3 oficios simultáneos (albanilería, fontanería, electricidad, acabados, pladur)"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición puerta garaje, cierre vano, tabiquería baño"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación agua fría/caliente, desagüe baño completo"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica nueva, circuitos iluminación, enchufes, calefacción"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Tabiquería baño, trasdosados, falsos techos"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado baño, pavimento habitación"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura paredes y techo habitación y baño"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Puerta acceso habitación, puerta baño, marco y cerco"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 0,
+            "recomendado": 0,
+            "max": 0
+          },
+          "motivo": "Licencia municipal y cambio de uso"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cap.1 – Demolición y obra civil",
+          "descripcion": "Demolición puerta garaje, cierre vano con fábrica, tabiquería baño, retirada escombros y gestión residuos",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 5,
+          "precio_unitario": 320,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen de demolición y obra civil estimado; ajustar según planos y acceso"
+        },
+        {
+          "concepto": "Cap.2 – Instalaciones (fontanería, electricidad, climatización)",
+          "descripcion": "Red agua fría/caliente baño (PEX), desagüe baño (PVC), instalación eléctrica nueva (circuitos iluminación, enchufes, calefacción), cableado, cuadro distribución, radiador o bomba calor",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 6,
+          "precio_unitario": 360,
+          "total": 2160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra instalaciones; materiales (tuberías, cable, radiador, etc.) requieren presupuesto específico"
+        },
+        {
+          "concepto": "Cap.3 – Acabados (pladur, alicatado, pavimento, pintura, carpintería)",
+          "descripcion": "Tabiquería baño con pladur, alicatado baño (paredes y suelo), pavimento habitación (cerámica/laminado), pintura paredes y techo, puerta acceso habitación, puerta baño, marcos y cercos",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 8,
+          "precio_unitario": 340,
+          "total": 2720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra acabados; materiales (pladur, baldosas, pintura, puertas, etc.) requieren presupuesto específico"
+        },
+        {
+          "concepto": "Cap.4 – Proyecto técnico, licencia municipal y gestión",
+          "descripcion": "Proyecto técnico reforma, licencia municipal cambio de uso garaje a vivienda, gestión trámites, inspección final",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto proyecto técnico y gestión licencia pendiente de cotización; varía según municipio y complejidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 6480,
+        "iva_porcentaje": 21,
+        "iva": 1360.8,
+        "total": 7840.8
+      },
+      "sugerencias_catalogo": [
+        "Solicitar presupuesto desglosado de materiales: tuberías PEX, cable eléctrico, radiador/bomba calor, pladur, baldosas, pavimento, pintura, puertas",
+        "Verificar con municipio requisitos de licencia y cambio de uso (normativa local, CTE, accesibilidad)",
+        "Considerar ventilación baño (extractor) y aislamiento térmico/acústico según CTE",
+        "Presupuestar fontanería y electricidad por separado si se subcontratan"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Proyecto técnico reforma garaje a vivienda",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio profesional de proyecto y gestión licencia; precio variable según municipio"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_escalera_o_rampa_exterior",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "instalacion_alumbrado_garaje",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "instalacion_de_puerta_de_garaje_abatible_lateral"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3683,
+      "tokens_out": 2681
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

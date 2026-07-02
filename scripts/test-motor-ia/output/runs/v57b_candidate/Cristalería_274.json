@@ -1,0 +1,188 @@
+{
+  "id": 274,
+  "oficio": "Cristalería",
+  "texto": "Instalar vitrina de exposición con LED interior para joyería, 100x50x30 centímetros en cristal",
+  "http_status": 200,
+  "latency_ms": 16845,
+  "raw_response": {
+    "transcript": "Instalar vitrina de exposición con LED interior para joyería, 100x50x30 centímetros en cristal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar vitrina de exposición con LED interior para joyería, 100x50x30 centímetros en cristal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vitrina para joyería requiere vidrio de seguridad templado obligatorio por riesgo de impacto y valor de contenido",
+          "Iluminación LED interior incluida como partida específica",
+          "Medidas exactas proporcionadas: 100x50x30 cm - vitrina de tamaño estándar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de vitrina de cristal templado con herrajes y sellado de juntas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Paneles de vidrio templado 8mm para vitrina joyería",
+          "descripcion": "Suministro de vidrio templado de 8mm de espesor, medidas 100x50x30 cm, con certificación CE EN 12150, apto para exposición de joyería con máxima seguridad",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico según medidas y tipo de vidrio templado - instalador debe cotizar con proveedor de cristalería"
+        },
+        {
+          "concepto": "Estructura soporte aluminio anodizado para vitrina",
+          "descripcion": "Estructura de aluminio anodizado plata con perfiles de 40x40mm, refuerzos internos, apta para soportar paneles de vidrio templado 8mm en configuración 100x50x30 cm",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estructura personalizada según medidas - cotizar con fabricante de estructuras de aluminio"
+        },
+        {
+          "concepto": "Iluminación LED interior para vitrina",
+          "descripcion": "Sistema de iluminación LED integrado en vitrina: 2 tiras LED de 50cm (3000K blanco cálido), transformador 12V, cableado interno, apto para joyería con reproducción cromática CRI>90",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema LED específico para joyería - cotizar según especificaciones de iluminación requeridas"
+        },
+        {
+          "concepto": "Herrajes, juntas y fijación vitrina",
+          "descripcion": "Herrajes de acero inoxidable (bisagras, cierres magnéticos, manijas), juntas de goma EPDM, silicona neutra de sellado, tornillería inoxidable, pequeño material de fijación a pared",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Componentes de fijación y sellado - cotizar según sistema de cierre elegido (magnético/cerradura)"
+        },
+        {
+          "concepto": "Instalación y montaje vitrina de exposición",
+          "descripcion": "Mano de obra de instalación: ensamblaje de estructura, colocación de paneles de vidrio templado, sellado con silicona neutra en todos los encuentros, instalación de herrajes y cierres, conexión de iluminación LED, pruebas de funcionamiento y estanqueidad",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cerradura de seguridad para vitrina joyería",
+          "descripcion": "Cerradura de seguridad de cilindro europeo, acabado inoxidable, apta para vitrina de exposición con cierre de 2 puntos, incluye llaves de seguridad",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cerradura de seguridad específica para joyería - cotizar según nivel de seguridad requerido"
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Vitrina de exposición con LED interior para joyería: rango de precio total estimado 800-3000€ (materiales + mano de obra) según acabados y sistema de cierre",
+        "Vidrio templado 8mm es obligatorio por CTE DB SUA (seguridad en caso de impacto) y por naturaleza de contenido (joyería de valor)",
+        "Considerar cerradura de seguridad de 2 puntos mínimo para vitrina de joyería",
+        "LED con CRI>90 recomendado para reproducción cromática exacta de joyas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Paneles de vidrio templado 8mm para vitrina joyería",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según medidas exactas proporcionadas"
+        },
+        {
+          "concepto": "Estructura soporte aluminio anodizado para vitrina",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Estructura personalizada según configuración 100x50x30 cm"
+        },
+        {
+          "concepto": "Iluminación LED interior para vitrina",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema LED específico para joyería con CRI alto"
+        },
+        {
+          "concepto": "Herrajes, juntas y fijación vitrina",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes de fijación y sellado personalizados"
+        },
+        {
+          "concepto": "Cerradura de seguridad para vitrina joyería",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Cerradura de seguridad específica para exposición de joyería"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_o_reparacion_de_vitrina_o_expositor_de_vidrio",
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_toldos_retractiles_para_invernadero_o_jardin_de_invierno",
+      "instalacion_vidrio_en_puerta_interior"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3900,
+      "tokens_out": 2191
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "id": 112,
+  "oficio": "Climatización",
+  "texto": "Revisar y limpiar conductos de ventilación de edificio de oficinas, 4 plantas con 20 difusores",
+  "http_status": 200,
+  "latency_ms": 12291,
+  "raw_response": {
+    "transcript": "Revisar y limpiar conductos de ventilación de edificio de oficinas, 4 plantas con 20 difusores",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y limpiar conductos de ventilación de edificio de oficinas, 4 plantas con 20 difusores",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de mantenimiento preventivo en instalación de climatización existente",
+          "Incluye acceso a conductos en 4 plantas: verificar disponibilidad de accesos y seguridad en altura"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Limpieza y revisión de conductos y difusores de sistema de climatización/ventilación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza conductos ventilación - 4 plantas",
+          "descripcion": "Limpieza completa de conductos de ventilación con equipo de cepillado rotativo y aspiración, acceso mediante bocas de limpieza, 4 plantas de edificio de oficinas",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y limpieza difusores y rejillas",
+          "descripcion": "Desmontaje, limpieza y revisión de 20 difusores/rejillas de ventilación, verificación de caudal y funcionamiento, reposición en su lugar",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 20,
+          "precio_unitario": 35,
+          "total": 700,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Equipo hidrojetting y aspiración industrial",
+          "descripcion": "Alquiler/uso de equipo de limpieza de conductos con cepillo rotativo, manguera de aspiración y accesorios para 4 plantas",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de alquiler/consumo de equipo a definir por instalador según proveedor local"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Filtros desechables, trapos, desengrasante, selladores menores, tornillería, material de seguridad (arnés, casco) para trabajos en altura",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según cantidad real de consumibles y equipos de seguridad necesarios"
+        },
+        {
+          "concepto": "Informe de revisión y estado de conductos",
+          "descripcion": "Elaboración de informe técnico con fotografías del estado de conductos, difusores y recomendaciones de mantenimiento futuro",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de informe técnico a confirmar según nivel de detalle requerido"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1810,
+        "iva_porcentaje": 21,
+        "iva": 380.1,
+        "total": 2190.1
+      },
+      "sugerencias_catalogo": [
+        "Considerar contrato de mantenimiento preventivo anual para evitar acumulación de suciedad en conductos",
+        "Verificar si el edificio dispone de planos de conductos para optimizar accesos y rutas de limpieza",
+        "Evaluar necesidad de desinfección bacteriana si hay signos de contaminación biológica"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Equipo hidrojetting y aspiración industrial",
+          "oficio": "climatizacion",
+          "motivo": "Material específico para limpieza de conductos, precio variable según proveedor"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "climatizacion",
+          "motivo": "Consumibles y equipos de seguridad en altura, presupuestar según necesidades reales"
+        },
+        {
+          "concepto": "Informe de revisión y estado de conductos",
+          "oficio": "climatizacion",
+          "motivo": "Servicio de documentación técnica, precio a definir según alcance"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_difusores_y_rejillas_climatizacion",
+      "limpieza_general_saneamiento_comunidad",
+      "mantenimiento_anual_split_o_aire_acondicionado",
+      "revision_general_fontaneria_comunidad",
+      "mantenimiento_preventivo_de_grupo_de_presion"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3629,
+      "tokens_out": 1594
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

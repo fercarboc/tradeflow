@@ -1,0 +1,48 @@
+{
+  "id": 235,
+  "oficio": "energia_solar",
+  "texto": "Instalar sistema híbrido solar y aerotermia para vivienda eficiente, cálculo de ahorro energético",
+  "latency_ms": 26497,
+  "raw_response": {
+    "transcript": "Instalar sistema híbrido solar y aerotermia para vivienda eficiente, cálculo de ahorro energético",
+    "quote": {
+      "resumen": {
+        "texto_original": "",
+        "tipo_presupuesto": "",
+        "requiere_revision_general": true,
+        "alertas": [
+          "No se pudo interpretar el dictado"
+        ]
+      },
+      "oficios_detectados": [],
+      "partidas": [],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_solar_termica_para_ACS",
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "instalacion_energia_solar_para_caravana_o_autocaravana"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "max_tokens",
+      "tokens_in": 4296,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "VACIO",
+    "oficio_detectado": "",
+    "coincide_oficio": "NO"
+  }
+}

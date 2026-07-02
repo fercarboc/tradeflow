@@ -1,0 +1,152 @@
+{
+  "id": 140,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+  "http_status": 200,
+  "latency_ms": 13235,
+  "raw_response": {
+    "transcript": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar teja con viento o rotura puntual tras temporal, recolocación y sellado con cemento blanco",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Reparación puntual de cubierta tras temporal. Si hay daños generalizados, se recomienda inspección completa de la cubierta.",
+          "El cemento blanco es provisional. Para durabilidad, se recomienda sellador poliuretano flexible en lugar de cemento."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación de tejas, recolocación y sellado de cubierta inclinada tras temporal."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y limpieza de zona afectada",
+          "descripcion": "Inspección visual de la zona dañada, retirada de escombros, suciedad y restos de mortero antiguo. Limpieza de la teja y zona de asiento.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recolocación de teja",
+          "descripcion": "Recolocación y ajuste de la teja dañada o desplazada por viento. Nivelación y encaje correcto en la cubierta.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de teja de reposición (si necesario)",
+          "descripcion": "Teja de barro o cerámica de reposición, tipo y color a determinar según cubierta existente. Cantidad: 1 unidad.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de teja a confirmar según tipo, modelo y disponibilidad. Puede no ser necesario si la teja existente es reutilizable."
+        },
+        {
+          "concepto": "Sellado con cemento blanco y pequeño material",
+          "descripcion": "Aplicación de cemento blanco o mortero de agarre en juntas y puntos de apoyo de la teja. Incluye pequeño material (esponjas, trapos, herramientas menores).",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cemento y pequeño material a estimar según extensión de sellado. Precio a confirmar."
+        },
+        {
+          "concepto": "Prueba de estanqueidad y acabado",
+          "descripcion": "Verificación visual de la correcta colocación, comprobación de estanqueidad en la zona reparada y limpieza final de restos de obra.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 125,
+        "iva_porcentaje": 21,
+        "iva": 26.25,
+        "total": 151.25
+      },
+      "sugerencias_catalogo": [
+        "Para mayor durabilidad y flexibilidad, considerar sustituir el cemento blanco por sellador poliuretano flexible (referencia: impermeabilizacion_de_encuentro_fachada_cubierta). El cemento blanco es rígido y puede agrietarse con movimientos térmicos.",
+        "Si la rotura es severa o hay múltiples tejas dañadas, evaluar reparación con banda autoadhesiva bituminosa como solución provisional (referencia: reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva).",
+        "Incluir EPI (arnés de seguridad, línea de vida) si la altura o inclinación lo requieren."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de teja de reposición",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico cuyo precio depende del tipo, modelo y color de la cubierta existente."
+        },
+        {
+          "concepto": "Sellado con cemento blanco y pequeño material",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material consumible cuya cantidad y precio requieren confirmación según extensión de la reparación."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "impermeabilizacion_de_encuentro_fachada_cubierta"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3831,
+      "tokens_out": 1661
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

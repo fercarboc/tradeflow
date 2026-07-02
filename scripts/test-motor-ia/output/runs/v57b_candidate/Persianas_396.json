@@ -1,0 +1,151 @@
+{
+  "id": 396,
+  "oficio": "Persianas",
+  "texto": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+  "http_status": 200,
+  "latency_ms": 14211,
+  "raw_response": {
+    "transcript": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar marquesina plegable de PVC transparente para proteger entrada de portal de la lluvia",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Marquesina plegable: verificar medidas exactas de ancho y profundidad antes de fabricación",
+          "Estructura soporte: confirmar material (aluminio, acero galvanizado) y capacidad de carga según viento y peso PVC",
+          "Anclaje: revisar tipo de fachada (ladrillo, hormigón, piedra) para seleccionar tacos/anclajes adecuados"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de estructura y paneles PVC, ajuste y acabados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Anclaje a fachada, tacos, mortero de sellado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Marquesina plegable PVC transparente",
+          "descripcion": "Suministro de marquesina plegable de PVC transparente con estructura de soporte (aluminio o acero galvanizado), mecanismo de plegado, herrajes y accesorios. Medidas a confirmar según ancho de entrada y profundidad deseada.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas (ancho 1-3m, profundidad 0.5-1.5m), tipo de estructura y mecanismo plegable. Instalador debe cotizar según especificaciones."
+        },
+        {
+          "concepto": "Instalación de marquesina plegable",
+          "descripcion": "Montaje de estructura, fijación de paneles PVC, instalación de mecanismo plegable, ajuste de herrajes, pruebas de funcionamiento y sellado de encuentros.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Anclaje a fachada con tacos y mortero",
+          "descripcion": "Perforación de fachada, colocación de tacos de expansión (M10-M12 según tipo de fachada), anclaje de soportes laterales, sellado con mortero de cemento o silicona, limpieza de polvo.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 40,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tacos, tornillos y pequeño material",
+          "descripcion": "Tacos de expansión M10-M12, tornillos inoxidables, arandelas, mortero de sellado, silicona neutra, masilla, lijas y consumibles.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de tacos y material depende de número de puntos de anclaje. Instalador revisa según estructura final."
+        }
+      ],
+      "calculos": {
+        "subtotal": 390,
+        "iva_porcentaje": 21,
+        "iva": 81.9,
+        "total": 471.9
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la marquesina es de fabricación propia o suministro externo (cotizar con proveedores especializados en marquesinas plegables)",
+        "Verificar normativa local sobre voladizos en entrada de portal (distancia mínima a vía pública, altura libre, etc.)",
+        "Considerar drenaje de agua de lluvia: ¿canaleta de recogida incluida en estructura o se instala aparte?",
+        "Si la fachada es de piedra o granito, usar tacos químicos en lugar de expansión para mayor seguridad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Marquesina plegable PVC transparente",
+          "oficio": "carpinteria",
+          "motivo": "Producto específico no encontrado en catálogo base. Requiere cotización de proveedor especializado según medidas y tipo de mecanismo plegable."
+        },
+        {
+          "concepto": "Tacos, tornillos y pequeño material",
+          "oficio": "albanileria",
+          "motivo": "Material auxiliar cuya cantidad depende de la estructura final. Instalador debe revisar y ajustar precio según número de anclajes."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cubremuros_o_sombrerete_de_chimenea",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4073,
+      "tokens_out": 1637
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

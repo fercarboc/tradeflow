@@ -1,0 +1,208 @@
+{
+  "id": 241,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar antena de TDT en tejado para dar señal a 4 televisores del piso con amplificador",
+  "http_status": 200,
+  "latency_ms": 14422,
+  "raw_response": {
+    "transcript": "Instalar antena de TDT en tejado para dar señal a 4 televisores del piso con amplificador",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar antena de TDT en tejado para dar señal a 4 televisores del piso con amplificador",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar zona geográfica para seleccionar antena UHF correcta",
+          "Confirmar número de tomas finales (4 televisores mencionados)",
+          "Revisar nivel de señal en cada toma tras instalación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de antena TDT, amplificador y red de distribución de señal"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Antena UHF TDT según zona geográfica",
+          "descripcion": "Antena UHF de TDT adaptada a la zona de recepción, con ganancia según cobertura local",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de modelo y zona geográfica de recepción"
+        },
+        {
+          "concepto": "Amplificador de mástil para antena TDT",
+          "descripcion": "Amplificador de banda UHF instalado en mástil para refuerzo de señal antes de distribución",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según especificaciones técnicas del amplificador"
+        },
+        {
+          "concepto": "Cable coaxial 75 ohmios para distribución",
+          "descripcion": "Cable coaxial de 75 ohmios para distribución desde antena/amplificador hasta tomas de usuario, incluyendo bajada desde tejado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada; revisar longitud real de recorrido desde tejado a tomas"
+        },
+        {
+          "concepto": "Splitters y derivadores para 4 tomas",
+          "descripcion": "Red de distribución con splitters y derivadores para alimentar 4 televisores con nivel de señal correcto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según configuración de splitters necesarios para 4 derivaciones"
+        },
+        {
+          "concepto": "Tomas de usuario TDT (4 unidades)",
+          "descripcion": "Tomas de usuario de TDT para conexión de televisores, cantidad 4",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario por toma de usuario"
+        },
+        {
+          "concepto": "Pequeño material (conectores, bridas, cinta aislante, etc.)",
+          "descripcion": "Conectores coaxiales, bridas de sujeción, cinta aislante, tornillería inox y otros consumibles",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada de pequeño material"
+        },
+        {
+          "concepto": "Instalación de antena TDT, amplificador y red de distribución",
+          "descripcion": "Mano de obra: montaje de antena en tejado, instalación de amplificador, tendido de cable coaxial, instalación de splitters y tomas, pruebas de nivel de señal en cada toma",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Confirmar zona geográfica (cobertura TDT) para seleccionar antena UHF correcta",
+        "Verificar si se requiere antena satelite adicional (DVB-S2) para canales por satélite",
+        "Medir distancia real desde tejado a tomas para ajustar cantidad de cable coaxial",
+        "Realizar prueba de nivel de señal (dBμV) en cada toma tras instalación según RD 346/2011"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Antena UHF TDT según zona geográfica",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico; precio depende de modelo y zona"
+        },
+        {
+          "concepto": "Amplificador de mástil para antena TDT",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico; precio según especificaciones"
+        },
+        {
+          "concepto": "Cable coaxial 75 ohmios para distribución",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material; cantidad estimada, requiere medición in situ"
+        },
+        {
+          "concepto": "Splitters y derivadores para 4 tomas",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material; configuración según número de derivaciones"
+        },
+        {
+          "concepto": "Tomas de usuario TDT (4 unidades)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material; precio unitario por toma"
+        },
+        {
+          "concepto": "Pequeño material (conectores, bridas, cinta aislante, etc.)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Partida alzada de consumibles"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "instalacion_videoportero_o_interfono",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3958,
+      "tokens_out": 2186
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

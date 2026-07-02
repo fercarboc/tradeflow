@@ -1,0 +1,194 @@
+{
+  "id": 135,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+  "http_status": 200,
+  "latency_ms": 22786,
+  "raw_response": {
+    "transcript": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sumideros sifónicos nuevos en terraza que se embasa de agua, problema de desagüe",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Se requiere diagnóstico previo de la terraza para determinar número exacto de sumideros necesarios",
+          "CRÍTICO: Verificar si existe red de saneamiento próxima o si requiere acometida nueva",
+          "CRÍTICO: Evaluar pendientes actuales de la terraza y necesidad de formación de pendientes",
+          "CRÍTICO: Determinar si hay impermeabilización existente y estado de la misma",
+          "Posible necesidad de impermeabilización complementaria en cubierta plana"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación de sumideros en cubierta plana (terraza). Regla estricta: sumideros en cubierta → tejados_cubiertas"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Refuerzo impermeabilización perimetral de sumideros y posible tratamiento de embalsamiento. Regla estricta: problemas de humedad/embalsamiento en cubierta → impermeabilizacion"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Sumidero sifónico de cubierta plana",
+          "descripcion": "Suministro e instalación de sumidero sifónico de diámetro 110-160mm según caudal estimado, con sifón integrado para evitar reflujos y olores. Incluye rejilla antihoja y sombrero guardahojas. Cantidad a determinar según superficie de terraza (referencia: 1 sumidero cada 25-50 m²)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada en 2 unidades (REVISAR según m² reales de terraza). Precio unitario del sumidero sifónico a confirmar por instalador (rango típico 150-400€/ud según diámetro y marca)"
+        },
+        {
+          "concepto": "Instalación sumideros sifónicos en cubierta",
+          "descripcion": "Mano de obra para instalación de sumideros sifónicos: apertura de orificio en cubierta, colocación de cazoleta, conexión a bajante existente o nueva, sellado perimetral con mortero y refuerzo impermeabilizante. Incluye prueba de funcionamiento.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión a bajante existente o nueva",
+          "descripcion": "Suministro e instalación de tubería de conexión (PVC o similar) desde sumidero a bajante existente. Si no hay bajante próxima, incluye acometida nueva con pendiente mínima 1,5%. Incluye codos, manguitos y pequeño material.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje estimado (REVISAR según distancia real a bajante). Precio unitario a confirmar (rango típico 15-35€/ml según diámetro y material)"
+        },
+        {
+          "concepto": "Refuerzo impermeabilización perimetral sumideros",
+          "descripcion": "Aplicación de lámina impermeabilizante (EPDM, TPO o PVC) o pintura impermeabilizante de poliurea alrededor de cada sumidero (perímetro mínimo 50cm). Sellado de juntas de dilatación. Refuerzo obligatorio para evitar filtraciones.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie estimada (2 sumideros × ~2 m² perímetro cada uno). Precio unitario a confirmar (rango típico 25-60€/m² según material impermeabilizante)"
+        },
+        {
+          "concepto": "Mano de obra impermeabilización perimetral",
+          "descripcion": "Preparación de superficie, limpieza, aplicación de imprimación y colocación de lámina impermeabilizante o proyección de poliurea alrededor de sumideros. Sellado de juntas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Diagnóstico y formación de pendientes (si necesario)",
+          "descripcion": "Inspección de terraza para evaluar pendientes actuales, identificar zonas de embalsamiento y determinar necesidad de formación de pendientes hacia sumideros. Si se requiere, aplicación de mortero de pendiente o lechada autonivelante. PARTIDA CONDICIONADA a diagnóstico previo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "PARTIDA CONDICIONADA: Solo si diagnóstico previo detecta pendientes insuficientes. Precio a confirmar (rango típico 200-400€/jornada según complejidad)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo: [instalacion_de_sumidero_o_cazoleta_en_cubierta_plana] — partidas obligatorias: cazoleta/sumidero, conexión bajante, refuerzo impermeabilización perimetral, rejilla guardahojas",
+        "Considerar si la terraza requiere desbordadero de emergencia (partida auxiliar) si solo hay 1-2 sumideros y riesgo de obstrucción",
+        "Verificar si existe impermeabilización previa en la terraza y su estado — puede requerir reparación complementaria"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Sumidero sifónico de cubierta plana",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de sumidero sifónico con sifón integrado — precio a confirmar por instalador"
+        },
+        {
+          "concepto": "Conexión a bajante existente o nueva",
+          "oficio": "tejados_cubiertas",
+          "origen": "sugerida_ia",
+          "motivo": "Tubería de conexión y acometida — precio unitario (€/ml) a confirmar según diámetro y material"
+        },
+        {
+          "concepto": "Refuerzo impermeabilización perimetral sumideros",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material impermeabilizante (lámina o poliurea) — precio unitario (€/m²) a confirmar"
+        },
+        {
+          "concepto": "Diagnóstico y formación de pendientes (si necesario)",
+          "oficio": "impermeabilizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de diagnóstico y posible corrección de pendientes — partida condicionada, precio a confirmar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_de_sumidero_o_imbornal",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_electrica_pergola_terraza"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3893,
+      "tokens_out": 3019
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

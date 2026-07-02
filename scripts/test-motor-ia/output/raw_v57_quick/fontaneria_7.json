@@ -1,0 +1,346 @@
+{
+  "id": 7,
+  "oficio": "fontaneria",
+  "texto": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas",
+  "latency_ms": 24231,
+  "raw_response": {
+    "transcript": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral de baño: requiere coordinación de múltiples oficios (fontanería, electricidad, albañilería, alicatado, pladur)",
+          "Inodoro suspendido implica estructura de soporte (pladur/albañilería)",
+          "Lavabo empotrado requiere mueble/estructura de apoyo",
+          "Ducha completa incluye impermeabilización obligatoria",
+          "Presupuesto estimado: revisar precios de materiales (griferías cromadas, sanitarios, azulejos, mampara)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma completa de baño con 4+ oficios simultáneos (fontanería, albañilería, pladur, alicatado, electricidad)"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de lavabo, inodoro, ducha, griferías y red de agua"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Estructura soporte inodoro suspendido, posible falso techo"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado paredes baño y suelo ducha"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización obligatoria zona ducha antes de alicatar"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación puntos luz, enchufes, extractor, posible calefacción"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y demolición baño existente",
+          "descripcion": "Desmontaje de sanitarios antiguos, griferías, azulejos, muebles y gestión de residuos",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Estructura soporte inodoro suspendido",
+          "descripcion": "Instalación de bastidor/estructura de pladur para inodoro suspendido con anclajes a pared",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación inodoro suspendido",
+          "descripcion": "Inodoro suspendido con cisterna empotrada, asiento y tapa cromada",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del sanitario suspendido pendiente de revisión (rango típico: 400-1200€)"
+        },
+        {
+          "concepto": "Instalación inodoro suspendido",
+          "descripcion": "Conexión desagüe, entrada agua, pruebas de funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación lavabo empotrado",
+          "descripcion": "Lavabo de cerámica empotrado en mueble, con grifería monomando cromada",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio lavabo + grifería cromada pendiente (rango: 250-800€)"
+        },
+        {
+          "concepto": "Instalación lavabo empotrado",
+          "descripcion": "Conexión agua fría/caliente, desagüe, sifón, latiguillos, sellado con silicona",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 50,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización zona ducha",
+          "descripcion": "Aplicación de lámina impermeabilizante (EPDM/PVC) o pintura poliuretánica en zona ducha con pendiente hacia desagüe",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación plato ducha",
+          "descripcion": "Plato de ducha de resina o cerámica con desagüe y sifón",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio plato ducha pendiente (rango: 150-600€)"
+        },
+        {
+          "concepto": "Instalación plato ducha y desagüe",
+          "descripcion": "Colocación plato ducha, conexión desagüe, pendiente correcta, pruebas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación mampara ducha",
+          "descripcion": "Mampara de cristal templado o cortina de ducha con accesorios cromados",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio mampara cromada pendiente (rango: 200-800€)"
+        },
+        {
+          "concepto": "Instalación mampara ducha",
+          "descripcion": "Montaje mampara, fijación a paredes, sellado con silicona",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alicatado paredes y suelo baño",
+          "descripcion": "Colocación de azulejos/porcelánico en paredes (aprox. 15 m²) y suelo ducha con rejunta y sellado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 32,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro azulejos y material alicatado",
+          "descripcion": "Azulejos, porcelánico, adhesivo, lechada, silicona sanitaria para alicatado completo baño",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio azulejos/porcelánico pendiente (rango: 15-50€/m²)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1575,
+        "iva_porcentaje": 21,
+        "iva": 330.75,
+        "total": 1905.75
+      },
+      "sugerencias_catalogo": [
+        "Revisar catálogo de sanitarios suspendidos cromados (marca, modelo, garantía)",
+        "Confirmar tipo de grifería cromada (monomando, bimando, cascada)",
+        "Especificar tipo de impermeabilizante (lámina vs. pintura poliuretánica)",
+        "Definir acabado azulejos (mate, brillo, tamaño, color)",
+        "Considerar si incluye instalación de extractor de humedad (electricidad)",
+        "Considerar si incluye puntos de luz y enchufes (electricidad)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro e instalación inodoro suspendido",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "precio_unitario": 0,
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Suministro e instalación lavabo empotrado",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "precio_unitario": 0,
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Suministro e instalación plato ducha",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "precio_unitario": 0,
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Suministro e instalación mampara ducha",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "precio_unitario": 0,
+          "requiere_revision": true
+        },
+        {
+          "concepto": "Suministro azulejos y material alicatado",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "precio_unitario": 0,
+          "requiere_revision": true
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_sifon",
+      "cambio_grifo_lavabo",
+      "cambio_inodoro",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_lavabo"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "max_tokens",
+      "tokens_in": 3588,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

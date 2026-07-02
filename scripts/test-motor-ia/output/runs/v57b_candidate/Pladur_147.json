@@ -1,0 +1,239 @@
+{
+  "id": 147,
+  "oficio": "Pladur",
+  "texto": "Cerramiento de escalera interior con pladur cortafuego RF-60, superficie 15 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 20197,
+  "raw_response": {
+    "transcript": "Cerramiento de escalera interior con pladur cortafuego RF-60, superficie 15 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cerramiento de escalera interior con pladur cortafuego RF-60, superficie 15 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo especializado en pladur cortafuego RF-60: requiere certificación y cumplimiento normativo",
+          "Incluye sellado de pasos de instalaciones con sellador intumescente (obligatorio para RF-60)",
+          "Verificar acceso a zona y disponibilidad de materiales ignífugos certificados"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Cerramiento con pladur cortafuego RF-60 en escalera interior. Trabajo especializado que requiere conocimiento de sistemas ignífugos y sellado de pasos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado ignífuga rosa RF-60 (15 mm)",
+          "descripcion": "Suministro de placa de yeso laminado ignífuga rosa de 15 mm de espesor para sistema cortafuego RF-60. Cantidad: 15 m² (considerando una cara del cerramiento)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado ignífugo. El instalador debe confirmar proveedor, certificación y precio actual de placa RF-60"
+        },
+        {
+          "concepto": "Perfiles de acero (canal y montante) para sistema RF-60",
+          "descripcion": "Suministro de perfiles de acero galvanizado (canal y montante) adaptados a geometría de escalera interior para sistema cortafuego RF-60. Incluye refuerzo estructural según normativa",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perfiles especializados para RF-60. Requiere cálculo estructural según geometría de escalera"
+        },
+        {
+          "concepto": "Lana de roca densidad alta para RF-60",
+          "descripcion": "Suministro de lana de roca de densidad alta (≥80 kg/m³) para relleno de cámara en sistema cortafuego RF-60. Cantidad: 15 m² (espesor según diseño)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material aislante especializado. Confirmar densidad y espesor según certificación RF-60"
+        },
+        {
+          "concepto": "Tornillería, cinta de juntas y pasta de juntas para RF-60",
+          "descripcion": "Suministro de tornillería de acero inoxidable, cinta de papel reforzada y pasta de juntas para sistema cortafuego RF-60. Incluye pequeño material de montaje",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales de acabado y fijación. Verificar compatibilidad con sistema ignífugo certificado"
+        },
+        {
+          "concepto": "Sellador intumescente para pasos de instalaciones",
+          "descripcion": "Suministro e instalación de sellador intumescente para todos los pasos de instalaciones (electricidad, fontanería, climatización) a través del cerramiento. Obligatorio para mantener RF-60",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado de seguridad. Cantidad y tipo dependen de número de pasos detectados en obra"
+        },
+        {
+          "concepto": "Ángulos metálicos para esquinas y aristas",
+          "descripcion": "Suministro de ángulos metálicos galvanizados para protección de esquinas y aristas del cerramiento. Incluye tornillería de fijación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de perímetro de escalera. Ajustar según geometría real en obra"
+        },
+        {
+          "concepto": "Montaje de estructura metálica y colocación de placas RF-60",
+          "descripcion": "Mano de obra para montaje completo de estructura de perfiles de acero, colocación de placas de yeso laminado ignífugas, fijación con tornillería y preparación para acabado. Incluye trabajos en geometría irregular de escalera",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 30,
+          "precio_unitario": 35,
+          "total": 1050,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento de juntas, cintas y pasta de juntas",
+          "descripcion": "Mano de obra para colocación de cinta de juntas, aplicación de pasta de juntas, lijado y preparación de superficie para pintura. Incluye múltiples pasadas según normativa RF-60",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 35,
+          "total": 420,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de pasos de instalaciones con intumescente",
+          "descripcion": "Mano de obra para identificación, preparación y sellado de todos los pasos de instalaciones (tuberías, cables, conductos) con sellador intumescente certificado. Incluye limpieza y acabado",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 35,
+          "total": 210,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección y documentación de sistema RF-60",
+          "descripcion": "Mano de obra para inspección final del sistema, verificación de cumplimiento normativo RF-60, documentación de materiales utilizados y certificación de la instalación",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 35,
+          "total": 105,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1785,
+        "iva_porcentaje": 21,
+        "iva": 374.85,
+        "total": 2159.85
+      },
+      "sugerencias_catalogo": [
+        "Verificar con fabricante del sistema pladur cortafuego (Knauf, Pladur, Lafarge, etc.) la certificación RF-60 específica para escaleras interiores",
+        "Solicitar documentación técnica del sistema: fichas de producto, certificados de resistencia al fuego, instrucciones de montaje",
+        "Confirmar si la escalera tiene pasos de instalaciones (electricidad, fontanería, climatización) para presupuestar sellador intumescente",
+        "Considerar si se requiere pintura ignífuga adicional tras acabado de juntas (partida separada de pintura especializada)",
+        "Evaluar si hay acceso limitado a la escalera que pueda incrementar tiempo de montaje"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Placa de yeso laminado ignífuga rosa RF-60 (15 mm)",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material especializado cortafuego. Requiere confirmación de proveedor y precio actual"
+        },
+        {
+          "concepto": "Perfiles de acero (canal y montante) para sistema RF-60",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Componente estructural especializado. Requiere cálculo según geometría de escalera"
+        },
+        {
+          "concepto": "Lana de roca densidad alta para RF-60",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material aislante especializado. Requiere confirmación de densidad y espesor"
+        },
+        {
+          "concepto": "Sellador intumescente para pasos de instalaciones",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia",
+          "motivo": "Material de seguridad especializado. Cantidad depende de pasos detectados en obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "revestimiento_pladur_sobre_escalera_interior",
+      "estructura_pladur_para_escalera_interior_nueva",
+      "tabique_pladur_cortafuego_RF60_o_RF120",
+      "tabique_pladur_para_sala_tecnica_o_CPD",
+      "falso_techo_pladur_ignifugo_o_cortafuego"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3893,
+      "tokens_out": 3016
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "NO"
+  }
+}

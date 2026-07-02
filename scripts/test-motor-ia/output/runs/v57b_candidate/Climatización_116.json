@@ -1,0 +1,139 @@
+{
+  "id": 116,
+  "oficio": "Climatización",
+  "texto": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+  "http_status": 200,
+  "latency_ms": 10949,
+  "raw_response": {
+    "transcript": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Legalización de instalación de gas natural en vivienda, revisión y emisión de certificado",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo especializado en gas natural: requiere profesional colegiado y autorizado por distribuidora",
+          "Certificado de instalación debe ser emitido por instalador autorizado según normativa técnica de gas",
+          "Posibles mejoras detectadas durante revisión: presupuestar por separado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Instalaciones de gas natural requieren especialización técnica certificada. Incluye revisión de seguridad, pruebas de estanqueidad y emisión de certificado oficial."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión completa instalación gas natural",
+          "descripcion": "Inspección visual y técnica de toda la instalación de gas natural: tuberías, conexiones, reguladores, válvulas de seguridad, estado general de la instalación, detección de fugas mediante detector de gas.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 65,
+          "total": 162.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de estanqueidad instalación gas",
+          "descripcion": "Realización de prueba de estanqueidad con manómetro diferencial según normativa técnica de gas. Detección de fugas en tuberías, conexiones y accesorios. Registro de resultados.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Emisión certificado instalación gas natural",
+          "descripcion": "Elaboración, firma y emisión del certificado oficial de instalación de gas natural según normativa técnica vigente. Incluye informe técnico de conformidad y tramitación con distribuidora de gas.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del certificado y tramitación con distribuidora debe ser confirmado por instalador autorizado. Rango típico: 150-300€ según distribuidora y complejidad."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Cinta teflón, pasta selladora, conectores, arandelas, material fungible para pruebas y sellados.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según materiales necesarios. Rango estimado: 25-50€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 260,
+        "iva_porcentaje": 21,
+        "iva": 54.6,
+        "total": 314.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar que el instalador dispone de autorización oficial de la distribuidora de gas natural de la zona",
+        "Confirmar si la instalación requiere mejoras o reparaciones (presupuestar por separado)",
+        "Incluir en el certificado: datos de la vivienda, descripción de la instalación, resultado de pruebas de estanqueidad, fecha de revisión y firma del instalador autorizado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Emisión certificado instalación gas natural",
+          "oficio": "mecanica_especializada",
+          "motivo": "Servicio especializado de legalización y certificación de gas natural. No existe partida específica en catálogo base."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "mecanica_especializada",
+          "motivo": "Materiales fungibles para pruebas y sellados de instalación de gas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_ventana_madera_con_vidrio",
+      "auditoria_energetica_instalacion_climatizacion",
+      "legalización_instalacion_electrica",
+      "revision_instalacion_electrica_local_comercial",
+      "instalacion_persiana_veneciana_de_madera_o_bambu"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3616,
+      "tokens_out": 1425
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "mecanica_especializada",
+    "coincide_oficio": "NO"
+  }
+}

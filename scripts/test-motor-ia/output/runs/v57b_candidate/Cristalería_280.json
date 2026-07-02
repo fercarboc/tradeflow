@@ -1,0 +1,186 @@
+{
+  "id": 280,
+  "oficio": "Cristalería",
+  "texto": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+  "http_status": 200,
+  "latency_ms": 12780,
+  "raw_response": {
+    "transcript": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de parabrisas de vehículo industrial de empresa, logotipo adhesivo incluido",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Cambio de parabrisas en vehículo industrial requiere especialización en cristalería automotriz y sellado estructural"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje parabrisas antiguo",
+          "descripcion": "Desmontaje cuidadoso del parabrisas existente, extracción de juntas de sellado y limpieza del marco",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Parabrisas industrial templado/laminado",
+          "descripcion": "Parabrisas de seguridad templado o laminado según especificaciones del vehículo industrial, con tratamiento anti-UV",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del parabrisas depende de marca, modelo y especificaciones del vehículo industrial. Instalador debe introducir precio real"
+        },
+        {
+          "concepto": "Sellado e instalación parabrisas",
+          "descripcion": "Aplicación de masilla de poliuretano estructural, colocación del parabrisas, ajuste y sellado perimetral completo",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Masilla de poliuretano estructural",
+          "descripcion": "Masilla de sellado de poliuretano de dos componentes para fijación estructural del parabrisas",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible. Instalador debe introducir precio según marca y cantidad necesaria"
+        },
+        {
+          "concepto": "Logotipo adhesivo empresa",
+          "descripcion": "Adhesivo de vinilo con logotipo de empresa, aplicación en parabrisas según especificaciones del cliente",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del adhesivo personalizado depende de tamaño, complejidad del diseño y cantidad. Instalador debe introducir precio"
+        },
+        {
+          "concepto": "Aplicación logotipo adhesivo",
+          "descripcion": "Colocación y alineación del logotipo adhesivo en parabrisas, eliminación de burbujas de aire",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 65,
+          "total": 32.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas y verificación estanqueidad",
+          "descripcion": "Verificación de sellado correcto, prueba de estanqueidad y limpieza final del parabrisas",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 65,
+          "total": 32.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 292.5,
+        "iva_porcentaje": 21,
+        "iva": 61.425,
+        "total": 353.925
+      },
+      "sugerencias_catalogo": [
+        "Confirmar marca y modelo exacto del vehículo industrial para especificar parabrisas correcto",
+        "Verificar si el parabrisas requiere tratamientos especiales (anti-UV, privacidad, etc.)",
+        "Solicitar especificaciones del logotipo (tamaño, posición, material del adhesivo)",
+        "Considerar tiempo de curado de la masilla (mínimo 24h antes de uso del vehículo)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Parabrisas industrial templado/laminado",
+          "oficio": "mecanica_especializada",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de especificaciones del vehículo"
+        },
+        {
+          "concepto": "Masilla de poliuretano estructural",
+          "oficio": "mecanica_especializada",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible de sellado"
+        },
+        {
+          "concepto": "Logotipo adhesivo empresa",
+          "oficio": "mecanica_especializada",
+          "origen": "sugerida_ia",
+          "motivo": "Material personalizado cuyo precio depende del diseño y tamaño"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "cambio_inodoro",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial",
+      "instalacion_de_mosquitera_metalica_en_ventana_o_puerta"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3873,
+      "tokens_out": 1915
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mecanica_especializada",
+    "coincide_oficio": "NO"
+  }
+}

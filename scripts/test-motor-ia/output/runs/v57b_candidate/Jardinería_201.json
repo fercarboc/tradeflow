@@ -1,0 +1,128 @@
+{
+  "id": 201,
+  "oficio": "Jardinería",
+  "texto": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+  "http_status": 200,
+  "latency_ms": 9374,
+  "raw_response": {
+    "transcript": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poda de árboles frutales en jardín, 4 naranjos y 2 olivos, limpieza de restos incluida",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de jardinería especializada en árboles frutales",
+          "Incluye gestión de restos vegetales",
+          "Se recomienda realizar en época de reposo vegetativo (invierno para cítricos, primavera para olivos)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Poda de árboles frutales, limpieza y gestión de restos vegetales"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Poda de naranjos",
+          "descripcion": "Poda de formación y mantenimiento de 4 naranjos, eliminación de ramas secas, enfermas o mal orientadas, aclareo de copa para mejorar aireación y penetración de luz",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Poda de olivos",
+          "descripcion": "Poda de mantenimiento de 2 olivos, eliminación de ramas cruzadas, enfermas o improductivas, respetando la estructura del árbol",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recogida y gestión de restos vegetales",
+          "descripcion": "Recogida, acopio y gestión de ramas, hojas y restos de poda de los 6 árboles. Transporte a gestor autorizado o compostaje según disponibilidad",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "h",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Uso de herramientas de poda (tijeras, serrucho, motosierra si necesario), EPI (guantes, gafas de protección), desinfectante para herramientas",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible y herramientas. El instalador debe estimar según disponibilidad de equipos propios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 330,
+        "iva_porcentaje": 21,
+        "iva": 69.3,
+        "total": 399.3
+      },
+      "sugerencias_catalogo": [
+        "Considerar desinfección de herramientas entre árboles para evitar transmisión de enfermedades fúngicas",
+        "Recomendar al cliente realizar poda en invierno para naranjos (enero-febrero) y primavera para olivos (marzo-abril)",
+        "Si hay ramas muy gruesas o altura considerable, valorar uso de escalera o plataforma elevadora"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "poda_de_palmeras",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores",
+      "pintado_paredes_habitacion_con_papel_pintado_retirado",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3906,
+      "tokens_out": 1213
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "id": 254,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+  "http_status": 200,
+  "latency_ms": 19615,
+  "raw_response": {
+    "transcript": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar centralita telefónica IP para empresa de 10 extensiones con número de empresa",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye central PBX IP, telefonos, switch PoE y configuración básica. El instalador debe confirmar: tipo de central (cloud vs on-premise), número de líneas externas SIP/ISDN, servicios adicionales (IVR, grabación, cola de llamadas).",
+          "Precio de central y teléfonos IP requiere revisión según marca/modelo seleccionado."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema de telefonía IP empresarial con múltiples extensiones y configuración de red."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Central PBX IP (on-premise o cloud)",
+          "descripcion": "Suministro e instalación de central telefónica IP para 10 extensiones. Incluye licencias de extensiones y acceso a panel de administración.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca/modelo (Asterisk, 3CX, Avaya, Cisco, etc.) y tipo (cloud vs on-premise). Rango estimado: 800-2000€."
+        },
+        {
+          "concepto": "Teléfonos IP",
+          "descripcion": "Suministro de 10 teléfonos IP profesionales con pantalla, altavoz y auricular. Incluye pequeño material (cables RJ45, adaptadores).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por teléfono IP: 150-400€/ud según marca (Yealink, Grandstream, Cisco, Polycom). Total estimado: 1500-4000€."
+        },
+        {
+          "concepto": "Switch PoE (Power over Ethernet)",
+          "descripcion": "Suministro de switch gestionado con puertos PoE para alimentar teléfonos IP sin cables de corriente adicionales. Mínimo 12 puertos PoE + 2 uplink.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio switch PoE gestionado: 300-800€ según especificaciones (Cisco, Netgear, TP-Link, Ubiquiti)."
+        },
+        {
+          "concepto": "Cableado Cat6 y pequeño material",
+          "descripcion": "Suministro de cable de red Cat6 para interconexión de teléfonos, switch y central. Incluye conectores RJ45, canaletas, bridas y etiquetado.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación: 150 ml de cableado + accesorios. Precio aproximado: 300-500€ total."
+        },
+        {
+          "concepto": "Instalación y configuración de central PBX IP",
+          "descripcion": "Mano de obra: instalación física de central, switch PoE, teléfonos IP. Configuración de extensiones, grupos de llamada, enrutamiento básico y pruebas de funcionamiento.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de líneas externas SIP/ISDN y número de empresa",
+          "descripcion": "Mano de obra: configuración de troncos SIP o ISDN hacia operador, asignación de número de empresa, enrutamiento de llamadas entrantes, pruebas de conectividad con central receptora si aplica.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Contratación de líneas SIP o ISDN (servicio mensual)",
+          "descripcion": "Suministro de líneas externas SIP (recomendado) o ISDN hacia operador de telecomunicaciones. Incluye número de empresa y capacidad de llamadas simultáneas.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de operador y número de líneas. SIP: 20-50€/línea/mes. ISDN: 40-80€/línea/mes. Estimación para 2-3 líneas: 50-150€/mes."
+        },
+        {
+          "concepto": "Formación de usuarios y documentación",
+          "descripcion": "Mano de obra: sesión de formación básica a usuarios sobre uso de teléfono IP, transferencias, conferencias, correo de voz. Entrega de manual de usuario y documentación de configuración.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 700,
+        "iva_porcentaje": 21,
+        "iva": 147,
+        "total": 847
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: ¿Central en la nube (3CX Cloud, Asterisk Cloud) o en servidor local (3CX on-premise, Asterisk on-premise)? Cloud es más económica para pocas extensiones y requiere menos mantenimiento.",
+        "¿Cuántas líneas externas simultáneas necesita? (típicamente 2-3 para empresa de 10 personas). Esto define el número de troncos SIP/ISDN a contratar.",
+        "¿Servicios adicionales? IVR (menú automático), grabación de llamadas, cola de llamadas, integración con CRM, app móvil para trabajar desde casa.",
+        "Operador recomendado: Vodafone, Movistar, Orange, Jazztel o proveedores VoIP especializados (Lowi, Masmóvil). SIP es más económico que ISDN.",
+        "Presupuesto total estimado (sin líneas mensuales): 2800-7000€ en materiales + 700€ en mano de obra = 3500-7700€."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central PBX IP",
+          "oficio": "telecomunicaciones",
+          "motivo": "Elemento principal del sistema. Precio variable según marca/modelo."
+        },
+        {
+          "concepto": "Teléfonos IP (10 unidades)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Equipos terminales. Precio variable según marca."
+        },
+        {
+          "concepto": "Switch PoE",
+          "oficio": "telecomunicaciones",
+          "motivo": "Infraestructura de red. Precio variable según especificaciones."
+        },
+        {
+          "concepto": "Líneas SIP/ISDN (servicio mensual)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Servicio recurrente. Precio depende de operador y número de líneas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_central_telefonica_IP_o_PBX",
+      "instalacion_armario_metalico_o_taquilla",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4086,
+      "tokens_out": 2594
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

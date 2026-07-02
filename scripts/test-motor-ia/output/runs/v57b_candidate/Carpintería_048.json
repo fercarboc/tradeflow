@@ -1,0 +1,139 @@
+{
+  "id": 48,
+  "oficio": "Carpintería",
+  "texto": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+  "http_status": 200,
+  "latency_ms": 11738,
+  "raw_response": {
+    "transcript": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Barnizado y restauración de parquet de madera de pino en salón, 30 metros cuadrados, lijado y barniz al agua",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar grosor de capa útil mínimo 3-4mm antes de lijar",
+          "Proteger y avisar a vecinos por polvo considerable durante lijado",
+          "Aclimatación de material 48-72h en obra si es necesario"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Lijado y barnizado de parquet existente es trabajo de carpintería especializada en suelos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lijado progresivo de parquet existente",
+          "descripcion": "Lijado de parquet de pino con lijadora de banda y lijadora de rincón. Tres pasadas con granulometría progresiva (grano 40, 80, 120, 220). Incluye masilla de madera para juntas y golpes tras primera pasada.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 18,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barniz al agua poliuretano - suministro e instalación",
+          "descripcion": "Barniz al agua poliuretano de alta durabilidad. Dos manos completas con lijado entre manos. Rendimiento aproximado 12-15 m²/litro. Incluye pequeño material (brochas, rodillos, trapos).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material barniz al agua: instalador debe indicar marca, calidad y precio. Estimado 6-8 litros necesarios (30 m² ÷ 4 m²/litro aprox. para 2 manos)"
+        },
+        {
+          "concepto": "Aplicación de barniz al agua - mano de obra",
+          "descripcion": "Aplicación de dos manos de barniz al agua con lijado intermedio entre manos. Incluye preparación de superficie, aplicación uniforme y control de secado.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 30,
+          "precio_unitario": 12,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lija de grano progresivo y pequeño material",
+          "descripcion": "Suministro de lijas de grano 40, 80, 120 y 220. Masilla de madera para juntas y golpes. Cinta carrocero, trapos, brochas y rodillos desechables.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material y consumibles: instalador debe presupuestar según cantidad y calidad de lijas, masilla y accesorios. Estimado 80-150€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 900,
+        "iva_porcentaje": 21,
+        "iva": 189,
+        "total": 1089
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de barnices al agua de alta durabilidad para interiores (marcas recomendadas: Bona, Pallmann, Junckers)",
+        "Verificar disponibilidad de lijadoras de banda y rincón en alquiler si no dispone de equipamiento propio",
+        "Considerar protección de mobiliario y ventilación durante aplicación de barniz al agua"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Barniz al agua poliuretano - suministro",
+          "oficio": "carpinteria",
+          "motivo": "Material específico cuyo precio depende de marca y calidad seleccionada por el instalador"
+        },
+        {
+          "concepto": "Lija de grano progresivo y pequeño material",
+          "oficio": "carpinteria",
+          "motivo": "Consumibles cuyo precio debe ser presupuestado según cantidad y proveedores locales"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "lijado_y_barnizado_de_parquet_existente",
+      "barnizado_madera_interior_muebles_o_pavimento",
+      "lijado_y_barnizado_parquet_existente",
+      "pintado_de_puerta_de_entrada_o_exterior_madera",
+      "instalacion_tarima_flotante_o_parquet_click"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3943,
+      "tokens_out": 1486
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

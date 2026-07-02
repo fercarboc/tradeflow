@@ -1,0 +1,150 @@
+{
+  "id": 300,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+  "http_status": 200,
+  "latency_ms": 13112,
+  "raw_response": {
+    "transcript": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar canalones de hormigón de edificio antiguo con pintura bituminosa, 40 metros lineales",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en edificio antiguo: verificar accesibilidad y estado previo del canalón",
+          "Pintura bituminosa requiere condiciones climáticas adecuadas (temperatura >5°C, sin lluvia)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Canalones son elementos de cubierta. Impermeabilización de canalones → tejados_cubiertas (no pintura, no impermeabilizacion). Regla estricta: canalones, cumbreras, limahoyas, remates → tejados_cubiertas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación canalón hormigón",
+          "descripcion": "Limpieza mecánica de canalón, retirada de suciedad, musgo, restos vegetales y material suelto. Cepillado y lijado superficial para asegurar adherencia de pintura bituminosa.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación bituminosa canalón",
+          "descripcion": "Aplicación de imprimación bituminosa de adherencia en canalón de hormigón. Preparación de superficie para recibir pintura bituminosa final.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 6,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura bituminosa canalón (2 manos)",
+          "descripcion": "Aplicación de pintura bituminosa de impermeabilización en canalón de hormigón. Dos manos para asegurar cobertura completa y durabilidad. Incluye brocha, rodillo y pequeño material.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 12,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura bituminosa (material)",
+          "descripcion": "Pintura bituminosa de impermeabilización para canalones. Rendimiento aproximado 0,5-0,7 kg/ml (2 manos). Cantidad estimada: 20-28 kg.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 24,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material bituminoso pendiente de revisión. Instalador debe confirmar marca, tipo (asfáltica/polimérica) y coste real."
+        },
+        {
+          "concepto": "Medios auxiliares y acceso (andamio/escalera)",
+          "descripcion": "Alquiler o montaje de andamio/plataforma de trabajo segura para acceso a canalones en edificio antiguo. Incluye medidas de seguridad y protección.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio/escalera depende de altura, accesibilidad y duración. Revisar con profesional."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1040,
+        "iva_porcentaje": 21,
+        "iva": 218.4,
+        "total": 1258.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el canalón requiere reparación previa de grietas o desprendimientos (partida de albanilería adicional).",
+        "Considerar protección de bajantes y desagües durante la aplicación de pintura bituminosa.",
+        "En edificios antiguos, evaluar si es necesario refuerzo con malla de fibra de vidrio en encuentros críticos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura bituminosa (material)",
+          "motivo": "Material específico cuyo precio varía según marca y tipo. Instalador debe introducir coste real."
+        },
+        {
+          "concepto": "Medios auxiliares y acceso",
+          "motivo": "Coste variable según altura y accesibilidad del edificio antiguo. Requiere presupuesto específico."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_foso_de_ascensor",
+      "pintado_e_impermeabilizacion_de_sotanos_exteriores_trasdos",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_terraza_con_pintura_poliuretano",
+      "pintura_de_depositos_agua_potable_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3722,
+      "tokens_out": 1619
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "NO"
+  }
+}

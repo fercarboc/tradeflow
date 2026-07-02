@@ -1,0 +1,296 @@
+{
+  "id": 329,
+  "oficio": "Fachadas",
+  "texto": "Reforma de fachada de chalet con piedra natural laminada, zona de 50 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 28037,
+  "raw_response": {
+    "transcript": "Reforma de fachada de chalet con piedra natural laminada, zona de 50 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de fachada de chalet con piedra natural laminada, zona de 50 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma de fachada con piedra natural: requiere cálculo de anclajes mecánicos obligatorios por altura y peso",
+          "Sistema de fachada ventilada recomendado para piedra natural laminada",
+          "Presupuesto estimado: materiales pendiente de revisión del instalador (precios de piedra natural variables según proveedor y tipo)",
+          "Andamio: presupuesto incluido pero requiere confirmación de altura real del chalet"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de fachada con piedra natural laminada en chalet"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Preparación de soporte, mortero cola, junta de dilatación y sellado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de soporte de fachada",
+          "descripcion": "Limpieza, raspado y preparación de la superficie existente para recibir revestimiento de piedra natural laminada. Incluye reparación de grietas y nivelación de soporte.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 8,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de piedra natural laminada",
+          "descripcion": "Piedra natural laminada (espesor 2-3 cm) según tipo y acabado especificado. Incluye transporte a obra. Precio unitario a definir por instalador según proveedor y tipo de piedra (granito, pizarra, caliza, etc.).",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de piedra natural variable según tipo, proveedor y acabado (rango típico 30-80€/m2)"
+        },
+        {
+          "concepto": "Mortero cola blanco C2S2 para piedra natural",
+          "descripcion": "Mortero adhesivo blanco C2S2 de alta adherencia para piedra natural laminada. Incluye pequeño material (espátulas, cubetas, etc.).",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador (rango típico 3-6€/m2)"
+        },
+        {
+          "concepto": "Anclaje mecánico inoxidable para piedra natural",
+          "descripcion": "Anclajes mecánicos de acero inoxidable (pasadores, grapas, escuadras) calculados para peso de piedra natural laminada y cargas de viento. OBLIGATORIO en fachada de altura. Incluye taladrado y fijación a estructura.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio de anclajes a definir según cálculo estructural de altura real del chalet (rango típico 2-8€/unidad)"
+        },
+        {
+          "concepto": "Instalación de piedra natural laminada con anclaje mecánico",
+          "descripcion": "Colocación de piedra natural laminada con mortero cola y anclaje mecánico. Incluye nivelación, aplomado y fijación de cada pieza. Trabajo en altura con medidas de seguridad.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 35,
+          "total": 1750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta de dilatación cada 3 metros lineales",
+          "descripcion": "Junta de dilatación estructural cada 3 metros lineales (horizontal y vertical) para absorber movimientos térmicos. Incluye perfiles de aluminio o PVC y sellado inicial.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador (rango típico 8-15€/ml)"
+        },
+        {
+          "concepto": "Sellado de juntas con silicona flexible",
+          "descripcion": "Sellado de todas las juntas entre piezas de piedra natural con silicona flexible de alta calidad (gris, blanco o color a elegir). Incluye limpieza previa y herramientas de aplicación.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 200,
+          "precio_unitario": 5,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de silicona flexible para juntas",
+          "descripcion": "Silicona flexible de alta calidad para sellado de juntas de piedra natural. Incluye cartuchos necesarios según metraje de juntas.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador (rango típico 4-8€/cartucho)"
+        },
+        {
+          "concepto": "Andamio metálico para trabajo en altura",
+          "descripcion": "Alquiler y montaje de andamio metálico modular para acceso seguro a fachada durante toda la obra. Incluye barandillas, plataformas y escaleras de acceso. Desmontaje al final.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de andamio a definir según altura real del chalet y duración de obra (rango típico 5-15€/m2 de fachada)"
+        },
+        {
+          "concepto": "Hidrofugo siloxano en piedra natural porosa",
+          "descripcion": "Aplicación de hidrofugo siloxano incoloro en piedra natural para protección contra humedad y manchas. Una o dos manos según porosidad del material. Incluye rodillo y pequeño material.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 8,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de hidrofugo siloxano",
+          "descripcion": "Hidrofugo siloxano incoloro de alta calidad para piedra natural. Protección duradera (5-10 años) contra humedad, manchas y eflorescencias.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador (rango típico 15-30€/litro)"
+        },
+        {
+          "concepto": "Proyecto técnico de fachada con cálculo de anclajes",
+          "descripcion": "Proyecto técnico de revestimiento de fachada con cálculo estructural de anclajes mecánicos según altura, peso de piedra natural y cargas de viento. Incluye planos de detalle y especificaciones técnicas.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador (rango típico 300-800€ según complejidad)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3550,
+        "iva_porcentaje": 21,
+        "iva": 745.5,
+        "total": 4295.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de piedra natural laminada (granito, pizarra, caliza, arenisca, etc.) para ajustar precio de material",
+        "Solicitar cálculo estructural de anclajes mecánicos en función de altura real del chalet (número de plantas)",
+        "Considerar sistema de fachada ventilada si la piedra es muy porosa o si hay riesgo de humedad en la zona",
+        "Presupuestar andamio según altura real: chalet de 1 planta (5-8m) vs 2 plantas (8-12m) vs 3 plantas (12-15m)",
+        "Incluir medidas de seguridad en altura: arnés, redes de protección, señalización",
+        "Solicitar presupuesto de piedra natural a proveedor local (variabilidad de precios muy alta)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de piedra natural laminada",
+          "oficio": "fachadas",
+          "motivo": "Material específico cuyo precio depende de proveedor y tipo de piedra"
+        },
+        {
+          "concepto": "Mortero cola blanco C2S2 para piedra natural",
+          "oficio": "albanileria",
+          "motivo": "Material específico para adhesión de piedra natural"
+        },
+        {
+          "concepto": "Anclaje mecánico inoxidable para piedra natural",
+          "oficio": "fachadas",
+          "motivo": "Elemento estructural obligatorio cuya cantidad depende de cálculo de altura y peso"
+        },
+        {
+          "concepto": "Junta de dilatación cada 3 metros lineales",
+          "oficio": "fachadas",
+          "motivo": "Elemento obligatorio en fachada exterior para movimientos térmicos"
+        },
+        {
+          "concepto": "Suministro de silicona flexible para juntas",
+          "oficio": "fachadas",
+          "motivo": "Material de sellado específico para juntas de piedra natural"
+        },
+        {
+          "concepto": "Andamio metálico para trabajo en altura",
+          "oficio": "fachadas",
+          "motivo": "Servicio auxiliar cuyo precio depende de altura real y duración de obra"
+        },
+        {
+          "concepto": "Suministro de hidrofugo siloxano",
+          "oficio": "fachadas",
+          "motivo": "Material de protección específico para piedra natural"
+        },
+        {
+          "concepto": "Proyecto técnico de fachada con cálculo de anclajes",
+          "oficio": "fachadas",
+          "motivo": "Servicio técnico obligatorio para reforma de fachada en altura con anclajes mecánicos"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_revestimiento_de_piedra_natural_en_fachada_con_anclaje",
+      "instalacion_fachada_ventilada_con_piedra_natural",
+      "instalacion_de_pavimento_de_grava_o_gravilla_decorativa",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "forrado_exterior_fachada_ventilada"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3949,
+      "tokens_out": 4133
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 4,
+    "n_sugeridas": 8,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

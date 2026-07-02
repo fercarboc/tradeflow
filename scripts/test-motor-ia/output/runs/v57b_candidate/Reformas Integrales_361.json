@@ -1,0 +1,203 @@
+{
+  "id": 361,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+  "http_status": 200,
+  "latency_ms": 19336,
+  "raw_response": {
+    "transcript": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma completa de piso de 80 metros cuadrados, quitar tabiques, suelo nuevo y cocina actualizada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: 3+ oficios simultáneos (albanilería, suelos, cocina, electricidad implícita)",
+          "Presupuesto con capítulos agrupados (máximo 4 partidas) por alcance de obra",
+          "Requiere coordinación de gremios y plan de obra",
+          "Verificar si incluye instalaciones (electricidad, fontanería, climatización)",
+          "Licencia de obras menor probable según municipio"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma integral vivienda: demolición, obra civil, suelos, cocina, acabados"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición tabiques, preparación suelos"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Colocación suelo nuevo (baldosa, cerámica o similar)"
+        },
+        {
+          "oficio": "cocina_amueblada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Actualización cocina: muebles, electrodomésticos, instalación"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Pintura general acabados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cap.1 – Demolición y obra civil",
+          "descripcion": "Demolición de tabiques interiores, vaciado selectivo de escombros, preparación de suelos, retirada de cocina antigua, gestión de residuos en contenedor",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Instalador debe estimar según número de tabiques, volumen escombros y accesibilidad. Rango orientativo: 2.500–4.500€"
+        },
+        {
+          "concepto": "Cap.2 – Suelos nuevos (80 m²)",
+          "descripcion": "Suministro e instalación de baldosa/cerámica/porcelánico en toda la vivienda (80 m²), mortero cola C2S2 flexible, lechada junta flexible, perfiles aluminio esquinas, junta silicona perimetral, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "servicio",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye material + mano de obra. Rango: 32–65€/m² según calidad baldosa y complejidad. Total estimado: 2.560–5.200€"
+        },
+        {
+          "concepto": "Cap.3 – Cocina actualizada + acabados",
+          "descripcion": "Suministro e instalación muebles cocina, electrodomésticos (placa, horno, campana, frigorífico si incluido), encimera, grifería, conexiones fontanería y electricidad cocina, pintura general vivienda (paredes y techos), carpintería interior (puertas, molduras), pequeño material",
+          "oficio": "cocina_amueblada",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto alzado. Incluye cocina, electrodomésticos, pintura y carpintería. Rango: 4.000–8.000€ según equipamiento y acabados"
+        },
+        {
+          "concepto": "Cap.4 – Coordinación, licencias y otros",
+          "descripcion": "Coordinación de gremios, tramitación licencia obras menor (si aplica según municipio), plan de obra, pequeño material, limpieza final",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión administrativa y coordinación. Rango: 800–1.500€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar con cliente: ¿incluye instalación eléctrica completa nueva? (REBT obligatorio si es reforma integral)",
+        "Verificar: ¿incluye fontanería nueva o solo conexiones cocina?",
+        "Verificar: ¿incluye climatización (aire acondicionado, bomba calor)?",
+        "Verificar: ¿incluye cambio de ventanas/puertas exteriores?",
+        "Solicitar plano o croquis de distribución actual y nueva para estimar demoliciones",
+        "Confirmar calidad de materiales (baldosa, muebles cocina, pintura) para ajustar presupuesto",
+        "Licencia de obras: consultar con ayuntamiento si es necesaria (reforma >25% superficie útil suele requerirla)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Demolición tabiques y vaciado selectivo",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada en Cap.1 por alcance de obra"
+        },
+        {
+          "concepto": "Suministro e instalación suelos 80 m²",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada en Cap.2 por alcance de obra"
+        },
+        {
+          "concepto": "Cocina actualizada + acabados interiores",
+          "oficio": "cocina_amueblada",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada en Cap.3 por alcance de obra"
+        },
+        {
+          "concepto": "Coordinación y gestión administrativa",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Partida agrupada en Cap.4 por alcance de obra"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_completo_cocina",
+      "renovacion_de_instalacion_electrica_completa_en_vivienda",
+      "reforma_integral_vivienda_completa",
+      "tabique_pladur_en_rehabilitacion_edificio_existente",
+      "alicatado_y_solado_de_bano_completo"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4109,
+      "tokens_out": 2682
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

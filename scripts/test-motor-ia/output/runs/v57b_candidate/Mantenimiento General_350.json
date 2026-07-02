@@ -1,0 +1,175 @@
+{
+  "id": 350,
+  "oficio": "Mantenimiento General",
+  "texto": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+  "http_status": 200,
+  "latency_ms": 14155,
+  "raw_response": {
+    "transcript": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar zona de carga y descarga de almacén con líneas de seguridad y señalización de suelo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere medición de superficie en m² para cálculo final exacto",
+          "Especificar tipo de pintura (epoxi, poliuretano, acrílica) según tráfico esperado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura industrial de suelo con líneas de seguridad y señalización"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y desengrasante de suelo",
+          "descripcion": "Limpieza profunda, barrido y desengrasante del suelo de zona de carga/descarga antes de pintar",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 32,
+          "total": 64,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación consolidante de hormigón",
+          "descripcion": "Aplicación de imprimación adherente sobre hormigón para mejorar agarre de pintura",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación a definir por instalador según marca y cantidad exacta (estimado 10 litros para ~50-70 m²)"
+        },
+        {
+          "concepto": "Pintura epoxi o poliuretano para suelo industrial",
+          "descripcion": "Pintura de tráfico epoxi o poliuretano de 2 componentes, 2 manos mínimo, para zona de carga/descarga",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura industrial a definir por instalador según marca, tipo (epoxi/poliuretano) y cantidad exacta (estimado 20 litros para ~50-70 m² con 2 manos)"
+        },
+        {
+          "concepto": "Aplicación de pintura de suelo (2 manos)",
+          "descripcion": "Rodillo y aplicación de pintura industrial en 2 manos sobre suelo de hormigón, rendimiento 5-7 m²/litro",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 32,
+          "total": 192,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Líneas de seguridad y señalización de suelo",
+          "descripcion": "Pintura de líneas de seguridad (amarillo/negro), flechas direccionales, zonas de peligro y señalización reglamentaria de almacén",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 32,
+          "total": 128,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Rodillos, brochas, cinta de carrocero, trapos, disolvente, EPI (guantes, mascarilla, gafas)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de consumibles a definir por instalador (estimado 30-50€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 384,
+        "iva_porcentaje": 21,
+        "iva": 80.64,
+        "total": 464.64
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición exacta de m² de zona de carga/descarga para ajustar cantidades de pintura e imprimación",
+        "Confirmar tipo de pintura requerida: epoxi (máxima durabilidad, tráfico intenso) vs poliuretano (buena relación precio-durabilidad)",
+        "Especificar colores y diseño de líneas de seguridad según normativa de almacén (UNE 1307, ISO 1942)",
+        "Considerar antideslizante (cuarzo) si suelo es muy liso o hay riesgo de resbalones"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación consolidante de hormigón",
+          "oficio": "pintura",
+          "origen": "sugerida_ia",
+          "motivo": "Partida estándar en pintado de suelos industriales, incluida en BASE MAESTRA [pintado_de_garaje_o_parking_suelo]"
+        },
+        {
+          "concepto": "Pintura epoxi o poliuretano para suelo industrial",
+          "oficio": "pintura",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para zona de carga/descarga, requiere especificación de marca y tipo por instalador"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "pintura",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles estándar en trabajos de pintura, presupuesto a definir"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintado_de_garaje_o_parking_suelo",
+      "instalacion_de_tarima_o_entarimado_de_madera_elevado_para_escenario_o_zona",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria",
+      "pintado_de_canchas_de_padel_interior",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3811,
+      "tokens_out": 1889
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "NO"
+  }
+}

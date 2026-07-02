@@ -1,0 +1,248 @@
+{
+  "id": 318,
+  "oficio": "Contra Incendios",
+  "texto": "Diseño de plan de autoprotección para colegio con 500 alumnos, evacuación y emergencias",
+  "http_status": 200,
+  "latency_ms": 28353,
+  "raw_response": {
+    "transcript": "Diseño de plan de autoprotección para colegio con 500 alumnos, evacuación y emergencias",
+    "quote": {
+      "resumen": {
+        "texto_original": "Diseño de plan de autoprotección para colegio con 500 alumnos, evacuación y emergencias",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Plan de autoprotección requiere cumplimiento normativo (RD 393/2007, Orden 3614/2006 Madrid o equivalente autonómico)",
+          "Documento técnico-legal: debe ser firmado por profesional competente (Ingeniero de Seguridad, Técnico PRL)",
+          "Incluye evaluación de riesgos, procedimientos, señalización, formación y simulacros",
+          "Presupuesto orientativo: requiere visita previa y análisis detallado del edificio"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 55,
+            "max": 70
+          },
+          "motivo": "Plan de autoprotección es documento de seguridad contra incendios y emergencias; incluye evaluación de sistemas de protección, señalización, procedimientos de evacuación"
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Tramitación y registro del plan ante autoridades competentes (Consejería de Educación, Protección Civil, Bomberos según comunidad autónoma)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica y evaluación de riesgos",
+          "descripcion": "Inspección completa del edificio escolar: estructura, accesos, salidas de emergencia, sistemas de protección existentes (detectores, extintores, BIE, iluminación emergencia), señalización, vías de evacuación. Medición de distancias, aforos, identificación de puntos críticos y vulnerabilidades. Incluye entrevista con dirección y personal de seguridad.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad del edificio, número de plantas, superficie total. Rango estimado: 800-1500€"
+        },
+        {
+          "concepto": "Redacción del Plan de Autoprotección",
+          "descripcion": "Documento técnico completo según RD 393/2007: identificación de riesgos potenciales, medidas preventivas, procedimientos de actuación ante emergencias, organización de la emergencia (coordinador, equipos de intervención, comunicación), planos de evacuación, señalización recomendada, protocolos de actuación por tipo de emergencia (incendio, explosión, amenaza de bomba, intrusión, accidente grave, etc.). Incluye análisis de capacidad de evacuación para 500 alumnos + personal.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "documento",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de extensión y detalle. Rango estimado: 1500-3000€. Incluye redacción, planos, procedimientos, anexos"
+        },
+        {
+          "concepto": "Diseño de señalización de emergencia y evacuación",
+          "descripcion": "Plano de ubicación de señales normalizadas (ISO 7010): salidas de emergencia, vías de evacuación, puntos de encuentro, ubicación de extintores, BIE, desfibriladores, botiquín, teléfono emergencia. Especificación de tipo de señal (fotoluminiscente, LED, adhesiva), tamaño y material según normativa. Incluye croquis de distribución por plantas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "documento",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 400-800€. Incluye planos CAD, especificaciones técnicas, lista de materiales"
+        },
+        {
+          "concepto": "Procedimientos de actuación ante emergencias",
+          "descripcion": "Redacción de protocolos específicos: incendio (detección, alarma, evacuación, punto de encuentro), accidente grave (primeros auxilios, llamada emergencias, aislamiento zona), amenaza de bomba (búsqueda, evacuación, coordinación con policía), intrusión (confinamiento, comunicación, protección de menores), accidente en actividades extraescolares. Incluye fichas de actuación rápida para personal, árboles de decisión, contactos de emergencia.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "documento",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 600-1200€. Incluye redacción, fichas de actuación, árboles de decisión, formatos de registro"
+        },
+        {
+          "concepto": "Plan de formación y simulacros",
+          "descripcion": "Diseño de programa de formación anual para personal docente y no docente: conocimiento del plan, roles y responsabilidades, procedimientos de evacuación, uso de equipos de protección (extintores, BIE), primeros auxilios. Planificación de simulacros: calendario anual (mínimo 2 simulacros/año), guiones de simulacro, evaluación post-simulacro, registro de participantes. Incluye propuesta de formación específica para coordinador de emergencia.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "documento",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 500-1000€. Incluye programa formativo, guiones simulacros, fichas evaluación, registros"
+        },
+        {
+          "concepto": "Tramitación y registro del Plan ante autoridades",
+          "descripcion": "Gestión administrativa: presentación del plan ante Consejería de Educación, Protección Civil y/o Bomberos según comunidad autónoma. Coordinación con inspección de seguridad. Obtención de visado o aprobación oficial. Registro en base de datos de centros educativos. Seguimiento de trámites y comunicaciones con administración.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "tramitacion",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 300-600€. Incluye gestión administrativa, coordinación con organismos, seguimiento de trámites"
+        },
+        {
+          "concepto": "Asesoramiento en mejoras de seguridad",
+          "descripcion": "Informe de recomendaciones técnicas para mejorar la seguridad del centro: mejora de vías de evacuación, instalación de sistemas de detección (detectores de humo, CO), mejora de iluminación de emergencia, instalación de BIE adicionales, señalización deficiente, mejora de cerraduras de puertas de emergencia, sistemas de comunicación de emergencia (megafonía, sirena), control de acceso. Priorización de mejoras por urgencia y coste.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "informe",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 400-800€. Incluye inspección detallada, análisis de deficiencias, propuestas de mejora con presupuestos orientativos"
+        },
+        {
+          "concepto": "Documentación y entrega final",
+          "descripcion": "Preparación de carpeta técnica completa: plan de autoprotección encuadernado (mínimo 3 copias), planos de evacuación en formato A3 laminado para colocación en aulas y pasillos, fichas de actuación rápida plastificadas, registro de simulacros, certificado de cumplimiento normativo, resumen ejecutivo para dirección. Entrega en formato digital (PDF, CAD) y físico.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 300-600€. Incluye impresión, encuadernación, laminación, empaquetado, entrega"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el centro educativo tiene plan de autoprotección previo que requiera actualización (más económico que redacción completa)",
+        "Consultar con Consejería de Educación de la comunidad autónoma sobre requisitos específicos y normativa aplicable",
+        "Coordinar con Bomberos locales para validación de vías de evacuación y capacidad de evacuación",
+        "Considerar auditoría de seguridad complementaria si el edificio es antiguo o ha sufrido reformas",
+        "Incluir en el plan procedimientos específicos para alumnos con movilidad reducida o necesidades especiales",
+        "Proponer formación inicial al personal docente tras aprobación del plan (presupuesto separado)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Visita técnica y evaluación de riesgos",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio especializado de inspección y análisis de seguridad en centro educativo"
+        },
+        {
+          "concepto": "Redacción del Plan de Autoprotección",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Documento técnico-legal según RD 393/2007, requiere profesional competente"
+        },
+        {
+          "concepto": "Diseño de señalización de emergencia y evacuación",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de diseño técnico de señalización normalizada ISO 7010"
+        },
+        {
+          "concepto": "Procedimientos de actuación ante emergencias",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Redacción de protocolos específicos por tipo de emergencia"
+        },
+        {
+          "concepto": "Plan de formación y simulacros",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Diseño de programa formativo y calendario de simulacros"
+        },
+        {
+          "concepto": "Tramitación y registro del Plan ante autoridades",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Gestión administrativa y registro oficial del plan"
+        },
+        {
+          "concepto": "Asesoramiento en mejoras de seguridad",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Informe de recomendaciones técnicas para mejorar seguridad del centro"
+        },
+        {
+          "concepto": "Documentación y entrega final",
+          "oficio": "contra_incendios",
+          "origen": "sugerida_ia",
+          "motivo": "Preparación de carpeta técnica completa con planos y documentación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_cubierta_verde_con_lamina_antirraiz",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "replanteo_y_trazado_de_obra",
+      "planificacion_y_presupuesto_reforma_integral",
+      "instalacion_de_plantas_trepadoras"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3913,
+      "tokens_out": 3886
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 8,
+    "n_catalogo": 0,
+    "n_sugeridas": 8,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "id": 130,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+  "http_status": 200,
+  "latency_ms": 15127,
+  "raw_response": {
+    "transcript": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza de musgo y liquen en tejado de pizarra, tratamiento antimusgo e hidrofugado",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: verificar disponibilidad de andamios/línea de vida",
+          "Pizarra es material delicado: requiere técnica específica para no dañar placas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Limpieza, tratamiento y mantenimiento de cubierta de pizarra. Regla estricta: tejados_cubiertas cubre goteras, limpieza, tratamientos impermeabilizantes y mantenimiento preventivo de cubiertas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza de musgo y liquen en cubierta de pizarra",
+          "descripcion": "Limpieza manual y mecánica de musgo, liquen y suciedad acumulada en placas de pizarra. Incluye cepillado suave para no dañar el material, retirada de detritus y limpieza de canalones y sumideros.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar superficie total de cubierta (m2) y tarifa horaria aplicable. Rango orientativo: 15-35€/m2 según accesibilidad y grado de suciedad."
+        },
+        {
+          "concepto": "Tratamiento antimusgo con producto específico para pizarra",
+          "descripcion": "Aplicación de biocida/fungicida antimusgo compatible con pizarra. Producto de larga duración que previene reaparición de musgo y liquen durante 12-24 meses.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar litros necesarios según superficie. Rango orientativo: 0,1-0,2 L/m2. Precio material: 20-40€/L."
+        },
+        {
+          "concepto": "Aplicación de tratamiento antimusgo",
+          "descripcion": "Mano de obra para aplicación uniforme del biocida antimusgo en toda la superficie de cubierta mediante pulverización o brocha.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar horas de aplicación según superficie y método (pulverización vs. brocha)."
+        },
+        {
+          "concepto": "Hidrofugado de cubierta de pizarra",
+          "descripcion": "Aplicación de tratamiento hidrofugante/impermeabilizante específico para pizarra. Protege contra infiltraciones, mejora drenaje y prolonga vida útil del material. Duración: 5-10 años.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar litros necesarios. Rango orientativo: 0,15-0,25 L/m2. Precio material: 25-50€/L."
+        },
+        {
+          "concepto": "Aplicación de tratamiento hidrofugante",
+          "descripcion": "Mano de obra para aplicación uniforme del hidrofugante en toda la cubierta mediante pulverización o brocha, asegurando cobertura completa.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 50,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar horas de aplicación según superficie y método."
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en trabajos en altura",
+          "descripcion": "Equipos de protección individual (arnés, línea de vida, casco, guantes, botas antideslizantes) y medidas de seguridad para trabajos en cubierta. Incluye pequeño material de fijación.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar número de jornadas. Rango orientativo: 50-150€/jornada según equipamiento necesario."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica 'Limpieza y mantenimiento preventivo de cubierta' en catálogo (referencia BASE MAESTRA).",
+        "Considerar incluir 'Informe fotográfico del estado de la cubierta' como partida adicional para documentar antes/después.",
+        "Si la cubierta tiene canalones, incluir partida específica de limpieza de canalones y sumideros."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tratamiento antimusgo con producto específico para pizarra",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico no encontrado en catálogo. Creada como sugerida_ia con precio_unitario=0 para revisión del instalador."
+        },
+        {
+          "concepto": "Hidrofugado de cubierta de pizarra",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico no encontrado en catálogo. Creada como sugerida_ia con precio_unitario=0 para revisión del instalador."
+        },
+        {
+          "concepto": "EPI y medidas de seguridad en trabajos en altura",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Partida de seguridad creada como sugerida_ia. Instalador debe especificar equipamiento y jornadas."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_consolidacion_de_estructura_de_madera_cubierta",
+      "limpieza_y_mantenimiento_preventivo_de_cubierta",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "tratamiento_de_musgo_y_algas_en_cesped",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4057,
+      "tokens_out": 2112
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

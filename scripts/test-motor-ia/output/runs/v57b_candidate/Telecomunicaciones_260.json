@@ -1,0 +1,251 @@
+{
+  "id": 260,
+  "oficio": "Telecomunicaciones",
+  "texto": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+  "http_status": 200,
+  "latency_ms": 19992,
+  "raw_response": {
+    "transcript": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y actualización de instalación de telecomunicaciones en edificio de 20 años, ICT2",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Edificio de 20 años: probable obsolescencia de cableado y equipos",
+          "ICT2 implica cumplimiento normativa LSBTIS (Ley de Seguridad de Redes y Sistemas de Información)",
+          "Requiere diagnóstico previo del estado actual de la instalación",
+          "Posible necesidad de certificación de la instalación tras actualización"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión, diagnóstico y actualización de infraestructura de telecomunicaciones ICT2 en edificio"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y auditoría de instalación ICT2 existente",
+          "descripcion": "Revisión completa del estado actual de cableado, canalizaciones, armarios de distribución, tomas de usuario y equipos activos. Identificación de obsolescencias, deficiencias normativas y puntos de mejora.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir por instalador según complejidad del edificio y número de plantas"
+        },
+        {
+          "concepto": "Retirada y desmontaje de cableado obsoleto",
+          "descripcion": "Desmontaje de cableado antiguo (Cat5, Cat5e o inferior), retirada de canalizaciones deterioradas y pequeño material asociado. Gestión de residuos incluida.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de cableado Cat6A estructurado",
+          "descripcion": "Cableado de pares trenzados Cat6A para distribución horizontal en edificio. Incluye tendido en canalizaciones, fijación, etiquetado y pequeño material. Estimado según longitud total de red.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 800,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado Cat6A a definir. Instalador debe revisar metraje real y coste de material + mano de obra de tendido"
+        },
+        {
+          "concepto": "Instalación de cableado Cat6A en canalizaciones",
+          "descripcion": "Mano de obra de tendido, fijación, pasacables y pequeño material para instalación de cableado Cat6A en canalizaciones existentes o nuevas.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 50,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Actualización de armarios de distribución y equipos activos",
+          "descripcion": "Suministro e instalación de switches gestionables, patch panels Cat6A, regletas de conexión, fuentes de alimentación redundantes y pequeño material. Incluye reorganización de cableado existente.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de equipos activos (switches, patch panels, fuentes) a definir según número de puertos y especificaciones técnicas requeridas"
+        },
+        {
+          "concepto": "Instalación de equipos activos en armarios",
+          "descripcion": "Mano de obra de instalación, conexionado, configuración básica y pruebas de equipos activos en armarios de distribución.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de tomas RJ45 en puntos de usuario",
+          "descripcion": "Suministro e instalación de tomas RJ45 Cat6A en cajas de empotrar o superficie. Incluye pequeño material, etiquetado y pruebas de continuidad.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de tomas RJ45 Cat6A a definir. Instalador debe revisar cantidad real de puntos de usuario"
+        },
+        {
+          "concepto": "Mano de obra instalación tomas RJ45 en puntos de usuario",
+          "descripcion": "Instalación, conexionado y pruebas de tomas RJ45 en puntos de usuario distribuidos en el edificio.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 15,
+          "precio_unitario": 50,
+          "total": 750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Certificación y pruebas de la instalación ICT2",
+          "descripcion": "Pruebas de continuidad, medición de atenuación, verificación de velocidad de transmisión y generación de certificado de conformidad de la instalación según normativa ICT2.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de certificación a definir. Puede incluir informe técnico y documentación de conformidad"
+        },
+        {
+          "concepto": "Documentación técnica y planos as-built",
+          "descripcion": "Elaboración de planos as-built, esquemas de distribución, listado de tomas, documentación de configuración de equipos y manual de mantenimiento.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de documentación técnica a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3150,
+        "iva_porcentaje": 21,
+        "iva": 661.5,
+        "total": 3811.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la instalación requiere cumplimiento de LSBTIS (Ley de Seguridad de Redes) que puede implicar auditoría de ciberseguridad adicional",
+        "Considerar instalación de WiFi 6 (802.11ax) si se requiere cobertura inalámbrica moderna",
+        "Evaluar necesidad de fibra óptica para distribución de backbone si distancias son superiores a 100m",
+        "Incluir formación al personal de mantenimiento del edificio sobre la nueva instalación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico y auditoría de instalación ICT2 existente",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de diagnóstico previo necesario para edificio de 20 años con instalación obsoleta"
+        },
+        {
+          "concepto": "Suministro e instalación de cableado Cat6A estructurado",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material de cableado moderno para actualización de infraestructura"
+        },
+        {
+          "concepto": "Actualización de armarios de distribución y equipos activos",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Equipos activos modernos (switches, patch panels) para cumplimiento ICT2"
+        },
+        {
+          "concepto": "Instalación de tomas RJ45 en puntos de usuario",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Tomas de usuario Cat6A para actualización de puntos de acceso"
+        },
+        {
+          "concepto": "Certificación y pruebas de la instalación ICT2",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de certificación obligatorio para cumplimiento normativo ICT2"
+        },
+        {
+          "concepto": "Documentación técnica y planos as-built",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Documentación técnica requerida para mantenimiento futuro y cumplimiento normativo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "instalacion_sistema_agua_helada_chiller",
+      "falso_techo_pladur_ignifugo_o_cortafuego",
+      "instalacion_de_red_de_datos_en_hotel_u_hospitality",
+      "instalacion_de_columna_seca_en_edificio"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4058,
+      "tokens_out": 3021
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

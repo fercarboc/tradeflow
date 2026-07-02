@@ -1,0 +1,176 @@
+{
+  "id": 94,
+  "oficio": "Albañilería",
+  "texto": "Reparar filtraciones en sótano, impermeabilización interior con mortero cristalizante",
+  "http_status": 200,
+  "latency_ms": 17451,
+  "raw_response": {
+    "transcript": "Reparar filtraciones en sótano, impermeabilización interior con mortero cristalizante",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar filtraciones en sótano, impermeabilización interior con mortero cristalizante",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "IMPORTANTE: La impermeabilización interior es solución secundaria. Se recomienda evaluar causa externa (drenaje perimetral, canalones, grietas en fachada).",
+          "El mortero cristalizante es la mejor opción para interior porque penetra en el hormigón.",
+          "Requiere diagnóstico previo de origen de filtraciones (puntuales o generalizadas)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización interior de sótano con mortero cristalizante. Oficio especializado en tratamiento de humedades."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y saneo de eflorescencias",
+          "descripcion": "Inspección de filtraciones, identificación de puntos críticos, limpieza y saneo de eflorescencias y zonas deterioradas en muros de sótano",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación mineral",
+          "descripcion": "Aplicación de imprimación mineral o bituminosa como preparación de superficie antes de mortero cristalizante",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir por el profesional. Precio unitario pendiente de revisión (típicamente 5-12€/m2 material + aplicación)."
+        },
+        {
+          "concepto": "Mortero hidrofugo cristalizante",
+          "descripcion": "Suministro e instalación de mortero cristalizante de reparación en muros de sótano. Penetra en el hormigón y cristaliza ante presencia de agua.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir. Precio unitario pendiente (típicamente 25-70€/m2 según espesor y marca)."
+        },
+        {
+          "concepto": "Refuerzo de encuentros suelo-pared",
+          "descripcion": "Aplicación reforzada de mortero cristalizante en junta crítica suelo-pared con malla de fibra para evitar filtraciones puntuales",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales de junta a definir por el profesional."
+        },
+        {
+          "concepto": "Banda hidrofuga en junta suelo-pared",
+          "descripcion": "Suministro e instalación de banda hidrofuga de PVC o similar en junta suelo-pared como refuerzo de estanqueidad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de ml a definir. Precio unitario pendiente (típicamente 8-15€/ml material + instalación)."
+        },
+        {
+          "concepto": "Sistema de drenaje interior (si filtraciones activas)",
+          "descripcion": "Instalación de drenaje interior o canaleta perimetral en base de muros si se detectan filtraciones activas generalizadas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida opcional según diagnóstico. Cantidad y precio a definir si es necesaria."
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Consultar en catálogo: 'impermeabilizacion_de_sotano_por_interior_con_mortero_hidrofugo' para validar precios de mortero cristalizante y bandas hidrofugas.",
+        "Considerar presupuesto adicional si se detecta necesidad de drenaje perimetral exterior (solución más efectiva a largo plazo)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación mineral",
+          "oficio": "impermeabilizacion",
+          "motivo": "Preparación de superficie antes de mortero cristalizante. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Mortero hidrofugo cristalizante",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico. Cantidad en m2 y precio unitario a definir por profesional."
+        },
+        {
+          "concepto": "Banda hidrofuga en junta suelo-pared",
+          "oficio": "impermeabilizacion",
+          "motivo": "Refuerzo de estanqueidad. Cantidad en ml y precio a definir."
+        },
+        {
+          "concepto": "Sistema de drenaje interior (si filtraciones activas)",
+          "oficio": "impermeabilizacion",
+          "motivo": "Partida opcional según diagnóstico. Precio y cantidad pendientes."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_sotano_por_interior_con_mortero_hidrofugo",
+      "reparacion_de_piscina_con_filtraciones",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "enfoscado_de_mortero_paredes_interiores"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3862,
+      "tokens_out": 2244
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

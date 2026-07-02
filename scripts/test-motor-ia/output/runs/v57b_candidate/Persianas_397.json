@@ -1,0 +1,149 @@
+{
+  "id": 397,
+  "oficio": "Persianas",
+  "texto": "Reparar toldo de terraza que ha roto la tela con el viento, cambio de tejido y tensado de estructura",
+  "http_status": 200,
+  "latency_ms": 12054,
+  "raw_response": {
+    "transcript": "Reparar toldo de terraza que ha roto la tela con el viento, cambio de tejido y tensado de estructura",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar toldo de terraza que ha roto la tela con el viento, cambio de tejido y tensado de estructura",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación, sustitución de tela y tensado de toldo de terraza"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de tela rota del toldo",
+          "descripcion": "Desmontaje cuidadoso de la tela dañada, retirada de herrajes de fijación y limpieza de estructura metálica",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de tela acrílica tratada UV para toldo",
+          "descripcion": "Tela acrílica o poliéster de alta calidad tratada contra rayos UV, resistente a intemperie, coordinar color y patrón con toldo existente",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tela depende de medidas exactas del toldo y calidad seleccionada. Instalador debe medir y cotizar"
+        },
+        {
+          "concepto": "Instalación de nueva tela en toldo",
+          "descripcion": "Colocación de tela nueva, fijación en cabezal y brazos, tensado uniforme de estructura, ajuste de herrajes",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tensado y ajuste de estructura metálica del toldo",
+          "descripcion": "Revisión y tensado de brazos articulados, ajuste de mecanismos de extensión/retracción, verificación de alineación y funcionamiento correcto",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y herrajes de fijación",
+          "descripcion": "Tornillería, tuercas, arandelas, grapas de fijación, selladores y otros materiales auxiliares para montaje",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material a presupuestar según cantidad de herrajes necesarios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 292.5,
+        "iva_porcentaje": 21,
+        "iva": 61.425,
+        "total": 353.925
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el toldo tiene brazos extensibles manuales o motorizados para ajustar tiempo de tensado",
+        "Confirmar medidas exactas del toldo para cotizar tela acrílica (m2)",
+        "Revisar estado de brazos articulados y mecanismos para detectar posibles daños secundarios por viento"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de tela acrílica tratada UV para toldo",
+          "oficio": "persianas",
+          "motivo": "Material específico cuyo precio depende de medidas y calidad; requiere medición en obra"
+        },
+        {
+          "concepto": "Pequeño material y herrajes de fijación",
+          "oficio": "persianas",
+          "motivo": "Materiales auxiliares cuya cantidad se determina tras inspección de estructura"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "instalacion_de_faldones_o_cenefas_para_toldo",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "impermeabilizacion_cubierta_plana_no_transitable_con_lamina",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3948,
+      "tokens_out": 1466
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

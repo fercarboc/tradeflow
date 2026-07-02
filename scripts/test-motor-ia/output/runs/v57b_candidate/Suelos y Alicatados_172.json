@@ -1,0 +1,178 @@
+{
+  "id": 172,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Cambiar suelo de salón de parquet de madera por gres porcelánico de gran formato 80x80",
+  "http_status": 200,
+  "latency_ms": 19473,
+  "raw_response": {
+    "transcript": "Cambiar suelo de salón de parquet de madera por gres porcelánico de gran formato 80x80",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar suelo de salón de parquet de madera por gres porcelánico de gran formato 80x80",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de sustitución: requiere desmontaje previo del parquet existente",
+          "Gran formato 80x80 requiere doble encolado obligatorio y cuñas niveladoras",
+          "Verificar estado del soporte (solera/forjado) antes de proceder"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Desmontaje de parquet y colocación de gres porcelánico. Oficio principal: suelos_alicatados"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de parquet existente",
+          "descripcion": "Desmontaje completo del parquet de madera flotante/pegado, retirada de lamina aislante, limpieza y preparación del soporte. Incluye gestión de residuos de madera.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Instalador debe indicar superficie del salón."
+        },
+        {
+          "concepto": "Regularización y preparación del soporte",
+          "descripcion": "Limpieza profunda, nivelación con regla de 2m, reparación de irregularidades, aplicación de imprimación si es necesario. Máximo desviación permitida: 3mm bajo regla de 2m.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Incluir en presupuesto final."
+        },
+        {
+          "concepto": "Baldosa gres porcelánico gran formato 80x80 cm",
+          "descripcion": "Suministro de baldosa gres porcelánico rectificado formato 80x80 cm, calidad premium. Incluir 5-10% mermas. Precio unitario a definir según marca y acabado (mate, pulido, imitación piedra, etc.).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material no definido. Instalador debe indicar marca, acabado y precio. Cantidad de m2 pendiente."
+        },
+        {
+          "concepto": "Mortero cola C2 flexible S2 doble encolado",
+          "descripcion": "Mortero cola cementoso flexible C2 S2 para doble encolado (obligatorio en piezas 80x80). Aplicación en soporte y pieza. Incluye pequeño material (llanas, esponjas, etc.).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir. Cantidad de m2 pendiente."
+        },
+        {
+          "concepto": "Colocación de baldosa gres porcelánico 80x80 con doble encolado",
+          "descripcion": "Colocación de baldosa gres porcelánico gran formato 80x80 cm con doble encolado obligatorio. Incluye uso de cuñas niveladoras y crucetas. Mano de obra de instalación.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 no especificada. Tarifa recomendada 32€/m2 para gran formato con doble encolado."
+        },
+        {
+          "concepto": "Lechada de junta cementosa o epoxi",
+          "descripcion": "Suministro e instalación de lechada de junta cementosa (junta mínima 1,5mm en rectificado) o epoxi según especificación. Incluye limpieza de juntas y acabado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir según tipo de lechada. Cantidad de m2 pendiente."
+        },
+        {
+          "concepto": "Junta perimetral y rodapié",
+          "descripcion": "Colocación de junta perimetral de 8-10mm en todo el perímetro del salón. Suministro e instalación de rodapié (si se incluye) o sellado con silicona neutra.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales no especificada. Instalador debe indicar perímetro del salón."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'solado_gres_porcelanico_interior' — rango 25-95€/m2 mano de obra",
+        "Doble encolado OBLIGATORIO para piezas 80x80 cm — no es opcional",
+        "Cuñas niveladoras recomendadas para gran formato — mejora acabado y evita desniveles",
+        "Considerar si el rodapié es de gres (a juego) o madera (transición visual)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desmontaje y retirada de parquet existente",
+          "oficio": "suelos_alicatados",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo de sustitución: desmontaje previo no está explícitamente en catálogo, pero es obligatorio en cambios de pavimento"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "lijado_y_barnizado_parquet_existente",
+      "solado_gres_porcelanico_interior",
+      "instalacion_solado_de_madera_maciza_flotante_ingenieria_o_click",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "colocacion_parquet_ingenieria_pegado_o_flotante"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4024,
+      "tokens_out": 2604
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

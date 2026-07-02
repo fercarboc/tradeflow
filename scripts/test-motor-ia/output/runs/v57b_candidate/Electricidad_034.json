@@ -1,0 +1,230 @@
+{
+  "id": 34,
+  "oficio": "Electricidad",
+  "texto": "Instalación de línea independiente para aire acondicionado de 5000 frigorías en el salón",
+  "http_status": 200,
+  "latency_ms": 20881,
+  "raw_response": {
+    "transcript": "Instalación de línea independiente para aire acondicionado de 5000 frigorías en el salón",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de línea independiente para aire acondicionado de 5000 frigorías en el salón",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "5000 frigorías ≈ 1.46 kW (equipo pequeño, split simple o compacto)",
+          "Línea independiente implica: circuito eléctrico exclusivo + protecciones + cableado dedicado",
+          "Verificar si existe toma de corriente cercana o requiere tendido desde cuadro general"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de equipo de climatización (split o unidad compacta)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Línea independiente: circuito eléctrico exclusivo, protecciones, cableado dedicado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro unidad split aire acondicionado 5000 frigorías",
+          "descripcion": "Equipo split de climatización de 1.46 kW (5000 frigorías) con unidad interior y exterior, refrigerante R32 o equivalente",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de equipo split 5000 frigorías a definir por instalador según marca y especificaciones"
+        },
+        {
+          "concepto": "Instalación unidad split aire acondicionado",
+          "descripcion": "Montaje de unidad interior (pared/techo), unidad exterior, fijaciones, nivelación y pruebas de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 60,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro tubería cobre refrigerante (ida y retorno)",
+          "descripcion": "Tubería de cobre aislada para circuito frigorífico, diámetro según equipo (aprox. 6-10 mm), longitud estimada 10-15 ml",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tubería cobre aislada a definir según diámetro y longitud real"
+        },
+        {
+          "concepto": "Instalación tubería refrigerante y conexiones",
+          "descripcion": "Tendido, fijación, aislamiento térmico, soldadura de conexiones y prueba de estanqueidad del circuito frigorífico",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro línea eléctrica independiente (cable + protecciones)",
+          "descripcion": "Cable de alimentación 3x2.5 mm² (o según cálculo), magnetotérmico 16A, diferencial 30mA, toma de corriente con toma tierra, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos (cable, magnetotérmico, diferencial, toma) a definir según longitud real desde cuadro"
+        },
+        {
+          "concepto": "Instalación línea eléctrica independiente",
+          "descripcion": "Tendido de cable desde cuadro general al equipo, instalación de magnetotérmico y diferencial en cuadro, conexión de toma de corriente, pruebas de continuidad y aislamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro tubo desagüe condensación",
+          "descripcion": "Tubo PVC drenaje condensación, diámetro 16-20 mm, longitud estimada 5-10 ml con sifón",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tubo desagüe y sifón a definir según longitud real"
+        },
+        {
+          "concepto": "Instalación tubo desagüe condensación",
+          "descripcion": "Tendido, fijación y conexión de tubo desagüe desde unidad interior hasta punto de evacuación (sumidero, canaleta o exterior)",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y puesta en marcha",
+          "descripcion": "Carga de refrigerante (si aplica), pruebas de estanqueidad, funcionamiento en frío/calor, calibración de termostato, entrega de documentación y garantía",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 690,
+        "iva_porcentaje": 21,
+        "iva": 144.9,
+        "total": 834.9
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_sistema_climatizacion_split_simple' o 'instalacion_aire_acondicionado_monobloque'",
+        "Confirmar si existe partida de 'línea eléctrica independiente para climatización' en catálogo de electricidad",
+        "Considerar si el cliente requiere termostato inteligente o control remoto (partida adicional opcional)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro unidad split aire acondicionado 5000 frigorías",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo específico de climatización, precio variable según marca/modelo"
+        },
+        {
+          "concepto": "Suministro tubería cobre refrigerante (ida y retorno)",
+          "origen": "sugerida_ia",
+          "motivo": "Material fungible, precio variable según diámetro y longitud real"
+        },
+        {
+          "concepto": "Suministro línea eléctrica independiente (cable + protecciones)",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales eléctricos, precio variable según longitud desde cuadro y especificaciones"
+        },
+        {
+          "concepto": "Suministro tubo desagüe condensación",
+          "origen": "sugerida_ia",
+          "motivo": "Material fungible, precio variable según longitud real"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "instalacion_de_rejillas_de_ventilacion_de_camara_de_fachada",
+      "instalacion_sistema_de_climatizacion_en_local_comercial",
+      "tabique_pladur_para_sepultar_conductos_climatizacion",
+      "instalacion_vrv_o_vrf_sistema_multiple"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3920,
+      "tokens_out": 2886
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

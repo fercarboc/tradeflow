@@ -1,0 +1,139 @@
+{
+  "id": 357,
+  "oficio": "Mantenimiento General",
+  "texto": "Instalar barras de seguridad en ventanas de bajo de edificio de alquiler, 4 ventanas",
+  "http_status": 200,
+  "latency_ms": 14662,
+  "raw_response": {
+    "transcript": "Instalar barras de seguridad en ventanas de bajo de edificio de alquiler, 4 ventanas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar barras de seguridad en ventanas de bajo de edificio de alquiler, 4 ventanas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de seguridad en edificio de alquiler: verificar permisos del propietario/comunidad",
+          "4 ventanas: agrupar en partidas por tipo de trabajo (material + instalación)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de rejas/barras de seguridad metálicas en ventanas. Oficio de cerrajería especializado en protecciones metálicas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Barras de seguridad metálicas (acero galvanizado)",
+          "descripcion": "Suministro de 4 juegos de barras de seguridad metálicas (acero galvanizado o inoxidable) adaptadas a medidas de ventanas de bajo. Incluye herrajes, anclajes y pequeño material.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas de ventanas, tipo de acero (galvanizado/inoxidable), diseño (fijas/abatibles) y acabado. Instalador debe revisar y ajustar."
+        },
+        {
+          "concepto": "Instalación de barras de seguridad en ventanas",
+          "descripcion": "Mano de obra de instalación: marcado de puntos de anclaje, taladrado en jamba/muro, colocación de anclajes químicos o mecánicos (mínimo 4 puntos por ventana), fijación de barras, nivelación y ajuste. 4 ventanas.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 60,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento antioxidante y acabado",
+          "descripcion": "Aplicación de tratamiento antioxidante (imprimación + pintura epoxi o similar) en barras metálicas para protección contra corrosión. Acabado final según color solicitado. 4 ventanas.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tratamiento antioxidante y pintura depende de superficie total y tipo de acabado. Revisar con instalador."
+        },
+        {
+          "concepto": "Mano de obra tratamiento y acabado",
+          "descripcion": "Aplicación de imprimación antioxidante y pintura de acabado en barras de seguridad. Incluye preparación de superficie, aplicación y secado. 4 ventanas.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 600,
+        "iva_porcentaje": 21,
+        "iva": 126,
+        "total": 726
+      },
+      "sugerencias_catalogo": [
+        "Referencia: [instalacion_reja_fija_en_ventana_o_puerta] — partidas obligatorias incluyen reja metálica, anclajes, tratamiento antioxidante y pintura. Aplicable a barras de seguridad.",
+        "Verificar con cliente: ¿barras fijas o abatibles? ¿Acero galvanizado o inoxidable? ¿Color de acabado? Esto afecta precio de material."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Barras de seguridad metálicas (acero galvanizado)",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de protección. Precio depende de medidas exactas y tipo de acero."
+        },
+        {
+          "concepto": "Tratamiento antioxidante y acabado",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Producto de protección y acabado. Precio variable según superficie y tipo de pintura."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_reja_fija_en_ventana_o_puerta",
+      "instalacion_camara_frigorifica_negativa_congelacion",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_videoportero_o_intercomunicador"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4113,
+      "tokens_out": 1784
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "NO"
+  }
+}

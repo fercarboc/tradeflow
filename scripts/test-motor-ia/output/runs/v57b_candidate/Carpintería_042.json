@@ -1,0 +1,129 @@
+{
+  "id": 42,
+  "oficio": "Carpintería",
+  "texto": "Cambio de puertas de interior en toda la vivienda, son 6 puertas de 80 centímetros con marcos",
+  "http_status": 200,
+  "latency_ms": 10398,
+  "raw_response": {
+    "transcript": "Cambio de puertas de interior en toda la vivienda, son 6 puertas de 80 centímetros con marcos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de puertas de interior en toda la vivienda, son 6 puertas de 80 centímetros con marcos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume puerta de una hoja estándar. Si alguna es doble hoja, requiere revisión.",
+          "Precio de puertas (material) pendiente de confirmación del instalador.",
+          "Tipo de marco (madera, aluminio) no especificado - se asume marco estándar madera."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de puertas de interior con marcos - trabajo de carpintería estándar."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de 6 puertas antiguas con marcos",
+          "descripcion": "Desmontaje y retirada de 6 puertas de interior de 80 cm con marcos existentes, incluyendo bisagras, pomos y pequeño material. Preparación del hueco para nueva instalación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de 6 puertas de interior 80 cm con marcos",
+          "descripcion": "Suministro de 6 puertas de interior de 80 cm de ancho, una hoja, con marcos de madera incluidos, bisagras, pomos/manillas y pequeño material de fijación.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de puertas y marcos debe ser confirmado por el instalador según calidad, tipo de madera y acabado."
+        },
+        {
+          "concepto": "Instalación de 6 puertas de interior con marcos",
+          "descripcion": "Instalación de 6 puertas de interior de 80 cm en sus huecos, colocación de marcos, regulación de bisagras, ajuste de cierre, instalación de pomos/manillas y pequeño material. Prueba de funcionamiento.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 45,
+          "total": 270,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste y regulación final de puertas",
+          "descripcion": "Ajuste de bisagras, regulación de cierre, comprobación de alineación y funcionamiento correcto de las 6 puertas instaladas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 630,
+        "iva_porcentaje": 21,
+        "iva": 132.3,
+        "total": 762.3
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo de puerta: madera maciza, tablero, lacada o natural.",
+        "Especificar si los marcos incluyen tapetas (molduras de remate) en ambas caras.",
+        "Indicar si se requiere pintura o acabado adicional en puertas o marcos.",
+        "Aclarar si hay puertas con requisitos especiales (cristal, acústica, cortafuego)."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "pintura_esmalte_carpinteria_madera_interior",
+      "instalacion_puerta_doble_hoja_interior",
+      "pintado_armarios_empotrados_interiores",
+      "instalacion_de_zocalos_y_tapajuntas_de_madera_en_obra",
+      "pintado_locales_comerciales_y_tiendas"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3823,
+      "tokens_out": 1285
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "id": 139,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+  "http_status": 200,
+  "latency_ms": 17354,
+  "raw_response": {
+    "transcript": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Claraboya con apertura eléctrica requiere suministro específico del modelo y marca",
+          "Tejado plano requiere impermeabilización especial en encuentro",
+          "Instalación en altura requiere medidas de seguridad y EPI",
+          "Conexión eléctrica debe ser realizada por electricista cualificado",
+          "Vidrio laminado obligatorio por CTE en cubiertas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de claraboya en cubierta plana, impermeabilización de encuentro y fijación a estructura"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Suministro e instalación de claraboya con vidrio laminado integrado"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica del motor de apertura, cuadro de control y cableado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Claraboya de apertura eléctrica con vidrio laminado",
+          "descripcion": "Suministro de claraboya motorizada para tejado plano, vidrio laminado de seguridad integrado, marco aluminio o acero inoxidable, motor eléctrico de apertura, sensor de lluvia y control remoto. Medidas y modelo a especificar según medición in situ.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca, modelo, tamaño y características técnicas (motor, sensor lluvia, control remoto). Instalador debe especificar modelo exacto."
+        },
+        {
+          "concepto": "Impermeabilización encuentro claraboya en tejado plano",
+          "descripcion": "Impermeabilización específica del encuentro entre claraboya y cubierta plana. Incluye collar de impermeabilización, lámina EPDM o TPO según especificación del fabricante, sellado perimetral con silicona de poliuretano, y remates en encuentro. Obligatorio por CTE.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del tipo de cubierta existente (hormigón, grava, membrana) y especificación del fabricante de la claraboya."
+        },
+        {
+          "concepto": "Instalación claraboya en cubierta plana",
+          "descripcion": "Mano de obra de instalación: apertura/corte en cubierta plana, fijación de marco a estructura, nivelación, colocación de claraboya, sellado perimetral completo, pruebas de estanqueidad. Incluye EPI de trabajos en altura (arnés, línea de vida).",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica motor claraboya",
+          "descripcion": "Mano de obra de electricista: tendido de cableado desde cuadro eléctrico hasta motor de claraboya, instalación de interruptor/pulsador de control, conexión a cuadro de maniobra, pruebas de funcionamiento del motor y sensor de lluvia. Incluye pequeño material (tubo corrugado, conectores, etc.).",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado y pequeño material eléctrico",
+          "descripcion": "Suministro de cableado (sección según potencia motor), tubo corrugado, conectores, regletas de bornes, interruptor/pulsador de control, pequeño material de fijación.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud de cableado, potencia del motor y tipo de control (simple, remoto, domótico)."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y estanqueidad",
+          "descripcion": "Mano de obra: pruebas de apertura/cierre del motor, verificación de sensor de lluvia, prueba de estanqueidad con agua, ajustes finales y entrega al cliente.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo marcas de claraboyas motorizadas: VELUX, FAKRO, ROTO, KEYLITE con apertura eléctrica",
+        "Confirmar si la cubierta plana es de hormigón, grava o membrana para seleccionar impermeabilización específica",
+        "Especificar si se requiere control remoto, sensor de lluvia automático o control manual",
+        "Medir in situ las dimensiones exactas del hueco antes de pedir claraboya (tamaños estándar: 60x60, 80x80, 100x100 cm)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Claraboya de apertura eléctrica con vidrio laminado",
+          "oficio": "cristaleria",
+          "motivo": "Producto específico motorizado no encontrado en catálogo base. Requiere especificación de marca y modelo."
+        },
+        {
+          "concepto": "Impermeabilización encuentro claraboya en tejado plano",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Impermeabilización específica para claraboya motorizada en cubierta plana. Depende de tipo de cubierta existente."
+        },
+        {
+          "concepto": "Cableado y pequeño material eléctrico",
+          "oficio": "electricidad",
+          "motivo": "Material eléctrico específico para conexión de motor. Precio pendiente de especificación de potencia y longitud."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_lucernario_apertura_tipo_velux_o_similar",
+      "instalacion_de_lucernarios_en_cubierta_inclinada",
+      "instalacion_lucernario_o_claraboya_fija",
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3929,
+      "tokens_out": 2345
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

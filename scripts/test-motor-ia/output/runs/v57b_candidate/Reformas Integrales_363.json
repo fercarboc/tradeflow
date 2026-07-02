@@ -1,0 +1,482 @@
+{
+  "id": 363,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de baño completo con ducha a ras de suelo, doble lavabo, sanitarios suspendidos y suelo calefactado",
+  "http_status": 200,
+  "latency_ms": 39276,
+  "raw_response": {
+    "transcript": "Reforma de baño completo con ducha a ras de suelo, doble lavabo, sanitarios suspendidos y suelo calefactado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de baño completo con ducha a ras de suelo, doble lavabo, sanitarios suspendidos y suelo calefactado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Suelo calefactado requiere coordinación con electricista",
+          "Ducha a ras de suelo requiere impermeabilización obligatoria y pendiente hacia sumidero",
+          "Sanitarios suspendidos requieren estructura de soporte (posiblemente pladur + estructura metálica)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma baño completo con múltiples oficios simultáneos: albanilería, fontanería, electricidad, pladur, suelos"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Alicatado paredes y suelo baño, impermeabilización zona ducha"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación desagüe ducha, doble lavabo, sanitarios suspendidos, grifería"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Suelo calefactado, puntos de luz, enchufes, ventilación"
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Estructura soporte sanitarios suspendidos, falso techo si aplica"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y demolición baño existente",
+          "descripcion": "Desmontaje de sanitarios, grifería, azulejos, suelo, muebles y gestión de residuos",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 320,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización zona ducha a ras de suelo",
+          "descripcion": "Membrana impermeabilizante EPDM o lámina PVC en zona ducha, formación de pendiente hacia sumidero, junta perimetral estanca",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material impermeabilizante: lámina EPDM, PVC o poliurea. Instalador debe especificar tipo y precio"
+        },
+        {
+          "concepto": "Instalación sumidero y canaleta ducha a ras de suelo",
+          "descripcion": "Sumidero de acero inoxidable con sifón, canaleta de desagüe, válvula antirretorno",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sumidero y canaleta: especificar modelo, material y precio"
+        },
+        {
+          "concepto": "Mano de obra instalación desagüe ducha y fontanería",
+          "descripcion": "Conexión desagüe ducha a sumidero, instalación tuberías desagüe doble lavabo y sanitarios, adaptación red existente",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifería y accesorios sanitarios",
+          "descripcion": "Grifo monomando ducha, doble grifo lavabo, válvulas desagüe, sifones, flexibles, pequeño material fontanería",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Grifería: especificar marcas, modelos y precios (ducha, doble lavabo, accesorios)"
+        },
+        {
+          "concepto": "Estructura soporte y pladur para sanitarios suspendidos",
+          "descripcion": "Estructura metálica de soporte para inodoro y bidé suspendidos, placa de pladur resistente a humedad, anclajes y pequeño material",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estructura soporte: especificar tipo de estructura metálica, pladur resistente humedad y precio"
+        },
+        {
+          "concepto": "Mano de obra instalación estructura y pladur sanitarios suspendidos",
+          "descripcion": "Montaje estructura metálica, colocación pladur, anclajes, preparación para inodoro y bidé suspendidos",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 35,
+          "total": 210,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sanitarios suspendidos (inodoro y bidé)",
+          "descripcion": "Inodoro suspendido de cerámica, bidé suspendido, asientos, tapas, herrajes de fijación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sanitarios suspendidos: especificar marcas, modelos y precios (inodoro + bidé)"
+        },
+        {
+          "concepto": "Mano de obra instalación sanitarios suspendidos",
+          "descripcion": "Fijación inodoro y bidé a estructura, conexión desagüe, pruebas de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Doble lavabo y mueble bajo",
+          "descripcion": "Doble lavabo de cerámica o porcelana, mueble bajo suspendido, grifería doble, sifones, válvulas desagüe",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Doble lavabo: especificar modelo, mueble, grifería y precio"
+        },
+        {
+          "concepto": "Mano de obra instalación doble lavabo",
+          "descripcion": "Fijación mueble bajo, instalación lavabo, conexión grifería y desagüe, pruebas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suelo calefactado eléctrico",
+          "descripcion": "Malla o cable calefactor eléctrico, termostato programable, aislamiento térmico bajo suelo, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Suelo calefactado: especificar tipo (malla/cable), potencia, termostato y precio por m2"
+        },
+        {
+          "concepto": "Mano de obra instalación suelo calefactado",
+          "descripcion": "Colocación aislamiento, instalación malla/cable calefactor, conexión termostato, pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 50,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Alicatado paredes baño",
+          "descripcion": "Azulejo o cerámica pared (25x60 cm o similar), mortero cola C2S2 flexible, lechada flexible, perfiles aluminio esquinas, junta silicona encuentros",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Azulejos pared: especificar modelo, formato, color y precio por m2"
+        },
+        {
+          "concepto": "Mano de obra alicatado paredes",
+          "descripcion": "Replanteo, colocación azulejos con mortero flexible, lechada, perfiles aluminio, junta silicona",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 35,
+          "total": 630,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suelo baño antideslizante R11",
+          "descripcion": "Baldosa cerámica o porcelánica antideslizante R11, mortero cola C2S2 flexible, lechada flexible, junta silicona perimetral",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Baldosa suelo: especificar modelo R11, formato, color y precio por m2"
+        },
+        {
+          "concepto": "Mano de obra solado baño antideslizante",
+          "descripcion": "Formación pendiente hacia sumidero, colocación baldosa antideslizante, lechada flexible, junta silicona perimetral",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 6,
+          "precio_unitario": 35,
+          "total": 210,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mampara ducha a ras de suelo",
+          "descripcion": "Mampara de cristal templado (fijo + corredera o abatible), perfiles aluminio anodizado, juntas silicona, herrajes acero inoxidable",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Mampara ducha: especificar tipo (fijo+corredera/abatible), dimensiones, espesor cristal y precio"
+        },
+        {
+          "concepto": "Mano de obra instalación mampara ducha",
+          "descripcion": "Medición, corte perfiles, fijación a paredes, colocación cristal, juntas silicona, pruebas estanqueidad",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación eléctrica baño (puntos luz, enchufes, ventilación)",
+          "descripcion": "Puntos de luz LED, enchufes protegidos IP54, extractor de humedad con sensor, cableado, pequeño material eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalación eléctrica: especificar número de puntos luz, enchufes, extractor y precio"
+        },
+        {
+          "concepto": "Mano de obra instalación eléctrica baño",
+          "descripcion": "Tendido cableado, instalación puntos luz, enchufes, extractor, conexión suelo calefactado, pruebas",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura y acabados baño",
+          "descripcion": "Pintura acrílica resistente humedad en paredes (si no alicatadas), pintura techo, pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pintura: especificar tipo (acrílica resistente humedad), color y precio por m2"
+        },
+        {
+          "concepto": "Mano de obra pintura baño",
+          "descripcion": "Preparación superficies, imprimación, pintura 2 manos, acabados",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 32,
+          "total": 384,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Crucetas, cuñas, lechada, silicona, adhesivos, cinta de carrocero, lijas, brochas, rodillos, etc.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: estimación global, instalador ajusta según necesidad real"
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza final",
+          "descripcion": "Retirada escombros, residuos cerámicos, embalajes, limpieza profunda baño",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión residuos: especificar volumen estimado y precio"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4544,
+        "iva_porcentaje": 21,
+        "iva": 954.24,
+        "total": 5498.24
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'alicatado_y_solado_completo_bano_nuevo' para validar precios de azulejos y baldosas",
+        "Verificar en catálogo: 'sustitucion_banera_por_ducha' para adaptación desagüe ducha a ras de suelo",
+        "Verificar en catálogo: 'instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano' si cliente prefiere suelo continuo en lugar de baldosa"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Impermeabilización zona ducha a ras de suelo",
+          "oficio": "impermeabilizacion",
+          "motivo": "Obligatoria en ducha a ras de suelo; no encontrada en catálogo específico"
+        },
+        {
+          "concepto": "Suelo calefactado eléctrico",
+          "oficio": "electricidad",
+          "motivo": "Elemento específico solicitado; requiere especificación de tipo y potencia"
+        },
+        {
+          "concepto": "Estructura soporte sanitarios suspendidos",
+          "oficio": "pladur_escayola",
+          "motivo": "Elemento estructural específico para sanitarios suspendidos"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "sustitucion_banera_por_ducha",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "reforma_integral_atic_o_penthouse"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4073,
+      "tokens_out": 6386
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 25,
+    "n_catalogo": 11,
+    "n_sugeridas": 14,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

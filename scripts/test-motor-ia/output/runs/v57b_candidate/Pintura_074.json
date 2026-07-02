@@ -1,0 +1,197 @@
+{
+  "id": 74,
+  "oficio": "Pintura",
+  "texto": "Microcement en pared del baño, sustituir azulejos antiguos por acabado continuo gris",
+  "http_status": 200,
+  "latency_ms": 20117,
+  "raw_response": {
+    "transcript": "Microcement en pared del baño, sustituir azulejos antiguos por acabado continuo gris",
+    "quote": {
+      "resumen": {
+        "texto_original": "Microcement en pared del baño, sustituir azulejos antiguos por acabado continuo gris",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye demolición de azulejos antiguos + preparación de soporte + aplicación microcemento + acabado. Revisar estado del soporte tras demolición.",
+          "Microcemento en pared de baño requiere sellador específico para zonas húmedas (no es impermeable de por sí).",
+          "Confirmar superficie exacta en m² de pared a tratar."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición de azulejos, preparación de soporte, aplicación de microcemento y acabado continuo en pared de baño."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Imprimación, lijado y acabado final del microcemento."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y retirada de azulejos antiguos",
+          "descripcion": "Desmontaje completo de azulejos existentes en pared de baño, retirada de mortero antiguo y limpieza de soporte. Incluye gestión de residuos cerámicos.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Ajustar cantidad (m²) según superficie real de pared. Tarifa base 40€/m² demolición azulejos."
+        },
+        {
+          "concepto": "Preparación y reparación de soporte",
+          "descripcion": "Reparación de grietas, fisuras o irregularidades en soporte tras demolición. Aplicación de malla de fibra de vidrio en juntas y encuentros. Imprimación adherente bicomponente.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Incluye mano de obra de preparación. Materiales (malla, imprimación) a especificar en partida siguiente."
+        },
+        {
+          "concepto": "Materiales preparación: malla fibra vidrio, imprimación bicomponente",
+          "descripcion": "Malla de fibra de vidrio para refuerzo de juntas y encuentros. Imprimación adherente bicomponente específica para soporte cerámico/mortero.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar marca, cantidad y precio de malla y imprimación según m² real."
+        },
+        {
+          "concepto": "Aplicación de microcemento bicomponente gris",
+          "descripcion": "Aplicación de microcemento bicomponente en color gris. Mínimo 3-5 capas según sistema. Rendimiento aproximado 2-3 kg/m². Acabado continuo y uniforme.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa base 40€/m² mano de obra aplicación. Ajustar cantidad según m² real de pared."
+        },
+        {
+          "concepto": "Materiales microcemento: bicomponente gris, sellador poliuretano",
+          "descripcion": "Microcemento bicomponente en color gris (rendimiento 2-3 kg/m²). Sellador poliuretano específico para zonas húmedas de baño (OBLIGATORIO - microcemento no es impermeable de por sí).",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar marca, cantidad (kg) de microcemento y litros de sellador poliuretano según m² real. Sellador OBLIGATORIO en baño."
+        },
+        {
+          "concepto": "Lijado progresivo y acabado final",
+          "descripcion": "Lijado con grano progresivo (120-150-220) para alisar y uniformizar superficie. Limpieza de polvo. Aplicación de sellador poliuretano final. Acabado mate continuo.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa base 32€/m² acabado y lijado. Ajustar cantidad según m² real."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Lijas varias granulometrías, llana metálica, rodillo, pincel, cinta carrocero, trapos, esponjas, cubetas, protecciones, etc.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador estima coste de pequeño material y herramientas consumibles."
+        }
+      ],
+      "calculos": {
+        "subtotal": 192,
+        "iva_porcentaje": 21,
+        "iva": 40.32,
+        "total": 232.32
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'acabado_con_microcemento_suelo_o_pared' (oficio=albanileria, rango 22-110€/m2) — aplicable a esta reforma.",
+        "Considerar partida de 'acabado_decorativo_mortero_impreso_o_microcemento_pared' (oficio=pintura, rango 4-16€/m2) para acabado final si se requiere textura especial.",
+        "Confirmar si la zona de ducha/salpicadero requiere impermeabilización adicional previa (partida específica de impermeabilizacion)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Materiales preparación: malla fibra vidrio, imprimación bicomponente",
+          "oficio": "albanileria",
+          "motivo": "Materiales específicos de preparación de soporte para microcemento en baño."
+        },
+        {
+          "concepto": "Materiales microcemento: bicomponente gris, sellador poliuretano",
+          "oficio": "albanileria",
+          "motivo": "Microcemento y sellador específico para zonas húmedas (obligatorio en baño)."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "oficio": "pintura",
+          "motivo": "Consumibles y herramientas para aplicación y acabado de microcemento."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "acabado_decorativo_mortero_impreso_o_microcemento_pared",
+      "acabado_con_microcemento_suelo_o_pared",
+      "alicatado_y_solado_de_bano_completo",
+      "instalacion_suelo_continuo_de_microcemento_o_cemento_pulido_en_bano",
+      "pintura_y_acabado_paredes_de_pladur_nuevo"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3934,
+      "tokens_out": 2728
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "id": 259,
+  "oficio": "Telecomunicaciones",
+  "texto": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+  "http_status": 200,
+  "latency_ms": 18738,
+  "raw_response": {
+    "transcript": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner antena de repetidor de móvil interior en local con mala cobertura, sistema pasivo",
+        "tipo_presupuesto": "mejora",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema pasivo detectado: requiere validación de viabilidad técnica y homologación CNAF",
+          "Antena exterior donante es OBLIGATORIA para sistema pasivo",
+          "Notificación a operador móvil y CNAF requerida según normativa",
+          "Precio de materiales pendiente de revisión del instalador"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema de cobertura móvil interior con componentes de radiofrecuencia"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Antena interior de servicio (sistema pasivo)",
+          "descripcion": "Antena interior omnidireccional para recepción y retransmisión de señal móvil en sistema pasivo. Incluye soporte de fijación y pequeño material de instalación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico de radiofrecuencia. Instalador debe confirmar modelo, ganancia (dBi) y compatibilidad con operadores a cubrir"
+        },
+        {
+          "concepto": "Antena exterior donante (sistema pasivo)",
+          "descripcion": "Antena exterior direccional orientada hacia torre operador para captura de señal. OBLIGATORIA en sistemas pasivos. Incluye soporte, mástil y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material crítico. Instalador debe especificar ganancia, tipo de conector y orientación según operador local"
+        },
+        {
+          "concepto": "Cable coaxial de baja pérdida",
+          "descripcion": "Cable coaxial de calidad (tipo RG-213 o equivalente) para conexión entre antena exterior, antena interior y divisores. Incluye conectores N y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de cable a definir según distancia entre antenas. Instalador debe medir recorrido real en local"
+        },
+        {
+          "concepto": "Divisor/Acoplador de señal (si múltiples operadores)",
+          "descripcion": "Divisor pasivo de señal RF para distribuir cobertura a múltiples operadores móviles (2G/3G/4G/5G). Incluye conectores y pequeño material.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Necesario si se cubren múltiples operadores. Instalador confirma número de operadores a servir"
+        },
+        {
+          "concepto": "Instalación y orientación de antenas",
+          "descripcion": "Montaje de antena exterior en cubierta/fachada con orientación hacia torre operador. Montaje de antena interior en zona óptima del local. Pruebas de señal y ajustes. Incluye pequeño material de fijación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión administrativa y notificación CNAF",
+          "descripcion": "Tramitación de notificación a CNAF (Comisión Nacional de Mercados y Competencia) y operador móvil según normativa de sistemas de cobertura interior. Documentación técnica y certificados de homologación.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo obligatorio. Instalador debe confirmar si incluye gestión o si cliente lo realiza directamente"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'reparacion_o_mejora_de_cobertura_movil_en_interior' — sistema pasivo es variante de menor coste que repetidor activo",
+        "Confirmar con operador móvil local: orientación óptima de antena exterior y bandas de frecuencia a cubrir (2G/3G/4G/5G)",
+        "Considerar alternativa: WiFi Calling si operador lo soporta (menor coste, sin antena exterior)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Antena interior de servicio (sistema pasivo)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico de radiofrecuencia no precificado en catálogo base"
+        },
+        {
+          "concepto": "Antena exterior donante (sistema pasivo)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componente crítico obligatorio en sistemas pasivos, requiere especificación técnica"
+        },
+        {
+          "concepto": "Cable coaxial de baja pérdida",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material de radiofrecuencia con cantidad variable según instalación"
+        },
+        {
+          "concepto": "Divisor/Acoplador de señal (si múltiples operadores)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componente opcional según número de operadores a cubrir"
+        },
+        {
+          "concepto": "Gestión administrativa y notificación CNAF",
+          "oficio": "telecomunicaciones",
+          "motivo": "Servicio administrativo obligatorio por normativa, requiere confirmación de responsable"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_mejora_de_cobertura_movil_en_interior",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_cerrojo_adicional"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3870,
+      "tokens_out": 2425
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

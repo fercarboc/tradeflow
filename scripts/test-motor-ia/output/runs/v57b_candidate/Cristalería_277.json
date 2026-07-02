@@ -1,0 +1,160 @@
+{
+  "id": 277,
+  "oficio": "Cristalería",
+  "texto": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+  "http_status": 200,
+  "latency_ms": 14603,
+  "raw_response": {
+    "transcript": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar panel de vidrio lacado en blanco como salpicadero de cocina detrás de los fuegos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Panel de vidrio lacado: verificar dimensiones exactas y espesor recomendado (6-8mm para salpicadero)",
+          "Lacado en blanco: confirmar si es lacado en fábrica o in situ",
+          "Instalación: requiere fijación segura con silicona estructural y/o herrajes"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de panel de vidrio lacado (salpicadero). Oficio cristalería por tratamiento y fijación de vidrio especializado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Panel de vidrio lacado blanco para salpicadero",
+          "descripcion": "Suministro de panel de vidrio lacado en blanco, espesor 6-8mm, medidas a definir por el cliente. Lacado en fábrica con acabado resistente a humedad y calor.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones exactas (m2), espesor y acabado lacado. El instalador debe confirmar medidas y proveedor."
+        },
+        {
+          "concepto": "Silicona estructural neutra para fijación panel vidrio",
+          "descripcion": "Silicona estructural neutra de alta resistencia para fijación segura del panel de vidrio lacado al paramento de cocina. Incluye pequeño material (cartuchos, pistola aplicadora).",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de silicona depende de dimensiones del panel. Presupuestar según perímetro y sistema de fijación elegido."
+        },
+        {
+          "concepto": "Herrajes de fijación y soportes para panel vidrio",
+          "descripcion": "Herrajes de acero inoxidable o aluminio anodizado para fijación mecánica del panel de vidrio lacado (escuadras, soportes, tornillería). Incluye pequeño material.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo y cantidad de herrajes depende del sistema de fijación (adhesivo + mecánico, solo mecánico, etc.) y dimensiones del panel."
+        },
+        {
+          "concepto": "Instalación y fijación panel de vidrio lacado salpicadero",
+          "descripcion": "Mano de obra para instalación del panel de vidrio lacado: preparación del paramento, aplicación de silicona estructural, colocación del panel, fijación con herrajes, nivelación, limpieza y acabado. Incluye pruebas de estabilidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación y limpieza del paramento",
+          "descripcion": "Limpieza, desengrasado y preparación del paramento donde se fijará el panel de vidrio lacado. Reparación de pequeños defectos si es necesario.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el cliente las dimensiones exactas del salpicadero (ancho × alto en cm) para calcular m2 y presupuestar el vidrio lacado.",
+        "Especificar si el lacado es en blanco mate, satinado o brillo.",
+        "Definir sistema de fijación: solo silicona estructural (más limpio) o silicona + herrajes mecánicos (más robusto).",
+        "Verificar que el vidrio lacado sea templado o laminado según normativa de seguridad en cocina (EN 12150 o similar).",
+        "Considerar si hay que desmontaje de salpicadero anterior (si existe)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Panel de vidrio lacado blanco para salpicadero",
+          "oficio": "cristaleria",
+          "motivo": "Material especializado (vidrio lacado en fábrica). Precio depende de dimensiones y acabado."
+        },
+        {
+          "concepto": "Silicona estructural neutra para fijación panel vidrio",
+          "oficio": "cristaleria",
+          "motivo": "Material consumible específico para fijación de vidrio lacado."
+        },
+        {
+          "concepto": "Herrajes de fijación y soportes para panel vidrio",
+          "oficio": "cristaleria",
+          "motivo": "Componentes de fijación mecánica. Cantidad y tipo depende del sistema elegido."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_escaparate_o_fachada_comercial_en_vidrio",
+      "instalacion_de_rodapie_de_madera_o_MDF",
+      "instalacion_rodapie_madera_mdf_o_pvc",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3822,
+      "tokens_out": 1829
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

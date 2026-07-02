@@ -1,0 +1,204 @@
+{
+  "id": 223,
+  "oficio": "Energía Solar",
+  "texto": "Añadir 4 paneles solares a instalación existente y actualizar inversor para ampliar potencia",
+  "http_status": 200,
+  "latency_ms": 21299,
+  "raw_response": {
+    "transcript": "Añadir 4 paneles solares a instalación existente y actualizar inversor para ampliar potencia",
+    "quote": {
+      "resumen": {
+        "texto_original": "Añadir 4 paneles solares a instalación existente y actualizar inversor para ampliar potencia",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Ampliación fotovoltaica: requiere verificación de compatibilidad inversor existente",
+          "Legalizado ante distribuidora OBLIGATORIO tras ampliación",
+          "Especificar potencia (kWp) de los 4 paneles nuevos para cálculo preciso"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Ampliación instalación fotovoltaica existente con sustitución/ampliación inversor"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación instalación existente, inversor y estructura",
+          "descripcion": "Diagnóstico técnico de instalación fotovoltaica actual: medición potencia inversor, estado módulos, capacidad estructura soporte, compatibilidad ampliación, códigos error si existen",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro 4 paneles solares fotovoltaicos",
+          "descripcion": "4 módulos fotovoltaicos monocristalinos de alta eficiencia (potencia a especificar por instalador según compatibilidad). Incluye pequeño material de embalaje y transporte",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario del panel a especificar por instalador según marca, potencia (W) y características técnicas"
+        },
+        {
+          "concepto": "Instalación 4 paneles solares en estructura existente",
+          "descripcion": "Montaje de 4 módulos en estructura existente: fijación mecánica, alineación, conexionado en serie/paralelo según esquema, verificación estabilidad y resistencia estructura",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación inversor ampliado o nuevo",
+          "descripcion": "Inversor solar compatible con nueva potencia total (ampliación o sustitución según diagnóstico). Incluye: desconexión segura inversor antiguo, extracción, instalación nuevo inversor, conexionado DC y AC, protecciones, puesta en marcha y configuración parámetros",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio inversor a especificar según potencia requerida (kW), marca y tipo (string, hibrido, etc.). Rango típico 300-1800€"
+        },
+        {
+          "concepto": "Actualización cableado y protecciones DC/AC",
+          "descripcion": "Revisión y ampliación cableado DC (si necesario por nueva potencia), actualización protecciones lado CC (fusibles/magnetotérmicos), verificación lado AC, pequeño material (conectores, terminales, canaletas)",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionamiento y mediciones eléctricas",
+          "descripcion": "Medición tensión/corriente DC y AC, verificación funcionamiento inversor, lectura parámetros, prueba de inyección a red (si conectada), generación informe técnico",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Actualización legalizado ante distribuidora",
+          "descripcion": "Tramitación modificación instalación fotovoltaica ante distribuidora eléctrica: nueva potencia, nuevo inversor, actualización esquema unifilar, solicitud autorización, inspección si procede",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste gestión administrativa a especificar. Típicamente 150-400€ según distribuidora y complejidad"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Equipos protección individual (arnés, casco, guantes), herramientas manuales, material consumible (cinta aislante, bridas, pasta térmica, etc.)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado 50-150€ según alcance y reutilización EPI"
+        }
+      ],
+      "calculos": {
+        "subtotal": 752.5,
+        "iva_porcentaje": 21,
+        "iva": 158.025,
+        "total": 910.525
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'ampliacion_de_instalacion_fotovoltaica_existente' — partidas obligatorias incluyen evaluación, módulos, inversor, cableado, legalizado",
+        "Solicitar al instalador: potencia total actual (kWp), potencia de los 4 paneles nuevos (W/panel), marca/modelo inversor existente, tipo de conexión a red (autoconsumo, venta total, etc.)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro 4 paneles solares fotovoltaicos",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico; precio unitario pendiente de especificación por instalador"
+        },
+        {
+          "concepto": "Suministro e instalación inversor ampliado o nuevo",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico; precio unitario pendiente de especificación según potencia y marca"
+        },
+        {
+          "concepto": "Actualización legalizado ante distribuidora",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio administrativo; coste a especificar según distribuidora"
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible; importe estimado a confirmar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "reparacion_o_sustitucion_de_inversor_solar_averiado",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4116,
+      "tokens_out": 2762
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

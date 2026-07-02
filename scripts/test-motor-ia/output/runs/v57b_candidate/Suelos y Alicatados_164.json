@@ -1,0 +1,199 @@
+{
+  "id": 164,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Pulir y abrillantar suelo de terrazo antiguo en piso, 60 metros cuadrados con sellado final",
+  "http_status": 200,
+  "latency_ms": 15205,
+  "raw_response": {
+    "transcript": "Pulir y abrillantar suelo de terrazo antiguo en piso, 60 metros cuadrados con sellado final",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pulir y abrillantar suelo de terrazo antiguo en piso, 60 metros cuadrados con sellado final",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Restauración y pulido de terrazo existente — oficio suelos_alicatados con tarifa por m² según BASE MAESTRA"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y aspiración previa del suelo terrazo",
+          "descripcion": "Limpieza profunda, aspiración y preparación de la superficie antes del pulido",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 2,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación de fisuras y desperfectos previos",
+          "descripcion": "Reparación de grietas, roturas y desperfectos en terrazo antiguo con masilla o mortero específico",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material masilla/mortero reparación — instalador debe estimar cantidad y coste según estado real"
+        },
+        {
+          "concepto": "Mano de obra reparación fisuras y desperfectos",
+          "descripcion": "Aplicación de masilla, fratasado y preparación de zonas reparadas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 3,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lijado progresivo con discos diamante (grano 100-200-400)",
+          "descripcion": "Lijado mecánico progresivo con máquina pulidora y discos diamante de grano grueso a medio para eliminar irregularidades y preparar superficie",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 15,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pulido fino y abrillantar (grano 400-800 + cristalizador)",
+          "descripcion": "Pulido fino con discos diamante grano 400-800 y aplicación de cristalizador/oxálico para obtener acabado brillante y protección",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 18,
+          "total": 1080,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lechada de poros y sellado final",
+          "descripcion": "Aplicación de lechada para cerrar poros del terrazo y sellador/cristalizador final para protección y brillo duradero",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Lechada y sellador — instalador debe especificar producto y cantidad según tipo terrazo y acabado deseado"
+        },
+        {
+          "concepto": "Mano de obra aplicación lechada y sellador final",
+          "descripcion": "Aplicación de lechada de poros y sellador/cristalizador final con herramientas manuales",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 5,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles (discos, lijas, EPI)",
+          "descripcion": "Discos diamante, lijas, productos de limpieza, EPI (mascarillas, guantes, gafas) y material fungible",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles y herramientas — instalador debe estimar coste según equipamiento disponible y desgaste"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2580,
+        "iva_porcentaje": 21,
+        "iva": 541.8,
+        "total": 3121.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar estado real del terrazo antiguo — si hay zonas con desprendimientos importantes, considerar reparación estructural previa",
+        "Confirmar tipo de terrazo (mármol, granito, terrazo tradicional) para seleccionar cristalizador/sellador adecuado",
+        "Tiempo de curado: esperar mínimo 7 días tras reparaciones antes de iniciar pulido; 24-48h tras sellado final antes de tráfico normal"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación de fisuras y desperfectos previos",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material específico según estado real del terrazo antiguo"
+        },
+        {
+          "concepto": "Lechada de poros y sellado final",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Producto específico según tipo terrazo y acabado deseado"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Discos, lijas, EPI y consumibles — coste variable según equipamiento"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "restauracion_y_pulido_terrazo_o_marmol_existente",
+      "pintado_suelo_resinas_decorativas",
+      "instalacion_suelo_epoxi_o_resina_decorativa",
+      "instalacion_suelo_industrial_de_terrazo_o_granito_in_situ",
+      "impermeabilizacion_de_camara_frigorifica_o_zona_fria"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3980,
+      "tokens_out": 2118
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

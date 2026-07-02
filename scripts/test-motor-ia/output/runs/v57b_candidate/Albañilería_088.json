@@ -1,0 +1,181 @@
+{
+  "id": 88,
+  "oficio": "Albañilería",
+  "texto": "Hacer solera de hormigón en garaje de 25 metros cuadrados, preparación del terreno y mallazo",
+  "http_status": 200,
+  "latency_ms": 14155,
+  "raw_response": {
+    "transcript": "Hacer solera de hormigón en garaje de 25 metros cuadrados, preparación del terreno y mallazo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer solera de hormigón en garaje de 25 metros cuadrados, preparación del terreno y mallazo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Solera en garaje: verificar espesor mínimo 15cm según CTE y cargas previstas",
+          "Mallazo incluido: confirmar si es tráfico vehicular o solo almacenamiento"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Solera de hormigón en masa con preparación de terreno, mallazo y acabado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Capa de zahorra compactada base",
+          "descripcion": "Preparación del terreno: extendido y compactación de zahorra como base de la solera",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar espesor y precio de zahorra"
+        },
+        {
+          "concepto": "Lámina de polietileno barrera de vapor",
+          "descripcion": "Barrera de vapor sobre zahorra para evitar humedad ascendente en solera",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar espesor y precio de lámina PE"
+        },
+        {
+          "concepto": "Mallazo armado para solera",
+          "descripcion": "Mallazo electrosoldado para refuerzo de solera en garaje con tráfico vehicular",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar tipo de mallazo (15x15, 20x20) y precio"
+        },
+        {
+          "concepto": "Hormigón HA-20 para solera",
+          "descripcion": "Suministro e instalación de hormigón HA-20 en masa, espesor 15cm, incluye vibrado y fratasado superficial",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 3.75,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar precio hormigón HA-20 (cálculo: 25m2 × 0.15m = 3.75m3)"
+        },
+        {
+          "concepto": "Juntas de retracción",
+          "descripcion": "Ejecución de juntas de retracción cada 4-5 metros para control de fisuras",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: preparación, colocación mallazo, hormigonado y acabado",
+          "descripcion": "Mano de obra completa: preparación terreno, colocación lámina y mallazo, hormigonado, vibrado, fratasado y curado de solera",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 40,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 800,
+        "iva_porcentaje": 21,
+        "iva": 168,
+        "total": 968
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo precio de zahorra compactada (€/m2 o €/m3)",
+        "Verificar en catálogo precio de lámina PE 0.2mm (€/m2)",
+        "Verificar en catálogo precio de mallazo electrosoldado 15x15 o 20x20 (€/m2)",
+        "Verificar en catálogo precio hormigón HA-20 (€/m3) con transporte incluido"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Capa de zahorra compactada base",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida auxiliar de solera de hormigón en masa según BASE MAESTRA"
+        },
+        {
+          "concepto": "Lámina de polietileno barrera de vapor",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida obligatoria de solera de hormigón en masa según BASE MAESTRA"
+        },
+        {
+          "concepto": "Mallazo armado para solera",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida auxiliar de solera de hormigón en masa según BASE MAESTRA (tráfico vehicular en garaje)"
+        },
+        {
+          "concepto": "Hormigón HA-20 para solera",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Partida obligatoria de solera de hormigón en masa según BASE MAESTRA"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solera_de_hormigon_en_masa",
+      "construccion_de_piscina_de_obra",
+      "reforma_de_garaje_o_trastero_para_uso_habitual",
+      "losa_de_hormigon_armado_suelo_tecnico",
+      "impermeabilizacion_de_escalera_o_rampa_exterior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4261,
+      "tokens_out": 1881
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

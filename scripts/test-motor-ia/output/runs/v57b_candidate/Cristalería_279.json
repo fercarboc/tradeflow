@@ -1,0 +1,220 @@
+{
+  "id": 279,
+  "oficio": "Cristalería",
+  "texto": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+  "http_status": 200,
+  "latency_ms": 19479,
+  "raw_response": {
+    "transcript": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar ventana de proyección de vidrio translúcido para luz natural en tabique interior",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Ventana interior en tabique: requiere clarificación de carga estructural y tipo de tabique (pladur, ladrillo, hormigón)",
+          "Vidrio translúcido: especificar si es vidrio esmerilado, satinado, o panel de policarbonato translúcido",
+          "Mecanismo de proyección: aclarar si es proyección manual, motorizada o fija",
+          "Impermeabilización: en interior no aplica, pero requiere sellado acústico si es tabique compartido"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de marco y estructura de ventana interior"
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Colocación de vidrio translúcido y sellado"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Apertura/refuerzo de tabique si es necesario"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Apertura y refuerzo de tabique interior",
+          "descripcion": "Apertura de hueco en tabique interior, refuerzo estructural con dintel/perfil metálico si es necesario, según tipo de tabique (pladur, ladrillo o hormigón)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de tabique, dimensiones del hueco y necesidad de refuerzo estructural"
+        },
+        {
+          "concepto": "Marco de ventana interior (madera o aluminio)",
+          "descripcion": "Suministro e instalación de marco para ventana de proyección interior, fijación a tabique con tacos y tornillos, nivelación y aplomado",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de material (madera/aluminio), dimensiones y acabado"
+        },
+        {
+          "concepto": "Instalación de marco de ventana interior",
+          "descripcion": "Colocación, nivelación, aplomado y fijación del marco al tabique, sellado perimetral con espuma de poliuretano",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Vidrio translúcido (esmerilado, satinado o policarbonato)",
+          "descripcion": "Suministro de vidrio translúcido o panel de policarbonato translúcido según especificación, con espesor adecuado para ventana de proyección interior",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de vidrio (esmerilado/satinado/policarbonato), espesor y m2. Requiere medidas exactas del hueco"
+        },
+        {
+          "concepto": "Instalación de vidrio translúcido y mecanismo de proyección",
+          "descripcion": "Colocación de vidrio translúcido en marco, instalación de mecanismo de proyección (manual, motorizado o fijo), sellado con silicona neutra, ajuste y pruebas",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mecanismo de proyección (manual, motorizado o fijo)",
+          "descripcion": "Suministro de mecanismo de proyección según tipo: manual (bisagras y cierre), motorizado (motor + control) o fijo (sin movimiento)",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de mecanismo (manual ~50-150€, motorizado ~300-800€, fijo ~0€)"
+        },
+        {
+          "concepto": "Sellado acústico y acabado perimetral",
+          "descripcion": "Sellado perimetral con silicona neutra, colocación de tapajuntas o moldura de acabado en ambas caras del tabique",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (silicona, tacos, tornillos, espuma)",
+          "descripcion": "Silicona neutra, tacos de fijación, tornillos, espuma de poliuretano, lija y otros consumibles",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 30-60€ según cantidad y tipo de material"
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Aclarar dimensiones exactas del hueco (ancho × alto en cm)",
+        "Especificar tipo de vidrio translúcido: esmerilado (privacidad total), satinado (privacidad parcial) o policarbonato (mayor resistencia)",
+        "Confirmar tipo de mecanismo: proyección manual (bisagras), motorizada (motor + control remoto) o fija (sin movimiento)",
+        "Indicar tipo de tabique: pladur (ligero), ladrillo (medio) u hormigón (pesado) para evaluar refuerzo estructural",
+        "Especificar si requiere aislamiento acústico adicional (tabique compartido con otra estancia)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Apertura y refuerzo de tabique interior",
+          "oficio": "albanileria",
+          "motivo": "Trabajo específico de apertura en tabique interior, no está en catálogo base"
+        },
+        {
+          "concepto": "Mecanismo de proyección (manual, motorizado o fijo)",
+          "oficio": "cristaleria",
+          "motivo": "Componente específico de ventana de proyección interior, requiere especificación del tipo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_claraboya_tubular_o_solatube",
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_ventana_madera_con_vidrio",
+      "instalacion_estor_enrollable_interior"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3851,
+      "tokens_out": 2816
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

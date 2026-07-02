@@ -1,0 +1,253 @@
+{
+  "id": 336,
+  "oficio": "Fachadas",
+  "texto": "Reparar balcones de fachada, corrosión de barandillas y fisuras en losa, 6 balcones",
+  "http_status": 200,
+  "latency_ms": 20135,
+  "raw_response": {
+    "transcript": "Reparar balcones de fachada, corrosión de barandillas y fisuras en losa, 6 balcones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar balcones de fachada, corrosión de barandillas y fisuras en losa, 6 balcones",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: andamios OBLIGATORIOS para seguridad",
+          "Corrosión de barandillas: requiere tratamiento anticorrosión y posible sustitución de elementos",
+          "Fisuras en losa: diagnóstico previo para determinar si son pasivas o activas (estructural)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de elementos salientes de fachada (balcones), fisuras en losa, impermeabilización"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Tratamiento anticorrosión y reparación/sustitución de barandillas metálicas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Andamio o plataforma de seguridad",
+          "descripcion": "Montaje y desmontaje de andamio tubular o plataforma elevadora para acceso seguro a 6 balcones en fachada",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de alquiler/montaje de andamio según duración y tipo de estructura"
+        },
+        {
+          "concepto": "Señalización y protección de zona inferior",
+          "descripcion": "Señalización de peligro, vallas y protección de zona inferior durante trabajos en altura en 6 balcones",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de señalización y protección según extensión"
+        },
+        {
+          "concepto": "Diagnóstico de fisuras en losa",
+          "descripcion": "Inspección técnica de fisuras en losa de 6 balcones para determinar si son pasivas o activas (estructural)",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Diagnóstico previo obligatorio para determinar alcance de reparación"
+        },
+        {
+          "concepto": "Saneo y preparación de fisuras en losa",
+          "descripcion": "Limpieza, saneo en V y preparación de fisuras en losa de 6 balcones para reparación",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero de reparación y malla de refuerzo para fisuras",
+          "descripcion": "Mortero flexible de reparación exterior y malla de fibra de vidrio para fisuras mayores de 3mm en losa de 6 balcones",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de mortero y malla según extensión de fisuras"
+        },
+        {
+          "concepto": "Imprimación anticorrosión en armaduras",
+          "descripcion": "Aplicación de imprimación anticorrosión en armaduras oxidadas expuestas en fisuras de losa de 6 balcones",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de imprimación según extensión de armaduras expuestas"
+        },
+        {
+          "concepto": "Limpieza y decapado de barandillas metálicas",
+          "descripcion": "Limpieza, decapado y eliminación de corrosión en barandillas metálicas de 6 balcones",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 60,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento anticorrosión y pintura protectora en barandillas",
+          "descripcion": "Aplicación de tratamiento anticorrosión, imprimación y pintura protectora en barandillas metálicas de 6 balcones",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de tratamiento anticorrosión y pintura según superficie de barandillas"
+        },
+        {
+          "concepto": "Sustitución de elementos de barandilla corroídos",
+          "descripcion": "Desmontaje y sustitución de elementos de barandilla (tubos, secciones, anclajes) gravemente corroídos en 6 balcones",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de elementos a sustituir según diagnóstico de corrosión"
+        },
+        {
+          "concepto": "Impermeabilización de losa de balcones",
+          "descripcion": "Aplicación de impermeabilizante en losa de 6 balcones tras reparación de fisuras para evitar filtraciones",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total de losas a impermeabilizar (m2) según dimensiones de balcones"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Pequeño material, consumibles, herramientas y accesorios para reparación de 6 balcones (masillas, selladores, disolventes, etc.)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimación de pequeño material según alcance final de trabajos"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1140,
+        "iva_porcentaje": 21,
+        "iva": 239.4,
+        "total": 1379.4
+      },
+      "sugerencias_catalogo": [
+        "Consultar Base Maestra: [reparacion_cornisa_o_elemento_saliente_de_fachada] para validar partidas de andamio y saneo",
+        "Consultar Base Maestra: [reparacion_de_fisuras_y_grietas_en_fachada] para metodología de reparación de fisuras",
+        "Considerar si las fisuras requieren inyección de resina (grietas activas/estructurales) → requeriría proyecto técnico"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diagnóstico de fisuras en losa",
+          "oficio": "fachadas",
+          "motivo": "Inspección técnica previa obligatoria para determinar naturaleza de fisuras"
+        },
+        {
+          "concepto": "Sustitución de elementos de barandilla corroídos",
+          "oficio": "cerrajeria",
+          "motivo": "Reparación de corrosión severa puede requerir sustitución de componentes metálicos"
+        },
+        {
+          "concepto": "Impermeabilización de losa de balcones",
+          "oficio": "fachadas",
+          "motivo": "Protección final tras reparación de fisuras para evitar filtraciones futuras"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_piscina_con_filtraciones",
+      "reparacion_de_fisuras_y_grietas_en_fachada",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3857,
+      "tokens_out": 3157
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 2,
+    "n_sugeridas": 9,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

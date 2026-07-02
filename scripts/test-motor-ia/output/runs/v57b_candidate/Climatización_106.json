@@ -1,0 +1,312 @@
+{
+  "id": 106,
+  "oficio": "Climatización",
+  "texto": "Instalación de suelo radiante con bomba de calor en planta baja de 90 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 28030,
+  "raw_response": {
+    "transcript": "Instalación de suelo radiante con bomba de calor en planta baja de 90 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de suelo radiante con bomba de calor en planta baja de 90 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Presupuesto incluye 2 sistemas integrados (aerotermia + suelo radiante). Requiere coordinación de instalación y cálculo térmico previo.",
+          "Suelo radiante requiere espera de 28 días de fraguado del mortero antes de activación.",
+          "Se recomienda cálculo térmico de la vivienda para dimensionar correctamente la bomba de calor.",
+          "Precio de bomba de calor y mortero autonivelante pendiente de revisión según marca/modelo seleccionado."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación bomba de calor aire-agua (aerotermia)"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Red hidráulica suelo radiante, colectores, conexiones"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación base, rozas, vertido mortero autonivelante"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cálculo térmico y diseño instalación",
+          "descripcion": "Estudio de demanda térmica, dimensionamiento bomba de calor y suelo radiante, planos de distribución",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto del proyectista/ingeniero según complejidad"
+        },
+        {
+          "concepto": "Unidad exterior bomba de calor aire-agua",
+          "descripcion": "Suministro e instalación unidad exterior bomba calor aire-agua, potencia según cálculo térmico (estimado 8-12 kW para 90 m²)",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según marca/modelo/potencia seleccionada (rango típico 2500-5500€)"
+        },
+        {
+          "concepto": "Depósito acumulador ACS",
+          "descripcion": "Suministro e instalación depósito acumulador agua caliente sanitaria (200-300 L según demanda)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según capacidad y marca (rango típico 800-2000€)"
+        },
+        {
+          "concepto": "Red hidráulica circuito suelo radiante",
+          "descripcion": "Suministro e instalación tubería PEX multicapa para suelo radiante, colectores de distribución con actuadores termostáticos, válvulas de corte y regulación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 450,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio tubo PEX + colectores + válvulas (estimado 8-15€/ml instalado)"
+        },
+        {
+          "concepto": "Bomba de circulación y vaso de expansión",
+          "descripcion": "Suministro e instalación bomba circulación de alta eficiencia y vaso de expansión cerrado para circuito suelo radiante",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio bomba + vaso (rango típico 400-900€)"
+        },
+        {
+          "concepto": "Termostatos y sistema de control",
+          "descripcion": "Suministro e instalación termostatos por zona, controlador central con WiFi para gestión temperatura suelo radiante",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según número de zonas y sistema control (rango típico 300-800€)"
+        },
+        {
+          "concepto": "Preparación base y aislamiento",
+          "descripcion": "Limpieza y preparación solera, colocación aislamiento térmico bajo suelo radiante (5-10 cm), malla de soporte, bandas perimetrales de dilatación",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 90,
+          "precio_unitario": 15,
+          "total": 1350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación tubería suelo radiante",
+          "descripcion": "Colocación tubería PEX en espiral, fijación a malla, conexión a colectores, pruebas de estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 90,
+          "precio_unitario": 12,
+          "total": 1080,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Vertido mortero autonivelante",
+          "descripcion": "Suministro e instalación mortero autonivelante de cubrición suelo radiante (5-7 cm), alisado y nivelación",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 90,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio mortero + mano obra (estimado 25-45€/m² según espesor y marca)"
+        },
+        {
+          "concepto": "Instalación unidad interior bomba de calor",
+          "descripcion": "Instalación unidad interior (acumulador + intercambiador), conexión a red hidráulica, puesta en marcha y pruebas",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica bomba de calor",
+          "descripcion": "Instalación línea eléctrica dedicada (monofásica/trifásica según potencia), protecciones, conexión a cuadro eléctrico, puesta en marcha",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 250,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material e instalación accesorios",
+          "descripcion": "Válvulas de corte, purgadores, manómetros, tuercas, codos, tes, cinta teflón, bridas, soportes, tuberías de conexión, etc.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 200-400€ según cantidad y calidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2980,
+        "iva_porcentaje": 21,
+        "iva": 625.8,
+        "total": 3605.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_aerotermia_bomba_calor_aire_agua' — partidas obligatorias: unidad_exterior, deposito_acumulador_acs, red_hidraulica_ml, bomba_circulacion, vaso_expansion, valvulas_corte_regulacion, termostato_controlador, aislamiento_hidraulico, pequeño_material",
+        "Verificar en catálogo: 'instalacion_suelo_radiante_agua' — partidas obligatorias: tubo_pex_suelo_radiante, colector_distribucion, bomba_circulacion, termostatos, aislamiento_base, malla_soporte, pequeño_material",
+        "Considerar partida de 'cálculo_termico_vivienda' como servicio previo obligatorio para dimensionar correctamente potencia bomba de calor"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cálculo térmico y diseño instalación",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio técnico previo obligatorio para proyecto integrado aerotermia + suelo radiante"
+        },
+        {
+          "concepto": "Unidad exterior bomba de calor aire-agua",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material principal del sistema, precio variable según potencia y marca"
+        },
+        {
+          "concepto": "Depósito acumulador ACS",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Componente obligatorio para ACS en sistemas aerotermia"
+        },
+        {
+          "concepto": "Red hidráulica circuito suelo radiante",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Tubería PEX + colectores + válvulas, precio variable según longitud y componentes"
+        },
+        {
+          "concepto": "Bomba de circulación y vaso de expansión",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes obligatorios para circuito cerrado suelo radiante"
+        },
+        {
+          "concepto": "Termostatos y sistema de control",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de regulación temperatura por zonas, precio según complejidad"
+        },
+        {
+          "concepto": "Vertido mortero autonivelante",
+          "oficio": "albanileria",
+          "origen": "sugerida_ia",
+          "motivo": "Material + mano obra cubrición suelo radiante, precio variable según espesor"
+        },
+        {
+          "concepto": "Pequeño material e instalación accesorios",
+          "oficio": "fontaneria",
+          "origen": "sugerida_ia",
+          "motivo": "Accesorios hidráulicos varios, presupuesto estimado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_aerotermia_bomba_calor_aire_agua",
+      "instalacion_bomba_calor_geotermia",
+      "instalacion_suelo_radiante_agua",
+      "instalacion_de_suelo_radiante_en_reforma",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3924,
+      "tokens_out": 4082
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 4,
+    "n_sugeridas": 8,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

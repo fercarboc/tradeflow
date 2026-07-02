@@ -1,0 +1,222 @@
+{
+  "id": 149,
+  "oficio": "Pladur",
+  "texto": "Hacer armario de pladur empotrado bajo la escalera con puerta abatible y estantes internos",
+  "http_status": 200,
+  "latency_ms": 19436,
+  "raw_response": {
+    "transcript": "Hacer armario de pladur empotrado bajo la escalera con puerta abatible y estantes internos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer armario de pladur empotrado bajo la escalera con puerta abatible y estantes internos",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas exactas del hueco bajo escalera no proporcionadas — se recomienda toma de medidas in situ",
+          "Tipo de acabado interior (pintura, papel pintado) no especificado",
+          "Material de estantes (tablero, madera maciza) no definido"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Construcción de tabique y estructura de pladur para armario empotrado"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación e instalación de puerta abatible y estantes internos"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 38
+          },
+          "motivo": "Acabado interior del armario (imprimación y pintura)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura tabique pladur armario empotrado",
+          "descripcion": "Montaje estructura perfiles metálicos (canal y montantes 70mm) para tabique de cierre del armario bajo escalera, incluyendo refuerzo interior de madera para anclaje de barras y baldas",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según dimensiones exactas del hueco bajo escalera — instalador debe medir y presupuestar"
+        },
+        {
+          "concepto": "Placa yeso laminado 15mm tabique armario",
+          "descripcion": "Suministro e instalación de placas de yeso laminado 15mm para revestimiento tabique pladur, incluyendo tornillería, cinta de juntas, pasta de juntas y ángulo metálico",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 depende de medidas exactas del hueco — requiere toma de medidas"
+        },
+        {
+          "concepto": "Puerta abatible armario empotrado",
+          "descripcion": "Fabricación e instalación de puerta abatible de tablero melanina o madera con herraje de bisagras, amortiguadores de cierre suave y tapajuntas",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según medida exacta de la puerta y acabado seleccionado (melanina, lacado, etc.)"
+        },
+        {
+          "concepto": "Suministro puerta abatible tablero",
+          "descripcion": "Tablero melanina, madera maciza o lacado para puerta abatible, herraje completo (bisagras, amortiguadores, tirador)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material y acabado a definir por cliente — precio pendiente de selección"
+        },
+        {
+          "concepto": "Estantes internos armario",
+          "descripcion": "Fabricación e instalación de estantes internos en tablero melanina o madera, con soportes y refuerzos, cantidad según necesidades de almacenaje",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Número de estantes no especificado — cliente debe definir cantidad y profundidad"
+        },
+        {
+          "concepto": "Suministro tablero estantes",
+          "descripcion": "Tablero melanina o madera para estantes, soportes metálicos o de madera, pequeño material de fijación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie total de estantes depende de número y dimensiones — requiere definición"
+        },
+        {
+          "concepto": "Imprimación y pintura interior armario",
+          "descripcion": "Imprimación de pladur y tablero, dos manos de esmalte acrílico satinado en interior del armario, incluyendo preparación de superficies (lijado, masilla si necesario)",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro pintura y materiales acabado",
+          "descripcion": "Esmalte acrílico satinado, imprimación, lija 150-220, cinta carrocero, pincel y rodillo, pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de pintura depende de superficie total interior — requiere cálculo de m2"
+        }
+      ],
+      "calculos": {
+        "subtotal": 32,
+        "iva_porcentaje": 21,
+        "iva": 6.72,
+        "total": 38.72
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo [tabique_pladur_armario_empotrado_nuevo] para estructura y materiales de pladur",
+        "Consultar catálogo [instalacion_de_puertas_de_madera_en_armario_empotrado_existente] para puerta abatible",
+        "Consultar catálogo [pintado_armarios_empotrados_interiores] para acabado interior"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estructura tabique pladur armario empotrado",
+          "oficio": "pladur_escayola",
+          "motivo": "Partida específica de estructura — requiere medidas exactas del hueco bajo escalera"
+        },
+        {
+          "concepto": "Puerta abatible armario empotrado",
+          "oficio": "carpinteria",
+          "motivo": "Partida específica de puerta — requiere medidas y selección de acabado"
+        },
+        {
+          "concepto": "Estantes internos armario",
+          "oficio": "carpinteria",
+          "motivo": "Partida específica de estantes — requiere definición de cantidad y dimensiones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_armario_empotrado_a_medida",
+      "tabique_pladur_armario_empotrado_nuevo",
+      "pintado_armarios_empotrados_interiores",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3939,
+      "tokens_out": 2781
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

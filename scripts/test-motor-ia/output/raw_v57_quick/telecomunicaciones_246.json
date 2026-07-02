@@ -2,17 +2,18 @@
   "id": 246,
   "oficio": "telecomunicaciones",
   "texto": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
-  "latency_ms": 12346,
+  "latency_ms": 13444,
   "raw_response": {
     "transcript": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
     "quote": {
       "resumen": {
         "texto_original": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
-        "tipo_presupuesto": "servicio",
+        "tipo_presupuesto": "mantenimiento_recurrente",
         "requiere_revision_general": false,
         "alertas": [
           "Sistema CCTV existente: revisar estado físico de cámaras, cableado y grabador antes de presupuestar",
-          "Diagnóstico previo recomendado para identificar causa de mal funcionamiento (cámaras, NVR/DVR, almacenamiento, red)"
+          "Problema de grabación: puede deberse a disco duro lleno, corrupción de datos, configuración NVR/DVR o cámaras desconectadas",
+          "Se recomienda diagnóstico previo para identificar causa raíz"
         ]
       },
       "oficios_detectados": [
@@ -21,17 +22,17 @@
           "existe_en_catalogo": true,
           "nuevo_oficio": false,
           "tarifa_hora": {
-            "min": 40,
+            "min": 45,
             "recomendado": 50,
             "max": 60
           },
-          "motivo": "Configuración, diagnóstico y puesta en marcha de sistema CCTV/videovigilancia"
+          "motivo": "Configuración, diagnóstico y puesta en marcha de sistema CCTV existente"
         }
       ],
       "partidas": [
         {
-          "concepto": "Diagnóstico y revisión sistema CCTV existente",
-          "descripcion": "Inspección completa del sistema: estado cámaras, conexiones, cableado, grabador NVR/DVR, almacenamiento, configuración de red y grabación",
+          "concepto": "Diagnóstico y verificación sistema CCTV",
+          "descripcion": "Inspección completa del sistema: estado cámaras, conexiones, cableado, grabador NVR/DVR, disco duro, configuración de grabación y almacenamiento",
           "oficio": "telecomunicaciones",
           "tipo_partida": "mano_obra",
           "unidad": "hora",
@@ -44,8 +45,8 @@
           "motivo_revision": ""
         },
         {
-          "concepto": "Ajuste y reorientación de cámaras IP/analógicas",
-          "descripcion": "Reposicionamiento, enfoque y ajuste de ángulo de visión de cámaras para optimizar cobertura y calidad de imagen",
+          "concepto": "Limpieza y mantenimiento disco duro grabador",
+          "descripcion": "Acceso a disco duro, eliminación de archivos corruptos, liberación de espacio, verificación de salud del disco (SMART), formateo si necesario",
           "oficio": "telecomunicaciones",
           "tipo_partida": "mano_obra",
           "unidad": "hora",
@@ -58,8 +59,22 @@
           "motivo_revision": ""
         },
         {
-          "concepto": "Configuración grabador NVR/DVR y parámetros de grabación",
-          "descripcion": "Ajuste de resolución, fotogramas por segundo (fps), bitrate, modo grabación (continua/detección movimiento), calendarios y almacenamiento",
+          "concepto": "Reconfiguración parámetros grabación NVR/DVR",
+          "descripcion": "Ajuste de resolución, bitrate, fps, modo grabación (continua/detección movimiento), calendarios de grabación, políticas de retención de datos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste y orientación de cámaras",
+          "descripcion": "Reposicionamiento físico de cámaras, ajuste de ángulos de visión, enfoque, zoom, limpieza de lentes, verificación de cobertura de zonas críticas",
           "oficio": "telecomunicaciones",
           "tipo_partida": "mano_obra",
           "unidad": "hora",
@@ -72,22 +87,8 @@
           "motivo_revision": ""
         },
         {
-          "concepto": "Verificación y limpieza conexiones de red y alimentación",
-          "descripcion": "Revisión de conectores RJ45, PoE, fuentes de alimentación, regletas y cableado; limpieza de contactos si es necesario",
-          "oficio": "telecomunicaciones",
-          "tipo_partida": "mano_obra",
-          "unidad": "hora",
-          "cantidad": 1,
-          "precio_unitario": 50,
-          "total": 50,
-          "precio_origen": "catalogo",
-          "origen": "catalogo",
-          "requiere_revision": false,
-          "motivo_revision": ""
-        },
-        {
-          "concepto": "Pruebas de funcionamiento y grabación en todos los modos",
-          "descripcion": "Verificación de grabación continua, detección de movimiento, reproducción de vídeo, acceso remoto (si aplica) y generación de informe de estado",
+          "concepto": "Pruebas de funcionamiento y grabación",
+          "descripcion": "Verificación de captura de video en todas las cámaras, prueba de grabación en tiempo real, reproducción de archivos grabados, comprobación de sincronización horaria, test de detección de movimiento",
           "oficio": "telecomunicaciones",
           "tipo_partida": "mano_obra",
           "unidad": "hora",
@@ -100,10 +101,10 @@
           "motivo_revision": ""
         },
         {
-          "concepto": "Pequeño material (conectores, cables cortos, etiquetas)",
-          "descripcion": "Conectores RJ45, cables de parcheo, bridas, etiquetas identificativas y otros consumibles menores",
+          "concepto": "Informe de puesta en marcha y recomendaciones",
+          "descripcion": "Documentación de estado del sistema, causas identificadas del problema de grabación, acciones realizadas, recomendaciones de mantenimiento preventivo, formación básica usuario",
           "oficio": "telecomunicaciones",
-          "tipo_partida": "material",
+          "tipo_partida": "servicio",
           "unidad": "ud",
           "cantidad": 1,
           "precio_unitario": 0,
@@ -111,26 +112,26 @@
           "precio_origen": "sugerida_ia",
           "origen": "sugerida_ia",
           "requiere_revision": true,
-          "motivo_revision": "Precio a definir por instalador según cantidad y tipo de material necesario"
+          "motivo_revision": "Servicio de documentación y asesoramiento: instalador debe valorar si incluir en mano de obra o como partida independiente"
         }
       ],
       "calculos": {
-        "subtotal": 400,
+        "subtotal": 425,
         "iva_porcentaje": 21,
-        "iva": 84,
-        "total": 484
+        "iva": 89.25,
+        "total": 514.25
       },
       "sugerencias_catalogo": [
-        "Si se detecta fallo en disco duro de grabación: presupuestar sustitución disco duro NAS/SSD",
-        "Si se detecta fallo en fuente de alimentación o PoE: presupuestar sustitución fuente",
-        "Si se detecta degradación de cableado: presupuestar sustitución parcial o total de cableado Cat6/coaxial",
-        "Si el cliente requiere acceso remoto: presupuestar configuración de aplicación móvil y acceso en nube"
+        "Si durante el diagnóstico se detecta disco duro dañado: presupuestar sustitución disco duro grabador (material + instalación)",
+        "Si hay cámaras desconectadas o con cable dañado: presupuestar reparación/sustitución cableado CAT6 o coaxial",
+        "Si el problema es falta de iluminación nocturna: considerar instalación de iluminación IR complementaria",
+        "Si se requiere acceso remoto: verificar configuración de red y presupuestar setup de acceso móvil si no existe"
       ],
       "partidas_nuevas_detectadas": [
         {
-          "concepto": "Pequeño material (conectores, cables cortos, etiquetas)",
+          "concepto": "Informe de puesta en marcha y recomendaciones",
           "oficio": "telecomunicaciones",
-          "motivo": "Material consumible menor no especificado en catálogo; precio a revisar"
+          "motivo": "Servicio de documentación técnica post-reparación, no incluido en tarifa estándar de mano de obra"
         }
       ]
     },
@@ -144,10 +145,10 @@
     "kb_score": 2.2,
     "web_search_used": false,
     "_meta": {
-      "prompt_version": "v57",
+      "prompt_version": "v57b",
       "stop_reason": "end_turn",
-      "tokens_in": 4044,
-      "tokens_out": 1653
+      "tokens_in": 3913,
+      "tokens_out": 1741
     }
   },
   "classification": {

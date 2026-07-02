@@ -1,0 +1,185 @@
+{
+  "id": 175,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 18229,
+  "raw_response": {
+    "transcript": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Retirar moqueta antigua y preparar suelo para colocar tarima de madera de roble, 45 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume suelo interior. Si es planta baja en contacto con terreno, se requiere barrera vapor.",
+          "Precio de tarima de roble pendiente de revisión (material sugerido por IA).",
+          "Rodapié no incluido en presupuesto base; cliente debe confirmar si lo desea."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de tarima flotante de madera (roble). Oficio principal."
+        },
+        {
+          "oficio": "limpieza",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 18,
+            "recomendado": 20,
+            "max": 25
+          },
+          "motivo": "Retirada de moqueta antigua y preparación del suelo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de moqueta antigua",
+          "descripcion": "Desmontaje y retirada de moqueta antigua, incluyendo adhesivo residual. Preparación de suelo base. 45 m².",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 5,
+          "total": 225,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de desmontaje de moqueta estimada. Revisar según estado de adhesivo y dificultad de acceso."
+        },
+        {
+          "concepto": "Nivelación y regularización de suelo",
+          "descripcion": "Barrido, limpieza profunda y regularización de la base. Máxima desviación permitida: 3 mm bajo regla de 2 m. 45 m².",
+          "oficio": "limpieza",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 3,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de preparación de suelo estimada. Ajustar si se requiere mortero de regularización."
+        },
+        {
+          "concepto": "Lámina aislante de espuma de polietileno",
+          "descripcion": "Lámina aislante espuma de polietileno (espesor 2-3 mm) para tarima flotante. 45 m² + 5% mermas = 47,25 m².",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 47.25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material obligatorio para tarima flotante. Precio pendiente de revisión del instalador."
+        },
+        {
+          "concepto": "Tarima de roble macizo o ingeniería",
+          "descripcion": "Tarima de roble (maciza o ingeniería), sistema click o ensamble. Calidad media-alta. 45 m² + 5% mermas = 47,25 m².",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 47.25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material principal. Precio de roble muy variable (40-150€/m² según calidad y origen). Revisar con proveedor."
+        },
+        {
+          "concepto": "Instalación de tarima flotante",
+          "descripcion": "Colocación de tarima flotante sistema click. Incluye cortes, ajustes perimetrales y pequeño material (clavos, tornillos, adhesivo puntual). 45 m².",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 45,
+          "precio_unitario": 32,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta perimetral de dilatación (10-12 mm)",
+          "descripcion": "Junta perimetral de 10-12 mm en todo el perímetro de la estancia. Obligatoria para tarima flotante. Perímetro estimado según 45 m² (aprox. 28-30 ml).",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de junta (corcho, espuma, silicona). Precio pendiente. Cantidad estimada; confirmar perímetro real."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1800,
+        "iva_porcentaje": 21,
+        "iva": 378,
+        "total": 2178
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la tarima es maciza (más cara, más durabilidad, posibilidad de lijar/barnizar) o ingeniería (más estable, menos mantenimiento).",
+        "Verificar si el suelo base requiere barrera de vapor (planta baja en contacto con terreno).",
+        "Considerar rodapié de madera a juego (no incluido en presupuesto base).",
+        "Aclimatación de tarima: 48-72 horas en obra ANTES de instalar (confirmar con cliente).",
+        "Mantenimiento anual recomendado: aceite protector o barniz según tipo de roble."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lámina aislante de espuma de polietileno",
+          "oficio": "carpinteria",
+          "motivo": "Material obligatorio para tarima flotante, no especificado en catálogo con precio."
+        },
+        {
+          "concepto": "Tarima de roble macizo o ingeniería",
+          "oficio": "carpinteria",
+          "motivo": "Material principal, precio muy variable según calidad y origen. Requiere revisión de proveedor."
+        },
+        {
+          "concepto": "Junta perimetral de dilatación (10-12 mm)",
+          "oficio": "carpinteria",
+          "motivo": "Material obligatorio para tarima flotante, precio pendiente de revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "colocacion_parquet_flotante_o_tarima_laminada",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "solado_de_parquet_o_madera"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4050,
+      "tokens_out": 2399
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

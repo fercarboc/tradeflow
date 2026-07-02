@@ -1,0 +1,138 @@
+{
+  "id": 81,
+  "oficio": "Albañilería",
+  "texto": "Quiero tirar un tabique para unir la cocina con el salón, aproximadamente 3 metros de largo",
+  "http_status": 200,
+  "latency_ms": 16698,
+  "raw_response": {
+    "transcript": "Quiero tirar un tabique para unir la cocina con el salón, aproximadamente 3 metros de largo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Quiero tirar un tabique para unir la cocina con el salón, aproximadamente 3 metros de largo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Demolición de tabique requiere verificación estructural previa. Si es tabique de carga, necesita proyecto técnico y refuerzo estructural (viga metálica o hormigón).",
+          "Se asume tabique no estructural (pladur, ladrillo hueco). Si es de ladrillo macizo o carga, presupuesto se incrementará significativamente.",
+          "Gestión de residuos incluida. Verificar acceso y extracción de escombros.",
+          "No se incluyen trabajos posteriores (revestimiento, pintura, instalaciones). Presupuesto solo demolición y limpieza."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Demolición de tabique, desmontaje de estructura y retirada de escombros"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Gestión y transporte de escombros derivados de demolición"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición tabique 3 metros",
+          "descripcion": "Desmontaje y demolición de tabique (asumiendo no estructural: pladur, ladrillo hueco o similar) de 3 metros de largo. Incluye corte de instalaciones (si las hay), desmontaje de estructura y retirada de material.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 40,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tiempo estimado según longitud y tipo de tabique. Revisar in situ: si hay instalaciones eléctricas, fontanería o es tabique de carga, incrementar horas."
+        },
+        {
+          "concepto": "Retirada y gestión de escombros",
+          "descripcion": "Carga, transporte y gestión de residuos de demolición (escombros, polvo, material de derribo). Incluye limpieza de zona tras demolición.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de volumen de escombros, distancia a vertedero y tasas de gestión. Instalador debe revisar y ajustar según zona."
+        },
+        {
+          "concepto": "Verificación estructural y dictamen técnico",
+          "descripcion": "Inspección previa para determinar si el tabique es de carga o no. Si es de carga, se requiere proyecto técnico de refuerzo estructural (viga metálica, hormigón armado, etc.). Partida de consultoría técnica.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OBLIGATORIO antes de demolición. Precio: 150-400€ según complejidad. Si tabique es de carga, presupuesto se incrementará 2000-5000€ por refuerzo estructural."
+        }
+      ],
+      "calculos": {
+        "subtotal": 240,
+        "iva_porcentaje": 21,
+        "iva": 50.4,
+        "total": 290.4
+      },
+      "sugerencias_catalogo": [
+        "Antes de proceder: solicitar informe técnico de estructura. Tabiques de carga requieren proyecto y refuerzo (viga metálica IPE/HEB o viga hormigón).",
+        "Si hay instalaciones (electricidad, fontanería, climatización) en el tabique, coordinar con electricista y fontanero antes de demolición.",
+        "Tras demolición: presupuestar revestimiento de paredes (pintura, alicatado si es cocina), acabado de techo y suelo, y reubicación de instalaciones si es necesario.",
+        "Considerar refuerzo de estructura de techo/forjado si la luz resultante es muy grande (>4 metros)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Retirada y gestión de escombros",
+          "oficio": "gestion_residuos",
+          "motivo": "Servicio de gestión de residuos de demolición. Precio variable según volumen y zona."
+        },
+        {
+          "concepto": "Verificación estructural y dictamen técnico",
+          "oficio": "reforma_integral",
+          "motivo": "Consultoría técnica previa. OBLIGATORIO para determinar si tabique es de carga."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "instalacion_electrica_local_hosteleria"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3872,
+      "tokens_out": 1960
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 1,
+    "n_sugeridas": 2,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

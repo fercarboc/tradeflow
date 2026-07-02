@@ -1,0 +1,149 @@
+{
+  "id": 53,
+  "oficio": "Carpintería",
+  "texto": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+  "http_status": 200,
+  "latency_ms": 12746,
+  "raw_response": {
+    "transcript": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Zócalos y molduras de madera en todo el piso, colocación de rodapié de 10 centímetros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere medición lineal total (ml) del perímetro del piso para cuantificar exactamente",
+          "Precio unitario de material (rodapié madera 10cm) pendiente de revisión del instalador",
+          "No se especifica si incluye desmontaje de rodapié anterior"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de molduras y rodapiés de madera, trabajo de carpintería de acabado interior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro rodapié madera 10cm",
+          "descripcion": "Rodapié de madera maciza o ingeniería, altura 10cm, para todo el perímetro del piso",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material pendiente. Instalador debe indicar: tipo madera (pino, roble, etc.), acabado (barnizado, pintado), y metros lineales totales del perímetro"
+        },
+        {
+          "concepto": "Instalación rodapié madera 10cm",
+          "descripcion": "Colocación, fijación y nivelación de rodapié de madera en todo el perímetro del piso. Incluye: preparación de superficie, fijación con tornillos/clavos, sellado de juntas, acabado",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 12€/ml para instalación de rodapié. Requiere confirmación de cantidad total (ml) del perímetro del piso"
+        },
+        {
+          "concepto": "Desmontaje rodapié anterior (si aplica)",
+          "descripcion": "Retirada y gestión de residuos de rodapié existente, si procede",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 3,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida opcional. Incluir solo si hay rodapié anterior a retirar. Tarifa estimada 3€/ml"
+        },
+        {
+          "concepto": "Molduras decorativas madera (si aplica)",
+          "descripcion": "Suministro e instalación de molduras decorativas de madera complementarias a rodapié (cornisas, molduras de transición, etc.)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida opcional. Solo si se requieren molduras adicionales. Precio y cantidad a definir por instalador"
+        },
+        {
+          "concepto": "Acabado (barniz/pintura) rodapié madera",
+          "descripcion": "Aplicación de barniz satinado o pintura de acabado en rodapié instalado. Incluye: preparación, aplicación y secado",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 4,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa estimada 4€/ml para acabado. Incluir solo si rodapié requiere tratamiento de acabado posterior a instalación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente medición exacta del perímetro total del piso (en metros lineales)",
+        "Confirmar tipo de madera y acabado deseado (barnizado natural, pintado, etc.)",
+        "Aclarar si existe rodapié anterior a retirar",
+        "Especificar si se requieren molduras decorativas adicionales o solo rodapié funcional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Instalación rodapié madera 10cm",
+          "oficio": "carpinteria",
+          "motivo": "Trabajo específico de colocación de rodapié, no encontrado como partida exacta en catálogo base"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_esmalte_carpinteria_madera_interior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "instalacion_persiana_mallorquina_o_librillo",
+      "instalacion_persiana_veneciana_de_madera_o_bambu",
+      "fabricacion_e_instalacion_puerta_exterior_madera"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3854,
+      "tokens_out": 1591
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 5,
+    "n_catalogo": 0,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

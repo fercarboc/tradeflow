@@ -1,0 +1,225 @@
+{
+  "id": 8,
+  "oficio": "Fontanería",
+  "texto": "Reparación de caldera de gas averiada, revisión completa y puesta a punto, cambio de juntas",
+  "http_status": 200,
+  "latency_ms": 17907,
+  "raw_response": {
+    "transcript": "Reparación de caldera de gas averiada, revisión completa y puesta a punto, cambio de juntas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de caldera de gas averiada, revisión completa y puesta a punto, cambio de juntas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Caldera averiada: requiere diagnóstico técnico previo para identificar causa exacta",
+          "Cambio de juntas: especificar tipo y cantidad de juntas (quemador, intercambiador, válvulas)",
+          "Puesta a punto: incluye calibración de presión, análisis de combustión y verificación de seguridad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Reparación y mantenimiento de caldera de gas (climatización/calefacción)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión completa caldera de gas",
+          "descripcion": "Inspección visual de quemador, cámara de combustión, intercambiador, válvulas de seguridad, vaso de expansión, presión del circuito y evacuación de humos",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza quemador y cámara de combustión",
+          "descripcion": "Desmontaje, limpieza profunda y reposición de quemador y cámara de combustión",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza intercambiador de calor",
+          "descripcion": "Limpieza del intercambiador primario y secundario para optimizar transferencia térmica",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cambio de juntas (quemador, válvulas, intercambiador)",
+          "descripcion": "Suministro e instalación de juntas de reposición en quemador, válvulas de seguridad e intercambiador",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de juntas pendiente de revisión. Especificar cantidad y tipo exacto de juntas a cambiar"
+        },
+        {
+          "concepto": "Instalación de juntas y reposición de componentes",
+          "descripcion": "Montaje de juntas nuevas, ajuste de tornillería y reposición de componentes desmontados",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 60,
+          "total": 90,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Purgado de circuito y verificación de presión",
+          "descripcion": "Purga de aire en circuito de calefacción, verificación y ajuste de presión del vaso de expansión",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de combustión y puesta a punto",
+          "descripcion": "Medición de parámetros de combustión (CO2, CO, temperatura humos), calibración de quemador y ajuste de presión de gas",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de válvulas de seguridad y evacuación de humos",
+          "descripcion": "Comprobación funcional de válvulas de seguridad, presostato y verificación de tiro en conducto de evacuación",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (lubricantes, selladores, consumibles)",
+          "descripcion": "Lubricantes, selladores de rosca, trapos, desengrasantes y otros consumibles necesarios para la reparación",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe de pequeño material a estimar según consumo real"
+        },
+        {
+          "concepto": "Informe técnico de reparación y puesta a punto",
+          "descripcion": "Documento técnico con resultados de análisis de combustión, parámetros verificados, trabajos realizados y recomendaciones",
+          "oficio": "climatizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir en presupuesto si se requiere informe escrito (recomendado para garantía y seguros)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 540,
+        "iva_porcentaje": 21,
+        "iva": 113.4,
+        "total": 653.4
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de juntas específicas para modelo de caldera (fabricante y referencia)",
+        "Verificar si la reparación requiere piezas de reposición adicionales (válvulas, sensores, etc.)",
+        "Considerar contrato de mantenimiento anual post-reparación para evitar futuras averías"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cambio de juntas (quemador, válvulas, intercambiador)",
+          "motivo": "Material específico cuyo precio depende del tipo y cantidad exacta de juntas a cambiar"
+        },
+        {
+          "concepto": "Pequeño material (lubricantes, selladores, consumibles)",
+          "motivo": "Consumibles de reparación cuyo importe debe estimarse según trabajo real"
+        },
+        {
+          "concepto": "Informe técnico de reparación y puesta a punto",
+          "motivo": "Servicio adicional opcional pero recomendado para documentación y garantía"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_caldera",
+      "instalacion_calefaccion_radiadores_completa",
+      "revision_anual_instalacion_general_vivienda",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_persianas_y_toldos"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3733,
+      "tokens_out": 2431
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 7,
+    "n_sugeridas": 3,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

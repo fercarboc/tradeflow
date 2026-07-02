@@ -1,0 +1,191 @@
+{
+  "id": 345,
+  "oficio": "Mantenimiento General",
+  "texto": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+  "http_status": 200,
+  "latency_ms": 15329,
+  "raw_response": {
+    "transcript": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza y mantenimiento de ascensor del edificio, revisión de cables y puertas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de ascensor requiere certificación y cumplimiento normativo (ITC-AEM). Verificar que el instalador está habilitado.",
+          "Revisión de cables y mecanismos debe incluir informe técnico de seguridad."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Mantenimiento preventivo de ascensor: combinación de limpieza, revisión mecánica y de seguridad. Oficio multidisciplinar de mantenimiento."
+        },
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Revisión de cables, poleas, mecanismos de seguridad y puertas requiere especialización en sistemas de elevación."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza general cabina ascensor",
+          "descripcion": "Limpieza interior de cabina, paredes, suelo, techo, espejos y accesorios. Desinfección de superficies.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 40,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y mantenimiento de puertas (cabina y rellano)",
+          "descripcion": "Limpieza de mecanismos de puertas, guías, sensores de seguridad. Lubricación de bisagras y cerraduras. Verificación de cierre y apertura.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y lubricación de cables de tracción",
+          "descripcion": "Inspección visual de cables de acero, detección de roturas o desgaste. Lubricación con grasa específica. Verificación de tensión y alineación.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 65,
+          "total": 162.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión de mecanismos de seguridad y limitadores de velocidad",
+          "descripcion": "Comprobación de funcionamiento de paracaídas, limitador de velocidad, válvulas de seguridad. Pruebas de activación. Ajuste si es necesario.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión de poleas, rodillos y guías",
+          "descripcion": "Inspección de desgaste en poleas y rodillos. Limpieza de guías. Lubricación de puntos de fricción. Verificación de alineación.",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles (grasas, aceites, trapos, desinfectante)",
+          "descripcion": "Materiales consumibles necesarios para limpieza, lubricación y mantenimiento: grasa NLGI, aceite mineral, trapos, desinfectante industrial.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar cantidad y tipo de consumibles. Rango estimado: 30-80€"
+        },
+        {
+          "concepto": "Informe técnico de mantenimiento y seguridad",
+          "descripcion": "Elaboración de informe detallado con estado de cables, mecanismos, puertas y sistemas de seguridad. Recomendaciones de reparación si procede.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de documentación técnica. Rango estimado: 50-150€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 580,
+        "iva_porcentaje": 21,
+        "iva": 121.8,
+        "total": 701.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el edificio requiere certificación ITC-AEM (Instrucción Técnica Complementaria de Ascensores y Montacargas). Si es obligatoria, añadir partida de 'Certificación técnica anual' con precio 200-400€.",
+        "Si se detectan cables con desgaste significativo o piezas defectuosas, crear presupuesto adicional de 'Reposición de cables' o 'Cambio de componentes mecánicos'.",
+        "Considerar contrato anual de mantenimiento preventivo (4 visitas/año) con precio global 1200-2000€/año."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "mantenimiento_general",
+          "motivo": "Materiales consumibles para limpieza y lubricación. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Informe técnico de mantenimiento y seguridad",
+          "oficio": "mantenimiento_general",
+          "motivo": "Servicio de documentación técnica obligatoria. Precio pendiente de revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_anual_split_o_aire_acondicionado"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3897,
+      "tokens_out": 2149
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 5,
+    "n_sugeridas": 2,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "id": 242,
+  "oficio": "Telecomunicaciones",
+  "texto": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+  "http_status": 200,
+  "latency_ms": 13341,
+  "raw_response": {
+    "transcript": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar antena colectiva del edificio, no llega señal a varios pisos, revisión y ajuste",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Revisión de cobertura en múltiples plantas requiere diagnóstico previo de pérdida de señal",
+          "Posible necesidad de amplificador o reemplazo de cable coaxial según resultado del diagnóstico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación y ajuste de instalación colectiva de antena TDT, diagnóstico de cobertura"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión de antena colectiva TDT",
+          "descripcion": "Inspección visual de antena, amplificador de mástil, red de distribución y medición de niveles de señal en tomas de usuario de plantas afectadas",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste y reorientación de antena UHF TDT",
+          "descripcion": "Reposicionamiento de antena en mástil, verificación de conexiones, ajuste de ganancia según zona de cobertura",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y limpieza de amplificador de mástil",
+          "descripcion": "Inspección de amplificador, limpieza de conectores, verificación de alimentación y niveles de ganancia",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección de red de distribución (splitters y derivadores)",
+          "descripcion": "Revisión de estado de splitters, derivadores y conexiones en ICT, medición de pérdidas por derivación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y conectores coaxiales",
+          "descripcion": "Conectores F, adaptadores, cinta teflón, pasta conductora, material fungible para reparación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material a determinar según conectores y accesorios necesarios (estimado 15-40€)"
+        },
+        {
+          "concepto": "Sustitución de cable coaxial 75Ω (si procede)",
+          "descripcion": "Reemplazo de tramos de cable coaxial dañado o con pérdida excesiva de señal en red de distribución",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio a determinar tras diagnóstico. Cable coaxial de calidad 75Ω: 0.80-1.50€/ml. Instalación incluida en mano de obra de revisión"
+        }
+      ],
+      "calculos": {
+        "subtotal": 425,
+        "iva_porcentaje": 21,
+        "iva": 89.25,
+        "total": 514.25
+      },
+      "sugerencias_catalogo": [
+        "Si tras diagnóstico se detecta amplificador defectuoso, presupuestar sustitución de amplificador de mástil (200-400€ material + 1.5h instalación)",
+        "Si la pérdida de señal es generalizada en todo el edificio, considerar instalación de amplificador de banda ancha adicional (150-300€)",
+        "Verificar que el cable coaxial sea de baja pérdida (RG-6 o superior) en tramos largos hacia plantas superiores",
+        "Documentar niveles de señal antes y después en tomas de usuario para validar reparación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pequeño material y conectores coaxiales",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material fungible de reparación, precio variable según necesidades"
+        },
+        {
+          "concepto": "Sustitución de cable coaxial 75Ω (si procede)",
+          "oficio": "telecomunicaciones",
+          "motivo": "Cantidad y alcance a determinar tras diagnóstico técnico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "reparacion_o_mejora_de_cobertura_movil_en_interior",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3964,
+      "tokens_out": 1748
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

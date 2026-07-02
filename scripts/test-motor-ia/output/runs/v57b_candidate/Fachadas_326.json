@@ -1,0 +1,165 @@
+{
+  "id": 326,
+  "oficio": "Fachadas",
+  "texto": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+  "http_status": 200,
+  "latency_ms": 13395,
+  "raw_response": {
+    "transcript": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar fachada exterior de edificio con pintura siloxánica impermeabilizante, 4 plantas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Se requiere medición de superficie neta de fachada (m²) para calcular cantidad exacta de pintura y mano de obra",
+          "Andamio/plataforma elevadora: precio no incluido, requiere presupuesto separado según altura y duración",
+          "Permiso municipal para ocupación de vía pública si aplica",
+          "Verificar estado previo de fachada: grietas, desperfectos, limpieza necesaria"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Pintura exterior de fachada de edificio con pintura siloxánica impermeabilizante. Oficio 'fachadas' por revestimiento exterior de envolvente del edificio."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza previa fachada con agua a presión",
+          "descripcion": "Limpieza de superficie de fachada exterior con agua a presión para eliminar suciedad, algas y depósitos. 4 plantas.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 3,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² de fachada a definir por el instalador"
+        },
+        {
+          "concepto": "Reparación de fisuras y desperfectos en fachada",
+          "descripcion": "Sellado y reparación de grietas, fisuras y desperfectos en fachada con mortero o masilla exterior de calidad. Preparación de superficie para pintura.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material (mortero/masilla) y mano de obra a definir según estado de fachada"
+        },
+        {
+          "concepto": "Imprimación fijadora exterior",
+          "descripcion": "Aplicación de imprimación fijadora en fachada para mejorar adherencia de pintura siloxánica. Preparación de soporte.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² y precio de imprimación a definir"
+        },
+        {
+          "concepto": "Pintura siloxánica impermeabilizante exterior",
+          "descripcion": "Aplicación de pintura siloxánica impermeabilizante de alta calidad en fachada exterior. Dos manos mínimo. Protección contra humedad y agentes atmosféricos. 4 plantas.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² de fachada y precio de pintura siloxánica a definir por instalador"
+        },
+        {
+          "concepto": "Mano de obra: Pintura fachada exterior siloxánica",
+          "descripcion": "Mano de obra para aplicación de pintura siloxánica impermeabilizante en fachada exterior de 4 plantas. Incluye preparación, imprimación y dos manos de pintura.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 12,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m² a definir. Tarifa: 12€/m2 (rango 15-75€/m2 según complejidad y altura)"
+        },
+        {
+          "concepto": "Andamio o plataforma elevadora",
+          "descripcion": "Alquiler y montaje de andamio o plataforma elevadora para acceso seguro a fachada de 4 plantas. Duración según ejecución de obra.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de andamio/plataforma a solicitar a empresa especializada. Depende de altura, superficie y duración"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición de superficie neta de fachada (m²) para calcular cantidades exactas",
+        "Definir estado actual de fachada: presencia de grietas, desperfectos, tipo de soporte (ladrillo, hormigón, etc.)",
+        "Presupuestar andamio/plataforma elevadora por separado con empresa especializada",
+        "Verificar si se requiere permiso municipal para ocupación de vía pública",
+        "Especificar marca y características de pintura siloxánica impermeabilizante a utilizar"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación de fisuras y desperfectos en fachada",
+          "oficio": "fachadas",
+          "motivo": "Partida auxiliar de preparación de superficie, incluida en BASE MAESTRA pero requiere precio específico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_fachada_exterior",
+      "pintura_de_medianera_o_pared_ciega_exterior",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "pintura_fachada_exterior_plastica_o_siloxano",
+      "pintado_de_chimenea_exterior"
+    ],
+    "kb_score": 4.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3800,
+      "tokens_out": 1881
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

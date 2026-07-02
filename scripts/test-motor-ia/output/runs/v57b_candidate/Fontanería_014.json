@@ -1,0 +1,140 @@
+{
+  "id": 14,
+  "oficio": "Fontanería",
+  "texto": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+  "http_status": 200,
+  "latency_ms": 12442,
+  "raw_response": {
+    "transcript": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Vaciado y limpieza de fosa séptica con camión de bombeo, capacidad de 3000 litros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio especializado de saneamiento. Requiere profesional autorizado y gestor de residuos certificado.",
+          "El precio del camión de bombeo y gestión de residuos debe ser confirmado por el instalador según empresa contratada."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Vaciado y limpieza de fosa séptica es mantenimiento especializado de infraestructura de saneamiento."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado de fosa séptica con camión de bombeo",
+          "descripcion": "Vaciado completo de fosa séptica de 3000 litros mediante camión de bombeo especializado, incluyendo extracción de lodos y residuos acumulados.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del servicio de bombeo y transporte debe ser confirmado por el instalador según tarifa de empresa de saneamiento contratada (típicamente 200-500€ según zona y distancia)."
+        },
+        {
+          "concepto": "Limpieza interior de fosa séptica",
+          "descripcion": "Limpieza manual y mecánica de paredes interiores, tuberías de entrada/salida y cámara de decantación. Eliminación de incrustaciones y depósitos adheridos.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión y transporte de residuos de fosa séptica",
+          "descripcion": "Transporte, tratamiento y disposición final de lodos y residuos extraídos de la fosa séptica según normativa ambiental. Incluye documentación de gestor autorizado.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de gestión de residuos debe ser confirmado por el instalador según volumen y gestor autorizado contratado (típicamente 100-300€)."
+        },
+        {
+          "concepto": "Inspección y verificación de funcionamiento post-limpieza",
+          "descripcion": "Comprobación de funcionamiento correcto de tuberías de entrada/salida, verificación de ausencia de fugas, comprobación de drenaje y estado general de la fosa tras limpieza.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 120,
+        "iva_porcentaje": 21,
+        "iva": 25.2,
+        "total": 145.2
+      },
+      "sugerencias_catalogo": [
+        "Considerar incluir en el presupuesto final: tarifa de camión de bombeo (200-500€), gestión de residuos (100-300€) y mano de obra (120€ ya incluida).",
+        "Recomendar al cliente contrato de mantenimiento anual de fosa séptica para evitar problemas futuros (típicamente 1-2 vaciados/año según uso).",
+        "Verificar si la fosa séptica requiere inspección de tuberías con cámara endoscópica (partida adicional si hay sospechas de obstrucción)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vaciado de fosa séptica con camión de bombeo",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio especializado de saneamiento no presente en catálogo base. Requiere empresa autorizada."
+        },
+        {
+          "concepto": "Gestión y transporte de residuos de fosa séptica",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio de gestor de residuos autorizado, no presente en catálogo base."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "limpieza_y_soplado_de_jardines_y_zonas_exteriores",
+      "mantenimiento_de_sistema_de_climatizacion_split",
+      "adecuacion_de_vivienda_para_accesibilidad_PMR"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3997,
+      "tokens_out": 1525
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "id": 232,
+  "oficio": "Energía Solar",
+  "texto": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+  "http_status": 200,
+  "latency_ms": 19104,
+  "raw_response": {
+    "transcript": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Gestión de trámites de alta y conexión a red de instalación fotovoltaica de 8kW con compensación",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Este presupuesto es ÚNICAMENTE de gestión administrativa y trámites. NO incluye paneles, inversor, cableado ni instalación física.",
+          "El cliente debe confirmar si necesita también la instalación técnica de los paneles y equipos (oficio: energia_solar).",
+          "La compensación (autoconsumo con excedentes) requiere legalización ante la distribuidora: incluida en estas partidas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Gestión administrativa, trámites de alta, legalización ante distribuidora y organismos públicos para instalación fotovoltaica con compensación."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Solicitud de acceso y conexión a red distribuidora",
+          "descripcion": "Tramitación de solicitud de acceso y conexión a la red de distribución para instalación fotovoltaica de 8 kW con sistema de compensación de excedentes. Incluye documentación técnica, planos unifilares, cálculos de protecciones y coordinación con distribuidora.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según distribuidora y complejidad administrativa. Rango típico: 300-600€."
+        },
+        {
+          "concepto": "Legalización de instalación fotovoltaica ante organismo competente",
+          "descripcion": "Tramitación de legalización y obtención de certificado de instalación conforme a normativa (RD 244/2019, ITC-BT-40). Incluye inspección técnica, certificado de conformidad y documentación de seguridad eléctrica.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según comunidad autónoma y colegio profesional. Rango típico: 200-400€."
+        },
+        {
+          "concepto": "Gestión de compensación de excedentes (autoconsumo con vertido)",
+          "descripcion": "Tramitación del sistema de compensación de excedentes ante distribuidora. Incluye solicitud de acuerdo de compensación, configuración de contador bidireccional, documentación de balance neto y seguimiento administrativo.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según distribuidora. Rango típico: 150-300€. Algunos distribuidores no cobran."
+        },
+        {
+          "concepto": "Solicitud de cambio de potencia contratada (si aplica)",
+          "descripcion": "Tramitación de solicitud de aumento de potencia contratada si la instalación fotovoltaica requiere incremento de capacidad de acceso. Incluye coordinación con distribuidora y documentación técnica.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Aplica solo si es necesario aumentar potencia. Rango típico: 100-250€. Confirmar con cliente si es necesario."
+        },
+        {
+          "concepto": "Gestión de trámites ante administración tributaria (Hacienda)",
+          "descripcion": "Tramitación de comunicación de instalación fotovoltaica ante administración tributaria. Incluye declaración de actividad económica si aplica, documentación fiscal y asesoramiento sobre régimen tributario de autoconsumo.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según complejidad fiscal. Rango típico: 150-300€."
+        },
+        {
+          "concepto": "Seguimiento y coordinación general de trámites",
+          "descripcion": "Coordinación integral de todos los trámites, seguimiento de expedientes, comunicaciones con distribuidora, organismos públicos y cliente. Gestión de documentación y resolución de incidencias administrativas.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según complejidad y duración. Rango típico: 200-400€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "El instalador debe introducir los precios unitarios de cada partida según su tarifa de gestión y complejidad administrativa.",
+        "Rango estimado TOTAL de gestión de trámites para 8 kW: 1.100€ - 2.250€ (sin IVA).",
+        "Si el cliente necesita también la instalación técnica (paneles, inversor, cableado, estructura), solicitar presupuesto separado con oficio: energia_solar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Solicitud de acceso y conexión a red distribuidora",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Trámite administrativo específico de conexión a red para fotovoltaica."
+        },
+        {
+          "concepto": "Legalización de instalación fotovoltaica ante organismo competente",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Certificación y legalización técnica de instalación solar."
+        },
+        {
+          "concepto": "Gestión de compensación de excedentes (autoconsumo con vertido)",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Trámite específico de sistema de compensación ante distribuidora."
+        },
+        {
+          "concepto": "Solicitud de cambio de potencia contratada (si aplica)",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Trámite administrativo de aumento de potencia si es necesario."
+        },
+        {
+          "concepto": "Gestión de trámites ante administración tributaria (Hacienda)",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Comunicación fiscal y tributaria de instalación fotovoltaica."
+        },
+        {
+          "concepto": "Seguimiento y coordinación general de trámites",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Coordinación integral y seguimiento de expedientes administrativos."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "instalacion_vidrio_antibalas_o_antiatraco",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_energia_solar_para_caravana_o_autocaravana"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4085,
+      "tokens_out": 2644
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "gestoria_tramites",
+    "coincide_oficio": "NO"
+  }
+}

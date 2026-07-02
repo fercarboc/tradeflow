@@ -1,0 +1,174 @@
+{
+  "id": 292,
+  "oficio": "Impermeabilización",
+  "texto": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+  "http_status": 200,
+  "latency_ms": 18275,
+  "raw_response": {
+    "transcript": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar filtración en junta de dilatación de cubierta comunitaria, 10 metros lineales con fijación mecánica",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Junta de dilatación en cubierta: punto crítico de filtraciones. Verificar estado del material existente antes de aplicar sistema.",
+          "Fijación mecánica especificada: requiere perfilería metálica de cubrición adicional.",
+          "Superficie comunitaria: confirmar acceso seguro y medidas de protección en altura."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de junta de dilatación en cubierta con sistema impermeabilizante. Oficio especializado en sellado y estanqueidad de juntas críticas."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de material existente en junta de dilatación",
+          "descripcion": "Extracción completa de material antiguo, sellantes degradados y residuos en junta de 10 ml. Limpieza y preparación de superficies adyacentes.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 8,
+          "total": 80,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Fondo de junta con elastómero celular",
+          "descripcion": "Colocación de cordón de espuma elastómera de cierre en fondo de junta para correcta aplicación del sellante. 10 ml.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material elastómero: instalador debe confirmar marca, densidad y precio según especificación técnica de cubierta."
+        },
+        {
+          "concepto": "Sistema impermeabilizante para junta de cubierta con lámina de puente",
+          "descripcion": "Aplicación de sistema específico para cubierta: lámina de puente o perfilería de cubrición con sellado flexible superior. Incluye material elastomérico de sellado. 10 ml con fijación mecánica.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sistema específico para cubierta con fijación mecánica: instalador debe especificar tipo de lámina (PVC, TPO, poliurea) y perfilería metálica. Rango referencia: 25-110€/ml según complejidad."
+        },
+        {
+          "concepto": "Instalación de sistema impermeabilizante en junta de cubierta",
+          "descripcion": "Colocación e instalación del sistema completo: preparación, fijación mecánica de perfilería, sellado superior con material elastomérico, pruebas de estanqueidad. 10 ml.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 35,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Perfilería metálica de cubrición con fijación mecánica",
+          "descripcion": "Suministro e instalación de perfil metálico (aluminio o acero galvanizado) para cubrición de junta con fijación mecánica (tornillos, remaches). 10 ml.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perfilería metálica: instalador debe especificar tipo (aluminio anodizado, acero galvanizado), sección y acabado. Incluye fijación mecánica."
+        },
+        {
+          "concepto": "Pruebas de estanqueidad y sellado final",
+          "descripcion": "Verificación de estanqueidad de la junta reparada mediante prueba de agua. Ajustes finales y sellado de puntos críticos. 10 ml.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 10,
+          "precio_unitario": 5,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el instalador el tipo de lámina de puente (PVC, TPO, poliurea) según especificación técnica de la cubierta comunitaria.",
+        "Especificar material elastómero: marca, densidad y compatibilidad con sistema de cubierta existente.",
+        "Detallar perfilería metálica: tipo (aluminio anodizado vs. acero galvanizado), sección y sistema de fijación mecánica (tornilería, remaches).",
+        "Incluir medidas de seguridad en altura: arnés, línea de vida, protecciones perimetrales en cubierta comunitaria.",
+        "Considerar tratamiento de encuentros con elementos verticales (chimeneas, conductos) si existen en los 10 ml."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Fondo de junta con elastómero celular",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material específico para preparación de junta de dilatación en cubierta. No encontrado en catálogo base."
+        },
+        {
+          "concepto": "Sistema impermeabilizante para junta de cubierta con lámina de puente",
+          "oficio": "impermeabilizacion",
+          "motivo": "Sistema completo específico para cubierta con fijación mecánica. Requiere especificación técnica del instalador."
+        },
+        {
+          "concepto": "Perfilería metálica de cubrición con fijación mecánica",
+          "oficio": "impermeabilizacion",
+          "motivo": "Elemento de cubrición y fijación mecánica de junta. Precio y especificación técnica pendiente de confirmación."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "reparacion_de_piscina_con_filtraciones",
+      "impermeabilizacion_terraza_con_pintura_poliuretano"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3951,
+      "tokens_out": 2468
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "id": 323,
+  "oficio": "Fachadas",
+  "texto": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+  "http_status": 200,
+  "latency_ms": 15043,
+  "raw_response": {
+    "transcript": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpiar fachada de ladrillo visto con producto químico y equipo de presión, sin dañar la piedra",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presión controlada obligatoria: máximo 80 bar para ladrillo visto (evitar erosión)",
+          "Producto químico específico según tipo de suciedad (orgánica, óxido, eflorescencias)",
+          "Neutralización y aclarado abundante tras tratamiento químico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Limpieza química de fachada de ladrillo visto con equipo de presión controlada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Producto limpiador químico específico para ladrillo visto",
+          "descripcion": "Producto desengrasante, antimanchas u óxido según tipo de suciedad. Aplicación según ficha técnica del fabricante",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio dependen de m² de fachada y tipo de suciedad. Instalador debe especificar producto y litros necesarios"
+        },
+        {
+          "concepto": "Limpieza química con equipo de presión controlada (máx. 80 bar)",
+          "descripcion": "Aplicación de producto químico, acción química, enjuague con presión controlada sin dañar ladrillo visto, neutralización y aclarado abundante",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² de fachada a limpiar debe ser especificada por el instalador"
+        },
+        {
+          "concepto": "Equipo de presión (alquiler o uso) con regulador de presión",
+          "descripcion": "Equipo de limpieza a presión con manómetro y boquilla regulable para presión máxima 80 bar, manguera y accesorios",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de si es alquiler o equipo propio. Instalador debe indicar coste"
+        },
+        {
+          "concepto": "EPI y protección personal (guantes, gafas, mascarilla, ropa protectora)",
+          "descripcion": "Equipamiento de protección individual obligatorio para manejo de productos químicos y equipo de presión",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Incluir coste de EPI desechable o reutilizable según política de empresa"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Estructura de acceso seguro a fachada (andamio modular, plataforma elevadora o similar) para trabajar en altura sin riesgo",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste depende de altura de fachada, duración y tipo de andamio. Instalador debe especificar"
+        },
+        {
+          "concepto": "Neutralizante y aclarado final (si aplica)",
+          "descripcion": "Producto neutralizante para ácidos residuales (si se usa limpiador ácido) y aclarado abundante con agua limpia para eliminar residuos químicos",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo dependen del producto limpiador utilizado. Instalador debe confirmar necesidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Especificar m² totales de fachada a limpiar para calcular mano de obra",
+        "Identificar tipo de suciedad (orgánica, óxido, eflorescencias, grasa) para seleccionar producto químico correcto",
+        "Confirmar altura de fachada para presupuestar andamio/plataforma",
+        "Establecer presión máxima de trabajo (recomendado 60-80 bar para ladrillo visto)",
+        "Incluir coste de agua para aclarado abundante (consumo estimado según m²)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Producto limpiador químico específico para ladrillo visto",
+          "origen": "sugerida_ia",
+          "motivo": "Tipo y cantidad de producto dependen de análisis previo de suciedad"
+        },
+        {
+          "concepto": "Equipo de presión (alquiler o uso) con regulador de presión",
+          "origen": "sugerida_ia",
+          "motivo": "Coste variable según disponibilidad de equipo propio o alquiler"
+        },
+        {
+          "concepto": "Neutralizante y aclarado final (si aplica)",
+          "origen": "sugerida_ia",
+          "motivo": "Necesidad y cantidad dependen del producto limpiador seleccionado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_quimica_de_fachada_con_eflorescencias_o_manchas",
+      "reparacion_y_rejuntado_de_ladrillo_cara_vista",
+      "pintado_de_fachada_de_ladrillo_visto",
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "revestimiento_de_zocalo_exterior_con_piedra"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3859,
+      "tokens_out": 1948
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

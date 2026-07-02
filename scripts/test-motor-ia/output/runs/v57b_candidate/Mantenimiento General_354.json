@@ -1,0 +1,262 @@
+{
+  "id": 354,
+  "oficio": "Mantenimiento General",
+  "texto": "Revisión y mantenimiento de grupo electrógeno de emergencia, prueba de carga y cambio de aceite",
+  "http_status": 200,
+  "latency_ms": 18255,
+  "raw_response": {
+    "transcript": "Revisión y mantenimiento de grupo electrógeno de emergencia, prueba de carga y cambio de aceite",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y mantenimiento de grupo electrógeno de emergencia, prueba de carga y cambio de aceite",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Grupo electrógeno: requiere profesional especializado en mecanica_especializada",
+          "Prueba de carga: debe realizarse bajo carga real o banco de pruebas",
+          "Cambio de aceite: incluir disposición correcta del aceite usado (residuo peligroso)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mecanica_especializada",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 85
+          },
+          "motivo": "Mantenimiento de grupo electrógeno requiere especialización en motores diésel/gasolina y sistemas de emergencia"
+        },
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Coordinación general de la revisión y documentación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión visual y funcional grupo electrógeno",
+          "descripcion": "Inspección completa del motor, alternador, sistemas de refrigeración, filtros de aire y combustible, conexiones eléctricas, estado general del equipo",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cambio de aceite y filtro de aceite",
+          "descripcion": "Drenaje completo de aceite usado, sustitución de filtro de aceite, llenado con aceite nuevo especificado para grupo electrógeno",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aceite motor para grupo electrógeno",
+          "descripcion": "Aceite mineral o sintético según especificación del fabricante (cantidad aproximada 4-8 litros según potencia)",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del aceite según marca y especificación técnica del grupo"
+        },
+        {
+          "concepto": "Filtro de aceite para grupo electrógeno",
+          "descripcion": "Filtro de aceite de reemplazo según modelo del grupo electrógeno",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según modelo específico del grupo"
+        },
+        {
+          "concepto": "Prueba de carga y funcionamiento grupo electrógeno",
+          "descripcion": "Prueba de arranque automático, verificación de voltaje y frecuencia en vacío, prueba de carga (50-75% potencia nominal), medición de parámetros eléctricos, verificación de transferencia automática si la tiene",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión sistema de combustible y filtros",
+          "descripcion": "Inspección depósito combustible, tuberías, válvulas, cambio de filtro de combustible si es necesario, verificación de estanqueidad",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Filtro de combustible para grupo electrógeno",
+          "descripcion": "Filtro de combustible de reemplazo según modelo",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según modelo específico del grupo"
+        },
+        {
+          "concepto": "Revisión sistema de refrigeración y correas",
+          "descripcion": "Inspección radiador, ventilador, mangueras, líquido refrigerante, tensión y estado de correas de transmisión, ajustes si necesario",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión sistema eléctrico y batería",
+          "descripcion": "Inspección batería (tensión, estado de carga), cables de conexión, alternador, cuadro de control, sensores, conexiones a tierra",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe de mantenimiento y documentación",
+          "descripcion": "Elaboración de informe técnico con resultados de pruebas, parámetros medidos, recomendaciones, registro de intervención y firma del técnico",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 40,
+          "total": 20,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gestión y disposición de aceite usado",
+          "descripcion": "Recogida, almacenamiento temporal y entrega a gestor autorizado de aceite usado (residuo peligroso)",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa según gestor autorizado de residuos peligrosos de la zona"
+        }
+      ],
+      "calculos": {
+        "subtotal": 507.5,
+        "iva_porcentaje": 21,
+        "iva": 106.575,
+        "total": 614.075
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe contrato de mantenimiento anual para grupo electrógeno (podría incluir 2-4 revisiones/año a precio cerrado)",
+        "Considerar cambio de batería si tiene más de 3-4 años o muestra baja tensión",
+        "Si el grupo tiene más de 10 años, valorar revisión de inyectores y bomba de inyección"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Aceite motor para grupo electrógeno",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "motivo": "Material específico cuyo precio depende de marca, viscosidad y especificación del fabricante"
+        },
+        {
+          "concepto": "Filtro de aceite para grupo electrógeno",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "motivo": "Componente específico según modelo del grupo"
+        },
+        {
+          "concepto": "Filtro de combustible para grupo electrógeno",
+          "oficio": "mecanica_especializada",
+          "tipo_partida": "material",
+          "motivo": "Componente específico según modelo del grupo"
+        },
+        {
+          "concepto": "Gestión y disposición de aceite usado",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio de gestor autorizado de residuos peligrosos, tarifa variable por zona"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_preventivo_de_grupo_de_presion",
+      "revision_y_prueba_de_sistema_de_alarma",
+      "revision_y_recarga_de_extintores",
+      "mantenimiento_anual_persianas_y_toldos",
+      "revision_y_recarga_sistema_refrigerante_instalacion_grande"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3746,
+      "tokens_out": 2869
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 7,
+    "n_sugeridas": 4,
+    "oficio_detectado": "mecanica_especializada",
+    "coincide_oficio": "NO"
+  }
+}

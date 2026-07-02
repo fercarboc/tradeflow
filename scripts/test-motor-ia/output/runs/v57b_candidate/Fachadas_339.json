@@ -1,0 +1,181 @@
+{
+  "id": 339,
+  "oficio": "Fachadas",
+  "texto": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+  "http_status": 200,
+  "latency_ms": 13454,
+  "raw_response": {
+    "transcript": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reformar zona de acceso a edificio, nuevo zócalo de gres y pintura en el resto de la fachada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Especificar altura total de fachada a pintar (m²)",
+          "Confirmar superficie de zócalo en gres (m²)",
+          "Indicar estado actual: ¿requiere limpieza/demolición previa del zócalo antiguo?",
+          "Tipo de pintura: mineral transpirable, siloxano u otra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de fachada con pintura"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Instalación de zócalo en gres (baldosa cerámica/porcelánico)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y retirada de zócalo antiguo",
+          "descripcion": "Demolición selectiva de zócalo existente, retirada de escombros y pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 15,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente de confirmación por instalador"
+        },
+        {
+          "concepto": "Suministro de baldosa gres para zócalo",
+          "descripcion": "Baldosa gres porcelánico para zócalo de acceso, incluye adhesivo y material de agarre",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material y cantidad (m²) a definir por instalador según especificación de gres"
+        },
+        {
+          "concepto": "Colocación de zócalo en gres",
+          "descripcion": "Alicatado de zócalo con baldosa gres, rejuntado y acabado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² pendiente de confirmación"
+        },
+        {
+          "concepto": "Limpieza y preparación de fachada",
+          "descripcion": "Limpieza de superficie, reparación de grietas y pequeños desperfectos, imprimación consolidante en ladrillo visto si aplica",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 8,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² y estado de fachada a confirmar"
+        },
+        {
+          "concepto": "Suministro de pintura para fachada",
+          "descripcion": "Pintura mineral transpirable o siloxano para fachada de ladrillo visto, 2 manos",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo de pintura y cantidad (litros) a definir según m² de fachada y rendimiento"
+        },
+        {
+          "concepto": "Pintado de fachada (2 manos)",
+          "descripcion": "Aplicación de pintura en fachada, 2 manos, con rodillo y brocha, acabado uniforme",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 10,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² de fachada a pintar pendiente de confirmación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: superficie total de fachada a pintar (m²)",
+        "Solicitar al cliente: superficie de zócalo en gres (m²)",
+        "Solicitar al cliente: ¿existe zócalo antiguo a demoler o es superficie nueva?",
+        "Solicitar al cliente: tipo de pintura preferida (mineral transpirable, siloxano, acrílica)",
+        "Considerar partida de andamios/plataforma elevadora si altura > 3 metros"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Demolición y retirada de zócalo antiguo",
+          "oficio": "suelos_alicatados",
+          "motivo": "Trabajo preparatorio no explícito pero necesario para nueva colocación"
+        },
+        {
+          "concepto": "Limpieza y preparación de fachada",
+          "oficio": "fachadas",
+          "motivo": "Trabajo preparatorio obligatorio antes de pintar fachada"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_y_informe_estado_pinturas_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "pintado_de_fachada_de_ladrillo_visto"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3817,
+      "tokens_out": 1848
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

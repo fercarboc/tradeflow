@@ -1,0 +1,285 @@
+{
+  "id": 195,
+  "oficio": "Cerrajería",
+  "texto": "Instalación de portero automático con videoportero y apertura a distancia desde el móvil",
+  "http_status": 200,
+  "latency_ms": 24953,
+  "raw_response": {
+    "transcript": "Instalación de portero automático con videoportero y apertura a distancia desde el móvil",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de portero automático con videoportero y apertura a distancia desde el móvil",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema IP con funcionalidad móvil: requiere verificación de conectividad y tipo de instalación (vivienda unifamiliar vs edificio multiviv)",
+          "Apertura a distancia: confirmar si incluye electroimán, electropestillo o sistema de control de acceso",
+          "Cableado: si es IP, se recomienda Cat6; si es analógico, cable coaxial o 2/4 hilos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Sistema IP con funcionalidad móvil y apertura remota: requiere configuración de red, cableado estructurado y app móvil"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de mecanismo de apertura (electroimán o electropestillo) y ajuste de seguridad"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Alimentación eléctrica de placa exterior, monitor interior, fuente de alimentación y mecanismo de apertura"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa exterior con cámara IP y pulsador",
+          "descripcion": "Placa de calle con cámara IP integrada, pulsador de llamada, micrófono y altavoz para videoportero con funcionalidad móvil",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de placa IP con cámara pendiente de cotización según marca y resolución (720p/1080p/2K)"
+        },
+        {
+          "concepto": "Monitor interior con pantalla táctil",
+          "descripcion": "Monitor interior con pantalla táctil a color, micrófono, altavoz y botón de apertura para sistema IP con app móvil",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de monitor IP pendiente según marca y tamaño pantalla (7\"/10\")"
+        },
+        {
+          "concepto": "Cableado Cat6 y conducción",
+          "descripcion": "Cable Cat6 para conexión IP entre placa exterior y monitor interior, incluyendo conducción, pasos y pequeño material de fijación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado Cat6 y conducción pendiente; cantidad estimada en 15 ml (ajustar según distancia real)"
+        },
+        {
+          "concepto": "Fuente de alimentación PoE o independiente",
+          "descripcion": "Fuente de alimentación 12V/24V DC para placa exterior, monitor interior y mecanismo de apertura, con protección y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de fuente PoE o independiente pendiente según potencia requerida"
+        },
+        {
+          "concepto": "Electroimán o electropestillo para apertura",
+          "descripcion": "Mecanismo de apertura eléctrica (electroimán 12V/24V o electropestillo) para puerta de acceso, con retención y seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de electroimán/electropestillo pendiente según tipo de puerta y fuerza requerida"
+        },
+        {
+          "concepto": "Instalación de placa exterior y monitor interior",
+          "descripcion": "Instalación de placa de calle en fachada, monitor interior en vivienda, fijación, nivelación y pruebas de funcionamiento",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de cableado y conducción",
+          "descripcion": "Tendido de cable Cat6, pasos por conducción, fijación con grapas, sellado de pasos y pequeño material",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de fuente de alimentación",
+          "descripcion": "Instalación de fuente de alimentación en cuadro eléctrico o caja de distribución, conexionado y protecciones",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de mecanismo de apertura",
+          "descripcion": "Instalación de electroimán o electropestillo en puerta, ajuste de retención, conexionado eléctrico y pruebas de seguridad",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de sistema IP y app móvil",
+          "descripcion": "Configuración de red IP, asignación de IP estática, instalación de app móvil en smartphone, pruebas de apertura remota y documentación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Tornillería, tacos, grapas, cinta aislante, pasta térmica, selladores y otros consumibles necesarios para la instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material pendiente de cotización (estimado 30-50€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 545,
+        "iva_porcentaje": 21,
+        "iva": 114.45,
+        "total": 659.45
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: [instalacion_videoportero_o_intercomunicador] — oficio=telecomunicaciones, precio rango 200-1500€/ud según complejidad",
+        "Confirmar tipo de sistema: analógico (coaxial) vs IP (Cat6) — IP permite apertura móvil pero requiere conectividad",
+        "Considerar si el edificio es multiviv: en ese caso, sistema general centralizado como partida aparte"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Placa exterior con cámara IP y pulsador",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico IP con cámara integrada; precio pendiente de cotización"
+        },
+        {
+          "concepto": "Monitor interior con pantalla táctil",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico IP con funcionalidad táctil; precio pendiente de cotización"
+        },
+        {
+          "concepto": "Cableado Cat6 y conducción",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material de red IP; precio pendiente según longitud real y tipo de conducción"
+        },
+        {
+          "concepto": "Fuente de alimentación PoE o independiente",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para sistema IP; precio pendiente según potencia"
+        },
+        {
+          "concepto": "Electroimán o electropestillo para apertura",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Material de mecanismo de apertura remota; precio pendiente según tipo de puerta"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles varios; precio pendiente de cotización (estimado 30-50€)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_videoportero_o_interfono",
+      "instalacion_videoportero_vivienda",
+      "instalacion_de_videoportero_o_intercomunicador",
+      "pintado_locales_comerciales_y_tiendas",
+      "automatizacion_cancela_o_puerta_con_motor"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3830,
+      "tokens_out": 3670
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 5,
+    "n_sugeridas": 6,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "NO"
+  }
+}

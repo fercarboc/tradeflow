@@ -1,0 +1,150 @@
+{
+  "id": 267,
+  "oficio": "Cristalería",
+  "texto": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+  "http_status": 200,
+  "latency_ms": 16017,
+  "raw_response": {
+    "transcript": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner cristal de doble acristalamiento en ventanas de madera antigua, cambio de vidrio simple por DVH",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar que los marcos de madera antigua tienen rebaje suficiente (mínimo 24-28mm) para alojar el DVH. Si no, puede requerir ampliación de rebaje o premarco.",
+          "Confirmar número de ventanas y medidas exactas de cada una para precisar presupuesto.",
+          "DVH (Doble Vidrio Hermético) típicamente 4-16Ar-4 o 4-20Ar-4. Especificar composición si cliente requiere mayor aislamiento."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de vidrio doble aislante (DVH) en marcos existentes. Trabajo de cristalería especializada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada de vidrio simple existente",
+          "descripcion": "Desmontaje cuidadoso de luna simple de ventana de madera antigua, extracción de junquillo y masilla antigua.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de vidrio doble aislante DVH 4-16Ar-4",
+          "descripcion": "Vidrio doble hermético con cámara de argón 16mm, composición 4-16Ar-4 (4mm float + 16mm argón + 4mm float). Bajo emisivo recomendado para mejor aislamiento térmico. Medidas según rebaje de marco existente.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del DVH depende de medidas exactas de cada ventana. Rango típico 150-400€/ud según tamaño. Instalador debe introducir precio real."
+        },
+        {
+          "concepto": "Instalación de DVH en marco de madera",
+          "descripcion": "Colocación de vidrio doble aislante en rebaje de marco, fijación con junquillo de madera o aluminio, sellado perimetral con silicona neutra de alta calidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junquillo de fijación y pequeño material",
+          "descripcion": "Junquillo de madera o aluminio para fijación del DVH, masilla de sellado, silicona neutra, clavos y pequeño material de instalación.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de junquillo y material de sellado. Rango típico 20-60€/ud según tipo y cantidad. Instalador debe revisar."
+        },
+        {
+          "concepto": "Limpieza y acabado final",
+          "descripcion": "Limpieza de restos de masilla antigua, polvo y suciedad. Acabado de silicona. Verificación de estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Partida 'instalacion_doble_acristalamiento_con_gas_argon' — aplicable directamente. Incluye vidrio doble bajo emisivo con argón, silicona neutra y pequeño material.",
+        "Partida 'instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente' — también válida para este caso de sustitución en marco existente."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de vidrio doble aislante DVH 4-16Ar-4",
+          "motivo": "Material específico cuyo precio depende de medidas exactas. Requiere revisión del instalador con presupuesto de proveedor de vidrio."
+        },
+        {
+          "concepto": "Junquillo de fijación y pequeño material",
+          "motivo": "Material auxiliar de sellado y fijación. Precio variable según tipo de junquillo (madera vs aluminio) y cantidad de silicona."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_vidrio_en_puerta_interior",
+      "instalacion_doble_acristalamiento_con_gas_argon",
+      "instalacion_vidrio_doble_o_triple_aislante_en_ventana_existente",
+      "fabricacion_e_instalacion_de_ventana_de_madera",
+      "instalacion_vidrio_de_seguridad_templado"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3883,
+      "tokens_out": 2005
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}

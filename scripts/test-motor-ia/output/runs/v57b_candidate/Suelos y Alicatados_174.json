@@ -1,0 +1,216 @@
+{
+  "id": 174,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+  "http_status": 200,
+  "latency_ms": 21480,
+  "raw_response": {
+    "transcript": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo antideslizante en escalera exterior de 12 peldaños de piedra desgastada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Escalera exterior con piedra desgastada: se recomienda evaluación previa del estado estructural",
+          "Antideslizante en escalera: verificar compatibilidad con pendiente y tráfico esperado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de revestimiento antideslizante en escalera exterior (suelos_alicatados cubre pavimentos y revestimientos de suelo)"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Preparación y sellado de piedra desgastada antes de aplicar antideslizante (impermeabilización y protección de superficie)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de escalera de piedra desgastada",
+          "descripcion": "Limpieza mecánica con cepillo de acero y agua a presión de los 12 peldaños. Eliminación de musgo, suciedad y material suelto. Secado completo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "tarifa_sector",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado y consolidación de piedra desgastada",
+          "descripcion": "Aplicación de sellador penetrante y consolidante en piedra natural desgastada. Protección contra humedad y meteorización. Incluye imprimación adherente para antideslizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico: sellador consolidante para piedra natural + imprimación. Precio a definir por instalador según marca y tipo."
+        },
+        {
+          "concepto": "Aplicación de sellador y consolidante en escalera",
+          "descripcion": "Mano de obra para aplicación de sellador penetrante y consolidante en los 12 peldaños. Incluye brocha y equipo de protección.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de banda antideslizante para escalera exterior",
+          "descripcion": "Banda o cinta antideslizante de alta adherencia (mínimo R11) para escalera exterior. Material: caucho o poliuretano con grano mineral. Dimensiones: 12 peldaños × ancho escalera. Incluye adhesivo de contacto de alta resistencia.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Banda antideslizante para escalera exterior: precio variable según ancho, material (caucho/poliuretano) y marca. Instalador debe especificar dimensiones exactas y tipo."
+        },
+        {
+          "concepto": "Instalación de banda antideslizante en 12 peldaños",
+          "descripcion": "Colocación de banda antideslizante en cada peldaño. Limpieza previa, aplicación de adhesivo, presionado y sellado de bordes. Incluye corte a medida y remates en cantos.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 32,
+          "total": 96,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado de juntas y bordes de banda antideslizante",
+          "descripcion": "Aplicación de sellador elástico en juntas perimetrales y bordes de banda antideslizante para evitar infiltraciones de agua. Incluye masilla de poliuretano o silicona exterior.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sellador elástico exterior (poliuretano/silicona): precio a definir según volumen y marca."
+        },
+        {
+          "concepto": "Aplicación de sellador en juntas y bordes",
+          "descripcion": "Mano de obra para sellado de juntas perimetrales y bordes de banda antideslizante con pistola de sellador.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Consumibles: lijas, cepillos, trapos, masilla, crucetas, cinta de carrocero, guantes, gafas de protección, etc.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: estimación a cargo del instalador (típicamente 5-10% del presupuesto de materiales)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 591,
+        "iva_porcentaje": 21,
+        "iva": 124.11,
+        "total": 715.11
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'banda_antideslizante_escalera_exterior_r11' o 'cinta_antideslizante_caucho_mineral'",
+        "Verificar en catálogo: 'sellador_consolidante_piedra_natural' o 'imprimacion_adherente_piedra'",
+        "Considerar si la escalera requiere reparación estructural previa (grietas, desprendimientos) → podría necesitar partida de 'reparación_piedra_natural' u 'albanileria_reparacion'"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Banda antideslizante para escalera exterior (12 peldaños)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "motivo": "Material específico para escalera exterior con requisito antideslizante R11. No encontrado en catálogo base."
+        },
+        {
+          "concepto": "Sellador consolidante para piedra natural desgastada",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "motivo": "Producto especializado para consolidación de piedra desgastada. Requiere especificación de marca y tipo por instalador."
+        },
+        {
+          "concepto": "Sellador elástico exterior para juntas de banda antideslizante",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "motivo": "Sellador de poliuretano o silicona para impermeabilización de juntas en escalera exterior. Precio variable según volumen."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_exterior_terraza_o_patio",
+      "solado_de_marmol_o_piedra_natural",
+      "solado_ceramico_exterior_terraza",
+      "pintado_de_canchas_de_padel_interior",
+      "instalacion_suelo_de_marmol_o_piedra_natural_interior"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3962,
+      "tokens_out": 2876
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 4,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

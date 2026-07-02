@@ -1,0 +1,198 @@
+{
+  "id": 167,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Alicatar piscina con gresite azul, vaciado y colocación en paredes y fondo, 40 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 20522,
+  "raw_response": {
+    "transcript": "Alicatar piscina con gresite azul, vaciado y colocación en paredes y fondo, 40 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Alicatar piscina con gresite azul, vaciado y colocación en paredes y fondo, 40 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume vaciado previo de la piscina. Confirmar si incluye drenaje y gestión de agua.",
+          "Gresite azul: especificar marca, tamaño de tesela (20x20, 25x25, etc.) y acabado (brillo, mate).",
+          "Superficie 40 m² es considerable; verificar si incluye encuentros, esquinas reforzadas y desagües."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Alicatado de piscina con gresite es impermeabilización especializada. Requiere preparación de soporte, mortero certificado inmersión, lechada resistente cloro y refuerzo de encuentros."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y preparación de piscina",
+          "descripcion": "Drenaje completo de la piscina, limpieza de soporte, reparación de grietas y fisuras en hormigón, imprimación adherente sobre hormigón.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero cola certificado inmersión C2S2",
+          "descripcion": "Mortero cola flexible certificado para inmersión en agua clorada, aplicación sobre paredes y fondo de piscina.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe especificar marca y cantidad en kg (aprox. 3-4 kg/m2). Precio pendiente de cotización."
+        },
+        {
+          "concepto": "Gresite azul colocación",
+          "descripcion": "Colocación de gresite azul en paredes y fondo de piscina (40 m²), incluyendo cortes, ajustes y nivelación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 25,
+          "total": 1000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Gresite azul suministro",
+          "descripcion": "Suministro de gresite azul (teselas 20x20 o 25x25 según especificación), cantidad 40 m² + 10% merma.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 44,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe especificar marca, tamaño de tesela y acabado. Precio típico 12-35 €/m² según calidad."
+        },
+        {
+          "concepto": "Lechada resistente cloro",
+          "descripcion": "Lechada epoxi o poliéster resistente a cloro y agua salada, aplicación en juntas de gresite.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe especificar marca y cantidad en kg (aprox. 1.5-2 kg/m²). Precio pendiente de cotización."
+        },
+        {
+          "concepto": "Refuerzo encuentros, esquinas y desagües",
+          "descripcion": "Refuerzo de encuentros pared-fondo, esquinas interiores con gresite reforzado, sellado de desagües y boquillas con silicona y mortero impermeabilizante.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 6,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta perimetral silicona y pequeño material",
+          "descripcion": "Silicona neutra de calidad para juntas perimetrales, crucetas, esponjas, trapos, EPI (guantes, mascarilla), herramientas menores.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe cotizar silicona, crucetas y consumibles. Presupuesto estimado 150-250 € total."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1560,
+        "iva_porcentaje": 21,
+        "iva": 327.6,
+        "total": 1887.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'impermeabilizacion_de_piscina_con_gresite_o_ceramica' — partidas obligatorias incluyen imprimación, mortero C2S2, gresite, lechada resistente cloro, refuerzo encuentros.",
+        "Considerar si la piscina requiere reparación estructural previa (grietas, desprendimientos) — podría necesitar partida adicional de 'reparación hormigón' (albanilería)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero cola certificado inmersión C2S2",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para piscinas; precio pendiente de cotización del instalador."
+        },
+        {
+          "concepto": "Gresite azul suministro",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Suministro de material; precio depende de marca, tamaño de tesela y acabado."
+        },
+        {
+          "concepto": "Lechada resistente cloro",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material especializado para piscinas; precio pendiente de cotización."
+        },
+        {
+          "concepto": "Junta perimetral silicona y pequeño material",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles y materiales auxiliares; presupuesto estimado 150-250 €."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_piscina_con_gresite_o_ceramica",
+      "construccion_de_piscina_de_obra",
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_bano_nuevo",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4412,
+      "tokens_out": 2665
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

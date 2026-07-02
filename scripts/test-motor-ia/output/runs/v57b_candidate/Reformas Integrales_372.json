@@ -1,0 +1,364 @@
+{
+  "id": 372,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de baño de minusválidos para adecuación a normativa, ducha nivel suelo y barra de apoyo",
+  "http_status": 200,
+  "latency_ms": 29034,
+  "raw_response": {
+    "transcript": "Reforma de baño de minusválidos para adecuación a normativa, ducha nivel suelo y barra de apoyo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de baño de minusválidos para adecuación a normativa, ducha nivel suelo y barra de apoyo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma de baño con múltiples oficios (albanilería, fontanería, electricidad, cerrajería). Requiere coordinación.",
+          "Ducha a nivel de suelo implica demolición, impermeabilización y pavimentación especial.",
+          "Normativa de accesibilidad (CTE DB SUA) requiere verificación de dimensiones y pendientes.",
+          "Barra de apoyo requiere anclaje estructural verificado."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma baño con ≥3 oficios simultáneos: albanilería, fontanería, electricidad, impermeabilización, cerrajería."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición, creación de pendiente ducha, regularización soporte."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación desagüe ducha a nivel suelo, sifón especial, tuberías."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización obligatoria en ducha a nivel suelo (lámina EPDM/PVC + sellados)."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 35
+          },
+          "motivo": "Pavimento antideslizante en ducha y baño, regularización previa."
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Instalación barra de apoyo con anclaje estructural en pared."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación iluminación, enchufes, extractor de humedad (normativa baño)."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y retirada de elementos baño",
+          "descripcion": "Demolición de plato ducha, bañera o zona ducha existente, retirada de sanitarios, grifería y accesorios. Gestión de residuos.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 320,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Creación de pendiente y regularización soporte ducha a nivel suelo",
+          "descripcion": "Creación de pendiente mínima 2% hacia desagüe, mortero autonivelante o convencional según espesor. Imprimación previa. Maestras y guías si irregularidad >5mm.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mortero autonivelante y masilla para regularización",
+          "descripcion": "Mortero autonivelante o masilla nivelante para regularización soporte ducha (espesor 5-30mm aprox.). Material incluye imprimación adherente.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material a revisar por instalador según marca y espesor real."
+        },
+        {
+          "concepto": "Instalación desagüe ducha a nivel suelo",
+          "descripcion": "Instalación sifón especial para ducha a nivel suelo, tuberías de desagüe (PVC Ø50-75mm), conexión a bajante existente. Prueba de estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sifón y tuberías desagüe ducha",
+          "descripcion": "Sifón especial ducha a nivel suelo (con trampa de agua), tuberías PVC Ø50-75mm, codos, manguitos, pequeño material.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material a revisar según tipo sifón y longitud tuberías."
+        },
+        {
+          "concepto": "Impermeabilización ducha a nivel suelo",
+          "descripcion": "Lámina impermeabilizante EPDM o PVC (espesor 1.5-2mm) en zona ducha, sellado de juntas con silicona neutra fungicida, masking tape, pequeño material. Cura 24h.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lámina impermeabilizante EPDM/PVC y sellados",
+          "descripcion": "Lámina impermeabilizante EPDM o PVC (1.5-2mm), silicona neutra fungicida flexible, masking tape, pequeño material.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material a revisar según tipo lámina y accesorios."
+        },
+        {
+          "concepto": "Pavimento antideslizante baño y ducha",
+          "descripcion": "Colocación baldosa porcelánica antideslizante (R11 mínimo) en ducha y zona baño. Mortero cola, lechada, pequeño material. Incluye regularización previa si necesario.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 32,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Baldosa porcelánica antideslizante",
+          "descripcion": "Baldosa porcelánica antideslizante (R11 mínimo), mortero cola, lechada, pequeño material.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material a revisar según marca y modelo baldosa."
+        },
+        {
+          "concepto": "Instalación barra de apoyo accesibilidad",
+          "descripcion": "Instalación barra de apoyo cromada o acero inoxidable (Ø25-32mm, longitud 60-120cm) con anclaje estructural en pared (tacos químicos o mecánicos según material). Incluye verificación normativa CTE DB SUA.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Barra de apoyo cromada/acero inoxidable",
+          "descripcion": "Barra de apoyo cromada o acero inoxidable (Ø25-32mm, longitud 60-120cm), tacos químicos o mecánicos, tornillería, pequeño material.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material a revisar según longitud y acabado barra."
+        },
+        {
+          "concepto": "Instalación iluminación y extractor baño",
+          "descripcion": "Instalación luminaria LED estanca (IP65 mínimo), extractor de humedad con sensor de movimiento/humedad (caudal 100-150 m³/h), cableado, pequeño material. Cumple normativa baño.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Luminaria LED estanca y extractor humedad",
+          "descripcion": "Luminaria LED estanca (IP65), extractor de humedad con sensor (100-150 m³/h), cableado, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material a revisar según marca y modelo."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1160,
+        "iva_porcentaje": 21,
+        "iva": 243.6,
+        "total": 1403.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'Regularizacion_y_nivelacion_soporte_para_pavimento' (suelos_alicatados) — aplicable a la creación de pendiente en ducha.",
+        "Verificar en catálogo: 'Impermeabilizacion_junta_suelo_pared_en_ducha_o_bano' — aplicable a sellados de juntas con silicona.",
+        "Considerar partida de 'Diagnostico_y_presupuesto_suelos_y_alicatados' si se requiere inspección previa del estado estructural."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero autonivelante y masilla para regularización",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material de regularización soporte ducha — precio a revisar por instalador."
+        },
+        {
+          "concepto": "Sifón y tuberías desagüe ducha",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Componentes específicos desagüe ducha a nivel suelo — precio a revisar."
+        },
+        {
+          "concepto": "Lámina impermeabilizante EPDM/PVC y sellados",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Material impermeabilización ducha — precio a revisar por instalador."
+        },
+        {
+          "concepto": "Baldosa porcelánica antideslizante",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Pavimento antideslizante normativa accesibilidad — precio a revisar."
+        },
+        {
+          "concepto": "Barra de apoyo cromada/acero inoxidable",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Barra de apoyo accesibilidad — precio a revisar según longitud."
+        },
+        {
+          "concepto": "Luminaria LED estanca y extractor humedad",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "origen": "sugerida_ia",
+          "motivo": "Equipos iluminación y ventilación baño — precio a revisar."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "regularizacion_y_nivelacion_de_soporte",
+      "regularizacion_y_nivelacion_soporte_para_pavimento",
+      "instalacion_solar_termica_para_calefaccion_y_ACS",
+      "impermeabilizacion_junta_suelo_pared_en_ducha_o_bano",
+      "diagnostico_y_presupuesto_suelos_y_alicatados"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3931,
+      "tokens_out": 4647
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 7,
+    "n_sugeridas": 6,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

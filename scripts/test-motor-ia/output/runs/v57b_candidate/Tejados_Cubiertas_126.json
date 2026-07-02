@@ -1,0 +1,216 @@
+{
+  "id": 126,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 17230,
+  "raw_response": {
+    "transcript": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cubierta inclinada de panel sándwich para porche de 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si existe estructura soporte existente o requiere construcción nueva",
+          "Confirmar inclinación mínima recomendada (5-10%) para drenaje",
+          "Validar carga admisible de la estructura existente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Construcción de cubierta inclinada con panel sándwich - oficio específico de cubiertas"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado de encuentros y juntas de dilatación en cubierta"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Panel sándwich para cubierta inclinada",
+          "descripcion": "Suministro de paneles sándwich (poliuretano/lana mineral) espesor 40-60mm, incluye perfiles de cierre lateral y tapajuntas",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material sándwich variable según espesor, densidad y proveedor - instalador debe confirmar especificación técnica y presupuestar"
+        },
+        {
+          "concepto": "Estructura soporte metálica o de madera",
+          "descripcion": "Suministro e instalación de estructura de soporte (correas metálicas galvanizadas o vigas madera tratada clase 4) para fijación de paneles sándwich",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Depende de si estructura existente es reutilizable o requiere construcción nueva - instalador debe evaluar in situ"
+        },
+        {
+          "concepto": "Instalación de paneles sándwich",
+          "descripcion": "Colocación, alineación y fijación de paneles sándwich con tornillos autorroscantes y arandelas estancas, incluye corte y ajuste perimetral",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 50,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Perfiles de cierre y tapajuntas",
+          "descripcion": "Suministro e instalación de perfiles de aluminio o acero galvanizado para cierre de cantos, encuentros laterales y cumbrera",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según tipo de perfil (aluminio anodizado, acero galvanizado, etc.) - instalador debe presupuestar según especificación"
+        },
+        {
+          "concepto": "Sellado de juntas y encuentros",
+          "descripcion": "Aplicación de sellador poliuretano o silicona en juntas entre paneles, encuentros con estructura y puntos singulares para garantizar estanqueidad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Canalones y sistemas de drenaje",
+          "descripcion": "Suministro e instalación de canalones de aluminio o acero galvanizado con bajantes para evacuación de agua de lluvia",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según material y sección - instalador debe presupuestar según diseño de drenaje"
+        },
+        {
+          "concepto": "Instalación canalones y bajantes",
+          "descripcion": "Colocación, fijación y conexión de canalones y bajantes, incluye pendiente mínima para drenaje",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, tornilería y consumibles",
+          "descripcion": "Tornillos autorroscantes con arandela estanca, tuercas, arandelas, selladores, cintas de espuma, EPI (arnés seguridad, casco, guantes), herramientas menores",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida alzada de consumibles - instalador debe presupuestar según cantidad real de material y EPI necesario"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1280,
+        "iva_porcentaje": 21,
+        "iva": 268.8,
+        "total": 1548.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_cubierta_policarbonato_o_acrilico' - similar en estructura pero diferente material",
+        "Verificar en catálogo: 'reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas' - referencia para sellado y impermeabilización",
+        "Considerar si porche requiere licencia municipal para construcción de cubierta"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Panel sándwich para cubierta inclinada",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico de cubierta sándwich no encontrado en catálogo base - requiere presupuesto de proveedor"
+        },
+        {
+          "concepto": "Estructura soporte metálica o de madera",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Depende de evaluación in situ de estructura existente - puede ser reutilizable o requerir construcción nueva"
+        },
+        {
+          "concepto": "Perfiles de cierre y tapajuntas",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Accesorios específicos de panel sándwich - precio variable según tipo y material"
+        },
+        {
+          "concepto": "Canalones y sistemas de drenaje",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Sistema de drenaje específico para cubierta inclinada - presupuestar según diseño"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "instalacion_de_cubierta_de_policarbonato_o_acrilico",
+      "instalacion_lucernario_apertura_tipo_velux_o_similar"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4099,
+      "tokens_out": 2437
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

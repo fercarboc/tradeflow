@@ -1,0 +1,255 @@
+{
+  "id": 266,
+  "oficio": "Cristalería",
+  "texto": "Instalación de cerramiento de terraza con cristal deslizante, 4 hojas de aluminio y vidrio de 6mm",
+  "http_status": 200,
+  "latency_ms": 24287,
+  "raw_response": {
+    "transcript": "Instalación de cerramiento de terraza con cristal deslizante, 4 hojas de aluminio y vidrio de 6mm",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de cerramiento de terraza con cristal deslizante, 4 hojas de aluminio y vidrio de 6mm",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Vidrio de 6mm: verificar espesor según altura del panel y zona de viento (CTE DB SUA)",
+          "Sistema deslizante de 4 hojas: requiere guías de calidad y herrajes reforzados",
+          "Superficie total no especificada: presupuesto basado en partidas unitarias, requiere medición en obra"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de cerramiento de terraza con sistema deslizante (cortinas de cristal). Oficio especializado en cerramientos y sistemas móviles de terraza."
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Suministro e instalación de vidrio templado 6mm y aplicación de sellados perimetrales."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vidrio templado 6mm para cerramiento deslizante",
+          "descripcion": "Suministro de vidrio templado de 6mm de espesor para 4 hojas de cerramiento deslizante. Incluye corte a medida, biselado de cantos y certificación de templado.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe indicar superficie total en m2 y confirmar espesor 6mm según normativa CTE DB SUA para la altura y zona de viento"
+        },
+        {
+          "concepto": "Perfilería de aluminio para sistema deslizante 4 hojas",
+          "descripcion": "Suministro de perfiles de aluminio anodizado (superior, inferior y laterales) para sistema deslizante de 4 hojas. Incluye refuerzos internos y tratamiento anticorrosión.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe indicar metraje lineal total de perfiles (superior + inferior + laterales) y confirmar sistema certificado para 4 hojas deslizantes"
+        },
+        {
+          "concepto": "Guías de deslizamiento para 4 hojas",
+          "descripcion": "Suministro e instalación de guías de deslizamiento de aluminio o acero inoxidable (superior e inferior) con rodamientos de calidad para 4 hojas. Incluye ajuste y lubricación.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe confirmar tipo de guía (aluminio/inox), capacidad de carga y precio unitario por hoja"
+        },
+        {
+          "concepto": "Herrajes de acero inoxidable para sistema deslizante",
+          "descripcion": "Suministro de herrajes de acero inoxidable: topes finales, cierres centrales, manillas, pivotes y anclajes para 4 hojas deslizantes. Incluye pequeño material de fijación.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe confirmar juego completo de herrajes para 4 hojas y precio total"
+        },
+        {
+          "concepto": "Fijación a estructura (forjado/muro)",
+          "descripcion": "Instalación de anclajes, tacos y fijaciones a la estructura existente (forjado o muro). Incluye taladrado, colocación de tacos químicos o mecánicos según tipo de estructura, y apriete de tornillería.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de perfilería y guías",
+          "descripcion": "Montaje de perfiles de aluminio (superior, inferior, laterales) y colocación de guías de deslizamiento. Incluye nivelación, escuadría y fijación provisional.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de vidrio templado y herrajes",
+          "descripcion": "Instalación de las 4 hojas de vidrio templado en las guías, colocación de herrajes (topes, cierres, manillas), ajuste de rodamientos y pruebas de funcionamiento.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 5,
+          "precio_unitario": 45,
+          "total": 225,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado perimetral con silicona y juntas EPDM",
+          "descripcion": "Suministro e instalación de juntas EPDM en perfiles y sellado perimetral con silicona neutra de calidad. Incluye limpieza previa, aplicación y alisado.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: el instalador debe indicar metraje lineal de sellado perimetral y confirmar tipo de silicona (neutra/acética) y juntas EPDM"
+        },
+        {
+          "concepto": "Mano de obra: sellado perimetral",
+          "descripcion": "Aplicación de sellado perimetral con silicona y colocación de juntas EPDM en todo el perímetro del cerramiento.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 45,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y ajustes finales",
+          "descripcion": "Pruebas de apertura y cierre de las 4 hojas, verificación de estanqueidad, ajuste de topes y cierres, lubricación de guías y entrega al cliente.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 697.5,
+        "iva_porcentaje": 21,
+        "iva": 146.48,
+        "total": 843.98
+      },
+      "sugerencias_catalogo": [
+        "Referencia: [instalacion_cerramiento_de_terraza_con_cortinas_de_cristal] — rango de precio 60-210€/m2 según sistema y medida. Este presupuesto incluye partidas técnicas individuales; el instalador debe medir la superficie total en m2 para ajustar materiales.",
+        "Verificar en normativa CTE DB SUA que vidrio de 6mm es suficiente para la altura del panel y zona de viento. Si altura > 1.5m o zona de viento elevada, considerar 8-10mm.",
+        "Sistema deslizante de 4 hojas requiere guías de calidad y rodamientos certificados para garantizar durabilidad y funcionamiento suave.",
+        "Licencia municipal: verificar si el cerramiento requiere licencia de obra menor o comunicación previa según ordenanzas locales."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Vidrio templado 6mm para cerramiento deslizante",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico: el instalador debe indicar m2 totales y confirmar espesor según normativa"
+        },
+        {
+          "concepto": "Perfilería de aluminio para sistema deslizante 4 hojas",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico: el instalador debe indicar metraje lineal y confirmar sistema certificado"
+        },
+        {
+          "concepto": "Guías de deslizamiento para 4 hojas",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico: el instalador debe confirmar tipo y precio unitario"
+        },
+        {
+          "concepto": "Herrajes de acero inoxidable para sistema deslizante",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico: el instalador debe confirmar juego completo y precio"
+        },
+        {
+          "concepto": "Sellado perimetral con silicona y juntas EPDM",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico: el instalador debe indicar metraje lineal y tipo de silicona"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cerramiento_de_terraza_con_cortinas_de_cristal",
+      "instalacion_barandilla_de_vidrio_templado_o_laminado",
+      "instalacion_fachada_de_vidrio_o_muro_cortina",
+      "instalacion_cerramiento_de_terraza_con_sistema_plegable",
+      "aplicacion_de_vinilo_o_pelicula_en_vidrio"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3961,
+      "tokens_out": 3476
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "NO"
+  }
+}

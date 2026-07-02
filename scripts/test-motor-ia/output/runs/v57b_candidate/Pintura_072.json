@@ -1,0 +1,166 @@
+{
+  "id": 72,
+  "oficio": "Pintura",
+  "texto": "Pintar vallas y rejas exteriores con imprimación antióxido y esmalte negro",
+  "http_status": 200,
+  "latency_ms": 15627,
+  "raw_response": {
+    "transcript": "Pintar vallas y rejas exteriores con imprimación antióxido y esmalte negro",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar vallas y rejas exteriores con imprimación antióxido y esmalte negro",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se requiere medición en obra: metros lineales de valla/reja y estado actual (oxidación, preparación necesaria)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura metálica exterior con tratamiento antióxido. Tarifa base pintura 32€/h, rango 28-40€/h según complejidad y accesibilidad."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Lija metálica y preparación de superficie",
+          "descripcion": "Lijado de valla/reja metálica, eliminación de óxido y suciedad con lija metálica o cepillo de acero",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 3,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a definir en obra. Precio estimado 3€/ml incluye lijado y desengrasante."
+        },
+        {
+          "concepto": "Imprimación antióxido",
+          "descripcion": "Aplicación de imprimación antióxido de calidad industrial para protección contra corrosión en metal exterior",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador. Rendimiento típico: 1 litro cubre 8-10 m² en una mano."
+        },
+        {
+          "concepto": "Esmalte negro anticorrosión (2 manos)",
+          "descripcion": "Aplicación de dos manos de esmalte negro anticorrosión para exterior, acabado satinado o brillante",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador. Rendimiento típico: 1 litro cubre 10-12 m² en dos manos."
+        },
+        {
+          "concepto": "Mano de obra: Imprimación y esmalte",
+          "descripcion": "Aplicación de imprimación antióxido y dos manos de esmalte negro en valla/reja metálica exterior",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 5,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en metros lineales a definir en obra. Precio estimado 5€/ml (imprimación + 2 manos esmalte). Rango catálogo 8-28€/ml según complejidad y accesibilidad."
+        },
+        {
+          "concepto": "Pequeño material y protecciones",
+          "descripcion": "Pinceles, rodillos, cinta carrocero, plástico de protección, trapos, disolvente de limpieza",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado 15-30€ según cantidad de material consumible. A definir por instalador."
+        },
+        {
+          "concepto": "Convertidor de óxido (si aplica)",
+          "descripcion": "Aplicación de convertidor de óxido en caso de oxidación importante previa a imprimación",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional. Solo si hay oxidación severa. Precio y cantidad a definir en inspección de obra."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar medición exacta en metros lineales de valla y reja",
+        "Inspeccionar estado de oxidación para determinar si requiere convertidor de óxido",
+        "Confirmar tipo de esmalte (satinado/brillante) y marca preferida",
+        "Definir accesibilidad (andamios, escaleras, trabajos en altura si aplica)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación antióxido",
+          "oficio": "pintura",
+          "motivo": "Material específico para metal exterior, requiere precio de mercado"
+        },
+        {
+          "concepto": "Esmalte negro anticorrosión",
+          "oficio": "pintura",
+          "motivo": "Material específico para acabado exterior, requiere precio de mercado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_esmalte_carpinteria_metalica",
+      "pintado_pasamanos_y_barandillas_interior",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "pintura_de_valla_o_cerca_madera_exterior",
+      "pintura_esmalte_carpinteria_madera_interior"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3658,
+      "tokens_out": 2030
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

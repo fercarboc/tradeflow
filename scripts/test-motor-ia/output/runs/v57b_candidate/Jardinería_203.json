@@ -1,0 +1,217 @@
+{
+  "id": 203,
+  "oficio": "Jardinería",
+  "texto": "Instalación de riego automático por goteo en jardín de 100 metros cuadrados con programador",
+  "http_status": 200,
+  "latency_ms": 13893,
+  "raw_response": {
+    "transcript": "Instalación de riego automático por goteo en jardín de 100 metros cuadrados con programador",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de riego automático por goteo en jardín de 100 metros cuadrados con programador",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Instalación de sistema de riego automático por goteo en jardín"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Programador de riego automático",
+          "descripcion": "Suministro e instalación de programador de riego automático con batería, conexión a red de agua",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del programador a definir por instalador según marca y características"
+        },
+        {
+          "concepto": "Electroválvulas para zonas de riego",
+          "descripcion": "Suministro e instalación de electroválvulas de 24V para control de zonas de riego (estimado 3-4 zonas para 100 m²)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de electroválvulas a definir por instalador"
+        },
+        {
+          "concepto": "Tubería polietileno PE para distribución secundaria",
+          "descripcion": "Suministro de tubería polietileno PE 16-20mm para distribución secundaria en 100 m² (estimado 150-200 ml)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 175,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal a definir según diámetro y calidad"
+        },
+        {
+          "concepto": "Goteros autocompensantes",
+          "descripcion": "Suministro de goteros autocompensantes (4 L/h) para 100 m² (estimado 80-100 unidades)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 90,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de goteros a definir por instalador"
+        },
+        {
+          "concepto": "Filtro y reductor de presión",
+          "descripcion": "Suministro e instalación de filtro de malla 100 micras y reductor de presión para sistema de goteo",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del conjunto filtro+reductor a definir por instalador"
+        },
+        {
+          "concepto": "Conexión a red de agua y pequeño material",
+          "descripcion": "Conexión a red de agua existente, arqueta de electroválvulas, conectores, empalmes, cinta teflón y pequeño material de instalación",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material y conexión a definir por instalador"
+        },
+        {
+          "concepto": "Mano de obra: Instalación sistema riego por goteo",
+          "descripcion": "Instalación completa del sistema de riego automático: tendido de tuberías, colocación de goteros, instalación de electroválvulas, programador y pruebas de funcionamiento en 100 m²",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 25,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sensor de lluvia (opcional)",
+          "descripcion": "Suministro e instalación de sensor de lluvia para suspender riego automático en caso de precipitación",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Elemento recomendado para ahorro de agua. Precio a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Verificar disponibilidad de programadores de riego en catálogo (marcas: Hunter, Rain Bird, Gardena, Orbit)",
+        "Confirmar especificaciones de electroválvulas (24V AC, caudal nominal)",
+        "Validar diámetro de tubería PE según caudal total requerido (100 m² con goteros 4 L/h ≈ 360-400 L/h)",
+        "Considerar sensor de humedad del suelo como complemento al sensor de lluvia para optimización"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Programador de riego automático",
+          "oficio": "jardineria",
+          "motivo": "Material específico de sistema de riego automático"
+        },
+        {
+          "concepto": "Electroválvulas para zonas de riego",
+          "oficio": "jardineria",
+          "motivo": "Material específico de sistema de riego automático"
+        },
+        {
+          "concepto": "Tubería polietileno PE para distribución secundaria",
+          "oficio": "jardineria",
+          "motivo": "Material específico de sistema de riego automático"
+        },
+        {
+          "concepto": "Goteros autocompensantes",
+          "oficio": "jardineria",
+          "motivo": "Material específico de sistema de riego automático"
+        },
+        {
+          "concepto": "Filtro y reductor de presión",
+          "oficio": "jardineria",
+          "motivo": "Material específico de sistema de riego automático"
+        },
+        {
+          "concepto": "Conexión a red de agua y pequeño material",
+          "oficio": "jardineria",
+          "motivo": "Material específico de sistema de riego automático"
+        },
+        {
+          "concepto": "Sensor de lluvia (opcional)",
+          "oficio": "jardineria",
+          "motivo": "Material complementario recomendado para sistema de riego automático"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_riego_automatico_para_zona_interior",
+      "instalacion_riego_automatico",
+      "reparacion_de_piscina_con_filtraciones",
+      "mantenimiento_y_reparacion_de_sistema_de_riego",
+      "instalacion_sistema_de_riego_por_goteo"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3843,
+      "tokens_out": 2266
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

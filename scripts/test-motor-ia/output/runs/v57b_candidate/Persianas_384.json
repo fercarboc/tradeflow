@@ -1,0 +1,166 @@
+{
+  "id": 384,
+  "oficio": "Persianas",
+  "texto": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+  "http_status": 200,
+  "latency_ms": 13653,
+  "raw_response": {
+    "transcript": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar toldos para terraza de bar, 4 toldos de 3x2 metros motorizados con cofre embellecedor",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Toldos motorizados: verificar disponibilidad de corriente eléctrica en zona de instalación",
+          "Cofre embellecedor: confirmar medidas y material (aluminio anodizado recomendado para exterior)",
+          "Terraza de bar: verificar resistencia de estructura soporte y permisos municipales si aplica"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de toldos motorizados con cofre embellecedor"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Conexión eléctrica de motores de toldos y cuadro de control"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Toldo motorizado 3x2m con cofre embellecedor",
+          "descripcion": "Suministro de 4 toldos de brazos extensibles motorizados, tela acrílica tratada UV, estructura aluminio, motor eléctrico 230V, cofre embellecedor aluminio anodizado, incluye brazos articulados, cabezal de fijación y accesorios",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de toldo motorizado con cofre embellecedor debe ser confirmado por instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Instalación de toldos motorizados",
+          "descripcion": "Instalación de 4 toldos motorizados: fijación a estructura soporte, nivelación, pruebas de funcionamiento motor, ajuste de finales de carrera, verificación de seguridad",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica motores toldos",
+          "descripcion": "Instalación de cableado eléctrico 230V para 4 motores, cuadro de control centralizado con interruptores independientes, toma de corriente dedicada, canalización y protecciones",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cuadro de control eléctrico para toldos motorizados",
+          "descripcion": "Suministro de cuadro de control centralizado con interruptores independientes para 4 toldos, protecciones magnetotérmicas, cableado interno y accesorios de conexión",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cuadro de control debe ser confirmado según especificaciones técnicas y marca"
+        },
+        {
+          "concepto": "Cableado y accesorios eléctricos",
+          "descripcion": "Suministro de cable eléctrico 3x2.5mm², tubo corrugado, conectores, regletas de bornes, pequeño material y accesorios para instalación eléctrica",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos debe ser confirmado según longitud de cableado y especificaciones"
+        }
+      ],
+      "calculos": {
+        "subtotal": 560,
+        "iva_porcentaje": 21,
+        "iva": 117.6,
+        "total": 677.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_toldo_de_brazos_extensibles_motorizado' para obtener rango de precios de toldos motorizados con cofre",
+        "Considerar si existe partida de 'cuadro_control_motorizado_toldos' en catálogo de electricidad",
+        "Confirmar si la instalación requiere refuerzo estructural de la fachada/soporte"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Toldo motorizado 3x2m con cofre embellecedor",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Producto específico motorizado con cofre no encontrado en catálogo base. Rango estimado: 400-800€/ud según marca y especificaciones"
+        },
+        {
+          "concepto": "Cuadro de control eléctrico para toldos motorizados",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Accesorio eléctrico específico para control centralizado de toldos. Rango estimado: 150-400€ según capacidad y funcionalidades"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_lampara_parasol_o_sombrilla_de_brazo",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3916,
+      "tokens_out": 1833
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

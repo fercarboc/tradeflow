@@ -1,0 +1,266 @@
+{
+  "id": 132,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 25448,
+  "raw_response": {
+    "transcript": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar paneles solares térmicos en tejado inclinado para ACS, 2 colectores de 2.5 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Energía solar térmica (ACS) — diferente de fotovoltaica. Incluye circuito hidráulico, acumulador, válvulas de seguridad.",
+          "Tejado inclinado existente — verificar resistencia estructura, tipo de teja para ganchos específicos.",
+          "Total 5 m² de colectores — requiere acumulador dimensionado (típico 100-150 L para 5 m²)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema solar térmico para ACS en tejado inclinado."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión circuito hidráulico, acumulador, válvulas de seguridad y purga."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de perforaciones en tejado con goma EPDM para evitar goteras."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Colectores solares térmicos",
+          "descripcion": "Suministro de 2 colectores solares térmicos de 2.5 m² cada uno (total 5 m²), tipo placa plana o tubo de vacío, con conexiones hidráulicas.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de colectores solares térmicos a definir por instalador según marca y tecnología (placa plana ~400-600€/unidad, tubo vacío ~600-900€/unidad)."
+        },
+        {
+          "concepto": "Ganchos de fijación específicos para tejado inclinado",
+          "descripcion": "Ganchos o soportes de aluminio/acero galvanizado específicos para tipo de teja (plana, curva, pizarra, etc.), incluye tornillería de acero inoxidable.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de ganchos específicos según tipo de teja. Verificar tipo de teja antes de presupuestar (~150-300€ juego completo)."
+        },
+        {
+          "concepto": "Estructura soporte y rieles de aluminio",
+          "descripcion": "Perfiles de aluminio anodizado, rieles de fijación y abrazaderas para sujeción de 2 colectores en tejado inclinado.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura soporte según dimensiones y material (~200-400€)."
+        },
+        {
+          "concepto": "Acumulador solar térmico",
+          "descripcion": "Depósito acumulador de agua caliente sanitaria (ACS) de 100-150 L, con aislamiento térmico, ánodo de magnesio y conexiones para circuito solar y ACS.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de acumulador solar según capacidad (~400-800€ para 100-150 L)."
+        },
+        {
+          "concepto": "Cableado y tuberías circuito solar",
+          "descripcion": "Tuberías de cobre o multicapa aisladas, cableado eléctrico de control, válvulas de corte, válvula de seguridad, válvula antirretorno, purgador automático, manómetro y termómetro.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de accesorios hidráulicos y eléctricos (~300-500€)."
+        },
+        {
+          "concepto": "Bomba circuladora y cuadro de control",
+          "descripcion": "Bomba circuladora de baja potencia (0.5-1 kW) con termostato diferencial, relé de control, protecciones eléctricas y cableado de conexión.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de bomba y cuadro de control (~400-700€)."
+        },
+        {
+          "concepto": "Impermeabilización de perforaciones en tejado",
+          "descripcion": "Sellado de perforaciones con goma EPDM, masilla impermeabilizante y mortero de reparación para evitar filtraciones de agua en puntos de anclaje.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales impermeabilizantes (~100-200€)."
+        },
+        {
+          "concepto": "Mano de obra: Instalación colectores y estructura",
+          "descripcion": "Colocación de ganchos, estructura soporte, fijación de 2 colectores solares en tejado inclinado, alineación y nivelación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 65,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Conexión circuito hidráulico",
+          "descripcion": "Instalación de tuberías, válvulas, acumulador, bomba circuladora, conexiones a ACS existente, pruebas de estanqueidad y purgado del circuito.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra: Impermeabilización de perforaciones",
+          "descripcion": "Sellado de perforaciones en tejado con goma EPDM, aplicación de masilla y mortero impermeabilizante, acabado limpio.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material",
+          "descripcion": "Arnés de seguridad, línea de vida, casco, guantes, herramientas menores, material de consumo (cinta teflón, pasta térmica, etc.).",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de EPI y consumibles (~150-250€)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 955,
+        "iva_porcentaje": 21,
+        "iva": 200.55,
+        "total": 1155.55
+      },
+      "sugerencias_catalogo": [
+        "Verificar tipo de teja del tejado (plana, curva, pizarra, hormigón) antes de seleccionar ganchos específicos.",
+        "Confirmar capacidad del acumulador existente o dimensionar nuevo según consumo ACS (típico 100-150 L para 5 m² de colectores).",
+        "Revisar resistencia estructura de madera del tejado antes de instalar (carga típica ~50-80 kg/m² para colectores).",
+        "Legalizar instalación ante distribuidora si hay conexión a red eléctrica para bomba circuladora.",
+        "Considerar sistema de anticongelante si zona con riesgo de heladas (circuito cerrado con glicol)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Colectores solares térmicos",
+          "oficio": "energia_solar",
+          "motivo": "Energía solar térmica (ACS) — no es fotovoltaica. Requiere especificación de marca, modelo y tecnología (placa plana vs tubo vacío)."
+        },
+        {
+          "concepto": "Acumulador solar térmico",
+          "oficio": "fontaneria",
+          "motivo": "Depósito específico para sistema solar térmico — dimensionado según superficie de colectores."
+        },
+        {
+          "concepto": "Bomba circuladora y cuadro de control",
+          "oficio": "energia_solar",
+          "motivo": "Sistema de circulación forzada con termostato diferencial — elemento crítico en instalación solar térmica."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_paneles_solares_en_tejado_con_gancho_hook",
+      "instalacion_paneles_solares_en_cubierta_plana_con_estructura_inclinada",
+      "instalacion_placa_solar_fotovoltaica_integrada_en_cubierta",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda"
+    ],
+    "kb_score": 4.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4299,
+      "tokens_out": 3612
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 3,
+    "n_sugeridas": 8,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

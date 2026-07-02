@@ -1,0 +1,256 @@
+{
+  "id": 9,
+  "oficio": "Fontanería",
+  "texto": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+  "http_status": 200,
+  "latency_ms": 18601,
+  "raw_response": {
+    "transcript": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de tuberías de plomo por multicapa en toda la instalación del piso de 80 metros cuadrados, incluye apertura y cierre de rozas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo de fontanería integral: requiere coordinación con electricista si hay rozas compartidas",
+          "Verificar acceso a todas las zonas del piso para desmontaje de tuberías de plomo",
+          "Gestión de residuos de plomo: material peligroso, requiere tratamiento especial"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Sustitución completa de instalación de fontanería: desmontaje tuberías plomo, instalación tuberías multicapa, apertura y cierre de rozas"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Apertura y cierre de rozas para paso de tuberías"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de tuberías de plomo",
+          "descripcion": "Desmontaje completo de instalación de tuberías de plomo en toda la vivienda, desconexión de acometida, despiece y preparación para gestión de residuos peligrosos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 400,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Apertura de rozas en muros y tabiques",
+          "descripcion": "Apertura de rozas en muros y tabiques para paso de tuberías multicapa en toda la instalación (estimado 60-80 ml de rozas)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 70,
+          "precio_unitario": 8,
+          "total": 560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tuberías multicapa PEX - suministro e instalación",
+          "descripcion": "Suministro e instalación de tuberías multicapa PEX de diferentes diámetros (16mm, 20mm, 25mm) para distribución de agua fría y caliente en toda la vivienda (estimado 80-100 ml)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 90,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material multicapa PEX pendiente de cotización según diámetros y calidad"
+        },
+        {
+          "concepto": "Instalación de tuberías multicapa",
+          "descripcion": "Instalación de tuberías multicapa PEX: conexiones, fijaciones, pruebas de estanqueidad y puesta en marcha",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 400,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Válvulas de corte por estancia",
+          "descripcion": "Suministro e instalación de válvulas de corte de bola 3/4\" en cocina, baño/s y otras estancias (estimado 4-5 válvulas)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de válvulas de corte pendiente de cotización"
+        },
+        {
+          "concepto": "Cierre de rozas y reposición",
+          "descripcion": "Cierre de rozas con mortero de cemento, reposición de enfoscado y acabado liso en muros y tabiques",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 70,
+          "precio_unitario": 12,
+          "total": 840,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifería nueva - suministro",
+          "descripcion": "Suministro de grifería nueva para cocina y baño/s (monomandos, grifo cocina, grifos baño)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de grifería pendiente de cotización según modelo y marca"
+        },
+        {
+          "concepto": "Instalación de grifería",
+          "descripcion": "Instalación de grifería nueva en cocina y baño/s, conexión a tuberías multicapa y pruebas",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Latiguillos, codos, tes, manguitos, teflón, pasta selladora, abrazaderas, soportes de fijación y otros accesorios necesarios",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de pequeño material a determinar según cantidad final de accesorios"
+        },
+        {
+          "concepto": "Gestión de residuos de plomo",
+          "descripcion": "Retirada, transporte y tratamiento especial de tuberías de plomo como residuo peligroso según normativa ambiental",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de gestión de residuos peligrosos a cotizar con gestor autorizado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3600,
+        "iva_porcentaje": 21,
+        "iva": 756,
+        "total": 4356
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de tuberías multicapa PEX: diámetros 16mm, 20mm, 25mm según distribución",
+        "Válvulas de corte de bola 3/4\" - modelo estándar",
+        "Grifería monomando cocina y grifos baño según presupuesto cliente",
+        "Mortero de cemento para cierre de rozas",
+        "Gestor autorizado de residuos peligrosos (plomo) en la zona"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tuberías multicapa PEX - suministro e instalación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Material específico de sustitución, requiere cotización según diámetros y longitud final"
+        },
+        {
+          "concepto": "Válvulas de corte por estancia",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Componente obligatorio en renovación de fontanería para control selectivo por zonas"
+        },
+        {
+          "concepto": "Grifería nueva - suministro",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Sustitución de grifería antigua por nueva, precio variable según modelo"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Accesorios necesarios para instalación completa, presupuesto a determinar"
+        },
+        {
+          "concepto": "Gestión de residuos de plomo",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "motivo": "Obligatorio por normativa ambiental, residuo peligroso requiere gestor autorizado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "renovacion_de_instalacion_de_fontaneria_en_vivienda",
+      "acabado_con_microcemento_suelo_o_pared",
+      "sustitucion_termo_electrico",
+      "instalacion_solado_de_barro_ceramico_o_terracota"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4005,
+      "tokens_out": 2861
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

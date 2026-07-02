@@ -1,0 +1,167 @@
+{
+  "id": 299,
+  "oficio": "Impermeabilización",
+  "texto": "Reparar junta de encuentro entre cubierta y pared donde entra agua con mortero elástico",
+  "http_status": 200,
+  "latency_ms": 20838,
+  "raw_response": {
+    "transcript": "Reparar junta de encuentro entre cubierta y pared donde entra agua con mortero elástico",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar junta de encuentro entre cubierta y pared donde entra agua con mortero elástico",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "ALERTA CRÍTICA: El mortero elástico NO es la solución correcta para esta junta. Según normas de impermeabilización, esta junta requiere MEMBRANA IMPERMEABILIZANTE (lámina de plomo/zinc/TPO) o silicona fungicida flexible, NO mortero rígido. El mortero se agrieta con movimientos térmicos y filtraciones. Se recomienda revisar solución técnica con el cliente.",
+          "La junta de encuentro cubierta-pared es CRÍTICA: debe subir 30cm por fachada y bajar 50cm por cubierta mínimo para ser efectiva."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reparación de junta de encuentro fachada-cubierta con función impermeabilizante. Según REGLAS DE OFICIO: impermeabilizacion → SIEMPRE para encuentros fachada/cubierta con humedades, láminas, membranas, sellados flexibles. Aunque el cliente mencione 'mortero', la solución técnica correcta es impermeabilización."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Saneo y preparación zona de encuentro cubierta-pared",
+          "descripcion": "Retirada de mortero viejo, silicona deteriorada, musgo y suciedad. Limpieza profunda con cepillo y desinfección. Secado completo de la zona.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 15,
+          "total": 15,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Membrana impermeabilizante en encuentro fachada-cubierta (lámina TPO/PVC o equivalente)",
+          "descripcion": "Colocación de lámina impermeabilizante flexible (TPO, PVC o membrana líquida) en junta de encuentro. Subida mínimo 30cm por fachada, bajada mínimo 50cm por cubierta. Material elastomérico para absorber movimientos térmicos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: lámina impermeabilizante TPO/PVC/membrana líquida. Precio pendiente de cotización según tipo y espesor. Referencia: 25-60€/ml según material."
+        },
+        {
+          "concepto": "Refuerzo geotextil o banda de refuerzo en transición",
+          "descripcion": "Colocación de geotextil o banda de refuerzo en toda la transición cubierta-pared para evitar movimientos y roturas de la membrana.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: banda de refuerzo geotextil. Precio pendiente de cotización. Referencia: 5-15€/ml."
+        },
+        {
+          "concepto": "Sellado flexible superior con silicona fungicida",
+          "descripcion": "Aplicación de silicona neutra fungicida flexible en la línea superior de la junta para crear barrera estanca final. Masking tape para líneas limpias. Curado 24h.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: silicona neutra fungicida flexible + masking tape. Precio pendiente. Referencia: 8-20€/ml."
+        },
+        {
+          "concepto": "Instalación y sellado de membrana impermeabilizante en encuentro",
+          "descripcion": "Mano de obra: colocación de membrana, refuerzo geotextil, sellado flexible y pequeño material. Incluye EPI básico. Trabajo por ml de junta.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 1,
+          "precio_unitario": 35,
+          "total": 35,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y EPI (guantes, mascarilla, cinta, disolvente, etc.)",
+          "descripcion": "Consumibles: masking tape, disolvente de limpieza, guantes, mascarilla, trapos, etc.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: precio pendiente. Referencia: 15-30€/ud."
+        }
+      ],
+      "calculos": {
+        "subtotal": 50,
+        "iva_porcentaje": 21,
+        "iva": 10.5,
+        "total": 60.5
+      },
+      "sugerencias_catalogo": [
+        "RECOMENDACIÓN TÉCNICA: La junta de encuentro cubierta-pared es el punto crítico de filtraciones. El mortero elástico NO es solución duradera (se agrieta con movimientos térmicos). Solución correcta: MEMBRANA IMPERMEABILIZANTE (lámina TPO/PVC/plomo) + SILICONA FUNGICIDA FLEXIBLE. Durabilidad: 15-25 años vs. 2-3 años con mortero.",
+        "Solicitar al cliente: longitud exacta de la junta (en ml) para calcular cantidad de materiales.",
+        "Verificar si hay tejas o elementos que retirar para acceder correctamente a la junta.",
+        "Considerar si la cubierta tiene goteras activas: si es así, puede requerir reparación adicional de tejas o canalones."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Membrana impermeabilizante en encuentro fachada-cubierta",
+          "oficio": "impermeabilizacion",
+          "motivo": "Solución técnica correcta para junta de encuentro con filtraciones. No existe en catálogo con este nombre específico. Creada como sugerida_ia con precio_unitario=0 para revisión del instalador."
+        },
+        {
+          "concepto": "Refuerzo geotextil o banda de refuerzo en transición",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material complementario obligatorio en encuentros cubierta-pared según normas. Creada como sugerida_ia."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_junta_suelo_pared_en_ducha_o_bano",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "reparacion_grifo_o_griferia_averiada",
+      "impermeabilizacion_de_encuentro_fachada_cubierta",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3895,
+      "tokens_out": 2659
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

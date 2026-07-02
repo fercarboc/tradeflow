@@ -1,0 +1,140 @@
+{
+  "id": 169,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Colocar rodapié de porcelana de 10 centímetros en toda la vivienda, longitud total 60 metros",
+  "http_status": 200,
+  "latency_ms": 13327,
+  "raw_response": {
+    "transcript": "Colocar rodapié de porcelana de 10 centímetros en toda la vivienda, longitud total 60 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar rodapié de porcelana de 10 centímetros en toda la vivienda, longitud total 60 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Colocación de rodapié cerámico/porcelana. Oficio de alicatado especializado en remates y acabados de pavimentos."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro rodapié porcelana 10 cm",
+          "descripcion": "Rodapié de porcelana de 10 centímetros de altura, longitud total 60 metros. Material de primera calidad, color y acabado a definir en obra.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del rodapié de porcelana a definir por instalador según marca, acabado y proveedor. Rango orientativo: 8-25€/ml."
+        },
+        {
+          "concepto": "Mortero cola flexible C2 para rodapié",
+          "descripcion": "Mortero cola flexible C2 blanco o gris para fijación de rodapié de porcelana sobre superficie existente. Incluye pequeño material (esponjas, trapos).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumo de mortero cola: aproximadamente 1-1,5 kg/ml. Precio a revisar según marca y cantidad total necesaria (60-90 kg)."
+        },
+        {
+          "concepto": "Lechada junta rodapié",
+          "descripcion": "Lechada de junta epoxídica o cementosa para sellado de juntas entre rodapié y pared, y entre piezas de rodapié. Color a definir.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumo de lechada: aproximadamente 0,3-0,5 kg/ml. Precio a revisar según tipo (cementosa o epoxídica) y cantidad total."
+        },
+        {
+          "concepto": "Colocación y nivelación rodapié porcelana",
+          "descripcion": "Mano de obra de colocación de rodapié de porcelana: replanteo, nivelación, fijación con mortero cola flexible, limpieza de excedentes, sellado de juntas perimetrales y entre piezas. Incluye protección de pavimento durante la obra.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silicona sanitaria en encuentro rodapié-pared",
+          "descripcion": "Sellado perimetral con silicona sanitaria de calidad en el encuentro entre rodapié y pared en toda la longitud. Garantiza estanqueidad y acabado profesional.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumo de silicona: aproximadamente 50-80 ml/ml (cartuchos de 300 ml). Precio a revisar según marca y cantidad de cartuchos necesarios (10-16 cartuchos)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 480,
+        "iva_porcentaje": 21,
+        "iva": 100.8,
+        "total": 580.8
+      },
+      "sugerencias_catalogo": [
+        "Rodapié de porcelana: rango de mercado 8-25€/ml según marca, acabado (mate/brillo) y espesor. Consultar con proveedores habituales.",
+        "Mortero cola C2 flexible: 15-25€/saco de 25 kg. Consumo estimado 60-90 kg para 60 ml.",
+        "Lechada junta: 8-15€/kg según tipo. Consumo estimado 18-30 kg.",
+        "Silicona sanitaria: 2-5€/cartucho. Necesarios 10-16 cartuchos de 300 ml.",
+        "Considerar protección de pavimento existente durante toda la colocación para evitar roturas."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "colocacion_de_murales_o_azulejos_decorativos",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3913,
+      "tokens_out": 1635
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

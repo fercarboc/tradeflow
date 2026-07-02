@@ -1,0 +1,166 @@
+{
+  "id": 225,
+  "oficio": "Energía Solar",
+  "texto": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+  "http_status": 200,
+  "latency_ms": 15262,
+  "raw_response": {
+    "transcript": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Mantenimiento y limpieza de instalación solar fotovoltaica, revisión de conexiones y rendimiento",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume instalación fotovoltaica existente. Confirmar número de módulos, potencia total (kWp) y ubicación (cubierta/suelo) para ajustar tiempo y precio final.",
+          "Incluye limpieza, revisión visual, verificación conexiones, funcionamiento inversor e informe. Precio puede variar según accesibilidad y tamaño instalación."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Mantenimiento anual de instalación fotovoltaica: limpieza, revisión visual, verificación conexiones, funcionamiento inversor, informe de producción."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza de módulos fotovoltaicos",
+          "descripcion": "Limpieza completa de módulos solares con agua desionizada y cepillo suave para eliminar polvo, suciedad y depósitos minerales. Incluye acceso seguro con EPI de trabajos en altura.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión visual de módulos y estructura",
+          "descripcion": "Inspección visual completa de módulos fotovoltaicos, estructura soporte, anclajes y marcos. Detección de grietas, decoloraciones, corrosión o daños físicos.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de conexiones y protecciones",
+          "descripcion": "Revisión de conectores MC4, cajas de conexión, fusibles, interruptores DC/AC, toma tierra y continuidad de circuitos. Apretado de conexiones si es necesario.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión funcionamiento inversor y lectura de producción",
+          "descripcion": "Comprobación de funcionamiento del inversor (pantalla, indicadores LED, ausencia de alarmas). Lectura de producción actual, histórica y comparativa con producción esperada según irradiancia.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe de resultado y producción histórica",
+          "descripcion": "Elaboración de informe técnico con fotografías, datos de producción, estado de componentes, recomendaciones de mantenimiento futuro y comparativa de rendimiento.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Informe técnico: precio a definir por instalador (típicamente 50-150€ según complejidad)"
+        },
+        {
+          "concepto": "Pequeño material y EPI trabajos en altura",
+          "descripcion": "Suministro de pequeño material (trapos, desengrasante, spray contactos), EPI (arnés, casco, guantes, gafas) y desplazamiento de equipos de seguridad.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible y EPI: precio a definir (típicamente 30-80€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 520,
+        "iva_porcentaje": 21,
+        "iva": 109.2,
+        "total": 629.2
+      },
+      "sugerencias_catalogo": [
+        "Si se detecta pérdida de rendimiento >10% respecto a producción esperada, considerar termografía infrarroja para identificar módulos defectuosos (partida adicional: 150-300€).",
+        "Si hay acumulación importante de suciedad o polvo industrial, añadir limpieza química especializada (partida adicional: 100-200€).",
+        "Revisar si el contrato de mantenimiento incluye carga de gas refrigerante (si hay bomba calor integrada) o cambio de filtros de agua."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Informe de resultado y producción histórica",
+          "oficio": "energia_solar",
+          "motivo": "Servicio de documentación técnica post-mantenimiento. Precio a definir por instalador."
+        },
+        {
+          "concepto": "Pequeño material y EPI trabajos en altura",
+          "oficio": "energia_solar",
+          "motivo": "Material consumible y equipos de protección. Precio a definir por instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_instalacion_fotovoltaica",
+      "mantenimiento_anual_split_o_aire_acondicionado",
+      "mantenimiento_anual_caldera_gas",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "mantenimiento_de_sistema_de_climatizacion_split"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3960,
+      "tokens_out": 1822
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

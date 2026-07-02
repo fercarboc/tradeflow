@@ -1,0 +1,181 @@
+{
+  "id": 162,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Poner suelo de parquet laminado en toda la vivienda excepto baño y cocina, 80 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 14218,
+  "raw_response": {
+    "transcript": "Poner suelo de parquet laminado en toda la vivienda excepto baño y cocina, 80 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner suelo de parquet laminado en toda la vivienda excepto baño y cocina, 80 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume superficie de 80 m² sin incluir baño ni cocina",
+          "Requiere aclimatación previa del material (48-72h en obra)",
+          "Junta perimetral de 10-12mm obligatoria en todo el perímetro"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_tarimas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Instalación de tarima laminada (parquet laminado) - trabajo de suelos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro tarima laminada flotante",
+          "descripcion": "Parquet laminado de calidad media-alta, sistema click, espesor 8-10mm, incluye mermas 10%",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 88,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según marca y calidad elegida"
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "descripcion": "Lámina aislante de espuma polietileno de 2-3mm, barrera vapor integrada, para sistema flotante",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 88,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador"
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "descripcion": "Junta perimetral de 10-12mm en todo el perímetro, cuñas de separación, topes de dilatación, cinta adhesiva",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador"
+        },
+        {
+          "concepto": "Preparación y nivelación del soporte",
+          "descripcion": "Limpieza, barrido, nivelación del soporte existente, verificación de planitud (máx. 3mm bajo regla 2m), reparación de irregularidades menores",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 8,
+          "total": 640,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación tarima laminada flotante",
+          "descripcion": "Colocación de tarima laminada sistema flotante con junta perimetral de 10-12mm, encaje click, alineación y nivelación",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 80,
+          "precio_unitario": 32,
+          "total": 2560,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación rodapié de madera",
+          "descripcion": "Rodapié de madera a juego con tarima, incluye adhesivo y pequeño material, perímetro estimado 60ml",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 12,
+          "total": 720,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de mano de obra y material de rodapié a confirmar según perímetro real y tipo de rodapié"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3920,
+        "iva_porcentaje": 21,
+        "iva": 823.2,
+        "total": 4743.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'colocacion_parquet_flotante_o_tarima_laminada' (oficio: suelos_alicatados, precio: 25-95€/m2)",
+        "Verificar en catálogo: 'instalacion_tarima_flotante_o_parquet_click' (oficio: carpinteria, precio: 120-650€/m2)",
+        "Considerar si el rodapié debe incluirse en el presupuesto o es opcional"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro tarima laminada flotante",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "motivo": "Material específico de tarima laminada con sistema click"
+        },
+        {
+          "concepto": "Lámina aislante espuma polietileno",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "motivo": "Material obligatorio para sistema flotante"
+        },
+        {
+          "concepto": "Junta perimetral y pequeño material",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "material",
+          "motivo": "Junta perimetral de 10-12mm obligatoria según normativa"
+        },
+        {
+          "concepto": "Colocación rodapié de madera",
+          "oficio": "suelos_tarimas",
+          "tipo_partida": "mano_obra",
+          "motivo": "Acabado perimetral de rodapié a juego con tarima"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "solado_de_parquet_o_madera",
+      "colocacion_parquet_flotante_o_tarima_laminada",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_de_suelo_de_bambu_interior",
+      "solado_ceramico_exterior_terraza"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4045,
+      "tokens_out": 1903
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "suelos_tarimas",
+    "coincide_oficio": "SI"
+  }
+}

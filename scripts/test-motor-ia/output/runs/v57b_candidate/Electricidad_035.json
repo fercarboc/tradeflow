@@ -1,0 +1,195 @@
+{
+  "id": 35,
+  "oficio": "Electricidad",
+  "texto": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+  "http_status": 200,
+  "latency_ms": 17604,
+  "raw_response": {
+    "transcript": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de caja general de protección y contador, coordinación con la compañía eléctrica",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Trabajo regulado por normativa eléctrica (REBT). Requiere electricista autorizado y coordinación con distribuidora.",
+          "Cambio de contador implica corte de suministro y gestiones administrativas con la compañía eléctrica.",
+          "Precio de materiales (CGP, contador, cableado) pendiente de revisión según modelo y especificaciones técnicas.",
+          "Gestión de trámites con compañía eléctrica puede requerir gestoría especializada."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de caja general de protección y contador. Trabajo de alta tensión/baja tensión regulado por REBT."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 50,
+            "max": 70
+          },
+          "motivo": "Coordinación y gestión administrativa con compañía eléctrica distribuidora para cambio de contador."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje caja general de protección y contador existente",
+          "descripcion": "Desmontaje seguro de CGP antigua, contador y accesorios. Desconexión de cableado. Preparación para nueva instalación.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Caja general de protección (CGP) nueva",
+          "descripcion": "Suministro de caja general de protección nueva según especificaciones técnicas y normativa REBT. Incluye interruptor general automático y protecciones.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del modelo, intensidad (25A/40A/63A) y marca. Rango estimado: 150-400€."
+        },
+        {
+          "concepto": "Contador eléctrico nuevo",
+          "descripcion": "Suministro de contador eléctrico digital/inteligente nuevo según especificaciones de la distribuidora. Incluye accesorios de conexión.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del modelo (monofásico/trifásico) y distribuidora. Rango estimado: 80-250€. Frecuentemente suministrado por la compañía."
+        },
+        {
+          "concepto": "Cableado y accesorios de conexión CGP-contador",
+          "descripcion": "Suministro de cable de cobre 6mm² (o según cálculo), bornes, conectores, tuercas y pequeño material para interconexión CGP-contador-cuadro de distribución.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud de cableado y accesorios. Rango estimado: 40-120€."
+        },
+        {
+          "concepto": "Instalación caja general de protección y contador",
+          "descripcion": "Montaje de CGP nueva en su ubicación. Instalación de contador. Conexión de cableado de entrada y salida. Pruebas de continuidad y aislamiento. Verificación de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Coordinación y gestión con compañía eléctrica distribuidora",
+          "descripcion": "Gestión administrativa completa: solicitud de cambio de contador, coordinación de fecha de corte de suministro, supervisión de instalación por parte de la distribuidora, tramitación de documentación, obtención de certificado de instalación.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad y distribuidora. Rango estimado: 100-300€ (puede incluirse en presupuesto del electricista o contratar gestoría especializada)."
+        },
+        {
+          "concepto": "Certificado de instalación y boletín eléctrico",
+          "descripcion": "Emisión de boletín eléctrico oficial (BT) según REBT. Documentación técnica de la instalación. Registro en organismo competente.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 50-150€. Puede estar incluido en tarifa del electricista o facturarse por separado."
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar con la compañía eléctrica distribuidora si suministra el contador (frecuentemente lo hace sin coste adicional).",
+        "Confirmar intensidad de la CGP (25A, 40A, 63A) según potencia contratada.",
+        "Solicitar presupuesto separado de la distribuidora por cambio de contador si aplica.",
+        "Electricista debe estar colegiado y autorizado para trabajos en CGP (alta tensión/baja tensión).",
+        "Coordinar fecha de corte de suministro con la distribuidora con mínimo 5-7 días de anticipación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Contador eléctrico nuevo",
+          "oficio": "electricidad",
+          "motivo": "Material específico cuyo precio depende del modelo y distribuidora. Frecuentemente suministrado por la compañía."
+        },
+        {
+          "concepto": "Coordinación y gestión con compañía eléctrica distribuidora",
+          "oficio": "gestoria_tramites",
+          "motivo": "Servicio administrativo especializado en trámites con distribuidora. Puede delegarse en gestoría o incluirse en tarifa del electricista."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_armario_empotrado_nuevo",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada",
+      "sustitucion_termo_electrico",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "cambio_inodoro"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3780,
+      "tokens_out": 2317
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

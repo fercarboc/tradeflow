@@ -1,0 +1,194 @@
+{
+  "id": 282,
+  "oficio": "Impermeabilización",
+  "texto": "Tratamiento impermeabilizante en fachada exterior de edificio antiguo con mortero flexible",
+  "http_status": 200,
+  "latency_ms": 21072,
+  "raw_response": {
+    "transcript": "Tratamiento impermeabilizante en fachada exterior de edificio antiguo con mortero flexible",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tratamiento impermeabilizante en fachada exterior de edificio antiguo con mortero flexible",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se recomienda inspección previa de la fachada para evaluar estado del soporte y extensión del tratamiento",
+          "Confirmar superficie total a tratar (m²) para ajustar presupuesto final",
+          "Verificar acceso y necesidad de andamios/plataformas de trabajo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Tratamiento impermeabilizante en fachada con mortero flexible es competencia directa de impermeabilización. Aunque implique mortero (albanilería), la función primaria es estanca/impermeabilizante."
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de edificio antiguo requiere preparación de soporte y acabado de fachada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza y preparación de soporte en fachada",
+          "descripcion": "Limpieza de fachada antigua, eliminación de suciedad, algas, musgo y material suelto. Preparación del soporte para aplicación de mortero flexible impermeabilizante.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 12,
+          "total": 12,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe ser confirmada por el profesional según superficie real de fachada a tratar"
+        },
+        {
+          "concepto": "Mortero flexible impermeabilizante",
+          "descripcion": "Suministro de mortero flexible impermeabilizante de alta calidad, con aditivos hidrofugos y elastómeros para adaptarse a movimientos de fachada antigua. Incluye imprimación si es necesaria.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del mortero flexible impermeabilizante debe ser introducido por el instalador según marca, tipo y cantidad (rendimiento típico 4-6 m²/litro)"
+        },
+        {
+          "concepto": "Aplicación de mortero flexible impermeabilizante",
+          "descripcion": "Aplicación de mortero flexible impermeabilizante en fachada exterior mediante llana o proyección. Incluye regularización de superficie, sellado de grietas y fisuras, y creación de acabado uniforme.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 28,
+          "total": 28,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m² debe ser confirmada. Tarifa incluye aplicación, regularización y acabado. Edificios antiguos pueden requerir más tiempo por irregularidades del soporte."
+        },
+        {
+          "concepto": "Malla de fibra de vidrio en encuentros y zonas críticas",
+          "descripcion": "Colocación de malla de fibra de vidrio en encuentros entre materiales distintos, grietas estructurales y zonas de movimiento para refuerzo del mortero flexible.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0.2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de malla de fibra de vidrio a introducir por instalador. Cantidad estimada al 20% de superficie total (ajustar según inspección previa)."
+        },
+        {
+          "concepto": "Colocación de malla de fibra de vidrio",
+          "descripcion": "Mano de obra para colocación, tensado y fijación de malla de fibra de vidrio en encuentros y zonas críticas de fachada.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0.2,
+          "precio_unitario": 15,
+          "total": 3,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada al 20% de superficie total. Ajustar según necesidades reales de refuerzo detectadas en inspección."
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Suministro e instalación de andamio tubular o plataforma de trabajo para acceso seguro a fachada exterior durante ejecución del tratamiento impermeabilizante.",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio depende de altura, superficie y duración de obra. Instalador debe confirmar necesidad y presupuestar según proveedor local."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Herramientas menores, equipos de protección individual (EPIs), cintas de protección, trapos, disolventes de limpieza y otros consumibles necesarios para la ejecución del trabajo.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según necesidades reales de obra (típicamente 5-10% del coste de materiales principales)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 43,
+        "iva_porcentaje": 21,
+        "iva": 9.03,
+        "total": 52.03
+      },
+      "sugerencias_catalogo": [
+        "Partida BASE MAESTRA [tratamiento_hidrofugo_incoloro_en_fachada] aplicable si el objetivo es solo hidrofugación sin mortero visible. Rango: 15-75€/m².",
+        "Partida BASE MAESTRA [impermeabilizacion_de_junta_de_dilatacion_de_fachada] si existen juntas de dilatación a sellar. Rango: 20-95€/ml.",
+        "Partida BASE MAESTRA [revestimiento_con_mortero_monocapa] si se requiere revestimiento completo con mortero monocapa. Rango: 22-110€/m²."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Mortero flexible impermeabilizante",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material específico no encontrado en catálogo base. Requiere especificación de marca, tipo (acrílico, poliuretano, silicona) y cantidad según rendimiento."
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "fachadas",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar no detallado en catálogo. Coste variable según altura de fachada, superficie y duración de obra."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_iluminacion_exterior_fachada",
+      "instalacion_de_grafica_corporativa_o_mural_en_fachada",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "revestimiento_con_mortero_monocapa"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3746,
+      "tokens_out": 2750
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

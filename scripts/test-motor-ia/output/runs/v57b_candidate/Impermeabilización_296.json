@@ -1,0 +1,245 @@
+{
+  "id": 296,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+  "http_status": 200,
+  "latency_ms": 23931,
+  "raw_response": {
+    "transcript": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar canal de hormigón en finca agrícola para almacenamiento de agua",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra en espacio abierto agrícola: verificar acceso maquinaria y condiciones climáticas",
+          "Canal de hormigón existente: inspección previa obligatoria para detectar grietas, filtraciones y estado estructural",
+          "Almacenamiento de agua: cumplir normativa de calidad de agua y drenaje según uso (riego, ganadería, etc.)",
+          "Materiales impermeabilizantes: seleccionar según exposición UV, temperatura y tipo de agua almacenada"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de estructura de hormigón para contención de agua. Oficio especializado en sistemas estancos."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Preparación de superficie, reparación de grietas y mortero de agarre previo a impermeabilización."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y diagnóstico del canal",
+          "descripcion": "Inspección visual completa del canal de hormigón, detección de grietas, filtraciones, estado de juntas y evaluación de capacidad portante. Incluye toma de muestras si es necesario.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según extensión del canal y complejidad del diagnóstico"
+        },
+        {
+          "concepto": "Limpieza y preparación de superficie",
+          "descripcion": "Vaciado del canal, limpieza mecánica de algas, sedimentos y materia orgánica. Cepillado y lavado a presión de paredes y fondo. Secado completo.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 a definir según dimensiones del canal (largo × (2 × altura + ancho fondo))"
+        },
+        {
+          "concepto": "Reparación de grietas y fisuras",
+          "descripcion": "Sellado de grietas con mortero hidrofugo de rápida fraguación. Incluye apertura de grieta si es necesario, limpieza y aplicación de mortero elástico.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml de grietas a definir tras inspección. Material: mortero hidrofugo cementoso"
+        },
+        {
+          "concepto": "Imprimación consolidante y selladora",
+          "descripcion": "Aplicación de imprimación consolidante en toda la superficie interior del canal. Mejora la adherencia y sella poros del hormigón. Incluye 2 manos si es necesario.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 según superficie total del canal. Material: imprimación epoxídica o poliuretánica"
+        },
+        {
+          "concepto": "Aplicación de membrana impermeabilizante",
+          "descripcion": "Aplicación de lámina impermeabilizante (EPDM, TPO o PVC de 1,5-2 mm) o proyección de poliurea según características del canal. Incluye solapamiento mínimo 10 cm en juntas.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 según superficie total. Seleccionar material según exposición UV y tipo de agua"
+        },
+        {
+          "concepto": "Instalación de membrana impermeabilizante",
+          "descripcion": "Mano de obra para colocación, soldadura (si es termofusible) o pegado de membrana impermeabilizante. Incluye sellado de juntas y solapamientos.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 a definir. Tarifa: 45€/m2 recomendado para impermeabilización"
+        },
+        {
+          "concepto": "Sellado de juntas y encuentros",
+          "descripcion": "Sellado de juntas de dilatación del hormigón y encuentros con paredes laterales mediante banda hidrofuga y silicona flexible de alta durabilidad. Incluye limpieza y preparación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml según número y longitud de juntas. Material: banda hidrofuga + silicona poliuretánica"
+        },
+        {
+          "concepto": "Protección de membrana (capa de arena o geotextil)",
+          "descripcion": "Colocación de capa de arena de 5 cm o geotextil de protección sobre la membrana impermeabilizante para evitar daños por radiación UV y manipulación.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 según superficie. Material: arena de río o geotextil de 300-500 g/m2"
+        },
+        {
+          "concepto": "Prueba de estanqueidad y llenado de prueba",
+          "descripcion": "Llenado parcial del canal con agua para verificar estanqueidad. Control de filtraciones durante 48 horas. Incluye medición de pérdidas de agua.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según volumen del canal y duración del control"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Incluye: adhesivos, selladores, cintas de enmascarar, EPI (guantes, mascarillas, gafas), herramientas menores, desinfectante para agua si aplica.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado: 150-300€ según alcance"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo: [impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico] — aunque es foso, la metodología de limpieza, imprimación, mortero hidrofugo y banda hidrofuga es aplicable a canales",
+        "Considerar si el canal requiere drenaje perimetral o sistema de achique en caso de filtraciones residuales",
+        "Verificar si el agua almacenada requiere tratamiento de potabilidad o desinfección (normativa local)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inspección y diagnóstico del canal",
+          "oficio": "impermeabilizacion",
+          "motivo": "Servicio especializado previo a impermeabilización en obra agrícola"
+        },
+        {
+          "concepto": "Reparación de grietas y fisuras",
+          "oficio": "albanileria",
+          "motivo": "Preparación específica para canales de hormigón con posibles daños estructurales"
+        },
+        {
+          "concepto": "Protección de membrana (capa de arena o geotextil)",
+          "oficio": "albanileria",
+          "motivo": "Protección UV específica para canales agrícolas en exterior"
+        },
+        {
+          "concepto": "Prueba de estanqueidad y llenado de prueba",
+          "oficio": "impermeabilizacion",
+          "motivo": "Control de calidad obligatorio en almacenamiento de agua"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_canaleta_de_recogida_agua_toldo_o_cubierta",
+      "instalacion_de_canaleta_de_drenaje_lineal",
+      "reparacion_averia_caldera_gas",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3827,
+      "tokens_out": 3324
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 1,
+    "n_sugeridas": 9,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

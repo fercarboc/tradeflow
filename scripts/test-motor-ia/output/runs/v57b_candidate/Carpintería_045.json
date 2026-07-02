@@ -1,0 +1,176 @@
+{
+  "id": 45,
+  "oficio": "Carpintería",
+  "texto": "Instalación de tarima flotante de madera maciza de roble en salón y dos dormitorios, 60 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 13362,
+  "raw_response": {
+    "transcript": "Instalación de tarima flotante de madera maciza de roble en salón y dos dormitorios, 60 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de tarima flotante de madera maciza de roble en salón y dos dormitorios, 60 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar estado y planitud del soporte (máximo 3mm de desviación bajo regla de 2m)",
+          "Aclimatación de la tarima: 48-72h en obra OBLIGATORIA antes de instalar",
+          "Junta perimetral de 10-12mm OBLIGATORIA en todo el perímetro"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de tarima flotante de madera maciza - oficio de carpintería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Tarima maciza de roble, calidad primera, espesor 20mm",
+          "descripcion": "Suministro de tarima flotante de madera maciza de roble, calidad primera, espesor 20mm, incluyendo mermas del 5-10%",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tarima maciza de roble a definir por instalador según proveedor y calidad"
+        },
+        {
+          "concepto": "Lámina aislante con barrera de vapor integrada",
+          "descripcion": "Suministro e instalación de lámina aislante de espuma o combinada con barrera de vapor integrada, espesor 2-3mm, para flotante",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lámina aislante a definir por instalador"
+        },
+        {
+          "concepto": "Junta perimetral de 10-12mm",
+          "descripcion": "Suministro e instalación de junta perimetral de 10-12mm en todo el perímetro de las estancias (salón y dos dormitorios), incluyendo pequeño material de fijación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de perímetro a medir en obra; precio a definir por instalador"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Pequeño material: cuñas de nivelación, topes de expansión, clavos, tornillos, adhesivos puntuales si aplica",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado a definir por instalador según necesidades"
+        },
+        {
+          "concepto": "Instalación de tarima flotante maciza de roble",
+          "descripcion": "Mano de obra: preparación del soporte, colocación de lámina aislante, instalación de tarima flotante con sistema click, colocación de juntas perimetrales y pequeño material. Incluye aclimatación previa de 48-72h",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 45,
+          "total": 2700,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rodapié de madera de roble (opcional)",
+          "descripcion": "Suministro e instalación de rodapié de madera de roble, altura 7-10cm, en perímetro de estancias",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Opcional; cantidad de perímetro a medir en obra; precio a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2700,
+        "iva_porcentaje": 21,
+        "iva": 567,
+        "total": 3267
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_tarima_maciza_pegada' o 'instalacion_tarima_flotante_o_parquet_click' para rangos de precio de mano de obra (120-650€/m2 según complejidad y acabados)",
+        "Considerar si incluye rodapié o transiciones entre pavimentos en puertas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Tarima maciza de roble",
+          "oficio": "carpinteria",
+          "motivo": "Material específico; precio a definir por instalador según proveedor"
+        },
+        {
+          "concepto": "Lámina aislante con barrera de vapor",
+          "oficio": "carpinteria",
+          "motivo": "Material específico; precio a definir por instalador"
+        },
+        {
+          "concepto": "Junta perimetral 10-12mm",
+          "oficio": "carpinteria",
+          "motivo": "Cantidad a medir en obra; precio a definir"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "carpinteria",
+          "motivo": "Importe estimado a definir por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_solado_de_madera_maciza_flotante_ingenieria_o_click",
+      "colocacion_parquet_ingenieria_pegado_o_flotante",
+      "instalacion_tarima_flotante_o_parquet_click",
+      "instalacion_suelo_vinilico_o_lvt_click",
+      "instalacion_tarima_maciza_pegada"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3987,
+      "tokens_out": 1895
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "id": 86,
+  "oficio": "Albañilería",
+  "texto": "Levantar tabique de pladur para dividir habitación grande en dos, longitud 4 metros con puerta",
+  "http_status": 200,
+  "latency_ms": 12167,
+  "raw_response": {
+    "transcript": "Levantar tabique de pladur para dividir habitación grande en dos, longitud 4 metros con puerta",
+    "quote": {
+      "resumen": {
+        "texto_original": "Levantar tabique de pladur para dividir habitación grande en dos, longitud 4 metros con puerta",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 65
+          },
+          "motivo": "Construcción de tabique divisorio de pladur con estructura metálica"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Instalación de marco y puerta en tabique de pladur"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estructura metálica tabique pladur",
+          "descripcion": "Perfiles canal y montante galvanizados 70mm, arriostramientos, tornillería reforzada para tabique divisorio de 4m de longitud",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material estructura metálica - instalador debe confirmar precio según proveedor y altura real del tabique"
+        },
+        {
+          "concepto": "Placa de yeso laminado 15mm",
+          "descripcion": "Placas de yeso laminado estándar 15mm para ambas caras del tabique, 4m x altura estándar (2,6m aprox)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20.8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material placas yeso - instalador debe confirmar precio y cantidad según altura real"
+        },
+        {
+          "concepto": "Cinta de juntas, pasta y pequeño material",
+          "descripcion": "Cinta de papel, pasta de juntas, angulo metálico esquinas, tornillería, espuma poliuretano sellado perimetral",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales auxiliares - instalador debe confirmar precio según cantidad real de juntas"
+        },
+        {
+          "concepto": "Montaje estructura y colocación placas",
+          "descripcion": "Instalación de estructura metálica, colocación de placas de yeso en ambas caras, tratamiento de juntas y acabado liso",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 35,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Marco de puerta en tabique pladur",
+          "descripcion": "Marco o cerco de madera/aluminio adaptado al grosor del tabique (aprox. 10cm con doble placa), fijación a estructura metálica, tapetas ambas caras, espuma poliuretano sellado perimetral",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Marco de puerta - instalador debe confirmar tipo, material y precio según especificaciones"
+        },
+        {
+          "concepto": "Instalación marco y puerta",
+          "descripcion": "Colocación de marco en tabique, fijación a estructura metálica del tabique, instalación de puerta, ajuste y regulación",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 400,
+        "iva_porcentaje": 21,
+        "iva": 84,
+        "total": 484
+      },
+      "sugerencias_catalogo": [
+        "Confirmar altura real del tabique para ajustar cantidad de placas y estructura",
+        "Especificar tipo de puerta (madera maciza, tablero, cristal, etc.) para presupuestar marco y hoja",
+        "Considerar si se requiere aislamiento acústico (lana mineral) entre caras para mayor privacidad",
+        "Verificar si la habitación requiere toma de corriente o interruptor en el nuevo tabique"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "instalacion_de_marcos_de_puertas_en_pared_de_pladur",
+      "tabique_pladur_separacion_zona_oficina",
+      "tabique_pladur_en_local_comercial_o_bar",
+      "tabique_pladur_para_ducha_o_plato_de_ducha"
+    ],
+    "kb_score": 4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3928,
+      "tokens_out": 1653
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "NO"
+  }
+}

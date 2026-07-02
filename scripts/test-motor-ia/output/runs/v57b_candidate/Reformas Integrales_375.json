@@ -1,0 +1,398 @@
+{
+  "id": 375,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de cocina semi-abierta al salón, derribo de tabique, nueva cocina en U con isla central",
+  "http_status": 200,
+  "latency_ms": 32454,
+  "raw_response": {
+    "transcript": "Reforma de cocina semi-abierta al salón, derribo de tabique, nueva cocina en U con isla central",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de cocina semi-abierta al salón, derribo de tabique, nueva cocina en U con isla central",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Derribo de tabique requiere verificación estructural previa (posible carga)",
+          "Reforma integral con 4+ oficios: albanilería, fontanería, electricidad, carpintería",
+          "Presupuesto de materiales (muebles, electrodomésticos) pendiente de especificación del cliente",
+          "Instalación de gas (si cocina/vitro gas) no incluida en esta estimación"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: derribo estructural + fontanería + electricidad + carpintería + acabados simultáneos"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Derribo de tabique, reposición de estructura, apertura de paso"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación fontanería cocina completa: fregadero, lavavajillas, tomas agua fría/caliente"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Circuitos cocina REBT: vitrocerámica, horno, lavavajillas, frigorífico, iluminación, enchufes"
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Muebles cocina en U con isla, encimera, puertas, remates"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado frente cocina y solado nuevo cocina-salón integrado"
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura paredes y techo tras apertura y reposición"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Derribo de tabique y apertura de paso",
+          "descripcion": "Derribo completo de tabique divisorio entre cocina y salón, retirada de escombros, limpieza de zona, reposición de estructura de carga si aplica (viga/dintel)",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Requiere inspección previa de estructura y carga del tabique"
+        },
+        {
+          "concepto": "Reposición de fábrica y nivelación de suelo",
+          "descripcion": "Reparación de zonas afectadas por derribo, reposición de fábrica, nivelación de suelo para transición cocina-salón, mortero de nivelación",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 40,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación fontanería cocina completa",
+          "descripcion": "Tuberías multicapa agua fría/caliente, fregadero con sifón, toma lavavajillas, desagüe completo, llaves paso independientes, latiguillos, pequeño material",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 250,
+          "total": 250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales fontanería cocina",
+          "descripcion": "Tubo multicapa, racores, llaves paso, sifón, latiguillos, pequeño material fontanería",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales pendiente de especificación (longitud tuberías, tipo grifo, lavavajillas)"
+        },
+        {
+          "concepto": "Instalación eléctrica cocina REBT",
+          "descripcion": "Circuitos independientes: vitrocerámica (6mm²), horno (4mm²), lavavajillas (2.5mm²), frigorífico (2.5mm²), iluminación, enchufes cocina, pequeño material, prueba de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 280,
+          "total": 280,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales eléctricos cocina",
+          "descripcion": "Cable 6mm², 4mm², 2.5mm², diferenciales, magnetotérmicos, enchufes, interruptores, luminarias, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales eléctricos pendiente de especificación (tipo electrodomésticos, número enchufes)"
+        },
+        {
+          "concepto": "Muebles cocina en U con isla central",
+          "descripcion": "Fabricación e instalación de muebles cocina en U con isla central, puertas, herrajes, remates, anclaje a pared",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 4,
+          "precio_unitario": 360,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de muebles (material, acabado, dimensiones) pendiente de especificación del cliente"
+        },
+        {
+          "concepto": "Encimera cocina",
+          "descripcion": "Suministro e instalación de encimera (granito, cuarzo, laminado u otro material), cortes para fregadero y electrodomésticos, sellado y remates",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de encimera pendiente: material, metraje lineal, tipo de acabado"
+        },
+        {
+          "concepto": "Alicatado frente cocina",
+          "descripcion": "Alicatado de pared frente cocina (azulejo/cerámica), mortero cola C2 flexible, lechada epoxi en juntas, perfiles aluminio esquinas, junta silicona encuentros",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 32,
+          "total": 256,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales alicatado frente cocina",
+          "descripcion": "Azulejo/cerámica, mortero cola C2 flexible, lechada epoxi, perfiles aluminio, silicona, crucetas, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales alicatado pendiente: tipo azulejo, metraje exacto"
+        },
+        {
+          "concepto": "Solado nuevo cocina-salón",
+          "descripcion": "Solado de baldosa/porcelánico en zona cocina y transición salón, mortero cola C2 flexible, lechada epoxi, rodapié, perfiles de transición",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 32,
+          "total": 576,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales solado cocina-salón",
+          "descripcion": "Baldosa/porcelánico, mortero cola C2 flexible, lechada epoxi, rodapié, perfiles transición, pequeño material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de materiales solado pendiente: tipo baldosa, metraje exacto"
+        },
+        {
+          "concepto": "Pintura paredes y techo",
+          "descripcion": "Preparación de superficies, masillado, pintura de paredes y techo en cocina y zona salón integrada, 2 manos, acabado mate o satinado",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 60,
+          "precio_unitario": 8,
+          "total": 480,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales pintura",
+          "descripcion": "Pintura plástica, masilla, imprimación, rodillos, brochas, pequeño material",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de pintura pendiente: tipo acabado, color"
+        },
+        {
+          "concepto": "Extractor/campana extractora",
+          "descripcion": "Suministro e instalación de campana extractora o extractor de cocina, conducto de salida al exterior, pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto de campana/extractor pendiente: tipo, potencia, salida exterior"
+        },
+        {
+          "concepto": "Gestión de residuos y limpieza final",
+          "descripcion": "Retirada de escombros, residuos de obra, limpieza general de la zona, transporte a gestor autorizado",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 150,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 5773,
+        "iva_porcentaje": 21,
+        "iva": 1212.33,
+        "total": 6985.33
+      },
+      "sugerencias_catalogo": [
+        "Especificar tipo de muebles cocina (melamina, lacado, madera maciza) para presupuesto exacto",
+        "Confirmar material encimera (granito, cuarzo, laminado) y metraje lineal",
+        "Definir tipo de baldosa/porcelánico para solado y alicatado",
+        "Indicar si cocina es vitrocerámica, inducción o gas (afecta a instalación eléctrica y gas)",
+        "Especificar electrodomésticos incluidos (horno, lavavajillas, frigorífico, campana)",
+        "Confirmar si hay que instalar gas (vitrocerámica/cocina gas) → requiere instalador gas especializado",
+        "Verificar si tabique es de carga → requiere cálculo estructural y viga de apoyo"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Materiales fontanería cocina",
+          "oficio": "fontaneria",
+          "motivo": "Presupuesto de materiales específicos pendiente de especificación"
+        },
+        {
+          "concepto": "Materiales eléctricos cocina",
+          "oficio": "electricidad",
+          "motivo": "Presupuesto de materiales específicos pendiente de especificación"
+        },
+        {
+          "concepto": "Encimera cocina",
+          "oficio": "carpinteria",
+          "motivo": "Material y metraje pendiente de especificación del cliente"
+        },
+        {
+          "concepto": "Materiales alicatado frente cocina",
+          "oficio": "suelos_alicatados",
+          "motivo": "Tipo de azulejo y metraje pendiente de especificación"
+        },
+        {
+          "concepto": "Materiales solado cocina-salón",
+          "oficio": "suelos_alicatados",
+          "motivo": "Tipo de baldosa y metraje pendiente de especificación"
+        },
+        {
+          "concepto": "Materiales pintura",
+          "oficio": "pintura",
+          "motivo": "Tipo de pintura y acabado pendiente de especificación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_cocina_completa",
+      "alicatado_y_solado_completo_cocina",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_cocina_completa_fontaneria",
+      "instalacion_electrica_cocina_completa"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3769,
+      "tokens_out": 5155
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 16,
+    "n_catalogo": 10,
+    "n_sugeridas": 6,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

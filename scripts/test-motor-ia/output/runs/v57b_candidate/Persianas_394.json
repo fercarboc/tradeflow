@@ -1,0 +1,158 @@
+{
+  "id": 394,
+  "oficio": "Persianas",
+  "texto": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+  "http_status": 200,
+  "latency_ms": 18005,
+  "raw_response": {
+    "transcript": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Toldo corredero para patio de vecinos, estructura aluminio y tela acrílica, 4x3 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Toldo corredero de gran formato (12 m²) en zona común: verificar licencia municipal y normativa de comunidad de vecinos",
+          "Estructura aluminio en patio: confirmar anclajes al suelo o fijación a estructura existente",
+          "Sensor de viento recomendado para sistema motorizado de seguridad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de toldo corredero motorizado, estructura aluminio, fijación y pruebas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Toldo corredero motorizado 4x3 m, estructura aluminio",
+          "descripcion": "Suministro de toldo corredero motorizado de 4 metros de ancho x 3 metros de vuelo, estructura aluminio anodizado, tela acrílica tratada UV, motor eléctrico 230V, mando a distancia, sensor de viento integrado",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de alto valor: instalador debe confirmar marca, modelo, motor y accesorios incluidos. Rango estimado 1200-2500€ según especificaciones"
+        },
+        {
+          "concepto": "Instalación toldo corredero motorizado",
+          "descripcion": "Montaje estructura aluminio, fijación a elementos existentes o anclajes al suelo, conexión eléctrica motor 230V, pruebas de funcionamiento, ajuste de sensor de viento",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios instalación",
+          "descripcion": "Tornillería, tacos, bridas, cinta de empalme, silicona, masilla, material fungible para fijación y acabados",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 80-150€ según accesorios y fijaciones necesarias"
+        },
+        {
+          "concepto": "Conexión eléctrica motor toldo",
+          "descripcion": "Instalación línea eléctrica 230V desde cuadro existente, cableado protegido, enchufe o conexión directa, interruptor de control, pruebas de seguridad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material eléctrico (cable, protecciones, interruptor)",
+          "descripcion": "Cable 3x2.5 mm² H07V-K, tubo corrugado, interruptor diferencial, magnetotérmico, pequeño material eléctrico",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado 60-120€ según longitud de línea y protecciones requeridas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 510,
+        "iva_porcentaje": 21,
+        "iva": 107.1,
+        "total": 617.1
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_toldo_terraza_bar_o_restaurante' (aplicable a patios comunitarios con estructura similar)",
+        "Considerar: sensor de viento como accesorio obligatorio en sistemas motorizados para seguridad ante ráfagas",
+        "Recomendación: solicitar presupuesto separado de electricista para línea dedicada si no existe toma cercana"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Toldo corredero motorizado 4x3 m, estructura aluminio",
+          "oficio": "persianas",
+          "motivo": "Material específico de alto valor no desglosado en catálogo base. Requiere especificación de marca/modelo por instalador"
+        },
+        {
+          "concepto": "Pequeño material y accesorios instalación",
+          "oficio": "persianas",
+          "motivo": "Partida auxiliar estándar para fijaciones y acabados en instalación de toldos"
+        },
+        {
+          "concepto": "Material eléctrico (cable, protecciones, interruptor)",
+          "oficio": "electricidad",
+          "motivo": "Suministro de componentes eléctricos para conexión motor. Precio pendiente de confirmación según distancia y protecciones"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_faldones_o_cenefas_para_toldo",
+      "instalacion_toldo_para_escenario_o_cubierta_de_eventos",
+      "instalacion_toldo_de_brazos_extensibles_manual",
+      "instalacion_estor_enrollable_interior",
+      "instalacion_toldo_terraza_bar_o_restaurante"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3922,
+      "tokens_out": 2140
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

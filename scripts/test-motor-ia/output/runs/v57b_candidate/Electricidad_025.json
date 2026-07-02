@@ -1,0 +1,126 @@
+{
+  "id": 25,
+  "oficio": "Electricidad",
+  "texto": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+  "http_status": 200,
+  "latency_ms": 8730,
+  "raw_response": {
+    "transcript": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner 4 enchufes nuevos en el salón y uno en la cocina para microondas independiente",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si la instalación requiere circuito independiente para el microondas (recomendado 16A dedicado)",
+          "Confirmar si hay canalización existente o si requiere rotura de paredes"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Instalación de enchufes nuevos, trabajo eléctrico estándar"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Instalación de enchufes nuevos en salón",
+          "descripcion": "Suministro e instalación de 4 enchufes nuevos en salón, incluyendo caja de empotrar, mecanismo, placa, tornillería y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Enchufes nuevos - material",
+          "descripcion": "4 enchufes simples 16A, cajas de empotrar, placas, tornillería inox y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según marca y calidad"
+        },
+        {
+          "concepto": "Instalación de enchufe independiente para microondas en cocina",
+          "descripcion": "Suministro e instalación de 1 enchufe 16A independiente en cocina para microondas, incluyendo caja de empotrar, mecanismo, placa, tornillería y pequeño material. Circuito dedicado recomendado",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Enchufe microondas - material",
+          "descripcion": "1 enchufe 16A, caja de empotrar, placa, tornillería inox y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según marca y calidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 250,
+        "iva_porcentaje": 21,
+        "iva": 52.5,
+        "total": 302.5
+      },
+      "sugerencias_catalogo": [
+        "Si la instalación requiere rotura de paredes o canalización nueva, considerar presupuesto adicional de albañilería",
+        "Para el enchufe del microondas, verificar si necesita circuito independiente con protección diferencial 30mA (recomendado para electrodomésticos de potencia)"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones",
+      "instalacion_electrica_local_hosteleria",
+      "instalacion_mampara_ducha",
+      "instalacion_vidrio_de_seguridad_templado",
+      "tabique_pladur_con_caja_mecanismos_electricos_empotrada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3649,
+      "tokens_out": 1167
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

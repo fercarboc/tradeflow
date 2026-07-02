@@ -7,7 +7,7 @@ from collections import Counter, defaultdict
 
 BASE_DIR = r'c:/tradeflow/scripts/test-motor-ia/output'
 V56_DIR  = os.path.join(BASE_DIR, 'benchmark_v56_full')
-V57_DIR  = os.path.join(BASE_DIR, 'runs/v57_candidate')
+V57_DIR  = os.path.join(BASE_DIR, 'runs/v57b_candidate')
 
 CATS    = ['OK_CATALOGO','OK_MIXTO','SOLO_SUGERIDAS','VACIO','TRUNCADO','ERROR_TECNICO','PRECIO_INVALIDO']
 OK_CATS = {'OK_CATALOGO','OK_MIXTO'}

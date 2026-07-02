@@ -1,0 +1,185 @@
+{
+  "id": 134,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 19546,
+  "raw_response": {
+    "transcript": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar gotera en cubierta plana mediante proyección de poliurea, superficie afectada 10 metros cuadrados",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Reparación puntual de gotera: se recomienda diagnóstico previo del origen real de la filtración (el agua puede entrar lejos del punto visible)",
+          "Proyección de poliurea es solución de alto rendimiento; verificar que el estado general de la cubierta justifica esta inversión vs. reparación provisional",
+          "Superficie 10 m²: si la cubierta tiene deterioro generalizado, esta reparación puntual puede ser provisional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reparación de gotera en cubierta plana con proyección de poliurea (impermeabilización especializada)"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y saneo de zona afectada por gotera",
+          "descripcion": "Inspección visual de origen de la gotera, localización de punto de entrada real, limpieza y saneo de la zona afectada (10 m²), retirada de material deteriorado, secado y preparación de superficie",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 15,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación y preparación de superficie para poliurea",
+          "descripcion": "Aplicación de imprimación adherente/promotor de adhesión en superficie de 10 m² para garantizar agarre óptimo de la proyección de poliurea",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material imprimación: precio pendiente de revisión (estimado 5-12€/m²)"
+        },
+        {
+          "concepto": "Proyección de poliurea elastómera en cubierta plana",
+          "descripcion": "Proyección de sistema poliurea de dos componentes (A+B) en superficie de 10 m² con espesor mínimo 2-3 mm, formando membrana elástica e impermeable continua. Incluye refuerzo en bordes y encuentros críticos",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material poliurea proyectada: precio pendiente de revisión (estimado 40-80€/m² según espesor y marca)"
+        },
+        {
+          "concepto": "Mano de obra proyección de poliurea",
+          "descripcion": "Aplicación mediante equipo de proyección de poliurea en 10 m² de cubierta plana, incluyendo preparación de equipo, proyección controlada, acabado y limpieza de herramientas",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 10,
+          "precio_unitario": 35,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Refuerzo de bordes, juntas y encuentros críticos",
+          "descripcion": "Refuerzo adicional de poliurea en bordes de reparación, juntas de dilatación y encuentros con petos/muros para garantizar estanqueidad total y evitar filtraciones laterales",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material refuerzo (cinta, sellador, poliurea adicional): precio pendiente de revisión (estimado 8-15€/ml)"
+        },
+        {
+          "concepto": "EPI y pequeño material de proyección",
+          "descripcion": "Equipos de protección individual (traje protector, gafas, guantes, mascarilla), pequeño material fungible (trapos, disolvente limpieza, cinta de enmascarar), herramientas menores",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "EPI y consumibles: precio pendiente de revisión (estimado 80-150€ por jornada)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 500,
+        "iva_porcentaje": 21,
+        "iva": 105,
+        "total": 605
+      },
+      "sugerencias_catalogo": [
+        "Partida 'Diagnóstico y saneo de zona afectada por gotera' → Buscar en catálogo 'reparacion_puntual_de_gotera_en_cubierta_plana' (partida obligatoria: diagnostico_origen_real_de_la_gotera)",
+        "Partida 'Proyección de poliurea elastómera' → Buscar 'impermeabilizacion_con_proyeccion_poliurea_cubierta' o 'membrana_liquida_poliurea_cubierta_plana'",
+        "Partida 'Refuerzo de bordes y encuentros' → Buscar 'refuerzo_bordes_reparacion_impermeabilizacion' o 'sellado_juntas_cubierta_plana'"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación y preparación de superficie para poliurea",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "motivo": "Material específico para preparación de superficie antes de proyección de poliurea; no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Proyección de poliurea elastómera en cubierta plana",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "motivo": "Material poliurea proyectada; aunque existe 'impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana' en catálogo, la proyección de poliurea es técnica especializada no explícitamente listada"
+        },
+        {
+          "concepto": "Refuerzo de bordes, juntas y encuentros críticos",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "motivo": "Refuerzo específico para reparación puntual con poliurea; partida auxiliar de 'reparacion_puntual_de_gotera_en_cubierta_plana'"
+        },
+        {
+          "concepto": "EPI y pequeño material de proyección",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "motivo": "Consumibles y EPI específicos para proyección de poliurea; partida obligatoria en reparación de goteras"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_junta_de_dilatacion_de_cubierta_plana",
+      "impermeabilizacion_de_peto_o_murete_de_cubierta_plana",
+      "reparacion_puntual_de_gotera_en_cubierta_plana",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas"
+    ],
+    "kb_score": 3.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3918,
+      "tokens_out": 2693
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

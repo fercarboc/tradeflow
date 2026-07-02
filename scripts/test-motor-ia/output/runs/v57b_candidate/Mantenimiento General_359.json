@@ -1,0 +1,169 @@
+{
+  "id": 359,
+  "oficio": "Mantenimiento General",
+  "texto": "Cambio de luminarias de emergencia caducadas en escaleras y pasillos de edificio, 20 unidades",
+  "http_status": 200,
+  "latency_ms": 15029,
+  "raw_response": {
+    "transcript": "Cambio de luminarias de emergencia caducadas en escaleras y pasillos de edificio, 20 unidades",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de luminarias de emergencia caducadas en escaleras y pasillos de edificio, 20 unidades",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Las luminarias de emergencia caducadas deben cumplir normativa CTE DB-SI y UNE 20392. Verificar que las nuevas unidades incluyen certificación de homologación.",
+          "Gestión de residuos de luminarias antiguas: pueden contener componentes regulados (balastos, mercurio en algunos modelos antiguos). Incluir en presupuesto si no está cubierto."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de luminarias de emergencia, desmontaje de unidades antiguas, conexión eléctrica y pruebas de funcionamiento."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de luminarias de emergencia caducadas",
+          "descripcion": "Desmontaje y retirada de 20 luminarias de emergencia antiguas/caducadas de escaleras y pasillos, incluyendo desconexión eléctrica segura.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 12,
+          "total": 240,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de luminarias de emergencia homologadas",
+          "descripcion": "Suministro de 20 luminarias de emergencia nuevas, homologadas CTE DB-SI, UNE 20392, con autonomía mínima 3 horas, flujo luminoso según normativa (mínimo 5 lux en recorridos de evacuación).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de luminaria de emergencia a definir por instalador según marca, modelo y especificaciones técnicas (LED vs fluorescente, batería integrada, etc.). Rango orientativo: 35-120€/ud."
+        },
+        {
+          "concepto": "Instalación de luminarias de emergencia",
+          "descripcion": "Instalación de 20 luminarias de emergencia en escaleras y pasillos: fijación mecánica, conexión eléctrica a circuito de emergencia, prueba de funcionamiento en modo normal y autónomo.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 18,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material eléctrico (conectores, tornillería, cinta aislante)",
+          "descripcion": "Pequeño material necesario para instalación: conectores rápidos, tornillería, cinta aislante, bridas, etc.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado: 30-50€ en total para 20 unidades. A revisar según consumibles reales."
+        },
+        {
+          "concepto": "Gestión de residuos de luminarias antiguas",
+          "descripcion": "Retirada, transporte y gestión de residuos de 20 luminarias de emergencia caducadas. Cumplimiento normativa RAEE si aplica.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a definir según gestor de residuos. Rango orientativo: 2-5€/ud (40-100€ total). Algunas luminarias antiguas pueden contener componentes regulados."
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y certificación",
+          "descripcion": "Pruebas de funcionamiento en modo normal y autónomo de todas las luminarias instaladas. Verificación de autonomía, iluminancia y cumplimiento normativo. Generación de acta de conformidad.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 700,
+        "iva_porcentaje": 21,
+        "iva": 147,
+        "total": 847
+      },
+      "sugerencias_catalogo": [
+        "Verificar que las luminarias seleccionadas cumplen CTE DB-SI (Seguridad en caso de incendio) y UNE 20392 (Luminarias de emergencia).",
+        "Considerar luminarias LED de bajo consumo con batería integrada para reducir mantenimiento futuro.",
+        "Documentar el cambio con fotografías antes/después y acta de conformidad para archivo de mantenimiento del edificio.",
+        "Si el edificio tiene más de 500 m² o es de uso público, verificar si requiere plan de autoprotección técnico (RD 393/2007)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de luminarias de emergencia homologadas",
+          "motivo": "Material específico cuyo precio depende de marca, modelo y especificaciones. Instalador debe introducir precio unitario."
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "motivo": "Consumibles varios. Instalador debe revisar importe total."
+        },
+        {
+          "concepto": "Gestión de residuos de luminarias antiguas",
+          "motivo": "Servicio de gestión de RAEE. Precio variable según gestor autorizado."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_iluminacion_led_completa",
+      "pintura_reflectante_o_fosforescente_senalizacion",
+      "sustitucion_termo_electrico",
+      "instalacion_plan_de_autoproteccion_y_señalizacion",
+      "instalacion_de_barra_antipánico"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3745,
+      "tokens_out": 1957
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

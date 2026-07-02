@@ -1,0 +1,106 @@
+{
+  "id": 40,
+  "oficio": "Electricidad",
+  "texto": "Revisión y certificado de instalación eléctrica para local comercial que pide la aseguradora",
+  "http_status": 200,
+  "latency_ms": 9192,
+  "raw_response": {
+    "transcript": "Revisión y certificado de instalación eléctrica para local comercial que pide la aseguradora",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y certificado de instalación eléctrica para local comercial que pide la aseguradora",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Servicio de inspección/certificación: el instalador debe verificar si incluye informe escrito, fotografías y boletín oficial",
+          "Confirmar si la aseguradora requiere certificado de conformidad (Boletín Oficial) o solo informe técnico",
+          "Tiempo estimado depende de la complejidad y tamaño del local"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Revisión, inspección y certificación de instalación eléctrica en local comercial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y certificación de instalación eléctrica",
+          "descripcion": "Inspección completa de la instalación eléctrica del local comercial, verificación de seguridad, continuidad, toma de tierra, protecciones diferenciales, estado de cuadro eléctrico, cableado y puntos de conexión. Elaboración de informe técnico y certificado de conformidad para aseguradora.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Boletín Oficial de Conformidad (si aplica)",
+          "descripcion": "Emisión de Boletín Oficial de Conformidad de la instalación eléctrica según normativa vigente (RBT 2002 o posterior). Documento requerido por aseguradora.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del boletín/certificado a definir por instalador según tarifa de colegio profesional o empresa"
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con el cliente/aseguradora si el certificado debe ser Boletín Oficial (REBT) o informe técnico simple",
+        "Solicitar planos o esquema eléctrico del local para optimizar tiempo de revisión",
+        "Verificar si hay deficiencias que requieran reparaciones adicionales (no incluidas en este presupuesto)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Boletín Oficial de Conformidad",
+          "oficio": "electricidad",
+          "motivo": "Documento administrativo requerido por aseguradora; precio variable según colegio profesional"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "instalacion_iluminacion_comercial_led",
+      "tabique_pladur_en_local_comercial_o_bar",
+      "instalacion_toldo_terraza_bar_o_restaurante",
+      "pintado_locales_comerciales_y_tiendas"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3860,
+      "tokens_out": 973
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 2,
+    "n_catalogo": 1,
+    "n_sugeridas": 1,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

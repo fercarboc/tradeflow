@@ -1,0 +1,201 @@
+{
+  "id": 291,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 20037,
+  "raw_response": {
+    "transcript": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar cubierta de nave industrial con poliurea proyectada, 500 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Impermeabilización de gran superficie (500 m²) — verificar acceso, andamiaje y condiciones meteorológicas",
+          "Poliurea proyectada requiere equipo especializado y personal certificado",
+          "Presupuesto de materiales pendiente de revisión según proveedor y especificaciones técnicas"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización de cubierta con membrana líquida (poliurea proyectada) — oficio especializado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza mecánica y preparación de cubierta",
+          "descripcion": "Limpieza de suciedad, óxido, algas y restos de impermeabilización anterior. Cepillado mecánico y soplado con aire comprimido. Reparación de grietas y fisuras menores.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 3,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación antioxidante y adherente",
+          "descripcion": "Aplicación de imprimación epoxídica o poliuretánica de dos componentes para mejorar adherencia de poliurea. Cobertura uniforme en toda la superficie.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado — instalador debe cotizar imprimación epoxídica/poliuretánica de dos componentes (aprox. 0,5-1 kg/m²)"
+        },
+        {
+          "concepto": "Aplicación de membrana de poliurea proyectada",
+          "descripcion": "Proyección de poliurea de dos componentes (isocianato + poliol) con equipo de pulverización de alta presión. Espesor mínimo 2 mm. Incluye mano de obra especializada y equipo de proyección.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 25,
+          "total": 12500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de poliurea proyectada (2 componentes)",
+          "descripcion": "Poliurea de dos componentes (isocianato + poliol) de calidad industrial, apta para cubiertas. Espesor 2 mm = aprox. 10 kg/m². Total estimado: 5.000 kg.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 5000,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado — instalador debe cotizar poliurea de dos componentes (aprox. 8-15 €/kg según calidad y proveedor)"
+        },
+        {
+          "concepto": "Refuerzo de solapes, encuentros y puntos singulares",
+          "descripcion": "Refuerzo con malla de fibra de vidrio o cinta de poliurea en solapes, encuentros con petos, chimeneas, lucernarios y puntos de penetración. Sellado flexible con sellador poliuretánico.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 35,
+          "total": 1750,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Materiales auxiliares (malla, sellador, pequeño material)",
+          "descripcion": "Malla de fibra de vidrio, sellador poliuretánico, disolvente, trapos, cinta de enmascarar, pequeño material de aplicación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Materiales auxiliares — instalador debe cotizar (aprox. 500-1.000 € para 500 m²)"
+        },
+        {
+          "concepto": "EPI, línea de vida y medidas de seguridad",
+          "descripcion": "Equipos de protección individual (arnés, línea de vida, casco, gafas, guantes, mascarilla respiratoria para vapores de isocianato), andamiaje o plataforma de trabajo segura.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 10,
+          "precio_unitario": 45,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección y pruebas de estanqueidad",
+          "descripcion": "Inspección visual de toda la superficie, prueba de estanqueidad con agua (si es posible) o prueba de adherencia. Documentación de conformidad.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 16560,
+        "iva_porcentaje": 21,
+        "iva": 3477.6,
+        "total": 20037.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la cubierta tiene petos, chimeneas o lucernarios — pueden requerir refuerzo adicional",
+        "Confirmar espesor de poliurea requerido (2 mm es estándar; algunos proyectos requieren 3-4 mm)",
+        "Considerar pintura reflectante blanca sobre poliurea si se requiere reducción de temperatura interior",
+        "Poliurea proyectada es muy sensible a condiciones meteorológicas — evitar lluvia, humedad >85% y temperaturas <5°C"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación antioxidante y adherente",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material especializado de dos componentes — no en catálogo base"
+        },
+        {
+          "concepto": "Suministro de poliurea proyectada (2 componentes)",
+          "oficio": "impermeabilizacion",
+          "motivo": "Material especializado — requiere cotización específica según proveedor y especificaciones técnicas"
+        },
+        {
+          "concepto": "Materiales auxiliares (malla, sellador, pequeño material)",
+          "oficio": "impermeabilizacion",
+          "motivo": "Conjunto de materiales auxiliares — requiere cotización según cantidad y tipo específico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_cubierta_metalica_con_membrana_liquida",
+      "instalacion_cubierta_de_fibrocemento_ondulado_o_plano",
+      "impermeabilizacion_peto_o_murete_de_cubierta",
+      "instalacion_puerta_enrollable_rapida_industrial",
+      "impermeabilizacion_de_chimenea_y_encuentro_con_cubierta"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3999,
+      "tokens_out": 2712
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "id": 230,
+  "oficio": "Energía Solar",
+  "texto": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial de 1000 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 16423,
+  "raw_response": {
+    "transcript": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial de 1000 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial de 1000 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Estudio de viabilidad: requiere análisis de consumo real de la empresa (12 meses de facturas eléctricas)",
+          "Nave industrial 1000 m²: superficie potencial muy buena para FV, estimar ~40-60 kWp según orientación y sombras",
+          "Presupuesto final de instalación dependerá del resultado del estudio (rango típico 800-2600€/kWp)",
+          "Incluir análisis de ayudas disponibles (fondos europeos, subvenciones autonómicas, deducciones fiscales)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Estudio de viabilidad y presupuesto para instalación fotovoltaica en nave industrial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Visita técnica y medición en nave industrial",
+          "descripcion": "Desplazamiento a nave industrial de 1000 m², inspección de cubierta, orientación, estado estructural, acceso a instalaciones eléctricas existentes, toma de medidas con láser y documentación fotográfica del estado actual",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de consumo eléctrico y curva de carga",
+          "descripcion": "Recopilación y análisis de 12 meses de facturas eléctricas de la empresa, estudio de curva de carga horaria, identificación de picos de consumo, períodos de máxima demanda y potencial de autoconsumo",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Estudio de viabilidad técnica: orientación, sombras y superficie disponible",
+          "descripcion": "Análisis detallado de orientación de cubierta, cálculo de sombras (árboles, edificios adyacentes, chimeneas), determinación de superficie útil disponible para módulos fotovoltaicos, evaluación de resistencia estructural de cubierta industrial",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 350,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cálculo de producción estimada, ahorro anual y ROI",
+          "descripcion": "Simulación de producción fotovoltaica anual (kWh/año) basada en radiación solar de la zona, cálculo de ahorro económico anual, estimación de retorno de inversión (ROI típico 3-6 años en industrial), análisis de sensibilidad con variaciones de consumo",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 350,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de ayudas, subvenciones y opciones de financiación",
+          "descripcion": "Investigación de ayudas disponibles (fondos europeos Next Generation, subvenciones autonómicas/locales, deducciones fiscales, líneas de crédito ICO), comparativa de opciones de financiación, cálculo de impacto en ROI",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Propuesta de sistema fotovoltaico con opciones (con y sin baterías)",
+          "descripcion": "Elaboración de propuesta técnica detallada con dimensionado de potencia (kWp estimado 40-60 kWp para 1000 m²), selección de módulos y inversor, presentación de 2-3 opciones: sistema sin baterías (vertido a red), sistema con baterías (autoconsumo con almacenamiento), análisis comparativo de costes y beneficios",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 400,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Presupuesto desglosado por partidas técnicas",
+          "descripcion": "Elaboración de presupuesto detallado incluyendo: módulos fotovoltaicos, inversor trifásico, estructura soporte, cableado y protecciones, cuadro AC, legalización ante distribuidora, medidor bidireccional, mano de obra de instalación, pequeño material, imprevistos (10-15%), plazo de ejecución estimado",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 350,
+          "total": 350,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe ejecutivo con recomendaciones y próximos pasos",
+          "descripcion": "Redacción de informe ejecutivo con resumen de hallazgos, recomendaciones técnicas, cronograma de ejecución, requisitos administrativos (permisos, legalización ante distribuidora e industria), contactos de proveedores y gestores de ayudas, propuesta de contratación",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 2950,
+        "iva_porcentaje": 21,
+        "iva": 619.5,
+        "total": 3569.5
+      },
+      "sugerencias_catalogo": [
+        "Una vez aprobado el estudio, solicitar presupuesto de instalación fotovoltaica en nave industrial (rango 32000-156000€ para 40-60 kWp)",
+        "Considerar incluir en la siguiente fase: proyecto técnico obligatorio, legalización ante distribuidora e industria, sistema de monitorización avanzado",
+        "Si la empresa tiene consumo nocturno significativo, evaluar sistema de baterías (coste adicional 200-400€/kWh)"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_fotovoltaica_en_empresa_o_polígono_industrial",
+      "informe_y_presupuesto_sistema_solar",
+      "instalacion_fotovoltaica_para_sector_agricola_o_ganadero",
+      "planificacion_y_presupuesto_reforma_integral",
+      "diagnostico_y_presupuesto_proteccion_solar_edificio"
+    ],
+    "kb_score": 3.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4081,
+      "tokens_out": 2278
+    }
+  },
+  "classification": {
+    "category": "OK_CATALOGO",
+    "n_partidas": 8,
+    "n_catalogo": 8,
+    "n_sugeridas": 0,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

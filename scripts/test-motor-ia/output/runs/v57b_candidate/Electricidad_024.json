@@ -1,0 +1,237 @@
+{
+  "id": 24,
+  "oficio": "Electricidad",
+  "texto": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+  "http_status": 200,
+  "latency_ms": 23650,
+  "raw_response": {
+    "transcript": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar potencia contratada actual (mínimo 7,4 kW recomendado para wallbox 7kW)",
+          "Confirmar distancia entre cuadro general y punto de instalación en garaje",
+          "Validar tipo de diferencial (Tipo A obligatorio para carga vehículos eléctricos según REBT)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de punto de carga vehículo eléctrico con wallbox integrado en sistema eléctrico"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Circuito exclusivo, protecciones eléctricas y puesta a tierra según REBT"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Wallbox 7kW monofásico",
+          "descripcion": "Cargador de vehículo eléctrico modo 3, potencia 7kW, conexión monofásica, con cable integrado o conector tipo 2",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del wallbox depende de marca, funcionalidades (WiFi, gestión inteligente) y garantía. Rango típico: 400-900€"
+        },
+        {
+          "concepto": "Cable de derivación 6mm² desde cuadro a wallbox",
+          "descripcion": "Cable H07V-K 6mm² (mínimo para 7kW monofásico), longitud según distancia cuadro-garaje, con manguera protectora",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml pendiente de medición en obra. Precio típico: 1,5-3€/ml. Incluir 10-15% sobrante"
+        },
+        {
+          "concepto": "Magnetotérmico 40A monofásico",
+          "descripcion": "Interruptor automático 40A, 1 polo + neutro, curva C, para protección circuito wallbox",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico: 15-35€. Marca y calidad variable"
+        },
+        {
+          "concepto": "Diferencial Tipo A 40A",
+          "descripcion": "Interruptor diferencial Tipo A (sensible a corrientes alternas y continuas), 40A, obligatorio para carga vehículos eléctricos según REBT",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico: 40-80€. Tipo A es obligatorio (no tipo AC estándar)"
+        },
+        {
+          "concepto": "Toma de tierra y electrodo",
+          "descripcion": "Electrodo de cobre o acero cobrizado, cable de tierra 6mm², arqueta de registro y pequeño material para puesta a tierra del circuito",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico: 60-150€. Depende de profundidad perforación y tipo suelo"
+        },
+        {
+          "concepto": "Pequeño material eléctrico",
+          "descripcion": "Tubo corrugado, cajas de derivación, bornes, conectores, tornillería, cinta aislante y otros consumibles",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico: 30-60€"
+        },
+        {
+          "concepto": "Instalación de circuito exclusivo y protecciones",
+          "descripcion": "Mano de obra: tendido de cable desde cuadro general, instalación de magnetotérmico y diferencial, conexionado de toma de tierra, pruebas de continuidad y aislamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de wallbox y conexionado final",
+          "descripcion": "Mano de obra: fijación del wallbox en pared, conexionado de cable de derivación, conexión a tierra, pruebas de funcionamiento y configuración inicial",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rozas y reposición de paredes (si aplica)",
+          "descripcion": "Apertura de rozas en pared para paso de cable, reposición con mortero y pintura de acabado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Aplica solo si hay rozas necesarias. Si el cableado va por canaleta o tubo visto, no es necesario"
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y certificación",
+          "descripcion": "Mano de obra: medición de resistencia de tierra, pruebas de aislamiento, prueba de carga del wallbox, emisión de certificado de instalación",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 370,
+        "iva_porcentaje": 21,
+        "iva": 77.7,
+        "total": 447.7
+      },
+      "sugerencias_catalogo": [
+        "Si el cliente desea gestión inteligente de carga (cargar solo con excedentes solares), considerar wallbox con WiFi y aplicación móvil (+150-300€)",
+        "Si la potencia contratada es inferior a 7,4 kW, presupuestar ampliación de potencia con la distribuidora (coste variable según zona)",
+        "Considerar instalación de protección contra sobretensiones (DPS) si hay equipos sensibles en vivienda (+30-50€)",
+        "Documentar la instalación con certificado REBT para garantía y posibles ayudas/subvenciones"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Wallbox 7kW monofásico",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "motivo": "Material específico de instalación de punto de carga vehículo eléctrico"
+        },
+        {
+          "concepto": "Cable de derivación 6mm² desde cuadro a wallbox",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "motivo": "Cableado específico para circuito exclusivo wallbox"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_cargador_de_vehiculo_electrico_en_vivienda",
+      "instalacion_cargador_vehiculo_electrico_wallbox",
+      "instalacion_proteccion_contra_rayos_pararrayo",
+      "mantenimiento_preventivo_automatismos_y_cierres",
+      "instalacion_de_pavimento_de_caucho_o_goma"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3828,
+      "tokens_out": 3082
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

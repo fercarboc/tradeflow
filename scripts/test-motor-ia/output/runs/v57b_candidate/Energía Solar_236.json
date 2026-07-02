@@ -1,0 +1,183 @@
+{
+  "id": 236,
+  "oficio": "Energía Solar",
+  "texto": "Monitorizar producción de instalación fotovoltaica con aplicación y alertas de fallo",
+  "http_status": 200,
+  "latency_ms": 15549,
+  "raw_response": {
+    "transcript": "Monitorizar producción de instalación fotovoltaica con aplicación y alertas de fallo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Monitorizar producción de instalación fotovoltaica con aplicación y alertas de fallo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 65,
+            "max": 80
+          },
+          "motivo": "Instalación de sistema de monitoreo solar online con datalogger, conectividad y plataforma cloud"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Evaluación instalación fotovoltaica existente",
+          "descripcion": "Inspección visual de módulos, inversor, estructura y cableado. Verificación de datos de producción histórica y configuración actual.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Datalogger o módulo de comunicación",
+          "descripcion": "Dispositivo de monitoreo según tipo de inversor (WiFi integrado, datalogger externo o módulo 4G). Incluye sensor de irradiación para comparativa producción real vs esperada.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del tipo de inversor y conectividad (WiFi: 150-400€ | 4G: 300-600€ | Datalogger externo: 200-500€)"
+        },
+        {
+          "concepto": "Plataforma cloud y configuración alertas",
+          "descripcion": "Acceso a plataforma de monitoreo online del fabricante (ej: SMA Sunny Portal, Fronius Solar.web, Huawei FusionSolar). Configuración de alertas automáticas por fallo de producción, error inversor, desconexión módulos.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Muchos inversores incluyen plataforma gratuita. Si requiere suscripción premium: 50-150€/año. Configuración inicial: 1-2 horas de mano de obra."
+        },
+        {
+          "concepto": "Instalación y conexión datalogger",
+          "descripcion": "Montaje físico del datalogger/módulo en inversor o cuadro. Conexión WiFi/LAN/4G. Pruebas de transmisión de datos y sincronización con plataforma cloud.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración alertas y notificaciones",
+          "descripcion": "Parametrización de umbrales de alerta (producción mínima diaria, error inversor, desconexión, temperatura anómala). Configuración de canales de notificación (email, SMS, app móvil).",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y entrega",
+          "descripcion": "Verificación de recepción de datos en tiempo real. Simulación de fallo para validar alertas. Entrega de credenciales y tutorial de uso de aplicación al cliente.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, cables, bridas)",
+          "descripcion": "Conectores, cables de conexión, bridas, cinta aislante y material fungible para instalación.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado: 20-50€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 422.5,
+        "iva_porcentaje": 21,
+        "iva": 88.73,
+        "total": 511.23
+      },
+      "sugerencias_catalogo": [
+        "Verificar tipo de inversor instalado (SMA, Fronius, Huawei, Growatt, etc.) para seleccionar datalogger compatible",
+        "Confirmar si inversor ya dispone de WiFi integrado (muchos modelos recientes lo incluyen) → reducir coste de hardware",
+        "Plataforma cloud suele ser gratuita con registro. Alertas por email/app incluidas en versión estándar",
+        "Si cliente requiere monitoreo avanzado (predicción de producción, análisis de sombras, comparativa con PVGIS) → considerar plataforma premium o integración con sistema domótico"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Datalogger o módulo de comunicación",
+          "oficio": "energia_solar",
+          "motivo": "Material específico cuyo precio depende del tipo de inversor y conectividad requerida"
+        },
+        {
+          "concepto": "Plataforma cloud y configuración alertas",
+          "oficio": "energia_solar",
+          "motivo": "Servicio de suscripción/configuración que puede ser gratuito o de pago según fabricante"
+        },
+        {
+          "concepto": "Pequeño material (conectores, cables, bridas)",
+          "oficio": "energia_solar",
+          "motivo": "Material fungible cuyo coste debe ser revisado según cantidad y tipo específico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "diagnostico_averia_instalacion_fotovoltaica_baja_produccion",
+      "instalacion_de_sistema_de_monitoreo_solar_online",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4150,
+      "tokens_out": 2041
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

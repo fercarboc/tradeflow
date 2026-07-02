@@ -1,0 +1,173 @@
+{
+  "id": 20,
+  "oficio": "Fontanería",
+  "texto": "Instalación de grifo de jardín exterior con toma de agua y llave de corte independiente",
+  "http_status": 200,
+  "latency_ms": 10797,
+  "raw_response": {
+    "transcript": "Instalación de grifo de jardín exterior con toma de agua y llave de corte independiente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de grifo de jardín exterior con toma de agua y llave de corte independiente",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de grifo exterior y llave de corte - trabajo de fontanería estándar"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Grifo de jardín antihelada",
+          "descripcion": "Suministro e instalación de grifo exterior antihelada con rosca 3/4\" para jardín",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - instalador debe confirmar modelo y precio"
+        },
+        {
+          "concepto": "Llave de corte independiente (llave esfera)",
+          "descripcion": "Suministro e instalación de llave de corte esfera 3/4\" para control independiente de agua a grifo exterior",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - instalador debe confirmar modelo y precio"
+        },
+        {
+          "concepto": "Tubería multicapa exterior",
+          "descripcion": "Suministro de tubo multicapa PEX 16mm para conexión exterior desde llave de corte a grifo",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - instalador debe especificar metraje y precio"
+        },
+        {
+          "concepto": "Racores, manguitos y pequeño material",
+          "descripcion": "Racores de latón, manguitos de compresión, teflón, abrazaderas y accesorios de montaje",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material - instalador debe confirmar precio del kit de accesorios"
+        },
+        {
+          "concepto": "Mano de obra: Instalación grifo exterior y llave de corte",
+          "descripcion": "Trabajos de instalación: conexión de llave de corte a acometida, tendido de tubería exterior, instalación de grifo antihelada, pruebas de estanqueidad y funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protección antihelada (opcional)",
+          "descripcion": "Aislamiento térmico de tubería exterior y grifo para protección contra heladas invernales",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material opcional - instalador debe confirmar si se incluye y precio"
+        }
+      ],
+      "calculos": {
+        "subtotal": 100,
+        "iva_porcentaje": 21,
+        "iva": 21,
+        "total": 121
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: instalacion_grifo_exterior_jardin (rango 85-400€/ud)",
+        "Incluir obligatoriamente: llave de paso interior para invierno si la acometida viene del interior",
+        "Considerar rozas y reposición si hay que pasar tubería por fachada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Grifo de jardín antihelada",
+          "oficio": "fontaneria",
+          "motivo": "Material específico - requiere precio del instalador"
+        },
+        {
+          "concepto": "Llave de corte independiente (llave esfera)",
+          "oficio": "fontaneria",
+          "motivo": "Material específico - requiere precio del instalador"
+        },
+        {
+          "concepto": "Tubería multicapa exterior",
+          "oficio": "fontaneria",
+          "motivo": "Material específico - requiere metraje y precio"
+        },
+        {
+          "concepto": "Protección antihelada",
+          "oficio": "fontaneria",
+          "motivo": "Material opcional - requiere confirmación e inclusión en presupuesto"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_grifo_exterior_jardin",
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_llave_general_vivienda",
+      "instalacion_sistema_deteccion_fugas",
+      "impermeabilizacion_de_zocalo_exterior_de_edificio"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3558,
+      "tokens_out": 1654
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

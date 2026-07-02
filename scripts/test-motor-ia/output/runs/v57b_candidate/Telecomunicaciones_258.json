@@ -1,0 +1,239 @@
+{
+  "id": 258,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar alarma de seguridad con sensores de movimiento y apertura, monitorización 24h",
+  "http_status": 200,
+  "latency_ms": 18137,
+  "raw_response": {
+    "transcript": "Instalar alarma de seguridad con sensores de movimiento y apertura, monitorización 24h",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar alarma de seguridad con sensores de movimiento y apertura, monitorización 24h",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "La monitorización 24h es un servicio recurrente (cuota mensual/anual) que debe contratarse por separado con central receptora",
+          "Empresa instaladora debe estar registrada en Ministerio del Interior (obligatorio para sistemas de alarma)",
+          "Verificar normativa EN 50131 aplicable según nivel de seguridad requerido"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema de alarma intrusión con detectores y comunicador para central receptora"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Central de alarma intrusión",
+          "descripcion": "Central de alarma intrusión con normativa EN 50131, compatible con detectores PIR y contactos magnéticos, con comunicador IP/GSM integrado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de central según marca, modelo y funcionalidades (rango típico 300-800€)"
+        },
+        {
+          "concepto": "Detectores de movimiento PIR",
+          "descripcion": "Detectores de movimiento PIR (infrarrojos pasivos) para estancias principales, con inmunidad a mascotas si aplica",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario según modelo (rango típico 40-120€/ud). Cantidad estimada para vivienda estándar (ajustar según plano)"
+        },
+        {
+          "concepto": "Contactos magnéticos de apertura",
+          "descripcion": "Contactos magnéticos para puertas y ventanas accesibles (puerta entrada, ventanas planta baja, puertas balcón)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario según modelo (rango típico 15-40€/ud). Cantidad estimada (ajustar según accesos reales)"
+        },
+        {
+          "concepto": "Sirena interior y exterior",
+          "descripcion": "Sirena interior (buzzer) y sirena exterior (estroboscópica visible en fachada) para alarma",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario según modelo (rango típico 50-200€/ud). 1 interior + 1 exterior"
+        },
+        {
+          "concepto": "Teclado de control y acceso",
+          "descripcion": "Teclado numérico o lector de tarjeta/proximidad para armado/desarmado de la central",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario según tipo (rango típico 80-250€/ud)"
+        },
+        {
+          "concepto": "Comunicador IP/GSM para central receptora",
+          "descripcion": "Módulo comunicador IP o GSM para envío de alertas a central receptora de monitorización 24h",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario según tecnología (rango típico 100-300€/ud). Incluye SIM GSM si aplica"
+        },
+        {
+          "concepto": "Cableado y pequeño material",
+          "descripcion": "Cable de señal para detectores y contactos, conectores, regletas, tubo corrugado, tornillería, silicona, etc.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según extensión de cableado (rango típico 80-200€)"
+        },
+        {
+          "concepto": "Instalación y configuración del sistema de alarma",
+          "descripcion": "Montaje de central, detectores PIR, contactos magnéticos, sirenas, teclado y comunicador. Cableado, fijaciones, configuración de zonas, pruebas de funcionamiento y entrega de manual de usuario",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Contrato de monitorización 24h con central receptora",
+          "descripcion": "Servicio recurrente de monitorización 24 horas con central receptora profesional, aviso a propietario y fuerzas de seguridad en caso de alarma. Cuota mensual/anual (NO incluida en este presupuesto, es servicio adicional)",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio recurrente. Precio típico 20-60€/mes según central receptora y cobertura. Debe contratarse por separado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: [instalacion_de_sistema_de_alarma_intrusion] para precios de central, detectores y comunicador",
+        "Rango de precio total del sistema (materiales + mano de obra): 1200-2500€ según marca y complejidad",
+        "Mano de obra estimada: 6 horas (instalación completa con pruebas)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central de alarma intrusión",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico, precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Detectores de movimiento PIR",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico, cantidad y precio unitario a confirmar"
+        },
+        {
+          "concepto": "Contactos magnéticos de apertura",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico, cantidad según accesos reales"
+        },
+        {
+          "concepto": "Sirena interior y exterior",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico, precio según modelo"
+        },
+        {
+          "concepto": "Teclado de control y acceso",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico, precio según tipo (numérico o lector)"
+        },
+        {
+          "concepto": "Comunicador IP/GSM para central receptora",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico, precio según tecnología"
+        },
+        {
+          "concepto": "Cableado y pequeño material",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material auxiliar, precio alzado según extensión"
+        },
+        {
+          "concepto": "Contrato de monitorización 24h con central receptora",
+          "oficio": "telecomunicaciones",
+          "motivo": "Servicio recurrente, precio mensual/anual a definir por central receptora"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_alarma_intrusion",
+      "instalacion_reja_fija_en_ventana_o_puerta",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_de_sistema_de_alarma_intrusion"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3948,
+      "tokens_out": 2711
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 1,
+    "n_sugeridas": 8,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

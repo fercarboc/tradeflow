@@ -1,0 +1,138 @@
+{
+  "id": 61,
+  "oficio": "Pintura",
+  "texto": "Pintar el salón y el comedor, unos 40 metros cuadrados de superficie, dos manos de pintura blanca mate",
+  "http_status": 200,
+  "latency_ms": 11485,
+  "raw_response": {
+    "transcript": "Pintar el salón y el comedor, unos 40 metros cuadrados de superficie, dos manos de pintura blanca mate",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintar el salón y el comedor, unos 40 metros cuadrados de superficie, dos manos de pintura blanca mate",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura interior de paredes y techos. Trabajo simple, 1 oficio."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Pintura plástica mate blanca interior - paredes",
+          "descripcion": "Pintura plástica mate blanca interior para paredes, 2 manos. Superficie: 40 m². Rendimiento: 12-14 m²/litro. Cantidad estimada: 6 litros (3 litros por mano).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. El instalador debe confirmar marca, calidad y precio unitario del litro de pintura blanca mate."
+        },
+        {
+          "concepto": "Imprimación fijadora",
+          "descripcion": "Imprimación fijadora para superficies interiores. Cantidad: 3 litros (rendimiento 12-14 m²/litro para 40 m²).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Confirmar marca y precio unitario."
+        },
+        {
+          "concepto": "Rodillo pelo corto + extensión",
+          "descripcion": "Rodillo de pelo corto (10 mm) para pintura interior, extensión telescópica, bandejas de pintura y cinta carrocero.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar. Confirmar si se incluye en presupuesto o se asume como herramienta del pintor."
+        },
+        {
+          "concepto": "Protección y preparación",
+          "descripcion": "Plástico de protección, cinta carrocero, pequeño material (trapos, cubetas, etc.).",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar. Confirmar si se incluye en presupuesto."
+        },
+        {
+          "concepto": "Mano de obra - Pintura interior (paredes y techos)",
+          "descripcion": "Preparación de superficies, imprimación, aplicación de 2 manos de pintura blanca mate en salón y comedor. Superficie total: 40 m². Incluye: limpieza, protección, imprimación, rodillo, acabado. Rendimiento estimado: 8-10 m²/hora (considerando 2 manos).",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 8,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 320,
+        "iva_porcentaje": 21,
+        "iva": 67.2,
+        "total": 387.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si la superficie incluye techos o solo paredes. Si incluye techos, considerar rodillo de pelo largo y tarifa ligeramente superior.",
+        "Verificar estado de las paredes: si hay grietas, manchas o cambio de color oscuro a claro, puede requerir masilla de repaso previo y aumentar tiempo de preparación.",
+        "Si las paredes tienen porosidad alta (escayola nueva, pladur sin pintar), la imprimación es obligatoria."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "pintura_plastica_paredes_interiores",
+      "pintura_plastica_techo_interior",
+      "pintado_pasamanos_y_barandillas_interior",
+      "remate_y_acabado_juntas_pladur_para_pintar",
+      "pintado_de_medianeras_o_paredes_ciegas"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3715,
+      "tokens_out": 1431
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "id": 314,
+  "oficio": "Contra Incendios",
+  "texto": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+  "http_status": 200,
+  "latency_ms": 28685,
+  "raw_response": {
+    "transcript": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sustituir central de incendios obsoleta por nueva analógica con protocolo de comunicación",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Sustitución de central de incendios requiere empresa instaladora REGISTRADA según RITE e Industria",
+          "CRÍTICO: Cableado resistente al fuego E30 OBLIGATORIO según CTE DB-SI",
+          "CRÍTICO: Batería de respaldo 72h mínimo OBLIGATORIA según REBT y EN-54",
+          "CRÍTICO: Revisión semestral OBLIGATORIA post-instalación para licencia de actividad",
+          "Especificar: tipo de edificio, número de plantas, superficie, número de detectores existentes, tipo de protocolo (analógico direccionable vs. convencional)",
+          "Especificar: si existe transmisión a central receptora de alarmas (CRA)",
+          "Especificar: si requiere integración con control de acceso o BMS"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de detección y alarma de incendios — oficio especializado contra_incendios por normativa CTE DB-SI y EN-54"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Alimentación eléctrica, batería respaldo 72h, conexiones eléctricas de la central"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de central de incendios obsoleta",
+          "descripcion": "Desmontaje completo de central analógica antigua, desconexión de cableado, detectores y periféricos. Gestión de residuos electrónicos según normativa RAEE.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Central de incendios analógica nueva certificada EN-54-2 y EN-54-4",
+          "descripcion": "Suministro de central de detección y alarma de incendios analógica con protocolo de comunicación, certificada EN-54-2 (equipos) y EN-54-4 (fuente de alimentación), módulo de supervisión de líneas, capacidad mínima 8-16 zonas analógicas, alimentación 230V AC + batería respaldo 72h mínimo.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de central analógica con protocolo comunicación pendiente de cotización. Rango orientativo: 800-2000€ según capacidad y protocolo (Modbus, TCP/IP, etc.)"
+        },
+        {
+          "concepto": "Detectores de humo y temperatura (suministro)",
+          "descripcion": "Suministro de detectores analógicos de humo (ionización u óptico) y detectores de temperatura para zonas de riesgo. Cantidad a determinar según número de detectores existentes a reutilizar o sustituir.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de detectores a confirmar. Precio unitario: 30-80€/detector según tipo. Especificar número total de detectores."
+        },
+        {
+          "concepto": "Pulsadores manuales de alarma de incendios",
+          "descripcion": "Suministro de pulsadores manuales de alarma (botones de pánico incendios) según normativa EN-54-11, color rojo, ubicados en recorridos de evacuación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de pulsadores a confirmar según plano de evacuación. Precio unitario: 40-100€/pulsador. Especificar número total."
+        },
+        {
+          "concepto": "Sirenas acústicas y ópticas (strobes)",
+          "descripcion": "Suministro de sirenas acústicas (≥85 dB) y ópticas (strobes) para señalización de alarma de incendios, certificadas EN-54-3.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de sirenas/strobes a confirmar según superficie y zonas. Precio unitario: 60-150€/unidad. Especificar número total."
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 (suministro)",
+          "descripcion": "Suministro de cableado resistente al fuego categoría E30 (mantiene funcionalidad 30 min en incendio) para interconexión central-detectores-sirenas-pulsadores. Obligatorio según CTE DB-SI.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud total de cableado a calcular según plano de instalación. Precio: 2-5€/ml según sección. Especificar metraje total y secciones (2x1.5mm², 2x2.5mm², etc.)"
+        },
+        {
+          "concepto": "Instalación de central de incendios y periféricos",
+          "descripcion": "Instalación de central en armario/cuadro, conexión de alimentación eléctrica 230V, batería respaldo 72h, interconexión de detectores, pulsadores, sirenas y strobes. Pruebas funcionales de todos los circuitos.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica y batería de respaldo 72h",
+          "descripcion": "Instalación de alimentación eléctrica 230V AC a central, conexión de batería de respaldo (72h mínimo según REBT y EN-54-4), prueba de carga y autonomía.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas funcionales y puesta en marcha",
+          "descripcion": "Pruebas de funcionamiento de central, detectores, pulsadores, sirenas y strobes. Verificación de comunicación de protocolo. Prueba de batería respaldo. Documentación de pruebas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 55,
+          "total": 220,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Documentación técnica y libro de mantenimiento",
+          "descripcion": "Elaboración de plano de sectores de incendio, esquema de conexiones, manual de operación, libro de mantenimiento según normativa. Entrega de certificados de conformidad EN-54.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 150,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Documentación técnica obligatoria. Precio estimado 150-300€ según complejidad."
+        },
+        {
+          "concepto": "Gestión de residuos electrónicos (RAEE)",
+          "descripcion": "Recogida, transporte y gestión de residuos de equipos eléctricos y electrónicos (central obsoleta, detectores, cableado) según normativa RAEE.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Gestión RAEE obligatoria. Precio estimado 50-150€ según volumen de residuos."
+        }
+      ],
+      "calculos": {
+        "subtotal": 685,
+        "iva_porcentaje": 21,
+        "iva": 143.85,
+        "total": 828.85
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente: tipo de edificio (vivienda, oficina, comercio, industrial, sanitario, educativo), número de plantas, superficie total, número actual de detectores.",
+        "Confirmar: ¿requiere transmisión a Central Receptora de Alarmas (CRA)? Si sí, añadir módulo transmisor y línea telefónica/GPRS.",
+        "Confirmar: ¿requiere integración con sistema de control de acceso o BMS (Building Management System)? Si sí, especificar protocolo (Modbus, TCP/IP, etc.).",
+        "Especificar protocolo de comunicación exacto: analógico convencional (4 hilos) vs. analógico direccionable (bus de datos).",
+        "Solicitar plano de ubicación de detectores, pulsadores y sirenas para calcular metraje exacto de cableado E30.",
+        "OBLIGATORIO: empresa instaladora debe estar REGISTRADA según RITE (Reglamento de Instalaciones Térmicas) e Industria.",
+        "OBLIGATORIO: tras instalación, contratar mantenimiento semestral con empresa autorizada para mantener licencia de actividad.",
+        "Considerar: si existe BIE (Boca de Incendio Equipada) o rociadores sprinklers, incluir en presupuesto como partidas adicionales de contra_incendios."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Central de incendios analógica nueva certificada EN-54-2 y EN-54-4",
+          "oficio": "contra_incendios",
+          "motivo": "Material especializado de seguridad contra incendios. Precio pendiente de cotización según marca, capacidad y protocolo."
+        },
+        {
+          "concepto": "Detectores de humo y temperatura (suministro)",
+          "oficio": "contra_incendios",
+          "motivo": "Periféricos de detección. Cantidad y precio a confirmar según número de detectores a instalar."
+        },
+        {
+          "concepto": "Pulsadores manuales de alarma de incendios",
+          "oficio": "contra_incendios",
+          "motivo": "Periféricos de alarma manual. Cantidad y precio a confirmar según plano de evacuación."
+        },
+        {
+          "concepto": "Sirenas acústicas y ópticas (strobes)",
+          "oficio": "contra_incendios",
+          "motivo": "Periféricos de señalización. Cantidad y precio a confirmar según superficie y zonas."
+        },
+        {
+          "concepto": "Cableado resistente al fuego E30 (suministro)",
+          "oficio": "contra_incendios",
+          "motivo": "Material obligatorio CTE DB-SI. Metraje y secciones a calcular según plano de instalación."
+        },
+        {
+          "concepto": "Documentación técnica y libro de mantenimiento",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio obligatorio de documentación técnica y certificados EN-54."
+        },
+        {
+          "concepto": "Gestión de residuos electrónicos (RAEE)",
+          "oficio": "gestion_residuos",
+          "motivo": "Obligatorio por normativa RAEE para equipos eléctricos obsoletos."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "recalificacion_instalacion_fontaneria_comunidad",
+      "sustitucion_tuberia_multicapa",
+      "mantenimiento_de_instalacion_contra_incendios_en_local",
+      "instalacion_de_central_de_incendios_deteccion_automatica",
+      "instalacion_central_deteccion_y_alarma_incendios"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "max_tokens",
+      "tokens_in": 3894,
+      "tokens_out": 4096
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

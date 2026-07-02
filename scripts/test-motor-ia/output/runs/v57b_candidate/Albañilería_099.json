@@ -1,0 +1,217 @@
+{
+  "id": 99,
+  "oficio": "Albañilería",
+  "texto": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+  "http_status": 200,
+  "latency_ms": 19754,
+  "raw_response": {
+    "transcript": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar balcón con baldosas sueltas, inyección de resina y sellado de juntas perimetrales",
+        "tipo_presupuesto": "reparacion",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume balcón de tamaño medio (~15-20 m²). Confirmar superficie exacta.",
+          "Inyección de resina requiere diagnóstico previo de humedades/despegues.",
+          "Sellado perimetral: confirmar si incluye junta de dilatación estructural."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Reparación de baldosas sueltas, inyección y rejuntado en balcón."
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Sellado de juntas perimetrales para evitar filtraciones de agua en balcón."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Levantamiento y retirada de baldosas sueltas",
+          "descripcion": "Desmontaje cuidadoso de baldosas despegadas, retirada de mortero antiguo y limpieza de base.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 18,
+          "total": 324,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inyección de resina epoxi en base de baldosas",
+          "descripcion": "Inyección de resina de dos componentes para rellenar huecos, grietas y asegurar adherencia de baldosas al soporte.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado. Instalador debe confirmar cantidad y marca (resina epoxi de dos componentes, aprox. 0.8-1 kg/m²)."
+        },
+        {
+          "concepto": "Colocación de baldosas reparadas con adhesivo cementoso",
+          "descripcion": "Aplicación de adhesivo cementoso flexible C2 en base y colocación de baldosas levantadas, asiento y nivelación.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 22,
+          "total": 396,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Adhesivo cementoso C2 flexible para baldosas",
+          "descripcion": "Mortero adhesivo cementoso flexible C2 S1 para colocación de baldosas en balcón (resistencia a agua y movimientos).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 36,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Aprox. 2 kg/m² para colocación. Instalador confirma marca y cantidad."
+        },
+        {
+          "concepto": "Rejuntado de juntas entre baldosas",
+          "descripcion": "Aplicación de lechada de rejunte flexible (CG2) en juntas entre baldosas, limpieza y acabado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 18,
+          "precio_unitario": 12,
+          "total": 216,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lechada de rejunte flexible CG2",
+          "descripcion": "Mortero de rejunte flexible CG2 para juntas entre baldosas en balcón (resistencia a agua y movimientos).",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 18,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Aprox. 1 kg/m² para rejunte. Instalador confirma marca y cantidad."
+        },
+        {
+          "concepto": "Sellado de junta perimetral con poliuretano",
+          "descripcion": "Retirada de material antiguo en junta perimetral, colocación de fondo de junta (espuma PE) y sellado con poliuretano de buena calidad para exterior.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 35,
+          "precio_unitario": 18,
+          "total": 630,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellador poliuretano monocomponente para junta perimetral",
+          "descripcion": "Sellador poliuretano monocomponente de buena calidad para exterior, flexible, resistente a UV y agua.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "cartucho",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Aprox. 1 cartucho/8-10 ml. Instalador confirma marca y cantidad según ancho junta."
+        },
+        {
+          "concepto": "Fondo de junta (espuma polietileno) para junta perimetral",
+          "descripcion": "Espuma de polietileno de baja densidad para fondo de junta, limita profundidad del sellador.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 35,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Espuma PE de 10-15 mm de ancho. Instalador confirma especificación."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1566,
+        "iva_porcentaje": 21,
+        "iva": 328.86,
+        "total": 1894.86
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el balcón tiene problemas de humedad estructural (filtraciones desde arriba o lateral). Si es así, puede requerir impermeabilización adicional de cubierta o fachada.",
+        "Verificar estado de la estructura del balcón (hormigón, acero). Si hay desprendimientos o corrosión, puede requerir reparación previa de albanilería o mecanizado.",
+        "Considerar si la inyección de resina es suficiente o si se requiere refuerzo con malla de fibra de vidrio en zonas críticas.",
+        "Junta perimetral: confirmar si es junta de dilatación estructural (movimiento) o simplemente encuentro balcón-fachada."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inyección de resina epoxi en base de baldosas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Técnica especializada de reparación. No existe partida específica en catálogo base."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_y_saneado_de_fabrica_de_ladrillo_visto",
+      "reparacion_de_embocadura_de_bajante_en_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "imprimacion_especial_sobre_yeso_nuevo",
+      "remate_y_acabado_juntas_pladur_para_pintar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3786,
+      "tokens_out": 2779
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "NO"
+  }
+}

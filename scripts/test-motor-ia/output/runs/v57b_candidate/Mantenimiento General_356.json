@@ -1,0 +1,194 @@
+{
+  "id": 356,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar escalera de comunidad, peldaño roto y barandilla floja, informe técnico incluido",
+  "http_status": 200,
+  "latency_ms": 14259,
+  "raw_response": {
+    "transcript": "Reparar escalera de comunidad, peldaño roto y barandilla floja, informe técnico incluido",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar escalera de comunidad, peldaño roto y barandilla floja, informe técnico incluido",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en zona común de comunidad: verificar permisos y coordinación con administración",
+          "Informe técnico incluido: revisar si requiere ingeniero o técnico especializado",
+          "Barandilla floja: evaluar riesgo de seguridad antes de intervención"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Reparación de peldaño roto (hormigón/piedra/cerámica)"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Reparación y fijación de barandilla metálica floja (soldadura, tornillería, anclajes)"
+        },
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Informe técnico y diagnóstico previo de escalera"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Informe técnico y diagnóstico de escalera",
+          "descripcion": "Inspección visual completa, evaluación de daños en peldaños y barandilla, análisis de causas, informe escrito con recomendaciones",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 120,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación peldaño roto",
+          "descripcion": "Saneo de zona dañada, preparación de superficie, aplicación de mortero de reparación estructural, acabado nivelado y coordinado con peldaños adyacentes, pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material reparación peldaño (mortero, imprimación, pequeño material)",
+          "descripcion": "Mortero de reparación estructural, imprimación, arena, cemento, aditivos, herramientas menores",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar tipo de peldaño (hormigón, piedra, cerámica) y volumen de material necesario"
+        },
+        {
+          "concepto": "Reparación y fijación barandilla floja",
+          "descripcion": "Diagnóstico de causa (anclajes sueltos, soldaduras rotas, corrosión), apriete de tornillería, soldadura de uniones si es necesario, tratamiento antioxido, acabado, pequeño material",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material reparación barandilla (soldadura, tornillería, antioxido)",
+          "descripcion": "Electrodo o hilo de soldadura, tornillería inoxidable o galvanizada, tuercas, arandelas, imprimación antioxido, pintura de acabado si aplica, pequeño material",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar tipo de barandilla (acero, aluminio, hierro), tipo de fijación y si requiere soldadura"
+        },
+        {
+          "concepto": "Señalización y seguridad durante reparación",
+          "descripcion": "Cinta de seguridad, señales de zona en reparación, protección de usuarios, medidas de seguridad en escalera",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto según duración de obra y extensión de escalera"
+        }
+      ],
+      "calculos": {
+        "subtotal": 280,
+        "iva_porcentaje": 21,
+        "iva": 58.8,
+        "total": 338.8
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'reparacion_peldano_escalera' si existe entrada específica",
+        "Considerar: 'reparacion_barandilla_metalica_floja' como partida estándar de mantenimiento",
+        "Revisar: protocolos de seguridad en escaleras de comunidad (normativa CTE)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Material reparación peldaño",
+          "oficio": "albanileria",
+          "motivo": "Especificación de materiales según tipo de peldaño"
+        },
+        {
+          "concepto": "Material reparación barandilla",
+          "oficio": "cerrajeria",
+          "motivo": "Especificación de materiales según tipo de barandilla y fijación"
+        },
+        {
+          "concepto": "Señalización y seguridad",
+          "oficio": "mantenimiento_general",
+          "motivo": "Medidas de seguridad en zona común durante reparación"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "reparacion_grifo_o_griferia_averiada",
+      "pintado_pasamanos_y_barandillas_interior",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "reparacion_y_soldadura_de_estructura_metalica"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3753,
+      "tokens_out": 2015
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

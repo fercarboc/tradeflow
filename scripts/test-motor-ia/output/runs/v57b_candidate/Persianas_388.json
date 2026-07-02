@@ -1,0 +1,219 @@
+{
+  "id": 388,
+  "oficio": "Persianas",
+  "texto": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+  "http_status": 200,
+  "latency_ms": 15963,
+  "raw_response": {
+    "transcript": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+    "quote": {
+      "resumen": {
+        "texto_original": "Motorizar porticón de madera en terraza con motor solar y aplicación de smartphone",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Motor solar requiere orientación adecuada del panel para carga suficiente",
+          "Aplicación smartphone requiere verificación de compatibilidad con motor seleccionado",
+          "Revisar estructura del porticón para soportar motor y mecanismo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación mecánica del motor en estructura de madera, adaptación de herrajes"
+        },
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 60,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación panel solar, conexión a batería, optimización de carga"
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Configuración aplicación smartphone, emparejamiento radiocontrol, conectividad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Motor para porticón con batería recargable solar",
+          "descripcion": "Motor tubular o de brazo articulado con batería recargable integrada, compatible con control remoto y aplicación smartphone",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del motor solar debe ser confirmado por instalador según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Panel solar flexible o rígido para carga motor",
+          "descripcion": "Panel solar monocristalino 50-100W con soporte de fijación, orientación sur/sureste, conexión a batería del motor",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio panel solar debe confirmarse según potencia y tipo (flexible/rígido)"
+        },
+        {
+          "concepto": "Receptor radiocontrol y mando a distancia",
+          "descripcion": "Receptor integrado en motor, mando a distancia inalámbrico 433MHz, compatible con aplicación smartphone",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del receptor y mando debe confirmarse según compatibilidad con aplicación"
+        },
+        {
+          "concepto": "Instalación y fijación del motor en porticón",
+          "descripcion": "Desmontaje de mecanismo manual si existe, adaptación de herrajes, fijación segura del motor a estructura de madera, alineación y pruebas mecánicas",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación panel solar y conexiones eléctricas",
+          "descripcion": "Fijación panel solar en terraza, orientación óptima, cableado de conexión a batería del motor, protección de conexiones, pruebas de carga",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 65,
+          "total": 162.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración aplicación smartphone y emparejamiento",
+          "descripcion": "Descarga e instalación aplicación en dispositivo cliente, emparejamiento con receptor del motor, configuración de permisos, pruebas de funcionamiento remoto, manual de usuario",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillos inox, tacos, bridas, cinta aislante, conectores, protecciones estancas, selladores",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe pequeño material a confirmar según cantidad y tipo de accesorios necesarios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 372.5,
+        "iva_porcentaje": 21,
+        "iva": 78.225,
+        "total": 450.725
+      },
+      "sugerencias_catalogo": [
+        "Verificar compatibilidad del motor solar seleccionado con aplicaciones smartphone disponibles (iOS/Android)",
+        "Confirmar que la estructura del porticón soporta el peso y fuerzas del motor motorizado",
+        "Evaluar orientación del panel solar: ubicación en terraza debe permitir exposición solar suficiente (mínimo 4-5 horas diarias)",
+        "Considerar batería de repuesto para motor en caso de períodos prolongados sin luz solar",
+        "Revisar normativa local sobre instalaciones solares en terrazas/fachadas"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Motor para porticón con batería recargable solar",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "No existe en catálogo partida específica de motor solar para porticones; requiere especificación técnica del instalador"
+        },
+        {
+          "concepto": "Panel solar flexible o rígido para carga motor",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Panel solar específico para motor porticón; precio variable según potencia y tipo"
+        },
+        {
+          "concepto": "Receptor radiocontrol y mando a distancia",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Componente de control remoto compatible con aplicación smartphone; precio a confirmar según marca"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Accesorios varios de fijación y protección; importe estimado a confirmar"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "instalacion_sistema_de_persianas_con_recarga_solar"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4003,
+      "tokens_out": 2296
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "NO"
+  }
+}

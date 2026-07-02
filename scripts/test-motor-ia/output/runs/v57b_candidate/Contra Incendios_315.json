@@ -1,0 +1,171 @@
+{
+  "id": 315,
+  "oficio": "Contra Incendios",
+  "texto": "Instalar extractor de humos en cocina de restaurante con conducto al exterior y registro antiretorno",
+  "http_status": 200,
+  "latency_ms": 15997,
+  "raw_response": {
+    "transcript": "Instalar extractor de humos en cocina de restaurante con conducto al exterior y registro antiretorno",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar extractor de humos en cocina de restaurante con conducto al exterior y registro antiretorno",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cocina de restaurante: verificar caudal mínimo según tipo de cocina (50-100 m³/h mínimo)",
+          "Conducto al exterior: confirmar longitud y recorrido para calcular pérdida de carga",
+          "Registro antiretorno: obligatorio en salida exterior"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de extractor de ventilación en cocina profesional con conducto y accesorios"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Extractor de humos cocina restaurante",
+          "descripcion": "Suministro e instalación de extractor de humos profesional para cocina de restaurante, caudal mínimo 50-100 m³/h, motor trifásico o monofásico según disponibilidad",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipo extractor profesional a definir por instalador según marca, potencia y especificaciones técnicas"
+        },
+        {
+          "concepto": "Conducto de evacuación exterior",
+          "descripcion": "Suministro e instalación de conducto rígido o flexible (acero galvanizado/aluminio) para evacuación de humos al exterior, incluyendo soportes y abrazaderas",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud del conducto a confirmar en obra. Precio por metro lineal a definir según diámetro y material"
+        },
+        {
+          "concepto": "Registro antiretorno",
+          "descripcion": "Suministro e instalación de tapa/registro antiretorno en salida exterior para evitar entrada de aire y plagas",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del registro antiretorno según diámetro del conducto"
+        },
+        {
+          "concepto": "Conexión eléctrica extractor",
+          "descripcion": "Instalación de circuito eléctrico, cableado, conexión a cuadro eléctrico y puesta en marcha del extractor",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación conducto y accesorios",
+          "descripcion": "Mano de obra de instalación del conducto de evacuación, fijación de soportes, colocación de registro antiretorno y pequeño material (tornillos, tacos, cinta de sellado)",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas y puesta en marcha",
+          "descripcion": "Pruebas de funcionamiento del extractor, verificación de caudal, estanqueidad de conductos y correcto funcionamiento del registro antiretorno",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_ventilador_extractor_bano_o_cocina' — aplicable a cocinas profesionales con adaptación de caudal",
+        "Considerar si la cocina requiere sistema de extinción automática (contra_incendios) según normativa hostelería"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Extractor de humos cocina restaurante",
+          "oficio": "climatizacion",
+          "razon": "Material profesional específico para cocina de restaurante, no genérico"
+        },
+        {
+          "concepto": "Conducto de evacuación exterior",
+          "oficio": "climatizacion",
+          "razon": "Longitud variable según obra, requiere medición in situ"
+        },
+        {
+          "concepto": "Registro antiretorno",
+          "oficio": "climatizacion",
+          "razon": "Accesorio específico de salida exterior, diámetro variable"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_campana_extractora_cocina",
+      "instalacion_trampa_grasa_cocina",
+      "instalacion_extractor_bano_cocina",
+      "instalacion_ventilador_extractor_bano_o_cocina",
+      "instalacion_de_sistema_de_extincion_en_cocina_industrial"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3699,
+      "tokens_out": 2033
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "NO"
+  }
+}

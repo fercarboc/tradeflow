@@ -1,0 +1,166 @@
+{
+  "id": 69,
+  "oficio": "Pintura",
+  "texto": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+  "http_status": 200,
+  "latency_ms": 16129,
+  "raw_response": {
+    "transcript": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Pintura decorativa con efecto estucoveneciano en el salón, pared de 4x3 metros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura decorativa con efecto especial (estucoveneciano). Tarifa superior a pintura estándar por técnica especializada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Imprimación fijadora base",
+          "descripcion": "Imprimación acrílica fijadora para preparación de superficie antes de aplicación de estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de preparación. Instalador debe confirmar marca, tipo y precio unitario."
+        },
+        {
+          "concepto": "Pintura decorativa efecto estucoveneciano",
+          "descripcion": "Pintura acrílica decorativa con efecto estucoveneciano (marmoleado, veteado, textura veneciana). Incluye pigmentos y aditivos especiales.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado. Instalador debe confirmar marca, rendimiento y precio unitario."
+        },
+        {
+          "concepto": "Sellador/barniz protector final",
+          "descripcion": "Sellador transparente o barniz protector poliuretano para proteger acabado decorativo y facilitar limpieza",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de protección. Instalador debe confirmar tipo (poliuretano/acrílico), marca y precio."
+        },
+        {
+          "concepto": "Pequeño material (cinta carrocero, lijas, pinceles, esponjas, llanas)",
+          "descripcion": "Consumibles: cinta carrocero, lija grano 150-220, pinceles y brochas especiales, esponjas naturales, llanas metálicas, trapos, etc.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material. Instalador debe estimar coste total o unitario según consumo real."
+        },
+        {
+          "concepto": "Aplicación pintura decorativa efecto estucoveneciano",
+          "descripcion": "Mano de obra: preparación superficie, aplicación técnica de estucoveneciano (múltiples capas, técnica de marmoleado/veteado), acabado y protección. Incluye lijado entre capas si necesario.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 12,
+          "total": 144,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Muestra previa de estucoveneciano (opcional pero recomendado)",
+          "descripcion": "Aplicación de muestra en papel o rincón de la pared para aprobación del cliente antes de ejecutar trabajo completo. Técnica y colores finales.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 32,
+          "total": 32,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 176,
+        "iva_porcentaje": 21,
+        "iva": 36.96,
+        "total": 212.96
+      },
+      "sugerencias_catalogo": [
+        "Confirmar con cliente si desea muestra previa (recomendado para técnicas decorativas especiales).",
+        "Estucoveneciano requiere superficie limpia, seca y sin fisuras. Considerar reparación previa si hay defectos.",
+        "Tiempo de secado entre capas: consultar ficha técnica del producto (típicamente 4-8 horas).",
+        "Técnica especializada: considerar si el pintor tiene experiencia en estucoveneciano o requiere formación."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Pintura decorativa efecto estucoveneciano",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Variante especializada de pintura decorativa. Expandida desde 'pintura_decorativa_efecto_tela_o_textura' pero con técnica específica veneciana (marmoleado, veteado)."
+        },
+        {
+          "concepto": "Sellador/barniz protector final",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Protección específica para acabados decorativos. Recomendado en Base Maestra como 'barniz_o_cera_proteccion_final'."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_decorativa_efecto_oxido_o_industrial",
+      "pintura_decorativa_efecto_tela_o_textura",
+      "pintado_paredes_con_efecto_delave_o_degradado",
+      "pintura_y_acabado_paredes_de_pladur_nuevo",
+      "acabado_con_microcemento_suelo_o_pared"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3699,
+      "tokens_out": 2089
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "pintura",
+    "coincide_oficio": "SI"
+  }
+}

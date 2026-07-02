@@ -1,0 +1,181 @@
+{
+  "id": 30,
+  "oficio": "Electricidad",
+  "texto": "Instalación de línea trifásica para cocina industrial de restaurante, potencia de 25kW",
+  "http_status": 200,
+  "latency_ms": 20583,
+  "raw_response": {
+    "transcript": "Instalación de línea trifásica para cocina industrial de restaurante, potencia de 25kW",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de línea trifásica para cocina industrial de restaurante, potencia de 25kW",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Obra eléctrica de potencia elevada (25kW trifásico) — requiere boletín eléctrico obligatorio",
+          "Se asume acometida/cuadro general existente. Si requiere nueva acometida desde calle, avisar al instalador",
+          "Dimensionamiento de protecciones y secciones de cable según cálculo de caída de tensión y cortocircuito"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica trifásica de potencia industrial en hostelería"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cuadro de distribución trifásico 25kW para cocina industrial",
+          "descripcion": "Cuadro eléctrico trifásico con protecciones (IGA, magnetotérmicos, diferenciales) dimensionado para 25kW. Incluye bornes de conexión, carril DIN, puerta con cerradura y etiquetado normativo.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico — instalador debe cotizar cuadro trifásico según marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Cable trifásico 4x10mm² (3F+N) para línea cocina industrial",
+          "descripcion": "Cable de cobre RZ1-K (o equivalente) 4x10mm² para distribución trifásica desde cuadro a zona de cocina. Incluye protección mecánica si discurre por zonas de paso. Longitud estimada 30ml (ajustar según plano).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — precio según proveedor y sección final confirmada por cálculo de caída de tensión"
+        },
+        {
+          "concepto": "Protecciones magnetotérmicas y diferenciales para circuitos cocina",
+          "descripcion": "Magnetotérmicos trifásicos (3x63A, 3x40A, 3x32A según maquinaria) y diferenciales tipo A/AC 30mA. Incluye pequeño material (tornillería, etiquetas).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material — cantidad y calibres según esquema eléctrico definitivo de maquinaria"
+        },
+        {
+          "concepto": "Instalación de línea trifásica y cuadro de distribución",
+          "descripcion": "Montaje de cuadro eléctrico, tendido de cable trifásico desde acometida a zona de cocina, conexión de protecciones, pruebas de continuidad y aislamiento. Incluye etiquetado y documentación técnica.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión de maquinaria de cocina profesional (tomas y enchufes trifásicos)",
+          "descripcion": "Instalación de tomas trifásicas (16A/32A) y enchufes industriales para horno, plancha, freidora, marmita y otros equipos. Incluye pequeño material y pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Boletín eléctrico y certificación de instalación",
+          "descripcion": "Redacción, firma y tramitación del boletín eléctrico oficial (REBT) ante organismo competente. Incluye cálculos de caída de tensión, cortocircuito y memoria técnica.",
+          "oficio": "electricidad",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo — precio según gestoría o electricista certificador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1000,
+        "iva_porcentaje": 21,
+        "iva": 210,
+        "total": 1210
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_electrica_local_hosteleria' — partidas obligatorias incluyen cuadro trifásico, circuitos cocina profesional, alumbrado emergencia y boletín",
+        "Confirmar con cliente: ¿existe cuadro general de acometida? ¿o requiere nueva acometida desde calle (obra civil adicional)?",
+        "Solicitar plano de ubicación de maquinaria para optimizar longitud de cable y secciones finales"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cuadro de distribución trifásico 25kW para cocina industrial",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de potencia elevada — no existe partida genérica en catálogo"
+        },
+        {
+          "concepto": "Cable trifásico 4x10mm² (3F+N) para línea cocina industrial",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico — sección y longitud deben confirmarse por cálculo de caída de tensión"
+        },
+        {
+          "concepto": "Protecciones magnetotérmicas y diferenciales para circuitos cocina",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico — cantidad y calibres según esquema eléctrico definitivo"
+        },
+        {
+          "concepto": "Boletín eléctrico y certificación de instalación",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio administrativo obligatorio — precio según gestoría o electricista certificador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_trampa_grasa_cocina",
+      "instalacion_de_red_inalambrica_para_IoT_industrial",
+      "instalacion_electrica_local_hosteleria",
+      "tabique_pladur_para_zona_de_bar_o_cafeteria",
+      "instalacion_de_sistema_de_extincion_por_espuma"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3836,
+      "tokens_out": 2527
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

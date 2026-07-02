@@ -1,0 +1,552 @@
+{
+  "id": 364,
+  "oficio": "Reformas Integrales",
+  "texto": "Convertir local comercial en vivienda de 60 metros cuadrados con licencia de cambio de uso",
+  "http_status": 200,
+  "latency_ms": 51505,
+  "raw_response": {
+    "transcript": "Convertir local comercial en vivienda de 60 metros cuadrados con licencia de cambio de uso",
+    "quote": {
+      "resumen": {
+        "texto_original": "Convertir local comercial en vivienda de 60 metros cuadrados con licencia de cambio de uso",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "CRÍTICO: Cambio de uso local comercial → vivienda requiere LICENCIA URBANÍSTICA obligatoria. Verificar viabilidad con Ayuntamiento ANTES de presupuestar obra.",
+          "CRÍTICO: Proyecto técnico OBLIGATORIO según CTE (Código Técnico de la Edificación) para reforma de uso residencial.",
+          "CRÍTICO: Verificar altura libre mínima 2,5m en todas las estancias según CTE DB-SU.",
+          "CRÍTICO: Iluminación natural obligatoria en dormitorios según CTE DB-HS3.",
+          "CRÍTICO: Ventilación natural o mecánica obligatoria según RITE.",
+          "Reforma integral detectada: múltiples oficios simultáneos (albanilería, fontanería, electricidad, climatización, pintura, pladur). Presupuesto estructurado en 12 partidas técnicas.",
+          "Presupuesto orientativo. Requiere visita técnica y proyecto para definir partidas de materiales con precisión."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Reforma integral: cambio de uso local → vivienda con ≥3 oficios simultáneos (obra civil, fontanería, electricidad, climatización, acabados)."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 80
+          },
+          "motivo": "Licencia de cambio de uso y proyecto técnico obligatorio."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Demolición selectiva, tabiquería, revestimientos, solera si procede."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Red completa ACS, agua fría, desagües, instalación baño y cocina."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Cuadro eléctrico, circuitos, enchufes, iluminación, acometida si procede."
+        },
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 60,
+            "max": 65
+          },
+          "motivo": "Calefacción, refrigeración y ventilación mecánica obligatoria según RITE."
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Tabiquería interior, falsos techos, revestimientos."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Pintura paredes, techo, acabados interiores."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Alicatado baño, cocina, pavimentos cerámicos."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Puertas interiores, armarios, revestimientos madera."
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 30,
+            "max": 35
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de demolición."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Licencia de cambio de uso local comercial → vivienda",
+          "descripcion": "Tramitación de licencia urbanística de cambio de uso ante Ayuntamiento. Incluye gestión administrativa, documentación y seguimiento hasta obtención de licencia.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad municipal y gestoría. Rango típico: 800-2000€."
+        },
+        {
+          "concepto": "Proyecto técnico de reforma para cambio de uso",
+          "descripcion": "Proyecto técnico completo según CTE (Código Técnico de la Edificación) para reforma de local comercial a vivienda. Incluye memoria, planos, cálculos estructurales, instalaciones, accesibilidad y cumplimiento normativo.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de complejidad y profesional (arquitecto/ingeniero). Rango típico: 1500-3500€ para 60m²."
+        },
+        {
+          "concepto": "Demolición selectiva y retirada de elementos comerciales",
+          "descripcion": "Demolición de elementos específicos del local comercial (mostradores, instalaciones comerciales, revestimientos, etc.). Incluye desmontaje selectivo, clasificación de residuos y carga en contenedor.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 320,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tabiquería interior con pladur (dormitorios, baño, cocina)",
+          "descripcion": "Construcción de tabiques interiores con placas de yeso laminado para crear dormitorios, baño y cocina. Incluye perfiles metálicos, placas, cinta de juntas, pasta de juntas y pequeño material. Estimado 40m² de tabiquería.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 35,
+          "total": 1400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de materiales tabiquería pladur",
+          "descripcion": "Placas de yeso laminado 15mm, perfiles metálicos (canales y montantes 70mm), tornillería, cinta de juntas, pasta de juntas, ángulos metálicos y pequeño material para 40m² de tabiquería.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 15-25€/m² según especificaciones. Total estimado: 600-1000€."
+        },
+        {
+          "concepto": "Red de fontanería completa (agua fría, ACS, desagües)",
+          "descripcion": "Instalación completa de red de agua fría, agua caliente sanitaria (ACS), desagües y ventilación de tuberías. Incluye tuberías multicapa PEX, accesorios, sifones, válvulas y pequeño material. Estimado 150ml de tubería.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 12,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de materiales fontanería",
+          "descripcion": "Tuberías multicapa PEX (agua fría y ACS), accesorios de conexión, válvulas de corte, sifones, desagües PVC, ventilación de tuberías y pequeño material para red completa de 150ml.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 8-15€/ml según especificaciones. Total estimado: 1200-2250€."
+        },
+        {
+          "concepto": "Instalación de baño completo (inodoro, lavabo, bañera/ducha)",
+          "descripcion": "Instalación de sanitarios: inodoro, lavabo, bañera o plato de ducha. Incluye conexiones de agua, desagües, sifones y pequeño material. Mano de obra de fontanería.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de sanitarios baño",
+          "descripcion": "Inodoro, lavabo, bañera o plato de ducha, grifería, sifones y accesorios de baño.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 800-2000€ según calidad de sanitarios y grifería."
+        },
+        {
+          "concepto": "Instalación de cocina (fregadero, grifería, desagüe)",
+          "descripcion": "Instalación de fregadero, grifería de cocina, desagüe y conexión de agua fría y ACS. Mano de obra de fontanería.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 200,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de fregadero y grifería cocina",
+          "descripcion": "Fregadero de acero inoxidable o cerámica, grifería de cocina, sifón y accesorios.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 300-800€ según calidad."
+        },
+        {
+          "concepto": "Instalación eléctrica completa (cuadro, circuitos, enchufes, iluminación)",
+          "descripcion": "Instalación eléctrica completa: cuadro de distribución con diferenciales y magnetotérmicos, circuitos de iluminación, enchufes, puntos de luz, interruptores. Incluye cableado, cajas de registro, pequeño material. Estimado 60 puntos de luz y enchufes.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 60,
+          "precio_unitario": 25,
+          "total": 1500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de materiales eléctricos",
+          "descripcion": "Cuadro eléctrico, diferenciales, magnetotérmicos, cable H07V-U y H07V-R, cajas de registro, enchufes, interruptores, luminarias LED, pequeño material.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 2000-4000€ según especificaciones y número de circuitos."
+        },
+        {
+          "concepto": "Instalación de climatización (calefacción, refrigeración, ventilación)",
+          "descripcion": "Instalación de sistema de climatización: bomba de calor inverter o radiadores + aire acondicionado split + ventilación mecánica controlada (VMC) obligatoria según RITE. Incluye unidades interiores, tuberías frigoríficas, cableado, termostatos, desagüe. Estimado 2 unidades split + VMC.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 400,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de equipos climatización",
+          "descripcion": "Unidades split (2 ud), bomba de calor o caldera, tuberías frigoríficas, cableado, termostatos, sistema VMC (ventilación mecánica controlada), desagüe.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 3000-6000€ según potencia y especificaciones (splits + calefacción + VMC)."
+        },
+        {
+          "concepto": "Alicatado baño y cocina",
+          "descripcion": "Alicatado de paredes en baño (completo) y cocina (zona de trabajo). Incluye preparación de superficie, adhesivo, lechada, pequeño material. Estimado 25m² de alicatado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 35,
+          "total": 875,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de azulejos y materiales alicatado",
+          "descripcion": "Azulejos cerámicos o porcelánicos, adhesivo, lechada, perfiles de aluminio, pequeño material para 25m² de alicatado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 15-30€/m² según calidad. Total estimado: 375-750€."
+        },
+        {
+          "concepto": "Pavimento cerámico/porcelánicos en vivienda",
+          "descripcion": "Colocación de pavimento cerámico o porcelánicos en zonas comunes, cocina y baño. Incluye preparación de solera, adhesivo, lechada, pequeño material. Estimado 50m² de pavimento.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 32,
+          "total": 1600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de pavimento cerámico/porcelánicos",
+          "descripcion": "Baldosas cerámicas o porcelánicos, adhesivo, lechada, perfiles de aluminio, pequeño material para 50m² de pavimento.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 12-25€/m² según calidad. Total estimado: 600-1250€."
+        },
+        {
+          "concepto": "Pintura interior (paredes y techo)",
+          "descripcion": "Pintura plástica lavable en paredes y techo de toda la vivienda. Incluye imprimación, pintura, rodillo, pinceles, cinta carrocero, plástico de protección, pequeño material. Estimado 200m² de superficie (paredes + techo).",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 6,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de pintura y materiales",
+          "descripcion": "Pintura plástica lavable, imprimación, rodillo, pinceles, cinta carrocero, plástico de protección, pequeño material para 200m² de superficie.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 2-4€/m² según calidad. Total estimado: 400-800€."
+        },
+        {
+          "concepto": "Puertas interiores (dormitorios, baño, cocina)",
+          "descripcion": "Suministro e instalación de puertas interiores de madera o PVC. Incluye marcos, cerraduras, bisagras, pequeño material. Estimado 4 puertas (2 dormitorios, 1 baño, 1 cocina).",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 150,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de puertas interiores",
+          "descripcion": "Puertas de madera o PVC, marcos, cerraduras, bisagras, pequeño material para 4 puertas.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio material: 150-400€/puerta según calidad. Total estimado: 600-1600€."
+        },
+        {
+          "concepto": "Gestión y retirada de residuos de demolición",
+          "descripcion": "Gestión, clasificación y retirada de escombros y residuos de demolición. Incluye contenedor, transporte a gestor autorizado y documentación de residuos.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio: 30-50€/m³ según gestor. Total estimado: 450-750€ para 15m³ de escombros."
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Pequeño material, herramientas, consumibles y gastos auxiliares de obra (tornillería, adhesivos, selladores, etc.).",
+          "oficio": "reforma_integral",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Estimado: 500-1000€ en pequeño material y consumibles."
+        }
+      ],
+      "calculos": {
+        "subtotal": 12635,
+        "iva_porcentaje": 21,
+        "iva": 2653.35,
+        "total": 15288.35
+      },
+      "sugerencias_catalogo": [
+        "Verificar con Ayuntamiento si el local comercial puede convertirse en vivienda (algunos locales en plantas bajas o con restricciones no pueden cambiar de uso).",
+        "Solicitar certificado de altura libre mínima 2,5m en todas las estancias según CTE DB-SU.",
+        "Verificar iluminación natural en dormitorios según CTE DB-HS3 (mínimo 5% de la superficie de suelo).",
+        "Coordinar con instalador eléctrico para acometida nueva si la actual es insuficiente (reforma requiere nueva potencia).",
+        "Solicitar cálculo térmico para dimensionar correctamente climatización según ocupación y orientación.",
+        "Verificar si se requiere recuperador de calor obligatorio según RITE (normalmente sí en viviendas nuevas).",
+        "Considerar aislamiento térmico en fachada si local está en planta baja o con deficiencias de aislamiento.",
+        "Presupuesto ORIENTATIVO: mano de obra ~12.635€ + materiales estimados ~10.000-15.000€ = TOTAL ESTIMADO 22.000-27.000€ (sin incluir licencia ni proyecto técnico)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Licencia de cambio de uso local comercial → vivienda",
+          "oficio": "gestoria_tramites",
+          "motivo": "Trámite administrativo obligatorio no incluido en catálogo estándar."
+        },
+        {
+          "concepto": "Proyecto técnico de reforma para cambio de uso",
+          "oficio": "gestoria_tramites",
+          "motivo": "Proyecto técnico obligatorio según CTE para reforma de uso residencial."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_planta_baja_o_local_para_vivienda",
+      "tabique_pladur_en_local_comercial_o_bar",
+      "instalacion_sistema_de_climatizacion_en_local_comercial",
+      "pintado_locales_comerciales_y_tiendas",
+      "instalacion_red_datos_ethernet_cat6_en_vivienda"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "max_tokens",
+      "tokens_in": 3990,
+      "tokens_out": 8192
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 25,
+    "n_catalogo": 11,
+    "n_sugeridas": 14,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

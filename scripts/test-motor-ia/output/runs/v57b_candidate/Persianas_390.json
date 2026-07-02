@@ -1,0 +1,146 @@
+{
+  "id": 390,
+  "oficio": "Persianas",
+  "texto": "Reparar persiana de lama que no sube bien, motor atascado, revisión y engrase de guías",
+  "http_status": 200,
+  "latency_ms": 11230,
+  "raw_response": {
+    "transcript": "Reparar persiana de lama que no sube bien, motor atascado, revisión y engrase de guías",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar persiana de lama que no sube bien, motor atascado, revisión y engrase de guías",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diagnóstico de motor atascado requiere verificación in situ del par motor y estado mecánico",
+          "Engrase de guías: confirmar tipo de lubricante compatible con aluminio/PVC"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 60
+          },
+          "motivo": "Reparación de persiana motorizada: diagnóstico, limpieza, engrase y ajuste mecánico"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y desmontaje de persiana motorizada",
+          "descripcion": "Inspección completa del motor, mecanismo de enrollado, guías y lamas. Identificación de causa del atasco. Desmontaje parcial si es necesario.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y engrase de guías de persiana",
+          "descripcion": "Limpieza profunda de guías laterales (aluminio/PVC), eliminación de suciedad y óxido. Aplicación de lubricante compatible (silicona o PTFE). Ambos lados.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 45,
+          "total": 45,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y desatasco del motor tubular",
+          "descripcion": "Inspección del motor, verificación de funcionamiento, desatasco mecánico si es necesario. Prueba de movimiento en ambas direcciones. Ajuste de finales de carrera si aplica.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 45,
+          "total": 67.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lubricante y pequeño material de reparación",
+          "descripcion": "Lubricante PTFE/silicona para guías, trapos, pequeños ajustes mecánicos, tornillería si es necesaria.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales a confirmar por instalador según marca y cantidad de lubricante"
+        },
+        {
+          "concepto": "Pruebas funcionales y ajustes finales",
+          "descripcion": "Prueba completa de subida y bajada de persiana. Verificación de velocidad y suavidad de movimiento. Ajustes finales si es necesario.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 45,
+          "total": 22.5,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 202.5,
+        "iva_porcentaje": 21,
+        "iva": 42.525,
+        "total": 245.025
+      },
+      "sugerencias_catalogo": [
+        "Si tras la revisión el motor está muy deteriorado o no responde al desatasco, valorar sustitución completa del motor tubular (reparacion_o_cambio_de_motor_persiana_averiado)",
+        "Si las guías están muy dañadas, considerar sustitución de lamas completas (sustitucion_lamas_persiana_enrollable_aluminio)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lubricante y pequeño material de reparación",
+          "oficio": "persianas",
+          "motivo": "Material consumible específico para engrase de guías, precio variable según marca y cantidad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_cambio_de_motor_persiana_averiado",
+      "reparacion_de_persiana_motorizada_averiada",
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reparacion_cinta_enrolladora_persiana",
+      "reparacion_puerta_garaje_averiada"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3657,
+      "tokens_out": 1467
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 4,
+    "n_sugeridas": 1,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

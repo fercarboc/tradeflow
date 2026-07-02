@@ -1,0 +1,241 @@
+{
+  "id": 217,
+  "oficio": "Jardinería",
+  "texto": "Instalar iluminación de jardín con farolas solares y focos de bajo consumo empotrados en suelo",
+  "http_status": 200,
+  "latency_ms": 22283,
+  "raw_response": {
+    "transcript": "Instalar iluminación de jardín con farolas solares y focos de bajo consumo empotrados en suelo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar iluminación de jardín con farolas solares y focos de bajo consumo empotrados en suelo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye 2 tipos de iluminación: farolas solares (autónomas) y focos empotrados (requieren conexión eléctrica). Verificar si los focos empotrados necesitan zanja/cableado o si son también solares.",
+          "Se recomienda confirmar cantidad de farolas y focos antes de finalizar presupuesto."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de farolas solares (componente fotovoltaica autónoma)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de focos empotrados en suelo con conexión eléctrica, cableado y protecciones"
+        },
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 30
+          },
+          "motivo": "Preparación del terreno, excavación de zanjas para cableado y empotramiento de focos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Farolas solares LED",
+          "descripcion": "Suministro e instalación de farolas solares LED con panel fotovoltaico integrado, batería recargable y sensor crepuscular. Incluye anclaje al terreno.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de farola solar a definir por instalador según modelo y potencia (típico 80-250€/ud)"
+        },
+        {
+          "concepto": "Instalación farolas solares",
+          "descripcion": "Mano de obra para instalación de 4 farolas solares: posicionamiento, anclaje al terreno, verificación de funcionamiento y sensor crepuscular.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Focos LED empotrados en suelo",
+          "descripcion": "Suministro de focos LED de bajo consumo empotrados en suelo, resistentes a pisadas (IP67), con óptica ajustable. Incluye marco de empotramiento y cristal de protección.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de foco empotrado a definir por instalador según potencia y marca (típico 25-80€/ud)"
+        },
+        {
+          "concepto": "Excavación y zanja para cableado",
+          "descripcion": "Preparación del terreno: excavación de zanja para paso de cableado eléctrico entre focos empotrados y cuadro de control. Profundidad 30-40 cm, longitud estimada 20 ml.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 25,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cableado eléctrico y tubo protector",
+          "descripcion": "Suministro de cable eléctrico RV-K 2x1.5 mm² para conexión de focos empotrados, tubo corrugado de protección y pequeño material (conectores, bridas).",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio por metro lineal de cableado + tubo a definir (típico 2-5€/ml)"
+        },
+        {
+          "concepto": "Instalación focos empotrados en suelo",
+          "descripcion": "Mano de obra para empotramiento de 8 focos en suelo: excavación puntual, colocación de marco, conexión de cableado, sellado y prueba de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cuadro de control y protecciones",
+          "descripcion": "Suministro e instalación de cuadro de control con interruptor diferencial 30mA, magnetotérmico 10A y toma de corriente estanca IP65 para alimentación de focos empotrados.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cuadro de control a definir (típico 120-250€)"
+        },
+        {
+          "concepto": "Conexión cuadro de control",
+          "descripcion": "Mano de obra para instalación de cuadro de control: montaje en pared/poste, conexión de cableado de focos, instalación de protecciones y pruebas de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reposición de terreno y acabado",
+          "descripcion": "Relleno de zanja, compactación de terreno y reposición de tierra/césped en zonas excavadas.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 25,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 555,
+        "iva_porcentaje": 21,
+        "iva": 116.55,
+        "total": 671.55
+      },
+      "sugerencias_catalogo": [
+        "Confirmar cantidad exacta de farolas solares y focos empotrados antes de presupuestar.",
+        "Verificar si los focos empotrados requieren conexión a red eléctrica o si también pueden ser solares (en ese caso, eliminar zanja y cuadro de control).",
+        "Considerar si la instalación requiere conexión a cuadro general de vivienda o si es circuito independiente.",
+        "Solicitar especificaciones de potencia de focos (típico 3-12W LED) para calcular sección de cable correcta."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Farolas solares LED",
+          "oficio": "energia_solar",
+          "motivo": "Producto específico de iluminación solar de jardín. Incluido en catálogo de energía solar pero requiere precio unitario del instalador."
+        },
+        {
+          "concepto": "Focos LED empotrados en suelo",
+          "oficio": "electricidad",
+          "motivo": "Componente de iluminación de bajo consumo empotrada. Requiere precio unitario según modelo y potencia."
+        },
+        {
+          "concepto": "Cableado eléctrico y tubo protector",
+          "oficio": "electricidad",
+          "motivo": "Material de distribución eléctrica para focos. Precio por metro lineal a definir."
+        },
+        {
+          "concepto": "Cuadro de control y protecciones",
+          "oficio": "electricidad",
+          "motivo": "Elemento de seguridad eléctrica para circuito de focos empotrados. Requiere precio unitario."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_baterias_de_almacenamiento_solar",
+      "instalacion_sistema_fotovoltaico_autoconsumo_vivienda",
+      "instalacion_fotovoltaica_autoconsumo",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4102,
+      "tokens_out": 3068
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "NO"
+  }
+}

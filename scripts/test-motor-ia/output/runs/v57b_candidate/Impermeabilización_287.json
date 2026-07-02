@@ -1,0 +1,272 @@
+{
+  "id": 287,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+  "http_status": 200,
+  "latency_ms": 24891,
+  "raw_response": {
+    "transcript": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar balcón con baldosas flotadas que filtran agua al piso inferior, rejuntado y sellado",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Balcón con filtración activa: requiere diagnóstico previo de causa (grietas, juntas rotas, pendiente insuficiente)",
+          "Baldosas flotadas sin impermeabilización previa: riesgo de nueva filtración si no se sella correctamente la base",
+          "Recomendación: verificar estado de la losa de hormigón antes de proceder"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Trabajo de impermeabilización de balcón con filtración activa. Oficio prioritario según reglas: impermeabilizacion → SIEMPRE para humedades en cubierta/terraza, láminas impermeabilizantes, proyección, sellado de juntas con función estanca."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Rejuntado y colocación de baldosas. Oficio secundario para acabado final."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Levantamiento y retirada de baldosas flotadas",
+          "descripcion": "Desmontaje cuidadoso de baldosas flotadas existentes, acopio y retirada de material",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe indicar superficie del balcón en m2 y complejidad del desmontaje"
+        },
+        {
+          "concepto": "Limpieza y saneo de la losa de hormigón",
+          "descripcion": "Barrido, limpieza profunda y eliminación de restos de mortero, polvo y suciedad de la base",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie del balcón a definir por instalador"
+        },
+        {
+          "concepto": "Imprimación consolidante y selladora",
+          "descripcion": "Aplicación de imprimación para consolidar la base y mejorar adherencia de la membrana impermeabilizante",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material a seleccionar según tipo de hormigón y grado de porosidad"
+        },
+        {
+          "concepto": "Membrana impermeabilizante líquida o lámina elastomérica",
+          "descripcion": "Aplicación de membrana impermeabilizante (poliuretano, acrílica o lámina EPDM) en toda la superficie del balcón, incluyendo encuentros con fachada y barandilla",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo y cantidad de membrana a definir según superficie y producto elegido (rendimiento 1-2 m2/litro)"
+        },
+        {
+          "concepto": "Aplicación de membrana impermeabilizante (mano de obra)",
+          "descripcion": "Rodillo o pistola de baja presión para aplicación uniforme de membrana impermeabilizante en 1-2 manos según porosidad",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie del balcón a definir por instalador"
+        },
+        {
+          "concepto": "Sellado de juntas perimetrales y encuentros",
+          "descripcion": "Sellado flexible con silicona o poliuretano de encuentros con fachada, barandilla y desagüe. Incluye fondo de junta con espuma de polietileno",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro del balcón a definir por instalador (metros lineales)"
+        },
+        {
+          "concepto": "Aplicación de sellado en juntas (mano de obra)",
+          "descripcion": "Aplicación de sellador flexible en juntas perimetrales con herramientas manuales",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Perímetro del balcón a definir por instalador"
+        },
+        {
+          "concepto": "Colocación de baldosas con adhesivo flexible",
+          "descripcion": "Colocación de baldosas flotadas nuevas o reutilizadas con adhesivo flexible (C2 o superior) sobre membrana impermeabilizante",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie del balcón a definir por instalador"
+        },
+        {
+          "concepto": "Adhesivo flexible para baldosas",
+          "descripcion": "Adhesivo C2 o superior, flexible, apto para exteriores y balcones con movimiento",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según superficie (aprox. 3-5 kg/m2 según espesor de baldosa)"
+        },
+        {
+          "concepto": "Rejuntado de baldosas con lechada flexible",
+          "descripcion": "Rejuntado de todas las juntas entre baldosas con lechada flexible (CG2 o superior) apta para exteriores",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie del balcón a definir por instalador"
+        },
+        {
+          "concepto": "Lechada flexible para rejuntado",
+          "descripcion": "Lechada flexible CG2 o superior, resistente a movimientos y cambios de temperatura, apta para balcones",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según ancho de junta y superficie (aprox. 1-2 kg/m2)"
+        },
+        {
+          "concepto": "Limpieza final y protección de baldosas",
+          "descripcion": "Limpieza de restos de lechada, polvo y material de obra. Aplicación de protector hidrofugante en baldosas si es necesario",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Superficie del balcón a definir por instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: membrana impermeabilizante líquida poliuretano (rendimiento, precio/litro)",
+        "Verificar en catálogo: lámina EPDM o TPO para balcones (si se prefiere solución de lámina)",
+        "Verificar en catálogo: sellador poliuretano flexible para juntas exteriores",
+        "Verificar en catálogo: adhesivo C2 flexible para baldosas en exteriores",
+        "Verificar en catálogo: lechada CG2 flexible para rejuntado en balcones"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Membrana impermeabilizante líquida o lámina elastomérica",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material específico para impermeabilización de balcón. Requiere selección entre poliuretano, acrílica o lámina EPDM según presupuesto y durabilidad deseada"
+        },
+        {
+          "concepto": "Adhesivo flexible para baldosas",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Adhesivo C2 flexible obligatorio para balcones con movimiento y exposición a cambios de temperatura"
+        },
+        {
+          "concepto": "Lechada flexible para rejuntado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Lechada CG2 flexible obligatoria para exteriores y balcones, no lechada rígida"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "impermeabilizacion_de_encuentro_fachada_cubierta"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3892,
+      "tokens_out": 3696
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 5,
+    "n_sugeridas": 7,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

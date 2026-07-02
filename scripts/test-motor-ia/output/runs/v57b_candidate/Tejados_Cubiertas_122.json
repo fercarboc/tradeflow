@@ -1,0 +1,193 @@
+{
+  "id": 122,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Cambio completo de cubierta plana en piso ático, impermeabilización con lámina líquida",
+  "http_status": 200,
+  "latency_ms": 21507,
+  "raw_response": {
+    "transcript": "Cambio completo de cubierta plana en piso ático, impermeabilización con lámina líquida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio completo de cubierta plana en piso ático, impermeabilización con lámina líquida",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Obra de envergadura media: requiere inspección previa de estado estructural de cubierta",
+          "Lámina líquida requiere confirmación de tipo específico (poliurea, acrílica, poliéster)",
+          "Necesario verificar superficie exacta de cubierta y presencia de sumideros/bajantes",
+          "Gestión de residuos de cubierta antigua es obligatoria",
+          "Recomendable incluir aislamiento térmico si no existe (CTE DB-HE)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Impermeabilización con lámina líquida es función principal de impermeabilización, no albanilería"
+        },
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Desmontaje y retirada de cubierta antigua, trabajos estructurales de cubierta plana"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Gestión y retirada de residuos de construcción de cubierta antigua"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y retirada de cubierta antigua",
+          "descripcion": "Desmontaje completo de cubierta plana existente, incluyendo impermeabilización antigua, aislamiento si existe, y elementos de fijación. Preparación de soporte para nueva cubierta.",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 debe ser medida en obra. Tarifa: 50€/m2 recomendado (incluye desmontaje, limpieza y preparación soporte)"
+        },
+        {
+          "concepto": "Limpieza y preparación de soporte",
+          "descripcion": "Barrido, limpieza profunda y reparación de grietas/fisuras en soporte de hormigón. Aplicación de imprimación/sellador base para lámina líquida.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 debe ser medida en obra. Tarifa: 15€/m2 recomendado"
+        },
+        {
+          "concepto": "Suministro e instalación de lámina líquida impermeabilizante",
+          "descripcion": "Suministro e instalación de lámina líquida (poliurea, acrílica o poliéster según especificación). Incluye aplicación en 2-3 capas, refuerzo en encuentros con paramentos, sumideros y juntas de dilatación. Sellado de juntas perimetrales.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 debe ser medida en obra. Precio material: 25-60€/m2 según tipo lámina líquida. Mano de obra: 35€/m2 recomendado"
+        },
+        {
+          "concepto": "Refuerzo impermeabilización en encuentros y sumideros",
+          "descripcion": "Refuerzo específico de lámina líquida en encuentros con paramentos verticales, sumideros, bajantes y juntas de dilatación. Aplicación de capas adicionales y selladores especializados.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en ml de encuentros debe ser medida en obra. Tarifa: 25€/ml recomendado"
+        },
+        {
+          "concepto": "Capa de protección/acabado en cubierta",
+          "descripcion": "Aplicación de capa de protección mecánica (pintura acrílica reflectante, grava suelta o baldosa flotante) para proteger lámina líquida de rayos UV y tránsito. Especificar tipo según uso de cubierta.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad en m2 debe ser medida en obra. Precio material: 5-25€/m2 según tipo protección. Mano de obra: 12€/m2 recomendado"
+        },
+        {
+          "concepto": "Gestión y retirada de residuos de construcción",
+          "descripcion": "Carga, transporte y gestión de residuos de cubierta antigua (hormigón, impermeabilización, aislamiento). Incluye contenedor y tasas de vertedero autorizado.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen de residuos debe estimarse en obra (aprox. 0.15-0.25 m3 por m2 de cubierta). Tarifa: 35-50€/m3 recomendado"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar tipo específico de lámina líquida: poliurea (máxima durabilidad, 50+ años), acrílica (económica, 15-20 años) o poliéster (intermedia, 25-30 años)",
+        "Verificar si cubierta requiere aislamiento térmico adicional (CTE DB-HE). Si es necesario, añadir partida de aislamiento XPS o lana roca antes de impermeabilización",
+        "Inspeccionar estado de sumideros/bajantes existentes. Si están dañados, incluir partida de sustitución",
+        "Considerar si cubierta será transitable o no (afecta a tipo de protección final)",
+        "Solicitar certificado de garantía de lámina líquida (mínimo 10 años recomendado)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lámina líquida impermeabilizante",
+          "tipo": "material",
+          "motivo": "Material específico no detallado en catálogo base. Requiere especificación de tipo (poliurea/acrílica/poliéster) y espesor"
+        },
+        {
+          "concepto": "Capa de protección cubierta",
+          "tipo": "material",
+          "motivo": "Tipo de protección (pintura reflectante, grava, baldosa) debe ser especificado por cliente"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "impermeabilizacion_cubierta_plana_con_lamina",
+      "instalacion_de_aislamiento_termico_en_cubierta_plana",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_inodoro",
+      "impermeabilizacion_cubierta_plana_con_lamina_EPDM"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3986,
+      "tokens_out": 2804
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "id": 96,
+  "oficio": "Albañilería",
+  "texto": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+  "http_status": 200,
+  "latency_ms": 21273,
+  "raw_response": {
+    "transcript": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+    "quote": {
+      "resumen": {
+        "texto_original": "Construir cerramiento de terral en la terraza de 15 metros cuadrados con ventanas de aluminio",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Término 'terral' no es estándar en construcción. Se interpreta como 'cerramiento de terraza'. Confirmar si es: sistema plegable, cortinas de cristal deslizantes, o estructura fija con ventanas.",
+          "Se asume cerramiento con ventanas de aluminio deslizantes/fijas. Si es plegable o sistema específico, revisar partidas.",
+          "Falta información: ¿altura de los paneles?, ¿tipo de vidrio (templado, laminado)?, ¿estanqueidad requerida?, ¿licencia municipal?"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Cerramiento de terraza con sistema de ventanas/cortinas de cristal. Oficio especializado en cerramientos de terrazas."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Estructura soporte y fijación de cerramiento a forjado/estructura existente."
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Preparación de superficie, sellado perimetral y remates de obra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Perfilería aluminio cerramiento terraza (superior, inferior, laterales)",
+          "descripcion": "Suministro e instalación de perfiles de aluminio anodizado para cerramiento de terraza de 15 m². Incluye guías superior e inferior, perfiles laterales y refuerzos estructurales.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de perfilería aluminio según sistema específico (plegable, deslizante, fijo) y calidad. Rango estimado: 40-80€/m²."
+        },
+        {
+          "concepto": "Paneles vidrio templado cerramiento (8-10mm)",
+          "descripcion": "Suministro e instalación de vidrio templado de 8-10mm de espesor para cerramiento de terraza. Incluye corte, biselado y tratamiento de seguridad.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio vidrio templado según espesor y certificación. Rango estimado: 60-120€/m²."
+        },
+        {
+          "concepto": "Herrajes acero inoxidable (bisagras, cierres, topes, manillas)",
+          "descripcion": "Suministro e instalación de herrajes de acero inoxidable AISI 304 para cerramiento: bisagras, cierres centrales, topes de apertura, manillas y cerraduras.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio herrajes según cantidad de hojas y sistema. Rango estimado: 300-800€/juego."
+        },
+        {
+          "concepto": "Instalación perfilería y vidrio cerramiento terraza",
+          "descripcion": "Mano de obra de instalación: colocación de perfiles, fijación a estructura, montaje de paneles de vidrio, ajuste de herrajes y pruebas de funcionamiento.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 20,
+          "precio_unitario": 45,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Preparación y fijación estructura soporte cerramiento",
+          "descripcion": "Mano de obra de carpintería: preparación de forjado/estructura existente, colocación de platinas de anclaje, fijación de perfiles base y refuerzos estructurales.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 45,
+          "total": 540,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellado perimetral y remates de obra",
+          "descripcion": "Mano de obra de albañilería: limpieza de superficie, aplicación de sellante elástico en perímetro, remates con mortero o silicona, acabado limpio.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 40,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sellante elástico y pequeño material",
+          "descripcion": "Suministro de sellante elástico de poliuretano o silicona, tornillería inoxidable, tacos de fijación, cinta de espuma y otros materiales auxiliares.",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "lote",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pequeño material y sellantes. Rango estimado: 80-150€/lote."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1760,
+        "iva_porcentaje": 21,
+        "iva": 369.6,
+        "total": 2129.6
+      },
+      "sugerencias_catalogo": [
+        "Consultar en catálogo: 'instalacion_cerramiento_de_terraza_con_cortinas_de_cristal' (oficio=persianas, unidad=m2, precio=60-210€/m2) — aplicable si el cerramiento es deslizante/fijo.",
+        "Si el cerramiento es PLEGABLE, consultar: 'instalacion_cerramiento_de_terraza_con_sistema_plegable' (oficio=persianas, unidad=m2, precio=60-210€/m2).",
+        "Confirmar con cliente: tipo de sistema (plegable, deslizante, fijo), altura de paneles, requisito de estanqueidad, y si requiere licencia municipal."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Paneles vidrio templado cerramiento (8-10mm)",
+          "oficio": "persianas",
+          "motivo": "Material específico de cerramiento de terraza. Precio pendiente de revisión según espesor y certificación."
+        },
+        {
+          "concepto": "Herrajes acero inoxidable (bisagras, cierres, topes, manillas)",
+          "oficio": "persianas",
+          "motivo": "Componentes de cierre y funcionamiento del cerramiento. Precio pendiente según cantidad y tipo de sistema."
+        },
+        {
+          "concepto": "Sellante elástico y pequeño material",
+          "oficio": "albanileria",
+          "motivo": "Materiales auxiliares de sellado y fijación. Precio pendiente de revisión."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_cerramiento_de_terraza_con_sistema_plegable",
+      "instalacion_cerramiento_de_terraza_con_cortinas_de_cristal",
+      "fabricacion_e_instalacion_de_pergola_de_madera",
+      "construccion_de_pergola_o_porche_de_madera_en_jardin",
+      "construccion_de_piscina_de_obra"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4330,
+      "tokens_out": 2826
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "NO"
+  }
+}

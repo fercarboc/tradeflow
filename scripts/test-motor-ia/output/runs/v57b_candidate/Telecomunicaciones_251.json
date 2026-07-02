@@ -1,0 +1,250 @@
+{
+  "id": 251,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+  "http_status": 200,
+  "latency_ms": 28323,
+  "raw_response": {
+    "transcript": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar red de fibra óptica interna en empresa de 3 plantas, 20 puntos de trabajo",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere medición en sitio para calcular metraje exacto de fibra y número de conectores",
+          "Se asume distribución equilibrada entre plantas. Confirmar topología real (estrella, anillo, malla)",
+          "Precio de fibra y conectores es orientativo. Instalador debe revisar especificaciones técnicas finales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de infraestructura de fibra óptica, cableado estructurado, conectores y equipos de red"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cable fibra óptica multimodo OM4 (distribución interna)",
+          "descripcion": "Suministro de cable fibra óptica multimodo OM4 para red interna de 3 plantas con 20 puntos de trabajo. Estimado 400-500 ml de recorrido total (incluyendo redundancia y reserva). Apto para distancias hasta 400m a 10Gbps",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 450,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de fibra óptica multimodo OM4 debe ser confirmado por instalador según proveedor y especificaciones exactas (diámetro, número de fibras, armadura)"
+        },
+        {
+          "concepto": "Conectores LC duplex y paneles de distribución de fibra",
+          "descripcion": "Suministro de 20 conectores LC duplex (40 conectores individuales) para puntos de trabajo, más conectores adicionales para ODF y equipos. Incluye paneles de distribución de fibra (ODF) para organización de fibras en cuarto técnico",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de conectores LC duplex y ODF debe ser confirmado. Considerar calidad (APC vs UPC) y cantidad exacta de puertos en ODF"
+        },
+        {
+          "concepto": "Switch gestionable con puertos SFP+ para fibra óptica",
+          "descripcion": "Suministro de switch de red gestionable con mínimo 4 puertos SFP+ (10Gbps) para interconexión de fibra entre plantas y conexión a equipos principales. Incluye fuente redundante y gestión SNMP",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de switch SFP+ varía según marca y número de puertos. Confirmar especificaciones: velocidad, redundancia, gestión"
+        },
+        {
+          "concepto": "Transceptores SFP+ para fibra óptica",
+          "descripcion": "Suministro de 8 transceptores SFP+ (small form-factor pluggable) para conexión de equipos a red de fibra. Incluye módulos para distancias de hasta 300m en multimodo OM4",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de transceptores SFP+ debe ser confirmado. Considerar compatibilidad con equipos existentes"
+        },
+        {
+          "concepto": "Herramienta de fusión de fibra óptica y medidor de potencia óptica",
+          "descripcion": "Suministro de fusionadora de fibra óptica (empalmes por fusión) y medidor de potencia óptica para certificación de enlaces. Incluye accesorios de limpieza y protección de empalmes",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Herramientas de fusión son de alto coste. Considerar alquiler vs compra. Precio debe incluir accesorios consumibles"
+        },
+        {
+          "concepto": "OTDR (Reflectómetro óptico en el dominio del tiempo) para certificación",
+          "descripcion": "Suministro de OTDR para medición y certificación de atenuación en enlaces de fibra óptica. Necesario para validar calidad de instalación y crear documentación técnica de la red",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "OTDR es equipo especializado de alto coste. Considerar alquiler. Precio debe ser confirmado"
+        },
+        {
+          "concepto": "Canaletas, bandejas y pequeño material de instalación",
+          "descripcion": "Suministro de canaletas de PVC/aluminio para protección de fibra en recorridos, bandejas portacables, abrazaderas, etiquetado, tubo corrugado de protección y otros accesorios menores",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material debe ser presupuestado según recorridos exactos y acabados requeridos"
+        },
+        {
+          "concepto": "Instalación de cableado de fibra óptica (tendido, fusión y conexión)",
+          "descripcion": "Mano de obra para tendido de 450 ml de fibra óptica en canaletas y bandejas, realización de empalmes por fusión en puntos intermedios, conexión de conectores LC en 20 puntos de trabajo, organización en ODF y etiquetado completo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de switch SFP+ y transceptores",
+          "descripcion": "Mano de obra para instalación de switch gestionable en rack, montaje de transceptores SFP+, conexión de fibra a puertos, configuración inicial de VLAN y puertos, pruebas de conectividad",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Medición, certificación y documentación de red de fibra",
+          "descripcion": "Mano de obra para medición de atenuación en todos los enlaces con OTDR, generación de reportes de certificación, documentación técnica de la red (planos, esquemas, base de datos de conectores), entrega de certificados de calidad",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Análisis de radiofrecuencia y planificación de topología",
+          "descripcion": "Mano de obra para análisis previo de infraestructura de 3 plantas, planificación de recorridos óptimos, definición de topología de red (estrella, anillo, malla), cálculo de distancias y atenuación esperada, recomendaciones de equipos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 3300,
+        "iva_porcentaje": 21,
+        "iva": 693,
+        "total": 3993
+      },
+      "sugerencias_catalogo": [
+        "Confirmar en sitio: metraje exacto de fibra, número de plantas, distribución de puntos de trabajo y topología de red",
+        "Especificar tipo de fibra: OM3 (hasta 300m a 10Gbps) vs OM4 (hasta 400m a 10Gbps) vs OS2 monomodo (distancias mayores, más coste)",
+        "Definir si se requiere redundancia (anillo de fibra) o topología simple (estrella)",
+        "Considerar si se necesita UPS/batería de respaldo para switch en cuarto técnico",
+        "Evaluar si se requiere controladora de red o gestión en cloud para monitoreo",
+        "Presupuestar contrato de mantenimiento anual para inspección y limpieza de conectores"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cable fibra óptica multimodo OM4",
+          "oficio": "telecomunicaciones",
+          "motivo": "Material específico de red de fibra, incluido en BASE MAESTRA pero precio unitario requiere revisión"
+        },
+        {
+          "concepto": "Conectores LC duplex y ODF",
+          "oficio": "telecomunicaciones",
+          "motivo": "Componentes de distribución de fibra, incluidos en BASE MAESTRA pero precio requiere revisión"
+        },
+        {
+          "concepto": "Switch SFP+ y transceptores",
+          "oficio": "telecomunicaciones",
+          "motivo": "Equipos de red activos, incluidos en BASE MAESTRA pero precio requiere revisión según especificaciones"
+        },
+        {
+          "concepto": "OTDR para certificación",
+          "oficio": "telecomunicaciones",
+          "motivo": "Equipo especializado de medición, incluido en BASE MAESTRA pero precio requiere revisión (considerar alquiler)"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_con_fibra_optica_backbone",
+      "instalacion_de_punto_de_acceso_wifi_o_AP_profesional",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_electrica_pergola_terraza",
+      "instalacion_de_central_telefonica_IP_o_PBX"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4115,
+      "tokens_out": 3692
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 11,
+    "n_catalogo": 4,
+    "n_sugeridas": 7,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

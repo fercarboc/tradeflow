@@ -1,0 +1,187 @@
+{
+  "id": 92,
+  "oficio": "Albañilería",
+  "texto": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 17512,
+  "raw_response": {
+    "transcript": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Enfocar y enlucir paredes de piso antiguo, superficie total de 120 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Piso antiguo: verificar estado de humedad, grietas estructurales y necesidad de tratamiento previo",
+          "Superficie 120 m²: considerar andamios si hay paredes altas (>3m)",
+          "Presupuesto basado en enfoscado + enlucido estándar; ajustar si hay daños severos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Enfoscado y enlucido de paredes interiores con yeso"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Yeso grueso para guarnecido y enfoscado",
+          "descripcion": "Aplicación de yeso grueso (enfoscado) en paredes interiores, espesor 10-15mm, preparación de superficie para enlucido",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar cantidad de sacos de yeso grueso según densidad y espesor real"
+        },
+        {
+          "concepto": "Yeso fino para enlucido acabado",
+          "descripcion": "Aplicación de yeso fino (enlucido) en paredes interiores, espesor 5-8mm, acabado liso y uniforme",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar cantidad de sacos de yeso fino según rendimiento"
+        },
+        {
+          "concepto": "Maestras, guías y pequeño material",
+          "descripcion": "Maestras de yeso, guías de aluminio, cinta de carrocero, plástico de protección, herramientas menores (espátulas, reglas, llanas)",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar: instalador debe presupuestar según necesidades reales de obra"
+        },
+        {
+          "concepto": "Mano de obra: enfoscado y enlucido de paredes",
+          "descripcion": "Aplicación de yeso grueso (enfoscado) + yeso fino (enlucido) en 120 m² de paredes interiores, incluye preparación de maestras, nivelación y acabado liso",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 120,
+          "precio_unitario": 40,
+          "total": 4800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Guardavivos metálicos en esquinas salientes",
+          "descripcion": "Colocación de guardavivos/ángulos metálicos en esquinas salientes para protección y acabado limpio",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material auxiliar: instalador debe medir metros lineales de esquinas salientes y presupuestar guardavivos"
+        },
+        {
+          "concepto": "Andamio o escalera de acceso (si altura >3m)",
+          "descripcion": "Alquiler/montaje de andamio o escalera de acceso para trabajos en altura superior a 3 metros",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "unidad": "jornada",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio auxiliar: instalador debe confirmar si hay paredes >3m y presupuestar andamio/escalera según necesidad"
+        }
+      ],
+      "calculos": {
+        "subtotal": 4800,
+        "iva_porcentaje": 21,
+        "iva": 1008,
+        "total": 5808
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'guarnecido_y_maestreado_yeso_paredes_y_techo' (rango 22-110€/m2 según acabado y dificultad)",
+        "Verificar en catálogo: 'enlucido_de_yeso_paredes_interiores' (rango 22-110€/m2)",
+        "Considerar partida de 'limpieza_y_preparacion_superficie_antes_pintar' si las paredes requieren reparación previa de grietas o humedad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Yeso grueso para guarnecido y enfoscado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material base para enfoscado; precio debe ser confirmado por instalador según marca y cantidad de sacos"
+        },
+        {
+          "concepto": "Yeso fino para enlucido acabado",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material base para enlucido; precio debe ser confirmado por instalador según marca y cantidad de sacos"
+        },
+        {
+          "concepto": "Maestras, guías y pequeño material",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material auxiliar; presupuestar según necesidades reales de obra"
+        },
+        {
+          "concepto": "Guardavivos metálicos en esquinas salientes",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "motivo": "Material auxiliar; metros lineales a confirmar por instalador"
+        },
+        {
+          "concepto": "Andamio o escalera de acceso (si altura >3m)",
+          "oficio": "albanileria",
+          "tipo_partida": "servicio",
+          "motivo": "Servicio auxiliar; necesidad a confirmar según altura real de paredes"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "guarnecido_y_maestreado_yeso_paredes_y_techo",
+      "pintura_plastica_paredes_interiores",
+      "limpieza_y_preparacion_superficie_antes_pintar",
+      "reforma_integral_vivienda_completa",
+      "enlucido_de_yeso_paredes_interiores"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3841,
+      "tokens_out": 2434
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "SI"
+  }
+}

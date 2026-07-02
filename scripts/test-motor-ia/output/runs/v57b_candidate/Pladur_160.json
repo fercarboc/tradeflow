@@ -1,0 +1,199 @@
+{
+  "id": 160,
+  "oficio": "Pladur",
+  "texto": "Tabique de doble placa de pladur con lana de roca para separar sala de reuniones en oficina",
+  "http_status": 200,
+  "latency_ms": 20119,
+  "raw_response": {
+    "transcript": "Tabique de doble placa de pladur con lana de roca para separar sala de reuniones en oficina",
+    "quote": {
+      "resumen": {
+        "texto_original": "Tabique de doble placa de pladur con lana de roca para separar sala de reuniones en oficina",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume tabique que llega a techo. Confirmar altura y si requiere refuerzo superior.",
+          "Lana de roca incluida para aislamiento acústico. Confirmar espesor (50mm o 70mm).",
+          "Precio de mano de obra basado en tarifa pladur_escayola=35€/h. Revisar según complejidad local."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 65
+          },
+          "motivo": "Tabique de pladur doble placa con lana de roca. Oficio especializado en sistemas de placas de yeso laminado."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 15mm doble cara",
+          "descripcion": "Suministro e instalación de placa de yeso laminado estándar 15mm, dos placas por cada cara del tabique para alta resistencia",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. El instalador debe indicar superficie neta (m2) y confirmar precio de placa doble cara."
+        },
+        {
+          "concepto": "Perfiles metálicos canal y montante 70mm",
+          "descripcion": "Suministro e instalación de perfiles de acero galvanizado: canales 70mm (superior e inferior) y montantes 70mm cada 400mm",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad en metros lineales según perímetro y altura. Precio por ml a revisar."
+        },
+        {
+          "concepto": "Lana de roca densidad media 70mm",
+          "descripcion": "Suministro e instalación de lana de roca 70mm entre montantes para aislamiento acústico y térmico",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad en m2 (superficie neta del tabique). Confirmar espesor y densidad."
+        },
+        {
+          "concepto": "Tornillería pladur (autorroscante)",
+          "descripcion": "Suministro de tornillos autorroscantes 25mm para fijación de placas a perfiles metálicos",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad estimada según m2 de placa (aprox. 15-20 tornillos/m2). Precio unitario a revisar."
+        },
+        {
+          "concepto": "Cinta de papel y pasta de juntas",
+          "descripcion": "Suministro de cinta de papel para juntas y pasta de juntas para acabado liso de tabique",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad en m2 (superficie total de juntas). Precio por m2 a revisar."
+        },
+        {
+          "concepto": "Ángulo metálico esquinas y pequeño material",
+          "descripcion": "Suministro de ángulo metálico para protección de esquinas y pequeño material (tacos, arandelas, etc.)",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material. Cantidad en ml según perímetro de esquinas. Precio por ml a revisar."
+        },
+        {
+          "concepto": "Montaje y fijación estructura tabique",
+          "descripcion": "Mano de obra: replanteo, fijación de canales a suelo y techo, colocación de montantes cada 400mm, fijación a estructura existente",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra. Cantidad en horas según m2 de tabique (aprox. 1-1.5h/m2 para estructura). Revisar según complejidad."
+        },
+        {
+          "concepto": "Colocación de placas de yeso laminado",
+          "descripcion": "Mano de obra: instalación de placas doble cara, atornillado a perfiles, cortes y ajustes",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra. Cantidad en horas según m2 de placa (aprox. 1.5-2h/m2 para doble placa). Revisar según experiencia."
+        },
+        {
+          "concepto": "Acabado de juntas y esquinas",
+          "descripcion": "Mano de obra: aplicación de cinta de papel, pasta de juntas, lijado y acabado liso de tabique",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Mano de obra. Cantidad en horas según m2 de juntas (aprox. 0.5-1h/m2 para acabado liso). Revisar según calidad requerida."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Confirmar si el tabique requiere propiedades acústicas certificadas (Rw ≥ 40dB). Si es así, considerar lana de roca de mayor densidad (100mm) o doble lana.",
+        "Verificar si hay instalaciones (electricidad, fontanería) que pasen por el tabique. Si es así, prever pasos y sellados.",
+        "Confirmar altura del tabique: ¿llega a techo o es parcial? Si es parcial, refuerzo superior obligatorio.",
+        "Considerar si se requiere acabado especial (pintura, papel pintado) después del pladur. Si es así, añadir partida de pintura."
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "tabique_pladur_separacion_zona_oficina",
+      "tabique_pladur_hidrofugo_bano_o_cocina",
+      "estructura_pladur_para_zona_expositiva_o_showroom",
+      "tabique_pladur_cortafuego_RF60_o_RF120",
+      "tabique_pladur_doble_placa_alta_resistencia"
+    ],
+    "kb_score": 4.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3919,
+      "tokens_out": 2798
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 3,
+    "n_sugeridas": 6,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

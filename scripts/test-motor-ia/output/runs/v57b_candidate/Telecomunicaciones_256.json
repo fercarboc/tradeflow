@@ -1,0 +1,284 @@
+{
+  "id": 256,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+  "http_status": 200,
+  "latency_ms": 20360,
+  "raw_response": {
+    "transcript": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema de control de acceso remoto con cámara y apertura desde smartphone para portal",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema integrado de acceso y CCTV: requiere coordinación con normativa RGPD",
+          "Apertura remota desde smartphone: verificar compatibilidad con cerradura existente",
+          "Se recomienda UPS para continuidad de servicio en caso de corte eléctrico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de sistema integrado de control de acceso, CCTV y conectividad remota"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Adaptación e instalación de cerradura inteligente compatible con sistema de acceso remoto"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cámara IP para control de acceso",
+          "descripcion": "Cámara IP de vigilancia para portal con resolución mínima 1080p, visión nocturna, ángulo de visión 120°, compatible con sistema de acceso remoto",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar modelo y precio según especificaciones técnicas requeridas"
+        },
+        {
+          "concepto": "Grabador NVR (Network Video Recorder)",
+          "descripcion": "Grabador NVR con capacidad mínima 1TB, compatible con cámara IP, acceso remoto vía app, almacenamiento local y en nube",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar capacidad y compatibilidad con cámara"
+        },
+        {
+          "concepto": "Cerradura inteligente con apertura remota",
+          "descripcion": "Cerradura inteligente compatible con smartphone, control remoto vía app, integración con sistema de acceso, batería de respaldo",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe verificar compatibilidad con puerta y sistema de acceso existente"
+        },
+        {
+          "concepto": "Panel de control de acceso con lector",
+          "descripcion": "Panel de control de acceso con lector de tarjeta/código, pantalla táctil, integración con cerradura inteligente y cámara IP",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe seleccionar según compatibilidad con cerradura y cámara"
+        },
+        {
+          "concepto": "Cableado Cat6 y conexiones específicas",
+          "descripcion": "Cableado Cat6 para conexión de cámara IP, panel de control y grabador NVR, conectores RJ45, pequeño material de instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "metro",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar metraje real según ubicación de componentes"
+        },
+        {
+          "concepto": "Instalación de cámara IP y grabador NVR",
+          "descripcion": "Montaje de cámara en portal, instalación de grabador NVR, configuración de red, pruebas de funcionamiento y grabación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de cerradura inteligente",
+          "descripcion": "Desmontaje de cerradura existente, instalación de cerradura inteligente, ajuste de mecanismo, pruebas de apertura manual y remota",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de panel de control de acceso",
+          "descripcion": "Montaje de panel de control en portal, conexionado a cerradura y cámara, configuración de permisos de acceso, integración con app móvil",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de acceso remoto y app móvil",
+          "descripcion": "Configuración de conectividad remota, descarga e instalación de app en smartphone, pruebas de apertura remota, creación de usuarios y permisos",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cartel informativo RGPD",
+          "descripcion": "Cartel de aviso de videovigilancia conforme a normativa RGPD, instalación en portal",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe confirmar si incluye o no en presupuesto"
+        },
+        {
+          "concepto": "SAI/UPS para continuidad de servicio",
+          "descripcion": "Sistema de alimentación ininterrumpida (UPS) para panel de control y cerradura inteligente, autonomía mínima 4 horas, batería de respaldo",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe evaluar necesidad y seleccionar potencia según consumo de equipos"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, tacos, bridas, conectores, fuentes de alimentación, cables de conexión y otros accesorios necesarios para la instalación",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: instalador debe cuantificar según necesidades reales de la instalación"
+        }
+      ],
+      "calculos": {
+        "subtotal": 470,
+        "iva_porcentaje": 21,
+        "iva": 98.7,
+        "total": 568.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la cerradura existente es compatible con cerraduras inteligentes (tipo de mecanismo, tamaño de caja de seguridad)",
+        "Confirmar disponibilidad de conexión a internet en el portal para acceso remoto (WiFi o Ethernet)",
+        "Evaluar necesidad de UPS para garantizar funcionamiento en caso de corte eléctrico",
+        "Considerar contratación de servicio de monitoreo remoto adicional si se requiere",
+        "Documentar consentimiento de propietarios/comunidad para instalación de cámara (RGPD)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cámara IP para control de acceso",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Especificación técnica de cámara IP integrada en sistema de acceso remoto"
+        },
+        {
+          "concepto": "Grabador NVR (Network Video Recorder)",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Componente de grabación y almacenamiento para sistema CCTV integrado"
+        },
+        {
+          "concepto": "Cerradura inteligente con apertura remota",
+          "oficio": "cerrajeria",
+          "origen": "sugerida_ia",
+          "motivo": "Cerradura compatible con control remoto desde smartphone"
+        },
+        {
+          "concepto": "Panel de control de acceso con lector",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Panel de control integrado para gestión de acceso y cámara"
+        },
+        {
+          "concepto": "SAI/UPS para continuidad de servicio",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de respaldo de energía para garantizar funcionamiento en cortes eléctricos"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_control_de_acceso_con_CCTV",
+      "instalacion_electrica_local_nuevo",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "instalacion_sistema_de_riego_por_aspersion"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3984,
+      "tokens_out": 3230
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 4,
+    "n_sugeridas": 8,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

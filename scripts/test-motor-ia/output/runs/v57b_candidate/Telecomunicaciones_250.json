@@ -1,0 +1,117 @@
+{
+  "id": 250,
+  "oficio": "Telecomunicaciones",
+  "texto": "Reparar intercomunicador del portal que no funciona, revisión de centralita y terminales",
+  "http_status": 200,
+  "latency_ms": 9063,
+  "raw_response": {
+    "transcript": "Reparar intercomunicador del portal que no funciona, revisión de centralita y terminales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar intercomunicador del portal que no funciona, revisión de centralita y terminales",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Diagnóstico técnico requerido: sin especificar causa de fallo (alimentación, placa base, líneas, terminales)",
+          "Precio de materiales pendiente de revisión tras diagnóstico"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación de sistema de intercomunicación (centralita + terminales): instalación de telecomunicaciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión centralita intercomunicador",
+          "descripcion": "Revisión completa de centralita, verificación de alimentación, placa base, líneas de comunicación y conectores",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión y prueba de terminales (portero automático)",
+          "descripcion": "Comprobación de funcionamiento de todos los terminales, verificación de líneas de comunicación, pruebas de audio y video si aplica",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación o sustitución de componentes defectuosos",
+          "descripcion": "Materiales necesarios para reparación: placa base, relés, conectores, cableado, soldaduras, pequeño material según diagnóstico",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de diagnóstico técnico. El instalador especificará componentes defectuosos y sus costes tras revisar centralita y terminales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 125,
+        "iva_porcentaje": 21,
+        "iva": 26.25,
+        "total": 151.25
+      },
+      "sugerencias_catalogo": [
+        "Tras diagnóstico, si se requiere sustitución de centralita completa, considerar presupuesto separado de instalación nueva",
+        "Si fallo es en línea de comunicación (cableado), puede requerir trabajo adicional de telecomunicaciones"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación o sustitución de componentes defectuosos",
+          "motivo": "Materiales específicos desconocidos hasta diagnóstico; precio pendiente de revisión del instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada",
+      "reparacion_averia_caldera_gas",
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3830,
+      "tokens_out": 1042
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 3,
+    "n_catalogo": 2,
+    "n_sugeridas": 1,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

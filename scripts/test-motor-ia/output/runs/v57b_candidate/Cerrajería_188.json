@@ -1,0 +1,157 @@
+{
+  "id": 188,
+  "oficio": "Cerrajería",
+  "texto": "Cambio de cerradura antipunto multipoint en puerta de piso, por cerradura nueva de 3 puntos",
+  "http_status": 200,
+  "latency_ms": 10614,
+  "raw_response": {
+    "transcript": "Cambio de cerradura antipunto multipoint en puerta de piso, por cerradura nueva de 3 puntos",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de cerradura antipunto multipoint en puerta de piso, por cerradura nueva de 3 puntos",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cerradura multipoint a 3 puntos: verificar compatibilidad de medidas y backset antes de comprar",
+          "Precio de cerradura nueva pendiente de confirmación según marca y calidad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Cambio de cerradura completa, desmontaje e instalación"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cerradura nueva 3 puntos",
+          "descripcion": "Suministro cerradura de 3 puntos para puerta de piso, sustituyendo cerradura antipunto multipoint existente",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cerradura según marca, calidad y tipo de cierre (europerfil, cilindro, etc.) debe ser confirmado por instalador"
+        },
+        {
+          "concepto": "Desmontaje cerradura antipunto existente",
+          "descripcion": "Desmontaje y extracción de cerradura multipoint antigua, incluyendo cilindro, herrajes y pequeño material",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 60,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación cerradura 3 puntos",
+          "descripcion": "Instalación, ajuste y regulación de cerradura nueva de 3 puntos en puerta de piso, incluyendo alineación de puntos de cierre",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Llaves de trabajo",
+          "descripcion": "Suministro de 5 llaves de trabajo para cerradura nueva de 3 puntos",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de llaves según tipo de cerradura y número de copias solicitadas"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillos, tacos, escudos protectores y material auxiliar para instalación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado según necesidades de refuerzo y accesorios complementarios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 90,
+        "iva_porcentaje": 21,
+        "iva": 18.9,
+        "total": 108.9
+      },
+      "sugerencias_catalogo": [
+        "Verificar medidas exactas de la cerradura existente (backset, distancia entre puntos de cierre) antes de adquirir la nueva",
+        "Confirmar compatibilidad de la cerradura de 3 puntos con el marco y estructura de la puerta",
+        "Considerar si es necesario refuerzo de escudo o placa embellecedora según estado de la puerta"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cerradura nueva 3 puntos",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico cuyo precio depende de marca y especificaciones técnicas"
+        },
+        {
+          "concepto": "Llaves de trabajo",
+          "oficio": "cerrajeria",
+          "motivo": "Accesorios de cerradura, precio variable según cantidad y tipo"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "cerrajeria",
+          "motivo": "Material auxiliar de instalación, precio estimado"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_de_cerradura_completa",
+      "cambio_de_cilindro_bombín",
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "apertura_puerta_cerradura_sin_llave",
+      "instalacion_control_acceso_rfid"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3684,
+      "tokens_out": 1510
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

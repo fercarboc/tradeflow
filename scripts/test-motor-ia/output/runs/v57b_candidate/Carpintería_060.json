@@ -1,0 +1,177 @@
+{
+  "id": 60,
+  "oficio": "Carpintería",
+  "texto": "Montaje de estructura de madera para tejado de porche, vigas de pino y tablones",
+  "http_status": 200,
+  "latency_ms": 17554,
+  "raw_response": {
+    "transcript": "Montaje de estructura de madera para tejado de porche, vigas de pino y tablones",
+    "quote": {
+      "resumen": {
+        "texto_original": "Montaje de estructura de madera para tejado de porche, vigas de pino y tablones",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Estructura de madera en porche: verificar carga, vientos y normativa local",
+          "Madera de pino: requiere tratamiento preservante y mantenimiento periódico",
+          "Especificar clase de madera (C18, C24) y tratamiento (clase 3 mínimo para exterior)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Montaje de estructura de madera, vigas y tablones para tejado de porche"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de vigas de pino para estructura de porche",
+          "descripcion": "Vigas de pino tratado clase 3 mínimo, dimensiones según proyecto (escuadría a determinar), incluye transporte a obra",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y dimensiones de vigas a especificar por el profesional. Precio unitario pendiente de cotización según escuadría y tratamiento"
+        },
+        {
+          "concepto": "Suministro de tablones de pino para estructura de porche",
+          "descripcion": "Tablones de pino tratado clase 3 mínimo, dimensiones según proyecto, incluye transporte a obra",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen total de tablones a especificar. Precio unitario pendiente de cotización"
+        },
+        {
+          "concepto": "Tratamiento preservante e insecticida de madera",
+          "descripcion": "Aplicación de tratamiento preservante y fungicida en toda la estructura de madera (vigas y tablones) para protección contra insectos y humedad",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de litros según superficie total de madera. Precio unitario a cotizar"
+        },
+        {
+          "concepto": "Herrajes metálicos de unión y fijación",
+          "descripcion": "Herrajes de acero galvanizado (escuadras, ménsulas, pernos, tuercas, arandelas) para unión de vigas y tablones",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de herrajes según número de uniones y cargas. Precio unitario a cotizar"
+        },
+        {
+          "concepto": "Tornillos y pequeño material de fijación",
+          "descripcion": "Tornillos de acero inoxidable, clavos galvanizados, arandelas y pequeño material de fijación para montaje de estructura",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad según número de fijaciones. Precio unitario a cotizar"
+        },
+        {
+          "concepto": "Montaje de estructura de madera para tejado de porche",
+          "descripcion": "Mano de obra para montaje completo de vigas y tablones, incluyendo: replanteo, cortes, ensambles, fijaciones, nivelación y aplomado de estructura",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Horas de montaje a estimar según complejidad, dimensiones de porche y número de vigas/tablones"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica de 'Montaje de estructura de madera para cubiertas' en catálogo",
+        "Considerar si el porche requiere cálculo estructural (proyecto técnico) — si es así, añadir partida de 'Proyecto técnico de estructura de madera'",
+        "Si la estructura es de gran envergadura (>50 m² o cargas significativas), considerar si debe clasificarse como 'reforma_integral' con capítulos"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de vigas de pino para estructura de porche",
+          "oficio": "carpinteria",
+          "motivo": "Material específico de estructura de madera, no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Suministro de tablones de pino para estructura de porche",
+          "oficio": "carpinteria",
+          "motivo": "Material específico de estructura de madera, no encontrado en catálogo base"
+        },
+        {
+          "concepto": "Tratamiento preservante e insecticida de madera",
+          "oficio": "carpinteria",
+          "motivo": "Tratamiento preventivo obligatorio para madera de pino en exterior"
+        },
+        {
+          "concepto": "Herrajes metálicos de unión y fijación",
+          "oficio": "carpinteria",
+          "motivo": "Material de fijación estructural específico"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_tarima_exterior_madera_o_composite",
+      "reparacion_y_consolidacion_de_estructura_de_madera_cubierta",
+      "instalacion_tarima_exterior_madera_tratada_o_composite",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "instalacion_ventana_madera_con_vidrio"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3963,
+      "tokens_out": 2330
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

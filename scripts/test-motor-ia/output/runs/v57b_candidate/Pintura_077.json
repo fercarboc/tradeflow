@@ -1,0 +1,155 @@
+{
+  "id": 77,
+  "oficio": "Pintura",
+  "texto": "Aplicar tratamiento hidrófugo en muros de piedra de fachada, 50 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 11875,
+  "raw_response": {
+    "transcript": "Aplicar tratamiento hidrófugo en muros de piedra de fachada, 50 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Aplicar tratamiento hidrófugo en muros de piedra de fachada, 50 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Tratamiento hidrófugo en fachada exterior de piedra natural"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Hidrofugo siloxano para piedra natural",
+          "descripcion": "Suministro de hidrofugo siloxano incoloro, específico para piedra natural, con penetración profunda y transpirabilidad",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 7,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material específico para piedra natural. Rendimiento estimado 6-7 m²/litro según porosidad. Instalador debe confirmar precio y cantidad exacta tras inspección"
+        },
+        {
+          "concepto": "Limpieza previa de fachada",
+          "descripcion": "Limpieza y preparación de superficie de piedra: cepillado, eliminación de musgo, algas y suciedad acumulada",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Aplicación de hidrofugo con pistola baja presión",
+          "descripcion": "Aplicación uniforme del tratamiento hidrófugo en dos manos, saturando completamente la piedra, con pistola de baja presión",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 12,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "descripcion": "Alquiler y montaje de andamio o plataforma de acceso seguro para trabajar en fachada de 50 m²",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de andamio depende de altura, accesibilidad y duración. Instalador debe presupuestar según condiciones del sitio"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Brochas, rodillos, trapos, protecciones, cinta de enmascarar, EPP (guantes, gafas, mascarilla)",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles varios. Instalador estima según necesidades reales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 960,
+        "iva_porcentaje": 21,
+        "iva": 201.6,
+        "total": 1161.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar tipo de piedra (arenisca, caliza, granito, pizarra) para seleccionar hidrofugo específico",
+        "Inspeccionar estado previo: presencia de musgo, algas, sales eflorescentes o grietas que requieran tratamiento previo",
+        "Considerar segunda mano si la piedra es muy porosa o si hay zonas con mayor exposición a humedad",
+        "Durabilidad esperada: 5-10 años según producto, exposición solar y climatología local"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hidrofugo siloxano para piedra natural",
+          "oficio": "fachadas",
+          "motivo": "Material específico para piedra. Precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Andamio o plataforma de trabajo",
+          "oficio": "fachadas",
+          "motivo": "Coste variable según altura y accesibilidad. Requiere presupuesto específico del sitio"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "fachadas",
+          "motivo": "Consumibles varios. Instalador estima según necesidades"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "alicatado_con_piedra_natural_o_gres_porcelanico",
+      "forrado_exterior_fachada_ventilada",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "instalacion_descalcificador"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3853,
+      "tokens_out": 1553
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 2,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

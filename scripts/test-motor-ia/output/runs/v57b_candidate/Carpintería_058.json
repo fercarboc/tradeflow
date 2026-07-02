@@ -1,0 +1,271 @@
+{
+  "id": 58,
+  "oficio": "Carpintería",
+  "texto": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+  "http_status": 200,
+  "latency_ms": 23976,
+  "raw_response": {
+    "transcript": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Fabricación e instalación de tresillos y módulos de office en oficina, 5 puestos de trabajo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye fabricación personalizada de mobiliario. Revisar planos/especificaciones técnicas antes de ejecutar.",
+          "Se asume instalación en oficina existente sin obras civiles mayores. Si requiere demolición de tabiquería anterior, añadir partidas de albanilería.",
+          "Precio de materiales (madera, herrajes, tapicería) pendiente de revisión según especificaciones finales del cliente."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Fabricación de tresillos y módulos de office (muebles de madera/melamina). Oficio principal."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de tomas de corriente, iluminación y cableado en puestos de trabajo (normativa 500 lux mínimo)."
+        },
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Red de datos CAT6 para conectividad en puestos de trabajo."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diseño y planos de tresillos y módulos office",
+          "descripcion": "Elaboración de planos técnicos, especificaciones de materiales y distribución de 5 puestos de trabajo con tresillos modulares.",
+          "oficio": "carpinteria",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de diseño/proyecto a definir según complejidad. Rango estimado: 300-800€."
+        },
+        {
+          "concepto": "Fabricación de tresillos y módulos office (5 puestos)",
+          "descripcion": "Fabricación en taller de 5 tresillos modulares con estructura de madera/melamina, estantes, divisiones y accesorios. Incluye corte, ensamblaje y acabado.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales (madera, melamina, herrajes, acabados) a definir según especificaciones. Rango estimado: 800-2500€/puesto."
+        },
+        {
+          "concepto": "Transporte e instalación de tresillos y módulos (5 puestos)",
+          "descripcion": "Transporte desde taller a obra, descarga, posicionamiento, nivelación y fijación de 5 tresillos modulares en oficina.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 45,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de tomas de corriente en puestos de trabajo",
+          "descripcion": "Instalación de 10 tomas de corriente (2 por puesto) con cableado, cajas de derivación y pequeño material. Cumple normativa de accesibilidad en puestos.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 50,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de tomas de corriente y material eléctrico",
+          "descripcion": "Tomas de corriente, cajas de derivación, cableado H07V-U, pequeño material y accesorios eléctricos para 10 tomas.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 10,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales eléctricos a definir. Rango estimado: 15-30€/toma."
+        },
+        {
+          "concepto": "Instalación de iluminación en puestos de trabajo (500 lux)",
+          "descripcion": "Instalación de luminarias LED (downlights o paneles) para alcanzar 500 lux en puestos de trabajo según normativa UNE-EN 12464. Incluye cableado y conexión.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 50,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de luminarias LED y accesorios de iluminación",
+          "descripcion": "Luminarias LED (downlights o paneles), transformadores, cableado, soportes y pequeño material para iluminación de 5 puestos a 500 lux.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de luminarias y accesorios a definir según especificaciones. Rango estimado: 600-1500€."
+        },
+        {
+          "concepto": "Instalación de red de datos CAT6 en puestos de trabajo",
+          "descripcion": "Instalación de cableado CAT6, tomas RJ45, canaletas y pequeño material para conectividad en 5 puestos. Incluye pruebas de continuidad.",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 50,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de cableado CAT6 y accesorios de red",
+          "descripcion": "Cableado CAT6, tomas RJ45, canaletas, conectores, pequeño material y accesorios para red de datos en 5 puestos (aprox. 100 ml).",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado CAT6 a definir. Rango estimado: 1-2€/ml + accesorios 300-600€."
+        },
+        {
+          "concepto": "Pequeño material y accesorios varios",
+          "descripcion": "Tornillería, tacos, arandelas, cinta de embalaje, protecciones, etiquetado y otros accesorios menores para instalación completa.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material a definir. Rango estimado: 150-300€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 2320,
+        "iva_porcentaje": 21,
+        "iva": 487.2,
+        "total": 2807.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar si existe partida específica en catálogo para 'Fabricación de muebles de oficina modulares' o 'Tresillos office personalizados'.",
+        "Considerar si la iluminación debe cumplir normativa UNE-EN 12464 (500 lux mínimo en puestos de trabajo) y UGR < 16.",
+        "Confirmar si la red de datos CAT6 debe conectarse a un switch/router centralizado (no incluido en presupuesto).",
+        "Evaluar si se requiere climatización según RITE para 5 puestos de trabajo en oficina."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diseño y planos de tresillos y módulos office",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de diseño personalizado no encontrado en catálogo base."
+        },
+        {
+          "concepto": "Fabricación de tresillos y módulos office (5 puestos)",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Fabricación personalizada de muebles modulares. Precio de materiales pendiente de especificaciones técnicas."
+        },
+        {
+          "concepto": "Suministro de tomas de corriente y material eléctrico",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Material eléctrico específico para puestos de trabajo. Precio a definir según marca/especificaciones."
+        },
+        {
+          "concepto": "Suministro de luminarias LED y accesorios de iluminación",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Luminarias LED para cumplir 500 lux. Precio a definir según especificaciones técnicas."
+        },
+        {
+          "concepto": "Suministro de cableado CAT6 y accesorios de red",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Cableado estructurado CAT6 personalizado. Precio a definir según longitud y accesorios."
+        },
+        {
+          "concepto": "Pequeño material y accesorios varios",
+          "oficio": "carpinteria",
+          "origen": "sugerida_ia",
+          "motivo": "Material auxiliar para instalación. Precio a definir según necesidades finales."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_integral_oficina_o_espacio_de_trabajo",
+      "tabique_pladur_separacion_zona_oficina",
+      "reparacion_puntual_o_chapuza_varios_trabajos_menores",
+      "instalacion_de_plataforma_elevadora_para_fachada"
+    ],
+    "kb_score": 1.25,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3694,
+      "tokens_out": 3688
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 4,
+    "n_sugeridas": 6,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

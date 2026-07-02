@@ -1,0 +1,188 @@
+{
+  "id": 31,
+  "oficio": "Electricidad",
+  "texto": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+  "http_status": 200,
+  "latency_ms": 21782,
+  "raw_response": {
+    "transcript": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y reparar avería en instalación, hay un cable pelado en la pared del pasillo que da calambre",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": true,
+        "alertas": [
+          "RIESGO ELÉCTRICO CRÍTICO: Cable pelado con descarga eléctrica detectada. Requiere intervención URGENTE antes de presupuestar.",
+          "Se recomienda corte de suministro en la zona afectada durante la reparación.",
+          "Diagnóstico previo obligatorio: identificar sección del cable, tipo de aislamiento deteriorado y causa de la avería.",
+          "Posible necesidad de sustitución de tramo completo de cable, no solo empalme."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Reparación de cableado deteriorado con riesgo de descarga eléctrica. Incluye diagnóstico, desmontaje seguro, suministro de cable nuevo y reinstalación."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y localización de avería eléctrica",
+          "descripcion": "Inspección visual y con equipos de medición para identificar sección del cable, tipo de aislamiento, causa del deterioro y extensión de la zona afectada. Verificación de continuidad y aislamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje y retirada de cable deteriorado",
+          "descripcion": "Extracción segura del tramo de cable pelado/dañado en el pasillo. Incluye desconexión en origen, retirada de tubo corrugado si existe, y limpieza de la roza.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 5,
+          "precio_unitario": 12,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de metros lineales a confirmar en obra tras diagnóstico. Rango estimado 3-8 ml según extensión del deterioro."
+        },
+        {
+          "concepto": "Suministro de cable H07V-K según sección original",
+          "descripcion": "Cable de cobre con aislamiento de PVC, sección a determinar en diagnóstico (estimado 2.5-4 mm²). Longitud según tramo a sustituir.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pendiente de confirmación. Depende de sección exacta del cable (2.5€-8€/ml según sección). Instalador debe verificar sección original y cotizar material."
+        },
+        {
+          "concepto": "Tubo corrugado de protección",
+          "descripcion": "Tubo corrugado de polietileno para protección del nuevo cable. Longitud según tramo reparado.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 5,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar (0.50€-1.50€/ml). Necesario si la roza no tenía protección previa."
+        },
+        {
+          "concepto": "Cajas de derivación y conectores",
+          "descripcion": "Cajas de registro para empalmes seguros (si aplica) y conectores/bornes de cobre estañado. Pequeño material: tornillos, arandelas, pasta térmica.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar (5€-15€/ud por caja + conectores). Cantidad según número de empalmes necesarios."
+        },
+        {
+          "concepto": "Instalación de cable nuevo y cierre de roza",
+          "descripcion": "Tendido del nuevo cable en roza, colocación de tubo corrugado, empalmes en cajas de derivación con conectores seguros, y cierre de roza con mortero o yeso según soporte. Pruebas de continuidad e aislamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 5,
+          "precio_unitario": 15,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de instalación según BASE MAESTRA [reparacion_cableado_deteriorado]: 5-18€/ml. Confirmado 15€/ml como valor medio. Cantidad a ajustar tras diagnóstico."
+        },
+        {
+          "concepto": "Pruebas funcionales y verificación de seguridad",
+          "descripcion": "Medición de continuidad, aislamiento y resistencia de tierra. Verificación de ausencia de fugas a tierra. Prueba de funcionamiento del circuito. Generación de informe de seguridad.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 235,
+        "iva_porcentaje": 21,
+        "iva": 49.35,
+        "total": 284.35
+      },
+      "sugerencias_catalogo": [
+        "Consultar BASE MAESTRA [reparacion_cableado_deteriorado] para validar partidas obligatorias: cable_h07vk_segun_seccion, conectores_o_empalmes_cajas, caja_derivacion, pequeño_material.",
+        "Regla crítica: sustituir_tramo_completo_nunca_empalme_libre. No hacer empalmes provisionales.",
+        "Todos los empalmes DEBEN estar en cajas de derivación, nunca en la roza abierta.",
+        "Usar misma sección de cable que la instalación original para garantizar compatibilidad con protecciones (magnetotérmicos/diferenciales)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de cable H07V-K según sección original",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de la sección exacta del cable (a determinar en diagnóstico). Rango estimado 2.5€-8€/ml."
+        },
+        {
+          "concepto": "Tubo corrugado de protección",
+          "origen": "sugerida_ia",
+          "motivo": "Material de protección. Precio estimado 0.50€-1.50€/ml según diámetro."
+        },
+        {
+          "concepto": "Cajas de derivación y conectores",
+          "origen": "sugerida_ia",
+          "motivo": "Pequeño material eléctrico. Precio estimado 5€-15€/ud según tipo y cantidad de empalmes."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cableado_deteriorado",
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "reparacion_de_grietas_o_fisuras_puntuales_en_paredes",
+      "reparacion_fisura_o_grieta_en_muro_o_tabique",
+      "reconstruccion_de_muro_con_lesiones_estructurales"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3785,
+      "tokens_out": 2647
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 4,
+    "n_sugeridas": 3,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

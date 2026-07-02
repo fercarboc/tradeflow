@@ -1,0 +1,167 @@
+{
+  "id": 124,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Revisión y limpieza de tejado de pizarra después de la tormenta, recolocar piezas sueltas",
+  "http_status": 200,
+  "latency_ms": 12444,
+  "raw_response": {
+    "transcript": "Revisión y limpieza de tejado de pizarra después de la tormenta, recolocar piezas sueltas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión y limpieza de tejado de pizarra después de la tormenta, recolocar piezas sueltas",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: EPI obligatorio (línea de vida, arnés)",
+          "Andamio o plataforma de trabajo recomendada para seguridad",
+          "Inspección visual completa recomendada para detectar daños ocultos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación y mantenimiento de cubierta de pizarra tras daños por tormenta"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Limpieza de detritus, hojas y suciedad de tejado",
+          "descripcion": "Limpieza completa de cubierta de pizarra: retirada de detritus, hojas, musgo y suciedad acumulada tras tormenta",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Revisión estado de pizarras y revestimiento",
+          "descripcion": "Inspección visual completa del estado de las pizarras, lámina impermeabilizante, grietas, roturas y elementos de fijación tras tormenta",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Recolocación de piezas de pizarra sueltas",
+          "descripcion": "Recolocación y fijación de pizarras desplazadas o sueltas tras tormenta. Incluye clavos inox/cobre y pequeño material de fijación",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Clavos inox/cobre para fijación de pizarras",
+          "descripcion": "Clavos de acero inoxidable o cobre para recolocación de pizarras (material obligatorio para evitar oxidación)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a confirmar por instalador según cantidad y tipo de clavo"
+        },
+        {
+          "concepto": "Limpieza de canalones y sumideros",
+          "descripcion": "Limpieza y desobstrucción de canalones y sumideros de agua de lluvia tras tormenta",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe fotográfico del estado de la cubierta",
+          "descripcion": "Documentación fotográfica del estado actual de la cubierta, daños detectados y trabajos realizados para registro y seguimiento",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio incluido o a valorar según protocolo del instalador"
+        }
+      ],
+      "calculos": {
+        "subtotal": 325,
+        "iva_porcentaje": 21,
+        "iva": 68.25,
+        "total": 393.25
+      },
+      "sugerencias_catalogo": [
+        "Considerar tratamiento hidrofugo preventivo si se detecta musgo o plantas en la inspección",
+        "Revisar estado de lámina impermeabilizante bajo pizarras; si está dañada, presupuestar reparación adicional",
+        "Verificar canalones y bajantes; si están dañados por tormenta, incluir reparación en presupuesto ampliado"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Clavos inox/cobre para fijación de pizarras",
+          "origen": "sugerida_ia",
+          "motivo": "Material de fijación específico; precio a confirmar por instalador"
+        },
+        {
+          "concepto": "Informe fotográfico del estado de la cubierta",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de documentación; a valorar según protocolo"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "limpieza_y_mantenimiento_preventivo_de_cubierta",
+      "instalacion_de_cubierta_de_pizarra",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada",
+      "instalacion_de_cubierta_de_chapa_metalica_o_panel_sandwich",
+      "mantenimiento_anual_caldera_gas"
+    ],
+    "kb_score": 1.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4091,
+      "tokens_out": 1710
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "SI"
+  }
+}

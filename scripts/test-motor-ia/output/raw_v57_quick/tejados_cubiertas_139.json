@@ -2,7 +2,7 @@
   "id": 139,
   "oficio": "tejados_cubiertas",
   "texto": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
-  "latency_ms": 23138,
+  "latency_ms": 18724,
   "raw_response": {
     "transcript": "Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera",
     "quote": {
@@ -11,11 +11,11 @@
         "tipo_presupuesto": "reforma",
         "requiere_revision_general": true,
         "alertas": [
-          "Claraboya con apertura eléctrica requiere suministro específico del modelo y marca",
-          "Impermeabilización del encuentro con cubierta plana es OBLIGATORIA",
-          "Instalación en cubierta requiere medidas de seguridad en altura (arnés, línea de vida)",
-          "Vidrio laminado OBLIGATORIO por normativa CTE en cubiertas",
-          "Requiere conexión eléctrica: verificar disponibilidad de circuito y protecciones"
+          "Claraboya con apertura eléctrica requiere suministro específico del modelo (marca, medida, tipo de motor)",
+          "Tejado plano: verificar pendiente mínima y capacidad de carga",
+          "Impermeabilización del encuentro es OBLIGATORIA para evitar goteras",
+          "Instalación en altura requiere EPI y medidas de seguridad",
+          "Conexión eléctrica del motor debe ser revisada por electricista"
         ]
       },
       "oficios_detectados": [
@@ -28,21 +28,10 @@
             "recomendado": 50,
             "max": 60
           },
-          "motivo": "Instalación de claraboya/lucernario en cubierta plana. Regla estricta: tejados_cubiertas cubre lucernarios, claraboyas, velux, aunque tengan componentes eléctricos o de cristal."
+          "motivo": "Instalación de claraboya en cubierta plana, impermeabilización de encuentro, trabajos en altura"
         },
         {
-          "oficio": "electricidad",
-          "existe_en_catalogo": true,
-          "nuevo_oficio": false,
-          "tarifa_hora": {
-            "min": 40,
-            "recomendado": 50,
-            "max": 60
-          },
-          "motivo": "Conexión eléctrica del motor de apertura automática, circuito de control, protecciones y puesta en marcha."
-        },
-        {
-          "oficio": "impermeabilizacion",
+          "oficio": "cristaleria",
           "existe_en_catalogo": true,
           "nuevo_oficio": false,
           "tarifa_hora": {
@@ -50,13 +39,38 @@
             "recomendado": 45,
             "max": 55
           },
-          "motivo": "Impermeabilización del encuentro claraboya-cubierta plana es OBLIGATORIA. Regla estricta: impermeabilizacion cubre láminas, sellados estancos, juntas de dilatación en cubiertas."
+          "motivo": "Suministro e instalación de claraboya con vidrio laminado"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica del motor de apertura automática"
         }
       ],
       "partidas": [
         {
           "concepto": "Claraboya de apertura eléctrica con vidrio laminado",
-          "descripcion": "Suministro de claraboya/lucernario con motor de apertura automática, vidrio laminado de seguridad según CTE, marco de aluminio o acero inoxidable, sistema de control eléctrico (pulsador/sensor/temporizador), incluye accesorios de fijación.",
+          "descripcion": "Suministro de claraboya fija con motor de apertura eléctrica, vidrio laminado de seguridad según CTE, marco de aluminio o acero inoxidable, incluye motor, cuadro de control y accesorios de apertura automática. Medida y modelo a definir en obra.",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca, modelo, medidas exactas y tipo de motor (manual, motorizado, sensor lluvia). Instalador debe cotizar con proveedor."
+        },
+        {
+          "concepto": "Impermeabilización encuentro claraboya en cubierta plana",
+          "descripcion": "Impermeabilización específica del encuentro entre claraboya y cubierta plana. Incluye collar de impermeabilización, lámina EPDM o TPO, sellado perimetral con silicona de poliuretano, juntas de dilatación. OBLIGATORIO para evitar filtraciones.",
           "oficio": "tejados_cubiertas",
           "tipo_partida": "material",
           "unidad": "ud",
@@ -66,25 +80,11 @@
           "precio_origen": "sugerida_ia",
           "origen": "sugerida_ia",
           "requiere_revision": true,
-          "motivo_revision": "Precio depende de marca, modelo, tamaño (0,6×0,6m a 1,5×1,5m típicamente) y tipo de motor (24V DC, 230V AC). Rango estimado: 800-2500€. Instalador debe especificar modelo exacto."
-        },
-        {
-          "concepto": "Impermeabilización encuentro claraboya-cubierta plana",
-          "descripcion": "Lámina de impermeabilización EPDM o TPO específica para encuentro claraboya, collar de impermeabilización del fabricante, sellado perimetral con silicona poliuretano de alta elasticidad, juntas de dilatación si aplica, pequeño material (tornillería inox, grapas, adhesivos).",
-          "oficio": "impermeabilizacion",
-          "tipo_partida": "material",
-          "unidad": "ud",
-          "cantidad": 1,
-          "precio_unitario": 0,
-          "total": 0,
-          "precio_origen": "sugerida_ia",
-          "origen": "sugerida_ia",
-          "requiere_revision": true,
-          "motivo_revision": "Precio depende de tamaño claraboya y tipo de lámina. Rango estimado: 150-400€ material + mano de obra."
+          "motivo_revision": "Precio depende del tipo de cubierta existente (hormigón, membrana, grava) y medidas del encuentro."
         },
         {
           "concepto": "Instalación claraboya en cubierta plana",
-          "descripcion": "Trabajos de instalación: preparación zona, rotura/apertura en cubierta si necesario, fijación de marco a estructura, nivelación, sellado perimetral, pruebas de estanqueidad. Incluye EPI (arnés, línea de vida) para trabajos en altura.",
+          "descripcion": "Trabajos de instalación: rotura/apertura en cubierta, colocación de marco, fijación a estructura, impermeabilización perimetral, sellado completo. Incluye EPI (arnés, línea de vida) para trabajos en altura.",
           "oficio": "tejados_cubiertas",
           "tipo_partida": "mano_obra",
           "unidad": "hora",
@@ -97,14 +97,14 @@
           "motivo_revision": ""
         },
         {
-          "concepto": "Impermeabilización y sellado encuentro claraboya",
-          "descripcion": "Aplicación de lámina impermeabilizante, colocación de collar específico del fabricante, sellado perimetral con silicona, verificación de estanqueidad, pequeño material.",
-          "oficio": "impermeabilizacion",
+          "concepto": "Instalación vidrio laminado y sellado perimetral",
+          "descripcion": "Colocación de vidrio laminado de seguridad, sellado perimetral con silicona sanitaria de poliuretano, verificación de estanqueidad.",
+          "oficio": "cristaleria",
           "tipo_partida": "mano_obra",
           "unidad": "hora",
-          "cantidad": 3,
+          "cantidad": 2,
           "precio_unitario": 45,
-          "total": 135,
+          "total": 90,
           "precio_origen": "catalogo",
           "origen": "catalogo",
           "requiere_revision": false,
@@ -112,22 +112,22 @@
         },
         {
           "concepto": "Conexión eléctrica motor claraboya",
-          "descripcion": "Instalación de circuito eléctrico dedicado (si no existe), conexión del motor de apertura, instalación de pulsador/sensor/temporizador de control, protecciones (magnetotérmico, diferencial), pruebas de funcionamiento y seguridad.",
+          "descripcion": "Conexión del motor de apertura eléctrica a cuadro de control, instalación de cableado, pruebas de funcionamiento automático y manual, verificación de seguridad.",
           "oficio": "electricidad",
           "tipo_partida": "mano_obra",
           "unidad": "hora",
-          "cantidad": 3,
+          "cantidad": 2,
           "precio_unitario": 50,
-          "total": 150,
+          "total": 100,
           "precio_origen": "catalogo",
           "origen": "catalogo",
           "requiere_revision": false,
           "motivo_revision": ""
         },
         {
-          "concepto": "Material eléctrico (cableado, protecciones, pulsador/sensor)",
-          "descripcion": "Cable H07V-U o similar, magnetotérmico 10A, diferencial 30mA, pulsador de control o sensor de humedad/temperatura, canaleta o tubo protector, pequeño material (regletas, conectores, tornillería).",
-          "oficio": "electricidad",
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería inoxidable, tacos especiales, silicona, cinta de impermeabilización, goma EPDM, selladores, material fungible.",
+          "oficio": "tejados_cubiertas",
           "tipo_partida": "material",
           "unidad": "ud",
           "cantidad": 1,
@@ -136,35 +136,31 @@
           "precio_origen": "sugerida_ia",
           "origen": "sugerida_ia",
           "requiere_revision": true,
-          "motivo_revision": "Precio depende de tipo de control (pulsador simple ~30€, sensor humedad ~80€, temporizador ~60€) y longitud de cableado. Rango estimado: 100-250€."
+          "motivo_revision": "Precio estimado 30-80€ según cantidad y tipo de accesorios."
         }
       ],
       "calculos": {
-        "subtotal": 485,
+        "subtotal": 390,
         "iva_porcentaje": 21,
-        "iva": 101.85,
-        "total": 586.85
+        "iva": 81.9,
+        "total": 471.9
       },
       "sugerencias_catalogo": [
-        "Verificar en catálogo modelos de claraboyas con apertura eléctrica de marcas como VELUX (INTEGRA), FAKRO, ROTO, KEYLITE con motor 24V o 230V.",
-        "Confirmar disponibilidad de kits de impermeabilización específicos del fabricante de la claraboya elegida.",
-        "Consultar normativa CTE DB-HS (Salubridad) para ventilación de escaleras: caudal mínimo requerido y sección de paso."
+        "Solicitar al cliente/proveedor: marca y modelo exacto de claraboya (ej: Velux, Fakro, Roto, Keylite), medidas (cm), tipo de apertura (motorizada, sensor lluvia, control remoto).",
+        "Verificar en obra: pendiente real de cubierta (mínimo 3-5% para autolavado), resistencia de estructura, tipo de cubierta existente (hormigón, membrana, grava).",
+        "Coordinar con electricista: punto de conexión más cercano, protección diferencial, interruptor de corte de emergencia.",
+        "Considerar protección solar interior si hay riesgo de sobrecalentamiento en escalera."
       ],
       "partidas_nuevas_detectadas": [
         {
           "concepto": "Claraboya de apertura eléctrica con vidrio laminado",
+          "oficio": "cristaleria",
+          "motivo": "Producto específico con motor integrado; requiere cotización de proveedor con especificaciones técnicas."
+        },
+        {
+          "concepto": "Impermeabilización encuentro claraboya en cubierta plana",
           "oficio": "tejados_cubiertas",
-          "motivo": "Producto específico con motor integrado. No encontrado en catálogo base. Requiere especificación de marca/modelo/tamaño."
-        },
-        {
-          "concepto": "Impermeabilización encuentro claraboya-cubierta plana",
-          "oficio": "impermeabilizacion",
-          "motivo": "Kit específico del fabricante de la claraboya. Varía según modelo. Requiere revisión de precio según producto elegido."
-        },
-        {
-          "concepto": "Material eléctrico (cableado, protecciones, pulsador/sensor)",
-          "oficio": "electricidad",
-          "motivo": "Componentes de control eléctrico del motor. Precio depende de tipo de control (pulsador, sensor, temporizador)."
+          "motivo": "Trabajo especializado de impermeabilización; precio depende del tipo de cubierta y medidas."
         }
       ]
     },
@@ -178,10 +174,10 @@
     "kb_score": 3.2,
     "web_search_used": false,
     "_meta": {
-      "prompt_version": "v57",
+      "prompt_version": "v57b",
       "stop_reason": "end_turn",
-      "tokens_in": 4060,
-      "tokens_out": 2889
+      "tokens_in": 3929,
+      "tokens_out": 2482
     }
   },
   "classification": {

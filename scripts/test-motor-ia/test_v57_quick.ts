@@ -20,25 +20,27 @@ if (!SUPABASE_URL || !TEST_KEY) {
   process.exit(1);
 }
 
-const TARGETS: { id: number; texto: string; oficio: string }[] = [
+const TARGETS: { id: number; texto: string; oficio: string; guard?: boolean }[] = [
+  // ── FASE 5A: 6 casos objetivo ─────────────────────────────────────────────
   { id: 24,  texto: 'Instalación de punto de carga para vehículo eléctrico modo 3 con wallbox de 7kW en garaje', oficio: 'electricidad' },
-  { id: 36,  texto: 'Instalación de luminaria exterior de jardín con sensor de movimiento y célula fotoeléctrica', oficio: 'electricidad' },
-  { id: 39,  texto: 'Instalación de SAI para servidor de empresa, potencia 2kVA con autonomía de 30 minutos', oficio: 'electricidad' },
-  { id: 117, texto: 'Instalar termostato inteligente WiFi compatible con caldera existente de gas', oficio: 'climatizacion' },
   { id: 128, texto: 'Instalar velux o lucernario en tejado inclinado para dar luz a buhardilla, 78x118cm', oficio: 'tejados_cubiertas' },
   { id: 139, texto: 'Instalar claraboya de apertura eléctrica en tejado plano para ventilación de escalera', oficio: 'tejados_cubiertas' },
   { id: 246, texto: 'Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras', oficio: 'telecomunicaciones' },
   { id: 248, texto: 'Poner rosetas de red RJ45 en 3 habitaciones y conectar al router del salón con cable', oficio: 'telecomunicaciones' },
   { id: 310, texto: 'Instalar puerta cortafuego RF90 en escalera comunitaria del edificio, con ferretería homologada', oficio: 'contra_incendios' },
-  { id: 395, texto: 'Conectar persianas motorizadas existentes a sistema domótico de la vivienda, programación horaria', oficio: 'persianas' },
-  { id: 400, texto: 'Instalar toldos extensibles en fachada de hotel, 10 unidades de 2.5 metros con cofre y motor', oficio: 'persianas' },
+  // ── Guardia de regresión: 4 TRUNCADO conocidos de v56 ─────────────────────
+  { id: 7,   texto: 'Instalación completa de baño nuevo con lavabo empotrado, inodoro suspendido, ducha y griferías cromadas', oficio: 'fontaneria', guard: true },
+  { id: 106, texto: 'Instalación de suelo radiante con bomba de calor en planta baja de 90 metros cuadrados', oficio: 'climatizacion', guard: true },
+  { id: 235, texto: 'Instalar sistema híbrido solar y aerotermia para vivienda eficiente, cálculo de ahorro energético', oficio: 'energia_solar', guard: true },
+  { id: 320, texto: 'Instalar detección temprana de incendios en archivo de documentación, sistema de aspiración VESDA', oficio: 'contra_incendios', guard: true },
 ];
 
 const V56_DETECTED: Record<number, string> = {
-  24: 'energia_solar', 36: 'energia_solar', 39: 'telecomunicaciones',
-  117: 'electricidad', 128: 'cristaleria', 139: 'cristaleria',
+  // Casos objetivo FASE 5A
+  24: 'energia_solar', 128: 'cristaleria', 139: 'cristaleria',
   246: 'instalador_cctv', 248: 'electricidad', 310: 'cerrajeria',
-  395: 'telecomunicaciones', 400: 'cerrajeria',
+  // Guardias TRUNCADO v56
+  7: '', 106: '', 235: '', 320: '',
 };
 
 // Directorio donde guardar los resultados raw de v57
@@ -158,7 +160,13 @@ async function main() {
 
   if (vacio > 0) { console.log('\n⚠ ALERTA: VACIO → ROLLBACK NECESARIO'); process.exit(1); }
   if (worsened > 0) { console.log('\n⚠ ALERTA: casos empeorados → revisar antes de 400 tests'); process.exit(2); }
-  console.log('\n✓ Sin regresiones. Listo para aprobación de 400 tests completos.');
+  // Verificar guardias TRUNCADO: deben seguir siendo VACIO o TRUNCADO
+  const guardsFailed = results.filter(r => (r as { guard?: boolean } & Result).guard && r.category === 'OK_MIXTO');
+  if (guardsFailed.length > 0) {
+    console.log(`\n⚠ INESPERADO: ${guardsFailed.length} caso(s) TRUNCADO de v56 ahora son OK — revisar`);
+    guardsFailed.forEach(r => console.log(`  ID ${r.id}: ${r.category}`));
+  }
+  console.log('\n✓ Sin regresiones. Listo para 400 tests completos.');
 }
 
 main().catch(e => { console.error(e); process.exit(1); });

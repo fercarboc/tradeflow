@@ -1,0 +1,171 @@
+{
+  "id": 186,
+  "oficio": "Cerrajería",
+  "texto": "Reparar cerradura de puerta de garaje que no cierra bien, llave forzada",
+  "http_status": 200,
+  "latency_ms": 11595,
+  "raw_response": {
+    "transcript": "Reparar cerradura de puerta de garaje que no cierra bien, llave forzada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar cerradura de puerta de garaje que no cierra bien, llave forzada",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Cerradura con llave forzada: verificar si hay daño interno en cilindro o mecanismo",
+          "Diagnóstico previo recomendado antes de proceder a reparación/sustitución"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Reparación/sustitución de cerradura de puerta, trabajo de cerrajería especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y evaluación de cerradura",
+          "descripcion": "Inspección técnica de cerradura dañada por llave forzada, verificación de cilindro, mecanismo de cierre y estado general",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 60,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cilindro de cerradura nuevo",
+          "descripcion": "Cilindro de seguridad de reemplazo para puerta de garaje, compatible con mecanismo existente",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del cilindro depende de tipo, marca y nivel de seguridad. Instalador debe especificar modelo y coste"
+        },
+        {
+          "concepto": "Desmontaje y extracción de cilindro dañado",
+          "descripcion": "Extracción cuidadosa del cilindro dañado sin afectar la estructura de la puerta",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 60,
+          "total": 30,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y ajuste de cilindro nuevo",
+          "descripcion": "Colocación del cilindro nuevo, alineación, ajuste de mecanismo de cierre y pruebas de funcionamiento",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Juego de llaves de trabajo",
+          "descripcion": "Suministro de 3 llaves nuevas funcionales para el cilindro instalado",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de llaves depende del tipo de cilindro y duplicación. Instalador debe especificar"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Lubricantes, arandelas, tornillos y material auxiliar para instalación",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material. Instalador ajusta según consumo real"
+        }
+      ],
+      "calculos": {
+        "subtotal": 120,
+        "iva_porcentaje": 21,
+        "iva": 25.2,
+        "total": 145.2
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la puerta de garaje es de tipo basculante o seccional: el tipo de cerradura varía",
+        "Si el mecanismo de cierre está también dañado, considerar sustitución completa de cerradura (no solo cilindro)",
+        "Solicitar presupuesto previo al cliente antes de proceder si hay daños adicionales detectados"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cilindro de cerradura nuevo",
+          "oficio": "cerrajeria",
+          "motivo": "Material específico cuyo precio depende de marca, tipo de seguridad y compatibilidad"
+        },
+        {
+          "concepto": "Juego de llaves de trabajo",
+          "oficio": "cerrajeria",
+          "motivo": "Suministro de llaves nuevas, coste variable según duplicación y tipo de cilindro"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "cerrajeria",
+          "motivo": "Material auxiliar de consumo, importe a ajustar por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_puerta_garaje_averiada",
+      "cambio_de_cerradura_completa",
+      "apertura_puerta_cerradura_sin_llave",
+      "pintado_cancelas_y_portones_metalicos_exterior",
+      "instalacion_llave_escuadra"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3566,
+      "tokens_out": 1684
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

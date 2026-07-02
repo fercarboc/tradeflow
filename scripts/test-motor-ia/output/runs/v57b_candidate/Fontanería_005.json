@@ -1,0 +1,215 @@
+{
+  "id": 5,
+  "oficio": "Fontanería",
+  "texto": "Sustitución de calentador de gas de paso de 11 litros por uno nuevo de 14 litros, incluyendo mano de obra y materiales",
+  "http_status": 200,
+  "latency_ms": 16294,
+  "raw_response": {
+    "transcript": "Sustitución de calentador de gas de paso de 11 litros por uno nuevo de 14 litros, incluyendo mano de obra y materiales",
+    "quote": {
+      "resumen": {
+        "texto_original": "Sustitución de calentador de gas de paso de 11 litros por uno nuevo de 14 litros, incluyendo mano de obra y materiales",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar que la salida de humos existente es compatible con el nuevo equipo de 14 litros",
+          "Confirmar presión de gas disponible en la acometida (mínimo 20 mbar para instantáneos)",
+          "Revisar si es necesario adaptación de tubería de gas (diámetro según caudal)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de calentador instantáneo de gas, conexiones de agua y gas, válvulas de seguridad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Retirada y gestión de residuos calentador antiguo",
+          "descripcion": "Desmontaje completo del calentador de gas de paso de 11 litros, desconexión de tuberías de agua y gas, retirada de equipo y gestión de residuos",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Calentador instantáneo de gas de paso 14 litros",
+          "descripcion": "Suministro de calentador instantáneo de gas de paso de 14 litros/minuto, con encendido automático y regulación de temperatura",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del equipo a confirmar por instalador (rango típico 250-450€)"
+        },
+        {
+          "concepto": "Latiguillos de agua (entrada/salida) 3/4\"",
+          "descripcion": "Suministro e instalación de latiguillos de agua de 3/4\" para conexión entrada agua fría y salida agua caliente",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de latiguillos a confirmar (rango típico 8-15€/ud)"
+        },
+        {
+          "concepto": "Latiguillo de gas homologado 3/8\"",
+          "descripcion": "Suministro e instalación de latiguillo de gas homologado 3/8\" con conexión a calentador y acometida de gas",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de latiguillo gas homologado a confirmar (rango típico 25-50€)"
+        },
+        {
+          "concepto": "Válvula de seguridad y retención 3/4\"",
+          "descripcion": "Suministro e instalación de válvula de seguridad y válvula de retención 3/4\" en entrada de agua fría (obligatorio RITE)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de válvulas a confirmar (rango típico 15-35€/ud)"
+        },
+        {
+          "concepto": "Kit de evacuación de humos",
+          "descripcion": "Suministro de kit de evacuación de humos (tubo flexible, codos, bridas) compatible con salida existente",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del kit a confirmar (rango típico 30-80€)"
+        },
+        {
+          "concepto": "Instalación del calentador instantáneo de gas",
+          "descripcion": "Mano de obra de instalación: montaje en pared, conexión de tuberías de agua y gas, conexión de evacuación de humos, pruebas de funcionamiento y estanqueidad",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2.5,
+          "precio_unitario": 50,
+          "total": 125,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Teflón, pasta de fontanero, bridas, tornillería, tuercas de conexión y otros accesorios menores",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio a confirmar (rango típico 15-25€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de calentadores instantáneos de gas de 14 litros para obtener precio exacto del equipo",
+        "Verificar disponibilidad de latiguillos homologados y válvulas de seguridad en stock",
+        "Confirmar compatibilidad de salida de humos con nuevo equipo (diámetro y longitud)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Calentador instantáneo de gas de paso 14 litros",
+          "oficio": "fontaneria",
+          "motivo": "Material específico del equipo a instalar, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Latiguillos de agua (entrada/salida) 3/4\"",
+          "oficio": "fontaneria",
+          "motivo": "Accesorios de conexión, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Latiguillo de gas homologado 3/8\"",
+          "oficio": "fontaneria",
+          "motivo": "Accesorio específico homologado, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Válvula de seguridad y retención 3/4\"",
+          "oficio": "fontaneria",
+          "motivo": "Componentes obligatorios RITE, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Kit de evacuación de humos",
+          "oficio": "fontaneria",
+          "motivo": "Accesorios de evacuación, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "fontaneria",
+          "motivo": "Consumibles varios, precio pendiente de revisión"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_calentador_gas_instantaneo",
+      "instalacion_aerotermia_para_acs_solar_hibrido",
+      "sustitucion_termo_electrico",
+      "construccion_de_cubierta_plana_nueva_desde_cero",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3808,
+      "tokens_out": 2388
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 2,
+    "n_sugeridas": 6,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "id": 347,
+  "oficio": "Mantenimiento General",
+  "texto": "Reparar goteras en tejado de nave industrial, revisión de cubierta y sellado de juntas",
+  "http_status": 200,
+  "latency_ms": 15647,
+  "raw_response": {
+    "transcript": "Reparar goteras en tejado de nave industrial, revisión de cubierta y sellado de juntas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar goteras en tejado de nave industrial, revisión de cubierta y sellado de juntas",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: requiere EPI y línea de vida",
+          "Nave industrial: posible acceso con andamio o plataforma elevadora",
+          "Sellado de juntas: material elastómerico recomendado para movimientos térmicos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "tejados_cubiertas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Reparación de goteras, revisión de cubierta y sellado de juntas en tejado industrial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Revisión y diagnóstico de cubierta",
+          "descripcion": "Inspección completa de la cubierta de nave industrial, identificación de puntos de fuga, estado de juntas y solapes",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza mecánica de cubierta y juntas",
+          "descripcion": "Limpieza de suciedad, óxido, algas y restos de sellador antiguo en juntas y solapes de cubierta metálica",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 3,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación antioxido en zonas afectadas",
+          "descripcion": "Aplicación de imprimación antioxido en puntos de oxidación y zonas deterioradas de cubierta metálica",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 40,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material imprimación antioxido: cantidad y precio a confirmar por instalador según marca y cobertura"
+        },
+        {
+          "concepto": "Pintura elastomérica protectora en cubierta",
+          "descripcion": "Aplicación de pintura elastomérica o poliuretano de alta elasticidad para impermeabilización y protección de cubierta metálica",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pintura elastomérica: cantidad y precio a confirmar según rendimiento y marca seleccionada"
+        },
+        {
+          "concepto": "Sellado de juntas con sellador poliuretano",
+          "descripcion": "Sellado completo de juntas, solapes y encuentros con sellador poliuretano elástico de alta durabilidad, refuerzo con cinta de refuerzo",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Sellador poliuretano y cinta de refuerzo: cantidad lineal y precio a confirmar por instalador"
+        },
+        {
+          "concepto": "Aplicación de sellador en juntas",
+          "descripcion": "Mano de obra de aplicación de sellador poliuretano en juntas, solapes y encuentros de cubierta",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura elastomérica - mano de obra",
+          "descripcion": "Mano de obra de aplicación de pintura elastomérica en cubierta (preparación, imprimación y acabado)",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 150,
+          "precio_unitario": 8,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y equipos de seguridad en altura",
+          "descripcion": "Arnés de seguridad, línea de vida, casco, guantes y equipos de protección personal para trabajos en altura en nave industrial",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "EPI y equipos de seguridad: coste de alquiler o amortización a confirmar"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Trapos, disolventes, cepillos, brochas, rodillos, masilla, cinta de carrocero y otros consumibles de obra",
+          "oficio": "tejados_cubiertas",
+          "tipo_partida": "material",
+          "unidad": "jornada",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Pequeño material: cantidad y precio a confirmar según consumo real"
+        }
+      ],
+      "calculos": {
+        "subtotal": 2200,
+        "iva_porcentaje": 21,
+        "iva": 462,
+        "total": 2662
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la nave industrial requiere andamio o plataforma elevadora (coste adicional no incluido)",
+        "Considerar tratamiento antialgas si hay presencia de musgo o algas en cubierta",
+        "Evaluar necesidad de reparación o sustitución de piezas muy deterioradas (no incluidas en presupuesto base)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación antioxido en zonas afectadas",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material específico para cubierta metálica oxidada"
+        },
+        {
+          "concepto": "Pintura elastomérica protectora en cubierta",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material de impermeabilización y protección"
+        },
+        {
+          "concepto": "Sellado de juntas con sellador poliuretano",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Material elastómerico para juntas y solapes"
+        },
+        {
+          "concepto": "EPI y equipos de seguridad en altura",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Equipos de protección obligatorios para trabajos en altura"
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "oficio": "tejados_cubiertas",
+          "motivo": "Consumibles de obra y herramientas menores"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_cubierta_metalica_o_chapa_con_oxido_o_juntas",
+      "reforma_de_cubierta_de_edificio_comunitario",
+      "reparacion_de_encuentro_de_chimenea_con_cubierta",
+      "impermeabilizacion_de_encuentro_fachada_cubierta",
+      "reparacion_o_sustitucion_de_canalon_o_bajante_en_tejado"
+    ],
+    "kb_score": 3.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3981,
+      "tokens_out": 2426
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 4,
+    "n_sugeridas": 5,
+    "oficio_detectado": "tejados_cubiertas",
+    "coincide_oficio": "NO"
+  }
+}

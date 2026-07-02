@@ -1,0 +1,218 @@
+{
+  "id": 358,
+  "oficio": "Mantenimiento General",
+  "texto": "Revisar y reparar sistema de ventilación de parking subterráneo, 3 extractores con sensores CO",
+  "http_status": 200,
+  "latency_ms": 17078,
+  "raw_response": {
+    "transcript": "Revisar y reparar sistema de ventilación de parking subterráneo, 3 extractores con sensores CO",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisar y reparar sistema de ventilación de parking subterráneo, 3 extractores con sensores CO",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema de ventilación con sensores CO en parking subterráneo: requiere cumplimiento normativa de seguridad (RD 1942/1993 y CTE DB-HS3)",
+          "Sensores CO son elementos de seguridad contra intoxicación: verificar calibración y funcionamiento crítico",
+          "Extractores en parking: revisar estado de corrosión y acumulación de polvo/suciedad"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Revisión y reparación de sistema de ventilación con múltiples componentes (extractores + sensores CO)"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexiones eléctricas de extractores y sensores CO, verificación de alimentación y circuitos"
+        },
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sensores CO son elementos de seguridad contra intoxicación en parking: calibración, prueba y certificación obligatoria"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección visual y diagnóstico sistema ventilación parking",
+          "descripcion": "Revisión completa de 3 extractores: estado físico, corrosión, acumulación suciedad, vibraciones anómalas, conexiones eléctricas. Diagnóstico de averías.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 40,
+          "total": 80,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Limpieza y mantenimiento 3 extractores",
+          "descripcion": "Desmontaje de rejillas y filtros, limpieza de polvo/suciedad acumulada, revisión de rodamientos y motor, lubricación si procede, remontaje.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 35,
+          "total": 105,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Reparación/sustitución piezas extractores (si necesario)",
+          "descripcion": "Cambio de rodamientos, correas, motores o componentes averiados detectados en diagnóstico. Precio unitario a determinar según pieza.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de piezas de reemplazo pendiente de identificación en diagnóstico"
+        },
+        {
+          "concepto": "Verificación conexiones eléctricas extractores",
+          "descripcion": "Revisión de bornes, conectores, cables de alimentación de los 3 extractores. Medición de tensión y continuidad. Apriete de conexiones si necesario.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba funcional y puesta en marcha 3 extractores",
+          "descripcion": "Encendido y funcionamiento de cada extractor, verificación de velocidad de giro, ausencia de ruidos anómalos, correcto flujo de aire. Registro de funcionamiento.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección y calibración 3 sensores CO",
+          "descripcion": "Revisión visual de sensores, verificación de conexión eléctrica, prueba de funcionamiento con gas de calibración, ajuste de umbrales de alarma según normativa (RD 1942/1993), registro de calibración.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 3,
+          "precio_unitario": 55,
+          "total": 165,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Sustitución sensores CO (si averiados)",
+          "descripcion": "Cambio de sensores CO defectuosos o fuera de rango de calibración. Incluye sensor nuevo, instalación y calibración.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sensor CO pendiente de confirmación según modelo y marca"
+        },
+        {
+          "concepto": "Certificado de revisión y seguridad sistema ventilación",
+          "descripcion": "Emisión de certificado de revisión, calibración de sensores CO y conformidad con normativa de seguridad en parking subterráneo. Documentación para archivo de mantenimiento.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 60,
+          "total": 60,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 510,
+        "iva_porcentaje": 21,
+        "iva": 107.1,
+        "total": 617.1
+      },
+      "sugerencias_catalogo": [
+        "Si se detectan fugas de refrigerante en sistemas de climatización del parking, consultar partida [revision_y_recarga_sistema_refrigerante_instalacion_grande]",
+        "Para mantenimiento recurrente anual de este sistema, considerar contrato de mantenimiento preventivo con revisiones trimestrales"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Reparación/sustitución piezas extractores",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "motivo": "Piezas de reemplazo específicas según diagnóstico (rodamientos, correas, motores) no tienen precio unitario predefinido"
+        },
+        {
+          "concepto": "Sustitución sensores CO",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "motivo": "Sensores CO de reemplazo requieren especificación de modelo y marca para determinar precio"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "revision_y_prueba_de_sistema_de_alarma",
+      "revision_y_recarga_sistema_refrigerante_instalacion_grande",
+      "mantenimiento_y_reparacion_de_sistema_de_riego",
+      "impermeabilizacion_de_junta_de_dilatacion_en_cubierta",
+      "instalacion_sistema_de_videovigilancia_CCTV"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3933,
+      "tokens_out": 2407
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 6,
+    "n_sugeridas": 2,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

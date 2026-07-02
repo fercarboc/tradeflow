@@ -1,0 +1,168 @@
+{
+  "id": 227,
+  "oficio": "Energía Solar",
+  "texto": "Reparar inversor de instalación solar que ha dejado de funcionar, diagnóstico y sustitución",
+  "http_status": 200,
+  "latency_ms": 12920,
+  "raw_response": {
+    "transcript": "Reparar inversor de instalación solar que ha dejado de funcionar, diagnóstico y sustitución",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparar inversor de instalación solar que ha dejado de funcionar, diagnóstico y sustitución",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Precio del inversor nuevo pendiente de confirmación (modelo y potencia)",
+          "Verificar si la instalación está bajo garantía del fabricante",
+          "Requiere confirmación de compatibilidad con sistema existente"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Reparación y sustitución de inversor solar fotovoltaico"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico de avería, códigos error y mediciones",
+          "descripcion": "Revisión de datos de monitoreo, inspección visual de módulos y conexiones, comprobación de inversor, medición de tensiones y corrientes con multímetro, informe de resultado y causa",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 300,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inversor nuevo compatible con instalación",
+          "descripcion": "Suministro de inversor solar nuevo, compatible con potencia y configuración de la instalación existente",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del inversor depende de potencia (kW) y modelo. Rango típico 800-3000€. Instalador debe confirmar especificaciones técnicas."
+        },
+        {
+          "concepto": "Desmontaje de inversor averiado",
+          "descripcion": "Desconexión segura de inversor averiado, desconexionado AC y DC, desmontaje de estructura de fijación",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación y conexionado del inversor nuevo",
+          "descripcion": "Fijación de inversor nuevo en estructura, conexionado DC desde strings de módulos, conexionado AC a cuadro de protecciones, puesta a tierra, pequeño material (tornillería, bridas, etc.)",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración, parametrización y pruebas de funcionamiento",
+          "descripcion": "Configuración de parámetros del inversor nuevo, sincronización con sistema de monitoreo, pruebas de funcionamiento, verificación de códigos de error, medición de producción, registro de garantía",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 65,
+          "total": 97.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material, EPI y documentación",
+          "descripcion": "Tornillería, bridas, conectores, cable de pequeña sección, EPI (arnés, casco, guantes), documentación técnica y registro de garantía",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuestar según cantidad de material consumible. Rango típico 50-150€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 592.5,
+        "iva_porcentaje": 21,
+        "iva": 124.425,
+        "total": 716.925
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la instalación solar está bajo garantía del fabricante del inversor (típicamente 5-10 años). Si está en garantía, gestionar la sustitución directamente con el fabricante.",
+        "Confirmar potencia del inversor averiado (kW) para seleccionar modelo compatible.",
+        "Considerar actualización de firmware si el nuevo inversor lo permite.",
+        "Si la causa de avería es fallo de módulos solares, realizar termografía para identificar módulos defectuosos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Inversor nuevo compatible con instalación",
+          "oficio": "energia_solar",
+          "motivo": "Precio variable según potencia y modelo. Requiere confirmación del instalador."
+        },
+        {
+          "concepto": "Pequeño material, EPI y documentación",
+          "oficio": "energia_solar",
+          "motivo": "Material consumible. Presupuestar según cantidad específica."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_o_sustitucion_de_inversor_solar_averiado",
+      "instalacion_de_microinversores_o_inversores_de_cadena",
+      "diagnostico_averia_instalacion_fotovoltaica_baja_produccion",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4006,
+      "tokens_out": 1710
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

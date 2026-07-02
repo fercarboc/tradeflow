@@ -1,0 +1,167 @@
+{
+  "id": 41,
+  "oficio": "Carpintería",
+  "texto": "Quiero una puerta corredera de madera maciza para separar el salón del pasillo",
+  "http_status": 200,
+  "latency_ms": 17459,
+  "raw_response": {
+    "transcript": "Quiero una puerta corredera de madera maciza para separar el salón del pasillo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Quiero una puerta corredera de madera maciza para separar el salón del pasillo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Medidas del hueco no especificadas — se requiere levantamiento en obra",
+          "Tipo de acabado (barniz/pintura) no indicado — se asume acabado estándar",
+          "Sistema de guía (superior, inferior o ambas) no especificado — se asume guía superior + inferior estándar"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Fabricación e instalación de puerta corredera de madera maciza interior"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Hoja puerta corredera madera maciza",
+          "descripcion": "Fabricación hoja puerta corredera madera maciza (roble, pino o similar) con espesor 35-40mm, acabado lijado, sin pintar/barnizar (se aplica en obra según preferencia)",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de medidas exactas del hueco, tipo de madera y acabado. Instalador debe revisar y ajustar según especificaciones finales"
+        },
+        {
+          "concepto": "Sistema de guía corredera (carril superior + inferior + ruedas)",
+          "descripcion": "Carril aluminio anodizado superior e inferior, ruedas de nylon/acero con rodamientos, topes finales, herraje completo para puerta corredera interior",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio varía según calidad del sistema y medidas del hueco. Revisar carga máxima soportada"
+        },
+        {
+          "concepto": "Tapajuntas y perfiles laterales",
+          "descripcion": "Tapajuntas madera o aluminio para laterales y superior, perfiles de cierre para acabado limpio",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según medidas y material elegido"
+        },
+        {
+          "concepto": "Pomo/manilla y cierre puerta corredera",
+          "descripcion": "Manilla o pomo de madera/aluminio, cierre suave o amortiguador de cierre para puerta corredera",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo de acabado y mecanismo de cierre elegido"
+        },
+        {
+          "concepto": "Pequeño material (tornillería, tacos, silicona, masilla)",
+          "descripcion": "Tornillos inox, tacos, silicona neutra, masilla de madera, lija, disolvente y otros consumibles para instalación",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida estándar de consumibles — revisar según necesidades finales"
+        },
+        {
+          "concepto": "Instalación puerta corredera (mano de obra)",
+          "descripcion": "Medición exacta del hueco, preparación, instalación de guías (nivelación y fijación), colocación hoja, ajuste de ruedas, instalación pomo/cierre, pruebas de funcionamiento y ajustes finales",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 180,
+        "iva_porcentaje": 21,
+        "iva": 37.8,
+        "total": 217.8
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: medidas exactas del hueco (ancho × alto), tipo de madera preferida (roble, pino, nogal, etc.), acabado final (barniz mate/brillo, pintura, natural), y si desea amortiguador de cierre suave",
+        "Considerar si la puerta necesita aislamiento acústico — en ese caso, añadir junta de estanqueidad perimetral",
+        "Verificar que el hueco esté aplomado y nivelado antes de la instalación — si no, presupuestar pequeña obra de ajuste"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Hoja puerta corredera madera maciza",
+          "oficio": "carpinteria",
+          "motivo": "Fabricación personalizada según medidas del hueco — no existe en catálogo estándar, requiere presupuesto específico del carpintero"
+        },
+        {
+          "concepto": "Sistema de guía corredera (carril superior + inferior + ruedas)",
+          "oficio": "carpinteria",
+          "motivo": "Componente de herraje especializado — precio varía según marca, calidad y medidas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_puertas_de_madera_en_armario_empotrado_existente",
+      "instalacion_vidrio_en_puerta_interior",
+      "instalacion_de_puertas_de_vidrio_templado_corredera_en_armario",
+      "fabricacion_e_instalacion_puerta_exterior_madera",
+      "instalacion_puerta_de_madera_para_bano_o_zona_humedad"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3933,
+      "tokens_out": 2189
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "carpinteria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "id": 161,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Alicatar suelo y paredes del baño completo con porcelánico 60x60 gris y rejuntado blanco",
+  "http_status": 200,
+  "latency_ms": 19250,
+  "raw_response": {
+    "transcript": "Alicatar suelo y paredes del baño completo con porcelánico 60x60 gris y rejuntado blanco",
+    "quote": {
+      "resumen": {
+        "texto_original": "Alicatar suelo y paredes del baño completo con porcelánico 60x60 gris y rejuntado blanco",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Impermeabilización de zona de ducha es obligatoria antes de alicatar",
+          "Se recomienda lechada flexible o epoxi para juntas en baño",
+          "Verificar si incluye rodapié o remates especiales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 32,
+            "max": 95
+          },
+          "motivo": "Alicatado de suelo y paredes con baldosa porcelánica en baño completo"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Impermeabilización zona ducha y bañera",
+          "descripcion": "Aplicación de membrana impermeabilizante en zona de ducha y bañera antes del alicatado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar m2 de zona ducha/bañera y tipo de membrana (EPDM, PVC, etc.)"
+        },
+        {
+          "concepto": "Baldosa porcelánica 60x60 gris suelo baño",
+          "descripcion": "Suministro de baldosa porcelánica 60x60 cm gris para suelo de baño completo",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar m2 totales de suelo. Verificar si es antideslizante R11 (recomendado en baños)"
+        },
+        {
+          "concepto": "Azulejo o cerámica pared baño",
+          "descripcion": "Suministro de azulejo/cerámica para paredes del baño completo (60x60 gris o similar)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar m2 totales de paredes"
+        },
+        {
+          "concepto": "Mortero cola C2 flexible",
+          "descripcion": "Mortero cola C2S2 flexible para fijación de baldosa porcelánica en suelo y paredes",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende de m2 totales (suelo + paredes). Aproximadamente 3-5 kg/m2"
+        },
+        {
+          "concepto": "Lechada flexible blanca para juntas",
+          "descripcion": "Lechada flexible blanca para rejuntado de baldosa porcelánica en baño",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende de m2 y ancho de junta. Se recomienda lechada epoxi en baños por resistencia a humedad"
+        },
+        {
+          "concepto": "Perfiles aluminio esquinas y remates",
+          "descripcion": "Perfiles de aluminio anodizado para esquinas y remates en encuentros de paredes y suelo",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar ml de perfiles necesarios según geometría del baño"
+        },
+        {
+          "concepto": "Junta silicona en encuentros suelo-pared",
+          "descripcion": "Aplicación de silicona flexible en junta perimetral entre suelo y paredes para estanqueidad",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad depende del perímetro del baño. Aproximadamente 1 cartucho por 10 ml"
+        },
+        {
+          "concepto": "Alicatado suelo y paredes baño completo",
+          "descripcion": "Mano de obra de alicatado: replanteo, colocación de baldosa porcelánica 60x60 en suelo y paredes, rejuntado blanco, limpieza y acabado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 32,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe especificar m2 totales (suelo + paredes). Tarifa recomendada 32€/m2 según catálogo"
+        },
+        {
+          "concepto": "Pequeño material y herramientas",
+          "descripcion": "Crucetas, esponjas, trapos, desengrasante, herramientas menores para alicatado",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Instalador debe estimar coste de pequeño material (aproximadamente 30-50€ por baño completo)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'alicatado_y_solado_completo_bano_nuevo' — incluye todas las partidas obligatorias",
+        "Confirmar si el porcelánico es antideslizante R11 (recomendado en baños por seguridad)",
+        "Considerar lechada epoxi en lugar de flexible para mayor resistencia a humedad y manchas en baño"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Impermeabilización zona ducha y bañera",
+          "oficio": "suelos_alicatados",
+          "motivo": "Obligatoria antes de alicatar en baños según normativa"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_y_solado_completo_bano_nuevo",
+      "alicatado_y_solado_de_bano_completo",
+      "alicatado_y_solado_completo_cocina",
+      "instalacion_azulejos_o_ceramica_en_zona_de_cocina_profesional",
+      "diagnostico_y_presupuesto_suelos_y_alicatados"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4052,
+      "tokens_out": 2710
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 1,
+    "n_sugeridas": 8,
+    "oficio_detectado": "suelos_alicatados",
+    "coincide_oficio": "SI"
+  }
+}

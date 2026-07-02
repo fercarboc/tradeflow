@@ -1,0 +1,134 @@
+{
+  "id": 333,
+  "oficio": "Fachadas",
+  "texto": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 12744,
+  "raw_response": {
+    "transcript": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Colocar aplacado de gres porcelánico en fachada de local, zona de 20 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume acceso a fachada sin andamio (local bajo o acceso directo). Si requiere andamio, añadir partida específica.",
+          "Precio de material (gres porcelánico) pendiente de revisión según calidad y proveedor."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Revestimiento exterior de fachada con material cerámico (gres porcelánico). Oficio especializado en envolvente exterior."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de gres porcelánico para aplacado de fachada",
+          "descripcion": "Gres porcelánico de primera calidad para revestimiento exterior de fachada, incluye piezas, adhesivo y lechada específica para fachada ventilada o directa según sistema.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material variable según calidad, formato, espesor y proveedor. Instalador debe introducir precio real de compra."
+        },
+        {
+          "concepto": "Preparación y replanteo de fachada",
+          "descripcion": "Limpieza, saneado de superficie, replanteo de líneas de colocación, imprimación de adherencia si procede.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 8,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Colocación de gres porcelánico en fachada",
+          "descripcion": "Colocación de piezas de gres porcelánico mediante adhesivo específico para fachada, con juntas controladas y nivelación.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 25,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado y acabado de juntas",
+          "descripcion": "Lechada de juntas específica para fachada (resistente a intemperie), aplicación, limpieza y acabado de juntas.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 20,
+          "precio_unitario": 6,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 780,
+        "iva_porcentaje": 21,
+        "iva": 163.8,
+        "total": 943.8
+      },
+      "sugerencias_catalogo": [
+        "Si la fachada requiere andamio de seguridad (altura >3m o acceso difícil), añadir partida 'Colocación de andamio de fachada' con oficio=fachadas.",
+        "Si hay zonas con humedad o daño previo, considerar impermeabilización previa con oficio=impermeabilizacion.",
+        "Confirmar si el gres es de formato grande (requiere más adhesivo y técnica especial) o formato estándar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de gres porcelánico para aplacado de fachada",
+          "oficio": "fachadas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de fachada. Precio variable según proveedor y calidad. Instalador introduce precio real."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_gresite_o_mosaico_en_piscina_o_zona_acuatica",
+      "colocacion_de_andamio_de_fachada",
+      "impermeabilizacion_de_piscina_con_gresite_o_ceramica",
+      "construccion_de_piscina_de_obra",
+      "reparacion_cornisa_o_elemento_saliente_de_fachada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4335,
+      "tokens_out": 1323
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 3,
+    "n_sugeridas": 1,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "SI"
+  }
+}

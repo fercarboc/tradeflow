@@ -1,0 +1,200 @@
+{
+  "id": 376,
+  "oficio": "Reformas Integrales",
+  "texto": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+  "http_status": 200,
+  "latency_ms": 25042,
+  "raw_response": {
+    "transcript": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Rehabilitación de edificio antiguo de 5 pisos con reforma de zonas comunes y fachada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "OBRA MAYOR: Rehabilitación integral de edificio comunitario. Requiere aprobación de junta de propietarios OBLIGATORIA.",
+          "Fachada: Requiere licencia municipal y andamio perimetral con permiso.",
+          "Zonas comunes: Requiere proyecto técnico según alcance de instalaciones.",
+          "Presupuesto en CAPÍTULOS agrupados (máximo 4 partidas) por ser gran obra.",
+          "Todos los precios son orientativos. Requiere revisión del instalador con mediciones exactas."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Rehabilitación integral de edificio: ≥3 oficios simultáneos (fachada, instalaciones comunes, acabados interiores)"
+        },
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Rehabilitación de envolvente exterior, revestimiento fachada edificio comunitario"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Renovación instalación eléctrica zonas comunes (alumbrado, cuadros, cableado)"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 55
+          },
+          "motivo": "Renovación instalación fontanería zonas comunes (tuberías, válvulas, contadores)"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Gestión y retirada de escombros y residuos de obra mayor"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "CAP.1 – Demolición, obra civil y estructuras",
+          "descripcion": "Demolición selectiva de elementos obsoletos (tabiques, revestimientos antiguos, instalaciones fuera de servicio), retirada de escombros, preparación de fachada para rehabilitación, reparación de grietas estructurales, consolidación de muros, cimentaciones de andamios. Incluye: desmontaje de elementos, carga y transporte de residuos, limpieza de zonas de trabajo.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado según alcance real de demolición y obra civil. Instalador debe revisar: superficie fachada (m²), número de plantas, estado estructural, volumen de escombros, acceso para maquinaria."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización)",
+          "descripcion": "Renovación completa de instalaciones comunes: (1) Electricidad: cuadro general, cableado, alumbrado LED zonas comunes (portal, escaleras, pasillos), tomas de corriente, protecciones diferenciales. (2) Fontanería: tuberías de distribución agua fría/caliente, válvulas de corte, contadores, desagües, reparación de fugas. (3) Climatización: si aplica, instalación de bomba calor o sistema de calefacción/refrigeración centralizado. Incluye: suministro de materiales, instalación, pruebas de funcionamiento, puesta en marcha.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado. Instalador debe revisar: tipo de instalaciones existentes, estado de tuberías/cableado, necesidad de climatización, número de plantas, longitud de cableado/tuberías, potencia eléctrica requerida, normativa vigente (ITC-BT, CTE)."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (fachada, pintura, suelos, carpintería, pladur)",
+          "descripcion": "Rehabilitación de fachada: limpieza, reparación de grietas, revestimiento (enfoscado, mortero monocapa, SATE o pintura impermeabilizante), tratamiento de humedades, reparación de canalones y bajantes. Acabados interiores zonas comunes: pintura de paredes y techos, reparación de suelos (baldosas, hormigón pulido), carpintería (puertas, marcos), tabiquería con pladur si necesario, alicatado de zonas húmedas. Incluye: suministro de materiales, mano de obra, acabado final.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado. Instalador debe revisar: superficie de fachada (m²), tipo de revestimiento elegido (SATE más caro que pintura), estado de grietas/humedades, superficie de zonas comunes a pintar/alicatar, número de puertas/marcos a reparar, tipo de suelos existentes."
+        },
+        {
+          "concepto": "CAP.4 – Gestión administrativa, permisos, residuos y pequeño material",
+          "descripcion": "Aprobación de junta de propietarios, proyecto técnico/memoria de reforma, licencia municipal, comunicación previa si aplica, permiso de andamio perimetral, gestión y retirada de escombros (transporte a vertedero autorizado), pequeño material (tornillería, cinta, pasta, etc.), coordinación de seguridad y salud, informes técnicos finales (ITE si necesario).",
+          "oficio": "reforma_integral",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado estimado. Incluye: honorarios de gestoría/arquitecto técnico, tasas municipales, permisos, gestión de residuos (volumen en m³), coordinación de seguridad. Varía según comunidad autónoma y ayuntamiento."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo: [reforma_de_instalaciones_comunes_edificio] — precio alzado 8.000–90.000€ según tipo y alcance.",
+        "Consultar catálogo: [reforma_de_fachada_de_edificio_comunitario] — 250–950€/m² según estado y tipo de revestimiento.",
+        "Consultar catálogo: [tabique_pladur_en_rehabilitacion_edificio_existente] — si hay divisiones interiores nuevas.",
+        "Consultar catálogo: [impermeabilizacion_de_junta_de_dilatacion_de_fachada] — si hay juntas de dilatación a sellar."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "CAP.1 – Demolición, obra civil y estructuras",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Obra mayor de rehabilitación integral. Requiere desglose de demolición, obra civil y preparación de estructura."
+        },
+        {
+          "concepto": "CAP.2 – Instalaciones (electricidad, fontanería, climatización)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Renovación de múltiples instalaciones comunes. Agrupadas en capítulo por complejidad de gran obra."
+        },
+        {
+          "concepto": "CAP.3 – Acabados (fachada, pintura, suelos, carpintería, pladur)",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Rehabilitación de fachada + acabados interiores. Agrupadas en capítulo por ser gran obra."
+        },
+        {
+          "concepto": "CAP.4 – Gestión administrativa, permisos, residuos y pequeño material",
+          "oficio": "reforma_integral",
+          "origen": "sugerida_ia",
+          "motivo": "Obra comunitaria requiere gestión administrativa, permisos municipales y gestión de residuos obligatoria."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reforma_de_instalaciones_comunes_edificio",
+      "reforma_de_fachada_de_edificio_comunitario",
+      "tabique_pladur_en_rehabilitacion_edificio_existente",
+      "instalacion_electrica_exterior_urbanizacion",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3838,
+      "tokens_out": 3157
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 4,
+    "n_catalogo": 0,
+    "n_sugeridas": 4,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

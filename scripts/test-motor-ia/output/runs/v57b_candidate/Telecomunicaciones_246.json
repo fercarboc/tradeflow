@@ -1,0 +1,143 @@
+{
+  "id": 246,
+  "oficio": "Telecomunicaciones",
+  "texto": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+  "http_status": 200,
+  "latency_ms": 11838,
+  "raw_response": {
+    "transcript": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+    "quote": {
+      "resumen": {
+        "texto_original": "Configurar y poner en marcha sistema CCTV existente que no graba bien, ajuste de cámaras",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Sistema CCTV existente: revisar estado del grabador (NVR/DVR) y disco duro antes de presupuestar",
+          "Problema de grabación: puede ser fallo de almacenamiento, configuración de resolución o codec",
+          "Ajuste de cámaras: verificar orientación, enfoque y limpieza de lentes"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Configuración, diagnóstico y puesta en marcha de sistema CCTV existente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diagnóstico y revisión sistema CCTV",
+          "descripcion": "Inspección completa del sistema: verificación grabador (NVR/DVR), estado disco duro, conexiones de cámaras, alimentación, configuración de grabación y resolución",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ajuste y reorientación de cámaras",
+          "descripcion": "Ajuste de ángulo, enfoque y orientación de cámaras IP/analógicas. Limpieza de lentes. Verificación de cobertura de zonas",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración de parámetros de grabación",
+          "descripcion": "Ajuste de resolución, fps, codec, bitrate y calendario de grabación en grabador. Optimización para evitar pérdida de frames. Configuración de alertas y notificaciones",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas de funcionamiento y grabación",
+          "descripcion": "Pruebas de grabación en todos los modos (continuo, movimiento, programado). Verificación de almacenamiento en disco duro. Comprobación de acceso remoto y reproducción de vídeo",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Informe de puesta en marcha y recomendaciones",
+          "descripcion": "Documento técnico con estado del sistema, configuración aplicada, recomendaciones de mantenimiento y sustitución de componentes si procede (disco duro, fuente alimentación, etc.)",
+          "oficio": "instalador_cctv",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio de documentación técnica: instalador define si incluir o no en presupuesto"
+        }
+      ],
+      "calculos": {
+        "subtotal": 300,
+        "iva_porcentaje": 21,
+        "iva": 63,
+        "total": 363
+      },
+      "sugerencias_catalogo": [
+        "Si el disco duro está dañado o lleno: presupuestar sustitución disco duro NAS/grabación (material, precio a revisar)",
+        "Si hay problemas de alimentación: revisar fuente de alimentación del grabador o PoE",
+        "Si las cámaras no responden: verificar cableado (Cat6 para IP, coaxial para analógicas) y conectores",
+        "Considerar instalación de UPS si el sistema requiere continuidad de grabación en cortes de luz"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_sistema_cctv_videovigilancia",
+      "reparacion_cordon_o_sistema_tiro_persiana",
+      "instalacion_sistema_de_riego_por_goteo",
+      "puesta_en_marcha_y_ajuste_instalacion_termica"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3913,
+      "tokens_out": 1467
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 4,
+    "n_sugeridas": 1,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

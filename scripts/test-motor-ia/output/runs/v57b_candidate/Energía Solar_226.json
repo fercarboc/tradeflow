@@ -1,0 +1,288 @@
+{
+  "id": 226,
+  "oficio": "Energía Solar",
+  "texto": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+  "http_status": 200,
+  "latency_ms": 26574,
+  "raw_response": {
+    "transcript": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar sistema fotovoltaico en empresa con consumo de 2000 kWh al mes, estudio previo",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema fotovoltaico conectado a red (on-grid) para empresa con consumo 2000 kWh/mes. Requiere estudio de viabilidad técnica y económica previo.",
+          "Potencia estimada necesaria: 5-7 kWp según irradiancia solar de la zona (pendiente de confirmación).",
+          "Incluye estudio previo, proyecto técnico, tramitación administrativa y conexión a red.",
+          "Revisar disponibilidad de espacio en cubierta/fachada y orientación óptima.",
+          "Presupuesto orientativo: requiere revisión de precios de equipos y mano de obra específica."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación sistema fotovoltaico conectado a red (on-grid) para empresa. Incluye estudio previo, diseño, instalación y puesta en marcha."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión a cuadro eléctrico, protecciones, cableado de potencia, acometida a red. Trabajo complementario a instalación solar."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Tramitación administrativa: solicitud conexión a distribuidora, permisos municipales, inspección técnica, legalización instalación."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Estudio previo y proyecto técnico sistema fotovoltaico",
+          "descripcion": "Análisis de viabilidad técnica y económica, estudio de irradiancia solar, cálculo de potencia necesaria (5-7 kWp estimado), diseño de instalación, planos técnicos y memoria de cálculo para empresa con consumo 2000 kWh/mes.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estudio técnico pendiente de confirmación según complejidad y zona geográfica. Rango orientativo: 800-1500€."
+        },
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos",
+          "descripcion": "Suministro e instalación de módulos fotovoltaicos monocristalinos de alta eficiencia (400-450W/ud) para potencia total estimada 5-7 kWp (13-16 módulos). Incluye estructura de montaje en cubierta, anclajes y pequeño material.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "kWp",
+          "cantidad": 6,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de módulos fotovoltaicos variable según marca y mercado. Rango orientativo: 150-250€/kWp (módulos + estructura). Instalador debe confirmar potencia exacta tras estudio."
+        },
+        {
+          "concepto": "Inversor fotovoltaico trifásico on-grid",
+          "descripcion": "Suministro e instalación de inversor trifásico de conexión a red (on-grid) de 5-7 kW de potencia nominal, con monitorización integrada, protecciones anti-isla y cumplimiento normativa RD 1699/2011. Incluye cableado DC/AC y pequeño material.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de inversor trifásico 5-7 kW. Rango orientativo: 1200-2000€ (equipo + instalación)."
+        },
+        {
+          "concepto": "Cableado DC y protecciones fotovoltaicas",
+          "descripcion": "Suministro e instalación de cableado DC de sección adecuada (4-6 mm²), fusibles DC, interruptores DC, protecciones contra sobretensiones (SPD), cajas de conexión y pequeño material. Longitud estimada 50-80 ml según distribución en cubierta.",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 60,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de cableado y protecciones DC. Rango orientativo: 8-15€/ml instalado."
+        },
+        {
+          "concepto": "Conexión a cuadro eléctrico y protecciones AC",
+          "descripcion": "Instalación de cableado AC desde inversor a cuadro eléctrico principal, interruptor diferencial, magnetotérmico de protección, contador de energía bidireccional (si no existe), cajas de derivación y pequeño material. Incluye cumplimiento normativa ITC-BT-40.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de conexión AC y protecciones. Rango orientativo: 600-1200€ (materiales + mano de obra electricista)."
+        },
+        {
+          "concepto": "Mano de obra instalación sistema fotovoltaico",
+          "descripcion": "Instalación completa: montaje estructura en cubierta, colocación módulos, conexionado DC, instalación inversor, cableado AC, pruebas de funcionamiento y puesta en marcha. Estimado 40-60 horas según complejidad y accesibilidad.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 50,
+          "precio_unitario": 65,
+          "total": 3250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Mano de obra conexión eléctrica a red",
+          "descripcion": "Trabajo de electricista para conexión a cuadro principal, instalación protecciones AC, pruebas de aislamiento, verificación cumplimiento normativa y coordinación con distribuidora. Estimado 8-12 horas.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 50,
+          "total": 500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tramitación administrativa y permisos",
+          "descripcion": "Gestión de solicitud de conexión a distribuidora eléctrica, solicitud de licencia municipal, inspección técnica de instalación, legalización ante organismo competente, coordinación con administración. Incluye documentación técnica y administrativa completa.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tramitación administrativa. Rango orientativo: 400-800€ según complejidad y zona."
+        },
+        {
+          "concepto": "Inspección técnica y certificado de instalación",
+          "descripcion": "Inspección técnica de la instalación fotovoltaica por organismo competente, pruebas de funcionamiento, mediciones de seguridad, emisión de certificado de instalación conforme a normativa RD 1699/2011 e ITC-BT-40.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de inspección técnica. Rango orientativo: 300-600€."
+        },
+        {
+          "concepto": "Monitorización y aplicación móvil",
+          "descripcion": "Instalación de sistema de monitorización en tiempo real de producción fotovoltaica, acceso a aplicación móvil para seguimiento de generación, consumo y ahorros. Incluye configuración de alertas y acceso a portal web.",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de monitorización. Rango orientativo: 200-500€ (instalación + primer año de servicio)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 3750,
+        "iva_porcentaje": 21,
+        "iva": 787.5,
+        "total": 4537.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar consumo real de empresa (2000 kWh/mes = ~24 MWh/año) para dimensionar potencia exacta del sistema (estimado 5-7 kWp).",
+        "Realizar estudio de irradiancia solar de la zona y orientación óptima de módulos (Sur, inclinación 30-35° en España).",
+        "Verificar disponibilidad de espacio en cubierta: ~40-50 m² para 6 kWp.",
+        "Considerar sistema de monitorización para seguimiento de producción y optimización de consumo.",
+        "Evaluar posibilidad de batería de almacenamiento si se desea mayor independencia (sistema híbrido).",
+        "Presupuesto orientativo TOTAL (mano de obra + materiales + servicios): 8000-15000€ según equipamiento y complejidad."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Estudio previo y proyecto técnico sistema fotovoltaico",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de análisis técnico y diseño previo a instalación. Precio pendiente de confirmación."
+        },
+        {
+          "concepto": "Módulos fotovoltaicos monocristalinos",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material fotovoltaico. Precio variable según marca y mercado. Rango: 150-250€/kWp."
+        },
+        {
+          "concepto": "Inversor fotovoltaico trifásico on-grid",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo de conversión DC/AC. Precio variable según potencia y marca. Rango: 1200-2000€."
+        },
+        {
+          "concepto": "Cableado DC y protecciones fotovoltaicas",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material de cableado y protecciones. Precio: 8-15€/ml instalado."
+        },
+        {
+          "concepto": "Conexión a cuadro eléctrico y protecciones AC",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Materiales y conexión a red. Precio: 600-1200€."
+        },
+        {
+          "concepto": "Tramitación administrativa y permisos",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de gestión administrativa. Precio: 400-800€."
+        },
+        {
+          "concepto": "Inspección técnica y certificado de instalación",
+          "oficio": "gestoria_tramites",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de inspección y certificación. Precio: 300-600€."
+        },
+        {
+          "concepto": "Monitorización y aplicación móvil",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Servicio de monitorización. Precio: 200-500€."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_sistema_fotovoltaico_aislado_off_grid",
+      "instalacion_de_sistema_de_sonido_home_cinema",
+      "instalacion_sistema_de_videovigilancia_CCTV",
+      "instalacion_recuperacion_aguas_pluviales"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4074,
+      "tokens_out": 3914
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 2,
+    "n_sugeridas": 8,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

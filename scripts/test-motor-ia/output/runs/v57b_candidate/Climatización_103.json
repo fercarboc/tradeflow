@@ -1,0 +1,319 @@
+{
+  "id": 103,
+  "oficio": "Climatización",
+  "texto": "Instalación de sistema de climatización centralizado para oficina de 200 metros cuadrados, 4 zonas",
+  "http_status": 200,
+  "latency_ms": 23865,
+  "raw_response": {
+    "transcript": "Instalación de sistema de climatización centralizado para oficina de 200 metros cuadrados, 4 zonas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de sistema de climatización centralizado para oficina de 200 metros cuadrados, 4 zonas",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Sistema centralizado de 4 zonas requiere proyecto técnico de ingeniería",
+          "Potencia y configuración exacta depende de cálculo termotécnico (orientación, aislamiento, ocupación)",
+          "Precios de materiales (unidad exterior, interiores, tuberías, refrigerante) requieren revisión según marca y especificaciones finales",
+          "Legalización y certificación eléctrica obligatoria"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Sistema centralizado de climatización con múltiples zonas"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Circuito eléctrico exclusivo, conexionado y protecciones"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Unidad exterior condensadora (sistema centralizado)",
+          "descripcion": "Suministro de unidad exterior condensadora para sistema de climatización centralizado, potencia según cálculo termotécnico para 200 m² y 4 zonas",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (kW), marca y especificaciones técnicas finales. Rango típico 2000-6000€"
+        },
+        {
+          "concepto": "Unidades interiores (4 zonas)",
+          "descripcion": "Suministro de 4 unidades interiores (splits, cassettes o conductos) para climatización de 4 zonas independientes en oficina",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario depende de tipo (split pared, cassette, conducto), potencia y marca. Rango típico 800-2500€/ud"
+        },
+        {
+          "concepto": "Red de tuberías de cobre (refrigerante)",
+          "descripcion": "Suministro e instalación de tuberías de cobre para circuito frigorífico, distribución desde unidad exterior a 4 interiores, aislamiento incluido",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud estimada según distribución en oficina de 200 m². Precio incluye tubo cobre, aislamiento espuma y pequeño material. Rango 15-35€/ml"
+        },
+        {
+          "concepto": "Derivaciones, distribuidores y válvulas",
+          "descripcion": "Suministro de derivaciones, distribuidores de flujo, válvulas de corte, válvulas de expansión y accesorios para 4 zonas",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Conjunto de accesorios según configuración. Rango típico 800-2000€"
+        },
+        {
+          "concepto": "Gas refrigerante (carga inicial)",
+          "descripcion": "Suministro de gas refrigerante (R410A, R32 u otro según especificación) para carga inicial del sistema",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada según potencia total. Rango 30-80€/kg según tipo de refrigerante"
+        },
+        {
+          "concepto": "Cable de control y comunicaciones (bus)",
+          "descripcion": "Suministro e instalación de cable de control multipar para comunicación entre unidad exterior, interiores y termostatos",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 200,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Longitud estimada para distribución en 4 zonas. Rango 2-5€/ml"
+        },
+        {
+          "concepto": "Termostatos digitales programables (4 zonas)",
+          "descripcion": "Suministro de 4 termostatos digitales programables con pantalla LCD para control independiente de temperatura por zona",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario según funcionalidades (programación, WiFi, etc.). Rango 150-500€/ud"
+        },
+        {
+          "concepto": "Circuito eléctrico exclusivo (mano de obra)",
+          "descripcion": "Instalación de circuito eléctrico exclusivo con protecciones (magnetotérmico, diferencial) para unidad exterior, cableado y conexionado",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de unidad exterior (mano de obra)",
+          "descripcion": "Instalación, fijación y conexionado de unidad exterior condensadora en fachada o azotea, incluyendo anclajes y soportes",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de unidades interiores (4 zonas) - mano de obra",
+          "descripcion": "Instalación, fijación y conexionado de 4 unidades interiores en paredes de oficina, incluyendo soportes y tuberías de drenaje",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 60,
+          "total": 720,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de red frigorífica (tuberías cobre) - mano de obra",
+          "descripcion": "Instalación de tuberías de cobre, aislamiento, doblado, soldadura y pruebas de estanqueidad del circuito frigorífico",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Carga de refrigerante y puesta en marcha (mano de obra)",
+          "descripcion": "Evacuación de circuito, carga de refrigerante, pruebas de funcionamiento, ajuste de parámetros y verificación de temperaturas en 4 zonas",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 60,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Bridas, codos, tés, manguitos, pasta térmica, cinta aislante, tornillería, soportes y otros accesorios menores",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico 300-800€ según cantidad de accesorios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 3760,
+        "iva_porcentaje": 21,
+        "iva": 789.6,
+        "total": 4549.6
+      },
+      "sugerencias_catalogo": [
+        "Solicitar cálculo termotécnico profesional (orientación, aislamiento, ocupación, cargas internas) para determinar potencia exacta de unidad exterior",
+        "Especificar marca y modelo de unidades interiores (split pared, cassette, conducto) según distribución de oficina",
+        "Confirmar longitud exacta de tuberías y cable de control mediante plano de instalación",
+        "Verificar disponibilidad de punto de evacuación de condensación en cada zona",
+        "Considerar sistema de control domotizado centralizado si se requiere gestión integrada de 4 zonas",
+        "Certificación eléctrica y legalización obligatoria ante organismo competente",
+        "Contrato de mantenimiento anual recomendado (revisión, limpieza filtros, carga refrigerante)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Unidad exterior condensadora (sistema centralizado)",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según cálculo termotécnico, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Unidades interiores (4 zonas)",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según tipo y marca, precio pendiente de revisión"
+        },
+        {
+          "concepto": "Red de tuberías de cobre (refrigerante)",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material con instalación, longitud estimada según distribución"
+        },
+        {
+          "concepto": "Derivaciones, distribuidores y válvulas",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Conjunto de accesorios específicos para 4 zonas"
+        },
+        {
+          "concepto": "Gas refrigerante (carga inicial)",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material consumible, cantidad estimada según potencia"
+        },
+        {
+          "concepto": "Cable de control y comunicaciones (bus)",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para sistema multizona"
+        },
+        {
+          "concepto": "Termostatos digitales programables (4 zonas)",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico según funcionalidades"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "climatizacion",
+          "origen": "sugerida_ia",
+          "motivo": "Conjunto de accesorios menores"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_bomba_de_calor_para_piscina",
+      "instalacion_sistema_control_domótico_climatizacion",
+      "instalacion_vrv_o_vrf_sistema_multiple",
+      "instalacion_de_sistema_de_alarma_intrusion",
+      "instalacion_de_extintores_portatiles"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3993,
+      "tokens_out": 3744
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 5,
+    "n_sugeridas": 8,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

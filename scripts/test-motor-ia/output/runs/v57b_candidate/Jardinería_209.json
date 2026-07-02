@@ -1,0 +1,287 @@
+{
+  "id": 209,
+  "oficio": "Jardinería",
+  "texto": "Diseño de jardín vertical con plantas trepadoras en fachada de 3x4 metros con estructura metálica",
+  "http_status": 200,
+  "latency_ms": 19612,
+  "raw_response": {
+    "transcript": "Diseño de jardín vertical con plantas trepadoras en fachada de 3x4 metros con estructura metálica",
+    "quote": {
+      "resumen": {
+        "texto_original": "Diseño de jardín vertical con plantas trepadoras en fachada de 3x4 metros con estructura metálica",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye diseño, estructura metálica, sistema de riego y plantación. Revisar disponibilidad de plantas trepadoras según clima local.",
+          "Sistema de riego por goteo requiere conexión a agua y electricidad (bomba si es necesario)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Diseño, plantación y mantenimiento de jardín vertical"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Estructura metálica, anclajes a fachada y tratamiento anticorrosión"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación sistema de riego por goteo y conexión a red de agua"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Diseño y proyecto jardín vertical",
+          "descripcion": "Diseño técnico de jardín vertical con plantas trepadoras, cálculo de cargas, selección de especies según orientación y clima",
+          "oficio": "jardineria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de diseño a criterio del profesional según complejidad"
+        },
+        {
+          "concepto": "Estructura metálica tubular para jardín vertical",
+          "descripcion": "Estructura de perfiles tubulares de acero galvanizado o aluminio, anclajes a fachada con separación mínima 15cm para ventilación, cálculo estructural para cargas de plantas y agua",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de estructura metálica según diseño y material (acero/aluminio)"
+        },
+        {
+          "concepto": "Montaje y anclaje estructura metálica a fachada",
+          "descripcion": "Instalación de estructura metálica con anclajes químicos o mecánicos a fachada, nivelación, aplomado y fijación segura",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 16,
+          "precio_unitario": 60,
+          "total": 960,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tratamiento anticorrosión y pintura estructura metálica",
+          "descripcion": "Limpieza, desoxidación, imprimación y pintura de estructura metálica con acabado resistente a intemperie",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura y tratamiento anticorrosión"
+        },
+        {
+          "concepto": "Sistema de paneles o bolsillos para plantas",
+          "descripcion": "Paneles modulares de fieltro o bolsillos de tela geotextil para alojar plantas trepadoras, con separación adecuada para raíces",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 12,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de paneles/bolsillos según material y calidad"
+        },
+        {
+          "concepto": "Sustrato especializado para jardín vertical",
+          "descripcion": "Sustrato ligero y drenante específico para jardín vertical, mezcla de turba, perlita y compost, con retención de humedad",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m3",
+          "cantidad": 2,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sustrato especializado por m³"
+        },
+        {
+          "concepto": "Sistema de riego por goteo automatizado",
+          "descripcion": "Instalación de sistema de riego por goteo con tuberías, goteros, válvulas reguladoras, temporizador y conexión a red de agua. OBLIGATORIO para jardín vertical",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sistema de riego completo según complejidad"
+        },
+        {
+          "concepto": "Conexión y pruebas sistema de riego",
+          "descripcion": "Conexión a red de agua existente, pruebas de presión, ajuste de caudales y verificación de funcionamiento",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantas trepadoras variadas",
+          "descripcion": "Suministro e instalación de plantas trepadoras según diseño (hiedra, clemátide, jazmín, madreselva u otras según clima y orientación)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 24,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario de plantas según especie y tamaño"
+        },
+        {
+          "concepto": "Plantación de plantas trepadoras en estructura",
+          "descripcion": "Apertura de hoyos en paneles, plantación a nivel correcto, riego de asiento y tutorización de plantas en estructura",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 12,
+          "precio_unitario": 25,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Impermeabilización encuentro fachada",
+          "descripcion": "Sellado e impermeabilización del encuentro entre estructura y fachada para evitar filtraciones de agua de riego",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 14,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de sellado impermeabilizante por ml"
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, anclajes, bridas, cinta de riego, conectores, válvulas, pequeño material de instalación",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pequeño material según necesidades finales"
+        }
+      ],
+      "calculos": {
+        "subtotal": 1460,
+        "iva_porcentaje": 21,
+        "iva": 306.6,
+        "total": 1766.6
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de plantas trepadoras según zona climática y orientación de fachada (norte/sur/este/oeste)",
+        "Verificar disponibilidad de sistemas de riego automatizado con temporizador y sensor de humedad",
+        "Considerar impermeabilización reforzada si la fachada es de mampostería o tiene problemas previos de humedad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Diseño y proyecto jardín vertical",
+          "oficio": "jardineria",
+          "motivo": "Servicio de diseño técnico especializado"
+        },
+        {
+          "concepto": "Estructura metálica tubular para jardín vertical",
+          "oficio": "cerrajeria",
+          "motivo": "Material estructural específico para jardín vertical"
+        },
+        {
+          "concepto": "Sistema de paneles o bolsillos para plantas",
+          "oficio": "jardineria",
+          "motivo": "Componente especializado de jardín vertical"
+        },
+        {
+          "concepto": "Sustrato especializado para jardín vertical",
+          "oficio": "jardineria",
+          "motivo": "Material específico con propiedades de drenaje y retención"
+        },
+        {
+          "concepto": "Sistema de riego por goteo automatizado",
+          "oficio": "fontaneria",
+          "motivo": "Sistema completo de riego obligatorio para jardín vertical"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_toldos_y_marquesinas_metalicas_estructurales",
+      "instalacion_cubierta_verde_o_ajardinada",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "acolchado_mulching_de_zonas_de_plantacion",
+      "creacion_de_jardin_vertical_o_pared_vegetal"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4098,
+      "tokens_out": 3108
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 12,
+    "n_catalogo": 3,
+    "n_sugeridas": 9,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "id": 393,
+  "oficio": "Persianas",
+  "texto": "Instalar persiana de seguridad enrollable con armadura de acero en local de bajo de edificio",
+  "http_status": 200,
+  "latency_ms": 21306,
+  "raw_response": {
+    "transcript": "Instalar persiana de seguridad enrollable con armadura de acero en local de bajo de edificio",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar persiana de seguridad enrollable con armadura de acero en local de bajo de edificio",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere medidas exactas del hueco (ancho x alto) para precisar cantidad de material y potencia del motor",
+          "Se asume local de bajo con acceso a corriente trifásica; confirmar disponibilidad eléctrica",
+          "Precio de persiana metálica varía significativamente según dimensiones y acabado"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Instalación de persiana de seguridad enrollable metálica con motor y cuadro de maniobra"
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Conexión eléctrica del motor y cuadro de maniobra; acometida y puesta a tierra"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Persiana metálica de seguridad enrollable armadura acero",
+          "descripcion": "Suministro de persiana de seguridad enrollable con lamas de acero galvanizado o pintado, tubo enrollador reforzado, guías laterales de acero, según medidas del hueco. Incluye mecanismo de bloqueo y tope inferior.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de dimensiones exactas del hueco (ancho x alto). Rango típico 800-2500€ según tamaño y acabado. El instalador debe introducir medidas y precio real."
+        },
+        {
+          "concepto": "Motor trifásico o monofásico para persiana de seguridad",
+          "descripcion": "Suministro de motor eléctrico (trifásico si ancho >220cm, monofásico si <220cm) con potencia según peso de la persiana. Incluye reductora, freno de seguridad y conexiones.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio varía según potencia (0.5-2 kW típico). Rango 300-800€. Confirmar disponibilidad trifásica en local."
+        },
+        {
+          "concepto": "Cuadro de maniobra y control persiana seguridad",
+          "descripcion": "Suministro de cuadro eléctrico de maniobra con pulsadores (subir, parar, bajar), selector de mando manual/automático, relés de protección, toma de corriente de emergencia y señalización. Montaje en pared próximo a persiana.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango típico 200-500€ según complejidad y certificaciones de seguridad requeridas."
+        },
+        {
+          "concepto": "Sistema de apertura manual de emergencia",
+          "descripcion": "Suministro e instalación de cerrojo manual de emergencia y manivela de accionamiento manual para apertura de persiana en caso de fallo eléctrico. Obligatorio en persianas de seguridad.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango 150-300€. Elemento de seguridad obligatorio por normativa."
+        },
+        {
+          "concepto": "Instalación persiana de seguridad: desmontaje, fijación y ajuste",
+          "descripcion": "Mano de obra de instalación: desmontaje de persiana antigua si existe, fijación de guías laterales a jambas/muro, anclaje de tubo enrollador en dintel, fijación de tope inferior en suelo, alineación y ajuste de mecanismos, pruebas de funcionamiento.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 45,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica motor y cuadro de maniobra",
+          "descripcion": "Mano de obra de electricidad: tendido de cable de alimentación desde cuadro general (o acometida nueva si no existe), conexión del motor a cuadro de maniobra, instalación de puesta a tierra, pruebas de funcionamiento y seguridad eléctrica.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y fijaciones (tornillos, tacos, tuercas, arandelas)",
+          "descripcion": "Suministro de pequeño material: tornillos de acero inoxidable, tacos de expansión, tuercas, arandelas, grasa de lubricación, cinta de teflón, bridas, etc.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Rango estimado 50-150€ según tamaño de persiana."
+        }
+      ],
+      "calculos": {
+        "subtotal": 330,
+        "iva_porcentaje": 21,
+        "iva": 69.3,
+        "total": 399.3
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente medidas exactas del hueco (ancho x alto en cm) para calcular peso de persiana y potencia de motor requerida",
+        "Confirmar si existe acometida eléctrica trifásica en local; si no, presupuestar acometida nueva (obra civil + electricidad)",
+        "Verificar si persiana sustituye a una existente (incluir desmontaje) o es instalación nueva",
+        "Considerar sensor de viento si local está en zona expuesta (añade ~100-200€)",
+        "Normativa: persiana de seguridad debe cumplir EN 13659 y tener apertura manual de emergencia obligatoria"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Persiana metálica de seguridad enrollable armadura acero",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico cuyo precio depende de medidas exactas del hueco"
+        },
+        {
+          "concepto": "Motor trifásico o monofásico para persiana de seguridad",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Componente variable según potencia requerida"
+        },
+        {
+          "concepto": "Cuadro de maniobra y control persiana seguridad",
+          "oficio": "electricidad",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo de control específico para persianas de seguridad"
+        },
+        {
+          "concepto": "Sistema de apertura manual de emergencia",
+          "oficio": "persianas",
+          "origen": "sugerida_ia",
+          "motivo": "Elemento obligatorio por normativa de seguridad"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_persiana_de_seguridad_enrollable_para_local",
+      "instalacion_cierres_venecianos_o_screen_exterior",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_estor_enrollable_interior",
+      "instalacion_pantalla_de_proyeccion_motorizada"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3913,
+      "tokens_out": 2827
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 2,
+    "n_sugeridas": 5,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

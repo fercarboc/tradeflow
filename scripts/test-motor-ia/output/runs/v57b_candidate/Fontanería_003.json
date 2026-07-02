@@ -1,0 +1,153 @@
+{
+  "id": 3,
+  "oficio": "Fontanería",
+  "texto": "Reparación de fuga en tubería de agua caliente bajo el lavabo del baño",
+  "http_status": 200,
+  "latency_ms": 11222,
+  "raw_response": {
+    "transcript": "Reparación de fuga en tubería de agua caliente bajo el lavabo del baño",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reparación de fuga en tubería de agua caliente bajo el lavabo del baño",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar accesibilidad bajo lavabo para trabajar",
+          "Confirmar si la fuga es en junta, latiguillo o tubería principal",
+          "Revisar estado general de tuberías de agua caliente en la zona"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Reparación de fuga en tubería de agua caliente - trabajo de fontanería estándar"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje y vaciado de tubería",
+          "descripcion": "Desmontaje de tuberías afectadas, vaciado de agua residual y preparación de zona de trabajo",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Junta de reparación/latiguillo inoxidable",
+          "descripcion": "Suministro de junta de reparación o latiguillo inoxidable para tubería de agua caliente según diagnóstico",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende del tipo de junta/latiguillo y diámetro de tubería - revisar en almacén"
+        },
+        {
+          "concepto": "Pequeño material (teflón, pasta, abrazaderas)",
+          "descripcion": "Cinta de teflón, pasta de fontanero, abrazaderas de sujeción y otros pequeños materiales necesarios",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad variable según necesidades de la reparación"
+        },
+        {
+          "concepto": "Instalación y prueba de estanqueidad",
+          "descripcion": "Instalación de la reparación, llenado de circuito, purgado de aire y prueba de estanqueidad bajo presión",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Verificación de instalación de agua caliente",
+          "descripcion": "Verificación de todas las conexiones de agua caliente, comprobación de presión y funcionamiento correcto del sistema",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 0.5,
+          "precio_unitario": 50,
+          "total": 25,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Consultar catálogo de latiguillos inoxidables para agua caliente (diámetros 1/2\" y 3/4\")",
+        "Verificar disponibilidad de juntas de reparación específicas para tuberías de cobre o multicapa",
+        "Considerar kit de reparación de fugas rápidas si la tubería está muy deteriorada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Junta de reparación/latiguillo inoxidable",
+          "oficio": "fontaneria",
+          "motivo": "Material específico cuyo precio depende del diagnóstico exacto de la fuga"
+        },
+        {
+          "concepto": "Pequeño material (teflón, pasta, abrazaderas)",
+          "oficio": "fontaneria",
+          "motivo": "Materiales auxiliares de cantidad variable según necesidades"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "reparacion_fuga_calentador_gas",
+      "reparacion_fuga_cisterna",
+      "reparacion_fuga_radiador",
+      "tratamiento_hidrofugo_incoloro_en_fachada",
+      "instalacion_suelo_radiante_hidraulico"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3594,
+      "tokens_out": 1456
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 3,
+    "n_sugeridas": 2,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

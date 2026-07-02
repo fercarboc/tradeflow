@@ -1,0 +1,195 @@
+{
+  "id": 238,
+  "oficio": "Energía Solar",
+  "texto": "Instalación de panel solar flexible en autocaravana con regulador de carga y batería auxiliar",
+  "http_status": 200,
+  "latency_ms": 16657,
+  "raw_response": {
+    "transcript": "Instalación de panel solar flexible en autocaravana con regulador de carga y batería auxiliar",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de panel solar flexible en autocaravana con regulador de carga y batería auxiliar",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere especificación de potencia del panel (Wp), tipo y capacidad de batería (Ah/kWh), y modelo de regulador para ajustar precios de materiales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Instalación de sistema fotovoltaico en vehículo móvil (autocaravana) con componentes específicos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Panel solar flexible para autocaravana",
+          "descripcion": "Suministro de módulo fotovoltaico flexible o semiflexible adaptado a cubierta de autocaravana, según potencia requerida (típicamente 100-400Wp)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (Wp) del panel: 100Wp ~300€, 200Wp ~600€, 400Wp ~1200€"
+        },
+        {
+          "concepto": "Regulador de carga MPPT",
+          "descripcion": "Suministro de regulador de carga MPPT (más eficiente que PWM) para autocaravana, dimensionado según potencia panel y voltaje sistema (12V/24V)",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico MPPT 12V/24V: 150-400€ según amperaje (30A-60A)"
+        },
+        {
+          "concepto": "Batería auxiliar LFP o AGM",
+          "descripcion": "Suministro de batería de almacenamiento (LFP litio ferrofosfato recomendado por durabilidad, o AGM si presupuesto limitado) para autocaravana, capacidad según consumo diario",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio: AGM 100Ah ~400€, LFP 100Ah ~1200€, LFP 200Ah ~2400€. Depende de Ah y química"
+        },
+        {
+          "concepto": "Cableado DC y protecciones",
+          "descripcion": "Suministro de cableado DC (cable rojo/negro tinned copper recomendado para marina/móvil), fusibles, portafusibles, disyuntores DC y conectores MC4 o XT60 según sistema",
+          "oficio": "energia_solar",
+          "tipo_partida": "material",
+          "unidad": "juego",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico kit cableado+protecciones: 80-200€ según longitud y amperaje"
+        },
+        {
+          "concepto": "Instalación panel solar en cubierta autocaravana",
+          "descripcion": "Mano de obra: montaje del panel flexible en cubierta, fijación con adhesivo/tornillos, orientación óptima, sellado de perforaciones si aplica",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 65,
+          "total": 130,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación regulador, batería y cableado",
+          "descripcion": "Mano de obra: conexión del regulador MPPT, instalación de batería auxiliar en compartimento técnico, tendido de cableado DC desde panel a regulador a batería, conexión de protecciones y fusibles, pruebas de funcionamiento",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 65,
+          "total": 195,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas y puesta en marcha del sistema",
+          "descripcion": "Mano de obra: verificación de voltajes DC, prueba de carga de batería, calibración del regulador, comprobación de aislamiento, medición de corriente, instrucciones de uso al cliente",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 65,
+          "total": 65,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 390,
+        "iva_porcentaje": 21,
+        "iva": 81.9,
+        "total": 471.9
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: potencia del panel solar en Wp (100/150/200/300/400Wp típicos en autocaravana)",
+        "Solicitar: tipo de batería preferido (LFP litio ferrofosfato para máxima durabilidad, o AGM para presupuesto ajustado) y capacidad en Ah (100Ah, 150Ah, 200Ah)",
+        "Solicitar: voltaje del sistema (12V o 24V) y si existe batería de arranque a integrar",
+        "Considerar: si el cliente necesita inversor 230V para electrodomésticos (no incluido en presupuesto base)",
+        "Considerar: cargador BtoB para cargar batería auxiliar desde alternador del motor (opcional, ~200-400€)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Panel solar flexible para autocaravana",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico para vehículo móvil, requiere especificación de potencia Wp"
+        },
+        {
+          "concepto": "Regulador de carga MPPT",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Componente estándar en sistemas solares móviles, precio depende de amperaje"
+        },
+        {
+          "concepto": "Batería auxiliar LFP o AGM",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico, precio varía significativamente según química (LFP vs AGM) y capacidad Ah"
+        },
+        {
+          "concepto": "Cableado DC y protecciones",
+          "oficio": "energia_solar",
+          "origen": "sugerida_ia",
+          "motivo": "Kit de pequeño material, precio depende de longitud de tendido y amperaje del sistema"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_solar_fotovoltaica_en_barco_o_embarcacion"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4176,
+      "tokens_out": 2305
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 3,
+    "n_sugeridas": 4,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

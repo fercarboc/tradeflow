@@ -1,0 +1,159 @@
+{
+  "id": 123,
+  "oficio": "Tejados/Cubiertas",
+  "texto": "Instalar canalones nuevos de aluminio lacado en toda la vivienda, longitud total 30 metros",
+  "http_status": 200,
+  "latency_ms": 10752,
+  "raw_response": {
+    "transcript": "Instalar canalones nuevos de aluminio lacado en toda la vivienda, longitud total 30 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar canalones nuevos de aluminio lacado en toda la vivienda, longitud total 30 metros",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fachadas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de canalones en fachada. Oficio especializado en revestimientos y elementos exteriores de edificio."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Canalón de aluminio lacado",
+          "descripcion": "Suministro e instalación de canalón de aluminio lacado, sección estándar, 30 metros lineales. Incluye material de fijación y pequeño material.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 30,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de material a definir por instalador según calidad, espesor y acabado del aluminio lacado"
+        },
+        {
+          "concepto": "Abrazaderas de fijación canalón",
+          "descripcion": "Suministro e instalación de abrazaderas de aluminio para fijación de canalón cada 50-60 cm. Aproximadamente 50 unidades para 30 metros.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de abrazaderas a definir por instalador"
+        },
+        {
+          "concepto": "Sellado y uniones de canalón",
+          "descripcion": "Sellado de uniones entre tramos de canalón con silicona neutra de calidad. Incluye pequeño material de sellado.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales de sellado a definir por instalador"
+        },
+        {
+          "concepto": "Mano de obra instalación canalones",
+          "descripcion": "Instalación de 30 metros de canalón de aluminio lacado: colocación, fijación con abrazaderas, sellado de uniones, comprobación de pendiente mínima 0,5% hacia bajante, y pequeño material.",
+          "oficio": "fachadas",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión a bajante existente",
+          "descripcion": "Conexión del canalón a la bajante existente de la vivienda. Incluye adaptadores y sellado de unión.",
+          "oficio": "fachadas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de adaptadores y accesorios de conexión a definir por instalador según tipo de bajante existente"
+        }
+      ],
+      "calculos": {
+        "subtotal": 360,
+        "iva_porcentaje": 21,
+        "iva": 75.6,
+        "total": 435.6
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la pendiente del canalón hacia la bajante sea mínima 0,5% para correcto drenaje",
+        "Confirmar tipo y diámetro de bajante existente para asegurar compatibilidad de conexión",
+        "Considerar instalación de malla antihojas si la vivienda está en zona arbolada"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Canalón de aluminio lacado",
+          "oficio": "fachadas",
+          "motivo": "Material específico a cotizar por instalador"
+        },
+        {
+          "concepto": "Abrazaderas de fijación canalón",
+          "oficio": "fachadas",
+          "motivo": "Material específico a cotizar por instalador"
+        },
+        {
+          "concepto": "Sellado y uniones de canalón",
+          "oficio": "fachadas",
+          "motivo": "Material específico a cotizar por instalador"
+        },
+        {
+          "concepto": "Conexión a bajante existente",
+          "oficio": "fachadas",
+          "motivo": "Accesorios específicos a cotizar por instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_red_de_datos_inalambrica_mesh",
+      "instalacion_radiadores_aluminio_o_acero",
+      "instalacion_ventana_corredera_aluminio_con_vidrio",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_de_canaleta_o_canalon_de_fachada"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4012,
+      "tokens_out": 1567
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "fachadas",
+    "coincide_oficio": "NO"
+  }
+}

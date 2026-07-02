@@ -1,0 +1,229 @@
+{
+  "id": 115,
+  "oficio": "Climatización",
+  "texto": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+  "http_status": 200,
+  "latency_ms": 21832,
+  "raw_response": {
+    "transcript": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de fan coil en dormitorio para frío y calor, conexión a circuito de agua existente",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere verificación de compatibilidad con circuito existente (caudal, temperatura, presión)",
+          "Se asume circuito de agua (chiller/caldera) ya operativo. Si no existe, se requiere presupuesto adicional"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de unidad terminal (fan coil) en sistema de agua helada/caliente existente"
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Conexión de tuberías de agua fría/caliente al fan coil, válvulas y accesorios"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Fan coil unidad terminal",
+          "descripcion": "Suministro de fan coil (unidad interior) para instalación en dormitorio, capacidad según cálculo térmico, con filtro y válvulas de conexión",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (kW), tipo (horizontal/vertical/cassette), marca y especificaciones técnicas. Rango típico: 400-1500€"
+        },
+        {
+          "concepto": "Instalación fan coil en dormitorio",
+          "descripcion": "Montaje de unidad fan coil en pared o techo, fijación estructural, nivelación y pruebas de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión tuberías agua fría/caliente al fan coil",
+          "descripcion": "Conexión de circuito de agua existente al fan coil mediante tuberías (PEX, cobre o multicapa), válvulas de corte, válvulas de equilibrado y accesorios de conexión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 8,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de tipo de tubería, diámetro (típicamente 1/2\" o 3/4\"), accesorios y válvulas. Rango: 15-40€/ml material + accesorios"
+        },
+        {
+          "concepto": "Instalación conexión hidráulica fan coil",
+          "descripcion": "Montaje de tuberías, válvulas de corte, válvulas de equilibrado, purgadores de aire y prueba de estanqueidad del circuito",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conductos de aire y rejillas de distribución",
+          "descripcion": "Suministro e instalación de conductos flexibles/rígidos para distribución de aire desde fan coil, rejillas de impulsión y retorno en dormitorio",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de longitud conductos, diámetro y tipo (flexible/rígido). Rango: 200-600€ material + instalación"
+        },
+        {
+          "concepto": "Instalación conductos y rejillas",
+          "descripcion": "Montaje de conductos de aire, fijación, aislamiento acústico y térmico, instalación de rejillas de impulsión y retorno",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 60,
+          "total": 180,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica fan coil",
+          "descripcion": "Suministro de cable eléctrico (3x2.5mm² o según potencia), conexión a cuadro eléctrico, termostato de control y pruebas de funcionamiento",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia eléctrica, distancia a cuadro y tipo de control (termostato analógico/digital). Rango: 150-400€"
+        },
+        {
+          "concepto": "Instalación conexión eléctrica y control",
+          "descripcion": "Tendido de cable eléctrico, conexión a cuadro, instalación de termostato de control de temperatura, pruebas de funcionamiento y puesta en marcha",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pruebas, equilibrado y puesta en marcha",
+          "descripcion": "Pruebas de estanqueidad hidráulica, equilibrado de caudales, pruebas de funcionamiento en frío y calor, ajuste de parámetros de control y entrega al cliente",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 60,
+          "total": 120,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 800,
+        "iva_porcentaje": 21,
+        "iva": 168,
+        "total": 968
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_sistema_agua_helada_chiller' → partida 'unidades_terminales_fancoils_o_utas' para modelos y precios de fan coils",
+        "Consultar: 'reparacion_averia_caldera_gas' → válvulas de equilibrado y accesorios hidráulicos",
+        "Considerar si el circuito existente requiere ajustes de presión, caudal o temperatura (puede requerir presupuesto adicional)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Fan coil unidad terminal",
+          "oficio": "climatizacion",
+          "motivo": "Material específico de climatización, precio variable según potencia y tipo"
+        },
+        {
+          "concepto": "Conexión tuberías agua fría/caliente al fan coil",
+          "oficio": "fontaneria",
+          "motivo": "Tuberías y accesorios hidráulicos, precio variable según diámetro y longitud"
+        },
+        {
+          "concepto": "Conductos de aire y rejillas de distribución",
+          "oficio": "climatizacion",
+          "motivo": "Material de distribución de aire, precio variable según longitud y tipo de conducto"
+        },
+        {
+          "concepto": "Conexión eléctrica fan coil",
+          "oficio": "climatizacion",
+          "motivo": "Material eléctrico y control, precio variable según potencia y tipo de termostato"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "reparacion_de_marco_de_ventana_o_premarco_deteriorado",
+      "instalacion_sistema_agua_helada_chiller",
+      "reparacion_averia_caldera_gas",
+      "reparacion_grifo_o_griferia_averiada"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3740,
+      "tokens_out": 3082
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 5,
+    "n_sugeridas": 4,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

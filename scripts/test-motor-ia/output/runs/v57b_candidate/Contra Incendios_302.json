@@ -1,0 +1,188 @@
+{
+  "id": 302,
+  "oficio": "Contra Incendios",
+  "texto": "Suministro e instalación de extintores homologados en naves industriales, revisión anual incluida",
+  "http_status": 200,
+  "latency_ms": 18704,
+  "raw_response": {
+    "transcript": "Suministro e instalación de extintores homologados en naves industriales, revisión anual incluida",
+    "quote": {
+      "resumen": {
+        "texto_original": "Suministro e instalación de extintores homologados en naves industriales, revisión anual incluida",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Número de extintores no especificado — se requiere cantidad exacta",
+          "Tipo y capacidad de extintores no definidos (polvo, CO2, espuma, agua) — afecta precio material",
+          "Ubicación exacta en naves no detallada — puede afectar instalación",
+          "Duración del contrato de revisión anual no especificada (1 año, 3 años, 5 años)"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Extintores son equipos de protección contra incendios — oficio contra_incendios por normativa RD 513/2017 y CTE DB-SI"
+        },
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Revisión anual de extintores — mantenimiento recurrente"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Suministro de extintores homologados",
+          "descripcion": "Suministro de extintores homologados según normativa CTE DB-SI y RD 513/2017 (tipo, capacidad y cantidad a definir por cliente)",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de extintores no especificada. Precio unitario depende de tipo (polvo ABC 6kg: 80-150€, CO2 2kg: 120-200€, espuma 6L: 150-250€). Instalador debe indicar cantidad y tipo."
+        },
+        {
+          "concepto": "Instalación de extintores en naves industriales",
+          "descripcion": "Instalación y fijación de extintores homologados en ubicaciones estratégicas según normativa, incluyendo soportes, anclajes y señalización de ubicación",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 55,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de extintores no especificada. Tarifa: 55€/ud (instalación + fijación + señalización por extintor). Multiplicar por número total de unidades."
+        },
+        {
+          "concepto": "Revisión anual de extintores — visita de mantenimiento",
+          "descripcion": "Revisión visual y funcional anual de todos los extintores, verificación de presión, estado de manguera y boquilla, etiquetado de revisión, pequeño material. Según RD 513/2017 y CTE DB-SI.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "visita",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de visita anual depende de número total de extintores. Rango orientativo: 45-300€/visita según cantidad. Instalador debe definir tarifa según volumen."
+        },
+        {
+          "concepto": "Recarga de extintores (si necesario)",
+          "descripcion": "Recarga de extintores agotados o vencidos durante revisión anual, incluyendo material de recarga y etiquetado",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de recargas no previsible. Precio unitario: 30-80€/ud según tipo (polvo, CO2, espuma). A incluir solo si se detecta necesidad en revisión."
+        },
+        {
+          "concepto": "Retimbrado de extintores (cada 5 años)",
+          "descripcion": "Retimbrado obligatorio de extintores cada 5 años según normativa CTE DB-SI. Incluye prueba de presión, inspección interna y certificado.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio adicional no incluido en revisión anual. Precio orientativo: 60-150€/ud. Aplicable cada 5 años. Instalador debe indicar si incluir en presupuesto."
+        },
+        {
+          "concepto": "Señalización de ubicación de extintores",
+          "descripcion": "Señalización visual (placas, pegatinas) indicando ubicación de extintores según normativa CTE DB-SI",
+          "oficio": "contra_incendios",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de señales depende de número de extintores. Precio unitario: 5-15€/señal. Incluir si no está ya instalada."
+        }
+      ],
+      "calculos": {
+        "subtotal": 0,
+        "iva_porcentaje": 21,
+        "iva": 0,
+        "total": 0
+      },
+      "sugerencias_catalogo": [
+        "Solicitar al cliente: número exacto de extintores a instalar",
+        "Solicitar: tipo y capacidad de extintores (polvo ABC 6kg, CO2 2kg, espuma 6L, agua pulverizada, etc.)",
+        "Solicitar: duración del contrato de revisión anual (1 año, 3 años, 5 años)",
+        "Solicitar: plano de ubicación de extintores en naves o número de naves y m² totales",
+        "Confirmar: si incluye retimbrado cada 5 años o es servicio adicional",
+        "Confirmar: si la señalización ya existe o debe instalarse",
+        "Nota: empresa instaladora debe estar autorizada según RD 513/2017 para mantenimiento de sistemas contra incendios"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Suministro de extintores homologados",
+          "oficio": "contra_incendios",
+          "motivo": "Material específico — precio depende de tipo y capacidad"
+        },
+        {
+          "concepto": "Revisión anual de extintores — visita de mantenimiento",
+          "oficio": "mantenimiento_general",
+          "motivo": "Servicio recurrente — precio depende de cantidad total de extintores"
+        },
+        {
+          "concepto": "Retimbrado de extintores (cada 5 años)",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio especializado obligatorio — no incluido en revisión anual"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "mantenimiento_anual_persianas_y_toldos",
+      "mantenimiento_anual_de_instalacion_contra_incendios",
+      "revision_y_recarga_de_extintores",
+      "mantenimiento_anual_caldera_gas",
+      "instalacion_persiana_enrollable_aluminio_manual"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3889,
+      "tokens_out": 2652
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 6,
+    "n_catalogo": 0,
+    "n_sugeridas": 6,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

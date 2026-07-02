@@ -1,0 +1,176 @@
+{
+  "id": 352,
+  "oficio": "Mantenimiento General",
+  "texto": "Instalar dispensadores de jabón y papel en aseos de empresa, mantenimiento de consumibles",
+  "http_status": 200,
+  "latency_ms": 13256,
+  "raw_response": {
+    "transcript": "Instalar dispensadores de jabón y papel en aseos de empresa, mantenimiento de consumibles",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar dispensadores de jabón y papel en aseos de empresa, mantenimiento de consumibles",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto incluye tanto instalación inicial como mantenimiento recurrente de consumibles",
+          "Se recomienda separar: instalación puntual vs. contrato de mantenimiento mensual/trimestral"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "mantenimiento_general",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 45
+          },
+          "motivo": "Instalación de dispensadores + mantenimiento recurrente de consumibles en aseos corporativos. Trabajo combinado de montaje e inspección periódica."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Instalación dispensadores jabón automático",
+          "descripcion": "Suministro e instalación de dispensadores de jabón automático/manual en aseos. Incluye fijación a pared, conexiones eléctricas si aplica, y prueba de funcionamiento.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Dispensador jabón automático",
+          "descripcion": "Dispensador de jabón automático con sensor infrarrojo, capacidad 700ml, acero inoxidable o plástico resistente.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del dispensador a definir por instalador según marca y modelo"
+        },
+        {
+          "concepto": "Instalación dispensadores papel higiénico",
+          "descripcion": "Suministro e instalación de dispensadores de papel higiénico (rollo o secamanos) en aseos. Incluye fijación a pared y prueba de funcionamiento.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Dispensador papel higiénico",
+          "descripcion": "Dispensador de papel higiénico en rollo o secamanos automático, acero inoxidable o plástico ABS resistente.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del dispensador a definir por instalador según tipo y capacidad"
+        },
+        {
+          "concepto": "Mantenimiento mensual consumibles (jabón + papel)",
+          "descripcion": "Recarga mensual de jabón y papel en dispensadores. Incluye inspección de funcionamiento, limpieza de dispensadores y reposición de consumibles.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "servicio",
+          "unidad": "mes",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Consumibles mensuales (jabón + papel)",
+          "descripcion": "Jabón desinfectante para dispensador automático + rollos de papel higiénico o secamanos para un mes de uso en aseos corporativos.",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "unidad": "mes",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Coste de consumibles (jabón + papel) a definir según volumen de uso y número de aseos"
+        }
+      ],
+      "calculos": {
+        "subtotal": 120,
+        "iva_porcentaje": 21,
+        "iva": 25.2,
+        "total": 145.2
+      },
+      "sugerencias_catalogo": [
+        "Especificar número de aseos/dispensadores a instalar para ajustar cantidades",
+        "Definir marca y modelo de dispensadores (automático vs. manual, capacidad)",
+        "Aclarar si el mantenimiento es mensual, trimestral o bajo demanda",
+        "Considerar contrato de mantenimiento recurrente con precio fijo mensual/trimestral",
+        "Incluir costo de consumibles (jabón, papel) en presupuesto separado o incluido en servicio"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Dispensador jabón automático",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "motivo": "Material específico sin referencia en catálogo base"
+        },
+        {
+          "concepto": "Dispensador papel higiénico",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "motivo": "Material específico sin referencia en catálogo base"
+        },
+        {
+          "concepto": "Consumibles mensuales (jabón + papel)",
+          "oficio": "mantenimiento_general",
+          "tipo_partida": "material",
+          "motivo": "Consumibles recurrentes sin referencia en catálogo base"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_interruptor_averiado",
+      "instalacion_fontaneria_cocina_completa",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_llave_escuadra",
+      "construccion_de_camino_o_sendero_en_jardin"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3644,
+      "tokens_out": 1813
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "mantenimiento_general",
+    "coincide_oficio": "SI"
+  }
+}

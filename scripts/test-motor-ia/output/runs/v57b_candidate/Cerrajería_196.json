@@ -1,0 +1,120 @@
+{
+  "id": 196,
+  "oficio": "Cerrajería",
+  "texto": "Corte de llaves urgente de cerradura especial, necesito 4 copias para los trabajadores",
+  "http_status": 200,
+  "latency_ms": 13829,
+  "raw_response": {
+    "transcript": "Corte de llaves urgente de cerradura especial, necesito 4 copias para los trabajadores",
+    "quote": {
+      "resumen": {
+        "texto_original": "Corte de llaves urgente de cerradura especial, necesito 4 copias para los trabajadores",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": true,
+        "alertas": [
+          "ACLARACIÓN NECESARIA: ¿La cerradura es antibumping/antitaladro certificada o es una cerradura estándar 'especial'? El precio varía significativamente.",
+          "ACLARACIÓN NECESARIA: ¿El corte es urgente (mismo día, fuera de horario) o normal? Afecta tarifa de desplazamiento.",
+          "Las llaves de seguridad certificadas requieren tarjeta de propietario y no se pueden copiar sin autorización. Verificar si el cliente tiene documentación."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 90
+          },
+          "motivo": "Corte de llaves y servicio de cerrajería especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desplazamiento urgente cerrajero",
+          "descripcion": "Desplazamiento a domicilio/obra con carácter urgente (mismo día o fuera de horario). Incluye transporte y disponibilidad inmediata.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de desplazamiento urgente a definir por cerrajero según zona y horario (diurno/nocturno/festivo)"
+        },
+        {
+          "concepto": "Corte de 4 copias de llaves",
+          "descripcion": "Corte de 4 copias de llaves para cerradura especial. Incluye análisis de la llave original, corte en máquina especializada y ajuste de tolerancias.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 4,
+          "precio_unitario": 15,
+          "total": 60,
+          "precio_origen": "catalogo",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio unitario estimado en 15€/copia para cerradura estándar. Si es cerradura de seguridad certificada (antibumping/antitaladro), el precio puede ser 25-40€/copia y requiere tarjeta de propietario."
+        },
+        {
+          "concepto": "Pequeño material y consumibles",
+          "descripcion": "Lubricantes, limpiadores, material de ajuste y otros consumibles necesarios para el corte y prueba de llaves.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material consumible a presupuestar por cerrajero (estimado 10-20€)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 60,
+        "iva_porcentaje": 21,
+        "iva": 12.6,
+        "total": 72.6
+      },
+      "sugerencias_catalogo": [
+        "Si la cerradura es de SEGURIDAD CERTIFICADA (antibumping/antitaladro UNE EN 1303): consultar partida [instalacion_cerradura_antibumping_o_antitaladro] — las llaves requieren tarjeta de propietario y no se pueden copiar sin autorización del titular.",
+        "Si es URGENCIA REAL (fuera de horario/festivo): aplicar recargo de desplazamiento urgente (típicamente +30-50€ sobre tarifa normal).",
+        "Considerar si el cliente necesita CAMBIO DE CERRADURA completo en lugar de solo copias de llaves."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desplazamiento urgente cerrajero",
+          "oficio": "cerrajeria",
+          "motivo": "Servicio urgente no detallado en catálogo base. Requiere definición de horario y zona."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_SAI_o_UPS_para_proteccion_equipos",
+      "apertura_puerta_cerradura_sin_llave",
+      "instalacion_cerradura_antibumping_o_antitaladro",
+      "reparacion_puntual_de_impermeabilizacion_con_banda_autodhesiva",
+      "reparacion_puntual_de_gotera_en_cubierta_plana"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3844,
+      "tokens_out": 1587
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 3,
+    "n_catalogo": 0,
+    "n_sugeridas": 3,
+    "oficio_detectado": "cerrajeria",
+    "coincide_oficio": "SI"
+  }
+}

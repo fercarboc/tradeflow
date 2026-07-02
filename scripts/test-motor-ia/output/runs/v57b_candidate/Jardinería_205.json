@@ -1,0 +1,179 @@
+{
+  "id": 205,
+  "oficio": "Jardinería",
+  "texto": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+  "http_status": 200,
+  "latency_ms": 16224,
+  "raw_response": {
+    "transcript": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Plantar seto de mirto o boj para cerrar el perímetro del jardín, longitud 25 metros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Especie no especificada (mirto o boj): el instalador debe confirmar cuál se utilizará antes de compra de plantas",
+          "Altura objetivo del seto no indicada: afecta a cantidad de plantas y precio unitario",
+          "Preparación del terreno: se asume terreno accesible sin obstáculos"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Plantación de seto según BASE MAESTRA [plantacion_de_setos_o_sebes]"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Preparación línea de plantación (zanjas/hoyos)",
+          "descripcion": "Apertura de zanjas o hoyos para plantación de seto de 25 ml, profundidad 40-50 cm, ancho 60 cm, incluye limpieza y nivelación del terreno",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 8,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Plantas de seto (mirto o boj)",
+          "descripcion": "Suministro de plantas de seto (mirto o boj según confirmación), altura 40-60 cm, distancia 50-60 cm entre plantas. Cantidad estimada: 42-50 unidades para 25 ml",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 45,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de plantas según especie confirmada (mirto o boj), tamaño y proveedor. Instalador debe introducir precio unitario"
+        },
+        {
+          "concepto": "Abono de fondo y enmienda de suelo",
+          "descripcion": "Aporte de abono orgánico, compost y enmienda de suelo para mejora de estructura y retención de humedad en línea de plantación (25 ml)",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y tipo de abono según análisis de suelo. Instalador debe confirmar volumen (m³) y precio"
+        },
+        {
+          "concepto": "Plantación y riego de asiento",
+          "descripcion": "Plantación correcta de cada unidad, colocación en profundidad adecuada, compactación de tierra y riego de asiento abundante para asentamiento",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 6,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Tutores y pequeño material",
+          "descripcion": "Tutores de madera o bambú para sujeción inicial de plantas (si altura > 60 cm), ataduras, grapas, pequeño material de plantación",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de tutores según altura final de plantas. Instalador debe confirmar si se requieren y precio"
+        },
+        {
+          "concepto": "Geotextil y corteza decorativa bajo seto",
+          "descripcion": "Colocación de geotextil anti-maleza y acolchado de corteza de pino (5-8 cm) para control de maleza, retención de humedad y acabado estético",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de geotextil y corteza según proveedor y cantidad (m³ de corteza). Instalador debe introducir precios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 350,
+        "iva_porcentaje": 21,
+        "iva": 73.5,
+        "total": 423.5
+      },
+      "sugerencias_catalogo": [
+        "Confirmar especie: mirto (Myrtus communis) o boj (Buxus sempervirens). El boj es más denso y formal; el mirto más aromático y flexible",
+        "Definir altura objetivo del seto (40-60 cm, 80-100 cm, 120+ cm) para ajustar cantidad de plantas y precio",
+        "Considerar riego por goteo integrado si el jardín no dispone de riego manual frecuente (especialmente en zonas secas)",
+        "Época óptima: plantación en otoño (septiembre-noviembre) o primavera (marzo-abril) para mejor enraizamiento",
+        "Poda de formación: primer año 2-3 podas ligeras; segundo año poda más estructurada para densidad"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Plantas de seto (mirto o boj)",
+          "oficio": "jardineria",
+          "motivo": "Material de suministro, precio variable según especie y proveedor"
+        },
+        {
+          "concepto": "Abono de fondo y enmienda de suelo",
+          "oficio": "jardineria",
+          "motivo": "Material de suministro, cantidad según análisis de suelo"
+        },
+        {
+          "concepto": "Tutores y pequeño material",
+          "oficio": "jardineria",
+          "motivo": "Material auxiliar, cantidad según altura de plantas"
+        },
+        {
+          "concepto": "Geotextil y corteza decorativa bajo seto",
+          "oficio": "jardineria",
+          "motivo": "Material de acabado y mantenimiento, precio según proveedor"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "apertura_y_cierre_de_rozas_para_instalaciones",
+      "instalacion_de_plantas_trepadoras",
+      "plantacion_de_setos_o_sebes",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas",
+      "instalacion_bomba_de_calor_para_piscina"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3954,
+      "tokens_out": 2023
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 2,
+    "n_sugeridas": 4,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "id": 240,
+  "oficio": "Energía Solar",
+  "texto": "Legalizar instalación solar fotovoltaica existente que no tiene licencia, adaptación normativa",
+  "http_status": 200,
+  "latency_ms": 24774,
+  "raw_response": {
+    "transcript": "Legalizar instalación solar fotovoltaica existente que no tiene licencia, adaptación normativa",
+    "quote": {
+      "resumen": {
+        "texto_original": "Legalizar instalación solar fotovoltaica existente que no tiene licencia, adaptación normativa",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "CRÍTICO: Legalización de instalación existente sin licencia. Requiere verificación previa del estado técnico de la instalación.",
+          "CRÍTICO: Debe identificarse la potencia instalada (kWp) para determinar si requiere proyecto de ingeniero o solo memoria técnica.",
+          "CRÍTICO: La legalización debe realizarse ante la distribuidora correspondiente. Plazo variable 1-6 meses según CCAA.",
+          "CRÍTICO: Sin legalización, la instalación no puede acceder a compensación de excedentes ni bonificaciones IBI.",
+          "Recomendación: Solicitar al cliente documentación técnica de la instalación existente (potencia, año instalación, inversor, módulos)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "energia_solar",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 55,
+            "recomendado": 65,
+            "max": 75
+          },
+          "motivo": "Legalización de instalación fotovoltaica existente. Oficio especializado en energía solar."
+        },
+        {
+          "oficio": "gestoria_tramites",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Tramitación administrativa ante distribuidora y organismos competentes para legalización."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección y evaluación técnica de instalación fotovoltaica existente",
+          "descripcion": "Revisión completa del estado técnico de la instalación existente: módulos, inversor, cableado, protecciones, estructura soporte, conexión a red. Verificación de conformidad normativa y detección de deficiencias.",
+          "oficio": "energia_solar",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 520,
+          "total": 520,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Memoria técnica o proyecto según potencia instalada",
+          "descripcion": "Elaboración de documentación técnica requerida para legalización. Incluye: cálculos de potencia, esquemas unifilares, especificaciones técnicas de componentes, cumplimiento normativa RD 244/2019 y RD 1699/2011. Tipo de documento según potencia: memoria técnica (≤15kWp) o proyecto de ingeniero (>15kWp).",
+          "oficio": "energia_solar",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según potencia instalada y complejidad. Rango estimado 300-1200€. Requiere confirmación del instalador tras conocer potencia real."
+        },
+        {
+          "concepto": "Certificado de instalador SIER autorizado",
+          "descripcion": "Obtención y tramitación del certificado de instalador SIER (Sistema de Información de Energías Renovables) autorizado por organismo competente. Documento obligatorio para legalización de instalación fotovoltaica.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según CCAA y organismo. Rango estimado 150-400€. Requiere confirmación."
+        },
+        {
+          "concepto": "Contrato de acceso con distribuidora",
+          "descripcion": "Tramitación y formalización del contrato de acceso a la red con la distribuidora correspondiente. Incluye: solicitud de acceso, negociación de términos, firma de contrato, asignación de código CUPS.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según distribuidora. Rango estimado 200-600€. Requiere confirmación."
+        },
+        {
+          "concepto": "Inscripción en RIPRE o RAIPRE según caso",
+          "descripcion": "Registro de la instalación en el Registro de Instalaciones de Producción de Energía Eléctrica (RIPRE) o Registro Administrativo de Instalaciones de Producción de Energía Renovable (RAIPRE) según corresponda por potencia y CCAA. Documento obligatorio para legalización.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según CCAA y tipo de registro. Rango estimado 100-300€. Requiere confirmación."
+        },
+        {
+          "concepto": "Solicitud de contador bidireccional",
+          "descripcion": "Tramitación ante distribuidora para instalación de contador bidireccional que permita medir energía inyectada a red y compensación de excedentes. Incluye: solicitud, coordinación con distribuidora, cambio de contador si es necesario.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según distribuidora. Rango estimado 150-400€. Requiere confirmación."
+        },
+        {
+          "concepto": "Acuerdo de compensación de excedentes con comercializadora",
+          "descripcion": "Negociación y formalización del acuerdo de compensación de excedentes con comercializadora de energía. Incluye: análisis de opciones, firma de contrato, configuración de sistema de compensación.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable según comercializadora. Rango estimado 100-250€. Requiere confirmación."
+        },
+        {
+          "concepto": "Pequeño material y documentación administrativa",
+          "descripcion": "Suministro de pequeño material necesario para legalización: sellos, copias certificadas, envíos, gestión documental, archivos digitales, etc.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio variable. Rango estimado 50-150€. Requiere confirmación."
+        },
+        {
+          "concepto": "Gestión y coordinación administrativa de legalización",
+          "descripcion": "Coordinación integral del proceso de legalización: seguimiento de trámites, comunicaciones con distribuidora y organismos competentes, resolución de incidencias, presentación de documentación, seguimiento de plazos.",
+          "oficio": "gestoria_tramites",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 50,
+          "total": 400,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 920,
+        "iva_porcentaje": 21,
+        "iva": 193.2,
+        "total": 1113.2
+      },
+      "sugerencias_catalogo": [
+        "INFORMACIÓN CRÍTICA: Este presupuesto incluye SOLO mano de obra y servicios de gestión. Los precios de servicios administrativos (memoria técnica, certificados, registros, contratos) están marcados como 'requiere_revision' porque dependen de:",
+        "1. Potencia instalada real (kWp) — determina si es memoria técnica o proyecto de ingeniero",
+        "2. CCAA de ubicación — varía normativa, organismos competentes y costes",
+        "3. Distribuidora correspondiente — varía plazo y procedimiento",
+        "4. Estado técnico de la instalación — si requiere adaptaciones normativas adicionales",
+        "RECOMENDACIÓN: Solicitar al cliente: (a) Potencia instalada en kWp, (b) Ubicación/CCAA, (c) Año de instalación, (d) Documentación técnica disponible, (e) Distribuidora. Con esta información, el instalador puede completar precios reales."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Memoria técnica o proyecto según potencia instalada",
+          "oficio": "energia_solar",
+          "motivo": "Documento técnico obligatorio para legalización. Tipo y coste variable según potencia."
+        },
+        {
+          "concepto": "Certificado de instalador SIER autorizado",
+          "oficio": "gestoria_tramites",
+          "motivo": "Certificación obligatoria para legalización de instalación fotovoltaica."
+        },
+        {
+          "concepto": "Contrato de acceso con distribuidora",
+          "oficio": "gestoria_tramites",
+          "motivo": "Formalización de acceso a red. Procedimiento variable según distribuidora."
+        },
+        {
+          "concepto": "Inscripción en RIPRE o RAIPRE según caso",
+          "oficio": "gestoria_tramites",
+          "motivo": "Registro administrativo obligatorio. Tipo de registro variable según potencia y CCAA."
+        },
+        {
+          "concepto": "Solicitud de contador bidireccional",
+          "oficio": "gestoria_tramites",
+          "motivo": "Requisito para compensación de excedentes. Procedimiento variable según distribuidora."
+        },
+        {
+          "concepto": "Acuerdo de compensación de excedentes con comercializadora",
+          "oficio": "gestoria_tramites",
+          "motivo": "Formalización de sistema de compensación. Términos variables según comercializadora."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "legalizado_instalacion_fotovoltaica_ante_distribuidora",
+      "instalacion_sistema_energia_solar_fotovoltaica_para_climatizacion",
+      "ampliacion_de_instalacion_fotovoltaica_existente",
+      "instalacion_sistema_fotovoltaico_con_baterias_hibrido",
+      "instalacion_energia_solar_para_caravana_o_autocaravana"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4162,
+      "tokens_out": 3515
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 2,
+    "n_sugeridas": 7,
+    "oficio_detectado": "energia_solar",
+    "coincide_oficio": "SI"
+  }
+}

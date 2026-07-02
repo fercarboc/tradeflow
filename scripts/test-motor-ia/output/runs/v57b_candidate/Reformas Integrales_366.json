@@ -1,0 +1,367 @@
+{
+  "id": 366,
+  "oficio": "Reformas Integrales",
+  "texto": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+  "http_status": 200,
+  "latency_ms": 35312,
+  "raw_response": {
+    "transcript": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+    "quote": {
+      "resumen": {
+        "texto_original": "Reforma de ático dúplex de 100 metros cuadrados con escalera interior y terraza acristalada",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "Reforma integral detectada: múltiples oficios simultáneos (≥3). Presupuesto estructurado en 12 partidas técnicas máximo.",
+          "Escalera interior: requiere definición de material (madera/pladur) y diseño (abierta/cerrada).",
+          "Terraza acristalada: requiere especificación de tipo de acristalamiento (fijo/corredera/abatible) y estructura soporte.",
+          "Superficie 100 m²: reforma mediana → partidas individuales técnicas, NO capítulos agrupados.",
+          "Todas las partidas de materiales tienen precio_unitario=0 y requieren revisión del instalador."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "reforma_integral",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Reforma integral: ≥3 oficios simultáneos (carpintería escalera, cristalería terraza, electricidad, fontanería, pintura, acabados)."
+        },
+        {
+          "oficio": "carpinteria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Escalera interior de madera/pladur, barandilla, acabados carpintería."
+        },
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Terraza acristalada: cerramientos, ventanas, puertas corredera, acristalamiento."
+        },
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación eléctrica nueva/reforma: circuitos, enchufes, iluminación, cuadro."
+        },
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 45,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación fontanería: tuberías, desagües, puntos agua si aplica."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Pintura interior paredes, techos, acabados."
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 40
+          },
+          "motivo": "Alicatado baño/cocina si aplica en reforma."
+        },
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Pladur para tabiques, falsos techos, revestimientos si aplica."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Demolición y desmontaje selectivo",
+          "descripcion": "Demolición selectiva de tabiques no estructurales, desmontaje de instalaciones antiguas (electricidad, fontanería, calefacción), retirada de pavimentos y revestimientos antiguos en ático dúplex 100 m². Incluye gestión de escombros y residuos.",
+          "oficio": "reforma_integral",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 8,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Escalera interior de madera",
+          "descripcion": "Escalera interior de madera (peldaños, tabicas, zancas, barandilla según CTE DB-SUA). Incluye peldaños con huella mín. 28 cm, contrahuella máx. 18 cm, barandilla de seguridad, acabado barniz/aceite, herrajes de fijación. Precio alzado por escalera completa.",
+          "oficio": "carpinteria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado escalera madera: rango 600-6000€ según especie, número peldaños y diseño. Instalador debe especificar material (roble, haya, pino), número peldaños y barandilla."
+        },
+        {
+          "concepto": "Instalación escalera interior de madera",
+          "descripcion": "Mano de obra de instalación: montaje peldaños, tabicas, zancas, barandilla, fijación herrajes, acabado barniz/aceite, ajustes finales.",
+          "oficio": "carpinteria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 45,
+          "total": 1800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Terraza acristalada: estructura y cerramientos",
+          "descripcion": "Estructura soporte (perfiles aluminio/acero), cerramientos acristalados (fijo/corredera/abatible), puertas de acceso, sellado impermeable, drenaje. Incluye vidrio templado/laminado según normativa. Precio alzado por terraza acristalada ~20-30 m².",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado terraza acristalada: rango 3000-12000€ según superficie, tipo acristalamiento (fijo/corredera), estructura (aluminio/acero), y acabados. Instalador debe especificar m² terraza y tipo de cierre."
+        },
+        {
+          "concepto": "Instalación terraza acristalada",
+          "descripcion": "Mano de obra: montaje estructura, colocación acristalamiento, sellado impermeable, ajuste puertas, pruebas estanqueidad.",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 50,
+          "precio_unitario": 45,
+          "total": 2250,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación eléctrica: circuitos, enchufes, iluminación",
+          "descripcion": "Reforma instalación eléctrica: nuevos circuitos, enchufes, interruptores, iluminación LED (puntos luz, downlights, apliques), cuadro eléctrico con protecciones, cableado, canalizaciones. Incluye tomas de corriente en cocina, baño, salón, dormitorios.",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado instalación eléctrica reforma 100 m²: rango 1500-4000€ según número circuitos, puntos luz, enchufes y complejidad. Instalador debe detallar número de puntos y tipo de iluminación."
+        },
+        {
+          "concepto": "Mano de obra instalación eléctrica",
+          "descripcion": "Instalación de circuitos, enchufes, interruptores, iluminación, cuadro eléctrico, pruebas y puesta en marcha.",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 60,
+          "precio_unitario": 50,
+          "total": 3000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación fontanería: tuberías y desagües",
+          "descripcion": "Reforma fontanería: tuberías agua fría/caliente (PEX o cobre), desagües, sifones, válvulas, puntos de agua en cocina y baño. Incluye conexión a acometida existente.",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado fontanería reforma 100 m²: rango 800-2500€ según número de puntos agua, tipo de tuberías y complejidad. Instalador debe especificar puntos de agua y tipo de red."
+        },
+        {
+          "concepto": "Mano de obra instalación fontanería",
+          "descripcion": "Instalación de tuberías, desagües, válvulas, puntos de agua, pruebas de estanqueidad.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 40,
+          "precio_unitario": 50,
+          "total": 2000,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura interior: paredes y techos",
+          "descripcion": "Pintura interior en paredes y techos (100 m²): preparación de superficies, imprimación, pintura plástica mate/satinada en 2 manos. Incluye rodapiés y remates.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pintura: rango 3-8€/m² según calidad de pintura y acabado. Instalador debe especificar marca y tipo de pintura."
+        },
+        {
+          "concepto": "Mano de obra pintura interior",
+          "descripcion": "Preparación superficies, imprimación, pintura 2 manos en paredes y techos (100 m²).",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 6,
+          "total": 600,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pavimentos y acabados: suelos",
+          "descripcion": "Pavimentos en ático dúplex: baldosas porcelánico/gres en baño y cocina (~20 m²), parquet/tarima flotante en salón y dormitorios (~80 m²). Incluye adhesivo, lechada, sellado.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio pavimentos: baldosas 15-40€/m², parquet 20-60€/m² según calidad. Instalador debe especificar tipo y marca de pavimento."
+        },
+        {
+          "concepto": "Mano de obra pavimentos y alicatado",
+          "descripcion": "Colocación baldosas baño/cocina (20 m²) y parquet/tarima salón/dormitorios (80 m²). Incluye preparación base, adhesivo, lechada, sellado, ajustes.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 100,
+          "precio_unitario": 12,
+          "total": 1200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 11650,
+        "iva_porcentaje": 21,
+        "iva": 2446.5,
+        "total": 14096.5
+      },
+      "sugerencias_catalogo": [
+        "Escalera interior: especificar material (madera roble/haya/pino), número de peldaños, tipo de barandilla (madera/metal), y si incluye iluminación LED integrada.",
+        "Terraza acristalada: definir superficie exacta (m²), tipo de acristalamiento (fijo/corredera/abatible), material estructura (aluminio/acero), y si incluye persianas/estores.",
+        "Instalación eléctrica: detallar número de circuitos, puntos de luz, enchufes por estancia, y si incluye domótica/automatización.",
+        "Fontanería: especificar número de puntos agua (cocina, baño, lavadero), tipo de tuberías (PEX/cobre), y si incluye calentador/termo.",
+        "Pavimentos: elegir tipo (baldosas, parquet, tarima flotante, vinílico) y marca/calidad para cada zona.",
+        "Pintura: especificar marca de pintura, acabado (mate/satinado/brillo), y si incluye pintura especial (antimoho, lavable)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Escalera interior de madera",
+          "oficio": "carpinteria",
+          "motivo": "Partida sugerida por IA: precio alzado escalera madera 600-6000€ según especie y diseño. Requiere especificación del instalador."
+        },
+        {
+          "concepto": "Terraza acristalada: estructura y cerramientos",
+          "oficio": "cristaleria",
+          "motivo": "Partida sugerida por IA: precio alzado terraza acristalada 3000-12000€ según superficie y tipo de cierre. Requiere especificación del instalador."
+        },
+        {
+          "concepto": "Instalación eléctrica: circuitos, enchufes, iluminación",
+          "oficio": "electricidad",
+          "motivo": "Partida sugerida por IA: precio alzado 1500-4000€ según número de circuitos y puntos luz. Requiere especificación del instalador."
+        },
+        {
+          "concepto": "Instalación fontanería: tuberías y desagües",
+          "oficio": "fontaneria",
+          "motivo": "Partida sugerida por IA: precio alzado 800-2500€ según número de puntos agua. Requiere especificación del instalador."
+        },
+        {
+          "concepto": "Pintura interior: paredes y techos",
+          "oficio": "pintura",
+          "motivo": "Partida sugerida por IA: precio material 3-8€/m² según calidad. Requiere especificación de marca y tipo de pintura."
+        },
+        {
+          "concepto": "Pavimentos y acabados: suelos",
+          "oficio": "suelos_alicatados",
+          "motivo": "Partida sugerida por IA: precio material 15-60€/m² según tipo (baldosas/parquet). Requiere especificación de tipo y marca."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "estructura_pladur_para_escalera_interior_nueva",
+      "instalacion_barandilla_metalica_de_escalera_exterior",
+      "instalacion_de_escalera_de_acceso_a_cubierta_o_zona_tecnica",
+      "correccion_de_puentes_termicos_en_cubierta",
+      "instalacion_escalera_de_madera_interior"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3977,
+      "tokens_out": 5438
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 13,
+    "n_catalogo": 7,
+    "n_sugeridas": 6,
+    "oficio_detectado": "reforma_integral",
+    "coincide_oficio": "NO"
+  }
+}

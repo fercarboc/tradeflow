@@ -142,6 +142,30 @@ const EMPTY_QUOTE = {
   sugerencias_catalogo: [],
 };
 
+// ── Post-proceso determinista de oficio (zero tokens de prompt) ──────────────
+// Corrige oficios inequívocos basándose en keywords del transcript.
+// Se aplica DESPUÉS de Claude y ANTES del enriquecimiento de catálogo.
+// No modifica el prompt — coste en tokens: 0.
+const OFICIO_ALIAS: Record<string, string> = {
+  instalador_cctv: 'telecomunicaciones',
+};
+const OFICIO_KEYWORD_RULES: [RegExp, string][] = [
+  [/\bwallbox\b|punto\s+de\s+carga.*veh[íi]culo|cargador.*veh[íi]culo\s+el[eé]ctrico/i, 'electricidad'],
+  [/\b(velux|lucernario|claraboya|tragaluz)\b/i,                                         'tejados_cubiertas'],
+  [/\bcctv\b|videovigilancia|c[aá]maras?\s+de\s+seguridad/i,                            'telecomunicaciones'],
+  [/\brj[\s-]?45\b|roseta\s+de\s+red|punto\s+de\s+red\s+rj/i,                         'telecomunicaciones'],
+  [/\brf[-\s]?[369]0\b|\bei[-\s]?[36]0\b|puerta\s+cortafuego/i,                        'contra_incendios'],
+];
+function applyOficioRules(transcript: string, quote: Record<string, unknown>): void {
+  const oficios = quote.oficios_detectados as Array<{ oficio: string }> | undefined;
+  if (!oficios?.length) return;
+  const alias = OFICIO_ALIAS[oficios[0].oficio];
+  if (alias) { oficios[0].oficio = alias; return; }
+  for (const [re, oficio] of OFICIO_KEYWORD_RULES) {
+    if (re.test(transcript)) { oficios[0].oficio = oficio; return; }
+  }
+}
+
 // ── Enriquece precios de partidas con tarifas del instalador ──────────────────
 // Arquitectura: IA genera partidas (ya sabe lo que necesita un trabajo)
 // Catálogo traduce partidas → artículos tarifables reales con precio del instalador
@@ -623,6 +647,8 @@ Deno.serve(async (req: Request) => {
       quote = { ...EMPTY_QUOTE };
     }
 
+    applyOficioRules(transcript, quote);
+
     // ── Enriquecer precios con catálogo del instalador ────────────────────────
     // INTENCIÓN (IA) → PARTIDAS (IA genera) → ARTÍCULOS (catálogo precio) → PRESUPUESTO
     if (orgId && quote.partidas) {
@@ -656,7 +682,7 @@ Deno.serve(async (req: Request) => {
         kb_score: kbScore,
         web_search_used: webSearchUsed,
         _meta: {
-          prompt_version: 'v56',
+          prompt_version: 'v57b',
           stop_reason: claudeData.stop_reason ?? 'end_turn',
           tokens_in:  claudeData.usage?.input_tokens  ?? 0,
           tokens_out: claudeData.usage?.output_tokens ?? 0,

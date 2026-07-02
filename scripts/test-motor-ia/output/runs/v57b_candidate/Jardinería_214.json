@@ -1,0 +1,140 @@
+{
+  "id": 214,
+  "oficio": "Jardinería",
+  "texto": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 11301,
+  "raw_response": {
+    "transcript": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Limpieza de jardín abandonado, desbroce y retirada de maleza en parcela de 500 metros cuadrados",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Desbroce, limpieza y retirada de maleza en parcela — trabajo de jardinería"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 50
+          },
+          "motivo": "Retirada y gestión de residuos vegetales generados en desbroce"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desbroce y limpieza de maleza",
+          "descripcion": "Desbroce manual y mecánico de maleza, hierbas silvestres y vegetación invasora en parcela de 500 m². Incluye corte, arranque y acopio de residuos vegetales.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0.8,
+          "total": 400,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de desbroce por m² — el instalador debe validar según dificultad (densidad maleza, accesibilidad, tipo vegetación)"
+        },
+        {
+          "concepto": "Retirada y transporte de residuos vegetales",
+          "descripcion": "Carga, transporte y gestión de residuos vegetales generados en el desbroce (maleza, ramas, escombros vegetales). Incluye descarga en punto de acopio autorizado o gestor de residuos.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "m3",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen estimado de residuos (aprox. 8 m³ para 500 m² de maleza densa) — el instalador debe ajustar según densidad real y tarifa local de transporte"
+        },
+        {
+          "concepto": "Nivelación y perfilado del terreno",
+          "descripcion": "Nivelación superficial del terreno tras desbroce, eliminación de tocones pequeños y perfilado de la parcela para dejarla lista para futuras actuaciones.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 500,
+          "precio_unitario": 0.3,
+          "total": 150,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tarifa de nivelación por m² — ajustar según irregularidades del terreno y presencia de tocones"
+        }
+      ],
+      "calculos": {
+        "subtotal": 910,
+        "iva_porcentaje": 21,
+        "iva": 191.1,
+        "total": 1101.1
+      },
+      "sugerencias_catalogo": [
+        "Si la parcela requiere eliminación de tocones profundos o raíces gruesas, considerar partida adicional de 'Extracción de tocones con maquinaria pesada' (excavadora, retroexcavadora).",
+        "Si hay escombros, hormigón o materiales inertes mezclados, separar en partida de 'Gestión de residuos inertes' con tarifa diferenciada.",
+        "Si el cliente desea posterior aportación de tierra vegetal y preparación para siembra/plantación, añadir partidas de 'Aporte de tierra vegetal' y 'Preparación de cama de siembra'."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Desbroce y limpieza de maleza",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Trabajo específico de limpieza de parcela abandonada — tarifa por m² según dificultad"
+        },
+        {
+          "concepto": "Retirada y transporte de residuos vegetales",
+          "oficio": "gestion_residuos",
+          "origen": "sugerida_ia",
+          "motivo": "Gestión de residuos vegetales — volumen estimado en m³"
+        },
+        {
+          "concepto": "Nivelación y perfilado del terreno",
+          "oficio": "jardineria",
+          "origen": "sugerida_ia",
+          "motivo": "Acabado de parcela tras desbroce — tarifa por m²"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "presupuesto_e_informe_inicial_instalacion_contra_incendios",
+      "reparacion_de_piscina_con_filtraciones",
+      "instalacion_bomba_de_calor_para_piscina",
+      "plantacion_de_plantas_y_arbustos_ornamentales",
+      "tabique_pladur_con_estructura_metalica_para_grandes_alturas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4061,
+      "tokens_out": 1497
+    }
+  },
+  "classification": {
+    "category": "SOLO_SUGERIDAS",
+    "n_partidas": 3,
+    "n_catalogo": 0,
+    "n_sugeridas": 3,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "id": 343,
+  "oficio": "Mantenimiento General",
+  "texto": "Cambio de bombillas fundidas en zonas comunes de edificio, 40 unidades de LED y fluorescentes",
+  "http_status": 200,
+  "latency_ms": 8488,
+  "raw_response": {
+    "transcript": "Cambio de bombillas fundidas en zonas comunes de edificio, 40 unidades de LED y fluorescentes",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de bombillas fundidas en zonas comunes de edificio, 40 unidades de LED y fluorescentes",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": []
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cambio de bombillas en instalación eléctrica de zonas comunes"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cambio de bombillas LED en zonas comunes",
+          "descripcion": "Desmontaje de bombillas fundidas y sustitución por bombillas LED en zonas comunes del edificio (pasillos, escaleras, rellanos, portal, etc.)",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 25,
+          "precio_unitario": 8,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Cambio de bombillas fluorescentes en zonas comunes",
+          "descripcion": "Desmontaje de tubos fluorescentes fundidos y sustitución por nuevos tubos fluorescentes en zonas comunes del edificio",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "unidad",
+          "cantidad": 15,
+          "precio_unitario": 6,
+          "total": 90,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro de bombillas LED",
+          "descripcion": "Bombillas LED variadas (E27, E14, GU10, etc.) para sustitución en zonas comunes",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 25,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de bombillas LED a definir por instalador según modelos y características (potencia, temperatura color, marca)"
+        },
+        {
+          "concepto": "Suministro de tubos fluorescentes",
+          "descripcion": "Tubos fluorescentes de reemplazo (T8, T5, etc.) para zonas comunes",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "unidad",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de tubos fluorescentes a definir por instalador según tipo (T8, T5) y características"
+        }
+      ],
+      "calculos": {
+        "subtotal": 290,
+        "iva_porcentaje": 21,
+        "iva": 60.9,
+        "total": 350.9
+      },
+      "sugerencias_catalogo": [
+        "Verificar si el edificio tiene contrato de mantenimiento eléctrico recurrente que incluya cambio de bombillas",
+        "Considerar cambio a LED en todas las zonas comunes para reducir consumo energético y mantenimiento futuro",
+        "Solicitar al cliente especificación de tipos de casquillos (E27, E14, GU10, etc.) y potencias para presupuestar materiales con precisión"
+      ],
+      "partidas_nuevas_detectadas": []
+    },
+    "actuacion_ids_matched": [
+      "pintura_de_escalera_comunitaria_completa",
+      "reforma_de_instalaciones_comunes_edificio",
+      "instalacion_iluminacion_led_completa",
+      "instalacion_electrica_exterior_urbanizacion",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha"
+    ],
+    "kb_score": 1.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3790,
+      "tokens_out": 1127
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "id": 163,
+  "oficio": "Suelos y Alicatados",
+  "texto": "Cambiar azulejos de cocina, quitar los viejos y poner metro a metro de metro de azulejo blanco mate",
+  "http_status": 200,
+  "latency_ms": 12589,
+  "raw_response": {
+    "transcript": "Cambiar azulejos de cocina, quitar los viejos y poner metro a metro de metro de azulejo blanco mate",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar azulejos de cocina, quitar los viejos y poner metro a metro de metro de azulejo blanco mate",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se interpreta '1 metro a metro' como 1 m² de superficie. Confirmar medidas exactas en obra.",
+          "Precio de azulejo blanco mate pendiente de revisión (material sugerido por IA)."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Desmontaje de azulejos existentes y alicatado de nuevos azulejos cerámicos en cocina."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje azulejos existentes cocina",
+          "descripcion": "Demolición y retirada de azulejos viejos de cocina, incluyendo mortero y adhesivo. Preparación de superficie.",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Azulejo blanco mate 1m²",
+          "descripcion": "Suministro de azulejo cerámico blanco mate para cocina, cantidad 1 m² (incluye merma 10%).",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de azulejo blanco mate a definir por instalador según marca y calidad."
+        },
+        {
+          "concepto": "Mortero cola flexible C2 para alicatado",
+          "descripcion": "Suministro de mortero cola flexible C2 para fijación de azulejos cerámicos en cocina (1 m²).",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de mortero a confirmar según espesor de junta y tipo de soporte."
+        },
+        {
+          "concepto": "Lechada junta flexible",
+          "descripcion": "Suministro de lechada flexible para rejuntado de azulejos (1 m²).",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y color de lechada a definir por instalador."
+        },
+        {
+          "concepto": "Alicatado azulejos cocina",
+          "descripcion": "Colocación de azulejos cerámicos blancos mate en cocina, incluyendo cortes, replanteo y nivelación (1 m²).",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rejuntado y sellado azulejos",
+          "descripcion": "Rejuntado de azulejos con lechada flexible y sellado de juntas perimetrales con silicona sanitaria (1 m²).",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 1,
+          "precio_unitario": 40,
+          "total": 40,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 120,
+        "iva_porcentaje": 21,
+        "iva": 25.2,
+        "total": 145.2
+      },
+      "sugerencias_catalogo": [
+        "Confirmar en obra las medidas exactas de la zona a alicatar (se asume 1 m² según descripción).",
+        "Especificar marca, modelo y precio del azulejo blanco mate elegido.",
+        "Verificar si la cocina requiere impermeabilización adicional (zona de salpicaduras).",
+        "Considerar si hay que adaptar fontanería o electricidad alrededor de los azulejos."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Azulejo blanco mate 1m²",
+          "oficio": "albanileria",
+          "motivo": "Material específico de cocina, precio variable según marca."
+        },
+        {
+          "concepto": "Mortero cola flexible C2 para alicatado",
+          "oficio": "albanileria",
+          "motivo": "Material de fijación, cantidad a confirmar."
+        },
+        {
+          "concepto": "Lechada junta flexible",
+          "oficio": "albanileria",
+          "motivo": "Material de rejuntado, cantidad y color a definir."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "alicatado_ceramico_pared_interior",
+      "pintado_azulejos_con_pintura_especial",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "sustitucion_banera_por_ducha",
+      "impermeabilizacion_zona_ducha_con_membrana_liquida"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3941,
+      "tokens_out": 1704
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 3,
+    "n_sugeridas": 3,
+    "oficio_detectado": "albanileria",
+    "coincide_oficio": "NO"
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "id": 155,
+  "oficio": "Pladur",
+  "texto": "Hacer capialzado de pladur para persiana empotrada en ventana del salón",
+  "http_status": 200,
+  "latency_ms": 15151,
+  "raw_response": {
+    "transcript": "Hacer capialzado de pladur para persiana empotrada en ventana del salón",
+    "quote": {
+      "resumen": {
+        "texto_original": "Hacer capialzado de pladur para persiana empotrada en ventana del salón",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Capialzado de pladur: se asume persiana enrollable estándar. Confirmar marca/modelo de persiana y medidas exactas de ventana.",
+          "Precio de material (placa, perfiles, tornillería) pendiente de revisión del instalador según proveedor."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "pladur_escayola",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 40
+          },
+          "motivo": "Construcción de capialzado (caja de pladur) para alojar persiana empotrada."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Placa de yeso laminado 12,5 mm para capialzado",
+          "descripcion": "Placa de yeso estándar 12,5 mm para revestimiento de caja capialzado de persiana.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad y precio dependen de medidas exactas de ventana. Instalador debe medir ancho × profundidad capialzado."
+        },
+        {
+          "concepto": "Perfil de aluminio (canal y montante) para estructura capialzado",
+          "descripcion": "Perfiles canal UW y montante CW de aluminio para armazón de caja capialzado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje lineal depende de dimensiones ventana. Incluye canal perimetral + montantes intermedios si aplica."
+        },
+        {
+          "concepto": "Tornillería, cinta de juntas y pasta de juntas",
+          "descripcion": "Tornillos autorroscantes, cinta de papel/malla para juntas, pasta de juntas (escayola/yeso) para sellado y acabado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada para capialzado estándar. Ajustar según tamaño real."
+        },
+        {
+          "concepto": "Ángulo metálico para esquinas y remates",
+          "descripcion": "Ángulo de aluminio o acero galvanizado para protección y acabado de aristas y esquinas del capialzado.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Metraje depende de perímetro visible del capialzado."
+        },
+        {
+          "concepto": "Trampilla de acceso al mecanismo de persiana",
+          "descripcion": "Trampilla de registro (marco + puerta) para acceso a mecanismo enrollador y mantenimiento de persiana.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo y tamaño de trampilla (estándar 30×30 cm o personalizada)."
+        },
+        {
+          "concepto": "Mano de obra: construcción y montaje capialzado pladur",
+          "descripcion": "Instalación completa de capialzado: montaje estructura perfiles, colocación placas, cinta y pasta juntas, ángulos, trampilla acceso, pequeño material.",
+          "oficio": "pladur_escayola",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 35,
+          "total": 140,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 140,
+        "iva_porcentaje": 21,
+        "iva": 29.4,
+        "total": 169.4
+      },
+      "sugerencias_catalogo": [
+        "Confirmar marca y modelo de persiana enrollable (ancho, profundidad, tipo mecanismo) para dimensionar capialzado exacto.",
+        "Medir hueco de ventana: ancho interior, alto hasta dintel, profundidad disponible para caja.",
+        "Especificar si capialzado es en fachada exterior (considerar aislante térmico) o interior.",
+        "Definir acabado final: pintura, papel pintado u otro revestimiento (partida separada)."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Placa de yeso laminado 12,5 mm para capialzado",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Perfil de aluminio (canal y montante) para estructura capialzado",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Tornillería, cinta de juntas y pasta de juntas",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Ángulo metálico para esquinas y remates",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia"
+        },
+        {
+          "concepto": "Trampilla de acceso al mecanismo de persiana",
+          "oficio": "pladur_escayola",
+          "origen": "sugerida_ia"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_persiana_o_estor_en_ventana_de_techo",
+      "tabique_pladur_para_caja_de_persiana_o_capialzado",
+      "instalacion_estor_enrollable_interior",
+      "renovacion_o_reparacion_falso_techo_pladur_existente",
+      "estructura_pladur_para_escalera_interior_nueva"
+    ],
+    "kb_score": 3,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3818,
+      "tokens_out": 1981
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 1,
+    "n_sugeridas": 5,
+    "oficio_detectado": "pladur_escayola",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "id": 247,
+  "oficio": "Telecomunicaciones",
+  "texto": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+  "http_status": 200,
+  "latency_ms": 17335,
+  "raw_response": {
+    "transcript": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar antena parabólica para recepción de señal de satélite con dos salidas",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Presupuesto requiere confirmación de marca/modelo de antena parabólica y receptor",
+          "Verificar orientación y ubicación exacta de instalación (azimut, elevación)",
+          "Confirmar si incluye cableado coaxial completo hasta las dos salidas finales"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "telecomunicaciones",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación de antena parabólica de satélite, cableado coaxial y distribución de señal a múltiples salidas"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Antena parabólica para satélite",
+          "descripcion": "Suministro de antena parabólica (diámetro según zona de cobertura, típicamente 60-90cm) con soporte de acero galvanizado y LNB (Low Noise Block) integrado o separado",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca, diámetro y tipo de LNB (simple, doble, quad). Rango típico: 80-400€"
+        },
+        {
+          "concepto": "Receptor/decodificador satélite",
+          "descripcion": "Suministro de receptor satélite (FTA o con tarjeta condicional según operador) con capacidad de dos salidas de vídeo/audio",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de marca y funcionalidades. Rango típico: 60-300€"
+        },
+        {
+          "concepto": "Cable coaxial 75 ohmios",
+          "descripcion": "Suministro de cable coaxial de 75Ω (típicamente RG-6 o superior) desde antena hasta receptor y distribución a dos salidas finales. Incluye conectores F y protecciones",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 50,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad estimada (50ml). Ajustar según recorrido real. Precio: 0,8-2€/ml según calidad"
+        },
+        {
+          "concepto": "Distribuidor/splitter de señal satélite",
+          "descripcion": "Suministro de distribuidor pasivo de 1 entrada a 2 salidas (splitter 1x2) para derivar señal satélite a dos puntos de recepción",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico: 15-40€. Verificar si se necesita amplificador si distancias son largas"
+        },
+        {
+          "concepto": "Instalación de antena parabólica y orientación",
+          "descripcion": "Mano de obra: montaje de soporte, fijación de antena parabólica, orientación y alineación según satélite objetivo (cálculo de azimut y elevación), conexión de LNB",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 50,
+          "total": 150,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Instalación de cableado coaxial y distribución",
+          "descripcion": "Mano de obra: tendido de cable coaxial desde antena hasta receptor, instalación de splitter, conexión de dos salidas finales, fijación de cables, pruebas de continuidad y nivel de señal",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Configuración y pruebas de receptor",
+          "descripcion": "Mano de obra: instalación de receptor, búsqueda y sintonización de satélites, configuración de dos salidas de vídeo/audio, pruebas de funcionamiento en ambos puntos de recepción",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 50,
+          "total": 75,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material (conectores, bridas, tacos, silicona)",
+          "descripcion": "Suministro de conectores F, bridas de fijación, tacos de anclaje, silicona neutra, cinta aislante y otros consumibles",
+          "oficio": "telecomunicaciones",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio estimado: 20-50€"
+        }
+      ],
+      "calculos": {
+        "subtotal": 325,
+        "iva_porcentaje": 21,
+        "iva": 68.25,
+        "total": 393.25
+      },
+      "sugerencias_catalogo": [
+        "Confirmar modelo exacto de antena parabólica (diámetro, tipo de LNB: simple, doble, quad)",
+        "Especificar satélite objetivo (Astra, Hispasat, Eutelsat, etc.) para cálculo de orientación",
+        "Aclarar si las 'dos salidas' son dos receptores independientes o dos tomas de un mismo receptor",
+        "Verificar si la instalación requiere amplificador de señal (si distancias de cable son >30m)",
+        "Confirmar si incluye instalación de tomas de usuario finales o solo cableado hasta puntos de conexión"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Antena parabólica para satélite",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Material específico de satélite no detallado en catálogo base. Requiere especificación de marca/modelo"
+        },
+        {
+          "concepto": "Receptor/decodificador satélite",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Equipo específico no detallado en catálogo base. Requiere especificación de marca/modelo y funcionalidades"
+        },
+        {
+          "concepto": "Distribuidor/splitter de señal satélite",
+          "oficio": "telecomunicaciones",
+          "origen": "sugerida_ia",
+          "motivo": "Componente específico de distribución satélite. Precio depende de especificaciones técnicas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_antena_colectiva_TDT_en_edificio",
+      "instalacion_vidrio_de_seguridad_templado",
+      "instalacion_energia_solar_para_caravana_o_autocaravana",
+      "instalacion_de_extintores_portatiles",
+      "instalacion_mampara_ducha"
+    ],
+    "kb_score": 2.4,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4001,
+      "tokens_out": 2409
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 3,
+    "n_sugeridas": 5,
+    "oficio_detectado": "telecomunicaciones",
+    "coincide_oficio": "SI"
+  }
+}

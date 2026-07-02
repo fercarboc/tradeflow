@@ -1,0 +1,196 @@
+{
+  "id": 22,
+  "oficio": "Electricidad",
+  "texto": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+  "http_status": 200,
+  "latency_ms": 22540,
+  "raw_response": {
+    "transcript": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalación de enchufe en terraza con protección IP exterior y toma de tierra",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar si existe toma de tierra previa en la vivienda. Si no existe, se requiere instalación de pica de tierra adicional.",
+          "Confirmar distancia desde cuadro eléctrico a punto de enchufe para estimar longitud de cable.",
+          "Validar si el diferencial de 30mA ya existe en la instalación o requiere instalación nueva."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica exterior con protección IP44, cable exterior, diferencial y toma de tierra."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Base enchufe Schuko IP44 exterior",
+          "descripcion": "Base de enchufe Schuko IP44 con protección contra salpicaduras, apta para uso exterior en terraza",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de catálogo base_enchufe_schuko_ip44_exterior. Instalador debe confirmar precio de suministro."
+        },
+        {
+          "concepto": "Caja de superficie IP44 para enchufe exterior",
+          "descripcion": "Caja de empotrar en superficie IP44 con protección contra humedad y salpicaduras para terraza",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de catálogo caja_superficie_ip44. Instalador debe confirmar precio."
+        },
+        {
+          "concepto": "Cable H07RN-F para exterior",
+          "descripcion": "Cable de goma H07RN-F 3x2.5mm² para instalación exterior en terraza, resistente a intemperie",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material cable_h07rn_f_exterior. Cantidad en metros a confirmar según distancia desde cuadro. Instalador debe especificar metraje y precio."
+        },
+        {
+          "concepto": "Diferencial 30mA tipo A",
+          "descripcion": "Interruptor diferencial 30mA tipo A para protección de circuito de enchufe exterior (si no existe en instalación)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material diferencial_30ma. Obligatorio para protección exterior. Confirmar si ya existe en cuadro o requiere instalación nueva."
+        },
+        {
+          "concepto": "Pica de tierra y conductor de cobre",
+          "descripcion": "Pica de tierra de 1.5m y conductor de cobre desnudo 16mm² para toma de tierra (si no existe previa)",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material para toma de tierra. Confirmar si existe toma de tierra previa. Si no existe, incluir pica y conductor."
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillos, tuercas, arandelas, pasta térmica, cinta aislante, bridas y otros accesorios de montaje",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Partida de pequeño material. Instalador debe estimar según necesidades reales."
+        },
+        {
+          "concepto": "Instalación de enchufe IP44 exterior con toma de tierra",
+          "descripcion": "Mano de obra: replanteo, tendido de cable, conexionado en cuadro, instalación de base y caja, pruebas de continuidad y diferencial, medición de toma de tierra",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 100,
+        "iva_porcentaje": 21,
+        "iva": 21,
+        "total": 121
+      },
+      "sugerencias_catalogo": [
+        "Referencia BASE MAESTRA: [instalacion_enchufe_exterior_ip44] — partidas obligatorias incluidas en presupuesto.",
+        "Si la terraza requiere iluminación adicional, considerar [instalacion_electrica_pergola_terraza] con luminarias IP65.",
+        "Después de instalación, realizar [inspeccion_y_test_de_toma_de_tierra_y_diferencial] para validar resistencia de tierra ≤37Ω."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Base enchufe Schuko IP44 exterior",
+          "origen": "sugerida_ia",
+          "motivo": "Material de catálogo base_enchufe_schuko_ip44_exterior. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Caja de superficie IP44 para enchufe exterior",
+          "origen": "sugerida_ia",
+          "motivo": "Material de catálogo caja_superficie_ip44. Precio pendiente de revisión."
+        },
+        {
+          "concepto": "Cable H07RN-F para exterior",
+          "origen": "sugerida_ia",
+          "motivo": "Material cable_h07rn_f_exterior. Metraje y precio a confirmar por instalador."
+        },
+        {
+          "concepto": "Diferencial 30mA tipo A",
+          "origen": "sugerida_ia",
+          "motivo": "Material diferencial_30ma. Confirmar si existe en instalación previa."
+        },
+        {
+          "concepto": "Pica de tierra y conductor de cobre",
+          "origen": "sugerida_ia",
+          "motivo": "Material para toma de tierra. Confirmar necesidad según estado de toma de tierra existente."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_enchufe_exterior_ip44",
+      "instalacion_electrica_pergola_terraza",
+      "solado_ceramico_exterior_terraza",
+      "instalacion_suelo_flotante_sobre_plots_regulables",
+      "inspeccion_y_test_de_toma_de_tierra_y_diferencial"
+    ],
+    "kb_score": 2.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3746,
+      "tokens_out": 2539
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

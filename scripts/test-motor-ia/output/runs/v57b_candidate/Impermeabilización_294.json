@@ -1,0 +1,229 @@
+{
+  "id": 294,
+  "oficio": "Impermeabilización",
+  "texto": "Impermeabilizar depósito de agua de hormigón para riego, limpieza interior y revestimiento epoxy",
+  "http_status": 200,
+  "latency_ms": 19574,
+  "raw_response": {
+    "transcript": "Impermeabilizar depósito de agua de hormigón para riego, limpieza interior y revestimiento epoxy",
+    "quote": {
+      "resumen": {
+        "texto_original": "Impermeabilizar depósito de agua de hormigón para riego, limpieza interior y revestimiento epoxy",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume depósito de tamaño medio (10-50 m²). Confirmar superficie interior exacta para ajustar presupuesto.",
+          "Precio de materiales (pintura epoxy, imprimación, productos químicos) requiere revisión según marca y cantidad exacta.",
+          "Acceso y ventilación del depósito condicionan el precio final."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Impermeabilización de depósito de hormigón con revestimiento epoxy. Regla: impermeabilizacion → SIEMPRE para humedades, láminas, proyecciones, pintura impermeabilizante en cubiertas/depósitos."
+        },
+        {
+          "oficio": "pintura",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 28,
+            "recomendado": 32,
+            "max": 36
+          },
+          "motivo": "Revestimiento epoxy interior. Aunque es pintura especializada, se agrupa bajo impermeabilizacion como oficio principal; pintura como oficio secundario para aplicación final."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Vaciado y limpieza interior depósito",
+          "descripcion": "Vaciado completo del depósito, limpieza de sedimentos, algas y depósitos de cal. Preparación de la superficie interior.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lija, granallado o decapado previo de hormigón",
+          "descripcion": "Preparación de la superficie interior: lija mecánica, granallado o decapado químico para eliminar óxidos, eflorescencias y garantizar adherencia de la imprimación.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 8,
+          "precio_unitario": 45,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Imprimación epoxi compatible con hormigón",
+          "descripcion": "Imprimación epoxi de dos componentes, homologada para contacto con agua potable/riego. Mejora adherencia y sella porosidad del hormigón.",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 15,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de imprimación epoxi según marca y rendimiento (típicamente 8-12 €/litro). Cantidad estimada para 25 m² interior con 2 manos."
+        },
+        {
+          "concepto": "Aplicación imprimación epoxi (2 manos)",
+          "descripcion": "Aplicación de imprimación epoxi en dos capas sobre superficie preparada del hormigón interior.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 32,
+          "total": 192,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pintura epoxi homologada para agua potable/riego",
+          "descripcion": "Revestimiento epoxi de dos componentes, homologado para contacto con agua potable y riego. Proporciona impermeabilidad y protección anticorrosiva.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "litro",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de pintura epoxi según marca y rendimiento (típicamente 12-25 €/litro). Cantidad estimada para 25 m² interior con 2-3 manos."
+        },
+        {
+          "concepto": "Aplicación pintura epoxi (2-3 manos)",
+          "descripcion": "Aplicación de revestimiento epoxi en 2-3 capas sobre imprimación, garantizando cobertura completa y espesor mínimo de 400 micras.",
+          "oficio": "pintura",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 10,
+          "precio_unitario": 32,
+          "total": 320,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Ventilación forzada durante aplicación y curado",
+          "descripcion": "Instalación de ventilación forzada (extractor o ventilador) durante aplicación de productos químicos y período de curado (48-72 horas).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "jornada",
+          "cantidad": 1,
+          "precio_unitario": 360,
+          "total": 360,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "EPI y pequeño material (mascarillas, guantes, brochas, rodillos)",
+          "descripcion": "Equipos de protección individual (mascarillas FFP2, guantes nitrilo, gafas), brochas, rodillos, bandejas, trapos, cinta de carrocero y otros consumibles.",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Presupuesto estimado 80-150 € según cantidad y calidad de EPI y herramientas."
+        },
+        {
+          "concepto": "Inspección y prueba de estanqueidad post-aplicación",
+          "descripcion": "Inspección visual de la aplicación, verificación de ausencia de poros o grietas, y prueba de estanqueidad (llenado parcial y observación de 24-48 horas).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        }
+      ],
+      "calculos": {
+        "subtotal": 1727,
+        "iva_porcentaje": 21,
+        "iva": 362.67,
+        "total": 2089.67
+      },
+      "sugerencias_catalogo": [
+        "Confirmar superficie interior exacta del depósito (m²) para ajustar cantidades de imprimación y pintura epoxi.",
+        "Especificar marca y homologación de pintura epoxi (ej: Jotun, Hempel, Sherwin-Williams) para validar precio de materiales.",
+        "Indicar si el depósito tiene acceso restringido o requiere andamio/plataforma (afecta a mano de obra).",
+        "Aclarar si se incluye desinfección química post-aplicación antes de puesta en servicio."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Imprimación epoxi compatible con hormigón",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Material especializado no en catálogo base. Precio pendiente de revisión del instalador según marca."
+        },
+        {
+          "concepto": "Pintura epoxi homologada para agua potable/riego",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Material especializado no en catálogo base. Precio pendiente de revisión del instalador según marca y homologación."
+        },
+        {
+          "concepto": "EPI y pequeño material (mascarillas, guantes, brochas, rodillos)",
+          "oficio": "pintura",
+          "tipo_partida": "material",
+          "motivo": "Consumibles y EPI. Presupuesto estimado, requiere revisión según cantidad exacta."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "pintura_de_depositos_agua_potable_interior",
+      "mantenimiento_de_piscina_privada_quimica_y_mecanica",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas",
+      "impermeabilizacion_de_junta_de_dilatacion_de_fachada"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3872,
+      "tokens_out": 2697
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 9,
+    "n_catalogo": 6,
+    "n_sugeridas": 3,
+    "oficio_detectado": "impermeabilizacion",
+    "coincide_oficio": "SI"
+  }
+}

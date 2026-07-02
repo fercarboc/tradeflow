@@ -1,0 +1,190 @@
+{
+  "id": 212,
+  "oficio": "Jardinería",
+  "texto": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+  "http_status": 200,
+  "latency_ms": 15894,
+  "raw_response": {
+    "transcript": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poda y formación de palmeras en finca, 6 palmeras de diferentes alturas con plataforma",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trabajo en altura: requiere plataforma de acceso y medidas de seguridad (línea de vida si altura >2m)",
+          "Palmeras de diferentes alturas: verificar altura máxima para determinar si se requiere andamio o plataforma elevadora",
+          "Gestión de residuos vegetales: volumen importante por 6 palmeras"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "jardineria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 20,
+            "recomendado": 25,
+            "max": 35
+          },
+          "motivo": "Poda y formación de árboles (palmeras)"
+        },
+        {
+          "oficio": "cerrajeria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación de plataforma metálica de acceso para trabajo en altura"
+        },
+        {
+          "oficio": "gestion_residuos",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 25,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Retirada y gestión de residuos vegetales de poda"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Poda y formación de 6 palmeras de diferentes alturas",
+          "descripcion": "Poda selectiva y formación de copa en 6 palmeras de mediano a gran porte. Incluye eliminación de hojas secas, formación de estructura, desinfección de herramientas entre árboles, aplicación de cicatrizante en cortes principales y EPI de seguridad.",
+          "oficio": "jardineria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 6,
+          "precio_unitario": 150,
+          "total": 900,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Suministro e instalación de plataforma metálica de acceso",
+          "descripcion": "Plataforma metálica de acceso para trabajo en altura en poda de palmeras. Incluye estructura de perfiles metálicos, suelo tramex antideslizante, barandilla perimetral de seguridad (mínimo 100 cm), anclajes calculados, galvanizado en caliente para exterior, pequeño material y señalización de seguridad.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 2500,
+          "total": 2500,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Precio alzado según proyecto estructural y altura de palmeras. Requiere verificación de alturas reales y cálculo de estructura específica."
+        },
+        {
+          "concepto": "Línea de vida y equipos de seguridad en altura",
+          "descripcion": "Instalación de línea de vida horizontal para trabajo en altura durante poda de palmeras. Incluye anclajes, cable de seguridad, arnés de seguridad, mosquetones y pequeño material de fijación.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "servicio",
+          "unidad": "pa",
+          "cantidad": 1,
+          "precio_unitario": 800,
+          "total": 800,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Obligatorio si altura de palmeras >2m. Precio según longitud de línea y número de anclajes."
+        },
+        {
+          "concepto": "Retirada y gestión de residuos vegetales de poda",
+          "descripcion": "Recogida, clasificación y transporte de residuos vegetales generados en la poda de 6 palmeras. Incluye carga en contenedor, transporte a gestor autorizado y documentación de gestión de residuos.",
+          "oficio": "gestion_residuos",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 450,
+          "total": 450,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Volumen estimado según número y tamaño de palmeras. Requiere confirmación de cantidad de residuos generados."
+        },
+        {
+          "concepto": "Cicatrizante y productos fitosanitarios",
+          "descripcion": "Suministro de cicatrizante/mastique para cortes principales en palmeras, desinfectante para herramientas y pequeño material de aplicación.",
+          "oficio": "jardineria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material fungible. Instalador debe indicar marca, cantidad y precio de cicatrizante y desinfectante."
+        },
+        {
+          "concepto": "Escalera o escalerilla de acceso auxiliar",
+          "descripcion": "Suministro y colocación de escalera de aluminio o escalerilla para acceso a zonas de trabajo en palmeras de altura media. Incluye fijación segura y pequeño material.",
+          "oficio": "cerrajeria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Tipo y dimensiones de escalera según alturas de palmeras. Instalador debe especificar modelo y precio."
+        }
+      ],
+      "calculos": {
+        "subtotal": 4650,
+        "iva_porcentaje": 21,
+        "iva": 976.5,
+        "total": 5626.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar si la plataforma metálica es de alquiler o compra. Si es alquiler, considerar partida separada de alquiler de plataforma elevadora.",
+        "Confirmar alturas máximas de palmeras para determinar si se requiere andamio, plataforma elevadora o solo escalera.",
+        "Considerar si se necesita trituradora de residuos para reducir volumen de transporte.",
+        "Verificar normativa local sobre trabajo en altura y permisos necesarios."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cicatrizante y productos fitosanitarios",
+          "oficio": "jardineria",
+          "motivo": "Material fungible específico para poda de palmeras"
+        },
+        {
+          "concepto": "Escalera o escalerilla de acceso auxiliar",
+          "oficio": "cerrajeria",
+          "motivo": "Equipo de acceso auxiliar para trabajo en altura"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_pasarela_o_plataforma_metalica_de_acceso",
+      "instalacion_de_sistema_de_monitoreo_solar_online",
+      "instalacion_de_tarima_o_entarimado_de_madera_elevado_para_escenario_o_zona",
+      "poda_de_arboles_de_mediano_porte",
+      "mantenimiento_jardin_y_zonas_verdes_periodico"
+    ],
+    "kb_score": 1,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3958,
+      "tokens_out": 2142
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 4,
+    "n_sugeridas": 2,
+    "oficio_detectado": "jardineria",
+    "coincide_oficio": "SI"
+  }
+}

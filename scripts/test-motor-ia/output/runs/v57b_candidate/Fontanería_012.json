@@ -1,0 +1,209 @@
+{
+  "id": 12,
+  "oficio": "Fontanería",
+  "texto": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+  "http_status": 200,
+  "latency_ms": 18383,
+  "raw_response": {
+    "transcript": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+    "quote": {
+      "resumen": {
+        "texto_original": "Problema con la presión del agua en el cuarto de baño, instalación de grupo de presión con calderín de 24 litros",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Verificar caudal actual y altura manométrica antes de confirmar potencia de bomba",
+          "Confirmar presión de trabajo requerida (típicamente 2-3 bar en vivienda)",
+          "Revisar si hay vaso de expansión existente que deba ser sustituido"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Instalación de grupo de presión, bomba, calderín y accesorios hidráulicos"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Bomba de presión centrífuga",
+          "descripcion": "Suministro e instalación de bomba de presión centrífuga para grupo de presión, potencia según caudal requerido",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio depende de potencia (0.5-2 kW). Instalador debe confirmar según caudal y altura manométrica"
+        },
+        {
+          "concepto": "Calderín de 24 litros",
+          "descripcion": "Suministro e instalación de vaso de expansión/calderín de 24 litros con membrana EPDM",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 80-200€. Incluye válvula de carga y manómetro"
+        },
+        {
+          "concepto": "Válvula de retención",
+          "descripcion": "Suministro e instalación de válvula de retención (antirretorno) en línea de impulsión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 15-40€"
+        },
+        {
+          "concepto": "Presostato y manómetro",
+          "descripcion": "Suministro e instalación de presostato (control automático encendido/apagado) y manómetro de lectura",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 40-100€ (presostato 25-60€, manómetro 15-40€)"
+        },
+        {
+          "concepto": "Racores, uniones y pequeño material",
+          "descripcion": "Suministro de racores, codos, tes, manguitos, teflón, pasta selladora y pequeño material de fontanería",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 20-50€"
+        },
+        {
+          "concepto": "Base antivibrante para bomba",
+          "descripcion": "Suministro e instalación de base antivibrante/amortiguadora para bomba de presión",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 15-35€"
+        },
+        {
+          "concepto": "Mano de obra: Instalación grupo de presión",
+          "descripcion": "Desmontaje de instalación anterior si existe, conexión de bomba, calderín, válvulas, presostato y manómetro. Pruebas de funcionamiento y ajuste de presiones",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 50,
+          "total": 200,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Conexión eléctrica de bomba",
+          "descripcion": "Suministro e instalación de cable eléctrico, enchufe o conexión a cuadro según normativa. Incluye protecciones (diferencial, magnetotérmico)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio típico 30-80€ (material). Mano de obra eléctrica puede requerir electricista"
+        }
+      ],
+      "calculos": {
+        "subtotal": 200,
+        "iva_porcentaje": 21,
+        "iva": 42,
+        "total": 242
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'cambio_bomba_presion' — contiene estructura completa de partidas obligatorias",
+        "Considerar si el cliente requiere contrato de mantenimiento preventivo semestral (partida: 'mantenimiento_preventivo_de_grupo_de_presion')"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Bomba de presión centrífuga",
+          "oficio": "fontaneria",
+          "motivo": "Material específico, precio depende de potencia y caudal"
+        },
+        {
+          "concepto": "Calderín de 24 litros",
+          "oficio": "fontaneria",
+          "motivo": "Material específico con membrana, precio variable según marca"
+        },
+        {
+          "concepto": "Válvula de retención",
+          "oficio": "fontaneria",
+          "motivo": "Accesorio hidráulico obligatorio"
+        },
+        {
+          "concepto": "Presostato y manómetro",
+          "oficio": "fontaneria",
+          "motivo": "Control automático, precio variable"
+        },
+        {
+          "concepto": "Conexión eléctrica de bomba",
+          "oficio": "fontaneria",
+          "motivo": "Puede requerir coordinación con electricista"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_bomba_presion",
+      "mantenimiento_preventivo_de_grupo_de_presion",
+      "impermeabilizacion_de_foso_de_ascensor_o_cuarto_tecnico",
+      "instalacion_suelo_radiante_hidraulico",
+      "impermeabilizacion_de_alfeizar_o_vierteaguas"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3839,
+      "tokens_out": 2581
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 1,
+    "n_sugeridas": 7,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

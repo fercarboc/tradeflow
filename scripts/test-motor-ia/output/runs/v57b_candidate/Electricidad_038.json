@@ -1,0 +1,239 @@
+{
+  "id": 38,
+  "oficio": "Electricidad",
+  "texto": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 22144,
+  "raw_response": {
+    "transcript": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner enchufes y luz en trastero sin instalación eléctrica, superficie 8 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Trastero sin instalación eléctrica: requiere obra nueva completa (cableado, cuadro, protecciones)",
+          "Se asume acceso a cuadro general o derivación disponible próxima",
+          "Cantidad de enchufes y puntos de luz no especificada: se estima 3 enchufes + 1 punto luz para 8m²"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "electricidad",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 65
+          },
+          "motivo": "Instalación eléctrica completa: cableado, enchufes, iluminación, protecciones"
+        },
+        {
+          "oficio": "albanileria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 35,
+            "recomendado": 40,
+            "max": 50
+          },
+          "motivo": "Rozas en paredes para paso de cableado, reposición de enfoscado"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Cableado eléctrico distribución",
+          "descripcion": "Suministro e instalación de cable H07V-K 2.5mm² para circuito enchufes y cable H07V-K 1.5mm² para circuito iluminación. Incluye tubo corrugado M20 y pequeño material de fijación",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 80,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material eléctrico: instalador debe confirmar sección, longitud exacta y tipo de cableado según normativa CTE"
+        },
+        {
+          "concepto": "Instalación de cableado y tuberías",
+          "descripcion": "Mano de obra: apertura de rozas en paredes, paso de tuberías corrugadas, fijación de cableado, reposición de enfoscado. Incluye medidas de seguridad y limpieza",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 6,
+          "precio_unitario": 50,
+          "total": 300,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Enchufes Schuko 16A",
+          "descripcion": "Suministro e instalación de 3 enchufes Schuko 16A con toma tierra, bases de empotrar universal, placas de acabado y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: bases, enchufes y placas. Instalador confirma cantidad exacta y tipo de enchufe"
+        },
+        {
+          "concepto": "Instalación de enchufes",
+          "descripcion": "Mano de obra: cajeado de cajas de empotrar, conexionado de enchufes, pruebas de continuidad y tierra",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 55,
+          "total": 165,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Punto de luz con luminaria",
+          "descripcion": "Suministro e instalación de 1 punto de luz con luminaria LED estanca (IP54 recomendado para trastero), portalámparas, caja de empotrar y pequeño material",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: luminaria, portalámparas, caja. Instalador confirma tipo de luminaria y cantidad de puntos de luz"
+        },
+        {
+          "concepto": "Instalación de punto de luz",
+          "descripcion": "Mano de obra: cajeado de caja de empotrar, conexionado de luminaria, instalación de interruptor, pruebas de funcionamiento",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Protecciones y cuadro de distribución",
+          "descripcion": "Suministro e instalación de magnetotérmicos (C16 enchufes, C10 iluminación), diferenciales 30mA, pequeño material de conexión y etiquetado",
+          "oficio": "electricidad",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: protecciones eléctricas. Instalador confirma si se integra en cuadro existente o se crea derivación nueva"
+        },
+        {
+          "concepto": "Instalación de protecciones",
+          "descripcion": "Mano de obra: conexionado de magnetotérmicos y diferenciales en cuadro, etiquetado de circuitos, pruebas de funcionamiento y seguridad",
+          "oficio": "electricidad",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 50,
+          "total": 100,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Rozas y reposición de enfoscado",
+          "descripcion": "Mano de obra: apertura de rozas en paredes para paso de cableado, reposición de enfoscado y mortero, limpieza y acabado",
+          "oficio": "albanileria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 4,
+          "precio_unitario": 40,
+          "total": 160,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Material de reposición (mortero, enfoscado)",
+          "descripcion": "Suministro de mortero de cemento, arena y pequeño material para reposición de rozas y acabado de paredes",
+          "oficio": "albanileria",
+          "tipo_partida": "material",
+          "unidad": "kg",
+          "cantidad": 20,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material: mortero y enfoscado. Instalador confirma cantidad según longitud y profundidad de rozas"
+        }
+      ],
+      "calculos": {
+        "subtotal": 825,
+        "iva_porcentaje": 21,
+        "iva": 173.25,
+        "total": 998.25
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_enchufe_nuevo' (partidas obligatorias: base_enchufe_schuko_16a, cable_h07vk_2_5mm2, caja_empotrar_universal)",
+        "Considerar si el trastero requiere protección diferencial adicional por humedad o uso específico",
+        "Confirmar acceso a cuadro general: si está lejos, valorar coste de derivación desde circuito existente"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Cableado eléctrico distribución",
+          "oficio": "electricidad",
+          "motivo": "Instalación de red de cableado completa en trastero sin instalación previa"
+        },
+        {
+          "concepto": "Protecciones y cuadro de distribución",
+          "oficio": "electricidad",
+          "motivo": "Magnetotérmicos y diferenciales para nueva instalación"
+        },
+        {
+          "concepto": "Material de reposición (mortero, enfoscado)",
+          "oficio": "albanileria",
+          "motivo": "Reposición de paredes tras apertura de rozas"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_enchufe_nuevo",
+      "instalacion_de_cubierta_de_teja_arabe_o_curvada",
+      "instalacion_de_sumidero_o_cazoleta_en_cubierta_plana",
+      "cambio_luna_ventana_rota",
+      "instalacion_llave_escuadra"
+    ],
+    "kb_score": 1.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3778,
+      "tokens_out": 3140
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 10,
+    "n_catalogo": 5,
+    "n_sugeridas": 5,
+    "oficio_detectado": "electricidad",
+    "coincide_oficio": "SI"
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "id": 6,
+  "oficio": "Fontanería",
+  "texto": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+  "http_status": 200,
+  "latency_ms": 17511,
+  "raw_response": {
+    "transcript": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambio de grifo de ducha termostático y revoque de azulejos afectados por humedad",
+        "tipo_presupuesto": "mantenimiento",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se detectan dos oficios: fontanería e impermeabilización. La humedad en azulejos requiere diagnóstico de causa raíz antes de proceder.",
+          "El revoque de azulejos implica posible desmontaje y reemplazo; se recomienda inspeccionar la membrana impermeabilizante de la zona de ducha."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "fontaneria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 50,
+            "max": 60
+          },
+          "motivo": "Cambio de grifo termostático de ducha"
+        },
+        {
+          "oficio": "impermeabilizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 55
+          },
+          "motivo": "Tratamiento de humedad en azulejos; requiere impermeabilización antes de revestimiento"
+        },
+        {
+          "oficio": "suelos_alicatados",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 30,
+            "recomendado": 35,
+            "max": 45
+          },
+          "motivo": "Desmontaje y reemplazo de azulejos afectados por humedad"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje de grifo termostático existente",
+          "descripcion": "Desmontaje cuidadoso del grifo termostático actual, excentricas y embellecedores. Cierre de llaves de paso.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Grifo termostático de ducha (suministro)",
+          "descripcion": "Grifo termostático de ducha con regulación a 38°C, excentricas 1/2\", embellecedores cromados y pequeño material de instalación",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio del grifo termostático a definir por instalador según marca y especificaciones (rango típico 150-400€)"
+        },
+        {
+          "concepto": "Instalación de grifo termostático",
+          "descripcion": "Instalación del grifo termostático con ajuste de excentricas, embellecedores y verificación de presión mínima 1.5 bar. Pruebas de funcionamiento y regulación de temperatura.",
+          "oficio": "fontaneria",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 50,
+          "total": 50,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Desmontaje de azulejos afectados por humedad",
+          "descripcion": "Desmontaje cuidadoso de azulejos dañados por humedad en zona de ducha. Limpieza de mortero y preparación de soporte.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir por instalador tras inspección visual"
+        },
+        {
+          "concepto": "Impermeabilización de zona de ducha con membrana líquida",
+          "descripcion": "Aplicación de imprimación adherente y membrana líquida elastomérica en zona de ducha. Refuerzo con cinta en rincones y juntas. Extensión mínimo 20 cm fuera de zona mojada. Dos manos con curado según fabricante (24-48h).",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 45,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir por instalador tras inspección. Incluye imprimación, membrana, refuerzo y EPI."
+        },
+        {
+          "concepto": "Materiales impermeabilización (imprimación, membrana, refuerzo, EPI)",
+          "descripcion": "Imprimación adherente, membrana líquida elastomérica, cinta de refuerzo para rincones y juntas, equipos de protección individual",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de materiales impermeabilización a definir por instalador según cantidad de m2 y marca de membrana (rango típico 15-70€/m2)"
+        },
+        {
+          "concepto": "Alicatado de zona reparada",
+          "descripcion": "Colocación de azulejos nuevos en zona de ducha con mortero adhesivo y rejuntado. Sellado con silicona sanitaria en encuentros y rincones.",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "mano_obra",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 35,
+          "total": 0,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": true,
+          "motivo_revision": "Cantidad de m2 a definir por instalador tras inspección"
+        },
+        {
+          "concepto": "Azulejos de reemplazo (suministro)",
+          "descripcion": "Azulejos de reemplazo para zona de ducha, mortero adhesivo, lechada de rejunta y silicona sanitaria",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "unidad": "m2",
+          "cantidad": 0,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de azulejos y materiales a definir por instalador según cantidad y especificaciones (rango típico 20-80€/m2)"
+        }
+      ],
+      "calculos": {
+        "subtotal": 150,
+        "iva_porcentaje": 21,
+        "iva": 31.5,
+        "total": 181.5
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: [sustitucion_columna_ducha] o [instalacion_grifo_termostatico_ducha] para validar partidas de fontanería",
+        "Verificar en catálogo: [impermeabilizacion_zona_ducha_con_membrana_liquida] para validar partidas de impermeabilización",
+        "Considerar inspección previa de causa de humedad: posible fuga en tuberías, defecto en membrana existente o condensación excesiva"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Grifo termostático de ducha (suministro)",
+          "oficio": "fontaneria",
+          "tipo_partida": "material",
+          "motivo": "Material a suministrar; precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Materiales impermeabilización (imprimación, membrana, refuerzo, EPI)",
+          "oficio": "impermeabilizacion",
+          "tipo_partida": "material",
+          "motivo": "Materiales a suministrar; precio pendiente de revisión del instalador"
+        },
+        {
+          "concepto": "Azulejos de reemplazo (suministro)",
+          "oficio": "suelos_alicatados",
+          "tipo_partida": "material",
+          "motivo": "Material a suministrar; precio pendiente de revisión del instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "cambio_grifo_lavabo",
+      "impermeabilizacion_zona_ducha_con_membrana_liquida",
+      "sustitucion_columna_ducha",
+      "reforma_de_baño_con_sustitucion_de_bañera_por_plato_ducha",
+      "instalacion_grifo_termostatico_ducha"
+    ],
+    "kb_score": 2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3730,
+      "tokens_out": 2598
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 8,
+    "n_catalogo": 5,
+    "n_sugeridas": 3,
+    "oficio_detectado": "fontaneria",
+    "coincide_oficio": "SI"
+  }
+}

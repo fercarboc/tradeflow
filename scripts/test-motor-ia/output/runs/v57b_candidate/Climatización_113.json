@@ -1,0 +1,203 @@
+{
+  "id": 113,
+  "oficio": "Climatización",
+  "texto": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+  "http_status": 200,
+  "latency_ms": 20835,
+  "raw_response": {
+    "transcript": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+    "quote": {
+      "resumen": {
+        "texto_original": "Instalar climatizador evaporativo en nave industrial de 500 metros cuadrados",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": true,
+        "alertas": [
+          "VERIFICAR: Humedad relativa ambiente < 60% (requisito eficacia sistema evaporativo)",
+          "VERIFICAR: Consumo de agua estimado y disponibilidad de suministro",
+          "VERIFICAR: Altura nave y distribución de difusores/conductos",
+          "VERIFICAR: Conexión a red eléctrica trifásica disponible",
+          "VERIFICAR: Sistema de drenaje y evacuación de agua"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "climatizacion",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 60,
+            "max": 75
+          },
+          "motivo": "Instalación sistema climatización evaporativa industrial"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Climatizador evaporativo industrial 500 m²",
+          "descripcion": "Suministro e instalación de climatizador evaporativo/sistema adiabático dimensionado para 500 m² nave industrial. Incluye unidad evaporativa, filtros de aire, sistema de circulación de agua y componentes de control.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según potencia, marca y especificaciones técnicas del equipo. Rango estimado 2500-6000€ según capacidad frigorífica requerida."
+        },
+        {
+          "concepto": "Red de conductos y difusores de distribución",
+          "descripcion": "Suministro e instalación de red de conductos (chapa galvanizada o fibra) con difusores directos para distribución uniforme del aire frío en nave. Incluye soportería, aislamiento térmico y pequeño material.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ml",
+          "cantidad": 150,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según diámetro conductos y complejidad distribución. Estimado 8-15€/ml."
+        },
+        {
+          "concepto": "Conexión a red de agua y drenaje",
+          "descripcion": "Instalación de tubería de suministro de agua (PEX o cobre) desde acometida existente, válvula de corte, filtro de agua, y sistema de drenaje con sifón y evacuación. Incluye pequeño material.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según longitud tubería y complejidad conexión. Estimado 400-800€."
+        },
+        {
+          "concepto": "Circuito eléctrico y conexión a cuadro",
+          "descripcion": "Instalación de línea eléctrica desde cuadro general (cable RZ1K 4x6 o 4x10 mm² según potencia), magnetotérmico diferencial, enchufe industrial CEE 32A trifásico, puesta a tierra y pequeño material. Incluye canalización y soportería.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según potencia equipo y distancia a cuadro. Estimado 600-1200€."
+        },
+        {
+          "concepto": "Sistema de purga automática y control de humedad",
+          "descripcion": "Instalación de válvula de purga automática para eliminación de sales minerales, sensor de humedad relativa con control automático, y sistema de by-pass si es necesario. Incluye pequeño material.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según sistema de control. Estimado 300-600€."
+        },
+        {
+          "concepto": "Mano de obra instalación climatizador evaporativo",
+          "descripcion": "Mano de obra para instalación completa: montaje equipo, conexión conductos, instalación red agua y drenaje, conexión eléctrica, pruebas de funcionamiento y puesta en marcha.",
+          "oficio": "climatizacion",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 24,
+          "precio_unitario": 60,
+          "total": 1440,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Filtros de aire y mantenimiento inicial",
+          "descripcion": "Suministro de filtros de aire de reemplazo (2 unidades) y realización de limpieza y puesta a punto del sistema. Incluye pequeño material.",
+          "oficio": "climatizacion",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio según tipo filtros. Estimado 150-300€."
+        }
+      ],
+      "calculos": {
+        "subtotal": 1440,
+        "iva_porcentaje": 21,
+        "iva": 302.4,
+        "total": 1742.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar en catálogo: 'instalacion_sistema_evaporativo_o_enfriamiento_adiabático' para rangos de precio alzado (800-8000€/pa)",
+        "Considerar si existe partida específica para 'red_conductos_climatizacion_industrial'",
+        "Buscar partida 'conexion_agua_climatizador' o similar en fontanería"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Climatizador evaporativo industrial 500 m²",
+          "oficio": "climatizacion",
+          "motivo": "Material específico según potencia requerida. Precio pendiente de revisión instalador."
+        },
+        {
+          "concepto": "Red de conductos y difusores de distribución",
+          "oficio": "climatizacion",
+          "motivo": "Obra civil/instalación conductos. Precio por ml según especificaciones."
+        },
+        {
+          "concepto": "Conexión a red de agua y drenaje",
+          "oficio": "climatizacion",
+          "motivo": "Instalación fontanería específica para climatizador. Precio según complejidad."
+        },
+        {
+          "concepto": "Circuito eléctrico y conexión a cuadro",
+          "oficio": "climatizacion",
+          "motivo": "Instalación eléctrica específica. Precio según potencia y distancia."
+        },
+        {
+          "concepto": "Sistema de purga automática y control de humedad",
+          "oficio": "climatizacion",
+          "motivo": "Componente de control específico para sistemas evaporativos. Precio según sistema."
+        },
+        {
+          "concepto": "Filtros de aire y mantenimiento inicial",
+          "oficio": "climatizacion",
+          "motivo": "Consumibles y puesta a punto. Precio según tipo filtros."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_sistema_evaporativo_o_enfriamiento_adiabático",
+      "instalacion_red_electrica_nave_industrial",
+      "instalacion_cuadro_electrico_industrial_trifasico",
+      "instalacion_conexion_maquina_industrial",
+      "instalacion_pavimento_de_resina_epoxi_en_garaje_o_industrial"
+    ],
+    "kb_score": 2.8,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3759,
+      "tokens_out": 2771
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 7,
+    "n_catalogo": 1,
+    "n_sugeridas": 6,
+    "oficio_detectado": "climatizacion",
+    "coincide_oficio": "SI"
+  }
+}

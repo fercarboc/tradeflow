@@ -1,0 +1,161 @@
+{
+  "id": 311,
+  "oficio": "Contra Incendios",
+  "texto": "Revisión trimestral de sistema de rociadores en supermercado, inspección y test de funcionamiento",
+  "http_status": 200,
+  "latency_ms": 12864,
+  "raw_response": {
+    "transcript": "Revisión trimestral de sistema de rociadores en supermercado, inspección y test de funcionamiento",
+    "quote": {
+      "resumen": {
+        "texto_original": "Revisión trimestral de sistema de rociadores en supermercado, inspección y test de funcionamiento",
+        "tipo_presupuesto": "mantenimiento_recurrente",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Mantenimiento trimestral obligatorio según RD 513/2017 — empresa mantenedora debe estar autorizada",
+          "Certificado de mantenimiento debe emitirse y archivarse para cumplimiento normativo"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "contra_incendios",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 50,
+            "recomendado": 55,
+            "max": 65
+          },
+          "motivo": "Sistema de rociadores sprinklers — mantenimiento trimestral obligatorio RD 513/2017"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Inspección visual rociadores y detectores",
+          "descripcion": "Revisión visual de todas las cabezas rociadores, detectores de humo/temperatura y accesorios. Verificación de ausencia de obstáculos, corrosión, daños físicos y correcta orientación.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección y prueba de funcionamiento central de alarma y válvula de control",
+          "descripcion": "Comprobación del estado de la central de alarma, válvula de control principal, indicadores de presión y funcionamiento de señales de fallo. Test de respuesta de la central.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 55,
+          "total": 82.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Prueba de funcionamiento red de tuberías y presión",
+          "descripcion": "Verificación de presión en red principal, comprobación de válvulas de corte y drenaje, inspección visual de tuberías por corrosión, fugas o daños. Prueba de estanqueidad si se detectan anomalías.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 2,
+          "precio_unitario": 55,
+          "total": 110,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Inspección bocas de incendio (BIEs) — accesibilidad y señalización",
+          "descripcion": "Comprobación de accesibilidad de todas las BIEs, estado de puertas, mangueras, lanzas y válvulas. Verificación de señalización visible y correcta. Test de apertura y cierre de válvulas.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1.5,
+          "precio_unitario": 55,
+          "total": 82.5,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Comprobación iluminación de emergencia y señalización",
+          "descripcion": "Verificación de funcionamiento de luces de emergencia en recorridos de evacuación, señalización de salidas y rutas de evacuación. Test de autonomía de baterías si es posible.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 1,
+          "precio_unitario": 55,
+          "total": 55,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Emisión de certificado trimestral y actualización libro de mantenimiento",
+          "descripcion": "Redacción y firma de certificado de mantenimiento trimestral conforme a RD 513/2017. Registro de todas las inspecciones, pruebas realizadas, anomalías detectadas y acciones correctivas en libro de mantenimiento oficial.",
+          "oficio": "contra_incendios",
+          "tipo_partida": "servicio",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Servicio administrativo — instalador debe establecer tarifa según complejidad de documentación y archivo"
+        }
+      ],
+      "calculos": {
+        "subtotal": 440,
+        "iva_porcentaje": 21,
+        "iva": 92.4,
+        "total": 532.4
+      },
+      "sugerencias_catalogo": [
+        "Verificar que la empresa mantenedora está autorizada y registrada en la Comunidad Autónoma",
+        "Mantener archivo de certificados trimestrales para cumplimiento de póliza de seguros y licencia de actividad",
+        "Si se detectan deficiencias, generar informe de correcciones y establecer plazo de subsanación"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Emisión de certificado trimestral y actualización libro de mantenimiento",
+          "oficio": "contra_incendios",
+          "motivo": "Servicio administrativo obligatorio RD 513/2017 — requiere tarifa específica del instalador"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_de_sistema_de_rociadores_sprinklers",
+      "mantenimiento_anual_de_instalacion_contra_incendios",
+      "mantenimiento_trimestral_de_instalacion_contra_incendios",
+      "forrado_exterior_fachada_ventilada",
+      "instalacion_sistema_agua_helada_chiller"
+    ],
+    "kb_score": 1.6,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 4114,
+      "tokens_out": 1724
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 6,
+    "n_catalogo": 5,
+    "n_sugeridas": 1,
+    "oficio_detectado": "contra_incendios",
+    "coincide_oficio": "SI"
+  }
+}

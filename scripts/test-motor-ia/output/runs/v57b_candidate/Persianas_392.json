@@ -1,0 +1,141 @@
+{
+  "id": 392,
+  "oficio": "Persianas",
+  "texto": "Cambiar todas las persianas de PVC de piso de 3 dormitorios por lamas de aluminio de mayor calidad",
+  "http_status": 200,
+  "latency_ms": 16266,
+  "raw_response": {
+    "transcript": "Cambiar todas las persianas de PVC de piso de 3 dormitorios por lamas de aluminio de mayor calidad",
+    "quote": {
+      "resumen": {
+        "texto_original": "Cambiar todas las persianas de PVC de piso de 3 dormitorios por lamas de aluminio de mayor calidad",
+        "tipo_presupuesto": "reforma",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Se asume 1 persiana por dormitorio (3 ud). Si hay más persianas (salón, cocina, pasillos), el instalador debe ajustar cantidades.",
+          "Precio de lamas de aluminio pendiente de revisión: se ha marcado requiere_revision=true para que el instalador introduzca el coste real según proveedor y calidad."
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "persianas",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Sustitución de persianas enrollables: desmontaje de lamas PVC, suministro e instalación de lamas aluminio."
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Desmontaje persianas PVC existentes",
+          "descripcion": "Desmontaje y retirada de 3 persianas enrollables de PVC (dormitorios). Incluye extracción de lamas, cinta, tope inferior y pequeño material. Gestión de residuos PVC.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Lamas aluminio de mayor calidad",
+          "descripcion": "Suministro de lamas de aluminio de mayor calidad (espesor reforzado, acabado anodizado) para 3 persianas enrollables. Cantidad estimada según medidas estándar de dormitorios. Incluye remate inferior y pequeño material de ensamblaje.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Precio de lamas aluminio de calidad superior pendiente de introducir por el instalador según proveedor, medidas exactas y especificación de acabado (anodizado natural, bronce, blanco, etc.)."
+        },
+        {
+          "concepto": "Instalación lamas aluminio y reensamblaje",
+          "descripcion": "Instalación de nuevas lamas de aluminio en los 3 cajones existentes. Reensamblaje de cinta enrolladora, tope inferior, final de carrera y fijaciones. Prueba de funcionamiento.",
+          "oficio": "persianas",
+          "tipo_partida": "mano_obra",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "tarifa_recomendada",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "descripcion": "Tornillería, silicona neutra, cinta de ensamblaje, lubricante para guías y otros accesorios menores necesarios para la instalación de las 3 persianas.",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 3,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Importe estimado de pequeño material a introducir por el instalador (típicamente 15-30€/ud)."
+        }
+      ],
+      "calculos": {
+        "subtotal": 270,
+        "iva_porcentaje": 21,
+        "iva": 56.7,
+        "total": 326.7
+      },
+      "sugerencias_catalogo": [
+        "Verificar que los cajones existentes de PVC sean compatibles con las nuevas lamas de aluminio (medidas de ancho, profundidad de enrollado).",
+        "Si los cajones están deteriorados, considerar sustitución completa de persiana (cajón + lamas + guías + accesorios).",
+        "Confirmar medidas exactas de cada persiana (ancho × alto) para calcular cantidad y coste real de lamas aluminio.",
+        "Especificar acabado de aluminio: anodizado natural, bronce, blanco, plata, etc."
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Lamas aluminio de mayor calidad",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Material específico de calidad superior no precificado en catálogo base. Requiere introducción de precio real por el instalador."
+        },
+        {
+          "concepto": "Pequeño material y accesorios",
+          "oficio": "persianas",
+          "tipo_partida": "material",
+          "motivo": "Accesorios menores de ensamblaje. Precio estimado a introducir por el instalador."
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "sustitucion_lamas_persiana_enrollable_aluminio",
+      "reforma_vivienda_adaptada_a_personas_mayores",
+      "reparacion_o_cambio_guias_persiana",
+      "instalacion_persiana_enrollable_aluminio_manual",
+      "instalacion_ventana_corredera_aluminio_con_vidrio"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3873,
+      "tokens_out": 2026
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 4,
+    "n_catalogo": 2,
+    "n_sugeridas": 2,
+    "oficio_detectado": "persianas",
+    "coincide_oficio": "SI"
+  }
+}

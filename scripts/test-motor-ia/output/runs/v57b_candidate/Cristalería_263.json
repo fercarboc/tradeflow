@@ -1,0 +1,166 @@
+{
+  "id": 263,
+  "oficio": "Cristalería",
+  "texto": "Poner espejo grande en baño de 100x80 centímetros con biseles decorativos, sin marco",
+  "http_status": 200,
+  "latency_ms": 14252,
+  "raw_response": {
+    "transcript": "Poner espejo grande en baño de 100x80 centímetros con biseles decorativos, sin marco",
+    "quote": {
+      "resumen": {
+        "texto_original": "Poner espejo grande en baño de 100x80 centímetros con biseles decorativos, sin marco",
+        "tipo_presupuesto": "servicio",
+        "requiere_revision_general": false,
+        "alertas": [
+          "Espejo de gran tamaño (8 m²) en zona húmeda: requiere fijación robusta y protección posterior obligatoria",
+          "Biseles decorativos implican corte y tratamiento especial del vidrio"
+        ]
+      },
+      "oficios_detectados": [
+        {
+          "oficio": "cristaleria",
+          "existe_en_catalogo": true,
+          "nuevo_oficio": false,
+          "tarifa_hora": {
+            "min": 40,
+            "recomendado": 45,
+            "max": 50
+          },
+          "motivo": "Instalación de espejo en baño, trabajo de cristalería especializada"
+        }
+      ],
+      "partidas": [
+        {
+          "concepto": "Espejo biselado 100x80 cm para baño",
+          "descripcion": "Espejo de vidrio de baja emisión con biseles decorativos en los bordes, medida 100x80 cm, espesor 6 mm, tratamiento anti-empaño para baño",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material especializado con biseles decorativos: instalador debe confirmar proveedor y precio según acabado y tratamiento anti-empaño"
+        },
+        {
+          "concepto": "Protector posterior espejo (lámina protectora)",
+          "descripcion": "Lámina protectora posterior para evitar oxidación y corrosión del espejo en zona húmeda de baño, 100x80 cm",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Material de protección: precio según tipo de lámina (pintura especial, papel aluminio, etc.)"
+        },
+        {
+          "concepto": "Fijación espejo grande con tacos y tirafondos",
+          "descripcion": "Sistema de fijación robusta para espejo de gran tamaño (8 m²) mediante tacos de expansión y tirafondos de acero inoxidable, mínimo 6 puntos de anclaje",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Herrajes de fijación: cantidad y tipo según material de pared (obra, pladur, azulejo)"
+        },
+        {
+          "concepto": "Instalación espejo biselado en baño",
+          "descripcion": "Mano de obra de instalación: marcado de puntos, taladrado, colocación de tacos, fijación segura del espejo, nivelación, sellado con silicona neutra en encuentros",
+          "oficio": "cristaleria",
+          "tipo_partida": "mano_obra",
+          "unidad": "hora",
+          "cantidad": 3,
+          "precio_unitario": 45,
+          "total": 135,
+          "precio_origen": "catalogo",
+          "origen": "catalogo",
+          "requiere_revision": false,
+          "motivo_revision": ""
+        },
+        {
+          "concepto": "Silicona neutra y pequeño material",
+          "descripcion": "Silicona neutra de calidad para sellado de encuentros, cartuchos, pistola, trapos, masilla, material auxiliar",
+          "oficio": "cristaleria",
+          "tipo_partida": "material",
+          "unidad": "ud",
+          "cantidad": 1,
+          "precio_unitario": 0,
+          "total": 0,
+          "precio_origen": "sugerida_ia",
+          "origen": "sugerida_ia",
+          "requiere_revision": true,
+          "motivo_revision": "Consumibles: precio según cantidad de silicona y materiales auxiliares necesarios"
+        }
+      ],
+      "calculos": {
+        "subtotal": 135,
+        "iva_porcentaje": 21,
+        "iva": 28.35,
+        "total": 163.35
+      },
+      "sugerencias_catalogo": [
+        "Consultar con proveedor de cristalería especializada el precio del espejo biselado 100x80 cm con tratamiento anti-empaño",
+        "Confirmar tipo de pared (obra, pladur, azulejo) para seleccionar sistema de fijación adecuado",
+        "Considerar si el cliente desea iluminación LED integrada alrededor del espejo (partida adicional de electricidad)"
+      ],
+      "partidas_nuevas_detectadas": [
+        {
+          "concepto": "Espejo biselado 100x80 cm para baño",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Espejo con biseles decorativos: no existe partida exacta en catálogo, requiere presupuesto de proveedor"
+        },
+        {
+          "concepto": "Protector posterior espejo (lámina protectora)",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Material de protección específico para zona húmeda: precio variable según tipo"
+        },
+        {
+          "concepto": "Fijación espejo grande con tacos y tirafondos",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Sistema de fijación robusta para espejo de gran tamaño: cantidad y tipo de herrajes a confirmar"
+        },
+        {
+          "concepto": "Silicona neutra y pequeño material",
+          "oficio": "cristaleria",
+          "origen": "sugerida_ia",
+          "motivo": "Consumibles auxiliares: precio según cantidad necesaria"
+        }
+      ]
+    },
+    "actuacion_ids_matched": [
+      "instalacion_espejo_en_bano_o_salon",
+      "solado_gres_porcelanico_interior",
+      "fabricacion_e_instalacion_de_espejo_con_marco_de_madera",
+      "instalacion_mampara_de_ducha_fija",
+      "instalacion_de_jardineras_o_macetones_grandes_en_exterior"
+    ],
+    "kb_score": 2.2,
+    "web_search_used": false,
+    "_meta": {
+      "prompt_version": "v57b",
+      "stop_reason": "end_turn",
+      "tokens_in": 3970,
+      "tokens_out": 1790
+    }
+  },
+  "classification": {
+    "category": "OK_MIXTO",
+    "n_partidas": 5,
+    "n_catalogo": 1,
+    "n_sugeridas": 4,
+    "oficio_detectado": "cristaleria",
+    "coincide_oficio": "SI"
+  }
+}
