@@ -3,7 +3,8 @@ import {
   Activity, Brain, CheckCircle, XCircle, AlertTriangle, Clock,
   RefreshCw, ChevronRight, Plus, BarChart2, Layers,
   TrendingUp, TrendingDown, Minus, AlertCircle, Database,
-  GitBranch, Cpu, Zap, Eye, Edit2, X,
+  GitBranch, Cpu, Zap, Eye, Edit2, X, GitCompare, List,
+  Filter, ChevronDown, ChevronUp,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
@@ -12,7 +13,26 @@ import { supabase } from '../../lib/supabase';
 type Semaforo = 'verde' | 'amarillo' | 'rojo' | null;
 type RunEstado = 'pending' | 'running' | 'paused' | 'completed' | 'failed' | 'cancelled';
 type BenchmarkTipo = 'oficial' | 'proveedor' | 'cliente' | 'interno';
-type SubScreen = 'dashboard' | 'benchmarks' | 'versiones' | 'ejecuciones';
+type SubScreen = 'dashboard' | 'benchmarks' | 'versiones' | 'ejecuciones' | 'comparador' | 'casos';
+
+interface BenchmarkResult {
+  id: string;
+  run_id: string;
+  posicion: number;
+  oficio_esperado: string;
+  oficio_detectado: string | null;
+  coincide_oficio: boolean;
+  categoria: string;
+  n_partidas: number;
+  n_catalogo: number;
+  n_sugeridas: number;
+  latency_ms: number | null;
+  tokens_out: number | null;
+  stop_reason: string | null;
+  prompt_version: string | null;
+  raw_response: Record<string, unknown> | null;
+  error_msg: string | null;
+}
 
 interface BenchmarkRun {
   id: string;
@@ -775,6 +795,504 @@ function EjecucionesScreen({ runs }: { runs: BenchmarkRun[] }) {
   );
 }
 
+// ─── Screen: Comparador ──────────────────────────────────────────────────────
+
+interface OficioStat {
+  oficio: string;
+  total: number;
+  ok: number;
+  vacio: number;
+  truncado: number;
+  precio_inv: number;
+  solo_sug: number;
+  coincide: number;
+}
+
+function deltaCls(delta: number, lowerIsBetter = false) {
+  if (delta === 0) return 'text-gray-500';
+  const good = lowerIsBetter ? delta < 0 : delta > 0;
+  return good ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold';
+}
+
+function DeltaCell({ a, b, lowerIsBetter = false, fmt = (v: number) => String(v) }: {
+  a: number | null; b: number | null; lowerIsBetter?: boolean; fmt?: (v: number) => string;
+}) {
+  if (a == null || b == null) return <td className="px-3 py-2.5 text-right text-gray-400">—</td>;
+  const delta = b - a;
+  const sign  = delta > 0 ? '+' : '';
+  return (
+    <td className="px-3 py-2.5 text-right">
+      <div className="text-gray-800">{fmt(b)}</div>
+      {delta !== 0 && (
+        <div className={`text-xs ${deltaCls(delta, lowerIsBetter)}`}>{sign}{fmt(delta)}</div>
+      )}
+    </td>
+  );
+}
+
+function ComparadorScreen({ runs }: { runs: BenchmarkRun[] }) {
+  const sorted = [...runs].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+
+  const baselineRun = sorted.find(r => r.version_tag === 'v56-stable') ?? sorted[0];
+  const [runAId, setRunAId] = useState(baselineRun?.id ?? '');
+  const [runBId, setRunBId] = useState(
+    sorted.find(r => r.version_tag === 'v57b')?.id ?? sorted[sorted.length - 1]?.id ?? ''
+  );
+  const [oficios, setOficios]   = useState<{ a: OficioStat[]; b: OficioStat[] } | null>(null);
+  const [loadingOf, setLoadingOf] = useState(false);
+
+  const runA = sorted.find(r => r.id === runAId);
+  const runB = sorted.find(r => r.id === runBId);
+
+  useEffect(() => {
+    if (!runAId || !runBId || runAId === runBId) { setOficios(null); return; }
+    setLoadingOf(true);
+    Promise.all([
+      supabase.from('trade_benchmark_results').select('oficio_esperado,categoria,coincide_oficio').eq('run_id', runAId),
+      supabase.from('trade_benchmark_results').select('oficio_esperado,categoria,coincide_oficio').eq('run_id', runBId),
+    ]).then(([rA, rB]) => {
+      function agg(rows: { oficio_esperado: string; categoria: string; coincide_oficio: boolean }[]): OficioStat[] {
+        const map = new Map<string, OficioStat>();
+        for (const r of rows) {
+          const s = map.get(r.oficio_esperado) ?? { oficio: r.oficio_esperado, total: 0, ok: 0, vacio: 0, truncado: 0, precio_inv: 0, solo_sug: 0, coincide: 0 };
+          s.total++;
+          if (['OK_CATALOGO','OK_MIXTO'].includes(r.categoria)) s.ok++;
+          if (r.categoria === 'VACIO') s.vacio++;
+          if (r.categoria === 'TRUNCADO') s.truncado++;
+          if (r.categoria === 'PRECIO_INVALIDO') s.precio_inv++;
+          if (r.categoria === 'SOLO_SUGERIDAS') s.solo_sug++;
+          if (r.coincide_oficio) s.coincide++;
+          map.set(r.oficio_esperado, s);
+        }
+        return [...map.values()].sort((a, b) => a.oficio.localeCompare(b.oficio));
+      }
+      setOficios({
+        a: agg((rA.data ?? []) as { oficio_esperado: string; categoria: string; coincide_oficio: boolean }[]),
+        b: agg((rB.data ?? []) as { oficio_esperado: string; categoria: string; coincide_oficio: boolean }[]),
+      });
+    }).finally(() => setLoadingOf(false));
+  }, [runAId, runBId]);
+
+  // Semáforo automático
+  function calcSemaforo(): Semaforo {
+    if (!runA || !runB) return null;
+    const okDelta   = (runB.ok_rate ?? 0) - (runA.ok_rate ?? 0);
+    const newVacio  = runB.queries_vacio > runA.queries_vacio;
+    const newPinv   = runB.queries_precio_inv > runA.queries_precio_inv;
+    if (newVacio || okDelta < -1) return 'rojo';
+    if (newPinv || okDelta < 0)   return 'amarillo';
+    return 'verde';
+  }
+  const semaforo = calcSemaforo();
+
+  const KPI_ROWS: { label: string; keyA: keyof BenchmarkRun; pct?: boolean; lower?: boolean }[] = [
+    { label: 'OK rate (%)',        keyA: 'ok_rate',          pct: true  },
+    { label: 'Coincide oficio (%)',keyA: 'coin_rate',        pct: true  },
+    { label: 'VACIO',              keyA: 'queries_vacio',    lower: true },
+    { label: 'TRUNCADO',           keyA: 'queries_truncado', lower: true },
+    { label: 'SOLO_SUGERIDAS',     keyA: 'queries_solo_sug', lower: true },
+    { label: 'PRECIO_INVÁLIDO',    keyA: 'queries_precio_inv', lower: true },
+    { label: 'Lat. media (ms)',    keyA: 'lat_mean_ms',      lower: true },
+    { label: 'Lat. P95 (ms)',      keyA: 'lat_p95_ms',       lower: true },
+    { label: 'Tokens media',       keyA: 'tok_mean',         lower: true },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-lg font-semibold text-gray-800">Comparador de versiones</h2>
+        <p className="text-sm text-gray-500 mt-0.5">Compara KPIs entre dos ejecuciones de benchmark</p>
+      </div>
+
+      {/* Selección de runs */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+          <div>
+            <label className="block text-xs font-medium text-gray-500 mb-1.5">Referencia (A)</label>
+            <select
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={runAId}
+              onChange={e => setRunAId(e.target.value)}
+            >
+              {sorted.map(r => (
+                <option key={r.id} value={r.id}>{r.version_tag} — {r.ok_rate?.toFixed(1)}% OK</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-500 mb-1.5">Candidato (B)</label>
+            <select
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={runBId}
+              onChange={e => setRunBId(e.target.value)}
+            >
+              {sorted.map(r => (
+                <option key={r.id} value={r.id}>{r.version_tag} — {r.ok_rate?.toFixed(1)}% OK</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Semáforo */}
+        {runA && runB && runAId !== runBId && (
+          <div className={`flex items-center gap-3 p-3 rounded-xl mb-4 ${semaforo === 'verde' ? 'bg-green-50 border border-green-200' : semaforo === 'amarillo' ? 'bg-yellow-50 border border-yellow-200' : 'bg-red-50 border border-red-200'}`}>
+            <div className={`w-3 h-3 rounded-full flex-shrink-0 ${semaforo === 'verde' ? 'bg-green-500' : semaforo === 'amarillo' ? 'bg-yellow-500' : 'bg-red-500'}`} />
+            <span className={`text-sm font-medium ${semaforo === 'verde' ? 'text-green-700' : semaforo === 'amarillo' ? 'text-yellow-700' : 'text-red-700'}`}>
+              {semaforo === 'verde'    && `🟢 ${runB.version_tag} apto para producción vs ${runA.version_tag}`}
+              {semaforo === 'amarillo' && `🟡 ${runB.version_tag} requiere revisión — regresión leve vs ${runA.version_tag}`}
+              {semaforo === 'rojo'     && `🔴 ${runB.version_tag} no apto — regresión significativa vs ${runA.version_tag}`}
+            </span>
+          </div>
+        )}
+
+        {/* KPI table */}
+        {runA && runB && runAId !== runBId && (
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-xs text-gray-500 uppercase tracking-wide border-b border-gray-100">
+                <th className="text-left pb-2">KPI</th>
+                <th className="text-right pb-2 pr-4">{runA.version_tag} (A)</th>
+                <th className="text-right pb-2">{runB.version_tag} (B)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {KPI_ROWS.map(row => {
+                const vA = runA[row.keyA] as number | null;
+                const vB = runB[row.keyA] as number | null;
+                return (
+                  <tr key={row.label} className="border-t border-gray-50">
+                    <td className="py-2 text-gray-600">{row.label}</td>
+                    <td className="py-2 text-right pr-4 text-gray-500 tabular-nums">
+                      {vA != null ? (row.pct ? `${(vA).toFixed(1)}%` : vA) : '—'}
+                    </td>
+                    <DeltaCell
+                      a={vA} b={vB}
+                      lowerIsBetter={row.lower}
+                      fmt={v => row.pct ? `${v.toFixed(1)}%` : v.toFixed(row.pct ? 1 : 0)}
+                    />
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+      </div>
+
+      {/* Desglose por oficio */}
+      {runA && runB && runAId !== runBId && (
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div className="px-5 py-3.5 border-b border-gray-100 flex items-center gap-2">
+            <BarChart2 size={14} className="text-gray-400" />
+            <span className="text-sm font-medium text-gray-700">Desglose por oficio</span>
+            {loadingOf && <RefreshCw size={13} className="animate-spin text-gray-400 ml-1" />}
+          </div>
+          {oficios ? (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide border-b border-gray-100">
+                    <th className="text-left px-4 py-2.5">Oficio</th>
+                    <th className="text-right px-3 py-2.5">OK (A)</th>
+                    <th className="text-right px-3 py-2.5">OK (B)</th>
+                    <th className="text-right px-3 py-2.5">Δ OK</th>
+                    <th className="text-right px-3 py-2.5">VAC (A)</th>
+                    <th className="text-right px-3 py-2.5">VAC (B)</th>
+                    <th className="text-right px-3 py-2.5">Coinc A</th>
+                    <th className="text-right px-3 py-2.5">Coinc B</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {oficios.a.map((sa, i) => {
+                    const sb = oficios.b.find(x => x.oficio === sa.oficio);
+                    if (!sb) return null;
+                    const deltaOk = sb.ok - sa.ok;
+                    const deltaVac = sb.vacio - sa.vacio;
+                    return (
+                      <tr key={sa.oficio} className={`border-t border-gray-50 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}>
+                        <td className="px-4 py-2 font-medium text-gray-700">{sa.oficio}</td>
+                        <td className="px-3 py-2 text-right text-gray-500 tabular-nums">{sa.ok}/{sa.total}</td>
+                        <td className="px-3 py-2 text-right text-gray-700 tabular-nums font-medium">{sb.ok}/{sb.total}</td>
+                        <td className={`px-3 py-2 text-right tabular-nums text-xs font-semibold ${deltaOk > 0 ? 'text-green-600' : deltaOk < 0 ? 'text-red-600' : 'text-gray-400'}`}>
+                          {deltaOk > 0 ? '+' : ''}{deltaOk}
+                        </td>
+                        <td className={`px-3 py-2 text-right tabular-nums ${sa.vacio > 0 ? 'text-red-600 font-medium' : 'text-gray-400'}`}>{sa.vacio}</td>
+                        <td className={`px-3 py-2 text-right tabular-nums ${deltaVac > 0 ? 'text-red-600 font-semibold' : deltaVac < 0 ? 'text-green-600' : 'text-gray-400'}`}>{sb.vacio}</td>
+                        <td className="px-3 py-2 text-right text-gray-500 tabular-nums text-xs">{sa.coincide}/{sa.total}</td>
+                        <td className="px-3 py-2 text-right text-gray-600 tabular-nums text-xs">{sb.coincide}/{sb.total}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="py-8 text-center text-sm text-gray-400">
+              {loadingOf ? 'Cargando desglose…' : 'Selecciona dos ejecuciones distintas para ver el desglose por oficio'}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Screen: Casos ───────────────────────────────────────────────────────────
+
+const CATEGORIAS = ['OK_CATALOGO','OK_MIXTO','SOLO_SUGERIDAS','VACIO','TRUNCADO','PRECIO_INVALIDO','ERROR_TECNICO'];
+const CAT_COLOR: Record<string, string> = {
+  OK_CATALOGO:   'bg-green-100 text-green-700',
+  OK_MIXTO:      'bg-blue-100  text-blue-700',
+  SOLO_SUGERIDAS:'bg-yellow-100 text-yellow-700',
+  VACIO:         'bg-red-100   text-red-700',
+  TRUNCADO:      'bg-orange-100 text-orange-700',
+  PRECIO_INVALIDO:'bg-red-100  text-red-800',
+  ERROR_TECNICO: 'bg-gray-100  text-gray-600',
+};
+
+function CategoriaBadge({ cat }: { cat: string }) {
+  return (
+    <span className={`text-xs px-1.5 py-0.5 rounded font-medium whitespace-nowrap ${CAT_COLOR[cat] ?? 'bg-gray-100 text-gray-600'}`}>
+      {cat}
+    </span>
+  );
+}
+
+const PAGE_SIZE = 50;
+
+function CasosScreen({ runs }: { runs: BenchmarkRun[] }) {
+  const sorted = [...runs]
+    .filter(r => r.estado === 'completed')
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
+  const [selectedRunId, setSelectedRunId] = useState(
+    sorted.find(r => r.version_tag === 'v57b')?.id ?? sorted[0]?.id ?? ''
+  );
+  const [results, setResults]       = useState<BenchmarkResult[]>([]);
+  const [loading, setLoading]       = useState(false);
+  const [filterCat, setFilterCat]   = useState('');
+  const [filterCoinc, setFilterCoinc] = useState('');
+  const [filterOficio, setFilterOficio] = useState('');
+  const [page, setPage]             = useState(0);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!selectedRunId) return;
+    setLoading(true);
+    setPage(0);
+    setExpandedId(null);
+    supabase
+      .from('trade_benchmark_results')
+      .select('*')
+      .eq('run_id', selectedRunId)
+      .order('posicion')
+      .then(({ data, error }) => {
+        if (error) { setResults([]); }
+        else { setResults((data ?? []) as BenchmarkResult[]); }
+        setLoading(false);
+      });
+  }, [selectedRunId]);
+
+  const filtered = results.filter(r => {
+    if (filterCat   && r.categoria !== filterCat) return false;
+    if (filterCoinc === 'si'  && !r.coincide_oficio)  return false;
+    if (filterCoinc === 'no'  &&  r.coincide_oficio)  return false;
+    if (filterOficio && !r.oficio_esperado.toLowerCase().includes(filterOficio.toLowerCase())) return false;
+    return true;
+  });
+
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginated  = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+  const selectedRun = sorted.find(r => r.id === selectedRunId);
+
+  const oficiosUnicos = [...new Set(results.map(r => r.oficio_esperado))].sort();
+
+  return (
+    <div className="space-y-5">
+      {/* Selector de run */}
+      <div className="flex flex-wrap items-end gap-3">
+        <div className="flex-1 min-w-48">
+          <label className="block text-xs font-medium text-gray-500 mb-1.5">Ejecución</label>
+          <select
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={selectedRunId}
+            onChange={e => { setSelectedRunId(e.target.value); setFilterCat(''); setFilterCoinc(''); setFilterOficio(''); }}
+          >
+            {sorted.map(r => (
+              <option key={r.id} value={r.id}>{r.version_tag} — {r.ok_rate?.toFixed(1)}% OK · {fmtDate(r.completado_at ?? r.created_at)}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Filtros */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-1 text-xs text-gray-500">
+            <Filter size={12} />
+          </div>
+          <select
+            className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-400"
+            value={filterCat}
+            onChange={e => { setFilterCat(e.target.value); setPage(0); }}
+          >
+            <option value="">Todas las categorías</option>
+            {CATEGORIAS.map(c => <option key={c} value={c}>{c}</option>)}
+          </select>
+          <select
+            className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-400"
+            value={filterCoinc}
+            onChange={e => { setFilterCoinc(e.target.value); setPage(0); }}
+          >
+            <option value="">Oficio: todos</option>
+            <option value="si">Coincide oficio</option>
+            <option value="no">No coincide</option>
+          </select>
+          <select
+            className="border border-gray-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-400"
+            value={filterOficio}
+            onChange={e => { setFilterOficio(e.target.value); setPage(0); }}
+          >
+            <option value="">Todos los oficios</option>
+            {oficiosUnicos.map(o => <option key={o} value={o}>{o}</option>)}
+          </select>
+          {(filterCat || filterCoinc || filterOficio) && (
+            <button
+              onClick={() => { setFilterCat(''); setFilterCoinc(''); setFilterOficio(''); setPage(0); }}
+              className="text-xs text-gray-400 hover:text-gray-600 flex items-center gap-0.5"
+            >
+              <X size={11} /> Reset
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Stats rápidas del run seleccionado */}
+      {selectedRun && (
+        <div className="flex flex-wrap gap-2 text-xs">
+          <span className="bg-gray-100 px-2 py-1 rounded-full text-gray-600">
+            {filtered.length} de {results.length} resultados
+          </span>
+          <span className="bg-green-50 text-green-700 px-2 py-1 rounded-full">
+            OK {selectedRun.ok_rate?.toFixed(1)}%
+          </span>
+          {selectedRun.queries_vacio > 0 && (
+            <span className="bg-red-50 text-red-600 px-2 py-1 rounded-full">
+              VACIO: {selectedRun.queries_vacio}
+            </span>
+          )}
+          {selectedRun.queries_precio_inv > 0 && (
+            <span className="bg-red-50 text-red-700 px-2 py-1 rounded-full">
+              PINV: {selectedRun.queries_precio_inv}
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Tabla de resultados */}
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        {loading ? (
+          <div className="py-12 text-center text-gray-400 flex items-center justify-center gap-2">
+            <RefreshCw size={15} className="animate-spin" /> Cargando resultados…
+          </div>
+        ) : results.length === 0 ? (
+          <div className="py-12 text-center text-sm text-gray-400">
+            Sin resultados importados para esta versión.
+            <div className="mt-1 text-xs">Ejecuta: npx tsx scripts/ai-validation/import-benchmark-results.ts --version={selectedRun?.version_tag}</div>
+          </div>
+        ) : (
+          <>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-gray-50 text-xs text-gray-500 uppercase tracking-wide border-b border-gray-100">
+                    <th className="text-right px-3 py-2.5 w-12">#</th>
+                    <th className="text-left px-4 py-2.5">Oficio esperado</th>
+                    <th className="text-left px-3 py-2.5">Detectado</th>
+                    <th className="text-center px-3 py-2.5">Coinc.</th>
+                    <th className="text-left px-3 py-2.5">Categoría</th>
+                    <th className="text-right px-3 py-2.5">Part.</th>
+                    <th className="text-right px-3 py-2.5">Cat.</th>
+                    <th className="text-right px-3 py-2.5">Lat.</th>
+                    <th className="text-right px-3 py-2.5">Tok.</th>
+                    <th className="px-2 py-2.5 w-6" />
+                  </tr>
+                </thead>
+                <tbody>
+                  {paginated.map((r, i) => (
+                    <>
+                      <tr
+                        key={r.id}
+                        className={`border-t border-gray-50 cursor-pointer hover:bg-blue-50/30 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}
+                        onClick={() => setExpandedId(expandedId === r.id ? null : r.id)}
+                      >
+                        <td className="px-3 py-2 text-right text-gray-400 tabular-nums text-xs">{r.posicion}</td>
+                        <td className="px-4 py-2 text-gray-700 font-medium">{r.oficio_esperado}</td>
+                        <td className="px-3 py-2 text-gray-500 text-xs font-mono">{r.oficio_detectado ?? '—'}</td>
+                        <td className="px-3 py-2 text-center">
+                          {r.coincide_oficio
+                            ? <CheckCircle size={13} className="text-green-500 inline" />
+                            : <XCircle    size={13} className="text-red-400 inline" />}
+                        </td>
+                        <td className="px-3 py-2"><CategoriaBadge cat={r.categoria} /></td>
+                        <td className="px-3 py-2 text-right text-gray-600 tabular-nums">{r.n_partidas}</td>
+                        <td className="px-3 py-2 text-right text-gray-500 tabular-nums">{r.n_catalogo}</td>
+                        <td className="px-3 py-2 text-right text-gray-400 tabular-nums text-xs">
+                          {r.latency_ms ? `${(r.latency_ms / 1000).toFixed(1)}s` : '—'}
+                        </td>
+                        <td className="px-3 py-2 text-right text-gray-400 tabular-nums text-xs">{r.tokens_out ?? '—'}</td>
+                        <td className="px-2 py-2 text-gray-300">
+                          {expandedId === r.id ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+                        </td>
+                      </tr>
+                      {expandedId === r.id && (
+                        <tr key={`${r.id}-detail`} className="border-t border-blue-100 bg-blue-50/20">
+                          <td colSpan={10} className="px-5 py-3">
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                              <div><span className="text-gray-400">Stop reason</span><br /><span className="font-mono text-gray-700">{r.stop_reason ?? '—'}</span></div>
+                              <div><span className="text-gray-400">Prompt ver.</span><br /><span className="font-mono text-gray-700">{r.prompt_version ?? '—'}</span></div>
+                              <div><span className="text-gray-400">Sugeridas</span><br /><span className="font-mono text-gray-700">{r.n_sugeridas}</span></div>
+                              {r.raw_response && (
+                                <>
+                                  <div><span className="text-gray-400">Tokens entrada</span><br /><span className="font-mono text-gray-700">{String((r.raw_response as Record<string, unknown>).tokens_in ?? '—')}</span></div>
+                                  <div><span className="text-gray-400">KB score</span><br /><span className="font-mono text-gray-700">{String((r.raw_response as Record<string, unknown>).kb_score ?? '—')}</span></div>
+                                  <div><span className="text-gray-400">Actuaciones match</span><br /><span className="font-mono text-gray-700">{String((r.raw_response as Record<string, unknown>).actuacion_count ?? '—')}</span></div>
+                                  <div><span className="text-gray-400">Total presupuesto</span><br /><span className="font-mono text-gray-700">{String((r.raw_response as Record<string, unknown>).quote_total ?? '—')} €</span></div>
+                                </>
+                              )}
+                              {r.error_msg && <div className="col-span-2"><span className="text-red-500">{r.error_msg}</span></div>}
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Paginación */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 text-xs text-gray-500">
+                <span>{filtered.length} resultados · página {page + 1}/{totalPages}</span>
+                <div className="flex gap-1">
+                  <button
+                    onClick={() => setPage(p => Math.max(0, p - 1))}
+                    disabled={page === 0}
+                    className="px-2.5 py-1 rounded border border-gray-200 disabled:opacity-40 hover:bg-gray-50"
+                  >‹</button>
+                  <button
+                    onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
+                    disabled={page === totalPages - 1}
+                    className="px-2.5 py-1 rounded border border-gray-200 disabled:opacity-40 hover:bg-gray-50"
+                  >›</button>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── Root component ──────────────────────────────────────────────────────────
 
 export default function AdminAIValidationSection({ toast }: Props) {
@@ -816,10 +1334,12 @@ export default function AdminAIValidationSection({ toast }: Props) {
   useEffect(() => { loadData(); }, [loadData]);
 
   const SUB_NAV: { id: SubScreen; label: string; Icon: ElementType }[] = [
-    { id: 'dashboard',   label: 'Dashboard',    Icon: BarChart2 },
-    { id: 'benchmarks',  label: 'Benchmarks',   Icon: Layers    },
-    { id: 'versiones',   label: 'Versiones',    Icon: GitBranch },
-    { id: 'ejecuciones', label: 'Ejecuciones',  Icon: Activity  },
+    { id: 'dashboard',   label: 'Dashboard',    Icon: BarChart2    },
+    { id: 'comparador',  label: 'Comparador',   Icon: GitCompare   },
+    { id: 'casos',       label: 'Casos',        Icon: List         },
+    { id: 'benchmarks',  label: 'Benchmarks',   Icon: Layers       },
+    { id: 'versiones',   label: 'Versiones',    Icon: GitBranch    },
+    { id: 'ejecuciones', label: 'Ejecuciones',  Icon: Activity     },
   ];
 
   return (
@@ -872,6 +1392,8 @@ export default function AdminAIValidationSection({ toast }: Props) {
         ) : (
           <>
             {screen === 'dashboard'   && <DashboardScreen   versions={versions} runs={runs} />}
+            {screen === 'comparador'  && <ComparadorScreen  runs={runs} />}
+            {screen === 'casos'       && <CasosScreen       runs={runs} />}
             {screen === 'benchmarks'  && <BenchmarksScreen  benchmarks={benchmarks} onRefresh={loadData} toast={toast} />}
             {screen === 'versiones'   && <VersionesScreen   versions={versions} onRefresh={loadData} toast={toast} />}
             {screen === 'ejecuciones' && <EjecucionesScreen runs={runs} />}
