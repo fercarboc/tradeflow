@@ -40,6 +40,7 @@ import {
   Brain, ChevronRight, BookOpen, ExternalLink, Truck,
 } from 'lucide-react';
 import AdminSuppliersSection from './admin/AdminSuppliersSection';
+import AdminAIValidationSection from './admin/AdminAIValidationSection';
 import {
   adminLoadActuaciones, adminToggleActuacionActivo,
   adminUpdateActuacionPrecios, adminUpdateActuacionObservaciones,
@@ -809,7 +810,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [detailOrg, setDetailOrg]     = useState<AdminOrgRow | null>(null);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers' | 'base_maestra'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers' | 'base_maestra' | 'ai_validation'>('dashboard');
 
   // Necesidades instaladores (chatbot)
   const [needs, setNeeds]               = useState<InstallerNeed[]>([]);
@@ -1376,6 +1377,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'ia_normativa'  as const, label: 'IA Normativa',     Icon: BookOpen },
     { id: 'docs'          as const, label: 'Documentación',    Icon: ExternalLink },
     { id: 'suppliers'     as const, label: 'Proveedores',       Icon: Truck },
+    { id: 'ai_validation' as const, label: 'AI Validation',    Icon: Activity },
   ];
 
   const handleMarkInvoicePaid = async (inv: TradePlatformInvoice) => {
@@ -3549,6 +3551,13 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         ════════════════════════════════════════════════════════ */}
         {section === 'suppliers' && (
           <AdminSuppliersSection toast={toast} />
+        )}
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: AI VALIDATION CENTER
+        ════════════════════════════════════════════════════════ */}
+        {section === 'ai_validation' && (
+          <AdminAIValidationSection toast={toast} />
         )}
 
         {/* ════════════════════════════════════════════════════════
